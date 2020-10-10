@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * 数组实现栈和队列
  */
 // TODO 补对数器
-public class ArrayToStackAndQueue {
+public class Code_0006_ArrayToStackAndQueue {
 
     public final static class MyStack<T> {
         private ArrayList<T> queue;

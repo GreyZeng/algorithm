@@ -4,7 +4,7 @@ package note;
  * 怎么用数组实现不超过固定大小的队列和栈？
  * 队列：环形数组
  */
-public class RingToQueue {
+public class Code_0007_RingToQueue {
     public static void main(String[] args) {
         MyQueue queue = new MyQueue(10);
         for (int i = 0; i < 10; i++) {

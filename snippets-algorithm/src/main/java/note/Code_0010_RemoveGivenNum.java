@@ -1,6 +1,6 @@
 package note;
 
-public class RemoveGivenNum {
+public class Code_0010_RemoveGivenNum {
     public static class Node {
         public Node next;
         public int v;

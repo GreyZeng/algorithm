@@ -20,7 +20,7 @@ package note;
  * 所以冒泡排序的时间复杂度为O(N^2)。
  */
 // TODO 补对数器
-public class BubbleSort {
+public class Code_0003_BubbleSort {
     public static void bubbleSort(int[] arr) {
         if (arr != null && arr.length >= 2) {
             for (int i = arr.length - 1; i > 0; i--) {

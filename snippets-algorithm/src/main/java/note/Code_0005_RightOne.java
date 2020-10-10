@@ -5,7 +5,7 @@ package note;
  * <p>
  * 怎么把一个int类型的数，提取出最右侧的1来
  */
-public class RightOne {
+public class Code_0005_RightOne {
     public static void main(String[] args) {
         int i = 116;
         int result = rightOne(i);

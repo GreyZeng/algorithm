@@ -2,7 +2,7 @@ package note;
 
 // 双向链表反转
 // TODO 补对数器
-public class ReverseDoubleList {
+public class Code_0009_ReverseDoubleList {
     public static class DoubleNode {
         public DoubleNode next;
         public DoubleNode last;

@@ -1,7 +1,7 @@
 package note;
 
 
-public class EvenOddTimes {
+public class Code_0004_EvenOddTimes {
     public static void main(String[] args) {
         int[] array = {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 8, 8, 4, 4, 4};
         System.out.println(getEvenNum(array));
