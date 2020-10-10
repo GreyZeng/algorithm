@@ -488,3 +488,5 @@ public static final class MyQueue {
 2. 设计的栈类型可以使用现成的栈结构。
 
 tips: 使用两个栈
+Code_0012_MinStack
+LeetCode_0155_MinStack
