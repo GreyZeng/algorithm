@@ -487,6 +487,10 @@ public static final class MyQueue {
 
 2. 设计的栈类型可以使用现成的栈结构。
 
-tips: 使用两个栈
+tips: 
+方法1. 使用两个栈 空间复杂度O(N)
 Code_0012_MinStack
 LeetCode_0155_MinStack
+
+方法2. 空间复杂度O(1) 但是需要限定值的范围
+Code_0013_MinStackO1

@@ -8,7 +8,7 @@ import java.util.Stack;
 //2. 设计的栈类型可以使用现成的栈结构。
 // 解决方案: 使用两个栈
 public class Code_0012_MinStack {
-    public class MinStack {
+    private class MinStack {
         Stack<Integer> m;
         Stack<Integer> n;
 
