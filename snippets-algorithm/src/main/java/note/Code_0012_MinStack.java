@@ -1,8 +1,13 @@
-package leetcode;
+package note;
 
 import java.util.Stack;
 
-public class LeetCode_0155_MinStack {
+//实现一个特殊的栈，在基本功能的基础上，再实现返回栈中最小元素的功能(LeetCode 155)
+//
+//1. pop、push、getMin操作的时间复杂度都是 O(1)。
+//2. 设计的栈类型可以使用现成的栈结构。
+// 解决方案: 使用两个栈
+public class Code_0012_MinStack {
     public class MinStack {
         Stack<Integer> m;
         Stack<Integer> n;
@@ -30,5 +35,4 @@ public class LeetCode_0155_MinStack {
             return m.peek();
         }
     }
-
 }
