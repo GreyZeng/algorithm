@@ -39,26 +39,25 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO
+// 暴力解
+// 记忆化搜索
+// 斜率优化
 public class LeetCode_0322_CoinChange {
-
-    // 暴力解
-    public static int coinChange(int[] coins, int amount) {
+    public static int coinChange2(int[] coins, int amount) {
         if (coins == null || coins.length == 0 || amount < 0) {
             return -1;
         }
-
         if (amount == 0) {
             return 0;
         }
         // 过滤一遍coins，比amount大的都不要,因为没有意义
         List<Integer> av = new ArrayList<>();
         int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
         for (int i : coins) {
             if (i <= amount) {
                 av.add(i);
                 max = Math.max(max, i);
-                min = Math.min(min, i);
             }
         }
         // 过滤掉后可以用的硬币数量为空，则直接返回-1
@@ -70,36 +69,39 @@ public class LeetCode_0322_CoinChange {
         }
         int size = av.size();
         int[][] dp = new int[size][amount + 1];
+        int num;
         for (int j = 1; j <= amount; j++) {
-            if (j % av.get(0) != 0) {
+            num = av.get(0);
+            if (j % num != 0) {
                 dp[0][j] = -1;
             } else {
-                dp[0][j] = j / av.get(0);
+                dp[0][j] = j / num;
             }
         }
         for (int i = 1; i < size; i++) {
             for (int j = 1; j <= amount; j++) {
                 dp[i][j] = Integer.MAX_VALUE;
+                num = av.get(i);
+
+
+                // 先假设i-1已经把所有amount都搞定了
+                // dp[i][j] 自然就等于dp[i-1][j]
                 if (dp[i - 1][j] != -1) {
                     dp[i][j] = dp[i - 1][j];
                 }
-                if (j - av.get(i) >= 0 && dp[i][j - av.get(i)] != -1) {
-                    dp[i][j] = Math.min(dp[i][j], dp[i][j - av.get(i)] + 1);
+                // 走到这里，如果dp[i][j]还是系统最大值，则说明dp[i-1][j]其实是搞不定的
+
+                if (j - num >= 0 && dp[i][j - num] != -1) {
+
+                    dp[i][j] = Math.min(dp[i][j], dp[i][j - num] + 1);
                 }
                 if (dp[i][j] == Integer.MAX_VALUE) {
                     dp[i][j] = -1;
                 }
-
             }
         }
-
         return dp[size - 1][amount];
-
     }
 
-
-    // TODO
-    // 斜率优化
-    // 记忆化搜索
 
 }
