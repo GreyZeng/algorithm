@@ -48,16 +48,16 @@ public class LeetCode_0329_LongestIncreasingPathInAMatrix {
             return dp[i][j];
         }
         int next = 0;
-        if (i > 0 && i <= M - 1 && j >= 0 && j <= N - 1 && matrix[i][j] < matrix[i - 1][j]) {
+        if (i > 0 && i <= M - 1 && j <= N - 1 && matrix[i][j] < matrix[i - 1][j]) {
             next = Math.max(next, process(matrix, M, N, i - 1, j, dp));
         }
-        if (i >= 0 && i < M - 1 && j >= 0 && j <= N - 1 && matrix[i][j] < matrix[i + 1][j]) {
+        if (i < M - 1 && j <= N - 1 && matrix[i][j] < matrix[i + 1][j]) {
             next = Math.max(next, process(matrix, M, N, i + 1, j, dp));
         }
-        if (i >= 0 && i <= M - 1 && j > 0 && j <= N - 1 && matrix[i][j] < matrix[i][j - 1]) {
+        if (i <= M - 1 && j > 0 && j <= N - 1 && matrix[i][j] < matrix[i][j - 1]) {
             next = Math.max(next, process(matrix, M, N, i, j - 1, dp));
         }
-        if (i >= 0 && i <= M - 1 && j >= 0 && j < N - 1 && matrix[i][j] < matrix[i][j + 1]) {
+        if (i <= M - 1 && j < N - 1 && matrix[i][j] < matrix[i][j + 1]) {
             next = Math.max(next, process(matrix, M, N, i, j + 1, dp));
         }
         dp[i][j] = next + 1;
