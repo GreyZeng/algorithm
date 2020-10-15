@@ -494,3 +494,122 @@ LeetCode_0155_MinStack
 
 方法2. 空间复杂度O(1) 但是需要限定值的范围
 Code_0013_MinStackO1
+
+
+## 如何用队列实现栈
+```java
+public static class MyStack<T> {
+        private Queue<T> queue;
+        private Queue<T> help;
+        private int size;
+
+        public MyStack() {
+            queue = new LinkedList<>();
+            help = new LinkedList<>();
+        }
+
+        public T pop() {
+            if (isEmpty()) {
+                throw new RuntimeException("no data to pop");
+            }
+            size--;
+            for (int i = 0; i < size; i++) {
+                help.offer(queue.poll());
+            }
+            T result = queue.poll();
+            Queue<T> t = queue;
+            queue = help;
+            help = t;
+            return result;
+        }
+
+        public void push(T value) {
+            queue.offer(value);
+            size++;
+        }
+
+        public T peek() {
+            if (isEmpty()) {
+                throw new RuntimeException("no data to peek");
+            }
+            T ans = null;
+            for (int i = 0; i < size; i++) {
+                T result = queue.poll();
+                if (i == size - 1) {
+                    ans = result;
+                }
+                help.offer(result);
+            }
+            Queue<T> t = queue;
+            queue = help;
+            help = t;
+            return ans;
+        }
+
+        public int size() {
+            return size;
+        }
+
+        public boolean isEmpty() {
+            return size() == 0;
+        }
+    }
+```
+## 如何用栈实现队列
+
+```java
+public static class MyQueue<T> {
+        private Stack<T> push;
+        private Stack<T> pop;
+        private int size;
+
+        public MyQueue() {
+            push = new Stack<>();
+            pop = new Stack<>();
+        }
+
+        public void add(T v) {
+            push.push(v);
+            size++;
+        }
+
+        public T poll() {
+            if (isEmpty()) {
+                throw new RuntimeException("no data to poll");
+            }
+            size--;
+            for (int i = 0; i < size; i++) {
+                pop.push(push.pop());
+            }
+            T result = push.pop();
+            for (int i = 0; i < size; i++) {
+                push.push(pop.pop());
+            }
+            return result;
+        }
+
+        public T peek() {
+            if (isEmpty()) {
+                throw new RuntimeException("no data to peek");
+            }
+
+            for (int i = 0; i < size - 1; i++) {
+                pop.push(push.pop());
+            }
+            T result = push.peek();
+            pop.push(push.pop());
+            for (int i = 0; i < size; i++) {
+                push.push(pop.pop());
+            }
+            return result;
+        }
+
+        public int size() {
+            return size;
+        }
+
+        public boolean isEmpty() {
+            return size() == 0;
+        }
+    }
+```
