@@ -1,4 +1,4 @@
-package note;
+package code;
 
 // 单链表反转
 // TODO 补对数器

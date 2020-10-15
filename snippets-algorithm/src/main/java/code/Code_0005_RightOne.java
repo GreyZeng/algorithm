@@ -1,4 +1,4 @@
-package note;
+package code;
 
 /**
  * 题目三

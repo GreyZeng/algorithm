@@ -1,4 +1,4 @@
-package note;
+package code;
 
 public class Code_0010_RemoveGivenNum {
     public static class Node {

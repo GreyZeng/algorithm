@@ -1,7 +1,6 @@
 package leetcode;
 
 import java.util.LinkedList;
-import java.util.Stack;
 
 //Implement a basic calculator to evaluate a simple expression string.
 //

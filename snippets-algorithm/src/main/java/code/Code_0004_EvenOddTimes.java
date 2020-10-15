@@ -1,4 +1,4 @@
-package note;
+package code;
 
 
 public class Code_0004_EvenOddTimes {
