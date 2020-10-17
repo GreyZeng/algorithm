@@ -10,7 +10,7 @@ import java.util.Stack;
 //2. 设计的栈类型可以使用现成的栈结构。
 //3. 空间复杂度O(1)
 public class Code_0013_MinStackO1 {
-    private class MinStack {
+    public static class MinStack {
         private final long offset;
         private Stack<Long> stack;
 
