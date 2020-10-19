@@ -36,16 +36,46 @@ package leetcode;
 // leetcode加锁
 // lintcode : https://www.lintcode.com/problem/find-the-celebrity/description
 public class LeetCode_0277_FindTheCelebrity {
-	// 它会告诉你A是否知道B
-	public static boolean knows(int a, int b) {
-		return true;
-	}
+    // 它会告诉你A是否知道B
+    public static boolean knows(int a, int b) {
+        if (a == 0 && b == 1) {
+            return true;
+        }
+        return false;
+    }
 
-	// tips:明星一开始等于0，如果0认识了i，把i改为明星的候选
-	public int findCelebrity(int n) {
-		// TODO
-		return -1;
-		 
-	}
+    // tips:明星一开始等于0，如果0认识了i，把i改为明星的候选
+    public static int findCelebrity(int n) {
+        if (n == 0) {
+            return -1;
+        }
+        if (n == 1) {
+            return 0;
+        }
+        int s = 0;
+        int i = 1;
+        while (i < n) {
+            if (knows(s, i)) {
+                s = i;
+            }
+            i++;
+        }
+        i = 0;
+        while (i < n) {
+            if (knows(s, i) && i != s) {
+                return -1;
+            }
+            i++;
+        }
+        i = 0;
+        while (i < n) {
+            if (!knows(i, s) && i != s) {
+                return -1;
+            }
+            i++;
+        }
+        return s;
+    }
+
 
 }
