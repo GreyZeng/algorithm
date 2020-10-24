@@ -1,6 +1,24 @@
+// Invert a binary tree.
+
+// Example:
+
+// Input:
+
+//      4
+//    /   \
+//   2     7
+//  / \   / \
+// 1   3 6   9
+// Output:
+
+//      4
+//    /   \
+//   7     2
+//  / \   / \
+// 9   6 3   1
 package leetcode;
 
-// TODO
+
 public class LeetCode_0226_InvertBinaryTree {
 
 	public class TreeNode {
@@ -10,7 +28,17 @@ public class LeetCode_0226_InvertBinaryTree {
 	}
 
 	public static TreeNode invertTree(TreeNode root) {
-		 return null;
+		if (root == null) {
+			return null;
+		}
+		if (root .left == null && root .right == null) {
+			return root;
+		}
+		TreeNode r = root.right;
+		root.right  =  invertTree(root.left); 
+		root.left = invertTree(r); 
+		return root;
 	}
+ 
 
 }
