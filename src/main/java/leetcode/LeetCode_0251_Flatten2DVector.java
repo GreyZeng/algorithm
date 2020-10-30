@@ -11,35 +11,50 @@
         输出:[7,9,5]*/
 package leetcode;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-// TODO
+
 // leetcode加锁
 // lintcode: https://www.lintcode.com/problem/flatten-2d-vector/description
 public class LeetCode_0251_Flatten2DVector {
 
-    public class Vector2D implements Iterator<Integer> {
+	public class Vector2D implements Iterator<Integer> {
+		private int[] data;
+		private int count;
+		private int current;
+		public Vector2D(List<List<Integer>> vec2d) {
 
-        public Vector2D(List<List<Integer>> vec2d) {
+			for (List<Integer> list : vec2d) {
+				count += list.size();
+			}
+			data = new int[count];
+			int i = 0;
+			for (List<Integer> list : vec2d) {
+				for (int c : list) {
+					data[i++] = c;
+				}
+			}
+		}
 
-        }
+		@Override
+		public Integer next() {
+			return data[current++];
+		}
 
-        @Override
-        public Integer next() {
-            return null;
-        }
+		@Override
+		public boolean hasNext() {
+			return current<=count-1;
+		}
 
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public void remove() {
-
-        }
-    }
+		@Override
+		public void remove() {
+			int[] c = new int[--count];
+			for (int i = 0; i < count;i++) {
+				c[i] =data[i]; 
+			}
+			data = c;
+		}
+	}
 
 }
