@@ -43,6 +43,5 @@ public class LeetCode_0285_InorderSuccessorInBST {
         in(head.right, dp);
     }
 
-// TODO
-// 用morris方式来做
+// TODO 用morris方式来做
 }

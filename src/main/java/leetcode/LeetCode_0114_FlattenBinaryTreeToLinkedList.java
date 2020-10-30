@@ -34,8 +34,7 @@ public class LeetCode_0114_FlattenBinaryTreeToLinkedList {
 			val = value;
 		}
     }
-    // TODO
-    // 省空间做法 利用morris遍历
+    // TODO 省空间做法 利用morris遍历
 
     // 普通做法：先序遍历+List
     public static void flatten(TreeNode root) {

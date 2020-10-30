@@ -39,10 +39,8 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO
+// TODO 记忆化搜索 斜率优化
 // 暴力解
-// 记忆化搜索
-// 斜率优化
 public class LeetCode_0322_CoinChange {
     public static int coinChange2(int[] coins, int amount) {
         if (coins == null || coins.length == 0 || amount < 0) {

@@ -1,7 +1,7 @@
 package leetcode;
 
 // 方法1. 快排改进 (概率收敛到O(N))
-// 方法2. bfprt算法 (严格收敛到O(N)) TODO
+// TODO 方法2. bfprt算法 (严格收敛到O(N)) 
 public class LeetCode_0215_KthLargestElementInAnArray {
 	// 第K小 == 第 nums.length - k 大
 	public static int findKthLargest(int[] nums, int k) {
