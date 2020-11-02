@@ -38,7 +38,6 @@
 // The integer n is in the range [0, 100].
 package leetcode;
 
-// TODO
 public class LeetCode_0621_TaskScheduler {
 
 	public static int leastInterval(char[] tasks, int n) {
