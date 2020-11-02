@@ -34,16 +34,20 @@ public class LeetCode_0494_TargetSum {
         if (sum > max) {
             return 0;
         }
-        if (sum == max) {
-            return 1;
-        }
         int M = arr.length + 1;
-        int N = max << 1 + 1;
-
+        int N = max * 2 + 1;
         int[][] dp = new int[M][N];
-        dp[N - 1][sum + max] = 1;
-        // TODO 改动态规划
-
+        dp[M - 1][max] = 1;
+        for (int i = M - 2; i >= 0; i--) {
+            for (int j = -max; j <= max; j++) {
+                if (j + max + arr[i] < N) {
+                    dp[i][j + max] = dp[i + 1][j + max + arr[i]];
+                }
+                if (j + max - arr[i] >= 0) {
+                    dp[i][j + max] += dp[i + 1][j + max - arr[i]];
+                }
+            }
+        }
         return dp[0][sum + max];
     }
 
