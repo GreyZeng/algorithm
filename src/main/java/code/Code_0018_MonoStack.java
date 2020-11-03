@@ -57,7 +57,7 @@ public class Code_0018_MonoStack {
             if (!mono.isEmpty() && !mono.peek().isEmpty() && arr[mono.peek().get(0)] == arr[i]) {
                 mono.peek().add(i);
             } else {
-                List<Integer> list = new ArrayList();
+                List<Integer> list = new ArrayList<>();
                 list.add(i);
                 mono.add(list);
             }
