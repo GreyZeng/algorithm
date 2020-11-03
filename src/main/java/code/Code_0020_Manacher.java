@@ -1,8 +1,7 @@
-package leetcode;
+package code;
 
-public class LeetCode_0005_LongestPalindromicSubstring {
-
-	public static String longestPalindrome(String s) {
+public class Code_0020_Manacher {
+    public static String longestPalindrome(String s) {
         if (null == s || s.length() == 0) {
             return null;
         }
