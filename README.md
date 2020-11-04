@@ -690,3 +690,7 @@ LeetCode_0214_ShortestPalindrome.java
 - dp[i]数组, 必须以i结尾的，最长递增子序列有多长
 
 Code_0021_LIS.java
+LeetCode_0300_LongestIncreasingSubsequence.java
+LeetCode_0334_IncreasingTripletSubsequence.java
+
+
