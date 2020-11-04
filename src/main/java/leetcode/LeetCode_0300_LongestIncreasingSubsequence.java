@@ -22,7 +22,7 @@ public class LeetCode_0300_LongestIncreasingSubsequence {
 		}
 		int N = arr.length;
 		int[] dp = new int[N];
-
+		int max = 1;
 		for (int i = 0; i < N; i++) {
 			dp[i] = 1;
 			for (int j = 0; j < N; j++) {
@@ -30,27 +30,9 @@ public class LeetCode_0300_LongestIncreasingSubsequence {
 					dp[i] = Math.max(dp[i], dp[j] + 1);
 				}
 			}
+			max = Math.max(dp[i], max);
 		}
-		
-		int maxIndex = 0;
-		int maxLen = 0;
-		for (int i = 0; i < N ;i ++) {
-			if (dp[i] > maxLen) {
-				maxIndex = i;
-				maxLen = dp[i];
-			}
-		}
-
-		int[] res = new int[maxLen];
-		res[--maxLen] = arr[maxIndex];
-		for (int i = maxIndex; i >=0; i--) {
-			if (arr[i] < arr[maxIndex] && dp[i] == dp[maxIndex] - 1) {
-				res[--maxLen] = arr[i];
-				maxIndex = i;
-			}
-		} 
-		
-		return res.length;
+		return max; 
 	}
 
 }
