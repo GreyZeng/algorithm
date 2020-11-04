@@ -12,7 +12,6 @@ package code;
  * <p>
  * 估算时发现这个算法流程的复杂程度，会因为数据状况的不同而不同。
  */
-// TODO 补对数器
 public class Code_0001_InsertionSort {
     public static void insertionSort(int[] arr) {
         if (arr != null && arr.length >= 2) {

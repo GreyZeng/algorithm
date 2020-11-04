@@ -1,10 +1,17 @@
-## 如何不用额外变量交换两个数?
+## >> 和 >>> 区别
 
-```
-a = a^b;
-b = a^b;
-a = a^b;
-```
+>> 表示带符合右移
+100011000
+-> 110001100
+最高位和符号位一致
+
+>>> 表示不带符号右移
+100011000
+-> 010001100
+
+不管符号位原来是什么，都用0来补
+
+
 
 
 
@@ -22,29 +29,7 @@ arr[N-1～N-1]范围上，找到最小值位置，然后把最小值交换到N-1
 
 所以选择排序的时间复杂度为O(N^2)。
 
-```java
- public static void selectionSort(int[] arr) {
-        if (null != arr && arr.length >= 2) {
-            for (int i = 0; i < arr.length - 1; i++) {
-                int min = i;
-                for (int j = i + 1; j < arr.length; j++) {
-                    min = arr[j] < arr[min] ? j : min;
-                }
-                swap(arr, i, min);
-            }
-        }
-    }
-
-
-    private static void swap(int[] arr, int i, int j) {
-        if (arr == null || arr.length < 2 || i == j) {
-            return;
-        }
-        arr[i] = arr[i] ^ arr[j];
-        arr[j] = arr[i] ^ arr[j];
-        arr[i] = arr[i] ^ arr[j];
-    }
-```
+Code_0002_SelectionSort.java
 
 
 
@@ -69,28 +54,9 @@ arr[N-2]和arr[N-1]，谁大谁来到N-1位置
 
 最后在arr[0～1]范围上，重复上面的过程，但最后一步是arr[0]和arr[1]，谁大谁来到1位置
 
-```java
- public static void bubbleSort(int[] arr) {
-        if (arr != null && arr.length >= 2) {
-            for (int i = arr.length - 1; i > 0; i--) {
-                for (int j = 0; j < i; j++) {
-                    if (arr[j] > arr[j + 1]) {
-                        swap(arr, j, j + 1);
-                    }
-                }
-            }
-        }
-    }
+Code_0003_BubbleSort.java
 
-    private static void swap(int[] array, int i, int j) {
-        if (array == null || array.length < 2 || i == j) {
-            return;
-        }
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-```
+
 
 ## 插入排序
 
@@ -107,28 +73,35 @@ arr[N-2]和arr[N-1]，谁大谁来到N-1位置
 
 估算时发现这个算法流程的复杂程度，会因为数据状况的不同而不同。
 
+Code_0001_InsertionSort.java
 
+## 二分
 
-```java
-public static void insertionSort(int[] arr) {
-    if (arr != null && arr.length >= 2) {
-        for (int i = 1; i < arr.length; i++) {
-            for (int j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
-                swap(arr, j, j + 1);
-            }
-        }
-    }
-}
+1. 在一个有序数组中，找某个数是否存在
+2. 在一个有序数组中，找>=某个数的最左位置
+3. 在一个有序数组中，找<=某个数的最右位置
+4. 局部最小值问题
+arr 无序数组，相邻的数都不相等，返回一个局部最小的位置即可
+先看0位置是不是局部最小，
+然后再看N-1位置是不是局部最小
+然后来中点，然后二分（某个位置比左边小，又比右最小就是那个位置）
 
-// 交换arr的i和j位置上的值
-public static void swap(int[] arr, int i, int j) {
-    if (arr == null || arr.length < 2 || i == j) {
-        return;
-    }
-    arr[i] = arr[i] ^ arr[j];
-    arr[j] = arr[i] ^ arr[j];
-    arr[i] = arr[i] ^ arr[j];
-}
+二分取中点的安全方式 int M = L + (R - L) >> 1
+N * 2 => N << 1
+N * 2 + 1 => (N << 1) | 1
+
+Code_0019_BinarySearch.java
+
+## 异或运算就是无进位相加
+
+0^N = N
+N^N = 0
+异或满足交换律和结合律
+
+```
+a = a^b;
+b = a^b;
+a = a^b;
 ```
 
 ## 怎么把一个int类型的数，提取出最右侧的1来（二进制）
@@ -141,15 +114,7 @@ i & (~i + 1)
 
 ## 一个数组中有一种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这种数？
 
-```java
-private static int getEvenNum(int[] arr) {
-    int t = arr[0];
-    for (int i = 1; i < arr.length; i++) {
-        t ^= arr[i];
-    }
-    return t;
-}
-```
+Code_0004_EvenOddTimes.java
 
 ## 一个数组中有两种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这两种数
 
@@ -160,27 +125,10 @@ private static int getEvenNum(int[] arr) {
 5. 然后将这些r位置中为0的数字做异或操作，得到最后得结果就是a和b中的一个，假设为a
 6. 然后将a和m做异或，得到b
 
-```java
-public static void printEvenNum(int[] arr) {
-        if (null == arr || arr.length < 2) {
-            throw new RuntimeException("数组长度不够");
-        }
-        int m = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            m ^= arr[i]; // m = a^b;
-        }
+Code_0004_EvenOddTimes.java
 
-        int n = m & ((~m) + 1);
-        int one = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if ((n & arr[i]) == 0) {
-                one ^= arr[i];
-            }
-        }
-        int two = one ^ m;
-        System.out.println("one is :" + one + " two is :" + two);
-}
-```
+一个数字中有多少个1
+LeetCode_0191_NumberOfOneBits.java
 
 ## 单链表反转
 

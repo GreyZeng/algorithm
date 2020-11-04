@@ -1,9 +1,12 @@
 package code; 
-
+// TODO
+//1. 在一个有序数组中，找某个数是否存在
+//2. 在一个有序数组中，找>=某个数的最左位置
+//3. 在一个有序数组中，找<=某个数的最右位置
+//4. 局部最小值问题
 public class Code_0019_BinarySearch {
     
-    // 二分查找某个元素是否存在 
-    // TODO 补对数器
+    // 二分查找某个元素是否存在  
     public static boolean exist(int[] sortedArr, int num){
         if(null == sortedArr || sortedArr.length == 0) {
             return false;
@@ -24,5 +27,7 @@ public class Code_0019_BinarySearch {
         }
         return sortedArr[L] == num;
     }
+    
+
     
 }
