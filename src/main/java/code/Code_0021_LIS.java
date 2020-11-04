@@ -1,14 +1,60 @@
 package code;
 
-// 最长递增【严格递增】子序列问题的O(N*logN)解法
-// ends数组，ends[i] 找到的所有长度为i+1的递增子序列中最小结尾是什么
-// dp[i]数组, 必须以i结尾的，最长递增子序列有多长
+// 最长递增子序列(严格递增）
 public class Code_0021_LIS {
 
 	// O(N*logN)解法
+	// ends数组，ends[i] 找到的所有长度为i+1的递增子序列中最小结尾是什么
+	// dp[i]数组, 必须以i结尾的，最长递增子序列有多长
 	public static int[] lis(int[] arr) {
-		// TODO
-		return null;
+		if (null == arr || arr.length == 0) {
+			return null;
+		}
+		int N = arr.length;
+		int[] dp = new int[N];
+		int[] ends = new int[N];
+		dp[0] = 1;
+		ends[0] = arr[0];
+		int l = 0;
+		int r = 0;
+		int right = 0;
+		for (int i = 0; i < N; i++) {
+			 l = 0;
+			 r = right;
+			while (l <= r) {
+				int m = (l + r)/2;
+				if (arr[i] > ends[m]) {
+					l = m+1;
+				} else {
+					r = m -1;
+				}
+			}
+			right = Math.max(right, l);
+			dp[i] = l + 1;
+			ends[l] = arr[i];
+		}
+		
+		
+		int maxIndex = 0;
+		int maxLen = 0;
+		for (int i = 0; i < N ;i ++) {
+			if (dp[i] > maxLen) {
+				maxIndex = i;
+				maxLen = dp[i];
+			}
+		}
+
+		int[] res = new int[maxLen];
+		res[--maxLen] = arr[maxIndex];
+		for (int i = maxIndex; i >=0; i--) {
+			if (arr[i] < arr[maxIndex] && dp[i] == dp[maxIndex] - 1) {
+				res[--maxLen] = arr[i];
+				maxIndex = i;
+			}
+		} 
+		
+		return res;
+		
 	}
 
 	// 暴力解(O(N^2))
@@ -47,5 +93,19 @@ public class Code_0021_LIS {
 		} 
 		
 		return res;
+	}
+	public static void printArray(int[] arr) {
+		for (int i = 0; i != arr.length; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		int[] arr = { 2, 1, 5, 3, 6, 4, 8, 9, 7 };
+		printArray(arr);
+		printArray(lis(arr));
+		printArray(lis2(arr));
+
 	}
 }
