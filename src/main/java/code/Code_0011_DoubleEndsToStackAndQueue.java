@@ -1,7 +1,6 @@
 package code;
 
-// 双向链表实现栈和队列
-// TODO 补对数器
+// 双向链表实现栈和队列 
 public class Code_0011_DoubleEndsToStackAndQueue {
     public final static class Node<T> {
         public T data;

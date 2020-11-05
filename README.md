@@ -144,270 +144,27 @@ LeetCode_0092_ReverseLinkedListII.java
 
 ## 链表中删除给定值的节点
 
-LeetCode_0203_RemoveLinkedListElements.java
-
 > 为了防止头节点就是要删除的节点，所以一开始要先找到不需要删除的第一个节点 
 
-```java
-public static Node removeGivenNum(Node head, int num) {
-        if (head == null) {
-            return null;
-        }
-        // 找到第一个不需要删除的节点
-        // 防止要删的节点就是头节点以及头节点下面的一批节点
-        while (head != null) {
-            if (head.v != num) {
-                break;
-            }
-            head = head.next;
-        }
-        Node pre = head;
-        Node cur = head;
-        while (cur != null) {
-            if (cur.v == num) {
-                pre.next = cur.next;
-                pre = cur;
-            } else {
-                pre = cur;
-            }
-            cur = cur.next;
-        }
-        return head;
-    }
-```
+LeetCode_0203_RemoveLinkedListElements.java
+
 
 ## 双向链表实现栈和队列
-```java
-public final static class Node<T> {
-        public T data;
-        public Node<T> next;
-        public Node<T> last;
 
-        public Node(T data) {
-            this.data = data;
-        }
-    }
+Code_0011_DoubleEndsToStackAndQueue.java
 
-    public final static class DoubleEndsQueue<T> {
-        public Node<T> head;
-        public Node<T> tail;
-
-        public void addFromHead(T value) {
-            Node<T> node = new Node<>(value);
-            if (head == null) {
-                tail = node;
-            } else {
-                node.next = head;
-                head.last = node;
-            }
-            head = node;
-        }
-
-        public void addFromBottom(T value) {
-            Node<T> node = new Node<>(value);
-            if (tail == null) {
-                head = node;
-            } else {
-                tail.next = node;
-                node.last = tail;
-            }
-            tail = node;
-        }
-
-        public T popFromHead() {
-            if (null == head || tail == null) {
-                return null;
-            }
-            T data = head.data;
-
-            if (head == tail) {
-                head = null;
-                tail = null;
-                return data;
-            }
-            head = head.next;
-            head.last = null;
-
-            return data;
-
-        }
-
-        public T popFromBottom() {
-            if (tail == null || head == null) {
-                return null;
-            }
-            T data = tail.data;
-            if (tail == head) {
-                tail = null;
-                head = null;
-                return data;
-            }
-            tail = tail.last;
-            tail.next = null;
-
-            return data;
-        }
-
-        public boolean isEmpty() {
-            return head == null || tail == null;
-        }
-
-    }
-
-    public final static class MyStack<T> {
-        private DoubleEndsQueue<T> queue;
-
-        public MyStack() {
-            queue = new DoubleEndsQueue<T>();
-        }
-
-        public void push(T value) {
-            queue.addFromHead(value);
-        }
-
-        public T pop() {
-            if (null == queue || isEmpty()) {
-                return null;
-            }
-            return queue.popFromHead();
-        }
-
-        public boolean isEmpty() {
-            return queue.isEmpty();
-        }
-
-    }
-
-    public final static class MyQueue<T> {
-        private DoubleEndsQueue<T> queue;
-
-        public MyQueue() {
-            queue = new DoubleEndsQueue<>();
-        }
-
-        public void push(T value) {
-            if (null == queue) {
-                return;
-            }
-            queue.addFromHead(value);
-        }
-
-        public T poll() {
-            if (isEmpty()) {
-                return null;
-            }
-            return queue.popFromBottom();
-        }
-
-        public boolean isEmpty() {
-            return queue.isEmpty();
-        }
-
-    }
-```
 ## 数组实现栈和队列
-```java
-public final static class MyStack<T> {
-        private ArrayList<T> queue;
 
-        public MyStack() {
-            queue = new ArrayList<>();
-        }
-
-        public void push(T value) {
-            queue.add(value);
-        }
-
-        public T pop() {
-            if (null == queue || isEmpty()) {
-                return null;
-            }
-            return queue.remove(queue.size()  - 1);
-        }
-
-        public boolean isEmpty() {
-            return queue.isEmpty();
-        }
-
-    }
-
-    public final static class MyQueue<T> {
-        private ArrayList<T> queue;
-
-        public MyQueue() {
-            queue = new ArrayList<>();
-        }
-
-        public void push(T value) {
-            queue.add(value);
-
-        }
-
-        public T poll() {
-            if (isEmpty()) {
-                return null;
-            }
-            return queue.remove(0);
-        }
-
-        public boolean isEmpty() {
-            return queue.isEmpty();
-        }
-
-    }
-```
+Code_0006_ArrayToStackAndQueue.java
 
 
 
 ## 怎么用数组实现不超过固定大小的队列和栈？
 
-> 环形队列
+> 用环形数组来实现队列
 
-```java
-public static final class MyQueue {
-        private int[] array;
-        private int size;
-        private final int limit;
-        private int pushi;
-        private int polli;
-
-        public MyQueue(int limit) {
-            this.limit = limit;
-            array = new int[limit];
-            this.size = 0;
-            this.pushi = 0;
-            this.polli = 0;
-        }
-
-        public int pop() {
-            if (isEmpty()) {
-                throw new RuntimeException("Queue is empty, can not pop");
-            }
-            size--;
-            int data = array[polli];
-            polli = nextIndex(polli);
-            return data;
-        }
-
-        public void push(int value) {
-            if (size == limit) {
-                throw new RuntimeException("Queue is full, can not push");
-            }
-            size++;
-            array[pushi] = value;
-            pushi = nextIndex(pushi);
-        }
-
-        private int nextIndex(int index) {
-            return (index > limit - 1) ? 0 : index + 1;
-
-        }
-
-        public boolean isEmpty() {
-            return size == 0;
-        }
-    }
-```
+Code_0007_RingToQueue.java
+LeetCode_0622_DesignCircularQueue.java
 
 
 ## 实现一个特殊的栈，在基本功能的基础上，再实现返回栈中最小元素的功能
@@ -426,122 +183,22 @@ Code_0013_MinStackO1
 
 
 ## 如何用队列实现栈
-```java
-public static class MyStack<T> {
-        private Queue<T> queue;
-        private Queue<T> help;
-        private int size;
+Code_0014_QueueToStack.java
 
-        public MyStack() {
-            queue = new LinkedList<>();
-            help = new LinkedList<>();
-        }
-
-        public T pop() {
-            if (isEmpty()) {
-                throw new RuntimeException("no data to pop");
-            }
-            size--;
-            for (int i = 0; i < size; i++) {
-                help.offer(queue.poll());
-            }
-            T result = queue.poll();
-            Queue<T> t = queue;
-            queue = help;
-            help = t;
-            return result;
-        }
-
-        public void push(T value) {
-            queue.offer(value);
-            size++;
-        }
-
-        public T peek() {
-            if (isEmpty()) {
-                throw new RuntimeException("no data to peek");
-            }
-            T ans = null;
-            for (int i = 0; i < size; i++) {
-                T result = queue.poll();
-                if (i == size - 1) {
-                    ans = result;
-                }
-                help.offer(result);
-            }
-            Queue<T> t = queue;
-            queue = help;
-            help = t;
-            return ans;
-        }
-
-        public int size() {
-            return size;
-        }
-
-        public boolean isEmpty() {
-            return size() == 0;
-        }
-    }
-```
 ## 如何用栈实现队列
+Code_0015_StackToQueue.java
 
-```java
-public static class MyQueue<T> {
-        private Stack<T> push;
-        private Stack<T> pop;
-        private int size;
+## 递归复杂度的估计公式
 
-        public MyQueue() {
-            push = new Stack<>();
-            pop = new Stack<>();
-        }
+子问题规模等量的情况下：
+master公式  
+T(N) = a * T(N/b) + O(N^d)(其中的a、b、d都是常数)
+ 
+如果 log(b,a) < d，复杂度为O(N^d)
+如果 log(b,a) > d，复杂度为O(N^log(b,a))
+如果 log(b,a) == d，复杂度为O(N^d  * logN)
 
-        public void add(T v) {
-            push.push(v);
-            size++;
-        }
-
-        public T poll() {
-            if (isEmpty()) {
-                throw new RuntimeException("no data to poll");
-            }
-            size--;
-            for (int i = 0; i < size; i++) {
-                pop.push(push.pop());
-            }
-            T result = push.pop();
-            for (int i = 0; i < size; i++) {
-                push.push(pop.pop());
-            }
-            return result;
-        }
-
-        public T peek() {
-            if (isEmpty()) {
-                throw new RuntimeException("no data to peek");
-            }
-
-            for (int i = 0; i < size - 1; i++) {
-                pop.push(push.pop());
-            }
-            T result = push.peek();
-            pop.push(push.pop());
-            for (int i = 0; i < size; i++) {
-                push.push(pop.pop());
-            }
-            return result;
-        }
-
-        public int size() {
-            return size;
-        }
-
-        public boolean isEmpty() {
-            return size() == 0;
-        }
-    }
-```
+子问题的规模
 
 ## 完美洗牌问题
 
