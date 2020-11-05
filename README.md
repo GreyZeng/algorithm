@@ -132,19 +132,11 @@ LeetCode_0191_NumberOfOneBits.java
 
 ## 单链表反转
 
-```java 
-    public static Node reverse(Node head) {
-        Node next = null;
-        Node pre = null;
-        while (head != null) {
-            next = head.next;
-            head.next = pre;
-            pre = head;
-            head = next;
-        }
-        return pre;
-    }
-```
+- 迭代版本
+- 递归版本
+
+LeetCode_0206_ReverseLinkedList.java
+LeetCode_0092_ReverseLinkedListII.java
 
 ## 双向链表反转
 
