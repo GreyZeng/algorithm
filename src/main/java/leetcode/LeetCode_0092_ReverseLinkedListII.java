@@ -55,10 +55,7 @@ public class LeetCode_0092_ReverseLinkedListII {
 // 		System.out.println("tPre is " + tPre.val+ " tPre next is " + tPre.next.val);
 // 		System.out.println("cur is " + cur.val+ " cur next is " + cur.next.val);
 //		
-		
-		
-		
-		
+
 		tCur.next = tPre;
 		if (pre != null) {
 			pre.next = tCur;
@@ -74,6 +71,30 @@ public class LeetCode_0092_ReverseLinkedListII {
 //		//pre.next = tCur;
 //		//cur.next = tCur:;
 		return head;
+
+	}
+
+	public ListNode reverseBetweenRecursive(ListNode head, int m, int n) {
+		if (m == 1) {
+			return reverseN(head, n);
+		}
+		head.next = reverseBetweenRecursive(head.next, m - 1, n - 1);
+		return head;
+	}
+
+	// 反转链表前N个节点
+	ListNode successor = null;
+
+	public ListNode reverseN(ListNode head, int n) {
+
+		if (n == 1) {
+			successor = head.next;
+			return head;
+		}
+		ListNode last = reverseN(head.next, n - 1);
+		head.next.next = head;
+		head.next = successor;
+		return last;
 
 	}
 

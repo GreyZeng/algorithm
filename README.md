@@ -130,32 +130,21 @@ Code_0004_EvenOddTimes.java
 一个数字中有多少个1
 LeetCode_0191_NumberOfOneBits.java
 
-## 单链表反转
+## 链表反转
 
 - 迭代版本
 - 递归版本
 
+整体反转
+部分反转
+双链表反转
+Code_0008_ReverseList
 LeetCode_0206_ReverseLinkedList.java
 LeetCode_0092_ReverseLinkedListII.java
 
-## 双向链表反转
-
-```java
-public static DoubleNode reverse(DoubleNode head) {
-        DoubleNode next = null;
-        DoubleNode pre = null;
-        while (head != null) {
-            next = head.next;
-            head.next = pre;
-            head.last = next;
-            pre = head;
-            head = next;
-        }
-        return pre;
-    } 
-```
-
 ## 链表中删除给定值的节点
+
+LeetCode_0203_RemoveLinkedListElements.java
 
 > 为了防止头节点就是要删除的节点，所以一开始要先找到不需要删除的第一个节点 
 
