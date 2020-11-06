@@ -18,23 +18,21 @@ package leetcode;
 public class LeetCode_0075_SortColors {
     // 荷兰国旗问题
     public static void sortColors(int[] nums) {
-        if (null == nums) {
-            return;
-        }
-        int N = nums.length;
-        if (N == 1) {
-            return;
+        if(nums == null || nums.length <= 1) {
+        	return;
         }
         int L = -1;
-        int R = N;
-        for (int i = 0; i < R; i++) {
-            if (nums[i] < 1) {
-                swap(nums, ++L, i);
-            } else if (nums[i] > 1) { 
-                swap(nums, i--, --R);
-            }
+        int R = nums.length;
+        int i = 0;
+        while (i < R) {
+        	if (nums[i] > 1) {
+        		swap(nums,i,--R);
+        	} else if (nums[i] < 1) {
+        		swap(nums,i++,++L);
+        	} else {
+        		i++;
+        	}
         }
-
     }
 
     private static void swap(int[] nums, int L, int R) {
@@ -47,7 +45,7 @@ public class LeetCode_0075_SortColors {
     }
 
     public static void main(String[] args) {
-        int[] nums = {0	,1,-100,-1,4,2,6,0,2,1};
+        int[] nums = {0	,1,2,1,0,2,2,0,2,1};
         sortColors(nums);
         for (int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + " ");

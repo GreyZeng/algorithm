@@ -240,7 +240,8 @@ LeetCode_0493_ReversePairs.java
 
 - Partition
 - 荷兰国旗问题：LeetCode_0075_SortColors.java
-
+- 快排实现 Code_0025_QuickSort.java
+- 时间复杂度O(N*logN),空间复杂度O(logN)
 
 ## 完美洗牌问题
 
