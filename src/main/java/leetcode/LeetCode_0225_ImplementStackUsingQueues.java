@@ -3,7 +3,7 @@ package leetcode;
 import java.util.LinkedList;
 import java.util.Queue;
 
-
+// 使用队列实现栈
 public class LeetCode_0225_ImplementStackUsingQueues {
     class MyStack {
         private Queue<Integer> data;

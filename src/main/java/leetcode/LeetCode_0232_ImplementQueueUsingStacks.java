@@ -3,6 +3,7 @@ package leetcode;
 
 import java.util.Stack;
 
+// 使用栈来实现队列
 public class LeetCode_0232_ImplementQueueUsingStacks {
     class MyQueue {
         private Stack<Integer> push;

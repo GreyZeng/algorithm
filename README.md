@@ -181,11 +181,9 @@ LeetCode_0155_MinStack
 Code_0013_MinStackO1
 
 
-## 如何用队列实现栈
-Code_0014_QueueToStack.java
-
-## 如何用栈实现队列
-Code_0015_StackToQueue.java
+## 队列和栈的互相转换
+LeetCode_0232_ImplementQueueUsingStacks.java
+LeetCode_0225_ImplementStackUsingQueues.java
 
 ## 递归复杂度的估计公式
 
