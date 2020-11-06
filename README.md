@@ -163,7 +163,6 @@ Code_0006_ArrayToStackAndQueue.java
 
 > 用环形数组来实现队列
 
-Code_0007_RingToQueue.java
 LeetCode_0622_DesignCircularQueue.java
 
 
