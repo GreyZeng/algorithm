@@ -1,11 +1,11 @@
 ## >> 和 >>> 区别
 
->> 表示带符合右移
+`>>` 表示带符合右移
 100011000
 -> 110001100
 最高位和符号位一致
 
->>> 表示不带符号右移
+`>>>` 表示不带符号右移
 100011000
 -> 010001100
 
@@ -190,17 +190,57 @@ LeetCode_0225_ImplementStackUsingQueues.java
 子问题规模等量的情况下：
 master公式  
 T(N) = a * T(N/b) + O(N^d)(其中的a、b、d都是常数)
- 
+
 T(N)为父过程的数据规模
 T(N / b)为子过程的数据规模
 a为子过程的调用次数
 O(N ^ b)为除了递归过程之外其他调用的时间复杂度
- 
+
 如果 log(b,a) < d，复杂度为O(N^d)
 如果 log(b,a) > d，复杂度为O(N^log(b,a))
 如果 log(b,a) == d，复杂度为O(N^d  * logN)
 
 该公式只适用子过程的调用都是数据规模相同的情况，如这个例子中两个子过程的数据规模都是T(N/2)。如果一个递归过程有多个子过程数据规模不一样，那么它不能用该公式进行时间复杂度的计算。
+
+
+
+## 归并排序
+
+递归方式
+
+左部分排序
+
+右部分排序
+
+申请一个额外数组，进行merge操作，谁小拷贝谁进新的数组
+
+复杂度估计：
+
+
+非递归方式
+分组进行排序，组的长度从2开始，下一个是4..8..直到N
+
+
+Code_0022_MergeSort.java
+
+### 小和问题
+
+Code_0023_SmallSum.java
+
+LeetCode_0315_CountOfSmallerNumbersAfterSelf.java
+
+### 一个数组中所有的降序对
+
+Code_0024_DecreaseNum.java
+LeetCodeCN_0051_ReversePairs.java
+LeetCode_0493_ReversePairs.java
+
+
+## 随机快排
+
+- Partition
+- 荷兰国旗问题：LeetCode_0075_SortColors.java
+
 
 ## 完美洗牌问题
 
@@ -217,12 +257,12 @@ O(N ^ b)为除了递归过程之外其他调用的时间复杂度
 Code_0017_Shuffle.java
 
 ## 单调栈
- 
+
  左边右边离它最近比它小的数 O（N）
 
  - 数组中有重复 Stack<List<Integer>>
  - 数组中无重复 Stack<Integer>
- 
+
  栈底到栈顶从小到大
  弹出的时候，假设弹出的值是A，那么让它弹出的值就是它右边离它最近的最小值
  原先A压的是谁，那么谁就是A左边离它最近的最小值
@@ -231,9 +271,9 @@ Code_0018_MonoStack.java
 
 
 ## Manacher算法
- 
+
 用来解决回文问题，求一个字符串最长回文子串是什么 O(N)
- 
+
 暴力解法：
 - 字符串每个字符之间用一个特殊字符插入，每个元素为中心，左边右边扩，直到扩不动为止
 - 大小为：位置/2 = 代表原始串中的大小
@@ -249,17 +289,17 @@ Code_0018_MonoStack.java
 i当前位置，如果
 
     1）i在R外，同暴力方法
-
+    
     2）i在R内或者和R同位置
 
  假设i'为i关于C对称的点
-  
+
   i' 自己的回文区域都在L。。R内，所以i的答案和i'的答案一样，存入parr中
-  
+
   i' 自己的回文区域在L。。。R外，i到R的距离就是i的回文半径
-  
+
   i' 自己的回文区域左边界和L压线，需要继续验，R外的情况
- 
+
 LeetCode_0005_LongestPalindromicSubstring.java
 
 LeetCode_0647_PalindromicSubstrings.java
