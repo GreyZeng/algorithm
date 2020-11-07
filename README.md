@@ -225,8 +225,6 @@ Code_0022_MergeSort.java
 
 ### 小和问题
 
-Code_0023_SmallSum.java
-
 LeetCode_0315_CountOfSmallerNumbersAfterSelf.java
 
 ### 一个数组中所有的降序对
