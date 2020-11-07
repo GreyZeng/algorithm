@@ -15,9 +15,49 @@
 */
 package leetcode;
 
-// TODO
 // https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/
 // 归并排序
 public class LeetCodeCN_0051_ReversePairs {
 
+	public static int reversePairs(int[] nums) {
+		if (nums == null || nums.length < 2) {
+			return 0;
+		}
+		int N = nums.length;
+		return p(nums, 0, nums.length - 1);
+	}
+
+	private static int p(int[] arr, int L, int R) {
+		if (L == R) {
+			return 0;
+		}
+		int M = L + ((R - L) >> 1);
+		return p(arr, L, M) + p(arr, M + 1, R) + merge(arr, L, M, R);
+	}
+
+	private static int merge(int[] arr, int L, int M, int R) {
+		int len = R - L + 1;
+		int l = L;
+		int mid = M + 1;
+		int i = 0;
+		int pair = 0;
+		int[] help = new int[len];
+		while (l <= M && mid <= R) {
+			if (arr[l] > arr[mid]) {
+				pair += ((R - mid) + 1);
+			}
+			help[i++] = arr[l] > arr[mid] ? arr[l++] : arr[mid++];
+		}
+		while (l <= M) {
+			help[i++] = arr[l++];
+		}
+		while (mid <= R) {
+			help[i++] = arr[mid++];
+		}
+		i = 0;
+		for (int t : help) {
+			arr[L + (i++)] = t;
+		}
+		return pair;
+	}
 }
