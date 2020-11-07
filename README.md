@@ -231,7 +231,6 @@ LeetCode_0315_CountOfSmallerNumbersAfterSelf.java
 
 ### 一个数组中所有的降序对
 
-Code_0024_DecreaseNum.java
 LeetCodeCN_0051_ReversePairs.java
 LeetCode_0493_ReversePairs.java
 

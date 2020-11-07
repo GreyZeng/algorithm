@@ -23,7 +23,6 @@ public class LeetCodeCN_0051_ReversePairs {
 		if (nums == null || nums.length < 2) {
 			return 0;
 		}
-		int N = nums.length;
 		return p(nums, 0, nums.length - 1);
 	}
 
