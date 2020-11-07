@@ -38,7 +38,7 @@ public class LeetCode_0493_ReversePairs {
 		int pair = 0;
 		int startIndex = M; // 左边部分从M开始
 		int rightEdge = R; // 右边部分从R开始
-		while (startIndex >= L && rightEdge >= M + 1) {
+		while (startIndex >= L && rightEdge >= M + 1) { 
 			if ((long) arr[startIndex] > 2 * (long) arr[rightEdge]) {
 				pair += ((rightEdge - M));
 				startIndex--;
