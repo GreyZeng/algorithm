@@ -15,8 +15,6 @@ package leetcode;
 
 import java.util.Stack;
 
-import code.Code_0033_LinkedListMid.Node;
-
 public class LeetCode_0234_PalindromeLinkedList {
 	public static class ListNode {
 		int val;
