@@ -1,5 +1,7 @@
 package code;
 
+import java.util.ArrayList;
+
 //1）输入链表头节点，奇数长度返回中点，偶数长度返回上中点 
 //2）输入链表头节点，奇数长度返回中点，偶数长度返回下中点 
 //3）输入链表头节点，奇数长度返回中点前一个，偶数长度返回上中点前一个 
@@ -16,9 +18,7 @@ public class Code_0033_LinkedListMid {
 		}
 	}
 
-	/**
-	 * 输入链表头节点，奇数长度返回中点，偶数长度返回上中点 1个节点 则返回 第0个节点 2个节点 则返回第0个节点 3个节点 则返回第1个节点
-	 */
+	// head 头
 	public static Node midOrUpMidNode(Node head) {
 		if (head == null || head.next == null || head.next.next == null) {
 			return head;
@@ -33,9 +33,6 @@ public class Code_0033_LinkedListMid {
 		return slow;
 	}
 
-	/**
-	 * 输入链表头节点，奇数长度返回中点，偶数长度返回下中点
-	 */
 	public static Node midOrDownMidNode(Node head) {
 		if (head == null || head.next == null) {
 			return head;
@@ -49,9 +46,6 @@ public class Code_0033_LinkedListMid {
 		return slow;
 	}
 
-	/**
-	 * 输入链表头节点，奇数长度返回中点前一个，偶数长度返回上中点前一个
-	 */
 	public static Node midOrUpMidPreNode(Node head) {
 		if (head == null || head.next == null || head.next.next == null) {
 			return null;
@@ -65,9 +59,6 @@ public class Code_0033_LinkedListMid {
 		return slow;
 	}
 
-	/**
-	 * 输入链表头节点，奇数长度返回中点前一个，偶数长度返回下中点前一个
-	 */
 	public static Node midOrDownMidPreNode(Node head) {
 		if (head == null || head.next == null) {
 			return null;
@@ -82,5 +73,57 @@ public class Code_0033_LinkedListMid {
 			fast = fast.next.next;
 		}
 		return slow;
+	}
+
+	public static Node right1(Node head) {
+		if (head == null) {
+			return null;
+		}
+		Node cur = head;
+		ArrayList<Node> arr = new ArrayList<>();
+		while (cur != null) {
+			arr.add(cur);
+			cur = cur.next;
+		}
+		return arr.get((arr.size() - 1) / 2);
+	}
+
+	public static Node right2(Node head) {
+		if (head == null) {
+			return null;
+		}
+		Node cur = head;
+		ArrayList<Node> arr = new ArrayList<>();
+		while (cur != null) {
+			arr.add(cur);
+			cur = cur.next;
+		}
+		return arr.get(arr.size() / 2);
+	}
+
+	public static Node right3(Node head) {
+		if (head == null || head.next == null || head.next.next == null) {
+			return null;
+		}
+		Node cur = head;
+		ArrayList<Node> arr = new ArrayList<>();
+		while (cur != null) {
+			arr.add(cur);
+			cur = cur.next;
+		}
+		return arr.get((arr.size() - 3) / 2);
+	}
+
+	public static Node right4(Node head) {
+		if (head == null || head.next == null) {
+			return null;
+		}
+		Node cur = head;
+		ArrayList<Node> arr = new ArrayList<>();
+		while (cur != null) {
+			arr.add(cur);
+			cur = cur.next;
+		}
+		return arr.get((arr.size() - 2) / 2);
 	}
 }
