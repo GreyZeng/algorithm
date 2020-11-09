@@ -26,17 +26,7 @@ public class LeetCode_0208_Trie {
      * boolean param_3 = obj.startsWith(prefix);
      */
     public static class Trie {
-        public static class Node {
-            public boolean end;
-            public Node[] next;
-
-            public Node() {
-                end = false;
-                next = new Node[26];
-            }
-        }
-
-        private Node root;
+        public Node root;
 
         /**
          * Initialize your data structure here.
@@ -49,70 +39,73 @@ public class LeetCode_0208_Trie {
          * Inserts a word into the trie.
          */
         public void insert(String word) {
-            if (word == null || word.isEmpty()) {
+            if (null == word || word.length() < 1) {
                 return;
             }
-            char[] chars = word.toCharArray();
-            int index = chars[0] - 'a';
-            Node next;
-            if (root.next[index] != null) {
-                next = root.next[index];
-            } else {
-                next = new Node();
-                root.next[index] = next;
-            }
-            for (int i = 1; i < chars.length; i++) {
-                if (next.next[chars[i] - 'a'] != null) {
-                    next = next.next[chars[i] - 'a'];
-                } else {
-                    Node n = new Node();
-                    next.next[chars[i] - 'a'] = n;
-                    next = n;
+            Node c = root;
+            char[] str = word.toCharArray();
+            c.p++;
+            int n;
+            for (char value : str) {
+                n = value - 'a';
+                if (c.next[n] == null) {
+                    c.next[n] = new Node();
                 }
+                c.next[n].p++;
+                c = c.next[n];
             }
-            next.end = true;
+            c.e++;
         }
 
         /**
          * Returns if the word is in the trie.
          */
         public boolean search(String word) {
-            if (word == null || word.isEmpty()) {
+            if (null == word || word.length() < 1) {
                 return false;
             }
-            char[] chars = word.toCharArray();
-            if (root.next[chars[0] - 'a'] == null) {
-                return false;
-            }
-            Node c = root.next[chars[0] - 'a'];
-            for (int i = 1; i < chars.length; i++) {
-                if (c.next[chars[i] - 'a'] == null) {
+            char[] str = word.toCharArray();
+            Node c = root;
+            int n;
+            for (char v : str) {
+                n = v - 'a';
+                if (c.next[n] == null) {
                     return false;
                 }
-                c = c.next[chars[i] - 'a'];
+                c = c.next[n];
             }
-            return c.end;
+            return c.e != 0;
         }
 
         /**
          * Returns if there is any word in the trie that starts with the given prefix.
          */
         public boolean startsWith(String prefix) {
-            if (prefix == null || prefix.isEmpty()) {
+            if (null == prefix || prefix.length() < 1) {
                 return false;
             }
-            char[] chars = prefix.toCharArray();
-            if (root.next[chars[0] - 'a'] == null) {
-                return false;
-            }
-            Node c = root.next[chars[0] - 'a'];
-            for (int i = 1; i < chars.length; i++) {
-                if (c.next[chars[i] - 'a'] == null) {
+            char[] str = prefix.toCharArray();
+            Node c = root;
+            int n;
+            for (char v : str) {
+                n = v - 'a';
+                if (c.next[n] == null) {
                     return false;
                 }
-                c = c.next[chars[i] - 'a'];
+                c = c.next[n];
             }
             return true;
+        }
+
+
+        public static class Node {
+            public int p;
+            public int e;
+            public Node[] next;
+
+            public Node() {
+                next = new Node[26];
+            }
         }
     }
 

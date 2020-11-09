@@ -291,6 +291,11 @@ abcvdk
 这两个字符串
 如果要删掉abcvdk这个字符串，那么通向c v d k节点的路可以全部删除（p=0以下的节点都没有了）
 
+LeetCode_0208_Trie
+LeetCode_0139_WordBreak
+LeetCode_0140_WordBreakII
+
+
 ## 不基于比较的排序
 基于桶排序的两种排序
 应用范围有限，需要样本的数据状况满足桶的划分 
