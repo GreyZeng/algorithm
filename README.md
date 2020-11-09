@@ -327,18 +327,30 @@ O(N) 词频表
 ## 链表题
 
 快慢指针
-1）输入链表头节点，奇数长度返回中点，偶数长度返回上中点
-
-2）输入链表头节点，奇数长度返回中点，偶数长度返回下中点
-
-3）输入链表头节点，奇数长度返回中点前一个，偶数长度返回上中点前一个
-
+1）输入链表头节点，奇数长度返回中点，偶数长度返回上中点 
+2）输入链表头节点，奇数长度返回中点，偶数长度返回下中点 
+3）输入链表头节点，奇数长度返回中点前一个，偶数长度返回上中点前一个 
 4）输入链表头节点，奇数长度返回中点前一个，偶数长度返回下中点前一个
 
 暴力方式：转成ArrayList,准确定位下标的方式
 优化方式：快慢指针
 
+Code_0033_LinkedListMid.java
+LeetCode_0876_MiddleOfTheLinkedList.java
+
 给定一个单链表的头节点head，请判断该链表是否为回文结构
+LeetCode_0234_PalindromeLinkedList.java
+
+Partition链表
+LeetCode_0086_PartitionList.java
+
+Copy带Random指针的链表
+LeetCode_0138_CopyListWithRandomPointer.java
+
+找到相交节点
+Code_0037_FindFirstIntersectNode.java
+LeetCode_0160_IntersectionOfTwoLinkedLists.java
+
 
 简单方式：栈方式 （两种）
 改原来链表的方式 记得要调整回来
