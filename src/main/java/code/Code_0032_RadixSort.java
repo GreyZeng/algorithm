@@ -17,10 +17,10 @@ public class Code_0032_RadixSort {
 	/**
 	 * 只针对非负数
 	 *
-	 * @param array
+	 * @param arr
 	 */
-	public static void radixSort(int[] array) {
-
+	public static void radixSort(int[] arr) {
+		
 	}
 
 }
