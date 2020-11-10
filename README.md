@@ -368,12 +368,28 @@ LeetCode_0234_PalindromeLinkedList.java
 
 前中后序遍历（递归方式，非递归方式）
 后序遍历：两个栈实现，一个栈实现
-按层遍历
-求树的最大宽度
 
-二叉树的序列化和反序列化
+
+LeetCode_0144_BinaryTreePreorderTraversal
+LeetCode_0094_BinaryTreeInorderTraversal
+LeetCode_0145_BinaryTreePostorderTraversal
+
+按层遍历 
+LeetCode_0102_BinaryTreeLevelOrderTraversal.java 
+LeetCode_0107_BinaryTreeLevelOrderTraversalII.java
+
+求树的最大宽度 
+LeetCode_0662_MaximumWidthOfBinaryTree
+
+重建二叉树
+LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java
+LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
+
+
+二叉树的序列化和反序列化 
 - 补空节点
 - 按层遍历用的是队列,本质就是宽度优先遍历
+LeetCode_0297_SerializeAndDeserializeBinaryTree
 
 ## 完美洗牌问题
 

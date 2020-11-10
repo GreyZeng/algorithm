@@ -12,75 +12,47 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
         TreeNode right;
     }
 
-    // morris
-    public static List<Integer> inorderTIntegers(TreeNode head) {
-        List<Integer> tree = new ArrayList<>();
-        if (head == null) {
-            return tree;
+    // 【非递归】中序遍历
+    // 1.整条左边界入栈
+    // 2.弹出就打印
+    // 3.来到右树上继续执行1
+    public static List<Integer> inorderTraversal(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
         }
-        TreeNode cur = head;
-        TreeNode mostRight;
-        while (cur != null) {
-            mostRight = cur.left;
-            if (mostRight != null) {
-                while (mostRight.right != null && mostRight.right != cur) {
-                    mostRight = mostRight.right;
-                }
-                if (mostRight.right == null) {
-                    mostRight.right = cur;
-                    cur = cur.left;
-                } else {
-                    mostRight.right = null;
-                    tree.add(cur.val);
-                    cur = cur.right;
-                }
+        List<Integer> ans = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (!stack.isEmpty() || cur != null) {
+            if (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
             } else {
-                tree.add(cur.val);
+                cur = stack.pop();
+                ans.add(cur.val);
                 cur = cur.right;
             }
         }
-        return tree;
+        return ans;
     }
 
-    // 递归
+    // 递归方式
     public static List<Integer> inorderTraversal2(TreeNode root) {
-        List<Integer> tree = new ArrayList<>();
-        process(root, tree);
-        return tree;
-    }
-
-    public static void process(TreeNode root, List<Integer> tree) {
-        if (root != null) {
-            process(root.left, tree);
-            tree.add(root.val);
-            process(root.right, tree);
-        }
-    }
-
-    // 非递归
-    // 1。整条左边界入栈
-    // 2。弹出就打印
-    // 3。来到右树上继续执行1
-    public static List<Integer> inorderTIntegers3(TreeNode root) {
-        ArrayList<Integer> list = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
         if (root == null) {
-            return list;
+            return ans;
         }
-        Stack<TreeNode> stack = new Stack<>();
-
-        while (!stack.isEmpty() || root != null) {
-            if (root != null) {
-                stack.push(root);
-                root = root.left;
-            } else {
-                root = stack.pop();
-                list.add(root.val);
-                root = root.right;
-
-            }
-        }
-        return list;
+        in(root, ans);
+        return ans;
     }
 
+    private static void in(TreeNode root, List<Integer> ans) {
+        if (root == null) {
+            return;
+        }
+        in(root.left, ans);
+        ans.add(root.val);
+        in(root.right, ans);
+    }
 
 }
