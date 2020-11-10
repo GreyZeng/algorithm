@@ -13,11 +13,11 @@
 0 <= 数组长度 <= 50000
 
 */
-package leetcode;
+package leetcode.cn;
 
 // https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/
 // 归并排序
-public class LeetCodeCN_0051_ReversePairs {
+public class LeetCode_0051_ReversePairs {
 
 	public static int reversePairs(int[] nums) {
 		if (nums == null || nums.length < 2) {
