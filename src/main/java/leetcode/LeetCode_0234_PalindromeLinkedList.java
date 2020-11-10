@@ -54,19 +54,27 @@ public class LeetCode_0234_PalindromeLinkedList {
 		ListNode rightHalfHead = slow.next;
 
 		slow.next = null; // 断开成两个链表
+		
 		ListNode reverseRightHalfHead = reverse(rightHalfHead);
+		ListNode backup = reverseRightHalfHead;
 		slow = head;
 		boolean result = true;
-		while (slow == null || reverseRightHalfHead == null) {
+		ListNode midLast  = slow;
+		while (slow != null && reverseRightHalfHead != null) {
 			if (slow.val != reverseRightHalfHead.val) {
 				result = false;
-				break;
 			}
+			midLast = slow;
 			slow = slow.next;
 			reverseRightHalfHead = reverseRightHalfHead.next;
 		}
-		// TODO 
+		 
 		// 恢复原链表
+		while (midLast.next!=null) {
+			midLast = midLast.next;
+		}
+		midLast.next = reverse(backup);
+		
 		
 		return result;
 	}
