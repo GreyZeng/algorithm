@@ -265,7 +265,7 @@ Code_0027_HeapSort.java
 
 heapify
 
-https://www.lintcode.com/problem/heapify/description
+LintCode_0130_Heapify.java
 
 Code_0028_DistanceLessK.java
 
@@ -342,14 +342,22 @@ LeetCode_0876_MiddleOfTheLinkedList.java
 LeetCode_0234_PalindromeLinkedList.java
 
 Partition链表
+
+仅做Partition【保持相对秩序】
 LeetCode_0086_PartitionList.java
+荷兰国旗版
+Code_0038_PartitionList.java
 
 Copy带Random指针的链表
 LeetCode_0138_CopyListWithRandomPointer.java
 
 找到相交节点
-Code_0037_FindFirstIntersectNode.java
+
+无环版本
 LeetCode_0160_IntersectionOfTwoLinkedLists.java
+
+无环有环结合版本
+Code_0037_FindFirstIntersectNode.java
 
 
 简单方式：栈方式 （两种）
