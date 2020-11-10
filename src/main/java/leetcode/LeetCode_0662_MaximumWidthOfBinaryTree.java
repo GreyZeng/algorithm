@@ -60,6 +60,9 @@ Constraints:
 The given binary tree will have between 1 and 3000 nodes.*/
 package leetcode;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class LeetCode_0662_MaximumWidthOfBinaryTree {
 
 	public class TreeNode {
@@ -81,7 +84,38 @@ public class LeetCode_0662_MaximumWidthOfBinaryTree {
 		}
 	}
 
-	public static int widthOfBinaryTree(TreeNode head) {
-		return -1;
+	public int widthOfBinaryTree(TreeNode root) {
+		Queue<AnnotateNode> queue = new LinkedList<>();
+		queue.offer(new AnnotateNode(root, 0, 0));
+		int currdepth = 0;
+		int left = 0;
+		int res = 0;
+		while (!queue.isEmpty()) {
+			AnnotateNode a = queue.poll();
+			if (a.node != null) {
+				queue.offer(new AnnotateNode(a.node.left, a.depth + 1, a.pos * 2));
+				queue.offer(new AnnotateNode(a.node.right, a.depth + 1, a.pos * 2 + 1));
+				if (currdepth != a.depth) {
+					currdepth = a.depth;
+					left = a.pos;
+				}
+				res = Math.max(res, a.pos - left + 1);
+			}
+
+		}
+
+		return res;
+	}
+
+	static class AnnotateNode {
+		TreeNode node;
+		int depth;
+		int pos;
+
+		public AnnotateNode(TreeNode node, int depth, int pos) {
+			this.node = node;
+			this.depth = depth;
+			this.pos = pos;
+		}
 	}
 }
