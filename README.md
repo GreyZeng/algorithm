@@ -377,9 +377,11 @@ LeetCode_0145_BinaryTreePostorderTraversal
 按层遍历 
 LeetCode_0102_BinaryTreeLevelOrderTraversal.java 
 LeetCode_0107_BinaryTreeLevelOrderTraversalII.java
+LeetCode_0637_AverageOfLevelsInBinaryTree.java
 
 求树的最大宽度 
 LeetCode_0662_MaximumWidthOfBinaryTree
+Code_0039_TreeMaxWidth.java
 
 重建二叉树
 LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java
