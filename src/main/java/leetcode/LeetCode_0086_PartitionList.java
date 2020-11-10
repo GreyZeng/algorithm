@@ -8,10 +8,6 @@
 //Output: 1->2->2->4->3->5
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class LeetCode_0086_PartitionList {
 
 	public class ListNode {
@@ -61,7 +57,7 @@ public class LeetCode_0086_PartitionList {
 			c = t;
 		}
 
-		// 小于区域的尾巴，连等于区域的头，等于区域的尾巴连大于区域的头
+		// 小于区域的尾巴， 
 		if (lt != null) { // 如果有小于区域
 			lt.next = ms;
 			mt = mt == null ? lt : mt; // 下一步，谁去连大于区域的头，谁就变成eT

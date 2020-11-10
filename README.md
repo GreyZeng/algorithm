@@ -338,8 +338,7 @@ O(N) 词频表
 Code_0033_LinkedListMid.java
 LeetCode_0876_MiddleOfTheLinkedList.java
 
-给定一个单链表的头节点head，请判断该链表是否为回文结构
-LeetCode_0234_PalindromeLinkedList.java
+
 
 Partition链表
 
@@ -359,7 +358,8 @@ LeetCode_0160_IntersectionOfTwoLinkedLists.java
 无环有环结合版本
 Code_0037_FindFirstIntersectNode.java
 
-
+给定一个单链表的头节点head，请判断该链表是否为回文结构
+LeetCode_0234_PalindromeLinkedList.java
 简单方式：栈方式 （两种）
 改原来链表的方式 记得要调整回来
 ## 完美洗牌问题
