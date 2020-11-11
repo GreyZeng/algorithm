@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 //Given preorder and inorder traversal of a tree, construct the binary tree.
 //
@@ -31,35 +32,32 @@ public class LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal {
 	}
 
 	public static TreeNode buildTree(int[] preorder, int[] inorder) {
-		HashMap<Integer, Integer> m = new HashMap<>();
-		for (int i = 0; i < inorder.length; i++) {
-			m.put(inorder[i], i);
-		}
-		return process(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, m);
-	}
-
-	public static TreeNode process(int[] preorder, int s1, int e1, int[] inorder, int s2, int e2,
-			HashMap<Integer, Integer> m) {
-		if (s1 > e1) {
+		if (null == preorder || inorder == null || preorder.length != inorder.length) {
 			return null;
 		}
-		// 构造头
-		TreeNode head = new TreeNode(preorder[s1]);
-//	      3
-		// \
-		// 20
-//	         \
-		// 7
-		if (s1 == e1) {
-			return head;
+		int L = inorder.length - 1;
+		Map<Integer, Integer> m = new HashMap<>();
+		for (int i = 0; i <= L; i++) {
+			m.put(inorder[i], i);
 		}
-		int index = m.get(preorder[s1]);
-
-		// 构造左树
-		head.left = process(preorder, s1 + 1, s1 + index - s2, inorder, s2, index - 1, m);
-		// 构造右树
-		head.right = process(preorder, s1 + index - s2 + 1, e1, inorder, index + 1, e2, m);
-		return head;
+		return f(preorder, 0, L, inorder, 0, L, m);
 	}
 
+	private static TreeNode f(int[] preorder, int L1, int R1, int[] inorder, int L2, int R2, Map<Integer, Integer> m) {
+		if (L1 > R1) {
+			return null;
+		}
+
+		TreeNode root = new TreeNode(preorder[L1]);
+		if (L1 == R1) {
+			return root;
+		}
+
+		int index = m.get(preorder[L1]);
+		root.left = f(preorder, L1 + 1, index - L2 + L1, inorder, L2, index - 1, m);
+		root.right = f(preorder, index - L2 + L1 + 1, R1, inorder, index + 1, R2, m);
+		return root;
+	}
+
+	 
 }

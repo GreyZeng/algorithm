@@ -379,6 +379,7 @@ LeetCode_0102_BinaryTreeLevelOrderTraversal.java
 LeetCode_0107_BinaryTreeLevelOrderTraversalII.java
 LeetCode_0637_AverageOfLevelsInBinaryTree.java
 
+
 求树的最大宽度 
 LeetCode_0662_MaximumWidthOfBinaryTree
 Code_0039_TreeMaxWidth.java
@@ -392,12 +393,13 @@ Code_0039_TreeMaxWidth.java
 
 LeetCode_0297_SerializeAndDeserializeBinaryTree
 
-
+ 
 重建二叉树 动态规划
 LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java
 LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
 
-
+自定义Queue实现宽度优先遍历 （可以替换LinkedList，省空间）
+LeetCode_0116_PopulatingNextRightPointersInEachNode.java
 
 ## 完美洗牌问题
 
