@@ -17,14 +17,69 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
 		}
 	}
 
-	// 按层序列化 TODO
+	// 按层序列化
 	public static String serialize(TreeNode root) {
-		return null;
+		if (null == root) {
+			return "[]";
+		}
+		Queue<TreeNode> queue = new LinkedList<>();
+		Queue<Integer> list = new LinkedList<>();
+		queue.offer(root);
+		StringBuilder sb = new StringBuilder();
+		while (!queue.isEmpty()) {
+			TreeNode c = queue.poll();
+			if (c != null) {
+				list.offer(c.val);
+				queue.offer(c.left);
+				queue.offer(c.right);
+			} else {
+				list.offer(null);
+			}
+		}
+		int size = list.size();
+		sb.append("[");
+		while (!list.isEmpty()) {
+			sb.append(list.poll());
+			size--;
+			if (size != 0) {
+				sb.append(",");
+			} else {
+				sb.append("]");
+			}
+		}
+		return sb.toString();
 	}
 
-	// 按层反序列化 TODO
+	// 按层反序列化
 	public static TreeNode deserialize(String data) {
-		return null;
+		if (data == null || data.length() < 1 || "[]".equals(data)) {
+			return null;
+		}
+		data = data.substring(1, data.length() - 1);
+		Queue<TreeNode> queue = new LinkedList<>();
+
+		String[] valid = data.split(",");
+		int size = 0;
+		TreeNode root = new TreeNode(Integer.valueOf(valid[size++]));
+		queue.offer(root);
+		int N = valid.length;
+		while (!queue.isEmpty() && size < N) {
+			TreeNode c = queue.poll();
+			c.left = "null".equals(valid[size]) ? null : new TreeNode(Integer.valueOf(valid[size]));
+			size++;
+			if (size < N) {
+				c.right = "null".equals(valid[size]) ? null : new TreeNode(Integer.valueOf(valid[size]));
+				size++;
+			}
+			if (c.left != null) {
+				queue.offer(c.left);
+			}
+			if (c.right != null) {
+				queue.offer(c.right);
+			}
+
+		}
+		return root;
 	}
 
 	// 后序方式序列化
@@ -92,7 +147,7 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
 		root.right = new TreeNode(3);
 		root.left.right = new TreeNode(4);
 		System.out.print(serialize(root));
-		System.out.print(serialize(deserialize(serialize(root))));
+		// System.out.print(serialize(deserialize(serialize(root))));
 	}
 
 	// 先序序列化
