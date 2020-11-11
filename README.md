@@ -383,15 +383,21 @@ LeetCode_0637_AverageOfLevelsInBinaryTree.java
 LeetCode_0662_MaximumWidthOfBinaryTree
 Code_0039_TreeMaxWidth.java
 
-重建二叉树
-LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java
-LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
-
 
 二叉树的序列化和反序列化 
 - 补空节点
 - 按层遍历用的是队列,本质就是宽度优先遍历
+- 中序遍历无法序列化
+- 先序遍历和后序遍历还有层次遍历可以序列化
+
 LeetCode_0297_SerializeAndDeserializeBinaryTree
+
+
+重建二叉树 动态规划
+LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java
+LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
+
+
 
 ## 完美洗牌问题
 
