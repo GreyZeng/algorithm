@@ -416,6 +416,8 @@ Code_0040_SuccessorNode.java
 
 是否为平衡二叉树
 LeetCode_0110_BalancedBinaryTree
+是否完全二叉树
+[TODO]LeetCode_0958_CheckCompletenessOfABinaryTree
 
 二叉树的最大距离
 
