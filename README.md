@@ -430,6 +430,7 @@ LeetCode_0098_ValidateBinarySearchTree
 
 派对最大快乐值问题
 [TODO]Code_0045_MaxHappy.java
+[TODO]NowCoder_MaxHappy.java
 
 二叉树的最大距离
 - 边代表距离 LeetCode_0543_DiameterOfBinaryTree
