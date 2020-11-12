@@ -10,8 +10,6 @@ package leetcode;
 //Recursive approach is fine, you may assume implicit stack space does not count as extra space for this problem.
 // 所以可以采用自定义队列的方式
 
-import java.util.Queue;
-
 public class LeetCode_0116_PopulatingNextRightPointersInEachNode {
     public static class Node {
         public int val;

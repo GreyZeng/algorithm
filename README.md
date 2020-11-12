@@ -403,7 +403,10 @@ LeetCode_0297_SerializeAndDeserializeBinaryTree
 LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java
 LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
 
+后继节点
 
+【特殊的树结构，包含父节点的指针】
+Code_0040_SuccessorNode.java
 
 ## 完美洗牌问题
 
