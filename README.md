@@ -417,10 +417,23 @@ Code_0040_SuccessorNode.java
 是否为平衡二叉树
 LeetCode_0110_BalancedBinaryTree
 是否完全二叉树
-[TODO]LeetCode_0958_CheckCompletenessOfABinaryTree
+LeetCode_0958_CheckCompletenessOfABinaryTree
+是否为搜索二叉树
+LeetCode_0098_ValidateBinarySearchTree
+是否为满二叉树
+[TODO]Code_0046_IsFull.java
+二叉树中最大的二叉搜索子树的大小
+[TODO]NowCoder_MaxSubBSTSize
+二叉树中最大的二叉搜索子树的头节点
+[TODO]Code_0043_MaxSubBSTHead.java
+
+给定一棵二叉树的头节点head，和另外两个节点a和b, 返回a和b的最低公共祖先
+[TODO]Code_0044_LowestAncestor.java
+
+派对最大快乐值问题
+[TODO]Code_0045_MaxHappy.java
 
 二叉树的最大距离
-
 - 边代表距离 LeetCode_0543_DiameterOfBinaryTree
 - 节点数代表距离 Code_0042_MaxDistance
 边 = 节点 - 1

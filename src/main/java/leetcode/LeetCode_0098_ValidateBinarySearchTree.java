@@ -30,46 +30,89 @@ package leetcode;
 //		Explanation: The root node's value is 5 but its right child's value is 4.
 public class LeetCode_0098_ValidateBinarySearchTree {
 
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-    }
+	public static class TreeNode {
+		int val;
+		TreeNode left;
+		TreeNode right;
+	}
 
-    // morris遍历
-    public boolean isValidBST(TreeNode head) {
-        if (head == null) {
-            return true;
-        }
-        TreeNode cur = head;
-        TreeNode mostRight;
-        TreeNode pre = null;
-        while (cur != null) {
-            mostRight = cur.left;
-            if (mostRight != null) {
-                while (mostRight.right != null && mostRight.right != cur) {
-                    mostRight = mostRight.right;
-                }
-                if (mostRight.right == null) {
-                    mostRight.right = cur;
-                    cur = cur.left;
-                } else {
-                    mostRight.right = null;
-                    if (pre != null && pre.val >= cur.val) {
-                        return false;
-                    }
-                    pre = cur;
-                    cur = cur.right;
-                }
-            } else {
-                if (pre != null && pre.val >= cur.val) {
-                    return false;
-                }
-                pre = cur;
-                cur = cur.right;
-            }
-        }
-        return true;
-    }
+	public static class Info {
+		public int max;
+		public int min;
+		public boolean isBST;
+
+		public Info(int max, int min, boolean isBST) {
+			this.max = max;
+			this.min = min;
+			this.isBST = isBST;
+		}
+
+	}
+
+	public boolean isValidBST(TreeNode head) {
+		if (head == null) {
+			return true;
+		}
+		return p(head).isBST;
+	}
+
+	public static Info p(TreeNode head) {
+		if (head == null) {
+			return null;
+		}
+		int max = head.val;
+		int min = head.val;
+		Info left = p(head.left);
+		if (null != left) {
+			max = Math.max(left.max, max);
+			min = Math.min(left.min, min);
+		}
+		Info right = p(head.right);
+		if (right != null) {
+			max = Math.max(right.max, max);
+			min = Math.min(right.min, min);
+		}
+		boolean isBST = (left != null && left.max < head.val && right != null && right.min > head.val && right.isBST
+				&& left.isBST) || (left == null && right != null && right.min > head.val && right.isBST)
+				|| (left != null && left.max < head.val && right == null && left.isBST)
+				|| (left == null && right == null);
+		return new Info(max, min, isBST);
+	}
+
+	// morris遍历
+	public boolean isValidBST2(TreeNode head) {
+		if (head == null) {
+			return true;
+		}
+		TreeNode cur = head;
+		TreeNode mostRight;
+		TreeNode pre = null;
+		while (cur != null) {
+			mostRight = cur.left;
+			if (mostRight != null) {
+				while (mostRight.right != null && mostRight.right != cur) {
+					mostRight = mostRight.right;
+				}
+				if (mostRight.right == null) {
+					mostRight.right = cur;
+					cur = cur.left;
+				} else {
+					mostRight.right = null;
+					if (pre != null && pre.val >= cur.val) {
+						return false;
+					}
+					pre = cur;
+					cur = cur.right;
+				}
+			} else {
+				if (pre != null && pre.val >= cur.val) {
+					return false;
+				}
+				pre = cur;
+				cur = cur.right;
+			}
+		}
+		return true;
+	}
 
 }
