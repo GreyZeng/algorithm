@@ -16,36 +16,38 @@ package leetcode;
 
 public class LeetCode_0543_DiameterOfBinaryTree {
 
-    public static class TreeNode {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-    }
+	public static class TreeNode {
+		public int val;
+		public TreeNode left;
+		public TreeNode right;
+	}
 
-    private static class Info {
-        public int distance;
-        public int height;
+	public static int diameterOfBinaryTree(TreeNode head) {
+		if (head == null) {
+			return 0;
+		}
+		return process(head).max;
+	}
 
-        public Info(int distance, int height) {
-            this.distance = distance;
-            this.height = height;
-        }
-    }
+	public static class Info {
+		public int maxHeight; // 从当前节点插到最底部最大高度
+		public int max; // 当前树的最大距离
 
-    public static int diameterOfBinaryTree(TreeNode root) {
-        return process(root).distance;
-    }
+		public Info(int max, int maxHeight) {
+			this.max = max;
+			this.maxHeight = maxHeight;
+		}
+	}
 
-    private static Info process(TreeNode t) {
-        if (t == null) {
-            return new Info(0, 0);
-        }
-        Info left = process(t.left);
-        Info right = process(t.right);
-        int distance = Math.max(Math.max(left.distance, right.distance), left.height + right.height);
-        int height = Math.max(right.height, left.height) + 1;
-        return new Info(distance, height);
-    }
-
+	private static Info process(TreeNode head) {
+		if (head == null) {
+			return new Info(0, 0);
+		}
+		Info left = process(head.left);
+		Info right = process(head.right);
+		int max = Math.max(left.maxHeight + right.maxHeight, Math.max(left.max, right.max));
+		int maxHeight = Math.max(left.maxHeight, right.maxHeight) + 1;
+		return new Info(max, maxHeight);
+	}
 
 }

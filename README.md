@@ -398,7 +398,7 @@ Code_0039_TreeMaxWidth.java
 - 中序遍历无法序列化 
 LeetCode_0297_SerializeAndDeserializeBinaryTree
 
- 
+
 重建二叉树 动态规划
 LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java
 LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
@@ -407,6 +407,23 @@ LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
 
 【特殊的树结构，包含父节点的指针】
 Code_0040_SuccessorNode.java
+
+
+
+
+
+### 二叉树递归套路
+
+是否为平衡二叉树
+LeetCode_0110_BalancedBinaryTree
+
+二叉树的最大距离
+
+- 边代表距离 LeetCode_0543_DiameterOfBinaryTree
+- 节点数代表距离 Code_0042_MaxDistance
+边 = 节点 - 1
+
+
 
 ## 完美洗牌问题
 
