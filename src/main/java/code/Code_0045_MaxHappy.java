@@ -23,6 +23,7 @@ import java.util.List;
  * 3.你的目标是让派对的整体快乐值尽量大
  * 给定一棵多叉树的头节点boss，请返回派对的最大快乐值。
  */
+// https://ac.nowcoder.com/acm/problem/51178
 public class Code_0045_MaxHappy {
     public static class Employee {
         public int happy;

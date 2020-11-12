@@ -12,7 +12,7 @@ public class Code_0046_IsFull {
 	}
 
 	// TODO
-	public static boolean isFull1(Node head) {
+	public static boolean isFull(Node head) {
 		return false;
 	}
 }

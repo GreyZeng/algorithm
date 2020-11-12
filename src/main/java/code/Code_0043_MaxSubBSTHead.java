@@ -15,7 +15,7 @@ public class Code_0043_MaxSubBSTHead {
 		}
 	}
 
-	public static Node maxSubBSTHead1(Node head) {
+	public static Node maxSubBSTHead(Node head) {
 		return null;
 	}
 }
