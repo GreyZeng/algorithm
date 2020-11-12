@@ -10,48 +10,74 @@ package leetcode;
 //Recursive approach is fine, you may assume implicit stack space does not count as extra space for this problem.
 // 所以可以采用自定义队列的方式
 
+import java.util.Queue;
+
 public class LeetCode_0116_PopulatingNextRightPointersInEachNode {
-	public static class Node {
-		public int val;
-		public Node left;
-		public Node right;
-		public Node next;
-	}
+    public static class Node {
+        public int val;
+        public Node left;
+        public Node right;
+        public Node next;
+    }
 
-	public static class MyQueue {
-		public Node head;
-		public Node tail;
-		public int size;
+    public static class MyQueue {
+        public Node head;
+        public Node tail;
+        public int size;
 
-		public void offer(Node data) {
-			size++;
-			if(head == null) {
-				head = data;
-				tail = data;
-			} else {
-				tail.next = data;
-				tail = data;
-			}
+        public void offer(Node data) {
+            size++;
+            if (head == null) {
+                head = data;
+                tail = data;
+            } else {
+                tail.next = data;
+                tail = data;
+            }
 
-		}
+        }
 
-		public boolean isEmpty() {
-			return size == 0;
-		}
+        public boolean isEmpty() {
+            return size == 0;
+        }
 
-		public Node poll() {
-			size--;
-			Node ans = head;
-			head = head.next;
-			ans.next = null;
-			return ans;
-		}
+        public Node poll() {
+            size--;
+            Node ans = head;
+            head = head.next;
+            ans.next = null;
+            return ans;
+        }
 
-	}
+    }
 
-	public static Node connect(Node root) {
-		// TODO
-		return null;
-	}
+    public static Node connect(Node root) {
+        if (root == null) {
+            return null;
+        }
+        MyQueue queue = new MyQueue();
+        queue.offer(root);
+        Node pre;
+        Node cur;
+        int size = 0;
+        while (!queue.isEmpty()) {
+            size = queue.size;
+            pre = null;
+            for (; size > 0; size--) {
+                cur = queue.poll();
+                if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
+                if (pre != null) {
+                    pre.next = cur;
+                }
+                pre = cur;
+            }
+        }
+        return root;
+    }
 
 }
