@@ -1,3 +1,7 @@
+## 对数器
+
+TODO
+
 ## >> 和 >>> 区别
 
 `>>` 表示带符合右移
@@ -368,17 +372,20 @@ LeetCode_0234_PalindromeLinkedList.java
 
 前中后序遍历（递归方式，非递归方式）
 后序遍历：两个栈实现，一个栈实现
-
-
+Morris遍历(空间复杂度O(1))
 LeetCode_0144_BinaryTreePreorderTraversal
 LeetCode_0094_BinaryTreeInorderTraversal
 LeetCode_0145_BinaryTreePostorderTraversal
 
-按层遍历 
+按层遍历  
+ 1. hash表+LinkedList
+ 2. 仅用LinkedList
+ 3. 自定义队列(空间复杂度O(1))
 LeetCode_0102_BinaryTreeLevelOrderTraversal.java 
 LeetCode_0107_BinaryTreeLevelOrderTraversalII.java
 LeetCode_0637_AverageOfLevelsInBinaryTree.java
-
+自定义Queue实现宽度优先遍历 （可以替换LinkedList，省空间）
+LeetCode_0116_PopulatingNextRightPointersInEachNode.java
 
 求树的最大宽度 
 LeetCode_0662_MaximumWidthOfBinaryTree
@@ -386,11 +393,8 @@ Code_0039_TreeMaxWidth.java
 
 
 二叉树的序列化和反序列化 
-- 补空节点
-- 按层遍历用的是队列,本质就是宽度优先遍历
-- 中序遍历无法序列化
-- 先序遍历和后序遍历还有层次遍历可以序列化
-
+- 补空节点 
+- 中序遍历无法序列化 
 LeetCode_0297_SerializeAndDeserializeBinaryTree
 
  
@@ -398,8 +402,7 @@ LeetCode_0297_SerializeAndDeserializeBinaryTree
 LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java
 LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
 
-自定义Queue实现宽度优先遍历 （可以替换LinkedList，省空间）
-LeetCode_0116_PopulatingNextRightPointersInEachNode.java
+
 
 ## 完美洗牌问题
 

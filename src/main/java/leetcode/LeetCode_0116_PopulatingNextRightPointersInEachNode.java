@@ -1,44 +1,57 @@
 package leetcode;
 
-import java.util.LinkedList;
+
+// 本质是树的按层遍历
+// 1. hash表+LinkedList
+// 2. 仅用LinkedList
+// 3. 自定义队列
+// 本题有特殊要求：
+//You may only use constant extra space.
+//Recursive approach is fine, you may assume implicit stack space does not count as extra space for this problem.
+// 所以可以采用自定义队列的方式
 
 public class LeetCode_0116_PopulatingNextRightPointersInEachNode {
+	public static class Node {
+		public int val;
+		public Node left;
+		public Node right;
+		public Node next;
+	}
 
-    // 可以自定义数据结构
-    public static Node connect(Node root) {
-        if (null == root) {
-            return null;
-        }
-        LinkedList<Node> queue = new LinkedList<>();
-        queue.add(root);
-        int size = 0;
-        int i = 0;
-        Node cur = null;
-        while (!queue.isEmpty()) {
-            size = queue.size();
-            Node pre = null;
-            for (i = 0; i < size; i++) {
-                cur = queue.poll();
-                if (cur.left != null) {
-                    queue.add(cur.left);
-                }
-                if (cur.right != null) {
-                    queue.add(cur.right);
-                }
-                if (pre != null) {
-                    pre.next = cur;
-                }
-                pre = cur;
-            }
-        }
-        return root;
-    }
+	public static class MyQueue {
+		public Node head;
+		public Node tail;
+		public int size;
 
-    public static class Node {
-        public int val;
-        public Node left;
-        public Node right;
-        public Node next;
-    }
+		public void offer(Node data) {
+			size++;
+			if(head == null) {
+				head = data;
+				tail = data;
+			} else {
+				tail.next = data;
+				tail = data;
+			}
+
+		}
+
+		public boolean isEmpty() {
+			return size == 0;
+		}
+
+		public Node poll() {
+			size--;
+			Node ans = head;
+			head = head.next;
+			ans.next = null;
+			return ans;
+		}
+
+	}
+
+	public static Node connect(Node root) {
+		// TODO
+		return null;
+	}
 
 }
