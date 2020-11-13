@@ -349,7 +349,10 @@ Partition链表
 仅做Partition【保持相对秩序】
 LeetCode_0086_PartitionList.java
 奇偶版[算下标]
-[TODO]LeetCode_0328_OddEvenLinkedList.java
+LeetCode_0328_OddEvenLinkedList.java
+奇数放奇数位置，偶数放偶数位置
+
+
 荷兰国旗版
 Code_0038_PartitionList.java
 
