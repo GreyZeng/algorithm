@@ -55,6 +55,7 @@ public class NowCoder_MaxSubBSTSize {
         }
         root = hashMap.get(root.value);
         System.out.println(maxSubBSTSize(root));
+        scanner.close();
     }
 
     public static class Node {
