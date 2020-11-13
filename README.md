@@ -426,7 +426,11 @@ LeetCode_0098_ValidateBinarySearchTree
 [TODO]Code_0043_MaxSubBSTHead.java
 
 给定一棵二叉树的头节点head，和另外两个节点a和b, 返回a和b的最低公共祖先
-[TODO]LeetCode_0236_LowestCommonAncestorOfBinaryTree.java
+LeetCode_0236_LowestCommonAncestorOfBinaryTree.java
+给定一棵二叉搜索树的头节点head,和另外两个节点a和b，返回a和b的最低公共祖先
+LeetCode_0235_LowestCommonAncestorOfABinarySearchTree.java
+
+
 
 派对最大快乐值问题
 [TODO]Code_0045_MaxHappy.java

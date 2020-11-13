@@ -1,6 +1,7 @@
 package leetcode;
+ 
 
-public class LeetCode_0236_LowestCommonAncestorOfBinaryTree {
+public class LeetCode_0235_LowestCommonAncestorOfABinarySearchTree {
 	public class TreeNode {
 		int val;
 		TreeNode left;
@@ -10,7 +11,6 @@ public class LeetCode_0236_LowestCommonAncestorOfBinaryTree {
 			val = x;
 		}
 	}
-
 	public static class Info {
 		public boolean findO1;
 		public boolean findO2;
@@ -47,5 +47,4 @@ public class LeetCode_0236_LowestCommonAncestorOfBinaryTree {
 		}
 		return new Info(findO1, findO2, ancestor);
 	}
-
 }
