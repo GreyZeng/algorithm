@@ -1,5 +1,5 @@
 package leetcode;
- 
+
 
 public class LeetCode_0235_LowestCommonAncestorOfABinarySearchTree {
 	public class TreeNode {
@@ -11,6 +11,7 @@ public class LeetCode_0235_LowestCommonAncestorOfABinarySearchTree {
 			val = x;
 		}
 	}
+
 	public static class Info {
 		public boolean findO1;
 		public boolean findO2;
@@ -31,11 +32,30 @@ public class LeetCode_0235_LowestCommonAncestorOfABinarySearchTree {
 		if (head == null) {
 			return new Info(false, false, null);
 		}
-		Info left = p(head.left, o1, o2);
-		Info right = p(head.right, o1, o2);
-		boolean findO1 = left.findO1 || right.findO1 || head == o1;
-		boolean findO2 = left.findO2 || right.findO2 || head == o2;
+		Info left = null;
+		boolean findO1 = false;
+		boolean findO2 = false;
 		TreeNode ancestor = null;
+		if (o1.val > head.val && o2.val > head.val) {
+			left = p(head.right, o1, o2);
+			findO1 = left.findO1;
+			findO2 = left.findO2;
+			ancestor = left.ancestor;
+			return new Info(findO1, findO2, ancestor);
+		}
+		if (o1.val < head.val && o2.val < head.val) {
+			left = p(head.left, o1, o2);
+			findO1 = left.findO1;
+			findO2 = left.findO2;
+			ancestor = left.ancestor;
+			return new Info(findO1, findO2, ancestor);
+		}
+
+		left = p(head.left, o1, o2);
+		Info right = p(head.right, o1, o2);
+		findO1 = left.findO1 || right.findO1 || head == o1;
+		findO2 = left.findO2 || right.findO2 || head == o2;
+
 		if (findO1 && findO2) {
 			if (left.findO2 && left.findO1) {
 				ancestor = left.ancestor;

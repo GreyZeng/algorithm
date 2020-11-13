@@ -348,8 +348,11 @@ Partition链表
 
 仅做Partition【保持相对秩序】
 LeetCode_0086_PartitionList.java
+奇偶版[算下标]
+[TODO]LeetCode_0328_OddEvenLinkedList.java
 荷兰国旗版
 Code_0038_PartitionList.java
+
 
 Copy带Random指针的链表
 LeetCode_0138_CopyListWithRandomPointer.java
@@ -407,7 +410,7 @@ LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
 【特殊的树结构，包含父节点的指针】
 Code_0040_SuccessorNode.java
 二叉搜索树中查找后继节点
-[TODO]LintCode_0448_InorderSuccessorInBST.java
+LintCode_0448_InorderSuccessorInBST.java
 
 
 ### 二叉树递归套路

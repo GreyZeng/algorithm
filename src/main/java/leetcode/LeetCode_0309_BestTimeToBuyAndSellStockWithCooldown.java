@@ -31,7 +31,7 @@ public class LeetCode_0309_BestTimeToBuyAndSellStockWithCooldown {
     }
 
 
-    // 斜率优化版本 TODO 待理解
+    // TODO 斜率优化版本 
     public static int maxProfit2(int[] prices) {
         if (prices.length < 2) {
             return 0;
