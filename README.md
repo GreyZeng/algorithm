@@ -422,7 +422,7 @@ LeetCode_0958_CheckCompletenessOfABinaryTree
 是否为搜索二叉树
 LeetCode_0098_ValidateBinarySearchTree
 是否为满二叉树
-[TODO]Code_0046_IsFull.java
+Code_0046_IsFull.java
 二叉树中最大的二叉搜索子树的大小
 NowCoder_MaxSubBSTSize
 二叉树中最大的二叉搜索子树的头节点
