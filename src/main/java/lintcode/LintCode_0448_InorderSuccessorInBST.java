@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-
 // https://www.lintcode.com/problem/inorder-successor-in-bst/description
 public class LintCode_0448_InorderSuccessorInBST {
 	public class TreeNode {
@@ -18,40 +17,31 @@ public class LintCode_0448_InorderSuccessorInBST {
 	}
 
 	public static TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-		List<TreeNode> ans = new ArrayList<>();
-		if (root == null) {
+		if (p == null) {
 			return null;
 		}
-		in(root, p, ans);
-		boolean find = false;
-		for (TreeNode c : ans) {
-			if (c == p) {
-				find = true;
-			} else if (find) {
-				return c;
+		if (p.right != null) {
+			return rightLeftMost(p.right);
+		}
+		TreeNode sucessor = null;
+		while (root != null) {
+			if (root.val > p.val) {
+				sucessor = root;
+				root = root.left;
+			} else if (root.val < p.val) {
+				root = root.right;
+			} else {
+				break;
 			}
 		}
-		return null;
-
+		return sucessor;
 	}
 
-	private static void in(TreeNode root, TreeNode p, List<TreeNode> ans) {
-		if (root == null) {
-			return;
+	private static TreeNode rightLeftMost(TreeNode p) {
+		while (p.left != null) {
+			p = p.left;
 		}
-		if (root.val > p.val) {
-			in(root.left, p, ans);
-			ans.add(root);
-			return;
-		}
-		if (root.val < p.val) {
-			ans.add(root);
-			in(root.right, p, ans);
-			return;
-		}
-		in(root.left, p, ans);
-		ans.add(root);
-		in(root.right, p, ans);
+		return p;
 	}
 
 	public static TreeNode inorderSuccessor2(TreeNode root, TreeNode p) {
