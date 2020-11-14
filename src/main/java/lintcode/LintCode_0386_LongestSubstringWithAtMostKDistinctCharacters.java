@@ -15,11 +15,11 @@
 解释: T = "WORL" 或 "ORLD"
 挑战
 O(n) 时间复杂度*/
-package leetcode;
+package lintcode;
 
-// leetcode 加锁
+// leetcode 加锁 340
 // https://www.lintcode.com/problem/longest-substring-with-at-most-k-distinct-characters/description
-public class LeetCode_0340_LongestSubstringWithAtMostKDistinctCharacters {
+public class LintCode_0386_LongestSubstringWithAtMostKDistinctCharacters {
 
 	public static int lengthOfLongestSubstringKDistinct(String s, int k) {
 		if (s == null || s.length() == 0 ||  k < 1) {

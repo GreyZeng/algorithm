@@ -9,15 +9,15 @@
 
         输入:[[7,9],[5]]
         输出:[7,9,5]*/
-package leetcode;
+package lintcode;
 
 import java.util.Iterator;
 import java.util.List;
 
 
-// leetcode加锁
+// leetcode加锁251
 // lintcode: https://www.lintcode.com/problem/flatten-2d-vector/description
-public class LeetCode_0251_Flatten2DVector {
+public class LintCode_0601_Flatten2DVector {
 
 	public class Vector2D implements Iterator<Integer> {
 		private int[] data;

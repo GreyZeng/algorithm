@@ -18,16 +18,16 @@
 输出: 1
 解释:
 只需要1个会议室就够了*/
-package leetcode;
+package lintcode;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
-//leetcode加锁
+//leetcode加锁253
 // lintcode：https://www.lintcode.com/problem/meeting-rooms-ii/description
-public class LeetCode_0253_MeetingRoomsII {
+public class LintCode_0919_MeetingRoomsII {
 	public static class Interval {
 		int start, end;
 

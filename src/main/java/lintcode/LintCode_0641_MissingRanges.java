@@ -19,14 +19,14 @@
         ["4->6"]
         解释：
         在区间[0,7]中，缺失的区间有：[4,6]*/
-package leetcode;
+package lintcode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// leetcode 加锁
+// leetcode   163
 // lintcode 链接：https://www.lintcode.com/problem/missing-ranges/description
-public class LeetCode_0163_MissingRanges {
+public class LintCode_0641_MissingRanges {
 
     public static List<String> findMissingRanges(int[] nums, int lower, int upper) {
         List<String> list = new ArrayList<>();

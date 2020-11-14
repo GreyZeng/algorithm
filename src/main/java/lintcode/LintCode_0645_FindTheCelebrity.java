@@ -31,11 +31,11 @@
 所有人都认识0，而且0不认识其他人。
 0不认识1，同时1认识0。
 2认识所有人，但是1不认识2。*/
-package leetcode;
+package lintcode;
 
-// leetcode加锁
+// leetcode加锁 277
 // lintcode : https://www.lintcode.com/problem/find-the-celebrity/description
-public class LeetCode_0277_FindTheCelebrity {
+public class LintCode_0645_FindTheCelebrity {
     // 它会告诉你A是否知道B
     public static boolean knows(int a, int b) {
         if (a == 0 && b == 1) {
