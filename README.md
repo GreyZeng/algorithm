@@ -447,6 +447,7 @@ NowCoder_MaxHappy.java
 边 = 节点 - 1
 
 ### Morris遍历
+Code_0047_Morris.java
 当前是cur
 1. cur无左树,cur = cur.right
 2. cur有左树,找到左树最右节点mostRight
@@ -454,7 +455,8 @@ NowCoder_MaxHappy.java
 	b. mostRight的右指针指向当前节点cur，mostRight.right = null, cur = cur.right
 3. cur = null 停
 
-Morris遍历实现前中后序遍历
+Morris遍历实现前中后序遍历,空间 O（1）,时间 O（N） 递归和非递归的方式实现的复杂度是：空间：O（h）O（N）
+
 
 第一次来到，则打印-> 先序遍历
 
@@ -463,6 +465,18 @@ Morris遍历实现前中后序遍历
 最小高度（以叶子节点来算）
 LeetCode_0111_MinimumDepthOfBinaryTree
 
+
+
+是否是搜索二叉树
+中序遍历一下，如果数一直递增，说明是搜索二叉树
+
+二叉树的最小高度（二叉树的递归套路）
+
+什么时候用二叉树的递归套路，什么时候用Morris遍历
+如果你需要你的左树给你一些信息，右树给你一些信息，然后整合，这个时候就用二叉树的递归套路
+如果你用完左数信息后，可以不用再管左树的信息了，那么就可以用Morris遍历
+
+如果需要用Hash表，且题目中固定了数据的范围，这个时候用数组来替代Hash表
 什么时候用Morris遍历，什么时候用二叉树递归套路？
 如果需要左树收集一些信息，右树再收集一些信息，然后整合，这样的思路就只能用二叉树的递归套路
 如果你处理完一侧的数据不需要再留着做整合，就可以用Morris遍历
