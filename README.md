@@ -480,8 +480,26 @@ LeetCode_0111_MinimumDepthOfBinaryTree
 
 
 ## 贪心
+
+1. 分析业务
+2. 根据业务逻辑找到不同的贪心策略
+3. 对于能举出反例的策略直接跳过，不能举出反例的策略要证明有效性
+使用对数器来验证贪心策略的正确性与否
+
+
 拼接所有的字符串产生字典序最小的字符串
-NowCoder_LowestString.java
+[TODO]NowCoder_LowestString.java
+
+[TODO]会议室安排问题
+[TODO]放灯问题
+[TODO]分金条问题
+[TODO]项目花费/利润问题
+
+练习对数器！！！
+
+
+## 并查集
+[TODO]
 
 
 ## 完美洗牌问题
