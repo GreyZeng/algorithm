@@ -454,12 +454,18 @@ NowCoder_MaxHappy.java
 	b. mostRight的右指针指向当前节点cur，mostRight.right = null, cur = cur.right
 3. cur = null 停
 
+Morris遍历实现前中后序遍历
+
 第一次来到，则打印-> 先序遍历
 
 打印两次的，第二次到达则打印 -> 中序遍历
 
 最小高度（以叶子节点来算）
 LeetCode_0111_MinimumDepthOfBinaryTree
+
+什么时候用Morris遍历，什么时候用二叉树递归套路？
+如果需要左树收集一些信息，右树再收集一些信息，然后整合，这样的思路就只能用二叉树的递归套路
+如果你处理完一侧的数据不需要再留着做整合，就可以用Morris遍历
 
 ## 完美洗牌问题
 
