@@ -77,7 +77,7 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
     }
 
     // 【非递归】【单栈】后序遍历
-    public static List<Integer> postorderTraversal2(TreeNode head) {
+    public static List<Integer> postorderTraversal1(TreeNode head) {
         List<Integer> ans = new ArrayList<>();
         if (null == head) {
             return ans;
@@ -107,7 +107,7 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
     // 改造一下，变成：头，右，左
     // 然后：逆序一下，就变成了后序遍历
     // 所以用两个栈即可实现
-    public static List<Integer> postorderTraversal3(TreeNode head) {
+    public static List<Integer> postorderTraversal2(TreeNode head) {
         List<Integer> ans = new ArrayList<>();
         if (head == null) {
             return ans;
