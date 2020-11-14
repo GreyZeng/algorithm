@@ -447,7 +447,19 @@ NowCoder_MaxHappy.java
 边 = 节点 - 1
 
 ### Morris遍历
-[TODO]
+当前是cur
+1. cur无左树,cur = cur.right
+2. cur有左树,找到左树最右节点mostRight
+	a. mostRight的右指针指向null, mostRight.right = cur, cur = cur.right
+	b. mostRight的右指针指向当前节点cur，mostRight.right = null, cur = cur.right
+3. cur = null 停
+
+第一次来到，则打印-> 先序遍历
+
+打印两次的，第二次到达则打印 -> 中序遍历
+
+最小高度（以叶子节点来算）
+LeetCode_0111_MinimumDepthOfBinaryTree
 
 ## 完美洗牌问题
 
