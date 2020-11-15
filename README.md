@@ -488,13 +488,18 @@ LeetCode_0111_MinimumDepthOfBinaryTree
 
 
 拼接所有的字符串产生字典序最小的字符串
-[TODO]NowCoder_LowestString.java
+NowCoder_LowestString.java
 
 [TODO]会议室安排问题
-[TODO]放灯问题
-[TODO]分金条问题
-[TODO]项目花费/利润问题
 
+放灯问题
+NowCoder_Light.java
+
+[TODO]分金条问题
+NowCoder_SplitGolden.java
+
+[TODO]项目花费/利润问题
+LeetCode_0502_IPO.java
 练习对数器！！！
 
 
