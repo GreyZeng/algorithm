@@ -1,14 +1,12 @@
 package nowcoder;
-// [编程题]拼接所有的字符串产生字典序最小的字符串
 
 import java.util.ArrayList;
-
-// https://www.nowcoder.com/questionTerminal/f1f6a1a1b6f6409b944f869dc8fd3381
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 
+//[编程题]拼接所有的字符串产生字典序最小的字符串
+//https://www.nowcoder.com/questionTerminal/f1f6a1a1b6f6409b944f869dc8fd3381
 public class NowCoder_LowestString {
 
 	/**
@@ -107,7 +105,7 @@ public class NowCoder_LowestString {
 	}
 
 	private static String[] generateRandomStringArray(int arrLen, int strLen) {
-		int len = (int) (Math.random() * (arrLen)) + 1;
+		int len = (int) (Math.random() * (arrLen + 1));
 		String[] arr = new String[len];
 		for (int i = 0; i < len; i++) {
 			arr[i] = generateString(strLen);
