@@ -497,8 +497,7 @@ NowCoder_Light.java
 
 
 霍夫曼树应用
-[TODO]分金条问题
-NowCoder_SplitGolden.java
+分金条问题 NowCoder_SplitGolden.java
 LintCode_1872_MinimumCostToConnectSticks.java
 
 [TODO]项目花费/利润问题
