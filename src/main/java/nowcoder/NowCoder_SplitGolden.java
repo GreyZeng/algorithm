@@ -12,7 +12,27 @@ import java.util.*;
  */
 // https://www.nowcoder.com/questionTerminal/418d2fcdf7f24d6f8f4202e23951c0da
 public class NowCoder_SplitGolden {
-
+	public static int lessMoney(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return 0;
+        }
+        if (arr.length == 2) {
+        	return arr[0] + arr[1];
+        }
+        
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for (int i : arr) {
+        	queue.add(i);
+        }
+        int cost = 0;
+        while (queue.size() > 1) {
+        	int i = queue.poll();
+        	int j = queue.poll();
+        	cost +=(i+j);
+        	queue.offer(i+j);
+        }
+        return cost;
+    }
     // 暴力递归版本
     public static int lessMoney0(int[] arr) {
         if (arr == null || arr.length <= 1) {
@@ -49,5 +69,26 @@ public class NowCoder_SplitGolden {
         }
         nArr[arr.length - 2] = t;
         return nArr;
+    }
+    
+    public static int[] generateRandomArr(int maxSize, int maxValue) {
+    	int size  = (int)(Math.random() * maxSize) + 1;
+    	int[] arr = new int[size];
+    	for (int i = 0; i < size;i++) {
+    		arr[i] = (int)(Math.random() * (maxValue + 1)) - (int)(Math.random() * (maxValue + 1));
+    	}
+    	return arr;
+    }
+    public static void main(String[] args) {
+    	int times = 50000;
+    	int maxValue = 9;
+    	int maxSize = 7;
+    	for (int i = 0; i < times;i++) {
+    		int[] arr = generateRandomArr(maxSize, maxValue);
+    		if (lessMoney(arr) != lessMoney0(arr)) {
+    			System.out.println("Ops!");
+    		}
+    	}
+    	System.out.println("Nice!");
     }
 }
