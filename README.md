@@ -506,9 +506,10 @@ LeetCode_0502_IPO.java
 
 
 ## 并查集
-
+限定数据范围精简版的并查集
 NowCoder_UnionFind.java
-
+未限定范围支持泛型的并查集
+Code_0049_UnionFind.java
   1) 有若干个样本a、b、c、d…类型假设是V
   2) 在并查集中一开始认为每个样本都在单独的集合里
   3) 用户可以在任何时候调用如下两个方法：

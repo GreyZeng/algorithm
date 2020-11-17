@@ -48,7 +48,7 @@ import java.util.*;
 //        1 <= N, M <= 10^6
 //
 //        保证1 <= x, y <= N
-// 因为x,y [1,N] 所以，准备一个N长度的数组可以表示所有x，y的代表节点，省去了Map
+// 因为x,y [1,N] 所以，准备一个N长度的数组可以表示所有x，y的代表节点，省去了Map,用Map这题过不了
 // https://www.nowcoder.com/questionTerminal/e7ed657974934a30b2010046536a5372
 public class NowCoder_UnionFind {
 
@@ -84,9 +84,7 @@ public class NowCoder_UnionFind {
         }
 
         public boolean isSameSet(int x, int y) {
-            int fx = find(x);
-            int fy = find(y);
-            return fx == fy;
+            return find(x) == find(y);
         }
     }
 
