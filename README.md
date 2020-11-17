@@ -500,9 +500,8 @@ NowCoder_Light.java
 分金条问题 NowCoder_SplitGolden.java
 LintCode_1872_MinimumCostToConnectSticks.java
 
-[TODO]项目花费/利润问题
+项目花费/利润问题
 LeetCode_0502_IPO.java
-练习对数器！！！
 
 
 ## 并查集
