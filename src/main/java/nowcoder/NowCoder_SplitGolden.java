@@ -1,3 +1,4 @@
+
 package nowcoder;
 
 import java.util.*;
@@ -12,40 +13,41 @@ import java.util.*;
  */
 // https://www.nowcoder.com/questionTerminal/418d2fcdf7f24d6f8f4202e23951c0da
 public class NowCoder_SplitGolden {
-	public static int lessMoney(int[] arr) {
+    public static long lessMoney(long[] arr) {
         if (arr == null || arr.length <= 1) {
             return 0;
         }
         if (arr.length == 2) {
-        	return arr[0] + arr[1];
+            return arr[0] + arr[1];
         }
-        
-        PriorityQueue<Integer> queue = new PriorityQueue<>();
-        for (int i : arr) {
-        	queue.add(i);
+
+        PriorityQueue<Long> queue = new PriorityQueue<>();
+        for (long i : arr) {
+            queue.add(i);
         }
-        int cost = 0;
+        long cost = 0;
         while (queue.size() > 1) {
-        	int i = queue.poll();
-        	int j = queue.poll();
-        	cost +=(i+j);
-        	queue.offer(i+j);
+            long i = queue.poll();
+            long j = queue.poll();
+            cost += (i + j);
+            queue.offer(i + j);
         }
         return cost;
     }
+
     // 暴力递归版本
-    public static int lessMoney0(int[] arr) {
+    public static long lessMoney0(long[] arr) {
         if (arr == null || arr.length <= 1) {
             return 0;
         }
         return process0(arr, 0);
     }
 
-    private static int process0(int[] arr, int s) {
+    private static long process0(long[] arr, long s) {
         if (arr.length == 1) {
             return s;
         } else {
-            int min = Integer.MAX_VALUE;
+            long min = Long.MAX_VALUE;
             for (int i = 0; i < arr.length; i++) {
                 for (int j = i + 1; j < arr.length; j++) {
                     min = Math.min(process0(copyExcept(arr, i, j), s + (arr[i] + arr[j])), min);
@@ -56,10 +58,10 @@ public class NowCoder_SplitGolden {
     }
 
 
-    private static int[] copyExcept(int[] arr, int i1, int i2) {
+    private static long[] copyExcept(long[] arr, int i1, int i2) {
         int m = 0;
-        int[] nArr = new int[arr.length - 1];
-        int t = 0;
+        long[] nArr = new long[arr.length - 1];
+        long t = 0;
         for (int j = 0; j < arr.length; j++) {
             if (j != i1 && j != i2) {
                 nArr[m++] = arr[j];
@@ -70,25 +72,35 @@ public class NowCoder_SplitGolden {
         nArr[arr.length - 2] = t;
         return nArr;
     }
-    
-    public static int[] generateRandomArr(int maxSize, int maxValue) {
-    	int size  = (int)(Math.random() * maxSize) + 1;
-    	int[] arr = new int[size];
-    	for (int i = 0; i < size;i++) {
-    		arr[i] = (int)(Math.random() * (maxValue + 1)) - (int)(Math.random() * (maxValue + 1));
-    	}
-    	return arr;
+
+    public static long[] generateRandomArr(int maxSize, long maxValue) {
+        int size = (int) (Math.random() * maxSize) + 1;
+        long[] arr = new long[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = (long) (Math.random() * (maxValue + 1)) - (long) (Math.random() * (maxValue + 1));
+        }
+        return arr;
     }
+
     public static void main(String[] args) {
-    	int times = 50000;
-    	int maxValue = 9;
-    	int maxSize = 7;
-    	for (int i = 0; i < times;i++) {
-    		int[] arr = generateRandomArr(maxSize, maxValue);
-    		if (lessMoney(arr) != lessMoney0(arr)) {
-    			System.out.println("Ops!");
-    		}
-    	}
-    	System.out.println("Nice!");
+        int times = 50000;
+        long maxValue = 9;
+        int maxSize = 7;
+        for (int i = 0; i < times; i++) {
+            long[] arr = generateRandomArr(maxSize, maxValue);
+            if (lessMoney(arr) != lessMoney0(arr)) {
+                System.out.println("Ops!");
+            }
+        }
+        System.out.println("Nice!");
+
+// 以下为牛客输入
+    	/*Scanner in = new Scanner(System.in);
+    	int count = in.nextInt();
+        long[] arr = new long[count];
+    	for (int i = 0; i < count;i++) {
+            arr[i] = in.nextLong();
+        }
+    	System.out.println(lessMoney(arr));*/
     }
 }
