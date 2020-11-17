@@ -26,11 +26,57 @@ public class LeetCode_0130_SurroundedRegions {
 
     // 递归方法
     public static void solve(char[][] board) {
-       
+        if (board == null || board.length == 0 || board[0].length == 0) {
+            return;
+        }
+        int M = board.length;
+        int N = board[0].length;
+        for (int i = 0; i < M; i++) {
+            if (board[i][0] == 'O') {
+                free(board, i, 0);
+            }
+            if (board[i][N - 1] == 'O') {
+                free(board, i, N - 1);
+            }
+        }
+        for (int i = 0; i < N; i++) {
+            if (board[0][i] == 'O') {
+                free(board, 0, i);
+            }
+            if (board[M - 1][i] == 'O') {
+                free(board, M - 1, i);
+            }
+        }
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] != '#') {
+                    board[i][j] = 'X';
+                } else {
+                    board[i][j] = 'O';
+                }
+            }
+        }
     }
 
-    
-    // 并查集方法
+    private static void free(char[][] board, int i, int j) {
+        if (!inValid(board, i, j)) {
+            return;
+        }
+        board[i][j] = '#';
+        free(board, i + 1, j - 1);
+        free(board, i + 1, j + 1);
+        free(board, i - 1, j - 1);
+        free(board, i - 1, j + 1);
+    }
+
+    public static boolean inValid(char[][] board, int i, int j) {
+        if (i < 0 || j < 0 || i > board.length - 1 || j > board[0].length - 1 || board[i][j] != 'O') {
+            return false;
+        }
+        return true;
+    }
+
+    // TODO 并查集方法
     public static void solve2(char[][] board) {
 
     }
