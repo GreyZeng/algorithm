@@ -22,142 +22,165 @@ package leetcode;
 //		Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'.
 //		Two cells are connected if they are adjacent cells connected horizontally or vertically.
 public class LeetCode_0130_SurroundedRegions {
-	static final char tag = '#';
 
-	// 递归方法
-	public static void solve(char[][] board) {
-		if (board == null || board.length == 0 || board[0].length == 0) {
-			return;
-		}
-		int M = board.length;
-		int N = board[0].length;
-		for (int i = 0; i < M; i++) {
-			if (board[i][0] == 'O') {
-				free(board, i, 0);
-			}
-			if (board[i][N - 1] == 'O') {
-				free(board, i, N - 1);
-			}
-		}
-		for (int i = 0; i < N; i++) {
-			if (board[0][i] == 'O') {
-				free(board, 0, i);
-			}
-			if (board[M - 1][i] == 'O') {
-				free(board, M - 1, i);
-			}
-		}
-		for (int i = 0; i < M; i++) {
-			for (int j = 0; j < N; j++) {
-				if (board[i][j] != tag) {
-					board[i][j] = 'X';
-				} else {
-					board[i][j] = 'O';
-				}
-			}
-		}
-	}
+  
 
-	private static void free(char[][] board, int i, int j) {
-		if (!inValid(board, i, j)) {
-			return;
-		}
-		board[i][j] = tag;
-		free(board, i + 1, j - 1);
-		free(board, i + 1, j + 1);
-		free(board, i - 1, j - 1);
-		free(board, i - 1, j + 1);
-	}
+    // 递归方法 感染函数 Leetcode测试1ms
+    public static void solve(char[][] board) {
+        if (board == null || board.length == 0 || board[0].length == 0) {
+            return;
+        }
+        int M = board.length;
+        int N = board[0].length;
+        for (int i = 0; i < M; i++) {
+            if (board[i][0] == 'O') {
+                free(board, i, 0);
+            }
+            if (board[i][N - 1] == 'O') {
+                free(board, i, N - 1);
+            }
+        }
+        for (int i = 0; i < N; i++) {
+            if (board[0][i] == 'O') {
+                free(board, 0, i);
+            }
+            if (board[M - 1][i] == 'O') {
+                free(board, M - 1, i);
+            }
+        }
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] != '#') {
+                    board[i][j]= 'X';
+                } else {
+                    board[i][j] = 'O';
+                }
+            }
+        }
+    }
 
-	public static boolean inValid(char[][] board, int i, int j) {
-		return !(i < 0 || j < 0 || i > board.length - 1 || j > board[0].length - 1 || board[i][j] != 'O');
-	}
+  
 
-	public static void main(String[] args) {
+    private static void free(char[][] board, int i, int j) {
+        if (!inValid(board, i,j)) {
+            return;
+        }
+        board[i][j] = '#';
+        free(board,i,j-1);
+        free(board,i,j+1);
+        free(board,i+1,j);
+        free(board,i-1,j);
+    }
+    public static boolean inValid(char[][] board, int i, int j) {
+        if (i < 0 || j < 0 || i > board.length-1 || j > board[0].length - 1 || board[i][j] != 'O'){
+            return false;
+        }
+        return true;
+    }
+    // 以下为并查集解法 LeetCode 21ms
+public static void solve2(char[][] board) {
+        if (board == null || board.length <= 2 || board[0].length <= 2) {
+            return;
+        }
+        int M = board.length;
+        int N = board[0].length;
+        UnionFind unionFind = new UnionFind(M * N + 1);
+        int dump = 0;
+       
+       // 以下两个for循环把四周的O节点的代表点设置为dump
+        for (int i = 0; i < M; i++) {
+            if (board[i][0] == 'O') {
+                unionFind.union(dump, oneArrIndex(M, N, i, 0));
+            }
+            if (board[i][N - 1] == 'O') {
+                unionFind.union(dump, oneArrIndex(M, N, i, N - 1));
+            }
+        }
+        for (int i = 0; i < N; i++) {
+            if (board[0][i] == 'O') {
+                unionFind.union(dump, oneArrIndex(M, N, 0, i));
+            }
+            if (board[M - 1][i] == 'O') {
+                unionFind.union(dump, oneArrIndex(M, N, M - 1, i));
+            }
+        }
+        for (int i = 1; i < M - 1; i++) {
+            for (int j = 1; j < N - 1; j++) {
+                if (board[i][j] == 'O') {
+                    int t = oneArrIndex(M, N, i, j) ;
+                    if (board[i][j + 1] == 'O') {
+                        unionFind.union(t, oneArrIndex(M, N, i, j + 1));
+                    }
+                    if (board[i][j - 1] == 'O') {
+                        unionFind.union(t, oneArrIndex(M, N, i, j - 1));
+                    }
+                    if (board[i + 1][j] == 'O') {
+                        unionFind.union(t, oneArrIndex(M, N, i + 1, j));
+                    }
+                    if (board[i - 1][j] == 'O') {
+                        unionFind.union(t, oneArrIndex(M, N, i - 1, j));
+                    }
+                }
+            }
+        }
 
-	}
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] == 'O' && !unionFind.isSameSet(dump, oneArrIndex(M, N, i, j))) {
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
 
-	public static void solve2(char[][] board) {
-		if (board == null || board.length <= 2 || board[0].length <= 2) {
-			return;
-		}
-		int M = board.length;
-		int N = board[0].length;
-		UnionFind unionFind = new UnionFind(M * N + 1);
-		int dump = 0;
-		for (int i = 0; i < M; i++) {
-			if (board[i][0] == 'O') {
-				unionFind.union(dump, oneArrIndex(M, N, i, 0));
-			}
-			if (board[i][N - 1] == 'O') {
-				unionFind.union(dump, oneArrIndex(M, N, i, N - 1));
-			}
-		}
-		for (int i = 0; i < N; i++) {
-			if (board[0][i] == 'O') {
-				unionFind.union(dump, oneArrIndex(M, N, 0, i));
-			}
-			if (board[M - 1][i] == 'O') {
-				unionFind.union(dump, oneArrIndex(M, N, M - 1, i));
-			}
-		}
-		for (int i = 1; i < N - 1; i++) {
-			for (int j = 1; j < M - 1; j++) {
-				// TODO
-			}
-		}
+    // 将二维坐标转换成一维坐标
+    public static int oneArrIndex(int M, int N, int i, int j) {
+        return i * N + j + 1;
+    }
 
-		for (int i = 0; i < M; i++) {
-			for (int j = 0; j < N; j++) {
-				if (board[i][j] == 'O' && !unionFind.isSameSet(dump, i * j)) {
-					board[i][j] = 'X';
-				}
-			}
-		}
-	}
+    public static class UnionFind {
 
-	// 将二维坐标转换成一维坐标
-	public static int oneArrIndex(int M, int N, int i, int j) {
-		return i * N + j + 1;
-	}
+        private int[] records;
 
-	public static class UnionFind {
-		private int[] records;
+        public UnionFind(int n) {
+             // n的代表点就是records[n],因为二维数组的下标可以转换成一维数组下标（从1开始），所以可以将二维数组某个点的代表点用records[n]表示
+            // 其中n = oneArrIndex(i,j)
+            records = new int[n];
+            for (int i = 0; i < n; i++) {
+                records[i] = i;
+            }
+        }
 
-		public UnionFind(int n) {
-			records = new int[n];
-			for (int i = 0; i < n; i++) {
-				records[i] = i;
-			}
-		}
+        public boolean isSameSet(int a, int b) {
+            return find(a) == find(b);
+        }
 
-		public boolean isSameSet(int a, int b) {
-			return find(a) == find(b);
-		}
+        public void union(int a, int b) {
+            int fa = find(a);
+            int fb = find(b);
+            if (fa != fb) {
+                records[fa] = fb;
+            }
+        }
 
-		public void union(int a, int b) {
-			int fa = find(a);
-			int fb = find(b);
-			if (fa != fb) {
-				records[fa] = fb;
-			}
-		}
+        private int find(int a) {
+            int t = a;
+            while (t != records[t]) {
+                int m = records[t];
+                t = m;
+            }
+            int ans = t;
+            // 扁平化操作
+            while (a != t) {
+                int m = records[a];
+                records[m] = t;
+                a = m;
+            }
+            return ans;
+        }
+    }
+    
 
-		private int find(int a) {
-			int t = a;
-			while (t != records[t]) {
-				int m = records[t];
-				t = m;
-			}
-			int ans = t;
-			// 扁平化操作
-			while (a != t) {
-				int m = records[a];
-				records[m] = t;
-				a = m;
-			}
-			return ans;
-		}
-	}
+ 
 
 }
