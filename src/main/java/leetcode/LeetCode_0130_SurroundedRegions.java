@@ -139,13 +139,15 @@ public class LeetCode_0130_SurroundedRegions {
     public static class UnionFind {
 
         private int[] records;
-
+        private int[] size;
         public UnionFind(int n) {
             // n的代表点就是records[n],因为二维数组的下标可以转换成一维数组下标（从1开始），所以可以将二维数组某个点的代表点用records[n]表示
             // 其中n = oneArrIndex(i,j)
             records = new int[n];
+            size = new int[n];
             for (int i = 0; i < n; i++) {
                 records[i] = i;
+                size[i] = 1;
             }
         }
 
@@ -155,9 +157,20 @@ public class LeetCode_0130_SurroundedRegions {
 
         public void union(int a, int b) {
             int fa = find(a);
-            int fb = find(b);
+            int fb = find(b); 
             if (fa != fb) {
-                records[fa] = fb;
+            	int sizeFb = size[fb];
+            	int sizeFa = size[fa];
+            	int all = sizeFa + sizeFb;
+            	if (sizeFa > sizeFb) {
+            		records[fb] = fa;
+            		size[fa] = all;
+            		//size[fb] = all;
+            	} else {
+            		records[fa] = fb;
+            		// size[fa] = all;
+            		size[fb] = all;
+            	}
             }
         }
 
