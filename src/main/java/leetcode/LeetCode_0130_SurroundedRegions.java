@@ -23,8 +23,6 @@ package leetcode;
 //		Two cells are connected if they are adjacent cells connected horizontally or vertically.
 public class LeetCode_0130_SurroundedRegions {
 
-  
-
     // 递归方法 感染函数 Leetcode测试1ms
     public static void solve(char[][] board) {
         if (board == null || board.length == 0 || board[0].length == 0) {
@@ -51,7 +49,7 @@ public class LeetCode_0130_SurroundedRegions {
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
                 if (board[i][j] != '#') {
-                    board[i][j]= 'X';
+                    board[i][j] = 'X';
                 } else {
                     board[i][j] = 'O';
                 }
@@ -59,26 +57,26 @@ public class LeetCode_0130_SurroundedRegions {
         }
     }
 
-  
-
     private static void free(char[][] board, int i, int j) {
-        if (!inValid(board, i,j)) {
+        if (!inValid(board, i, j)) {
             return;
         }
         board[i][j] = '#';
-        free(board,i,j-1);
-        free(board,i,j+1);
-        free(board,i+1,j);
-        free(board,i-1,j);
+        free(board, i, j - 1);
+        free(board, i, j + 1);
+        free(board, i + 1, j);
+        free(board, i - 1, j);
     }
+
     public static boolean inValid(char[][] board, int i, int j) {
-        if (i < 0 || j < 0 || i > board.length-1 || j > board[0].length - 1 || board[i][j] != 'O'){
+        if (i < 0 || j < 0 || i > board.length - 1 || j > board[0].length - 1 || board[i][j] != 'O') {
             return false;
         }
         return true;
     }
+
     // 以下为并查集解法 LeetCode 21ms
-public static void solve2(char[][] board) {
+    public static void solve2(char[][] board) {
         if (board == null || board.length <= 2 || board[0].length <= 2) {
             return;
         }
@@ -86,8 +84,8 @@ public static void solve2(char[][] board) {
         int N = board[0].length;
         UnionFind unionFind = new UnionFind(M * N + 1);
         int dump = 0;
-       
-       // 以下两个for循环把四周的O节点的代表点设置为dump
+
+        // 以下两个for循环把四周的O节点的代表点设置为dump
         for (int i = 0; i < M; i++) {
             if (board[i][0] == 'O') {
                 unionFind.union(dump, oneArrIndex(M, N, i, 0));
@@ -107,7 +105,7 @@ public static void solve2(char[][] board) {
         for (int i = 1; i < M - 1; i++) {
             for (int j = 1; j < N - 1; j++) {
                 if (board[i][j] == 'O') {
-                    int t = oneArrIndex(M, N, i, j) ;
+                    int t = oneArrIndex(M, N, i, j);
                     if (board[i][j + 1] == 'O') {
                         unionFind.union(t, oneArrIndex(M, N, i, j + 1));
                     }
@@ -143,7 +141,7 @@ public static void solve2(char[][] board) {
         private int[] records;
 
         public UnionFind(int n) {
-             // n的代表点就是records[n],因为二维数组的下标可以转换成一维数组下标（从1开始），所以可以将二维数组某个点的代表点用records[n]表示
+            // n的代表点就是records[n],因为二维数组的下标可以转换成一维数组下标（从1开始），所以可以将二维数组某个点的代表点用records[n]表示
             // 其中n = oneArrIndex(i,j)
             records = new int[n];
             for (int i = 0; i < n; i++) {
@@ -179,8 +177,55 @@ public static void solve2(char[][] board) {
             return ans;
         }
     }
-    
 
- 
+    public static void main(String[] args) {
+        int MAX_ROW = 10000;
+        int MAX_COL = 10000;
+        int times = 100000;
+        long s;
+        long e;
+        for (int i = 0; i < times; i++) {
+            char[][] arr = generateCharArr(MAX_ROW, MAX_COL);
+            char[][] arr1 = copyArr(arr);
+            char[][] arr2 = copyArr(arr);
+            s = System.currentTimeMillis();
+            solve(arr1);
+            e = System.currentTimeMillis();
+            System.out.println("递归方法时间：" + (e - s));
+            s = System.currentTimeMillis();
+            solve2(arr2);
+            e = System.currentTimeMillis();
+            System.out.println("并查集方法时间：" + (e - s));
+        }
+    }
+
+    public static char[][] generateCharArr(int r, int c) {
+        char[][] res = new char[r][c];
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (Math.random() > 0.5) {
+                    res[i][j] = 'X';
+                } else {
+                    res[i][j] = 'O';
+                }
+            }
+        }
+        return res;
+    }
+
+    
+    public static char[][] copyArr(char[][] c) {
+        char[][] res = new char[c.length][c[0].length];
+        for (int i = 0; i < c.length; i++) {
+            for (int j = 0; j < c[0].length; j++) {
+                if (Math.random() > 0.5) {
+                    res[i][j] = 'X';
+                } else {
+                    res[i][j] = 'O';
+                }
+            }
+        }
+        return res;
+    }
 
 }
