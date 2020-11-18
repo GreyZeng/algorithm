@@ -3,6 +3,7 @@ package lintcode;
 
 import java.util.*;
 
+// https://www.lintcode.com/problem/topological-sorting/description
 public class LintCode_0127_TopologicalSorting {
 
     class DirectedGraphNode {
@@ -13,6 +14,16 @@ public class LintCode_0127_TopologicalSorting {
             label = x;
             neighbors = new ArrayList<>();
         }
+    }
+
+    public Graph covert(ArrayList<DirectedGraphNode> graph) {
+        // TODO
+        return null;
+    }
+
+    public ArrayList<DirectedGraphNode> covert(Graph graph) {
+        // TODO
+        return null;
     }
 
     // TODO BFS方式
