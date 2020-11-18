@@ -538,8 +538,12 @@ LintCode_0178_GraphValidTree.java
 邻接矩阵，邻接表
 自定义图结构，以后的题目转换成自己熟悉的图结构
 DFS 
+Code_0051_DFS.java
 BFS 
+Code_0050_BFS.java
 拓扑排序（有向无环图）
+LintCode_0127_TopologicalSorting.java
+
 最小生成树，不破坏连通性删掉某些边，使得整体的权重最小
 
 K算法 （边权值排序，并查集）（如果无向图会少一侧的情况，按情况补充即可）
