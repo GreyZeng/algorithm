@@ -542,10 +542,12 @@ Code_0051_DFS.java
 BFS 
 Code_0050_BFS.java
 拓扑排序（有向无环图）
+DFS方式和BFS方式
 LintCode_0127_TopologicalSorting.java
 
 最小生成树，不破坏连通性删掉某些边，使得整体的权重最小
-
+NowCoder_MinimumSpanningTree.java
+LeetCode_1489_FindCriticalAndPseudoCriticalEdgesInMinimumSpanningTree.java
 K算法 （边权值排序，并查集）（如果无向图会少一侧的情况，按情况补充即可）
  最小生成树算法之Kruskal
   1）总是从权值最小的边开始考虑，依次考察权值依次变大的边
