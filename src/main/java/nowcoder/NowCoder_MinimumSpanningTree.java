@@ -59,6 +59,16 @@ public class NowCoder_MinimumSpanningTree {
             // 4）如果当前的边进入最小生成树的集合中会形成环，就不要当前边
             // 5）考察完所有边之后，最小生成树的集合也得到了
         }
+        Node t = null;
+        for (Node node : graph.nodes.values()) {
+            if (t == null) {
+                t = node;
+            } else {
+                if (!uf.isSameSet(t, node)) {
+                    return new HashSet<>();
+                }
+            }
+        }
         return ans;
     }
 
@@ -202,16 +212,10 @@ public class NowCoder_MinimumSpanningTree {
         int n = in.nextInt();
         int m = in.nextInt();
         Graph graph = new Graph();
-        HashSet<String> set = new HashSet<>();
         for (int i = 0; i < m; i++) {
             int from = in.nextInt();
             int to = in.nextInt();
             int weight = in.nextInt();
-            if (set.contains("" + from + "_" + to + "_" + weight)) {
-                continue;
-            } else {
-                set.add("" + from + "_" + to + "_" + weight);
-            }
             if (!graph.nodes.containsKey(from)) {
                 graph.nodes.put(from, new Node(from));
             }
