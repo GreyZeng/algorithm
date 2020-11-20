@@ -30,7 +30,7 @@ package lintcode;
 import java.util.*;
 
 
-// P算法还有bug
+// TODO P算法还有bug
 public class LintCode_0629_MinimumSpanningTree {
     public static class Connection {
         public String city1, city2;
@@ -83,8 +83,8 @@ public class LintCode_0629_MinimumSpanningTree {
             // graph.edges.add(toFromEdge);
         }
 
-        // PriorityQueue<Edge> result = K(graph);
-        PriorityQueue<Edge> result = P(graph);
+         PriorityQueue<Edge> result = K(graph);
+        //PriorityQueue<Edge> result = P(graph);
 
         List<Connection> ans = new ArrayList<>();
         while (!result.isEmpty()) {
@@ -125,6 +125,7 @@ public class LintCode_0629_MinimumSpanningTree {
             // 4）如果当前的边进入最小生成树的集合中会形成环，就不要当前边
             // 5）考察完所有边之后，最小生成树的集合也得到了
         }
+        // 防止出现森林的情况
         Node t = null;
         for (Node node : graph.nodes.values()) {
             if (t == null) {
