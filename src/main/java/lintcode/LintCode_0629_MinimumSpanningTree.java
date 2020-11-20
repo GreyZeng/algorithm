@@ -83,8 +83,8 @@ public class LintCode_0629_MinimumSpanningTree {
             // graph.edges.add(toFromEdge);
         }
 
-         PriorityQueue<Edge> result = K(graph);
-        //PriorityQueue<Edge> result = P(graph);
+        // PriorityQueue<Edge> result = K(graph);
+        PriorityQueue<Edge> result = P(graph);
 
         List<Connection> ans = new ArrayList<>();
         while (!result.isEmpty()) {
@@ -147,7 +147,7 @@ public class LintCode_0629_MinimumSpanningTree {
 //    5）如果不会，要当前边，将该边的指向点加入到被选取的点中，重复2）
 //    6）当所有点都被选取，最小生成树就得到了
     public static PriorityQueue<Edge> P(Graph graph) {
-        HashSet<List<Edge>> result = new HashSet<>();
+        PriorityQueue<Edge> result = new PriorityQueue<>(new MyComparator());
         // 解锁的边进入小根堆
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>(new MyComparator());
 
@@ -167,23 +167,17 @@ public class LintCode_0629_MinimumSpanningTree {
                     Node toNode = edge.to; // 可能的一个新的点
                     if (!nodeSet.contains(toNode)) { // 不含有的时候，就是新的点
                         nodeSet.add(toNode);
-                        list.add(edge);
+                        result.add(edge);
                         for (Edge nextEdge : toNode.edges) {
                             priorityQueue.add(nextEdge);
                         }
                     }
                 }
             }
-            result.add(list);
             //break;
         }
-        PriorityQueue<Edge> ans = new PriorityQueue<>(new MyComparator());
-        for (List<Edge> edges : result) {
-            for (Edge edge : edges) {
-                ans.offer(edge);
-            }
-        }
-        return ans;
+
+        return result;
     }
 
     public static class Graph {
