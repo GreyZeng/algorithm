@@ -8,17 +8,9 @@ import java.util.*;
 
 import code.graph.*;
 
-//K算法 （边权值排序，并查集）（如果无向图会少一侧的情况，按情况补充即可）
-//最小生成树算法之Kruskal
-// 1）总是从权值最小的边开始考虑，依次考察权值依次变大的边
-// 2）当前的边要么进入最小生成树的集合，要么丢弃
-// 3）如果当前的边进入最小生成树的集合中不会形成环，就要当前边
-// 4）如果当前的边进入最小生成树的集合中会形成环，就不要当前边
-// 5）考察完所有边之后，最小生成树的集合也得到了
-// 边存在小根堆里面，保证每次弹出的都是权重最小的值
-// 点存在并查集中，每次加入一个边，就把两个边的点union
-public class Code_0052_K {
-	// TODO
+
+public class Code_0052_K { 
+	
 	public class UnionFind {
 		private HashMap<Node, Node> parentMap;
 		private HashMap<Node, Integer> sizeMap;
@@ -53,9 +45,16 @@ public class Code_0052_K {
 
 		}
 
-		public Node findFather(Node node) {
-			// TODO
-			return null;
+		public Node findFather(Node n) {
+			Stack<Node> path = new Stack<>();
+			while(n != parentMap.get(n)) {
+				path.add(n);
+				n = parentMap.get(n);
+			}
+			while(!path.isEmpty()) {
+				parentMap.put(path.pop(), n);
+			}
+			return n;
 		}
 
 	}
@@ -89,6 +88,5 @@ public class Code_0052_K {
 			// 5）考察完所有边之后，最小生成树的集合也得到了
 		}
 		return ans;
-
 	}
 }
