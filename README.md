@@ -574,7 +574,11 @@ Dijkstra算法
   4）源点到所有的点记录如果都被拿过一遍，过程停止，最小距离表得到了
 给定出发点，出发点到所有点的距离之和最小是多少？
 Dijkstra算法优化：采用手写改进堆 复习手写堆结构！！！
-
+505. The Maze II
+787. Cheapest Flights Within K Stops
+743. Network Delay Time 
+Word Ladder
+Word Ladder II
 
 
 ## 完美洗牌问题
