@@ -30,7 +30,7 @@ package lintcode;
 import java.util.*;
 
 
-// TODO P算法还有bug
+// TODO P算法还有问题
 public class LintCode_0629_MinimumSpanningTree {
     public static class Connection {
         public String city1, city2;
@@ -45,15 +45,20 @@ public class LintCode_0629_MinimumSpanningTree {
 
     public static void main(String[] args) {
         List<Connection> connections = new ArrayList<>();
-
+//["Acity","Bcity",1]
+//["Acity","Ccity",2]
+//["Bcity","Ccity",3]
         connections.add(new Connection("Acity", "Bcity", 1));
-        connections.add(new Connection("Bcity", "Ccity", 3));
         connections.add(new Connection("Bcity", "Ccity", 2));
-        connections.add(new Connection("Acity", "Ccity", 2));
+        connections.add(new Connection("Bcity", "Ccity", 3));
         List<Connection> connections1 = lowestCost(connections);
         System.out.println(connections1);
     }
 
+    /**
+     * @param connections given a list of connections include two cities and cost
+     * @return a list of connections from results
+     */
     public static List<Connection> lowestCost(List<Connection> connections) {
 
         Graph graph = new Graph();
@@ -75,16 +80,16 @@ public class LintCode_0629_MinimumSpanningTree {
             fromNode.nexts.add(toNode);
             fromNode.out++;
             //fromNode.in++;
-            // toNode.out++;
+            //toNode.out++;
             toNode.in++;
             fromNode.edges.add(fromToEdge);
             // toNode.edges.add(toFromEdge);
             graph.edges.add(fromToEdge);
-            // graph.edges.add(toFromEdge);
+            //graph.edges.add(toFromEdge);
         }
 
-        // PriorityQueue<Edge> result = K(graph);
-        PriorityQueue<Edge> result = P(graph);
+        PriorityQueue<Edge> result = K(graph);
+        //PriorityQueue<Edge> result = P(graph);
 
         List<Connection> ans = new ArrayList<>();
         while (!result.isEmpty()) {
@@ -139,46 +144,6 @@ public class LintCode_0629_MinimumSpanningTree {
         return ans;
     }
 
-    //  P算法
-//    1）可以从任意节点出发来寻找最小生成树
-//    2）某个点加入到被选取的点中后，解锁这个点出发的所有新的边
-//    3）在所有解锁的边中选最小的边，然后看看这个边会不会形成环
-//    4）如果会，不要当前边，继续考察剩下解锁的边中最小的边，重复3）
-//    5）如果不会，要当前边，将该边的指向点加入到被选取的点中，重复2）
-//    6）当所有点都被选取，最小生成树就得到了
-    public static PriorityQueue<Edge> P(Graph graph) {
-        PriorityQueue<Edge> result = new PriorityQueue<>(new MyComparator());
-        // 解锁的边进入小根堆
-        PriorityQueue<Edge> priorityQueue = new PriorityQueue<>(new MyComparator());
-
-        // 哪些点被解锁出来了
-        HashSet<Node> nodeSet = new HashSet<>();
-
-        for (Node node : graph.nodes.values()) { // 随便挑了一个点
-            // node 是开始点
-            List<Edge> list = new ArrayList<>();
-            if (!nodeSet.contains(node)) {
-                nodeSet.add(node);
-                for (Edge edge : node.edges) { // 由一个点，解锁所有相连的边
-                    priorityQueue.add(edge);
-                }
-                while (!priorityQueue.isEmpty()) {
-                    Edge edge = priorityQueue.poll(); // 弹出解锁的边中，最小的边
-                    Node toNode = edge.to; // 可能的一个新的点
-                    if (!nodeSet.contains(toNode)) { // 不含有的时候，就是新的点
-                        nodeSet.add(toNode);
-                        result.add(edge);
-                        for (Edge nextEdge : toNode.edges) {
-                            priorityQueue.add(nextEdge);
-                        }
-                    }
-                }
-            }
-            //break;
-        }
-
-        return result;
-    }
 
     public static class Graph {
         public HashMap<String, Node> nodes;
