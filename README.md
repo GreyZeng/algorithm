@@ -265,6 +265,7 @@ LeetCode_0493_ReversePairs.java
 // 父节点 i / 2 i >> 1
 
 Code_0026_MaxHeap.java
+堆排序
 Code_0027_HeapSort.java
 
 heapify
@@ -566,6 +567,7 @@ P算法
   6）当所有点都被选取，最小生成树就得到了
 
 Dijkstra算法
+LeetCode_0743_NetworkDelayTime.java
 
   1）Dijkstra算法必须指定一个源点,每个边的权值均为非负数,求这个点到其他所有点的最短距离，到不了则为正无穷
   2）生成一个源点到各个点的最小距离表，一开始只有一条记录，即原点到自己的最小距离为0，
@@ -574,11 +576,18 @@ Dijkstra算法
   4）源点到所有的点记录如果都被拿过一遍，过程停止，最小距离表得到了
 给定出发点，出发点到所有点的距离之和最小是多少？
 Dijkstra算法优化：采用手写改进堆 复习手写堆结构！！！
+[TODO]
 505. The Maze II
 787. Cheapest Flights Within K Stops
 743. Network Delay Time 
 Word Ladder
 Word Ladder II
+
+## 暴力递归
+1. 汉诺塔问题 2^N - 1 递归方法，[TODO]非递归方法
+2. 逆序一个栈（不申请额外的空间）
+3. 
+
 
 
 ## 完美洗牌问题
