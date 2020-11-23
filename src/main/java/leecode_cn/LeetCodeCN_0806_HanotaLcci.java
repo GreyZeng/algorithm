@@ -24,11 +24,47 @@
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 package leecode_cn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LeetCodeCN_0806_HanotaLcci {
-	public void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {
-		
+	public static void hanota(List<Integer> A, List<Integer> B, List<Integer> C) { 
+		hanoi(A.size(), A, C, B);
 	}
-	
+
+	public static void hanoi(int N, List<Integer> from, List<Integer> to, List<Integer> other) {
+		if (N == 1) {
+			to.add(from.remove(from.size() - 1));
+		} else {
+			hanoi(N - 1, from, other, to);
+			to.add(from.remove(from.size() - 1));
+			hanoi(N - 1, other, to, from);
+		}
+	}
+
+	public static void printH(int N, String from, String to, String other) {
+		if (N == 1) {
+			System.out.println("move " + N + " from " + from + " to " + to);
+		} else {
+			printH(N - 1, from, other, to);
+			System.out.println("move " + N + " from " + from + " to " + to);
+			printH(N - 1, other, to, from);
+		}
+	}
+
+	public static void main(String[] args) {
+		List<Integer> A = new ArrayList<>();
+		List<Integer> B = new ArrayList<>();
+		List<Integer> C = new ArrayList<>();
+		A.add(3);
+		A.add(2);
+		A.add(1);
+		A.add(0);
+		hanota(A, B, C);
+		System.out.println(A);
+		System.out.println(B);
+		System.out.println(C);
+
+	}
+
 }
