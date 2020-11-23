@@ -591,9 +591,12 @@ LeetCodeCN_0806_HanotaLcci.java
 
 2. 逆序一个栈（不申请额外的空间）
 
-[TODO]3. 打印所有子序列
+3. 打印所有子序列
     - 重复
     - 不重复
+Code_0053_PrintAllSubSequence.java
+
+
 [TODO]4. 打印字符串的全部排列
    LeetCode_0046_Permutations    
     - 重复
