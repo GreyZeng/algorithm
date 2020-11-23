@@ -597,9 +597,9 @@ LeetCodeCN_0806_HanotaLcci.java
 Code_0053_PrintAllSubSequence.java
 
 
-[TODO]4. 打印字符串的全部排列
-   LeetCode_0046_Permutations    
-    - 重复
+4. 打印字符串的全部排列
+LeetCode_0046_Permutations[题目限制了不重复]
+    - 重复 
     - 不重复
     
 
