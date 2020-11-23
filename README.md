@@ -583,7 +583,11 @@ Word Ladder
 Word Ladder II
 
 ## 暴力递归
-1. 汉诺塔问题 2^N - 1 递归方法，[TODO]非递归方法
+1. 汉诺塔问题 2^N - 1 
+递归方法
+LeetCodeCN_0806_HanotaLcci.java
+[TODO]非递归方法
+
 [TODO]2. 逆序一个栈（不申请额外的空间）
 [TODO]3. 打印所有子序列
     - 重复
@@ -620,15 +624,15 @@ arr[L...R] 规模缩小
 两个字符串的最长公共子序列
 
 str1做行，str2做列
-dp[i][j] -> str1[0...i] str2[0..j] 最长公共子序列大小 -> dp[M][N] 就是我们要求的值
+```dp[i][j] -> str1[0...i] str2[0..j]`` 最长公共子序列大小 -> ```dp[M][N]``` 就是我们要求的值
 填第一行，第一列
 
 普遍位置
-dp[i][j] 
-既不以str1的i字符结尾，也不以str2的j字符结尾 dp[i][j] = dp[i-1][j-1]
-以str1的i字符结尾，不以str2的j字符结尾   dp[i][j] = dp[i][j-1]
-不以str1的i字符结尾，以str2的j字符结尾 dp[i][j] = dp[i-1][j]
-既以str1的i字符结尾，也以str2的j字符结尾 dp[i][j] = dp[i-1][j-1] + 1
+```dp[i][j]``` 
+既不以str1的i字符结尾，也不以str2的j字符结尾 ```dp[i][j] = dp[i-1][j-1]```
+以str1的i字符结尾，不以str2的j字符结尾   ```dp[i][j] = dp[i][j-1]```
+不以str1的i字符结尾，以str2的j字符结尾 ```dp[i][j] = dp[i-1][j]```
+既以str1的i字符结尾，也以str2的j字符结尾 ```dp[i][j] = dp[i-1][j-1] + 1```
 
 
 
