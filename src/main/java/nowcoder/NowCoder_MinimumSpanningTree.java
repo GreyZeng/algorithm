@@ -114,9 +114,9 @@ public class NowCoder_MinimumSpanningTree {
         public HashMap<Integer, Node> nodes;
         public HashSet<Edge> edges;
 
-        public Graph() {
+        public Graph(int n) {
             nodes = new HashMap<>();
-            edges = new HashSet<>();
+            edges = new HashSet<>(n);
         }
     }
 
@@ -211,7 +211,7 @@ public class NowCoder_MinimumSpanningTree {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         int m = in.nextInt();
-        Graph graph = new Graph();
+        Graph graph = new Graph(n);
         for (int i = 0; i < m; i++) {
             int from = in.nextInt();
             int to = in.nextInt();

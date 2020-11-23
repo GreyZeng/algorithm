@@ -103,5 +103,6 @@ public class NowCoder_UnionFind {
                 unionFind.union(v1, v2);
             }
         }
+        in.close();
     }
 }
