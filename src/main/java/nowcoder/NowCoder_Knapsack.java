@@ -59,9 +59,8 @@ public class NowCoder_Knapsack {
         
         if (p2 != -1) { // p2 不为-1才能算做正常解
             p2 += v[i];
-        }
-        max = Math.max(max, Math.max(p1, p2));
-        return max;
+        } 
+        return Math.max(p1, p2);
     }
 
     
