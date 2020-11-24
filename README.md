@@ -617,6 +617,16 @@ LeetCode_0091_DecodeWays.java
  weights[i]和values[i]分别代表 i号物品的重量和价值。
  给定一个正数bag，表示一个载重bag的袋子，
  你装的物品不能超过这个重量。 返回你能装下最多的价值是多少?
+
+[TODO] 相关的背包问题
+416 分割等和子集（medium）
+494 目标和（medium）
+474 一和零（medium）
+322 零钱兑换（medium）
+518 零钱兑换 II（medium）
+139 单词拆分（medium）
+377 组合总和 Ⅳ（medium）
+
  
 ### 范围上尝试的模型
 arr[L...R] 规模缩小 
