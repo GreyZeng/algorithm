@@ -30,12 +30,10 @@ public class LeetCode_0091_DecodeWays {
                 continue;
             }
             if (strs[i] == '1' && i + 1 < strs.length) {
-                // 第一位是1，下一位不越界
                 dp[i] = dp[i + 1] + dp[i + 2];
                 continue;
             }
             if (strs[i] == '2' && i + 1 < strs.length && (strs[i + 1] <= '6')) {
-                // 20，21，22，23，24，25，26
                 dp[i] = dp[i + 1] + dp[i + 2];
                 continue;
             }

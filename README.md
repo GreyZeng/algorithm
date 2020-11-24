@@ -604,7 +604,7 @@ LeetCode_0047_PermutationsII
     - 不重复
     
 
-[TODO]
+
 ### 从左往右的尝试模型 
 
 规定1和A对应、2和B对应、3和C对应... 那么一个数字字符串比如"111"就可以转化为: "AAA"、"KA"和"AK"
@@ -612,6 +612,7 @@ LeetCode_0047_PermutationsII
 返回有多少种转化结果
 LeetCode_0091_DecodeWays.java
 
+[背包问题]
 给定两个长度都为N的数组weights和values，
  weights[i]和values[i]分别代表 i号物品的重量和价值。
  给定一个正数bag，表示一个载重bag的袋子，
