@@ -52,7 +52,6 @@ public class NowCoder_Knapsack {
         if (i == len) {
             return 0;
         }
-        int max = -1;
         int p1 = p(w, v, len, i + 1, rest);
         
         int p2 = p(w, v, len, i + 1, rest - w[i]);
