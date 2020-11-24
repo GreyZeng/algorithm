@@ -598,7 +598,8 @@ Code_0053_PrintAllSubSequence.java
 
 
 4. 打印字符串的全部排列
-LeetCode_0046_Permutations[题目限制了不重复]
+LeetCode_0046_Permutations
+LeetCode_0047_PermutationsII
     - 重复 
     - 不重复
     

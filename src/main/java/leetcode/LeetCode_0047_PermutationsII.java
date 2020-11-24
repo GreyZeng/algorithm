@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LeetCode_0047_PermutationsII {
-    public List<List<Integer>> permuteUnique(int[] nums) {
+    public static List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         p(nums, 0, ans);
         return ans;
@@ -41,15 +41,18 @@ public class LeetCode_0047_PermutationsII {
             }
             ans.add(path);
         } else {
-            boolean[] visit = new boolean[21];
+            boolean[] visit = new boolean[21]; // 根据题目意思，数字的范围在[-10,10],所以准备21个长度的数组即可
             for (int i = index; i < nums.length; i++) {
+                //System.out.println("i 位置:"+i+" 值："+nums[i] + " 开始收集" );
                 if (!visit[nums[i] + 10]) {
+                    //  System.out.println("i 位置:"+i+" 值："+nums[i] + " 收集过" );
                     visit[nums[i] + 10] = true;
                     swap(nums, i, index);
                     p(nums, index + 1, ans);
                     swap(nums, index, i);
                 }
             }
+            //System.out.println("收集的结果是：" + ans);
         }
     }
 
@@ -60,5 +63,10 @@ public class LeetCode_0047_PermutationsII {
         int t = nums[i];
         nums[i] = nums[j];
         nums[j] = t;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3};
+        permuteUnique(nums);
     }
 }
