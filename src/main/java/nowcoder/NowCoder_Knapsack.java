@@ -33,7 +33,25 @@ package nowcoder;
 import java.util.Scanner;
 
 public class NowCoder_Knapsack {
+
 	public static int getMaxValue(int[] w, int[] v, int bag) {
+		if (w == null || v == null || w.length == 0 || v.length == 0) {
+			return 0;
+		}
+		int N = w.length;
+		int[][] dp = new int[N + 1][bag + 1];
+		for (int i = N - 1; i >= 0; i--) {
+			for (int j = 0; j <= bag; j++) {
+				dp[i][j] = dp[i + 1][j];
+				if (j - w[i] >= 0) {
+					dp[i][j] = Math.max(dp[i][j], dp[i + 1][j - w[i]] + v[i]);
+				}
+			}
+		}
+		return dp[0][bag];
+	}
+
+	public static int getMaxValue2(int[] w, int[] v, int bag) {
 		if (w == null || v == null || w.length == 0 || v.length == 0) {
 			return 0;
 		}
@@ -71,7 +89,7 @@ public class NowCoder_Knapsack {
 		return dp[i][rest];
 	}
 
-	public static int getMaxValue2(int[] w, int[] v, int bag) {
+	public static int getMaxValue3(int[] w, int[] v, int bag) {
 		if (w == null || v == null || w.length == 0 || v.length == 0) {
 			return 0;
 		}
