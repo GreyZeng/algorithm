@@ -33,11 +33,39 @@ package nowcoder;
 import java.util.Scanner;
 
 public class NowCoder_Knapsack {
-    // TODO
+    
     public static int getMaxValue(int[] w, int[] v, int bag) {
-        return -1;
+        if (w == null || v == null || w.length == 0 || v.length == 0) {
+            return 0;
+        }
+        int N = w.length;
+        return p(w, v, N, 0, bag);
     }
 
+    // 0..i-1位置已经做好了选择，从i以后开始做决策
+    // rest 背包中还剩下的容量是多少
+    public static int p(int[] w, int[] v, int len, int i, int rest) {
+        // rest空间不能为负数
+        if (rest < 0) {
+            return -1;
+        }
+        if (i == len) {
+            return 0;
+        }
+        int max = -1;
+        int p1 = p(w, v, len, i + 1, rest);
+        
+        int p2 = p(w, v, len, i + 1, rest - w[i]);
+        
+        if (p2 != -1) { // p2 不为-1才能算做正常解
+            p2 += v[i];
+        }
+        max = Math.max(max, Math.max(p1, p2));
+        return max;
+    }
+
+    
+    
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int N = in.nextInt();
