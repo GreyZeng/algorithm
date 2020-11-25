@@ -32,41 +32,7 @@
 //7 4
 package nowcoder;
 
-//https://www.nowcoder.com/questionTerminal/d3347e177dca478196dfa558a29fb996
+// //https://www.nowcoder.com/questionTerminal/d3347e177dca478196dfa558a29fb996
 public class NowCoder_CardsInLine {
-    public static int win2(int[] arr) {
-        // TODO
-        return -1;
-    }
-
-    public static int win1(int[] arr) {
-        if (null == arr || arr.length < 1) {
-            return 0;
-        }
-        if (arr.length == 1) {
-            return arr[0];
-        }
-        return Math.max(f(arr, 0, arr.length - 1), s(arr, 0, arr.length - 1));
-    }
-
-    public static int f(int[] arr, int L, int R) {
-        if (L == R) {
-            return arr[L];
-        }
-        return Math.max(arr[L] + s(arr, L + 1, R), arr[R] + s(arr, L, R - 1));
-    }
-
-    public static int s(int[] arr, int L, int R) {
-        if (L == R) {
-            return 0;
-        }
-        return Math.min(f(arr, L + 1, R), f(arr, L, R - 1));
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {4, 7, 9, 5, 19, 29, 80, 4};
-        // A 4 9
-        // B 7 5
-        System.out.println(win1(arr));
-    }
+   // TODO
 }
