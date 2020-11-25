@@ -18,17 +18,42 @@
 package nowcoder;
 
 public class NowCoder_NQueens {
-	// TODO
 	public static int queens(int n) {
-		int[][] dp = new int[n][n];
-			
+		if (n <= 1) {
+			return n;
+		}
+		// TODO
+		// 位运算优化
 		return -1;
 	}
-	
+	public static int queens2(int n) {
+		if (n <= 1) {
+			return n;
+		}
+		int[] records = new int[n];
+		return process(0, records, n);
+	}
 
-	public static boolean isValid(int[][] dp, int i, int j, int m, int n) {
-		if (i == m || j == n || Math.abs(i - m) == Math.abs(j - n)) {
-			return false;
+	public static int process(int i, int[] record, int n) {
+		if (i == n) {
+			return 1;
+		}
+		int res = 0;
+		for (int j = 0; j < n; j++) {
+			if (isValid(record, i, j)) {
+				record[i] = j;
+				res += process(i + 1, record, n);
+			}
+		}
+		return res;
+	}
+
+	// records[i]=j [i][j]
+	public static boolean isValid(int[] records, int i, int j) {
+		for (int m = 0; m < i; m++) {
+			if (records[m] == j || Math.abs(records[m] - j) == Math.abs(i - m)) {
+				return false;
+			}
 		}
 		return true;
 	}
