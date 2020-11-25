@@ -17,10 +17,20 @@
 //1≤n≤14
 package nowcoder;
 
-// TODO 
 public class NowCoder_NQueens {
-
+	// TODO
 	public static int queens(int n) {
+		int[][] dp = new int[n][n];
+			
 		return -1;
 	}
+	
+
+	public static boolean isValid(int[][] dp, int i, int j, int m, int n) {
+		if (i == m || j == n || Math.abs(i - m) == Math.abs(j - n)) {
+			return false;
+		}
+		return true;
+	}
+
 }
