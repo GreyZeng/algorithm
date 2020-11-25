@@ -642,6 +642,7 @@ NowCoder_CardsInLine
 ### 多样本位置全对应的尝试模型
 一个样本做行，一个样本做列
 两个字符串的最长公共子序列
+LeetCode_1143_LongestCommonSubsequence
 
 str1做行，str2做列
 ```dp[i][j] -> str1[0...i] str2[0..j]`` 最长公共子序列大小 -> ```dp[M][N]``` 就是我们要求的值
