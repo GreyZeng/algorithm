@@ -36,15 +36,36 @@ If that amount of money cannot be made up by any combination of the coins, retur
         0 <= amount <= 10^4*/
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 // TODO 记忆化搜索 斜率优化
 // 暴力解
 public class LeetCode_0322_CoinChange {
-    public int coinChange(int[] coins, int amount) {
-        return -1;
-    }
 
+	public int coinChange(int[] coins, int amount) {
+		if (amount == 0) {
+			return 0;
+		}
+		if (coins.length == 0) {
+			return -1;
+		}
+		return p(coins, 0, amount);
+	}
+
+	// 用掉了0..i-1号硬币，从i号开始选，还剩下rest要处理
+	public static int p(int[] coins, int index, int rest) {
+		if (rest == 0) {
+			return 0;
+		}
+		if (index == coins.length) {
+			return -1;
+		}
+		int p = Integer.MAX_VALUE;
+		for (int n = 0; n * coins[index] <= rest; n++) {
+			int p1 = p(coins, index + 1, rest - n * coins[index]);
+			if (p1 != -1) {
+				p = Math.min(p, p1);
+			}
+		}
+		return p;
+	}
 
 }
