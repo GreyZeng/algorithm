@@ -36,25 +36,83 @@ If that amount of money cannot be made up by any combination of the coins, retur
         0 <= amount <= 10^4*/
 package leetcode;
 
-
 public class LeetCode_0322_CoinChange {
 
-    public int coinChange(int[] coins, int amount) {
+    // 优化枚举行为
+    public static int coinChange(int[] coins, int amount) {
+        if (coins == null || coins.length == 0 || amount < 0) {
+            return -1;
+        }
+        if (amount == 0) {
+            return 0;
+        }
+        int N = coins.length;
+        // 自由使用0..i位置的钱，拼出j元的最小张数是多少？
+        int[][] dp = new int[N][amount + 1];
+        for (int i = 0; i <= amount; i++) {
+            if (i % coins[0] == 0) {
+                dp[0][i] = i / coins[0];
+            } else {
+                dp[0][i] = -1;
+            }
+        }
+        for (int i = 1; i < N; i++) {
+            for (int j = 1; j <= amount; j++) {
+                if (dp[i - 1][j] != -1) {
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    dp[i][j] = Integer.MAX_VALUE;
+                }
+                if (j - coins[i] >= 0 && dp[i][j - coins[i]] != -1) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i][j - coins[i]] + 1);
+                }
+                if (dp[i][j] == Integer.MAX_VALUE) {
+                    dp[i][j] = -1;
+                }
+            }
+        }
+        return dp[N - 1][amount];
+    }
+
+    // 未优化版本
+    public static int coinChange2(int[] coins, int amount) {
         if (coins == null || coins.length == 0 || amount < 0) {
             return -1;
         }
         int N = coins.length;
-        int[][] dp = new int[N + 1][amount + 1];
-        // dp[i][j] 包含i号硬币搞定j数量钱的最小拼凑数量
-        for (int i = 1; i < amount + 1; i++) {
-            // 没有硬币了，如果amount数量不为0，就一定没有拼凑的机会
-            dp[N][i] = -1;
+        // 自由使用0..i位置的钱，拼出j元的最小张数是多少？
+        int[][] dp = new int[N][amount + 1];
+        for (int i = 0; i <= amount; i++) {
+            if (i % coins[0] == 0) {
+                dp[0][i] = i / coins[0];
+            } else {
+                dp[0][i] = -1;
+            }
         }
-
-        
-        
-        return -1;
+        for (int i = 1; i < N; i++) {
+            for (int j = 1; j <= amount; j++) {
+                if (dp[i - 1][j] != -1) {
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    dp[i][j] = Integer.MAX_VALUE;
+                }
+                int k = 0;
+                while (j - k * coins[i] >= 0 && dp[i][j - k * coins[i]] != -1) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i][j - k * coins[i]] + k);
+                    k++;
+                }
+                if (dp[i][j] == Integer.MAX_VALUE) {
+                    dp[i][j] = -1;
+                }
+            }
+        }
+        return dp[N - 1][amount];
     }
 
+    public static void main(String[] args) {
+        int[] nums = {186, 419, 83, 408};
+        int t = 6249;
+        System.out.println(coinChange(nums, t));
+    }
 
 }
