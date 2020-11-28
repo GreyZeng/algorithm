@@ -726,6 +726,17 @@ LeetCode_0091_DecodeWays 改动态规划
 2）状态化简
 3）四边形不等式
 
+## 单调栈
+
+左边右边离它最近比它小的数 O（N）
+
+- 数组中有重复 Stack<List<Integer>> NowCoder_MonoStackII.java
+- 数组中无重复 Stack<Integer> NowCoder_MonoStack.java
+
+栈底到栈顶从小到大
+弹出的时候，假设弹出的值是A，那么让它弹出的值就是它右边离它最近的最小值
+原先A压的是谁，那么谁就是A左边离它最近的最小值
+
 
 ## 完美洗牌问题
 
@@ -740,20 +751,6 @@ LeetCode_0091_DecodeWays 改动态规划
 
 
 Code_0017_Shuffle.java
-
-## 单调栈
-
- 左边右边离它最近比它小的数 O（N）
-
- - 数组中有重复 Stack<List<Integer>>
- - 数组中无重复 Stack<Integer>
-
- 栈底到栈顶从小到大
- 弹出的时候，假设弹出的值是A，那么让它弹出的值就是它右边离它最近的最小值
- 原先A压的是谁，那么谁就是A左边离它最近的最小值
-
-Code_0018_MonoStack.java
-
 
 ## Manacher算法
 
