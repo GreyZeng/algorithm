@@ -737,6 +737,7 @@ LeetCode_0091_DecodeWays 改动态规划
 弹出的时候，假设弹出的值是A，那么让它弹出的值就是它右边离它最近的最小值
 原先A压的是谁，那么谁就是A左边离它最近的最小值
 
+子数组的最小累乘积 LeetCode_0907_SumOfSubarrayMinimums.java
 
 给定一个只包含正数的数组arr，arr中任何一个子数组sub，
 一定都可以算出(sub累加和 )* (sub中的最小值)是什么，
