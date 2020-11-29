@@ -66,7 +66,6 @@ public class LeetCode_0907_SumOfSubarrayMinimums {
 			int right = arr.length;
 			long times = (v - left) * (right - v);
 			max += arr[v] * times;
-
 		}
 		return (int) (max % MOD);
 	}

@@ -745,7 +745,11 @@ LeetCode_0091_DecodeWays 改动态规划
 tips：前缀和数组可以用来求sub累加和
 Code_0056_AllTimesMinToMax.java
 
+子数组的最小值累加和
+LeetCode_0907_SumOfSubarrayMinimums.java
+
 直方图最大矩形的面积
+LeetCode_0084_LargestRectangleInHistogram.java
 
 ## 完美洗牌问题
 
