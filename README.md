@@ -743,6 +743,7 @@ LeetCode_0091_DecodeWays 改动态规划
 一定都可以算出(sub累加和 )* (sub中的最小值)是什么，
 那么所有子数组中，这个值最大是多少？
 tips：前缀和数组可以用来求sub累加和
+Code_0056_AllTimesMinToMax.java
 
 直方图最大矩形的面积
 
