@@ -3,8 +3,7 @@ package code;
 
 public class Code_0004_EvenOddTimes {
     public static void main(String[] args) {
-        int[] array = {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 8, 8, 4, 4, 4};
-        System.out.println(getEvenNum(array));
+
 
         int[] array2 = {1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5};
         printEvenNum(array2);
@@ -15,18 +14,7 @@ public class Code_0004_EvenOddTimes {
         System.out.println(bit1Count(1));
     }
 
-    /**
-     * 题目二
-     * <p>
-     * 一个数组中有一种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这种数
-     */
-    private static int getEvenNum(int[] arr) {
-        int t = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            t ^= arr[i];
-        }
-        return t;
-    }
+
 
     /**
      * 题目四
