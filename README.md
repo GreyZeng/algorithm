@@ -633,7 +633,7 @@ arr[L...R] 规模缩小
 但是每个玩家每次只能拿走最左或最右的纸牌，
 玩家A和玩家B都绝顶聪明。请返回最后获胜者的分数。
 Code_0054_CardsInLine
-NowCoder_CardsInLine
+[TODO]NowCoder_CardsInLine
 
 ### 多样本位置全对应的尝试模型
 一个样本做行，一个样本做列

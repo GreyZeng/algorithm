@@ -1,23 +1,21 @@
-package leetcode;
+package lintcode;
 
-public class LeetCode_0050_PowXN {
+public class LintCode_0428_PowXN {
 
     // 类fabanacci问题
     // pow X N   ( N 转成2进制）
     // 复杂度 log（N）
     public static double myPow(double x, int n) {
-        // n无论正负，直接先转换成正数来处理
-
+        // write your code here
         int pow = Math.abs(n == Integer.MIN_VALUE ? n + 1 : n);
         double ans = 1D;
         double t = x;
-
         while (pow != 0) {
             if ((pow & 1) != 0) {
                 ans *= t;
             }
             pow >>= 1;
-            t = t * t;
+            t *= t;
         }
         if (n == Integer.MIN_VALUE) {
             ans *= x;
@@ -26,5 +24,9 @@ public class LeetCode_0050_PowXN {
             ans = 1D / ans;
         }
         return ans;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(myPow(3d, 2));
     }
 }
