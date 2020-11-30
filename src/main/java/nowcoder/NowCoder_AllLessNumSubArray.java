@@ -35,5 +35,24 @@
 //        0≤num≤20000000
 package nowcoder;
 
+import java.util.Scanner;
+
 public class NowCoder_AllLessNumSubArray {
+
+    public static int getNum(int[] arr, int num) {
+        
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int lenOfArray = in.nextInt();
+        int target = in.nextInt();
+        int[] arr = new int[lenOfArray];
+        for (int i = 0; i < lenOfArray; i++) {
+            arr[i] = in.nextInt();
+        }
+        System.out.println(getNum(arr, target));
+        in.close();
+    }
 }

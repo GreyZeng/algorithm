@@ -45,43 +45,37 @@ import java.util.LinkedList;
 //        -10^4 <= nums[i] <= 10^4
 //        1 <= k <= nums.length
 public class LeetCode_0239_SlidingWindowMaximum {
-    public static int[] maxSlidingWindow(int[] arr, int w) {
-        if (null == arr) {
-            return null;
+    // 滑动窗口最大值
+    public static int[] maxSlidingWindow(int[] nums, int k) {
+        if (k == 1) {
+            return nums;
         }
-        int N = arr.length;
-        if (w < 1 || N < w) {
-            return null;
-        }
-        if (w == 1) {
-            return arr;
-        }
-        LinkedList<Integer> q = new LinkedList<>();
-        int[] res = new int[N - w + 1];
-        // 双端队列的头部到尾部维持从大到小的顺序
-        // 遍历数组，L。。R，其中0< L == (R - W) + 1
-        // 移动R，如果arr【i】中的数字比双端队列队尾的数字大，
-        // 那么则弹出双端队列尾部的元素，直到队尾元素不大于将要进来的元素
-        // 移动L，如果对头数字是即将要过期的元素，则弹出队头元素
-        // 遇到过期(i - w )下标要弹出，到第一次形成窗口的时候开始累加res
+        int[] ans = new int[nums.length - k + 1];
+        // 存下标，防止过期
+        LinkedList<Integer> qMax = new LinkedList<>();
+        int R = 0; // 有效位置的下一个位置
         int index = 0;
-        for (int i = 0; i < N; i++) {
-            while (!q.isEmpty() && arr[q.peekLast()] <= arr[i]) {
-                q.pollLast();
+        while (R < nums.length) {
+            while (!qMax.isEmpty() && nums[qMax.peekLast()] <= nums[R]) {
+                qMax.pollLast();
             }
-            q.addLast(i);
-            if (q.peekFirst() == i - w) {
-                q.pollFirst();
+            qMax.addLast(R);
+            // 因为R保存的是过期位置的下一个下一个位置，所以，一定会有第一个过期下标出现
+            if (qMax.peekFirst() == R - k) {
+                qMax.pollFirst();
             }
-            if (i >= w - 1) {
-                res[index++] = arr[q.peekFirst()];
+            if (R >= k - 1) {
+                ans[index++] = nums[qMax.peekFirst()];
             }
+            R++;
         }
-        return res;
+        return ans;
     }
 
     public static void main(String[] args) {
+
         int[] arr = {1, 3, -1, -3, 5, 3, 6, 7};
+        //int[] arr = {9, 10};
         int k = 3;
         int[] a = maxSlidingWindow(arr, k);
         for (int i = 0; i < a.length; i++) {

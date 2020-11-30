@@ -753,13 +753,13 @@ LeetCode_0084_LargestRectangleInHistogram.java
 
 ## 滑动窗口
 
-R右-》R++
+R++
 新数从右侧进入
 
-L右-〉L++
+L++
 旧数从左侧出去
 
-L〈= R （不L〉R）
+L <= R 
 
 窗口的最大值/最小值的更新结构
 单调双端队列，从头到尾是从大到小的（放每个节点的位置）
@@ -768,7 +768,7 @@ L〈= R （不L〉R）
 如果大（或相等），就依次弹出，直到这个数可以进入队列
 头部位置就是最大值
 调整双端队列的平均复杂度是O（1）
-LeetCode_0239_SlidingWindowMaximum
+
 
 题目一
 
@@ -776,6 +776,7 @@ LeetCode_0239_SlidingWindowMaximum
 返回每一次滑出状况的最大值
 例如，arr = [4,3,5,4,3,3,6,7], W = 3
 返回：[5,5,5,4,6,7]
+LeetCode_0239_SlidingWindowMaximum
 
 题目二
 给定一个整型数组arr，和一个整数num
