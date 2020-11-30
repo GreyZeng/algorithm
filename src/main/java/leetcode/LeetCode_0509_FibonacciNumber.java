@@ -58,6 +58,7 @@ public class LeetCode_0509_FibonacciNumber {
         }
         return result;
     }
+
     // 最优解 O(log^N)
     public static int fib3(int N) {
         if (N <= 0) {
@@ -66,11 +67,30 @@ public class LeetCode_0509_FibonacciNumber {
         if (N == 1 || N == 2) {
             return 1;
         }
-        // TODO
-        // 矩阵乘法
-        // 一个数的N次幂的log(N) 解法
-        // 一个矩阵的N次幂解法
-        return -1;
+        int[][] matrix = matrixPow(new int[][]{{0, 1}, {1, 1}}, N - 2);
+        return matrix[0][1] + matrix[1][1];
+    }
+
+    public static int[][] matrixPow(int[][] matrix, int n) {
+        int[][] ans = new int[][]{{1, 0}, {0, 1}};
+        int[][] t = matrix;
+        while (n != 0) {
+            if ((n & 1) != 0) {
+                ans = matrix(t, ans);
+            }
+            n >>= 1;
+            t = matrix(t, t);
+        }
+        return ans;
+    }
+
+    public static int[][] matrix(int[][] A, int[][] B) {
+        int[][] result = new int[2][2];
+        result[0][0] = A[0][0] * B[0][0] + A[0][1] * B[1][0];
+        result[0][1] = A[0][0] * B[0][1] + A[0][1] * B[1][1];
+        result[1][0] = A[1][0] * B[0][0] + A[1][1] * B[1][0];
+        result[1][1] = A[1][0] * B[0][1] + A[1][1] * B[1][1];
+        return result;
     }
 
 
