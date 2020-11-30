@@ -9,4 +9,5 @@ public class Code_0057_HorseJump {
 	public static int ways(int a, int b, int step) {
 		return -1;
 	}
+
 }

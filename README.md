@@ -730,73 +730,11 @@ LeetCode_0091_DecodeWays 改动态规划
 
 ## 单调栈
 
-左边右边离它最近比它小的数 O（N）
-
-- 数组中有重复 Stack<List<Integer>> NowCoder_MonoStackII.java
-- 数组中无重复 Stack<Integer> NowCoder_MonoStack.java
-
-栈底到栈顶从小到大
-弹出的时候，假设弹出的值是A，那么让它弹出的值就是它右边离它最近的最小值
-原先A压的是谁，那么谁就是A左边离它最近的最小值
-
-子数组的最小累乘积 LeetCode_0907_SumOfSubarrayMinimums.java
-
-给定一个只包含正数的数组arr，arr中任何一个子数组sub，
-一定都可以算出(sub累加和 )* (sub中的最小值)是什么，
-那么所有子数组中，这个值最大是多少？
-tips：前缀和数组可以用来求sub累加和
-Code_0056_AllTimesMinToMax.java
-
-子数组的最小值累加和
-LeetCode_0907_SumOfSubarrayMinimums.java
-
-直方图最大矩形的面积
-LeetCode_0084_LargestRectangleInHistogram.java
+[](./docs/单调栈.md)
 
 ## 滑动窗口
 
-R++
-新数从右侧进入
-
-L++
-旧数从左侧出去
-
-L <= R 
-
-窗口的最大值/最小值的更新结构
-单调双端队列，从头到尾是从大到小的（放每个节点的位置）
-每次加入的数从右边进，左边出
-加入的数和头的值相比，如果小，就直接进入队列
-如果大（或相等），就依次弹出，直到这个数可以进入队列
-头部位置就是最大值
-调整双端队列的平均复杂度是O（1）
-
-
-题目一
-
-假设一个固定大小为W的窗口，依次划过arr，
-返回每一次滑出状况的最大值
-例如，arr = [4,3,5,4,3,3,6,7], W = 3
-返回：[5,5,5,4,6,7]
-LeetCode_0239_SlidingWindowMaximum
-
-题目二
-给定一个整型数组arr，和一个整数num
-某个arr中的子数组sub，如果想达标，必须满足：
-sub中最大值 – sub中最小值 <= num，
-返回arr中达标子数组的数量
-NowCoder_AllLessNumSubArray.java
-
-arr[L..R]达标，则arr中内部的任何一个子数组都达标
-arr[L..R]不达标，则arr扩充后肯定也不达标
-
-问题本身和范围建立单调性
-1。开头符合窗口逻辑，结尾到窗口的结尾截止
-2。首尾指针（首指针右走，尾指针左走）
-
-题目三
-
-LeetCode_0713_SubarrayProductLessThanK.java
+[](./docs/滑动窗口.md)
 
 
 ## 完美洗牌问题
