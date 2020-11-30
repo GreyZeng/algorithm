@@ -35,24 +35,54 @@
 //        0≤num≤20000000
 package nowcoder;
 
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Scanner; 
 
 public class NowCoder_AllLessNumSubArray {
 
-    public static int getNum(int[] arr, int num) {
-        
-        return -1;
-    }
+	public static int getNum(int[] arr, int num) {
+		LinkedList<Integer> pMax = new LinkedList<>();
+		LinkedList<Integer> pMin = new LinkedList<>();
+		int L = 0;
+		int R = 0;
+		int count = 0;
+		while (L < arr.length) {
+			while (R < arr.length) {
+				while (!pMax.isEmpty() && arr[pMax.peekLast()] <= arr[R]) {
+					pMax.pollLast();
+				}
+				pMax.addLast(R);
+				while (!pMin.isEmpty() && arr[pMin.peekLast()] >= arr[R]) {
+					pMin.pollLast();
+				}
+				pMin.addLast(R);
+				if (arr[pMax.peekFirst()] - arr[pMin.peekFirst()] > num) {
+					break;
+				}
+				R++;
+			}
+			count += (R - L);
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int lenOfArray = in.nextInt();
-        int target = in.nextInt();
-        int[] arr = new int[lenOfArray];
-        for (int i = 0; i < lenOfArray; i++) {
-            arr[i] = in.nextInt();
-        }
-        System.out.println(getNum(arr, target));
-        in.close();
-    }
+			if (pMax.peekFirst() == L) {
+				pMax.pollFirst();
+			}
+			if (pMin.peekFirst() == L) {
+				pMin.pollFirst();
+			}
+			L++;
+		}
+		return count;
+	}
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		int lenOfArray = in.nextInt();
+		int target = in.nextInt();
+		int[] arr = new int[lenOfArray];
+		for (int i = 0; i < lenOfArray; i++) {
+			arr[i] = in.nextInt();
+		}
+		System.out.println(getNum(arr, target));
+		in.close();
+	}
 }
