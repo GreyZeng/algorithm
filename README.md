@@ -59,13 +59,17 @@
 
 [斐波那契问题和扩展](./docs/斐波那契问题和扩展.md)
 
-## 蓄水池算法 [TODO]
+## 蓄水池算法
 
 [蓄水池算法](./docs/蓄水池算法.md)
 
 ## Manacher算法
 
 [Manacher](./docs/Manacher.md)
+
+## KMP算法
+
+[KMP](./docs/KMP.md)
 
 ## 前缀树
 
