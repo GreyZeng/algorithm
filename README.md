@@ -731,6 +731,12 @@ LeetCode_0091_DecodeWays 改动态规划
 ## 蓄水池算法 [TODO]
 [蓄水池算法](./docs/蓄水池算法.md)
 
+
+[TODO]
+## Random to Random
+核心就是生成0/1随机源！
+LeetCode_0470_ImplementRand10UsingRand7.java
+
 ## Manacher算法
 
 用来解决回文问题，求一个字符串最长回文子串是什么 O(N)
