@@ -330,361 +330,6 @@ LeetCode_0234_PalindromeLinkedList.java
 改原来链表的方式 记得要调整回来
 
 
-## 二叉树
-
-前中后序遍历（递归方式，非递归方式）
-后序遍历：两个栈实现，一个栈实现
-Morris遍历(空间复杂度O(1))
-LeetCode_0144_BinaryTreePreorderTraversal
-LeetCode_0094_BinaryTreeInorderTraversal
-LeetCode_0145_BinaryTreePostorderTraversal
-
-按层遍历  
- 1. hash表+LinkedList
- 2. 仅用LinkedList
- 3. 自定义队列(空间复杂度O(1))
-LeetCode_0102_BinaryTreeLevelOrderTraversal.java 
-LeetCode_0107_BinaryTreeLevelOrderTraversalII.java
-LeetCode_0637_AverageOfLevelsInBinaryTree.java
-自定义Queue实现宽度优先遍历 （可以替换LinkedList，省空间）
-LeetCode_0116_PopulatingNextRightPointersInEachNode.java 
-LeetCode_0117_PopulatingNextRightPointersInEachNodeII.java
-
-求树的最大宽度 
-LeetCode_0662_MaximumWidthOfBinaryTree
-Code_0039_TreeMaxWidth.java
-
-
-二叉树的序列化和反序列化 
-- 补空节点 
-- 中序遍历无法序列化 
-LeetCode_0297_SerializeAndDeserializeBinaryTree
-
-
-重建二叉树 动态规划
-LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java
-LeetCode_0105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java
-
-后继节点
-【特殊的树结构，包含父节点的指针】
-Code_0040_SuccessorNode.java
-二叉搜索树中查找后继节点
-LintCode_0448_InorderSuccessorInBST.java
-
-
-### 二叉树递归套路
-
-是否为平衡二叉树
-LeetCode_0110_BalancedBinaryTree
-是否完全二叉树
-LeetCode_0958_CheckCompletenessOfABinaryTree
-是否为搜索二叉树
-LeetCode_0098_ValidateBinarySearchTree
-是否为满二叉树
-Code_0046_IsFull.java
-二叉树中最大的二叉搜索子树的大小
-NowCoder_MaxSubBSTSize
-二叉树中最大的二叉搜索子树的头节点
-Code_0043_MaxSubBSTHead.java
-
-给定一棵二叉树的头节点head，和另外两个节点a和b, 返回a和b的最低公共祖先
-LeetCode_0236_LowestCommonAncestorOfBinaryTree.java
-给定一棵二叉搜索树的头节点head,和另外两个节点a和b，返回a和b的最低公共祖先
-LeetCode_0235_LowestCommonAncestorOfABinarySearchTree.java
-
-
-
-派对最大快乐值问题
-NowCoder_MaxHappy.java
-
-二叉树的最大距离
-- 边代表距离 LeetCode_0543_DiameterOfBinaryTree
-- 节点数代表距离 Code_0042_MaxDistance
-边 = 节点 - 1
-
-### Morris遍历
-Code_0047_Morris.java
-当前是cur
-1. cur无左树,cur = cur.right
-2. cur有左树,找到左树最右节点mostRight
-	a. mostRight的右指针指向null, mostRight.right = cur, cur = cur.right
-	b. mostRight的右指针指向当前节点cur，mostRight.right = null, cur = cur.right
-3. cur = null 停
-
-Morris遍历实现前中后序遍历,空间 O（1）,时间 O（N） 递归和非递归的方式实现的复杂度是：空间：O（h）O（N）
-
-
-第一次来到，则打印-> 先序遍历
-
-打印两次的，第二次到达则打印 -> 中序遍历
-
-最小高度（以叶子节点来算）
-LeetCode_0111_MinimumDepthOfBinaryTree
-
-
-
-是否是搜索二叉树
-中序遍历一下，如果数一直递增，说明是搜索二叉树
-
-二叉树的最小高度（二叉树的递归套路）
-
-什么时候用二叉树的递归套路，什么时候用Morris遍历
-如果你需要你的左树给你一些信息，右树给你一些信息，然后整合，这个时候就用二叉树的递归套路
-如果你用完左数信息后，可以不用再管左树的信息了，那么就可以用Morris遍历
-
-如果需要用Hash表，且题目中固定了数据的范围，这个时候用数组来替代Hash表
-
-
-## 贪心
-
-1. 分析业务
-2. 根据业务逻辑找到不同的贪心策略
-3. 对于能举出反例的策略直接跳过，不能举出反例的策略要证明有效性
-使用对数器来验证贪心策略的正确性与否
-
-
-拼接所有的字符串产生字典序最小的字符串
-NowCoder_LowestString.java
-
-会议室安排问题
-Code_0048_BestArrange.java
-
-放灯问题
-NowCoder_Light.java
-
-
-霍夫曼树应用
-分金条问题 NowCoder_SplitGolden.java
-LintCode_1872_MinimumCostToConnectSticks.java
-
-项目花费/利润问题
-LeetCode_0502_IPO.java
-
-
-## 并查集
-限定数据范围精简版的并查集
-NowCoder_UnionFind.java
-未限定范围支持泛型的并查集
-Code_0049_UnionFind.java
-  1) 有若干个样本a、b、c、d…类型假设是V
-  2) 在并查集中一开始认为每个样本都在单独的集合里
-  3) 用户可以在任何时候调用如下两个方法：
-  boolean isSameSet(V x, V y) :查询样本x和样本y是否属于一个集合
-  void union(V x, V y) : 把x和y各自所在集合的所有样本合并成一个集合
-  4） isSameSet和union方法的代价越低越好
-  数据结构设计
-  1）每个节点都有一条往上指的指针
-  2）节点a往上找到的头节点，叫做a所在集合的代表节点
-  3）查询x和y是否属于同一个集合，就是看看找到的代表节点是不是一个
-  4）把x和y各自所在集合的所有点合并成一个集合，只需要小集合的代表点挂 在大集合的代表点的下方即可
-
-  并查集的优化
-  1）节点往上找代表点的过程，把沿途的链变成扁平的
-  2）小集合挂在大集合的下面
-  3）如果方法调用很频繁，那么单次调用的代价为O(1)，两个方法都如此
-
-  并查集的应用 解决两大块区域的合并问题 常用在图等领域中
-
-LeetCode_0130_SurroundedRegions.java
-LeetCode_0200_NumberOfIslands.java
-LintCode_0178_GraphValidTree.java
-
-## 图
-
-邻接矩阵，邻接表
-自定义图结构，以后的题目转换成自己熟悉的图结构
-DFS 
-Code_0051_DFS.java
-BFS 
-Code_0050_BFS.java
-拓扑排序（有向无环图）
-DFS方式和BFS方式
-LintCode_0127_TopologicalSorting.java
-
-最小生成树，不破坏连通性删掉某些边，使得整体的权重最小
-NowCoder_MinimumSpanningTree.java
-LeetCode_1489_FindCriticalAndPseudoCriticalEdgesInMinimumSpanningTree.java
-K算法 （边权值排序，并查集）（如果无向图会少一侧的情况，按情况补充即可）
- 最小生成树算法之Kruskal
-  1）总是从权值最小的边开始考虑，依次考察权值依次变大的边
-  2）当前的边要么进入最小生成树的集合，要么丢弃
-  3）如果当前的边进入最小生成树的集合中不会形成环，就要当前边
-  4）如果当前的边进入最小生成树的集合中会形成环，就不要当前边
-  5）考察完所有边之后，最小生成树的集合也得到了
-
-
-P算法 
-  1）可以从任意节点出发来寻找最小生成树
-  2）某个点加入到被选取的点中后，解锁这个点出发的所有新的边
-  3）在所有解锁的边中选最小的边，然后看看这个边会不会形成环
-  4）如果会，不要当前边，继续考察剩下解锁的边中最小的边，重复3）
-  5）如果不会，要当前边，将该边的指向点加入到被选取的点中，重复2）
-  6）当所有点都被选取，最小生成树就得到了
-
-Dijkstra算法
-LeetCode_0743_NetworkDelayTime.java
-
-  1）Dijkstra算法必须指定一个源点,每个边的权值均为非负数,求这个点到其他所有点的最短距离，到不了则为正无穷
-  2）生成一个源点到各个点的最小距离表，一开始只有一条记录，即原点到自己的最小距离为0，
-  源点到其他所有点的最小距离都为正无穷大
-  3）从距离表中拿出没拿过记录里的最小记录，通过这个点发出的边，更新源 点到各个点的最小距离表，不断重复这一步
-  4）源点到所有的点记录如果都被拿过一遍，过程停止，最小距离表得到了
-给定出发点，出发点到所有点的距离之和最小是多少？
-[TODO] Dijkstra算法优化：采用手写改进堆 复习手写堆结构！！！
-[TODO]
-505. The Maze II
-787. Cheapest Flights Within K Stops
-Word Ladder
-Word Ladder II
-
-## 暴力递归
-1. 汉诺塔问题 2^N - 1 
-递归方法
-LeetCodeCN_0806_HanotaLcci.java
-
-[TODO]非递归方法
-
-2. 逆序一个栈（不申请额外的空间）
-
-3. 打印所有子序列
-    - 重复
-    - 不重复
-Code_0053_PrintAllSubSequence.java
-
-
-4. 打印字符串的全部排列
-LeetCode_0046_Permutations
-LeetCode_0047_PermutationsII
-    - 重复 
-    - 不重复
-
-### 从左往右的尝试模型 
-
-规定1和A对应、2和B对应、3和C对应... 那么一个数字字符串比如"111"就可以转化为: "AAA"、"KA"和"AK"
-给定一个只有数字字符组成的字符串str，
-返回有多少种转化结果
-LeetCode_0091_DecodeWays.java
-
-[背包问题]
-给定两个长度都为N的数组weights和values，
- weights[i]和values[i]分别代表 i号物品的重量和价值。
- 给定一个正数bag，表示一个载重bag的袋子，
- 你装的物品不能超过这个重量。 返回你能装下最多的价值是多少?
- NowCoder_Knapsack.java
-
-[TODO] 相关的背包问题
-416 分割等和子集（medium）
-494 目标和（medium）
-474 一和零（medium）
-322 零钱兑换（medium）
-518 零钱兑换 II（medium）
-139 单词拆分（medium）
-377 组合总和 Ⅳ（medium）
-
-
-### 范围上尝试的模型
-arr[L...R] 规模缩小 
-给定一个整型数组arr，代表数值不同的纸牌排成一条线，
-玩家A和玩家B依次拿走每张纸牌，
-规定玩家A先拿，玩家B后拿，
-但是每个玩家每次只能拿走最左或最右的纸牌，
-玩家A和玩家B都绝顶聪明。请返回最后获胜者的分数。
-Code_0054_CardsInLine
-[TODO]NowCoder_CardsInLine
-
-### 多样本位置全对应的尝试模型
-一个样本做行，一个样本做列
-两个字符串的最长公共子序列
-LeetCode_1143_LongestCommonSubsequence
-
-str1做行，str2做列
-```dp[i][j] -> str1[0...i] str2[0..j]`` 最长公共子序列大小 -> ```dp[M][N]``` 就是我们要求的值
-填第一行，第一列
-
-普遍位置
-```dp[i][j]``` 
-既不以str1的i字符结尾，也不以str2的j字符结尾 ```dp[i][j] = dp[i-1][j-1]```
-以str1的i字符结尾，不以str2的j字符结尾   ```dp[i][j] = dp[i][j-1]```
-不以str1的i字符结尾，以str2的j字符结尾 ```dp[i][j] = dp[i-1][j]```
-既以str1的i字符结尾，也以str2的j字符结尾 ```dp[i][j] = dp[i-1][j-1] + 1```
-
-
-
-### 寻找业务限制的尝试模型
-洗咖啡杯问题
-给定一个数组，代表每个人喝完咖啡准备刷杯子的时间
-只有一台咖啡机，一次只能洗一个杯子，时间耗费a，洗完才能洗下一杯
-每个咖啡杯也可以自己挥发干净，时间耗费b，咖啡杯可以并行挥发
-返回让所有咖啡杯变干净的最早完成时间
-三个参数：int[] arr、int a、int b
-Code_0055_WashCoffee.java
-
----
-人过河问题，鱼吃人以后，会被其他鱼吃掉
-【鱼是奇数的时候，吃，偶数的时候，不能吃】
-
- ABCDE海盗分硬币问题
- 超过一半的同意才能通过
- 未被通过的会被杀死
- 人性本恶
- 人性本善（利益受损才投死对方）
- 刚好一半
-
- 寄信问题（欧拉信封）
- 每个人只能寄一封信，只收一封信
- f(5) = 4 * (f(3) + f(4))
-
- f(i) = (i-1)*(f(i-1) + f(i-2))
- f(1) = 0
- f(2) = 1
- f(3) = 2
-
-N皇后问题
-在N*N的棋盘上要摆N个皇后，
-要求任何两个皇后不同行、不同列，
-也不在同一条斜线上 给定一个整数n，返回n皇后的摆法有多少种。
-n=1，返回1 n=2或3，2皇后和3皇后问题无论怎么摆都不行，返回0
-n=8，返回92
-tip: 最右侧的1取出来
-每一行放一个，放在一个结构(int[] records)里面(records[i] = j , i行j位置放了一个皇后)，接下来只要规避不同列和不同斜线
-如果试到某一步后不能处理，则返回上一层再处理
-位运算进行常数项优化！
-列限制，左斜线限制，右斜线限制 这三个变量或运算以后，1位置不能放皇后
-[TODO]NowCoder_NQueens.java
-
-## 暴力递归到动态规划
-所有的暴力过程，都是由于有重复计算（比如斐波那契数列问题）
-
-题目一
-假设有排成一行的N个位置，记为1~N，
-N 一定大于或等于 2 开始时机器人在其中的M位置上(M 一定是 1~N 中的一个)
-如果机器人来到1位置，那么下一步只能往右来到2位置；
-如果机器人来到N位置，那么下一步只能往左来到 N-1 位置；
-如果机器人来到中间位置，那么下一步可以往左走或者往右走；
-规定机器人必须走 K 步，
-最终能来到P位置(P也是1~N中的一个)的方法有多少种 给定四个参数 N、M、K、P，返回方法数。
-NowCoder_RobotWalk.java
-
-记忆化搜索
-
-背包问题改动态规划
-
-LeetCode_0091_DecodeWays 改动态规划
-
-拿纸牌问题改动态规划
-
-动态规划进一步优化（枚举行为） CoinWays
-
-[TODO] 马跳步问题 Code_0057_HorseJump.java
-
-贴纸问题 无法进一步优化
-
-动态规划的进一步优化主要是为了省略枚举行为
-0）观察临近格子法
-1）空间压缩
-2）状态化简
-3）四边形不等式
-
 ## 最长递增子序列问题的O(N*logN)解法
 
 - 这里的递增指的是严格递增（相等都不算）
@@ -698,6 +343,36 @@ Code_0021_LIS.java
 LeetCode_0300_LongestIncreasingSubsequence.java
 LeetCode_0334_IncreasingTripletSubsequence.java
 LeetCode_0354_RussianDollEnvelopes.java
+
+
+[TODO]
+## Random to Random
+核心就是生成0/1随机源！
+LeetCode_0470_ImplementRand10UsingRand7.java
+
+
+## 二叉树
+
+[二叉树](./docs/二叉树.md)
+
+
+## 贪心
+
+[贪心](./docs/贪心.md)
+
+
+## 并查集
+
+[并查集](./docs/并查集.md)
+
+## 图
+
+[图](./docs/图.md)
+
+## 暴力递归到动态规划
+
+[暴力递归到动态规划](./docs/暴力递归到动态规划.md)
+
 
 ## 单调栈
 
@@ -720,10 +395,7 @@ LeetCode_0354_RussianDollEnvelopes.java
 [蓄水池算法](./docs/蓄水池算法.md)
 
 
-[TODO]
-## Random to Random
-核心就是生成0/1随机源！
-LeetCode_0470_ImplementRand10UsingRand7.java
+
 
 ## Manacher算法
 
