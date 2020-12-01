@@ -256,30 +256,6 @@ Code_0028_DistanceLessK.java
 自己手写的堆结构
 Code_0029_CustomHeap.java
 
-## 前缀树
-
-p: 某个字符经过几次
-e: 以某个字符结尾有几次
-头节点开始 
-
-- 所有字符串有多少以某几个字符作为前缀
-- 某个字符串是否包含在其中
-
-Code_0030_TrieTree.java
-两种实现，如果字符固定， 可以用数组，如果字符不固定Hash表实现
-
-
-需要注意前缀树的删除节点操作，有可能删除的节点后续的路没用了。
-ab
-abcvdk
-这两个字符串
-如果要删掉abcvdk这个字符串，那么通向c v d k节点的路可以全部删除（p=0以下的节点都没有了）
-
-LeetCode_0208_Trie
-LeetCode_0139_WordBreak
-LeetCode_0140_WordBreakII
-
-
 ## 不基于比较的排序
 基于桶排序的两种排序
 应用范围有限，需要样本的数据状况满足桶的划分 
@@ -581,8 +557,6 @@ LeetCode_0046_Permutations
 LeetCode_0047_PermutationsII
     - 重复 
     - 不重复
-   
-
 
 ### 从左往右的尝试模型 
 
@@ -711,6 +685,20 @@ LeetCode_0091_DecodeWays 改动态规划
 2）状态化简
 3）四边形不等式
 
+## 最长递增子序列问题的O(N*logN)解法
+
+- 这里的递增指的是严格递增（相等都不算）
+- 暴力解是 O(N^2)
+
+经典解法：
+- ends数组，ends[i] 找到的所有长度为i+1的递增子序列中最小结尾是什么
+- dp[i]数组, 必须以i结尾的，最长递增子序列有多长
+
+Code_0021_LIS.java
+LeetCode_0300_LongestIncreasingSubsequence.java
+LeetCode_0334_IncreasingTripletSubsequence.java
+LeetCode_0354_RussianDollEnvelopes.java
+
 ## 单调栈
 
 [单调栈](./docs/单调栈.md)
@@ -739,54 +727,12 @@ LeetCode_0470_ImplementRand10UsingRand7.java
 
 ## Manacher算法
 
-用来解决回文问题，求一个字符串最长回文子串是什么 O(N)
+[Manacher](./docs/Manacher.md)
 
-暴力解法：
-- 字符串每个字符之间用一个特殊字符插入，每个元素为中心，左边右边扩，直到扩不动为止
-- 大小为：位置/2 = 代表原始串中的大小
-- 复杂度：O（N^2）
+## 前缀树
 
-基本概念：
-- 回文半径
-- 回文直径
-- 回文区域
-- 回文半径数组PARR[] ，每个位置得到的答案都放入PARR[]
-- 回文最右边界 （int R) ，中心(int C) ---> C就是扩到R位置的的中心点
-
-i当前位置，如果
-
-    1）i在R外，同暴力方法
-    
-    2）i在R内或者和R同位置
-
- 假设i'为i关于C对称的点
-
-  i' 自己的回文区域都在L。。R内，所以i的答案和i'的答案一样，存入parr中
-
-  i' 自己的回文区域在L。。。R外，i到R的距离就是i的回文半径
-
-  i' 自己的回文区域左边界和L压线，需要继续验，R外的情况
-
-LeetCode_0005_LongestPalindromicSubstring.java
-
-LeetCode_0647_PalindromicSubstrings.java
-
-LeetCode_0214_ShortestPalindrome.java
+[前缀树](./docs/前缀树.md)
 
 
-
-## 最长递增子序列问题的O(N*logN)解法
-
-- 这里的递增指的是严格递增（相等都不算）
-- 暴力解是 O(N^2)
-
-经典解法：
-- ends数组，ends[i] 找到的所有长度为i+1的递增子序列中最小结尾是什么
-- dp[i]数组, 必须以i结尾的，最长递增子序列有多长
-
-Code_0021_LIS.java
-LeetCode_0300_LongestIncreasingSubsequence.java
-LeetCode_0334_IncreasingTripletSubsequence.java
-LeetCode_0354_RussianDollEnvelopes.java
 
 
