@@ -15,6 +15,8 @@
 //        solution.getRandom();
 package leetcode;
 
+import java.util.Random;
+
 public class LeetCode_0382_LinkedListRandomNode {
     public class ListNode {
         int val;
@@ -34,20 +36,39 @@ public class LeetCode_0382_LinkedListRandomNode {
     }
 
     class Solution {
+        ListNode head;
 
         /**
          * @param head The linked list's head.
          *             Note that the head is guaranteed to be not null, so it contains at least one node.
          */
         public Solution(ListNode head) {
-
+            this.head = head;
         }
 
         /**
          * Returns a random node's value.
          */
         public int getRandom() {
-            return -1;
+            int count = 0;
+            Random random = new Random();
+            int index = 0;
+            int i = 0;
+            ListNode c = head;
+            while (c != null) {
+                count++;
+                if (random.nextInt(count) == 0) {
+                    index = i;
+                }
+                c = c.next;
+                i++;
+            }
+            c = head;
+            while (index != 0) {
+                index--;
+                c = c.next;
+            }
+            return c.val;
         }
     }
 }
