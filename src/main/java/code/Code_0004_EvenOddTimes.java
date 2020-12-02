@@ -3,17 +3,9 @@ package code;
 
 public class Code_0004_EvenOddTimes {
     public static void main(String[] args) {
-
-
         int[] array2 = {1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5};
         printEvenNum(array2);
-        
-        
-        System.out.println(bit1Count(3));
-        System.out.println(bit1Count(10));
-        System.out.println(bit1Count(1));
     }
-
 
 
     /**
@@ -47,17 +39,4 @@ public class Code_0004_EvenOddTimes {
         int two = one ^ m;
         System.out.println("one is :" + one + " two is :" + two);
     }
-    
-    // 任何一个数字中包含多少个1
-    // leetcode 191
-    public static int bit1Count(int N) {
-    	int i = 0;
-    	while (N != 0) {
-    		int t = N & ((~N) + 1);
-    		N^=t;
-    		i++;
-    	}
-    	return i;
-    }
-
 }
