@@ -30,3 +30,5 @@ LeetCode_0796_RotateString.java
 想知道head1中是否有某个子树的结构和head2完全一样
 解法：head1先序化成数组A，head2先序化成数组B，
 如果B是A的子串，那么head1中一定有某个子树的结构和head2完全一样
+ 
+LeetCode_0572_SubtreeOfAnotherTree.java

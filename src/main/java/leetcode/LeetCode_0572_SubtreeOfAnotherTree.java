@@ -80,8 +80,8 @@ public class LeetCode_0572_SubtreeOfAnotherTree {
         return indexOf(oStrs, tStrs) != -1;
     }
 
-    // 先序遍历 可以改用morris遍历
-    public static void pre(TreeNode head, ArrayList<Integer> list) {
+    // 先序遍历
+    private static void pre(TreeNode head, ArrayList<Integer> list) {
         if (head == null) {
             list.add(null);
             return;
