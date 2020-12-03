@@ -1,72 +1,86 @@
+//Implement strStr().
+//
+//		Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+//
+//		Clarification:
+//
+//		What should we return when needle is an empty string? This is a great question to ask during an interview.
+//
+//		For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
+//
+//
+//
+//		Example 1:
+//
+//		Input: haystack = "hello", needle = "ll"
+//		Output: 2
+//		Example 2:
+//
+//		Input: haystack = "aaaaa", needle = "bba"
+//		Output: -1
+//		Example 3:
+//
+//		Input: haystack = "", needle = ""
+//		Output: 0
+//
+//
+//		Constraints:
+//
+//		0 <= haystack.length, needle.length <= 5 * 10^4
+//		haystack and needle consist of only lower-case English characters.
 package leetcode;
 
 // KMP算法
 public class LeetCode_0028_ImplementStrStr {
 
-	public static int strStr(String haystack, String needle) {
-		// 基本过滤条件
-		if (null == haystack || needle == null) {
-			return -1;
-		}
 
-		char[] strs = haystack.toCharArray();
-		char[] match = needle.toCharArray();
-		int N = strs.length;
-		int M = match.length;
-		if (N < M) {
-			return -1;
-		}
-		if (M == 0) {
-			return 0;
-		}
-		int[] next = getNextArr(match, M);
-		int x = 0;
-		int y = 0;
-		while ((N - x) >= (M - y) && x < N && y < M) {
-			if (strs[x] == match[y]) {
-				// 匹配上了，x和y同时下一个
-				x++;
-				y++;
-			} else if (y == 0) {
-				x++;
-			} else {
-				y = next[y];
-			}
-		}
-		return y == M ? x - y : -1;
-	}
+    public static int strStr(String haystack, String needle) {
+        if (haystack == null || needle == null || needle.length() > haystack.length()) {
+            return -1;
+        }
+        if (needle.length() < 1) {
+            return 0;
+        }
+        char[] s = haystack.toCharArray();
+        char[] m = needle.toCharArray();
+        int M = m.length;
+        int[] next = getNextArr(m, M);
+        int x = 0;
+        int y = 0;
+        while (x < s.length && y < M) {
+            if (s[x] == m[y]) {
+                x++;
+                y++;
+            } else if (y != 0) {
+                y = next[y];
 
-	private static int[] getNextArr(char[] match, int M) {
-		if (M == 1) {
-			return new int[] { -1 };
-		}
-		if (M == 2) {
-			return new int[] { -1, 0 };
-		}
-		int[] next = new int[M];
-		next[0] = -1;
-		next[1] = 0;
-		int i = 2;
-		int c = 1;
-		while (i < M) {
-			if (match[i - 1] == match[next[c]]) {
-				next[i++] = next[c] + 1;
-				c = i - 1;
-			} else {
-				c = next[c];
-				if (c == 0) {
-					next[i++] = 0;
-					c = i - 1;
-				}
-			}
-		}
-		return next;
-	}
+            } else {
+                x++;
+            }
+        }
+        return y == M ? x - y : -1;
+    }
 
-	public static void main(String[] args) {
-		String a = "ababcaababcaabc";
-		String b = "ababcaabc";
-		System.out.println(strStr(a, b));
-	}
+    private static int[] getNextArr(char[] match, int M) {
+        if (M == 1) {
+            return new int[]{-1};
+        }
+        int[] next = new int[M];
+        next[0] = -1;
+        next[1] = 0;
+        int i = 2;
+        int cn = 0;
+        while (i < next.length) {
+            if (match[i - 1] == match[cn]) {
+                next[i++] = ++cn;
+            } else if (cn > 0) {
+                cn = next[cn];
+            } else {
+                next[i++] = 0;
+            }
+        }
+        return next;
+    }
+
 
 }
