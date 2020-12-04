@@ -13,7 +13,7 @@
 0 <= 数组长度 <= 50000
 
 */
-package leecode_cn;
+package leetcode.cn;
 
 // https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/
 // 归并排序

@@ -5,7 +5,7 @@ import java.util.*;
 // https://www.lintcode.com/problem/topological-sorting/description
 public class LintCode_0127_TopologicalSorting {
 
-	class DirectedGraphNode {
+	public static class DirectedGraphNode {
 		int label;
 		ArrayList<DirectedGraphNode> neighbors;
 
