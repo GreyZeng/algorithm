@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -11,9 +12,58 @@ import java.util.PriorityQueue;
 public class LeetCode_0215_KthLargestElementInAnArray {
     // bfprt算法
     public static int findKthLargest(int[] nums, int k) {
-        // TODO
-        return -1;
+        return bfprt(nums, 0, nums.length - 1, k - 1);
     }
+
+    private static int bfprt(int[] nums, int L, int R, int index) {
+        if (L == R) {
+            return nums[L];
+        }
+        int pivot = medianOfMedians(nums, L, R);
+        int[] range = partition(nums, L, R, pivot);
+        if (index >= range[0] && index <= range[1]) {
+            return nums[index];
+        } else if (index < range[0]) {
+            return bfprt(nums, L, range[0] - 1, index);
+        } else {
+            return bfprt(nums, range[1] + 1, R, index);
+        }
+    }
+
+    // 将arr分成每五个元素一组，不足一组的补齐一组
+    // 对每组进行排序
+    // 取出每组的中位数，组成一个新的数组
+    // 对新的数组求其中位数，这个中位数就是我们需要的值
+    public static int medianOfMedians(int[] arr, int L, int R) {
+        int size = R - L + 1;
+        int offSize = size % 5 == 0 ? 0 : 1;
+        int[] mArr = new int[size / 5 + offSize];
+        for (int i = 0; i < mArr.length; i++) {
+            // 每一组的第一个位置
+            int teamFirst = L + i * 5;
+            int median = getMedian(arr, teamFirst, Math.min(R, teamFirst + 4));
+            mArr[i] = median;
+        }
+        return bfprt(mArr, 0, mArr.length - 1, (mArr.length - 1) / 2);
+    }
+
+    public static int getMedian(int[] arr, int L, int R) {
+        Arrays.sort(arr, L, R);
+        return arr[(R + L) / 2];
+
+    }
+
+    /*public static void insertionSort(int[] arr, int L, int R) {
+        if (L == R) {
+            return;
+        }
+        for (int i = L + 1; i <= R; i++) {
+            for (int j = i - 1; j >= L && arr[j] > arr[j + 1]; j--) {
+                swap(arr, j, j + 1);
+            }
+        }
+
+    }*/
 
     // 快排改进算法
     // 第K小 == 第 nums.length - k 大
