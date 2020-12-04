@@ -79,6 +79,10 @@
 
 [bfprt](./docs/bfprt.md)
 
+## 线段树
+
+[线段树](./docs/线段树.md)
+
 
 
 
