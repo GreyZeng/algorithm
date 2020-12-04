@@ -2,59 +2,53 @@ package leetcode;
 
 public class LeetCode_0005_LongestPalindromicSubstring {
 
-	public static String longestPalindrome(String s) {
-        if (null == s || s.length() == 0) {
-            return null;
+    public static String longestPalindrome(String s) {
+        if (s == null || s.length() <= 1) {
+            return s;
         }
         char[] str = s.toCharArray();
-        char[] strs = manacherString(str);
-        int N = strs.length;
-        int R = -1;
+        char[] strs = manacherStr(str);
+        int[] pArr = new int[strs.length];
         int C = -1;
-        int[] pArr = new int[N];
-        int max = 0;
-        for (int i = 0; i < N; i++) {
-            // 先求pArr[i]至少不用扩的区域
-            pArr[i] = i < R ? Math.min(pArr[C - (i - C)], R - i) : 1;
-            // 两边继续扩充
-            while (i + pArr[i] < N && i - pArr[i] > -1) {
+        int R = -1;
+        int i = 0;
+        int N = strs.length;
+        int max = Integer.MIN_VALUE;
+        while (i < N) {
+            // pArr[i] 至少不需要扩的大小
+            pArr[i] = i < R ? Math.min(R - i, pArr[C - (i - C)]) : 1;
+            while (i + pArr[i] < N && i - pArr[i] >= 0) {
                 if (strs[i + pArr[i]] == strs[i - pArr[i]]) {
                     pArr[i]++;
                 } else {
                     break;
                 }
             }
-            // 更新R和C
             if (i + pArr[i] > R) {
                 R = i + pArr[i];
                 C = i;
             }
-
-            // 更新max，获取最大回文半径
-            max = Math.max(pArr[i], max);
+            max = Math.max(pArr[i++], max);
         }
-        int maxIndex = 0;
-        for (int i = 0; i < N; i++) {
-            if (pArr[i] == max) {
-                maxIndex = i;
+        int n = 0;
+        for (; n < N; n++) {
+            if (pArr[n] == max) {
                 break;
             }
         }
         StringBuilder sb = new StringBuilder();
-        for (int i = maxIndex - pArr[maxIndex] + 2; i <= maxIndex + pArr[maxIndex] - 2; i += 2) {
+        for (i = n - max + 2; i < n + max; i += 2) {
             sb.append(strs[i]);
         }
         return sb.toString();
+
     }
 
-    private static char[] manacherString(char[] str) {
-        int N = str.length;
-        int M = N * 2 + 1;
-        char[] newArray = new char[M];
-        for (int i = 0; i < M; i++) {
-            newArray[i] = (i & 1) == 1 ? str[i / 2] : '#';
+    public static char[] manacherStr(char[] str) {
+        char[] strs = new char[str.length << 1 | 1];
+        for (int i = 0; i < strs.length; i++) {
+            strs[i] = ((i & 1) == 1) ? str[i >> 1] : '#';
         }
-        return newArray;
+        return strs;
     }
-
 }
