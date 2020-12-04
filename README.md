@@ -63,6 +63,10 @@
 
 [蓄水池算法](./docs/蓄水池算法.md)
 
+## 前缀树
+
+[前缀树](./docs/前缀树.md)
+
 ## Manacher算法
 
 [Manacher](./docs/Manacher.md)
@@ -71,9 +75,11 @@
 
 [KMP](./docs/KMP.md)
 
-## 前缀树
+## bfprt算法
 
-[前缀树](./docs/前缀树.md)
+[bfprt](./docs/bfprt.md)
+
+
 
 
 
