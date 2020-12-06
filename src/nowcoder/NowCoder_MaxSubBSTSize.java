@@ -40,18 +40,21 @@ public class NowCoder_MaxSubBSTSize {
         for (int i = 0; i < count; i++) {
             for (int j = 0; j < 3; j++) {
                 int v = scanner.nextInt();
-                if (v != 0)
+                if (v != 0) {
                     hashMap.put(v, new Node(v));
+                }
                 nodes[i][j] = v;
             }
         }
         for (int i = 0; i < count; i++) {
             int[] arr = nodes[i];
             Node fakeRoot = hashMap.get(arr[0]);
-            if (arr[1] != 0)
+            if (arr[1] != 0) {
                 fakeRoot.left = hashMap.get(arr[1]);
-            if (arr[2] != 0)
+            }
+            if (arr[2] != 0) {
                 fakeRoot.right = hashMap.get(arr[2]);
+            }
         }
         root = hashMap.get(root.value);
         System.out.println(maxSubBSTSize(root));
