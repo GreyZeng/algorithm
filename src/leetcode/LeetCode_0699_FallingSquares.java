@@ -48,57 +48,31 @@ public class LeetCode_0699_FallingSquares {
     public static class SegmentTree {
         public int MAXN;
         public int[] arr;
-        public int[] change;
-        public int[] sum;
         public int[] max;
         public boolean[] update;
-        public int[] lazy;
 
 
         public SegmentTree(int N) {
-            int[] origin = new int[N];
-            MAXN = origin.length + 1;
+            MAXN = N + 1;
             arr = new int[MAXN];
-            for (int i = 1; i < MAXN; i++) {
-                arr[i] = origin[i - 1];
-            }
             int v = MAXN << 2;
-            change = new int[v];
-            sum = new int[v];
             max = new int[v];
             update = new boolean[v];
-            lazy = new int[v];
-            build(1, MAXN - 1, 1);
         }
 
-        private void build(int l, int r, int rt) {
-            if (l == r) {
-                sum[rt] = arr[l];
-                max[rt] = arr[l];
-                return;
-            }
-            int mid = (l + r) >> 1;
-            build(l, mid, rt << 1);
-            build(mid + 1, r, (rt << 1) | 1);
-            pushUp(rt);
-        }
 
         private void pushUp(int rt) {
-            sum[rt] = sum[rt << 1] + sum[(rt << 1) | 1];
             max[rt] = Math.max(max[rt << 1], max[(rt << 1) | 1]);
         }
 
         public void update(int L, int R, int C, int l, int r, int rt) {
             if (L <= l && R >= r) {
                 update[rt] = true;
-                change[rt] = C;
-                lazy[rt] = 0;
-                sum[rt] = C * (r - l + 1);
                 max[rt] = C;
                 return;
             }
             int mid = (l + r) >> 1;
-            pushDown(rt, mid - l + 1, r - mid);
+            pushDown(rt);
             if (L <= mid) {
                 update(L, R, C, l, mid, rt << 1);
             }
@@ -108,28 +82,13 @@ public class LeetCode_0699_FallingSquares {
             pushUp(rt);
         }
 
-        public int querySum(int L, int R, int l, int r, int rt) {
-            if (L <= l && R >= r) {
-                return sum[rt];
-            }
-            int mid = (l + r) >> 1;
-            pushDown(rt, mid - l + 1, r - mid);
-            int ans = 0;
-            if (L <= mid) {
-                ans += querySum(L, R, l, mid, rt << 1);
-            }
-            if (R > mid) {
-                ans += querySum(L, R, mid + 1, r, (rt << 1) | 1);
-            }
-            return ans;
-        }
 
         public int queryMax(int L, int R, int l, int r, int rt) {
             if (L <= l && R >= r) {
                 return max[rt];
             }
             int mid = (l + r) >> 1;
-            pushDown(rt, mid - l + 1, r - mid);
+            pushDown(rt);
             int left = Integer.MIN_VALUE;
             int right = Integer.MIN_VALUE;
             if (L <= mid) {
@@ -141,47 +100,16 @@ public class LeetCode_0699_FallingSquares {
             return Math.max(right, left);
         }
 
-        public void add(int L, int R, int C, int l, int r, int rt) {
-            if (L <= l && R >= r) {
-                lazy[rt] += C;
-                sum[rt] += (r - l + 1) * C;
-                max[rt] += C;
-                return;
-            }
-            int mid = (l + r) >> 1;
-            pushDown(rt, mid - l + 1, r - mid);
-            if (L <= mid) {
-                add(L, R, C, l, mid, rt << 1);
-            }
-            if (R > mid) {
-                add(L, R, C, mid + 1, r, (rt << 1) | 1);
-            }
-            pushUp(rt);
-        }
 
-        public void pushDown(int rt, int ln, int rn) {
+        public void pushDown(int rt) {
             if (update[rt]) {
-                lazy[rt << 1] = 0;
-                lazy[(rt << 1) | 1] = 0;
-                max[rt << 1] = change[rt];
-                max[(rt << 1) | 1] = change[rt];
-                sum[rt << 1] = (ln * change[rt]);
-                sum[(rt << 1) | 1] = (rn * change[rt]);
-                change[rt << 1] = change[rt];
-                change[(rt << 1) | 1] = change[rt];
+                max[rt << 1] = max[rt];
+                max[(rt << 1) | 1] = max[rt];
                 update[rt << 1] = true;
                 update[(rt << 1) | 1] = true;
                 update[rt] = false;
             }
-            if (lazy[rt] != 0) {
-                lazy[rt << 1] += lazy[rt];
-                lazy[(rt << 1) | 1] += lazy[rt];
-                sum[rt << 1] += (ln * lazy[rt]);
-                sum[(rt << 1) | 1] += (rn * lazy[rt]);
-                max[rt << 1] += lazy[rt];
-                max[(rt << 1) | 1] += lazy[rt];
-                lazy[rt] = 0;
-            }
+
         }
     }
 
@@ -203,10 +131,10 @@ public class LeetCode_0699_FallingSquares {
         HashMap<Integer, Integer> map = index(positions);
         int N = map.size();
         SegmentTree tree = new SegmentTree(N);
-        int L = 0;
-        int R = 0;
+        int L;
+        int R;
         int max = 0;
-        int height = 0;
+        int height;
         List<Integer> ans = new ArrayList<>();
         for (int[] arr : positions) {
             L = map.get(arr[0]);

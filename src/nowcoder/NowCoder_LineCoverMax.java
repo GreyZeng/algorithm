@@ -21,16 +21,21 @@
 //        3
 package nowcoder;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+
+import java.util.*;
 
 // 暴力解
 // 堆
 // 线段数
 public class NowCoder_LineCoverMax {
-    
+
+
+    public static int maxCover3(int[][] lines) {
+        // TODO
+        // 线段树解法
+        return -1;
+    }
+
     public static int maxCover(int[][] m) {
         Line[] lines = new Line[m.length];
         for (int i = 0; i < m.length; i++) {
@@ -110,8 +115,48 @@ public class NowCoder_LineCoverMax {
             lines[i][0] = in.nextInt();
             lines[i][1] = in.nextInt();
         }
-        System.out.println(maxCover(lines));
+        System.out.println(maxCover3(lines));
         in.close();
     }
+
+    /*
+    public static int[][] generateLines(int N, int L, int R) {
+        int size = (int) (Math.random() * N) + 1;
+        int[][] ans = new int[size][2];
+        for (int i = 0; i < size; i++) {
+            int a = L + (int) (Math.random() * (R - L + 1));
+            int b = L + (int) (Math.random() * (R - L + 1));
+            if (a == b) {
+                b = a + 1;
+            }
+            ans[i][0] = Math.min(a, b);
+            ans[i][1] = Math.max(a, b);
+        }
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("test begin");
+        int N = 100;
+        int L = 0;
+        int R = 200;
+        int testTimes = 200000;
+        int[][] t = {{109, 126}, {75, 169},{102,106}};
+        System.out.println(maxCover3(t));
+        *//*for (int i = 0; i < testTimes; i++) {
+            int[][] lines = generateLines(N, L, R);
+            int ans1 = maxCover2(lines);
+            int ans2 = maxCover3(lines);
+            if (ans1 != ans2) {
+                if (lines.length <= 4) {
+
+                    System.out.println(ans1);
+                    System.out.println(ans2);
+                }
+                System.out.println("Oops!");
+            }
+        }*//*
+        System.out.println("test end");
+    }*/
 }
 
