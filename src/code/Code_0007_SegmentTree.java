@@ -14,6 +14,7 @@ public class Code_0007_SegmentTree {
         private int MAXN;
         private int[] arr;
         private int[] sum;
+        private int[] max;
         private int[] lazy;
         private int[] change;
         private boolean[] update;
@@ -28,6 +29,7 @@ public class Code_0007_SegmentTree {
             sum = new int[v];
             lazy = new int[v];
             change = new int[v];
+            max = new int[v];
             update = new boolean[v];
         }
 
@@ -37,6 +39,7 @@ public class Code_0007_SegmentTree {
         public void build(int l, int r, int rt) {
             if (l == r) {
                 sum[rt] = arr[l];
+                max[rt] = arr[l];
                 return;
             }
             int mid = (l + r) >> 1;
@@ -47,6 +50,7 @@ public class Code_0007_SegmentTree {
 
         private void pushUp(int rt) {
             sum[rt] = sum[rt << 1] + sum[(rt << 1) | 1];
+            max[rt] = Math.max(max[rt << 1], max[(rt << 1) | 1]);
         }
 
         // 之前的，所有懒增加，和懒更新，从父范围，发给左右两个子范围
@@ -55,9 +59,11 @@ public class Code_0007_SegmentTree {
         private void pushDown(int rt, int ln, int rn) {
             if (update[rt]) {
                 lazy[rt << 1] = 0;
-                sum[rt << 1] = (ln * change[rt]);
                 lazy[(rt << 1) | 1] = 0;
+                sum[rt << 1] = (ln * change[rt]);
                 sum[(rt << 1) | 1] = (rn * change[rt]);
+                max[rt << 1] = change[rt];
+                max[(rt << 1) | 1] = change[rt];
                 change[rt << 1] = change[rt];
                 change[(rt << 1) | 1] = change[rt];
                 update[rt << 1] = true;
@@ -65,6 +71,8 @@ public class Code_0007_SegmentTree {
                 update[rt] = false;
             }
             if (lazy[rt] != 0) {
+                max[rt << 1] += lazy[rt];
+                max[(rt << 1) | 1] += lazy[rt];
                 lazy[rt << 1] += lazy[rt];
                 sum[rt << 1] += (ln * lazy[rt]);
                 lazy[(rt << 1) | 1] += lazy[rt];
@@ -78,7 +86,8 @@ public class Code_0007_SegmentTree {
                 change[rt] = C;
                 update[rt] = true;
                 lazy[rt] = 0;
-                sum[rt] = C * (r-l + 1);
+                sum[rt] = C * (r - l + 1);
+                max[rt] = C;
                 return;
             }
             int mid = (l + r) >> 1;
@@ -87,7 +96,7 @@ public class Code_0007_SegmentTree {
                 update(L, R, C, l, mid, rt << 1);
             }
             if (R > mid) {
-                update(L, R, C, mid + 1,r, rt << 1 | 1);
+                update(L, R, C, mid + 1, r, rt << 1 | 1);
             }
             pushUp(rt);
 
@@ -104,6 +113,7 @@ public class Code_0007_SegmentTree {
             if (L <= l && R >= r) {
                 lazy[rt] += C;
                 sum[rt] += (r - l + 1) * C;
+                max[rt] += C;
                 return;
             }
             int mid = (l + r) >> 1;
@@ -112,13 +122,13 @@ public class Code_0007_SegmentTree {
                 add(L, R, C, l, mid, rt << 1);
             }
             if (R > mid) {
-                add(L, R, C, mid + 1, r,  (rt << 1) | 1);
+                add(L, R, C, mid + 1, r, (rt << 1) | 1);
             }
             pushUp(rt);
         }
 
         //   1~6 累加和是多少？ 1~8   rt
-        public long query(int L, int R, int l, int r, int rt) {
+        public long querySum(int L, int R, int l, int r, int rt) {
             if (L <= l && R >= r) {
                 return sum[rt];
             }
@@ -126,14 +136,30 @@ public class Code_0007_SegmentTree {
             pushDown(rt, mid - l + 1, r - mid);
             long ans = 0;
             if (L <= mid) {
-                ans += query(L, R, l, mid, rt << 1);
+                ans += querySum(L, R, l, mid, rt << 1);
             }
             if (R > mid) {
-                ans += query(L, R, mid + 1, r,  (rt << 1) | 1);
+                ans += querySum(L, R, mid + 1, r, (rt << 1) | 1);
             }
-            return  ans;
+            return ans;
         }
 
+        public long queryMax(int L, int R, int l, int r, int rt) {
+            if (L <= l && R >= r) {
+                return max[rt];
+            }
+            int mid = (l + r) >> 1;
+            pushDown(rt, mid - l + 1, r - mid);
+            long left = Integer.MIN_VALUE;
+            long right = Integer.MIN_VALUE;
+            if (L <= mid) {
+                left = queryMax(L, R, l, mid, rt << 1);
+            }
+            if (R > mid) {
+                right = queryMax(L, R, mid + 1, r, (rt << 1) | 1);
+            }
+            return Math.max(left, right);
+        }
     }
 
     public static class Right {
@@ -158,7 +184,7 @@ public class Code_0007_SegmentTree {
             }
         }
 
-        public long query(int L, int R) {
+        public long querySum(int L, int R) {
             long ans = 0;
             for (int i = L; i <= R; i++) {
                 ans += arr[i];
@@ -166,6 +192,13 @@ public class Code_0007_SegmentTree {
             return ans;
         }
 
+        public long queryMax(int l, int r) {
+            long ans = arr[l];
+            for (int i = l + 1; i <= r; i++) {
+                ans = Math.max(ans, arr[i]);
+            }
+            return ans;
+        }
     }
 
     public static int[] genarateRandomArray(int len, int max) {
@@ -210,8 +243,19 @@ public class Code_0007_SegmentTree {
                 int num2 = (int) (Math.random() * N) + 1;
                 int L = Math.min(num1, num2);
                 int R = Math.max(num1, num2);
-                long ans1 = seg.query(L, R, S, N, root);
-                long ans2 = rig.query(L, R);
+                long ans1 = seg.querySum(L, R, S, N, root);
+                long ans2 = rig.querySum(L, R);
+                if (ans1 != ans2) {
+                    return false;
+                }
+            }
+            for (int k = 0; k < queryTimes; k++) {
+                int num1 = (int) (Math.random() * N) + 1;
+                int num2 = (int) (Math.random() * N) + 1;
+                int L = Math.min(num1, num2);
+                int R = Math.max(num1, num2);
+                long ans1 = seg.queryMax(L, R, S, N, root);
+                long ans2 = rig.queryMax(L, R);
                 if (ans1 != ans2) {
                     return false;
                 }
@@ -236,8 +280,10 @@ public class Code_0007_SegmentTree {
         // 区间更新，可以改变L、R和C的值，其他值不可改变
         seg.update(L, R, C, S, N, root);
         // 区间查询，可以改变L和R的值，其他值不可改变
-        long sum = seg.query(L, R, S, N, root);
+        long sum = seg.querySum(L, R, S, N, root);
+        long max = seg.queryMax(L, R, S, N, root);
         System.out.println(sum);
+        System.out.println(max);
 
         System.out.println("对数器测试开始...");
         System.out.println("测试结果 : " + (test() ? "通过" : "未通过"));
