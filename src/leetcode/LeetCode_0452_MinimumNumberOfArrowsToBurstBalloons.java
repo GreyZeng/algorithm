@@ -45,7 +45,6 @@ import java.util.Comparator;
 
 public class LeetCode_0452_MinimumNumberOfArrowsToBurstBalloons {
 
-    // FIXME
     public static int findMinArrowShots(int[][] m) {
         if (m == null || m.length == 0) {
             return 0;
@@ -57,12 +56,12 @@ public class LeetCode_0452_MinimumNumberOfArrowsToBurstBalloons {
         Arrays.sort(lines, new MyComparator());
         int min = 1;
         int b = lines[0].end;
-        for (Line line : lines) {
-            if (b > line.start) {
+        for (int i = 1; i < lines.length; i++) {
+            if (b >= lines[i].start) {
                 continue;
             }
             min++;
-            b = line.end;
+            b = lines[i].end;
         }
         return min;
     }
@@ -80,27 +79,37 @@ public class LeetCode_0452_MinimumNumberOfArrowsToBurstBalloons {
     public static class MyComparator implements Comparator<Line> {
         @Override
         public int compare(Line o1, Line o2) {
-            if (o1.start != o2.start) {
-                if (o1.start > o2.start) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            } else {
-                if (o1.end != o2.end) {
-                    if (o1.end > o2.end) {
-                        return 1;
-                    } else {
-                        return -1;
-                    }
-                }
+            if (o1.end > o2.end) {
+                return 1;
+            } else if (o1.end < o2.end) {
+                return -1;
             }
             return 0;
         }
     }
 
+    public static int findMinArrowShots2(int[][] points) {
+        if (points.length == 0) {
+            return 0;
+        }
+        Arrays.sort(points, Comparator.comparingInt(o -> o[1]));
+        int ans = 1;
+        int end = points[0][1];
+        for (int i = 1; i < points.length; i++) {
+            if (points[i][0] <= end) {
+                continue;
+            }
+            ans++;
+            end = points[i][1];
+        }
+        return ans;
+    }
+
+
     public static void main(String[] args) {
-        int[][] p = {{1, 2}, {3, 4}, {5, 6}, {7, 8}};
+        // [[9,12],[1,10],[4,11],[8,12],[3,9],[6,9],[6,7]]
+        int[][] p = {{9, 12}, {1, 10}, {4, 11}, {8, 12}, {3, 9}, {6, 9}, {6, 7}};
+        System.out.println(findMinArrowShots2(p));
         System.out.println(findMinArrowShots(p));
     }
 }
