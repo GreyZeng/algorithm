@@ -28,6 +28,58 @@ import java.util.*;
 // 堆
 // 线段数
 public class NowCoder_LineCoverMax {
+
+    // 堆解法
+    public static int maxCover(int[][] m) {
+        Line[] lines = new Line[m.length];
+        for (int i = 0; i < m.length; i++) {
+            lines[i] = new Line(m[i][0], m[i][1]);
+        }
+        Arrays.sort(lines, new StartComparator());
+        PriorityQueue<Line> heap = new PriorityQueue<>(new EndComparator());
+        int max = 0;
+        for (Line line : lines) {
+            // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，heap.peek().end < line.start，如果不算的话，heap.peek().end <= line.start
+            while (!heap.isEmpty() && heap.peek().end < line.start) {
+                heap.poll();
+            }
+            heap.add(line);
+            max = Math.max(max, heap.size());
+        }
+        return max;
+    }
+
+    // 线段树解法
+    public static int maxCover2(int[][] lines) {
+        HashMap<Integer, Integer> map = index(lines);
+        int N = map.size();
+
+        SegmentTree tree = new SegmentTree(N);
+        long max = 0;
+        for (int[] line : lines) {
+            int L = map.get(line[0]);
+            int R = map.get(line[1]);
+            tree.add(L, R, 1, 1, N, 1);
+            long l = tree.queryMax(L, R, 1, N, 1);
+            max = Math.max(l, max);
+        }
+        return (int) max;
+    }
+
+    public static HashMap<Integer, Integer> index(int[][] lines) {
+        TreeSet<Integer> set = new TreeSet<>();
+        for (int[] line : lines) {
+            set.add(line[0]);
+            set.add(line[1]);
+        }
+        HashMap<Integer, Integer> map = new HashMap<>(set.size());
+        int count = 0;
+        for (Integer i : set) {
+            map.put(i, ++count);
+        }
+        return map;
+    }
+
     public static class SegmentTree {
         // arr[]为原序列的信息从0开始，但在arr里是从1开始的
         // sum[]模拟线段树维护区间和
@@ -36,43 +88,18 @@ public class NowCoder_LineCoverMax {
         // update[]为更新慵懒标记
         private int MAXN;
         private int[] arr;
-        private int[] sum;
         private int[] max;
         private int[] lazy;
-        private int[] change;
-        private boolean[] update;
 
-        public SegmentTree(int[] origin) {
-            MAXN = origin.length + 1;
+        public SegmentTree(int N) {
+            MAXN = N + 1;
             arr = new int[MAXN];
-            // 1位置弃而不用
-            System.arraycopy(origin, 0, arr, 1, MAXN - 1);
-            // 准备4倍大小的sum,lazy,change,update数组
             int v = MAXN << 2;
-            sum = new int[v];
             lazy = new int[v];
-            change = new int[v];
             max = new int[v];
-            update = new boolean[v];
-        }
-
-        // 在初始化阶段，先把sum数组，填好
-        // 在arr[l~r]范围上，去build，1~N，
-        // rt :  这个范围在sum中的下标
-        public void build(int l, int r, int rt) {
-            if (l == r) {
-                sum[rt] = arr[l];
-                max[rt] = arr[l];
-                return;
-            }
-            int mid = (l + r) >> 1;
-            build(l, mid, rt << 1);
-            build(mid + 1, r, (rt << 1) | 1);
-            pushUp(rt);
         }
 
         private void pushUp(int rt) {
-            sum[rt] = sum[rt << 1] + sum[(rt << 1) | 1];
             max[rt] = Math.max(max[rt << 1], max[(rt << 1) | 1]);
         }
 
@@ -80,49 +107,13 @@ public class NowCoder_LineCoverMax {
         // 分发策略是什么
         // ln表示左子树元素结点个数，rn表示右子树结点个数
         private void pushDown(int rt, int ln, int rn) {
-            if (update[rt]) {
-                lazy[rt << 1] = 0;
-                lazy[(rt << 1) | 1] = 0;
-                sum[rt << 1] = (ln * change[rt]);
-                sum[(rt << 1) | 1] = (rn * change[rt]);
-                max[rt << 1] = change[rt];
-                max[(rt << 1) | 1] = change[rt];
-                change[rt << 1] = change[rt];
-                change[(rt << 1) | 1] = change[rt];
-                update[rt << 1] = true;
-                update[(rt << 1) | 1] = true;
-                update[rt] = false;
-            }
             if (lazy[rt] != 0) {
                 max[rt << 1] += lazy[rt];
                 max[(rt << 1) | 1] += lazy[rt];
                 lazy[rt << 1] += lazy[rt];
-                sum[rt << 1] += (ln * lazy[rt]);
                 lazy[(rt << 1) | 1] += lazy[rt];
-                sum[(rt << 1) | 1] += (rn * lazy[rt]);
                 lazy[rt] = 0;
             }
-        }
-
-        public void update(int L, int R, int C, int l, int r, int rt) {
-            if (L <= l && R >= r) {
-                change[rt] = C;
-                update[rt] = true;
-                lazy[rt] = 0;
-                sum[rt] = C * (r - l + 1);
-                max[rt] = C;
-                return;
-            }
-            int mid = (l + r) >> 1;
-            pushDown(rt, mid - l + 1, r - mid);
-            if (L <= mid) {
-                update(L, R, C, l, mid, rt << 1);
-            }
-            if (R > mid) {
-                update(L, R, C, mid + 1, r, rt << 1 | 1);
-            }
-            pushUp(rt);
-
         }
 
         // L..R -> 任务范围 ,所有的值累加上C
@@ -135,7 +126,6 @@ public class NowCoder_LineCoverMax {
                 int rt) {
             if (L <= l && R >= r) {
                 lazy[rt] += C;
-                sum[rt] += (r - l + 1) * C;
                 max[rt] += C;
                 return;
             }
@@ -148,23 +138,6 @@ public class NowCoder_LineCoverMax {
                 add(L, R, C, mid + 1, r, (rt << 1) | 1);
             }
             pushUp(rt);
-        }
-
-        //   1~6 累加和是多少？ 1~8   rt
-        public long querySum(int L, int R, int l, int r, int rt) {
-            if (L <= l && R >= r) {
-                return sum[rt];
-            }
-            int mid = (l + r) >> 1;
-            pushDown(rt, mid - l + 1, r - mid);
-            long ans = 0;
-            if (L <= mid) {
-                ans += querySum(L, R, l, mid, rt << 1);
-            }
-            if (R > mid) {
-                ans += querySum(L, R, mid + 1, r, (rt << 1) | 1);
-            }
-            return ans;
         }
 
         public long queryMax(int L, int R, int l, int r, int rt) {
@@ -185,54 +158,34 @@ public class NowCoder_LineCoverMax {
         }
     }
 
-    public static HashMap<Integer, Integer> index(int[][] lines) {
-        TreeSet<Integer> set = new TreeSet<>();
-        for (int[] line : lines) {
-            set.add(line[0]);
-            set.add(line[1]);
-        }
-        HashMap<Integer, Integer> map = new HashMap<>(set.size());
-        int count = 0;
-        for (Integer i : set) {
-            map.put(i, ++count);
-        }
-        return map;
-    }
 
+    // 暴力解
+    // 1. 首先得到线段的最大值和最小值
+    // 2. 最大值和最小值按单位1等分，看每条线覆盖了多少，抓一下全局max
     public static int maxCover3(int[][] lines) {
-        HashMap<Integer, Integer> map = index(lines);
-        int N = map.size();
-        int[] arr = new int[N];
-        SegmentTree tree = new SegmentTree(arr);
-        long max = 0;
+        int min = lines[0][0];
+        int max = lines[0][1];
         for (int[] line : lines) {
-            int L = map.get(line[0]);
-            int R = map.get(line[1]);
-            tree.add(L, R, 1, 1, N, 1);
-            long l = tree.queryMax(L, R, 1, N, 1);
-            max = Math.max(l, max);
+            min = Math.min(min, Math.min(line[0], line[1]));
+            max = Math.max(max, Math.max(line[0], line[1]));
         }
-        return (int) max;
+        int cover = 0;
+        int maxCover = 0;
+        for (int i = min; i <= max; i++) {
+            for (int[] line : lines) {
+                // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，
+                // 则条件为：line[0] <= i && line[1] >= i
+                // 如果不算的话，line[0] <= i+0.5 && line[1] >= i + 0.5
+                if (line[0] <= i && line[1] >= i) {
+                    cover++;
+                }
+            }
+            maxCover = Math.max(cover, maxCover);
+            cover = 0;
+        }
+        return maxCover;
     }
 
-    public static int maxCover(int[][] m) {
-        Line[] lines = new Line[m.length];
-        for (int i = 0; i < m.length; i++) {
-            lines[i] = new Line(m[i][0], m[i][1]);
-        }
-        Arrays.sort(lines, new StartComparator());
-        PriorityQueue<Line> heap = new PriorityQueue<>(new EndComparator());
-        int max = 0;
-        for (Line line : lines) {
-            // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，heap.peek().end < line.start，如果不算的话，heap.peek().end <= line.start
-            while (!heap.isEmpty() && heap.peek().end < line.start) {
-                heap.poll();
-            }
-            heap.add(line);
-            max = Math.max(max, heap.size());
-        }
-        return max;
-    }
 
     public static class Line {
         public int start;
@@ -259,32 +212,7 @@ public class NowCoder_LineCoverMax {
 
     }
 
-    // 暴力解
-    // 1. 首先得到线段的最大值和最小值
-    // 2. 最大值和最小值按单位1等分，看每条线覆盖了多少，抓一下全局max
-    public static int maxCover2(int[][] lines) {
-        int min = lines[0][0];
-        int max = lines[0][1];
-        for (int[] line : lines) {
-            min = Math.min(min, Math.min(line[0], line[1]));
-            max = Math.max(max, Math.max(line[0], line[1]));
-        }
-        int cover = 0;
-        int maxCover = 0;
-        for (int i = min; i <= max; i++) {
-            for (int[] line : lines) {
-                // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，
-                // 则条件为：line[0] <= i && line[1] >= i
-                // 如果不算的话，line[0] <= i+0.5 && line[1] >= i + 0.5
-                if (line[0] <= i && line[1] >= i) {
-                    cover++;
-                }
-            }
-            maxCover = Math.max(cover, maxCover);
-            cover = 0;
-        }
-        return maxCover;
-    }
+
 
     /*public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -319,9 +247,9 @@ public class NowCoder_LineCoverMax {
         int L = 0;
         int R = 200;
         int testTimes = 200000;
-
         for (int i = 0; i < testTimes; i++) {
             int[][] lines = generateLines(N, L, R);
+
             int ans2 = maxCover2(lines);
             int ans3 = maxCover3(lines);
             int ans = maxCover(lines);
