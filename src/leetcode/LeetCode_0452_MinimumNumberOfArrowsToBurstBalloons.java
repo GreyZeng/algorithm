@@ -88,28 +88,9 @@ public class LeetCode_0452_MinimumNumberOfArrowsToBurstBalloons {
         }
     }
 
-    public static int findMinArrowShots2(int[][] points) {
-        if (points.length == 0) {
-            return 0;
-        }
-        Arrays.sort(points, Comparator.comparingInt(o -> o[1]));
-        int ans = 1;
-        int end = points[0][1];
-        for (int i = 1; i < points.length; i++) {
-            if (points[i][0] <= end) {
-                continue;
-            }
-            ans++;
-            end = points[i][1];
-        }
-        return ans;
-    }
-
-
     public static void main(String[] args) {
         // [[9,12],[1,10],[4,11],[8,12],[3,9],[6,9],[6,7]]
         int[][] p = {{9, 12}, {1, 10}, {4, 11}, {8, 12}, {3, 9}, {6, 9}, {6, 7}};
-        System.out.println(findMinArrowShots2(p));
         System.out.println(findMinArrowShots(p));
     }
 }
