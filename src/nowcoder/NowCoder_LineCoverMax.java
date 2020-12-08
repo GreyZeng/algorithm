@@ -53,7 +53,6 @@ public class NowCoder_LineCoverMax {
     public static int maxCover2(int[][] lines) {
         HashMap<Integer, Integer> map = index(lines);
         int N = map.size();
-
         SegmentTree tree = new SegmentTree(N);
         long max = 0;
         for (int[] line : lines) {
@@ -66,6 +65,7 @@ public class NowCoder_LineCoverMax {
         return (int) max;
     }
 
+    // 离散化
     public static HashMap<Integer, Integer> index(int[][] lines) {
         TreeSet<Integer> set = new TreeSet<>();
         for (int[] line : lines) {
@@ -81,11 +81,6 @@ public class NowCoder_LineCoverMax {
     }
 
     public static class SegmentTree {
-        // arr[]为原序列的信息从0开始，但在arr里是从1开始的
-        // sum[]模拟线段树维护区间和
-        // lazy[]为累加懒惰标记
-        // change[]为更新的值
-        // update[]为更新慵懒标记
         private int MAXN;
         private int[] arr;
         private int[] max;
@@ -103,9 +98,6 @@ public class NowCoder_LineCoverMax {
             max[rt] = Math.max(max[rt << 1], max[(rt << 1) | 1]);
         }
 
-        // 之前的，所有懒增加，和懒更新，从父范围，发给左右两个子范围
-        // 分发策略是什么
-        // ln表示左子树元素结点个数，rn表示右子树结点个数
         private void pushDown(int rt, int ln, int rn) {
             if (lazy[rt] != 0) {
                 max[rt << 1] += lazy[rt];
@@ -116,14 +108,7 @@ public class NowCoder_LineCoverMax {
             }
         }
 
-        // L..R -> 任务范围 ,所有的值累加上C
-        // l,r -> 表达的范围
-        // rt  去哪找l，r范围上的信息
-        // 这里不仅要处理lazy数组，不要忘记了处理sum数组
-        public void add(
-                int L, int R, int C,
-                int l, int r,
-                int rt) {
+        public void add(int L, int R, int C, int l, int r, int rt) {
             if (L <= l && R >= r) {
                 lazy[rt] += C;
                 max[rt] += C;
@@ -249,7 +234,6 @@ public class NowCoder_LineCoverMax {
         int testTimes = 200000;
         for (int i = 0; i < testTimes; i++) {
             int[][] lines = generateLines(N, L, R);
-
             int ans2 = maxCover2(lines);
             int ans3 = maxCover3(lines);
             int ans = maxCover(lines);
