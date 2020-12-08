@@ -327,6 +327,7 @@ public class NowCoder_LineCoverMax {
             int ans = maxCover(lines);
             if (ans != ans3 || ans2 != ans3) {
                 System.out.println("Oops!");
+                break;
             }
         }
         System.out.println("test end");
