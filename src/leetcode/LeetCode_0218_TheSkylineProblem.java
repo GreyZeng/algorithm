@@ -72,9 +72,9 @@ public class LeetCode_0218_TheSkylineProblem {
 
 	private static List<Node> buildNodes(int[][] buildings) {
 		List<Node> list = new ArrayList<>();
-		for (int i = 0; i < buildings.length; i++) {
-			list.add(new Node(buildings[i][0], buildings[i][2]));
-			list.add(new Node(buildings[i][1], -buildings[i][2]));
+		for (int[] building : buildings) {
+			list.add(new Node(building[0], building[2]));
+			list.add(new Node(building[1], -building[2]));
 		}
 		list.sort(new MyComparator());
 		return list;
