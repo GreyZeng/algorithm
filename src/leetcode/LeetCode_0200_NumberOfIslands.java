@@ -22,43 +22,12 @@ package leetcode;
 //        ["0","0","0","1","1"]
 //        ]
 //        Output: 3
+// 方法1 感染函数 O(N*M)[只能过LeetCode上这题，但是过不了牛客上NC109的这题：会出现栈溢出的错误，可以采用并查集的方式]
+// 方法2 并查集 ，LeetCode和牛客上对应的题目都可以通过，不会出现栈溢出的情况
 public class LeetCode_0200_NumberOfIslands {
 
-    // 方法1 感染函数 O(N*M)
-    // 方法2 并查集
-    public static int numIslands(char[][] m) {
-        if (null == m || 0 == m.length || m[0] == null || m[0].length == 0) {
-            return 0;
-        }
-        int M = m.length;
-        int N = m[0].length;
-        int s = 0;
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-                if (m[i][j] == '1') {
-                    s++;
-                    infect(m, i, j, M, N);
-                }
-            }
-        }
-
-        return s;
-    }
-
-    // note，这里把M，N传进去和不传进去在leetcode中性能有差别，最好传进去，后续就不需要继续判断了
-    private static void infect(char[][] m, int i, int j, int M, int N) {
-        if (i < 0 || i >= M || j < 0 || j >= N || m[i][j] != '1') {
-            return;
-        }
-        m[i][j] = '.';
-        infect(m, i + 1, j, M, N);
-        infect(m, i, j + 1, M, N);
-        infect(m, i - 1, j, M, N);
-        infect(m, i, j - 1, M, N);
-    }
-
-    // 使用并查集
-    public static int numIslands2(char[][] board) {
+    // 并查集解法
+    public static int numIslands(char[][] board) {
 
         int row = board.length;
         int col = board[0].length;
@@ -124,10 +93,6 @@ public class LeetCode_0200_NumberOfIslands {
             return sets;
         }
 
-        public boolean isSameSet(int a, int b) {
-            return find(a) == find(b);
-        }
-
         public void union(int x, int y, int x2, int y2) {
             int fa = find(oneArrIndex(row, col, x, y));
             int fb = find(oneArrIndex(row, col, x2, y2));
@@ -151,8 +116,7 @@ public class LeetCode_0200_NumberOfIslands {
         private int find(int a) {
             int t = a;
             while (t != records[t]) {
-                int m = records[t];
-                t = m;
+                t = records[t];
             }
             int ans = t;
             // 扁平化操作
@@ -163,6 +127,37 @@ public class LeetCode_0200_NumberOfIslands {
             }
             return ans;
         }
+    }
+
+    public static int numIslands2(char[][] m) {
+        if (null == m || 0 == m.length || m[0] == null || m[0].length == 0) {
+            return 0;
+        }
+        int M = m.length;
+        int N = m[0].length;
+        int s = 0;
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (m[i][j] == '1') {
+                    s++;
+                    infect(m, i, j, M, N);
+                }
+            }
+        }
+
+        return s;
+    }
+
+    // note，这里把M，N传进去和不传进去在leetcode中性能有差别，最好传进去，后续就不需要继续判断了
+    private static void infect(char[][] m, int i, int j, int M, int N) {
+        if (i < 0 || i >= M || j < 0 || j >= N || m[i][j] != '1') {
+            return;
+        }
+        m[i][j] = '.';
+        infect(m, i + 1, j, M, N);
+        infect(m, i, j + 1, M, N);
+        infect(m, i - 1, j, M, N);
+        infect(m, i, j - 1, M, N);
     }
 
 }
