@@ -1,8 +1,12 @@
 package leetcode;
 
+import java.util.List;
+
 //Given the head of a linked list, return the list after sorting it in ascending order.
 //
 //        Follow up: Can you sort the linked list in O(n logn) time and O(1) memory (i.e. constant space)?
+// 方法1： 改归并排序 时间 O(nlogn) 空间 O(1)
+// 方法2： 转成数组  利用快排 然后再转成链表  时间 O(nlogn) 空间 O(N)
 public class LeetCode_0148_SortList {
 
     public static class ListNode {
@@ -13,6 +17,7 @@ public class LeetCode_0148_SortList {
             val = v;
         }
     }
+
 
     // 利用归并排序
     public static ListNode sortList(ListNode head) {
@@ -126,5 +131,84 @@ public class LeetCode_0148_SortList {
             }
         }
         return new ListNode[]{head, tail};
+    }
+
+
+    // 转换成数组的做法
+    public static ListNode sortList2(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        int size = 0;
+        ListNode cur = head;
+        while (cur != null) {
+            size++;
+            cur = cur.next;
+        }
+        ListNode[] nodes = new ListNode[size];
+        cur = head;
+        int i = 0;
+        while (cur != null) {
+            nodes[i++] = cur;
+            cur = cur.next;
+        }
+        sortArr(nodes);
+        return arrToList(nodes);
+    }
+
+    private static void sortArr(ListNode[] nodes) {
+        p(nodes, 0, nodes.length - 1);
+    }
+
+    private static void p(ListNode[] arr, int L, int R) {
+        if (L >= R) {
+            return;
+        }
+        swap(arr, L + (int) (Math.random() * (R - L + 1)), R);
+        int[] equalArea = netherlandsFlag(arr, L, R);
+        p(arr, L, equalArea[0] - 1);
+        p(arr, equalArea[1] + 1, R);
+    }
+
+    private static int[] netherlandsFlag(ListNode[] nodes, int L, int R) {
+        if (L > R) {
+            return new int[]{-1, -1};
+        }
+        if (L == R) {
+            return new int[]{L, R};
+        }
+        int less = L - 1;
+        int more = R;
+        ListNode num = nodes[R];
+        for (int i = L; i < more; i++) {
+            if (nodes[i].val < num.val) {
+                swap(nodes, ++less, i);
+            } else if (nodes[i].val > num.val) {
+                swap(nodes, i--, --more);
+            }
+        }
+        swap(nodes, R, more);
+        return new int[]{less + 1, more};
+    }
+
+    public static void swap(ListNode[] nodes, int i, int j) {
+        if (i == j) {
+            return;
+        } else {
+            ListNode t = nodes[i];
+            nodes[i] = nodes[j];
+            nodes[j] = t;
+        }
+    }
+
+    public static ListNode arrToList(ListNode[] nodes) {
+        ListNode head = nodes[0];
+        ListNode cur = head;
+        for (int i = 1; i < nodes.length; i++) {
+            cur.next = nodes[i];
+            cur = nodes[i];
+        }
+        cur.next = null;
+        return head;
     }
 }
