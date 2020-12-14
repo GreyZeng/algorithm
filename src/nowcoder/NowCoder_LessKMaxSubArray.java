@@ -40,14 +40,37 @@ public class NowCoder_LessKMaxSubArray {
         int[] minSumEnds = new int[N];
         // i位置向右边最多能扩到的最小累加和
         int[] minSumEndsValue = new int[N];
-        initMinSumEnd(nums, minSumEnds, minSumEndsValue);
-        // TODO
+        initMinSumEnd(nums, minSumEnds, minSumEndsValue, N);
+        int end = 0;
+        int sum = 0;
+        int res = 0;
+        for (int i = 0; i < N; i++) {
+            while (end < N && sum + minSumEndsValue[end] <= k) {
+                sum += minSumEndsValue[end];
+                end = minSumEnds[end] + 1;
+            }
+            res = Math.max(res, end - i);
+            if (end > i) {
+                sum -= nums[i];
+            } else {
+                end = i + 1;
+            }
+        }
 
-        return -1;
+        return res;
     }
 
-    private static void initMinSumEnd(int[] nums, int[] minSumEnds, int[] minSumEndsValue) {
-        // TODO
+    private static void initMinSumEnd(int[] nums, int[] minSumEnds, int[] minSumEndsValue, int N) {
+        minSumEnds[N - 1] = N - 1;
+        minSumEndsValue[N - 1] = nums[N - 1];
+        for (int i = N - 2; i >= 0; i--) {
+            minSumEndsValue[i] = nums[i];
+            minSumEnds[i] = i;
+            if (minSumEndsValue[i + 1] <= 0) {
+                minSumEndsValue[i] += minSumEndsValue[i + 1];
+                minSumEnds[i] = minSumEnds[i + 1];
+            }
+        }
     }
 
     public static void main(String[] args) {
