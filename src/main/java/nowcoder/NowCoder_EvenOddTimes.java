@@ -50,5 +50,6 @@ public class NowCoder_EvenOddTimes {
             arr[i] = in.nextInt();
         }
         System.out.println(getEvenNum(arr));
+        in.close();
     }
 }
