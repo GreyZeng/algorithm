@@ -18,24 +18,28 @@ package leetcode;
 //        Given target = 5, return true.
 //
 //        Given target = 20, return false.
+// Constraints:
+//
+//m == matrix.length
+//n == matrix[i].length
+//1 <= n, m <= 300
+//-10^9 <= matix[i][j] <= 10^9
+//All the integers in each row are sorted in ascending order.
+//All the integers in each column are sorted in ascending order.
+//-10^9 <= target <= 10^9
 public class LeetCode_0240_SearchA2DMatrixII {
 
     public static boolean searchMatrix(int[][] m, int target) {
-
-        if (null == m || m.length == 0 || m[0].length == 0) {
-            return false;
-        }
-        // note 从最右上角的数开始操作
-        int M = m.length - 1;
-        int N = m[0].length - 1;
+        int M = m.length;
+        int N = m[0].length;
         int i = 0;
-        int j = N;
-        while (i >= 0 &&j >= 0 && i <= M && j <= N) {
+        int j = N - 1;
+        while (i <= M - 1 && j >= 0) {
             if (m[i][j] == target) {
                 return true;
             } else if (m[i][j] > target) {
                 j--;
-            } else if (m[i][j] < target) {
+            } else {
                 i++;
             }
         }
