@@ -24,19 +24,19 @@ public class LeetCode_0042_TrappingRainWater {
         int water = 0;
         while (l <= r) {
             if (leftMax > rightMax) {
-                if (arr[l] < rightMax) {
-                    water += (rightMax - arr[l]);
+                if (arr[r] < rightMax) {
+                    water += (rightMax - arr[r]);
                 } else {
-                    leftMax = Math.max(arr[l], leftMax);
-                }
-                l++;
-            } else {
-                if (arr[r] < leftMax) {
-                    water += (leftMax - arr[r]);
-                } else {
-                    rightMax = Math.max(arr[r], rightMax);
+                    rightMax = arr[r];
                 }
                 r--;
+            } else { 
+                if (arr[l] < leftMax) {
+                    water += (leftMax - arr[l]);
+                } else {
+                    leftMax = arr[l];
+                }
+                l++;
             }
         }
         return water;
