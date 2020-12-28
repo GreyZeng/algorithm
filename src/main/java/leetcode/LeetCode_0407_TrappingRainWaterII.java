@@ -53,10 +53,47 @@ public class LeetCode_0407_TrappingRainWaterII {
             isEntered[0][i] = true;
             isEntered[m - 1][i] = true;
         }
-        Node weakest = heap.poll();
-        max = Math.max(weakest.value, max);
-        // TODO
+        int water = 0;
+        while (!heap.isEmpty()) {
+            Node weakest = heap.poll();
+            max = Math.max(weakest.value, max);
+            int i = weakest.i;
+            int j = weakest.j;
+            if (i + 1 < m && !isEntered[i + 1][j]) {
+                if (max > heightMap[i + 1][j]) {
+                    water += (max - heightMap[i + 1][j]);
+                }
+                heap.add(new Node(heightMap[i + 1][j], i + 1, j));
+                isEntered[i + 1][j] = true;
+            }
+            if (i - 1 >= 0 && !isEntered[i - 1][j]) {
 
-        return -1;
+                if (max > heightMap[i - 1][j]) {
+                    water += (max - heightMap[i - 1][j]);
+                }
+                heap.add(new Node(heightMap[i - 1][j], i - 1, j));
+                isEntered[i - 1][j] = true;
+            }
+            if (j + 1 < n && !isEntered[i][j + 1]) {
+                if (max > heightMap[i][j + 1]) {
+                    water += (max - heightMap[i][j + 1]);
+                }
+                heap.add(new Node(heightMap[i][j + 1], i, j + 1));
+                isEntered[i][j + 1] = true;
+            }
+            if (j - 1 >= 0 && !isEntered[i][j - 1]) {
+                if (max > heightMap[i][j - 1]) {
+                    water += (max - heightMap[i][j - 1]);
+                }
+                heap.add(new Node(heightMap[i][j - 1], i, j - 1));
+                isEntered[i][j - 1] = true;
+            }
+        }
+        return water;
+    }
+
+    public static void main(String[] args) {
+        int[][] grid = {{1, 4, 3, 1, 3, 2}, {3, 2, 1, 3, 2, 4}, {2, 3, 3, 2, 3, 1}};
+        System.out.println(trapRainWater(grid));
     }
 }
