@@ -1,5 +1,6 @@
 package nowcoder;
 
+// https://www.nowcoder.com/practice/f5805cc389394cf69d89b29c0430ff27
 public class NowCoder_MaxGap {
 	public int findMaxGap(int[] A, int n) {
 		int max = A[0];
