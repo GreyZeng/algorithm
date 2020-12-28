@@ -3,10 +3,6 @@ AVL, SBT, 红黑树
 AC自动机
 
 
-
-
-
-
 [TODO]
 给定一个正整数M，请构造出一个长度为M的数组arr，要求
 对任意的i、j、k三个位置，如果i<j<k，都有arr[i] + arr[k] != 2*arr[j]
