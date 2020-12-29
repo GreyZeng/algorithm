@@ -36,8 +36,26 @@ package leetcode;
 // ref : https://www.lintcode.com/problem/minimum-add-to-make-parentheses-valid/description
 public class LeetCode_0921_MinimumAddToMakeParenthesesValid {
 
-	// TODO
-	public static int minAddToMakeValid(String S) {
-		return -1;
-	}
+    public static int minAddToMakeValid(String s) {
+        int count = 0;
+        int need = 0;
+        char[] strs = s.toCharArray();
+        for (char str : strs) {
+            if (str == ')') {
+                count--;
+                if (count == -1) {
+                    count = 0;
+                    need++;
+                }
+            } else {
+                count++;
+            }
+        }
+        return count + need;
+    }
+
+    public static void main(String[] args) {
+        String s = "()))((";
+        System.out.println(minAddToMakeValid(s));
+    }
 }
