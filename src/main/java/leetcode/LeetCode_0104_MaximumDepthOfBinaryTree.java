@@ -1,6 +1,6 @@
 package leetcode;
 
-
+// ref:https://www.lintcode.com/problem/maximum-depth-of-binary-tree/description
 public class LeetCode_0104_MaximumDepthOfBinaryTree {
 
 	/*
@@ -11,7 +11,7 @@ public class LeetCode_0104_MaximumDepthOfBinaryTree {
 		TreeNode left;
 		TreeNode right;
 	}
-
+	
 	// morris遍历可以更优化
 	public static int maxDepth(TreeNode root) {
 		if (root == null) {
@@ -22,7 +22,32 @@ public class LeetCode_0104_MaximumDepthOfBinaryTree {
 		}
 		return Math.max(maxDepth(root.left),maxDepth(root.right))+1; 
 	}
-	
+	public static int maxDepth1(TreeNode root) {
+		return process(root).max;
+	}
+	public static Info process(TreeNode root) {
+		if (root == null) {
+			return new Info(0);
+		}
+		Info left = process(root.left);
+		Info right = process(root.right);
+		if (left == null && right == null) {
+			return new Info(1);
+		}
+		if (left == null) {
+			return new Info(right.max + 1);
+		}
+		if (right == null) {
+			return new Info(left.max + 1);
+		}
+		return new Info(Math.max(right.max, left.max) + 1);
+	}
+	public static class Info {
+		public int max;
+		public Info(int m) {
+			max = m;
+		}
+	}
 	// by morris
 	public static int maxDepth2(TreeNode head) {
 		if (head == null) {
