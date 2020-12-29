@@ -20,16 +20,10 @@ L - 1 和 L 位置的数不等于的时候 收集答案
 2）任何一个右括号都能找到和其正确配对的左括号
 有效的：    (())  ()()   (()())  等
 无效的：     (()   )(     等
-问题一：怎么判断一个括号字符串有效？
 问题二：如果一个括号字符串无效，返回至少填几个字符能让其整体有效
-
-问题1，用一个count变量
-遇到左括号 count++
-遇到右括号 count--
-如果过程中count<0 直接返回无效
-最后count==0 返回有效
-
-问题2，用一个count和need变量
+LeetCode_0921_MinimumAddToMakeParenthesesValid.java
+tips:
+用一个count和need变量
 如果count == -1， need++， count恢复成0
 到最后count == 0 ， 返回need，到最后count不等于0，返回need + count
 
