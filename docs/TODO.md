@@ -1,17 +1,16 @@
-
-
-
-
 [TODO]
-LeetCode_0015_3Sum.java
+
 给定一个有序数组arr，给定一个正数aim
 1）返回累加和为aim的，所有不同二元组
+// leetcode 类似题目，简单一些，题目中限制了无重复元素
+LeetCode_0167_TwoSumII.java
 双指针
 [L] + [R] > aim
 [L] + [R] < aim
 [L] + [R] = aim
 L - 1 和 L 位置的数不等于的时候 收集答案
 2）返回累加和为aim的，所有不同三元组
+LeetCode_0015_3Sum.java
 遍历每个位置，剩余位置 根据 找二元组的算法找出aim — [i] 的所有二元组
 
 
