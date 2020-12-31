@@ -26,31 +26,38 @@ package leetcode;
 
 
 // tips: 以i结尾的答案全部收集一遍
+// ref: https://www.lintcode.com/problem/longest-valid-parentheses/description
 public class LeetCode_0032_LongestValidParentheses {
 
-    public static int longestValidParentheses(String str) {
-        if (null == str || str.length() <= 1) {
+    public static int longestValidParentheses(String s) {
+        if (null == s || s.length() <= 1) {
             return 0;
         }
-
-        char[] chars = str.toCharArray();
-        int N = chars.length;
-        int[] dp = new int[N];
-        dp[1] = (chars[0] == '(' && chars[1] == ')') ? 2 : 0;
+        char[] str = s.toCharArray();
+        int n = str.length;
+        // 必须以i结尾最长括号长度是多少
+        int[] dp = new int[n];
+        dp[0] = 0;
+        dp[1] = (str[0] == '(' && str[1] == ')') ? 2 : 0;
         int max = dp[1];
-        for (int i = 2; i < N; i++) {
-            if (chars[i] == ')') {
-                if (i - dp[i - 1] - 1 >= 0 && chars[i - dp[i - 1] - 1] == '(') {
-                    dp[i] = dp[i - 1] + (2 + ((i - dp[i - 1] - 2) > 0 ? dp[i - dp[i - 1] - 2] : 0));
+        for (int i = 2; i < n; i++) {
+            if (str[i] == ')') {
+                if (str[i - 1] == '(') {
+                    dp[i] = 2 + dp[i - 2];
+                } else {
+                    if (i - dp[i - 1] - 1 >= 0 && str[i - dp[i - 1] - 1] == '(') {
+                        dp[i] = dp[i - 1] + 2 + (i - dp[i - 1] - 2>=0?dp[i - dp[i - 1] - 2]:0);
+                    }
                 }
+                max = Math.max(max, dp[i]);
             }
-            max = Math.max(max, dp[i]);
+
         }
         return max;
     }
 
     public static void main(String[] args) {
-        String st = ")()())()()(";
+        String st = "((()))())";
         int i = longestValidParentheses(st);
         System.out.println(i);
     }
