@@ -27,6 +27,8 @@ import java.util.Scanner;
 
 public class NowCoder_Bag {
     public static int bag2(int[] v, int w) {
+        // TODO
+
         return -1;
     }
 
