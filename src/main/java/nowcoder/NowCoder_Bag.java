@@ -28,8 +28,18 @@ import java.util.Scanner;
 public class NowCoder_Bag {
     // TODO
     public static int bag(int[] v, int w) {
-        return -1;
 
+    }
+
+    // 0....index位置搞定了，剩下index + 1及其后面所有继续搞定
+    public static int p(int[] v, int index, int rest) {
+        if (index == v.length - 1) {
+            return rest >= 0 ? 1 : 0;
+        }
+        if (v[index + 1] > rest) {
+            // TODO
+        }
+        return -1;
     }
 
     public static void main(String[] args) {
