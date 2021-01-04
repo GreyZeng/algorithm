@@ -26,21 +26,28 @@ package nowcoder;
 import java.util.Scanner;
 
 public class NowCoder_Bag {
-    // TODO
-    public static int bag(int[] v, int w) {
-
-    }
-
-    // 0....index位置搞定了，剩下index + 1及其后面所有继续搞定
-    public static int p(int[] v, int index, int rest) {
-        if (index == v.length - 1) {
-            return rest >= 0 ? 1 : 0;
-        }
-        if (v[index + 1] > rest) {
-            // TODO
-        }
+    public static int bag2(int[] v, int w) {
         return -1;
     }
+
+    // 暴力方法
+    public static int bag(int[] v, int w) {
+        return p(v, 0, w);
+    }
+
+    //  index及其后面所有继续搞定
+    public static int p(int[] v, int index, int rest) {
+        if (rest < 0) {
+            return 0;
+        }
+        if (index == v.length) {
+            return 1;
+        }
+        int next1 = p(v, index + 1, rest - v[index]);
+        int next2 = p(v, index + 1, rest);
+        return next1 + next2;
+    }
+
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
