@@ -22,13 +22,13 @@
         说明
         三种零食总体积小于10,于是每种零食有放入和不放入两种情况，一共有2*2*2 = 8种情况。*/
 package nowcoder;
- 
-import java.util.Scanner;
- 
-// TODO 改动态规划
-public class NowCoder_Bag {
-	
 
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
+
+
+public class NowCoder_Bag {
     public static void main(String[] args) throws Exception {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
@@ -42,14 +42,68 @@ public class NowCoder_Bag {
         if (sum <= w) {
             System.out.println((long) Math.pow(2, n));
         } else {
-            System.out.println(process(v, n - 1, w));
+            System.out.println(p(v, n - 1, w));
         }
 
         in.close();
     }
 
+    // TODO 分治方式 待理解
+    public static long ways(int[] arr, int bag) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        if (arr.length == 1) {
+            return arr[0] <= bag ? 2 : 1;
+        }
+        int mid = (arr.length - 1) >> 1;
+        TreeMap<Long, Long> lmap = new TreeMap<>();
+        long ways = process(arr, 0, 0, mid, bag, lmap);
+        TreeMap<Long, Long> rmap = new TreeMap<>();
+        ways += process(arr, mid + 1, 0, arr.length - 1, bag, rmap);
+        TreeMap<Long, Long> rpre = new TreeMap<>();
+        long pre = 0;
+        for (Map.Entry<Long, Long> entry : rmap.entrySet()) {
+            pre += entry.getValue();
+            rpre.put(entry.getKey(), pre);
+        }
+        for (Map.Entry<Long, Long> entry : lmap.entrySet()) {
+            long lweight = entry.getKey();
+            long lways = entry.getValue();
+            Long floor = rpre.floorKey(bag - lweight);
+            if (floor != null) {
+                long rways = rpre.get(floor);
+                ways += lways * rways;
+            }
+        }
+        return ways + 1;
+    }
+
+    public static long process(int[] arr, int index, long w, int end, int bag, TreeMap<Long, Long> map) {
+        if (w > bag) {
+            return 0;
+        }
+        if (index > end) {
+            if (w != 0) {
+                if (!map.containsKey(w)) {
+                    map.put(w, 1L);
+                } else {
+                    map.put(w, map.get(w) + 1);
+                }
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            long ways = process(arr, index + 1, w, end, bag, map);
+            ways += process(arr, index + 1, w + arr[index], end, bag, map);
+            return ways;
+        }
+    }
+
+    // TODO 改动态规划
     // 暴力递归
-    private static int process(long[] v, int i, long w) {
+    private static int p(long[] v, int i, long w) {
         if (i == 0) {
             if (v[i] <= w) {
                 return 2;
@@ -61,11 +115,9 @@ public class NowCoder_Bag {
             return 1;
         }
         if (v[i] <= w) {
-            return process(v, i - 1, w - v[i]) + process(v, i - 1, w);
+            return p(v, i - 1, w - v[i]) + p(v, i - 1, w);
         } else {
-            return process(v, i - 1, w);
+            return p(v, i - 1, w);
         }
     }
-    
-
 }
