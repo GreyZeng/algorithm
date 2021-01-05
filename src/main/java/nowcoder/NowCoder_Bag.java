@@ -22,98 +22,50 @@
         说明
         三种零食总体积小于10,于是每种零食有放入和不放入两种情况，一共有2*2*2 = 8种情况。*/
 package nowcoder;
-
-import java.util.Arrays;
+ 
 import java.util.Scanner;
-
-// TODO 牛客上报了java.lang.OutOfMemoryError: Java heap space
+ 
+// TODO 改动态规划
 public class NowCoder_Bag {
-	public static int bag2(int[] arr, int w) {
-		Arrays.sort(arr);
-		int N = arr.length;
-		int[][] dp = new int[N + 1][w + 1];
-		for (int j = 0; j <= w; j++) {
-			dp[N][j] = 1;
-		}
-		for (int i = N - 1; i >= 0; i--) {
-			for (int j = 0; j <= w; j++) {
-				dp[i][j] = dp[i + 1][j];
-				if (j - arr[i] >= 0) {
-					dp[i][j] += dp[i + 1][j - arr[i]];
-				} else {
-					break;
-				}
-			}
-		}
-		return dp[0][w];
+	
 
-	}
+    public static void main(String[] args) throws Exception {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        long w = in.nextLong();
+        long[] v = new long[n];
+        long sum = 0;
+        for (int i = 0; i < n; i++) {
+            v[i] = in.nextLong();
+            sum += v[i];
+        }
+        if (sum <= w) {
+            System.out.println((long) Math.pow(2, n));
+        } else {
+            System.out.println(process(v, n - 1, w));
+        }
 
-	// 暴力方法
-	public static int bag(int[] v, long w) {
-		Arrays.sort(v);
-		if (v[0] > w) {
-			return 1;
-		}
+        in.close();
+    }
 
-		return p(v, 0, w);
-	}
+    // 暴力递归
+    private static int process(long[] v, int i, long w) {
+        if (i == 0) {
+            if (v[i] <= w) {
+                return 2;
+            } else {
+                return 1;
+            }
+        }
+        if (w == 0) {
+            return 1;
+        }
+        if (v[i] <= w) {
+            return process(v, i - 1, w - v[i]) + process(v, i - 1, w);
+        } else {
+            return process(v, i - 1, w);
+        }
+    }
+    
 
-	// index及其后面所有继续搞定
-	public static int p(int[] arr, int index, long rest) {
-		if (rest < 0) { // 没有容量了
-			// -1 无方案的意思
-			return -1;
-		}
-		// rest>=0,
-		if (index == arr.length) { // 无零食可选
-			return 1;
-		}
-		// rest >=0
-		// 有零食index
-		// index号零食，要 or 不要
-		// index, rest
-		// (index+1, rest)
-		// (index+1, rest-arr[i])
-		int next1 = p(arr, index + 1, rest); // 不要
-		int next2 = p(arr, index + 1, rest - arr[index]); // 要
-		return next1 + (next2 == -1 ? 0 : next2);
-	}
-
-	public static void main(String[] args) throws Exception {
-		Scanner in = new Scanner(System.in);
-		int n = in.nextInt();
-		long w = in.nextLong();
-		long[] v = new long[n];
-		long sum = 0;
-		for (int i = 0; i < n; i++) {
-			v[i] = in.nextLong();
-			sum += v[i];
-		}
-		if (sum <= w) {
-			System.out.println((long) Math.pow(2, n));
-		} else {
-			System.out.println(process(v, n - 1, w));
-		}
-
-		in.close();
-	}
-
-	private static int process(long[] v, int i, long w) {
-		if (i == 0) {
-			if (v[i] <= w) {
-				return 2;
-			} else {
-				return 1;
-			}
-		}
-		if (w == 0) {
-			return 1;
-		}
-		if (v[i] <= w) {
-			return process(v, i - 1, w - v[i]) + process(v, i - 1, w);
-		} else {
-			return process(v, i - 1, w);
-		}
-	}
 }
