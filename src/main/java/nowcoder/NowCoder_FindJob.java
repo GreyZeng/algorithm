@@ -80,19 +80,6 @@ public class NowCoder_FindJob {
     }
 
     public static void main(String[] args) {
-        /*Job[] jobs = {new Job(3, 7), new Job(2, 4), new Job(5, 8), new Job(3, 6),
-                new Job(2, 5), new Job(4, 8)};
-        int[] abilities = {3, 7, 1, 2, 4};
-        int[] money = findJob(jobs, abilities);
-        for (int i = 0; i < money.length; i++) {
-            System.out.println(money[i]);
-        }*/
-        //输入描述:
-//每个输入包含一个测试用例。
-//每个测试用例的第一行包含两个正整数，分别表示工作的数量N(N<=100000)和小伙伴的数量M(M<=100000)。
-//接下来的N行每行包含两个正整数，分别表示该项工作的难度Di(Di<=1000000000)和报酬Pi(Pi<=1000000000)。
-//接下来的一行包含M个正整数，分别表示M个小伙伴的能力值Ai(Ai<=1000000000)。
-
         Scanner in = new Scanner(System.in);
         int N = in.nextInt();
         int M = in.nextInt();
@@ -111,6 +98,7 @@ public class NowCoder_FindJob {
         for (int i = 0; i < money.length; i++) {
             System.out.println(money[i]);
         }
+        in.close();
     }
 
     public static int[] findJob(Job[] jobs, int[] abilities) {
