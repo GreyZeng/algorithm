@@ -25,31 +25,65 @@ package nowcoder;
 
 import java.util.Scanner;
 
+// TODO 牛客上报了java.lang.OutOfMemoryError: Java heap space
 public class NowCoder_Bag {
-    public static int bag2(int[] v, int w) {
-        // TODO
-
-        return -1;
+    public static int bag2(int[] arr, int w) {
+        int N = arr.length;
+		int[][] dp = new int[N + 1][w + 1];
+		for (int j = 0; j <= w; j++) {
+			dp[N][j] = 1;
+		}
+		for (int i = N - 1; i >= 0; i--) {
+			for (int j = 0; j <= w; j++) {
+				dp[i][j] = dp[i + 1][j] + ((j - arr[i] >= 0) ? dp[i + 1][j - arr[i]] : 0);
+			}
+		}
+		return dp[0][w];
+        
     }
 
     // 暴力方法
     public static int bag(int[] v, int w) {
-        return p(v, 0, w);
-    }
-
-    //  index及其后面所有继续搞定
-    public static int p(int[] v, int index, int rest) {
-        if (rest < 0) {
-            return 0;
+        int count = 0;
+        for (int i = 0; i < v.length; i++) {
+            if (w >= v[i]) {
+                count++;
+            }
         }
-        if (index == v.length) {
+        if (count == 0) {
             return 1;
         }
-        int next1 = p(v, index + 1, rest - v[index]);
-        int next2 = p(v, index + 1, rest);
-        return next1 + next2;
+        int t = 0;
+        int[] arr = new int[count];
+        for (int i = 0; i < v.length; i++) {
+            if (w >= v[i]) {
+                arr[t++] = v[i];
+            }
+        }
+        
+        return p(arr, 0, w);
     }
 
+    // index及其后面所有继续搞定
+    public static int p(int[] arr, int index, int rest) {
+		if (rest < 0) { // 没有容量了
+			// -1 无方案的意思
+			return -1;
+		}
+		// rest>=0,
+		if (index == arr.length) { // 无零食可选
+			return 1;
+		}
+		// rest >=0
+		// 有零食index
+		// index号零食，要 or 不要
+		// index, rest
+		// (index+1, rest)
+		// (index+1, rest-arr[i])
+		int next1 = p(arr, index + 1, rest); // 不要
+		int next2 = p(arr, index + 1, rest - arr[index]); // 要
+		return next1 + (next2 == -1 ? 0 : next2);
+	}
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -57,9 +91,12 @@ public class NowCoder_Bag {
         int w = in.nextInt();
         int[] v = new int[n];
         for (int i = 0; i < n; i++) {
-            v[i] = in.nextInt();
+        v[i] = in.nextInt();
         }
         int result = bag(v, w);
         System.out.println(result);
+        // int[] arr = { 2 };
+        // int w = 1;
+        // System.out.println(bag(arr, w));
     }
 }
