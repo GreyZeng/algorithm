@@ -41,7 +41,7 @@ import java.util.List;
 // 三元组
 // 1. 排序
 // 遍历每个元素，然后取出这个元素，然后剩下的数调用二元组的算法 算 其余元素相加 和这个元素之和为目标元素的答案
-// 从右往左 ，可以优化效率     因为arraylist
+// 从右往左 ，可以优化效率
 public class LeetCode_0015_3Sum {
 
     public static List<List<Integer>> threeSum(int[] nums) {
@@ -59,26 +59,18 @@ public class LeetCode_0015_3Sum {
 
     // 调用这个方法，必须先保证start...end部分有序
     private static List<List<Integer>> threeSum(int[] nums, int start, int end, int target) {
-        List<List<Integer>> ans = new ArrayList<>();
-        int i = end;
-        while (i >= start + 2) {
-            int pre = nums[i];
-            int gap = target - pre;
-            // 找从i+1一直到最后twoSum == gap的值
-            List<List<Integer>> lists = twoSum(nums, start + 2, i, gap);
-            if (!lists.isEmpty()) {
-                for (List<Integer> list : lists) {
-                    list.add(pre);
-                    ans.add(list);
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = end; i >= start + 2; i--) {
+            if (i == end || nums[i] != nums[i + 1]) {
+                List<List<Integer>> rest = twoSum(nums, start, i - 1, target - nums[i]);
+                for (List<Integer> item : rest) {
+                    item.add(nums[i]);
+                    res.add(item);
                 }
             }
-            i--;
-            /*while (i >= start && pre == nums[i]) {
-                i--;
-            }*/
-
         }
-        return ans;
+
+        return res;
     }
 
     // 数组中，求两个元素之和是target的所有序列（需要去重）
@@ -117,15 +109,16 @@ public class LeetCode_0015_3Sum {
                 while (end > start && nums[start] == pre) {
                     start++;
                 }
+
             }
         }
         return ans;
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
+        int[] nums = new int[]{-2, 0, 1, 1, 2};
         // System.out.println(twoSum(nums,1,5, 0));
         System.out.println(threeSum(nums));
-        // System.out.println(twoSum(nums, 3));
+        // System.out.println(twoSum(nums, 4));
     }
 }
