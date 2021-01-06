@@ -18,8 +18,9 @@
         著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。*/
 package leetcode.cn;
 
-// FIXME
+
 public class LeetCodeCN_0047_MaxValue {
+    // 暴力递归
     public static int maxValue(int[][] grid) {
         if (null == grid) {
             return 0;
@@ -31,27 +32,128 @@ public class LeetCodeCN_0047_MaxValue {
 
     // 从i位置开始只能向右边和下边走直到右下角能拿到的礼物最大值是多少
     public static int p(int[][] grid, int m, int n, int row, int col) {
-        if (row == m - 1 && col == n - 1) {
-            return grid[row][col];
-        }
-        // 最下面只能往右走
         if (row == m - 1) {
-            return grid[row][col] + p(grid, m, n, row, col + 1);
+            int sum = 0;
+            for (int i = col; i < n; i++) {
+                sum += grid[m - 1][i];
+            }
+            return sum;
         }
-        // 最右边只能往下走
         if (col == n - 1) {
-            return grid[row][col] + p(grid, m, n, row + 1, col);
+            int sum = 0;
+            for (int i = row; i < m; i++) {
+                sum += grid[i][n - 1];
+            }
+            return sum;
         }
-        // 普遍位置
-        int downMax = 0;
+        int max = 0;
         if (row + 1 < m) {
-            downMax = p(grid, m, n, row + 1, col);
+            int downMax = p(grid, m, n, row + 1, col);
+            max = Math.max(max, downMax);
         }
-        int rightMax = 0;
         if (col + 1 < n) {
-            rightMax = p(grid, m, n, row, col + 1);
+            int rightMax = p(grid, m, n, row, col + 1);
+            max = Math.max(max, rightMax);
         }
-        return Math.max(rightMax, downMax);
+        return max + grid[row][col];
     }
 
+    public static int maxValue2(int[][] grid) {
+        if (null == grid) {
+            return 0;
+        }
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+        return p(grid, m, n, 0, 0, dp);
+    }
+
+    // 从i位置开始只能向右边和下边走直到右下角能拿到的礼物最大值是多少
+    public static int p(int[][] grid, int m, int n, int row, int col, int[][] dp) {
+        if (dp[row][col] != 0) {
+            return dp[row][col];
+        }
+        if (row == m - 1) {
+            int sum = 0;
+            for (int i = col; i < n; i++) {
+                sum += grid[m - 1][i];
+            }
+            dp[row][col] = sum;
+            return sum;
+        }
+        if (col == n - 1) {
+            int sum = 0;
+            for (int i = row; i < m; i++) {
+                sum += grid[i][n - 1];
+            }
+            dp[row][col] = sum;
+            return sum;
+        }
+        int max = 0;
+        if (row + 1 < m) {
+            int downMax = p(grid, m, n, row + 1, col, dp);
+            max = Math.max(max, downMax);
+        }
+        if (col + 1 < n) {
+            int rightMax = p(grid, m, n, row, col + 1, dp);
+            max = Math.max(max, rightMax);
+        }
+        dp[row][col] = max + grid[row][col];
+        return dp[row][col];
+    }
+
+
+    // 动态规划
+    public static int maxValue3(int[][] grid) {
+        if (null == grid) {
+            return 0;
+        }
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+        dp[m - 1][n - 1] = grid[m - 1][n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            dp[m - 1][i] = dp[m - 1][i + 1] + grid[m - 1][i];
+        }
+        for (int i = m - 2; i >= 0; i--) {
+            dp[i][n - 1] = dp[i + 1][n - 1] + grid[i][n - 1];
+        }
+        for (int i = m - 2; i >= 0; i--) {
+            for (int j = n - 2; j >= 0; j--) {
+                dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]) + grid[i][j];
+            }
+        }
+        return dp[0][0];
+    }
+
+    // 压缩数组
+    public static int maxValue4(int[][] grid) {
+        if (null == grid) {
+            return 0;
+        }
+        int m = grid.length;
+        int n = grid[0].length;
+        int[] dp = new int[n];
+        dp[n - 1] = grid[m - 1][n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            dp[i] = dp[i + 1] + grid[m - 1][i];
+        }
+        int tmp = dp[n - 1];
+        for (int i = m - 2; i >= 0; i--) {
+            dp[n - 1] = tmp + grid[i][n - 1];
+            for (int j = n - 2; j >= 0; j--) {
+                dp[j] = Math.max(dp[j], dp[j + 1]) + grid[i][j];
+            }
+            tmp = dp[n - 1];
+        }
+        return dp[0];
+    }
+
+    public static void main(String[] args) {
+        int[][] m = {{1, 2}, {1, 1}};
+        System.out.println(maxValue(m));
+        System.out.println(maxValue2(m));
+        System.out.println(maxValue3(m));
+        System.out.println(maxValue4(m));
+    }
 }
