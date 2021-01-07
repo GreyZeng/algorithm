@@ -37,18 +37,22 @@ package lintcode;
 import java.util.List;
 
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
-public class LintCode_0550_TopKLargestNumbersII {
-    public static class TopK {
+public class LintCode_0550_TopKTimesRealTime {
 
-        public TopK(int k) {
+}
 
-        }
+// TODO
+class TopK {
 
-        public void add(String word) {
-        }
+    public TopK(int k) {
 
-        public List<String> topk() {
-            return null;
-        }
+    }
+
+    public void add(String word) {
+
+    }
+
+    public List<String> topk() {
+        return null;
     }
 }
