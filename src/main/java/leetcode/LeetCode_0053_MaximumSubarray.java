@@ -1,52 +1,55 @@
+/*Given an integer array nums, find the contiguous subarray (containing at least one number)
+which has the largest sum and return its sum.
+
+        Follow up: If you have figured out the O(n) solution,
+        try coding another solution using the divide and conquer approach, which is more subtle.
+
+
+
+        Example 1:
+
+        Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+        Output: 6
+        Explanation: [4,-1,2,1] has the largest sum = 6.
+        Example 2:
+
+        Input: nums = [1]
+        Output: 1
+        Example 3:
+
+        Input: nums = [0]
+        Output: 0
+        Example 4:
+
+        Input: nums = [-1]
+        Output: -1
+        Example 5:
+
+        Input: nums = [-2147483647]
+        Output: -2147483647
+
+
+        Constraints:
+
+        1 <= nums.length <= 2 * 10^4
+        -2^31 <= nums[i] <= 2^31 - 1*/
 package leetcode;
 
 // 子数组的最大累加和
 // 1. 简单方法
 // 2. 动态规划的方法
+// TODO 选组合，不能相邻
 public class LeetCode_0053_MaximumSubarray {
+
     public static int maxSubArray(int[] arr) {
-        int N = arr.length;
-        if (N == 1) {
-            return arr[0];
-        }
-        //int[] dp = new int[N];
         int pre = arr[0];
         int max = pre;
         int cur;
-        for (int i = 1; i < N; i++) {
-            cur = arr[i];
-            if (pre >= 0) {
-                cur += pre;
-            }
+        for (int i = 1; i < arr.length; i++) {
+            cur = arr[i] + (Math.max(pre, 0));
+            max = Math.max(max, cur);
             pre = cur;
-            max = Math.max(cur, max);
         }
         return max;
     }
-
-    // TODO 选组合，不能相邻
-    public static int maxSubArray3(int[] nums) {
-        return -1;
-    }
-    public static int maxSubArray2(int[] arr) {
-        int N = arr.length;
-        if (N == 1) {
-            return arr[0];
-        }
-        int[] dp = new int[N];
-        dp[0] = arr[0];
-        int max = dp[0];
-        for (int i = 1; i < N; i++) {
-            if (dp[i - 1] >= 0) {
-                dp[i] = dp[i - 1] + arr[i];
-            } else {
-                dp[i] = arr[i];
-            }
-            max = Math.max(dp[i], max);
-        }
-        return max;
-    }
-
-
-
 }
