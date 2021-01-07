@@ -3,6 +3,7 @@
 2）路径可以从任何节点出发，但必须往下走到达任何节点，返回最大路径和
 
 [TODO]
+LintCode_0550_TopKTimesRealTime.java
 请实现如下结构：
 TopRecord{
 public TopRecord(int K)  :  构造时事先指定好K的大小，构造后就固定不变了
