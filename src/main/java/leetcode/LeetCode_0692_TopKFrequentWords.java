@@ -75,27 +75,6 @@ public class LeetCode_0692_TopKFrequentWords {
         return ans;
     }
 
-    // TODO
-    public static List<String> topKFrequent2(String[] words, int k) {
-        /*HashMap<String, Integer> map = new HashMap<>();
-        for (String word : words) {
-            if (map.containsKey(word)) {
-                map.put(word, map.get(word) + 1);
-            } else {
-                map.put(word, 1);
-            }
-        }
-        Node[] nodes = new Node[map.size()];
-        int i = 0;
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            nodes[i++] = new Node(entry.getKey(), entry.getValue());
-        }
-        Node kth = findK(nodes);*/
-
-        return null;
-    }
-
-
     public static void main(String[] args) {
         String[] words1 = {"i", "love", "leetcode", "i", "love", "coding"};
         int k = 2;
