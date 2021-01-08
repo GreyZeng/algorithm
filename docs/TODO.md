@@ -121,6 +121,7 @@ ends的有效区必须有序[需要证明]
 
 
 [TODO]
+LintCode_1534_CovertBSTToDoubleLinkedList.java
 双向链表节点结构和二叉树节点结构是一样的，如果你把last认为是left，next认为是next的话。
 给定一个搜索二叉树的头节点head，请转化成一条有序的双向链表，并返回链表的头节点。
 
@@ -841,10 +842,3 @@ LeetCode
 LintCode
 406. 和大于S的最小子数组
 https://www.lintcode.com/problem/minimum-size-subarray-sum/description
-
-
-题目链接
-https://www.nowcoder.com/practice/26e46f1f5e0d48c4b9ba13fe3e8d0ec6?tpId=101&&tqId=33216&rp=5&ru=/activity/oj&qru=/ta/programmer-code-interview-guide/question-ranking
-
-题目描述
-给定一个整型数组arr和一个大于1的整数k。已知arr中只有1个数出现了一次，其他的数出现k次，请返回出现了1次的数。
