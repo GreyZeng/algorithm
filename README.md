@@ -102,6 +102,10 @@
 
 [AC自动机](./docs/AC自动机.md)
 
+## [TODO]四边形不等式
+
+[四边形不等式](./docs/四边形不等式.md)
+
 ## TODO
 
 [TODO](./docs/TODO.md)
