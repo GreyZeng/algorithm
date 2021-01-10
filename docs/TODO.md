@@ -1323,6 +1323,15 @@ int f(arr, L,R,K)
 arr L..R 消消乐 L前面跟着K个[L]位置上的数，都消掉要多少？
 
 [TODO]
+https://leetcode.com/problems/strange-printer/
+tips:
+范围上尝试
+int f(L,R)
+贪心：边缘处只能让第一转生成，不会影响最优解
+L确定
+R的确定
+
+[TODO]
 AVL, SBT, 红黑树
 AC自动机
 资源限制类的题目
