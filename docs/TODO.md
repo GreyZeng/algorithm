@@ -1315,6 +1315,13 @@ int[] 表示上一行的状态
 i到后面所有的行都是空白的
 i-1行以上全摆满了
 
+
+[TODO]
+https://leetcode.com/problems/remove-boxes
+tips:
+int f(arr, L,R,K)
+arr L..R 消消乐 L前面跟着K个[L]位置上的数，都消掉要多少？
+
 [TODO]
 AVL, SBT, 红黑树
 AC自动机
