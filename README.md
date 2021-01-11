@@ -106,6 +106,10 @@
 
 [四边形不等式](./docs/四边形不等式.md)
 
+## [TODO]后缀数组
+
+[后缀数组](./docs/后缀数组.md)
+
 ## TODO
 
 [TODO](./docs/TODO.md)
