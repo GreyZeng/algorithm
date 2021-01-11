@@ -1,5 +1,4 @@
 /*550. 最常使用的K个单词II
-        中文English
         在实时数据流中找到最常使用的k个单词.
         实现TopK类中的三个方法:
         TopK(k), 构造方法
@@ -34,25 +33,80 @@
 //        top方法，复杂度O(K)
 package lintcode;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+// TODO
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
 public class LintCode_0550_TopKTimesRealTime {
+    public static class TopK {
+        public class Node {
+            public String str;
+            public int times;
+
+            public Node(String str, int times) {
+                this.str = str;
+                this.times = times;
+            }
+        }
+
+        private Node[] heap;
+        private int heapSize;
+        private HashMap<Node, Integer> indexMap;
+        private HashMap<String, Node> valueMap; // 来的String在valueMap里面有没有
+
+
+        public TopK(int k) {
+            heap = new Node[k];
+            indexMap = new HashMap<>();
+            valueMap = new HashMap<>();
+        }
+
+        public void add(String word) {
+
+        }
+
+        public void heapInsert(int i) {
+
+        }
+
+        public void heapify(int i) {
+
+        }
+
+        public void swap(Node[] nodes, int i, int j) {
+
+        }
+
+        // heap维持好堆的状态，直接遍历前k个即可
+        public List<String> topk() {
+            List<String> ans = new ArrayList<>();
+            for (Node node : heap) {
+                ans.add(node.str);
+            }
+            return ans;
+        }
+    }
+
+    public static void main(String[] args) {
+        int k = 2;
+        TopK topK = new TopK(k);
+        topK.add("lint");
+        topK.add("code");
+        topK.add("lint");
+        topK.add("lint");
+        topK.add("lint");
+        topK.add("lint");
+        topK.add("ssss");
+        topK.add("ssss");
+        topK.add("sss");
+        topK.add("ssss");
+        List<String> topk = topK.topk();
+        for (String s : topk) {
+            System.out.println(s);
+        }
+    }
 
 }
 
-// TODO
-class TopK {
 
-    public TopK(int k) {
-
-    }
-
-    public void add(String word) {
-
-    }
-
-    public List<String> topk() {
-        return null;
-    }
-}
