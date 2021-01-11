@@ -21,33 +21,34 @@
 package lintcode;
 
 public class LintCode_0130_Heapify {
-	public static void heapify(int[] A) {
-		if (A == null || A.length <= 1) {
-			return;
-		}
-		int heapSize = A.length;
-		for (int i = heapSize - 1; i >=0; i--) {
-			heapify(A, i, heapSize);
-		}
-	}
+    public static void heapify(int[] A) {
+        if (null == A || A.length <= 1) {
+            return;
+        }
+        int N = A.length;
+        for (int i = N - 1; i >= 0; i--) {
+            heapify(A, i, N);
+        }
+    }
 
-	private static void heapify(int[] arr, int index, int heapSize) {
-			int left = 2 * index + 1;
-			while (left < heapSize) {
-				int min = left + 1 < heapSize ? Math.min(arr[left], arr[left + 1]) : arr[left];
-				if (arr[index]<= min) {
-					break;
-				}
-				min = (min == arr[left]) ? left : left + 1;
-				swap(arr, index, min);
-				index = min;
-				left = 2 * index + 1;
-			}
-		}
+    public static void heapify(int[] arr, int index, int N) {
+        int leftChild = index * 2 + 1;
+        while (leftChild < N) {
+            int smallest = leftChild + 1 < N ? Math.min(arr[leftChild], arr[leftChild + 1]) : arr[leftChild];
+            if (smallest >= arr[index]) {
+                break;
+            }
+            smallest = smallest == arr[leftChild] ? leftChild : leftChild + 1;
+            swap(arr, smallest, index);
+            index = smallest;
+            leftChild = index * 2 + 1;
+        }
 
-	private static void swap(int[] arr, int i, int j) {
-		int t = arr[i];
-		arr[i] = arr[j];
-		arr[j] = t;
-	}
+    }
+
+    public static void swap(int[] arr, int i, int j) {
+        int t = arr[i];
+        arr[i] = arr[j];
+        arr[j] = t;
+    }
 }
