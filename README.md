@@ -6,6 +6,9 @@
 
 [链表](./docs/链表.md)
 
+## LRU
+[LRU](./docs/LRU.md)
+
 ## 二分
 
 [二分](./docs/二分.md)
