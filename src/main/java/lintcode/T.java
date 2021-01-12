@@ -65,13 +65,13 @@ public class T {
 		public int compare(Node o1, Node o2) {
 			
 			if (o1.times != o2.times) {
-				if (o1.times > o2.times) {
+				if (o1.times < o2.times) {
 					return -1;
 				} else {
 					return 1;
 				}
 			} else {
-				return o1.value.compareTo(o2.value);
+				return o2.value.compareTo(o1.value);
 			}
 
 		}
