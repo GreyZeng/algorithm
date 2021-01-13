@@ -29,16 +29,14 @@
         "aa" 和 "ab" 出现 , 但是aa的字典序小于ab。
         注意事项
         如果两个单词有相同的使用频率, 按字典序排名.*/
-// follow up:add方法，复杂度O(log K);
-//        top方法，复杂度O(K)
 package lintcode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeSet;
 
-// TODO
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
 public class LintCode_0550_TopKTimesRealTime {
     public static class TopK {
@@ -52,57 +50,69 @@ public class LintCode_0550_TopKTimesRealTime {
             }
         }
 
+        // 控制门槛，次数由少到多，次数一样的，字典序从大到小
+        // 保证heap[0] 位置是最先可能被淘汰的位置
         public class MyComparator implements Comparator<Node> {
             @Override
             public int compare(Node o1, Node o2) {
-
-                if (o1.times != o2.times) {
-                    if (o1.times < o2.times) {
-                        return -1;
-                    } else {
-                        return 1;
-                    }
+                if (o1.times < o2.times) {
+                    return -1;
+                } else if (o1.times > o2.times) {
+                    return 1;
                 } else {
                     return o2.value.compareTo(o1.value);
                 }
-
             }
+
+          
+       
         }
 
-        private Node[] heap;
+        // 次数由多到少，次数一样，按字典序由小到大
+        public class TreeSetComp implements Comparator<Node> {
+            @Override
+            public int compare(Node o1, Node o2) {
+                if (o1.times < o2.times) {
+                    return 1;
+                } else if (o1.times > o2.times) {
+                    return -1;
+                } else {
+                    return o1.value.compareTo(o2.value);
+                }
+            }
+            
+        }
+
+        private Node[] heap; // heap[0]门槛
         private int heapSize;
-        private int k;
+        // private int k;
         // node节点在heap的哪个位置
         private HashMap<Node, Integer> indexMap;
         // 通过valueMap可以找到某个字符串对应的Node内存地址
         private HashMap<String, Node> valueMap;
         private Comparator<Node> comp;
+        private TreeSet<Node> set; // 存候选
 
         public TopK(int k) {
-            this.k = k;
-            if (!fibbiden()) {
-                heap = new Node[k];
-                indexMap = new HashMap<>();
-                valueMap = new HashMap<>();
-                heapSize = 0;
-                // 先不用比较器
-                comp = new MyComparator();
-            }
-        }
-
-        // 过滤无效的k
-        private boolean fibbiden() {
-            return k <= 0;
+            heap = new Node[k];
+            indexMap = new HashMap<>();
+            valueMap = new HashMap<>();
+            heapSize = 0;
+            comp = new MyComparator();
+            set = new TreeSet<>(new TreeSetComp());
         }
 
         public void add(String word) {
-            if (fibbiden()) {
+            if (heap.length == 0) {
                 return;
             }
             int pre;
             Node node;
             if (valueMap.containsKey(word)) {
                 node = valueMap.get(word);
+                if (set.contains(node)) {
+                    set.remove(node);
+                }
                 pre = indexMap.get(node);
                 node.times++;
             } else {
@@ -112,36 +122,37 @@ public class LintCode_0550_TopKTimesRealTime {
                 indexMap.put(node, pre); // -1表示还没入堆,新增节点
             }
             // 要考虑堆满的情况，indexMap和valueMap会把word先缓存下来，等到次数到达一定程度了，再把节点加入到堆中
-            if (pre == -1) { // 新增节点
+            if (pre == -1) { // 新增节点或者淘汰后的节点
                 if (heapSize == heap.length) {
                     // 堆满了，要查看当前节点能否替换堆中的第一个节点
-                    if (node.times > heap[0].times // 当前节点次数超过了堆顶节点
-                            || (node.times == heap[0].times && node.value.compareTo(heap[0].value) < 0) // 当前节点次数和堆定一样，但是字典序更小
-                    ) {
+                    if (comp.compare(heap[0], node) < 0) {
+                        set.remove(heap[0]);
+                        set.add(node);
                         indexMap.put(heap[0], -1);
                         heap[0] = node;
                         indexMap.put(node, 0);
                         heapify(0);
                     }
                 } else {
+                    set.add(node);
                     heap[heapSize] = node;
                     indexMap.put(node, heapSize);
                     heapInsert(heapSize++);
                 }
             } else {
+                set.add(node);
                 heapify(pre);
             }
 
         }
 
         private void heapInsert(int i) {
-            while (heap[i].times < heap[(i - 1) / 2].times || (heap[i].times == heap[(i - 1) / 2].times
-                    && heap[i].value.compareTo(heap[(i - 1) / 2].value) > 0)) {
+            while (comp.compare(heap[i],heap[(i-1)/2])<0) {
                 swap(i, (i - 1) / 2);
                 i = (i - 1) / 2;
             }
         }
-
+        
         private void heapify(int i) {
             int leftChild = 2 * i + 1;
             while (leftChild < heapSize) {
@@ -149,24 +160,15 @@ public class LintCode_0550_TopKTimesRealTime {
                 if (leftChild + 1 < heapSize) {
                     Node left = heap[leftChild];
                     Node right = heap[leftChild + 1];
-                    if (left.times < right.times) {
-                        best = right;
-                    } else if (left.times > right.times) {
+                    if (comp.compare(left, right) < 0) {
                         best = left;
                     } else {
-                        if (left.value.compareTo(right.value) < 0) {
-                            best = right;
-                        } else {
-                            best = left;
-                        }
+                        best = right;
                     }
                 } else {
                     best = heap[leftChild];
                 }
-                if (best.times > heap[i].times) {
-                    break;
-                }
-                if (best.times == heap[i].times && best.value.compareTo(heap[i].value) <= 0) {
+                if (comp.compare(heap[i],best)<0) {
                     break;
                 }
                 int bestIndex = best == heap[leftChild] ? leftChild : leftChild + 1;
@@ -175,7 +177,7 @@ public class LintCode_0550_TopKTimesRealTime {
                 leftChild = 2 * i + 1;
             }
         }
-
+       
         private void swap(int i, int j) {
             indexMap.put(heap[i], j);
             indexMap.put(heap[j], i);
@@ -186,12 +188,9 @@ public class LintCode_0550_TopKTimesRealTime {
 
         // heap维持好堆的状态，直接遍历前k个即可
         public List<String> topk() {
-            if (fibbiden()) {
-                return new ArrayList<>();
-            }
             List<String> ans = new ArrayList<>();
-            for (int i = heap.length - 1; i >= 0; i--) {
-                ans.add(heap[i].value);
+            for (Node n : set) {
+                ans.add(n.value);
             }
             return ans;
         }
