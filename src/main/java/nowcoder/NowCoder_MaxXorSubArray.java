@@ -16,7 +16,7 @@
 {-28，-29}这个子数组的异或和为7，是所有子数组中最大的
 备注:
 时间复杂度O(nlog2n)O(nlog2n)，额外空间复杂度O(nlog2n)O(nlog2n)。*/
-package lintcode;
+package nowcoder;
 
 import java.util.Scanner;
 
@@ -26,13 +26,33 @@ public class NowCoder_MaxXorSubArray {
 		int n = in.nextInt();
 		int[] arr = new int[n];
 		for (int i = 0; i < n; i++) {
-			arr[i] = in.nextInt();
+		arr[i] = in.nextInt();
 		}
 		System.out.println(maxXor(arr,n));
 		in.close();
+		 
 	}
-	// 
+
+	// 暴力解，利用前缀异或和数组
 	public static int maxXor(int[] arr, int n) {
-		return -1;
+		if (arr == null || n == 0) {
+			return 0;
+		}
+		int[] eor = new int[n];
+		eor[0] = arr[0];
+		for (int i = 1; i < n; i++) {
+			eor[i] = eor[i - 1] ^ arr[i];
+		}
+		int max = eor[0];
+		for (int i = 0; i < n; i++) {
+			for (int j = i; j < n; j++) {
+				if (i == 0) {
+					max = Math.max(eor[j], max);
+				} else {
+					max = Math.max(eor[j] ^ eor[i - 1], max);
+				}
+			}
+		}
+		return max;
 	}
 }
