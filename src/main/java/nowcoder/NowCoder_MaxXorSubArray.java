@@ -55,4 +55,32 @@ public class NowCoder_MaxXorSubArray {
 		}
 		return max;
 	}
+	
+	public static int maxEor(int[] arr, int n) {
+		if (arr == null || n == 0) {
+			return 0;
+		}
+		int[] eor = new int[n];
+		eor[0] = arr[0];
+		for (int i = 1; i < n; i++) {
+			eor[i] = eor[i - 1] ^ arr[i];
+		}
+		int max = eor[0];	
+		Trie trie = new Trie();
+		for (int i = 0; i < n; i++) {
+			// TODO
+		}
+		return max;
+	}
+	// TODO
+	public static class Trie {
+		// 给我一个num，我可以拿到这个num对应最大的异或和返回
+		public static int maxEor(int num) {
+			return -1;
+		}
+		// 将一个数加入前缀树
+		public static void add(int num) {
+			
+		}
+	}
 }
