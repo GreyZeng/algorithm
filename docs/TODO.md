@@ -73,9 +73,15 @@ tips:
 
 
 [TODO] 
+最长递增子序列问题的O(N*logN)解法
 
-**非常重要！！！！**
-最长递增子序列问题的O(N*logN)的解法
+- 这里的递增指的是严格递增（相等都不算）
+- 暴力解是 O(N^2)
+
+经典解法：
+- ends数组，ends[i] 找到的所有长度为i+1的递增子序列中最小结尾是什么
+- dp[i]数组, 必须以i结尾的，最长递增子序列有多长
+
 tips:
 dp数组和ends数组配合
 
@@ -91,6 +97,13 @@ ends的有效区必须有序[需要证明]
 一维从小到大，二维从大到小，二维数据拿出来，最长递增子序列就是嵌套层数
 
 二维穿过点最多的曲线问题
+
+相关习题：
+
+Code_0021_LIS.java
+LeetCode_0300_LongestIncreasingSubsequence.java
+LeetCode_0334_IncreasingTripletSubsequence.java
+LeetCode_0354_RussianDollEnvelopes.java
 
 [TODO]
 LintCode_1534_CovertBSTToDoubleLinkedList.java
@@ -146,19 +159,6 @@ HashSet中有可能的所有邻居（只变动一个位置的字符）都放入�
 
 
 宽度优先遍历 + 深度优先遍历
-
-
-[TODO]
-给定一个只由 0(假)、1(真)、&(逻辑与)、|(逻辑或)和^(异或)五种字符组成 的字符串express，再给定一个布尔值 desired。返回express能有多少种组合 方式，可以达到desired的结果。
-【举例】
-express="1^0|0|1"，desired=false
-只有 1^((0|0)|1)和 1^(0|(0|1))的组合可以得到 false，返回 2。 express="1"，desired=false
-无组合则可以得到false，返回0
-tips:
-范围上尝试的模型
-f(L,R,期待)
-优化：
-两张二维表 T表，F表
 
 [TODO]
 给出一组正整数arr，你从第0个数向最后一个数，
