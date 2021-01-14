@@ -206,16 +206,6 @@ tips:
 一个样本做行一个样本做列的模型
 dp[i][j] str1 拿出前缀i长度，str2 拿出前缀j长度，能否交错组成str[i+j]
 
-
-[TODO]
-NowCoder_MinSubArrayNeedSort.java
-给定一个无序数组arr，如果只能再一个子数组上排序
-返回如果让arr整体有序，需要排序的最短子数组长度
-
-tips:
-从左往右遍历i，i左边最大值maxleft maxleft <= a[i] v   maxleft > a[i] x
-从右往左遍历i，i右边最大值minright minleft >= a[i] v   minleft < a[i] x
-
 [TODO] 数组中最小不可组成和
 给定一个正数数组 arr，其中所有的值都为整数，以下是最小不可组成和的概念:
 把 arr 每个子集内的所有元素加起来会出现很多值，其中最小的记为 min，最大的记为max 在区间[min,max]上，如果有数不可以被arr某一个子集相加得到，那么其中最小的那个数是arr 的最小不可组成和 在区间[min,max]上，如果所有的数都可以被arr的某一个子集相加得到，那么max+1是arr的最 小不可组成和

@@ -26,15 +26,41 @@ public class NowCoder_MinSubArrayNeedSort {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
-        int[] arr = new int[n] ;
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
-        System.out.println(minSubArrayNeedSort(arr,n));
+        System.out.println(minSubArrayNeedSort(arr, n));
         in.close();
     }
-    // TODO
+
     public static int minSubArrayNeedSort(int[] arr, int n) {
-        return -1;
+        if (arr == null || n <= 1) {
+            return 0;
+        }
+        int mostRightIndex = -1;
+        int leftMax = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            // 这里必须是arr[i]>=leftMax -> 测试用例 {5,6,7,9,9,12,14,15}
+            if (arr[i] >= leftMax) {
+
+                leftMax = arr[i];
+            } else {
+                mostRightIndex = i;
+            }
+        }
+        if (mostRightIndex == -1) {
+            return 0;
+        }
+        int mostLeftIndex = n;
+        int rightMin = Integer.MAX_VALUE;
+        for (int i = n - 1; i >= 0; i--) {
+            if (arr[i] <= rightMin) {
+                rightMin = arr[i];
+            } else {
+                mostLeftIndex = i;
+            }
+        }
+        return mostRightIndex - mostLeftIndex + 1;
     }
 }
