@@ -45,13 +45,27 @@ public class LeetCode_1312_MinimumInsertionStepsToMakeAStringPalindrome {
         }
         char[] str = s.toCharArray();
         int N = str.length;
-        return p(str, 0, N - 1);
-    }
-    // TODO
-    public static int p(char[] str, int L, int R) {
-        if (L == R) {
-            return 0;
+        int[][] dp = new int[N][N];
+        // 对角线均为0
+        // 对角线上一条对角线，相等则为0，不等则为1
+
+        for (int j = 1; j < N; j++) {
+            dp[j - 1][j] = str[j - 1] == str[j] ? 0 : 1;
+            for (int i = j - 2; i >=0; i--) {
+                // 最后解决开头
+                // 最后解决结尾
+                if (str[i] == str[j]) {
+                    dp[i][j] = dp[i + 1][j - 1];
+                } else {
+                    dp[i][j] = Math.min(dp[i][j - 1], dp[i + 1][j]) + 1;
+                }
+            }
         }
-        return -1;
+        return dp[0][N - 1];
     }
+
+    public static void main(String[] args) {
+        System.out.println(minInsertions("mbadm"));
+    }
+
 }
