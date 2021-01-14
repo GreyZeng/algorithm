@@ -10,13 +10,13 @@ public class NowCoder_ExpressToDesired {
 
 
     // 暴力解法
-    public static int getDesiredNum(String express, boolean desired) {
-        char[] exp = express.toCharArray();
-        int N = exp.length;
-        if (errorFormat(exp, N)) {
+    public static int getDesiredNum(String exp, boolean desired) {
+        char[] str = exp.toCharArray();
+        int N = str.length;
+        if (errorFormat(str, N)) {
             return 0;
         }
-        return p(exp, 0, N - 1, desired);
+        return p(str, 0, N - 1, desired);
     }
 
     // 初步筛选一下exp串的合法性
@@ -123,5 +123,4 @@ public class NowCoder_ExpressToDesired {
         }
         return desired ? tMap[0][N - 1] : fMap[0][N - 1];
     }
-
 }
