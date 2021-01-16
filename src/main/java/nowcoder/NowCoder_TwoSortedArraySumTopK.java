@@ -79,14 +79,16 @@ public class NowCoder_TwoSortedArraySumTopK {
         if (arr1 == null || arr2 == null || k < 1) {
             return null;
         }
-        k = Math.min(k, n * n);
+        //k = Math.min(k, n * n);
         PriorityQueue<Node> heap = new PriorityQueue<>(new MyComparator());
         int biggestIndexOfArr1 = n - 1;
         int biggestIndexOfArr2 = n - 1;
         int biggestSum = arr1[biggestIndexOfArr1] + arr2[biggestIndexOfArr2];
         int[] ans = new int[k];
-        boolean[][] isSet = new boolean[n][n];
-        isSet[n - 1][n - 1] = true;
+
+        // boolean[][] isSet = new boolean[n][n];
+        // isSet[n - 1][n - 1] = true;
+        HashSet<String> isSet = new HashSet<>();
         heap.add(new Node(biggestIndexOfArr1, biggestIndexOfArr2, biggestSum));
         int ind = 0;
         while (!heap.isEmpty() && k > 0) {
@@ -96,13 +98,13 @@ public class NowCoder_TwoSortedArraySumTopK {
             k--;
             biggestIndexOfArr1 = sum.x;
             biggestIndexOfArr2 = sum.y;
-            if (biggestIndexOfArr1 >= 1 && !isSet[biggestIndexOfArr1 - 1][biggestIndexOfArr2]) {
+            if (biggestIndexOfArr1 >= 1 && !isSet.contains((biggestIndexOfArr1 - 1)+"_"+(biggestIndexOfArr2))) {
                 heap.offer(new Node(biggestIndexOfArr1 - 1, biggestIndexOfArr2, arr1[biggestIndexOfArr1 - 1] + arr2[biggestIndexOfArr2]));
-                isSet[biggestIndexOfArr1 - 1][biggestIndexOfArr2] = true;
+                isSet.add((biggestIndexOfArr1 - 1)+"_"+(biggestIndexOfArr2));
             }
-            if (biggestIndexOfArr2 >= 1 && !isSet[biggestIndexOfArr1][biggestIndexOfArr2 - 1]) {
+            if (biggestIndexOfArr2 >= 1 && !isSet.contains((biggestIndexOfArr1)+"_"+(biggestIndexOfArr2 - 1))) {
                 heap.offer(new Node(biggestIndexOfArr1, biggestIndexOfArr2 - 1, arr1[biggestIndexOfArr1] + arr2[biggestIndexOfArr2 - 1]));
-                isSet[biggestIndexOfArr1][biggestIndexOfArr2 - 1] = true;
+                 isSet.add((biggestIndexOfArr1)+"_"+(biggestIndexOfArr2 - 1));
             }
         }
         return ans;
