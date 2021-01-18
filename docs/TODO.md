@@ -169,8 +169,12 @@ curR：step步内，右边界到哪里，初始 0
 next: 如果再跳一步，能跳到哪里 初始-1
 从左往右的尝试模型
 
-[TODO] 范围上的尝试模型 + 从左到右的尝试模型
+[TODO] 
+范围上的尝试模型 + 从左到右的尝试模型
 str中，至少切几刀，保证每个部分都是回文串
+LeetCode_0132_PalindromePartitioningII
+
+tips:
 f(str,i), 从i到后面，最多能且切多少个回文串
 dp[i][j] 是否是回文 对角线是TRUE，
 普遍位置：i == j && dp[i+1][j-1]
