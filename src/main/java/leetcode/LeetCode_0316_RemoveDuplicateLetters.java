@@ -19,7 +19,7 @@
         1 <= s.length <= 10^4
         s consists of lowercase English letters.*/
 package leetcode;
-// FIXME
+
 public class LeetCode_0316_RemoveDuplicateLetters {
     public static String removeDuplicateLetters(String s) {
         char[] str = s.toCharArray();
@@ -29,22 +29,24 @@ public class LeetCode_0316_RemoveDuplicateLetters {
         int[] map = new int[26];
         for (int i = 0; i < str.length; i++) {
             map[str[i] - 'a']++;
-        } 
+        }
         StringBuilder sb = new StringBuilder();
         while (R != str.length) {
             if (map[str[R] - 'a'] == -1 || --map[str[R] - 'a'] > 0) {
                 R++;
             } else {
                 // R位置的词频目前减到0了，可以从L...R之间收集一个最小ASCII码的字符了
-                int p = L;
+                int p = -1;
                 for (int i = L; i <= R; i++) {
-                    if (str[i] < str[p]) {
+                    if (map[str[i] - 'a'] != -1 && (p == -1 || str[i] < str[p])) {
                         p = i;
                     }
                 }
                 sb.append(str[p]);
                 for (int i = p + 1; i <= R; i++) {
-                    map[str[i] - 'a']++;
+                    if (map[str[i] - 'a'] != -1) {
+                        map[str[i] - 'a']++;
+                    }
                 }
                 map[str[p] - 'a'] = -1;
                 L = p + 1;
