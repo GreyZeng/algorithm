@@ -1,6 +1,6 @@
 package leetcode;
 
-// ref : https://www.nowcoder.com/practice/b56799ebfd684fb394bd315e89324fb4?tpId=188&&tqId=36694&rp=1&ru=/ta/job-code-high-week&qru=/ta/job-code-high-week/question-ranking
+// ref : https://www.nowcoder.com/practice/b56799ebfd684fb394bd315e89324fb4
 public class LeetCode_0003_LongestSubstringWithoutRepeatingCharacters {
 
     // 1. 必须以i结尾的字符串最大不重复字串的长度是?,假设为x，所有位置x值中最大的值就是答案。
