@@ -175,8 +175,8 @@ str中，至少切几刀，保证每个部分都是回文串
 LeetCode_0132_PalindromePartitioningII
 
 tips:
-f(str,i), 从i到后面，最多能且切多少个回文串
-dp[i][j] 是否是回文 对角线是TRUE，
+从左往右的尝试 f(str,i), 从i到后面，最多能且切多少个回文串
+范围上的尝试 dp[i][j] 是否是回文 对角线是TRUE，
 普遍位置：i == j && dp[i+1][j-1]
 
 
