@@ -28,23 +28,26 @@ package leetcode;
 // TODO
 public class LeetCode_0132_PalindromePartitioningII {
     public static int minCut(String s) {
-        if (s == null || s.length() <= 1) {
+        if (s == null || s.length() == 0) {
             return 0;
         }
-        int N = s.length();
+        if (s.length() == 1) {
+            return 0;
+        }
         char[] str = s.toCharArray();
+        int N = str.length;
         boolean[][] isP = new boolean[N][N];
-        // dp[i][j] 表示i...j这段是否是回文
         for (int i = 0; i < N; i++) {
             isP[i][i] = true;
         }
         for (int i = 0; i < N - 1; i++) {
-            for (int j = i + 1; j < N; j++) {
-                isP[i][j] = isP[i][j - 1] && str[j] == str[i - 1];
+            isP[i][i + 1] = str[i] == str[i + 1];
+        }
+        for (int row = N - 3; row >= 0; row--) {
+            for (int col = row + 2; col < N; col++) {
+                isP[row][col] = str[row] == str[col] && isP[row + 1][col - 1];
             }
         }
-
-
         int[] dp = new int[N + 1];
         for (int i = 0; i <= N; i++) {
             dp[i] = Integer.MAX_VALUE;
@@ -58,8 +61,7 @@ public class LeetCode_0132_PalindromePartitioningII {
                 }
             }
         }
-
-        return dp[0];
+        return dp[0]-1;
     }
 
 }
