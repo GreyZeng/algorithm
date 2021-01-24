@@ -1,4 +1,5 @@
 /*链接：https://www.nowcoder.com/questionTerminal/ceeeb34083934e79ad56019cd2cef4c4
+tips: https://www.processon.com/view/link/5f74af881e085307a0768f41#map
         来源：牛客网
 
 给定一个有序的正数数组arr和一个正数range，如果可以自由选择arr中的数字，想累加得 到 1~range 范围上所有的数，返回arr最少还缺几个数。
