@@ -40,21 +40,19 @@ public class NowCoder_MissingNum {
         int miss = 0;
         long range = 0;
         Arrays.sort(arr);
-        for (int i = 0; i < arr.length; i++) {
-            while (arr[i] > range + 1) {
+        for (int item : arr) {
+            while (item > range + 1) {
                 range += (range + 1);
                 miss++;
                 if (range >= aim) {
                     return miss;
                 }
             }
-            range += arr[i];
+            range += item;
             if (range >= aim) {
                 return miss;
             }
-
         }
-
         while (aim >= range + 1) {
             range += range + 1;
             miss++;
