@@ -11,7 +11,13 @@
         输入
         "abc","adc",5,3,100
         输出
-        8*/
+        8
+
+
+备注:
+1≤∣str1∣,∣str2∣≤5000
+1≤ic,dc,rc≤10000
+*/
 package nowcoder;
 
 import java.util.Scanner;
@@ -29,6 +35,22 @@ public class NowCoder_EditDistance {
     }
 
     public static int edit(String word1, String word2, int ic, int dc, int rc) {
-        return -1;
+        char[] str1 = word1.toCharArray();
+        char[] str2 = word2.toCharArray();
+        // words1 0~i 搞定 words2 0~j需要的最小编辑代价是多少？
+        int[][] dp = new int[str1.length - 1][str2.length - 1];
+        for (int i = 0; i < str1.length; i++) {
+            dp[i][0] = i * dc;
+        }
+        for (int i = 0; i < str2.length; i++) {
+            dp[0][i] = i * ic;
+        }
+
+        // TODO 普遍位置
+
+
+        return dp[str1.length - 1][str2.length - 1];
     }
+
+
 }
