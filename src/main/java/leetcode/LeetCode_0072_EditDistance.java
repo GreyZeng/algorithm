@@ -37,10 +37,38 @@
         著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。*/
 package leetcode;
 
-
+// ref : NowCoder_EditDistance.java
 public class LeetCode_0072_EditDistance {
 
     public int minDistance(String word1, String word2) {
-        return -1;
+        return minEditCost(word1, word2, 1, 1, 1);
+    }
+
+    public static int minEditCost(String str1, String str2, int ic, int dc, int rc) {
+        char[] w1 = str1.toCharArray();
+        char[] w2 = str2.toCharArray();
+        // words1 前i个 搞定 words2 前j个需要的最小编辑代价是多少？
+        int m = w1.length + 1;
+        int n = w2.length + 1;
+        int[][] dp = new int[m][n];
+        for (int i = 1; i < m; i++) {
+            dp[i][0] = i * dc;
+        }
+        for (int i = 1; i < n; i++) {
+            dp[0][i] = i * ic;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+
+                if (w1[i - 1] != w2[j - 1]) {
+                    dp[i][j] = rc + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = dp[i - 1][j - 1];
+                }
+                dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + ic);
+                dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + dc);
+            }
+        }
+        return dp[m - 1][n - 1];
     }
 }

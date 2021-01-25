@@ -20,36 +20,41 @@
 */
 package nowcoder;
 
-import java.util.Scanner;
 
 public class NowCoder_EditDistance {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String word1 = in.nextLine();
-        String word2 = in.nextLine();
-        int ic = in.nextInt();
-        int dc = in.nextInt();
-        int rc = in.nextInt();
-        System.out.println(edit(word1, word2, ic, dc, rc));
-        in.close();
-    }
 
-    public static int edit(String word1, String word2, int ic, int dc, int rc) {
-        char[] str1 = word1.toCharArray();
-        char[] str2 = word2.toCharArray();
-        // words1 0~i 搞定 words2 0~j需要的最小编辑代价是多少？
-        int[][] dp = new int[str1.length - 1][str2.length - 1];
-        for (int i = 0; i < str1.length; i++) {
+    public static int minEditCost(String str1, String str2, int ic, int dc, int rc) {
+        char[] w1 = str1.toCharArray();
+        char[] w2 = str2.toCharArray();
+        // words1 前i个 搞定 words2 前j个需要的最小编辑代价是多少？
+        int m = w1.length + 1;
+        int n = w2.length + 1;
+        int[][] dp = new int[m][n];
+        for (int i = 1; i < m; i++) {
             dp[i][0] = i * dc;
         }
-        for (int i = 0; i < str2.length; i++) {
+        for (int i = 1; i < n; i++) {
             dp[0][i] = i * ic;
         }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
 
-        // TODO 普遍位置
+                if (w1[i - 1] != w2[j - 1]) {
+                    dp[i][j] = rc + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = dp[i - 1][j - 1];
+                }
+                dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + ic);
+                dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + dc);
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
 
-
-        return dp[str1.length - 1][str2.length - 1];
+    public static void main(String[] args) {
+        String words1 = "abc";
+        String words2 = "adc";
+        System.out.println(minEditCost(words1, words2, 5, 3, 2));
     }
 
 
