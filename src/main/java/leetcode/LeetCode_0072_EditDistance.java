@@ -45,6 +45,9 @@ public class LeetCode_0072_EditDistance {
     }
 
     public static int minEditCost(String str1, String str2, int ic, int dc, int rc) {
+        if (ic + dc < rc) {
+            rc = ic + dc;
+        }
         char[] w1 = str1.toCharArray();
         char[] w2 = str2.toCharArray();
         // words1 前i个 搞定 words2 前j个需要的最小编辑代价是多少？
