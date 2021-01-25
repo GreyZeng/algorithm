@@ -1,45 +1,4 @@
-[TODO] 
-最长递增子序列问题的O(N*logN)解法
 
-- 这里的递增指的是严格递增（相等都不算）
-- 暴力解是 O(N^2)
-
-经典解法：
-- ends数组，ends[i] 找到的所有长度为i+1的递增子序列中最小结尾是什么
-- dp[i]数组, 必须以i结尾的，最长递增子序列有多长
-
-tips:
-dp数组和ends数组配合
-
-ends数组：找到的所有长度为i+1的递增子序列中最小结尾是啥
-ends的有效区必须有序[需要证明]
-任何一个当前数，
-去有效区找大于等于cur的最左边的位置，
-找到，填进去，然后看下这个位置包括自己在内左边一共有几个数，就是cur此时的dp值
-没有找到，扩充有效区，一直到把所有dp都生成
-
-
-嵌套信封问题的原型就是最长递增子序列
-一维从小到大，二维从大到小，二维数据拿出来，最长递增子序列就是嵌套层数
-
-二维穿过点最多的曲线问题
-
-相关习题：
-
-Code_0021_LIS.java
-LeetCode_0300_LongestIncreasingSubsequence.java
-LeetCode_0334_IncreasingTripletSubsequence.java
-LeetCode_0354_RussianDollEnvelopes.java
-
-[TODO]
-LintCode_1534_CovertBSTToDoubleLinkedList.java
-双向链表节点结构和二叉树节点结构是一样的，如果你把last认为是left，next认为是next的话。
-给定一个搜索二叉树的头节点head，请转化成一条有序的双向链表，并返回链表的头节点。
-
-tips:
-case1 中序遍历
-case2 二叉树的递归套路
-case3 morris遍历
 
 [TODO] 编辑距离问题
 给定两个字符串str1和str2，再给定三个整数ic、dc和rc，分别代表插入、删 除和替换一个字符的代价，返回将str1编辑成str2的最小代价。
@@ -142,16 +101,8 @@ O(N*N)
 最大公约数
 
 
-[TODO]
-给定两个数组arrx和arry，长度都为N。代表二维平面上有N个点，第i个点的x 坐标和y坐标分别为arrx[i]和arry[i]，返回求一条直线最多能穿过多少个点?
 
-tips:
-必须穿过某个点的直线
-假设某个点是a
-1. a 和 x 重合
-2. a 和 x 共y
-3. a 和 x 共x
-4. a 和 x 有斜率 如何表示斜率？ 最大公约数以后用字符串拼接
+
 
 [TODO]
 int[] d，d[i]：i号怪兽的能力
