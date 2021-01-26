@@ -1,10 +1,5 @@
 package nowcoder;
 
-import com.sun.tools.jdeprscan.scan.Scan;
-
-import java.util.Arrays;
-import java.util.Scanner;
-
 // 最小不可组成和
 // https://www.nowcoder.com/questionTerminal/296c2c18037843a7b719cf4c9c0144e4
 public class NowCoder_FirstUnFormedNum {
