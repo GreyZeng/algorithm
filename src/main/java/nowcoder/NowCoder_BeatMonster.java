@@ -34,23 +34,47 @@ public class NowCoder_BeatMonster {
             hp[i] = in.nextInt();
             money[i] = in.nextInt();
         }
-        System.out.println(min(hp, money));
+        System.out.println(min(hp, money, n));
         in.close();
     }
 
-    private static int min(int[] hp, int[] money) {
-        return p(hp, money, 0, 0);
+    private static int min(int[] hp, int[] money, int n) {
+        return p(hp, money, n, 0, 0);
     }
 
     // 目前，你的能力是ability，你来到了index号怪兽的面前，如果要通过后续所有的怪兽，
     // 请返回需要花的最少钱数
     // 适合能力值总体比较小的时候
-    public static int p(int[] hp, int[] money, int ability, int index) {
+    public static int p(int[] hp, int[] money, int n, int ability, int index) {
+        if (index == n) {
+            return 0;
+        }
+        if (ability < hp[index]) {
+            // 只能贿赂
+            return money[index] + p(hp, money, n, ability + hp[index], index + 1);
+        }
+        // 可以贿赂也可以直接用能力
+        return Math.min(
+                money[index] + p(hp, money, n, ability + hp[index], index + 1),
+                p(hp, money, n, ability, index + 1)
+        );
+    }
+
+    public static int min2(int[] hp, int[] money, int n) {
+        int sum = 0;
+        for (int h : hp) {
+            sum += h;
+        }
+        int[][] dp = new int[n + 1][sum + 1];
+        // dp[n][...] 全为0
+
+
+        // TODO
         return -1;
     }
+
+
     // 能经过0～i的怪兽，且花钱为j（花钱的严格等于j）时的武力值最大是多少？
     // 如果dp[i][j]==-1，表示经过0～i的怪兽，花钱为j是无法通过的，或者之前的钱怎么组合也得不到正好为j的钱数
-    public static int p2(int[] hp, int[] money, int m, int index) {
-        return -1;
-    }
+
 }
