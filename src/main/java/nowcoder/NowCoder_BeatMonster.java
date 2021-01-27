@@ -24,24 +24,33 @@ package nowcoder;
 
 import java.util.Scanner;
 
-// TODO
 public class NowCoder_BeatMonster {
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		int n = in.nextInt();
-		int[] money = new int[n];
-		int[] hp = new int[n];
-		for (int i = 0; i < n; i++) {
-			hp[i] = in.nextInt();
-			money[i] = in.nextInt();
-		}
-		System.out.println(min(hp,money));
-		
-		in.close();
-	}
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] money = new int[n];
+        int[] hp = new int[n];
+        for (int i = 0; i < n; i++) {
+            hp[i] = in.nextInt();
+            money[i] = in.nextInt();
+        }
+        System.out.println(min(hp, money));
+        in.close();
+    }
 
-	private static int min(int[] hp, int[] money) {
-		
-		return -1;
-	}
+    private static int min(int[] hp, int[] money) {
+        return p(hp, money, 0, 0);
+    }
+
+    // 目前，你的能力是ability，你来到了index号怪兽的面前，如果要通过后续所有的怪兽，
+    // 请返回需要花的最少钱数
+    // 适合能力值总体比较小的时候
+    public static int p(int[] hp, int[] money, int ability, int index) {
+        return -1;
+    }
+    // 能经过0～i的怪兽，且花钱为j（花钱的严格等于j）时的武力值最大是多少？
+    // 如果dp[i][j]==-1，表示经过0～i的怪兽，花钱为j是无法通过的，或者之前的钱怎么组合也得不到正好为j的钱数
+    public static int p2(int[] hp, int[] money, int m, int index) {
+        return -1;
+    }
 }
