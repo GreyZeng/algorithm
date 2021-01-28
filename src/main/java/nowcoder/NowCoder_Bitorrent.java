@@ -47,18 +47,72 @@
         保证输入的是一个1∼N的排列*/
 package nowcoder;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-// TODO
+
 public class NowCoder_Bitorrent {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
-        int[] arr = new int[n];
+        MQ mq = new MQ();
         for (int i = 0; i < n; i++) {
-            arr[i] = in.nextInt();
+            mq.receive(in.nextInt());
         }
         in.close();
     }
+
+    public static class Node {
+        public int value;
+        public Node next;
+
+        public Node(int v) {
+            value = v;
+        }
+    }
+
+    public static class MQ {
+        private Map<Integer, Node> head;
+        private Map<Integer, Node> tail;
+        private int wait;
+
+        public MQ() {
+            wait = 1;
+            head = new HashMap<>();
+            tail = new HashMap<>();
+        }
+
+        public void receive(int num) {
+            Node cur = new Node(num);
+            head.put(num, cur);
+            tail.put(num, cur);
+            if (tail.containsKey(num - 1)) {
+                tail.get(num - 1).next = cur;
+                tail.remove(num - 1);
+                head.remove(num);
+            }
+            if (head.containsKey(num + 1)) {
+                cur.next = head.get(num + 1);
+                head.remove(num + 1);
+                tail.remove(num);
+            }
+            if (num == wait) {
+                print(num);
+            }
+        }
+
+        public void print(int trigger) {
+            Node start = head.get(wait);
+            head.remove(wait);
+            while (start != null) {
+                System.out.println(start.value + " " + trigger);
+                start = start.next;
+                wait++;
+            }
+            tail.remove(wait - 1);
+        }
+    }
+
 
 }
