@@ -34,7 +34,7 @@ public class NowCoder_BeatMonster {
             hp[i] = in.nextInt();
             money[i] = in.nextInt();
         }
-        System.out.println(min(hp, money, n));
+        System.out.println(min2(hp, money, n));
         in.close();
     }
 
@@ -60,21 +60,38 @@ public class NowCoder_BeatMonster {
         );
     }
 
-    public static int min2(int[] hp, int[] money, int n) {
-        int sum = 0;
-        for (int h : hp) {
-            sum += h;
-        }
-        int[][] dp = new int[n + 1][sum + 1];
-        // dp[n][...] 全为0
-
-
-        // TODO
-        return -1;
-    }
-
-
     // 能经过0～i的怪兽，且花钱为j（花钱的严格等于j）时的武力值最大是多少？
     // 如果dp[i][j]==-1，表示经过0～i的怪兽，花钱为j是无法通过的，或者之前的钱怎么组合也得不到正好为j的钱数
-
+    // 适合钱数不是很多的时候
+    public static int min2(int[] hp, int[] money, int n) {
+        int sum = 0;
+        for (int m : money) {
+            sum += m;
+        }
+        int[][] dp = new int[n][sum + 1];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= sum; j++) {
+                dp[i][j] = -1;
+            }
+        }
+        dp[0][money[0]] = hp[0];
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j <= sum; j++) {
+                if (j >= money[i] && dp[i - 1][j - money[i]] != -1) {
+                    dp[i][j] = dp[i - 1][j - money[i]] + hp[i];
+                }
+                if (dp[i - 1][j] >= hp[i]) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j]);
+                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i <= sum; i++) {
+            if (dp[n - 1][i] != -1) {
+                ans = i;
+                break;
+            }
+        }
+        return ans;
+    }
 }
