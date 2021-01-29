@@ -29,53 +29,88 @@ package nowcoder;
 import java.util.Scanner;
 
 public class NowCoder_CoinWays {
-    static int MOD = (int) (1e9 + 7);
+    static int MOD = (int) 1e9 + 7;
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n1 = in.nextInt();
         int n2 = in.nextInt();
-        int m = in.nextInt();
-        int[] arr1 = new int[n1];
-        int[] arr2 = new int[n2];
-        String numOfArr1 = in.next();
-        String[] arr1Ele = numOfArr1.split(" ");
-        for (int i = 0; i < arr1Ele.length; i++) {
-            arr1[i] = Integer.parseInt(arr1Ele[i]);
+        int target = in.nextInt();
+        int[] many = new int[n1];
+        int[] one = new int[n2];
+        for (int i = 0; i < n1; i++) {
+            many[i] = Integer.parseInt(in.next());
         }
-        String numOfArr2 = in.next();
-        String[] arr2Ele = numOfArr2.split(" ");
-        for (int i = 0; i < arr2Ele.length; i++) {
-            arr2[i] = Integer.parseInt(arr2Ele[i]);
+        for (int i = 0; i < n2; i++) {
+            one[i] = Integer.parseInt(in.next());
         }
-        System.out.println(ways(arr1, arr2, m));
+        System.out.println(moneyWays(many, one, target));
         in.close();
     }
 
-    public static int ways(int[] many, int[] one, int target) {
-        if (target < 0) {
+    public static long moneyWays(int[] many, int[] one, int money) {
+        if (money < 0) {
             return 0;
         }
-        if (many == null || many.length == 0 || one == null || one.length == 0) {
-            return target == 0 ? 1 : 0;
+        if ((many == null || many.length == 0) && (one == null || one.length == 0)) {
+            return money == 0 ? 1 : 0;
         }
-        int[][] dpOne = one(one, target);
-        int[][] dpMany = many(many, target);
-        long answer = 0;
-        for (int i = 0; i <= target; i++) {
-            answer += dpMany[many.length - 1][i] * dpOne[one.length - 1][target - i];
+        long[][] dpMany = many(many, money);
+        long[][] dpOne = one(one, money);
+        if (dpMany == null) {
+            return dpOne[dpOne.length - 1][money];
         }
-        return (int) (answer % MOD);
+        if (dpOne == null) {
+            return dpMany[dpMany.length - 1][money];
+        }
+        long res = 0;
+        for (int i = 0; i <= money; i++) {
+            res += dpMany[dpMany.length - 1][i] * dpOne[dpOne.length - 1][money - i];
+            res %= MOD;
+        }
+        return res;
     }
 
-    // TODO
-	// dp[i][j] 0..i自由选择纪念币， 搞定j元， 有多少方法？
-    public static int[][] one(int[] one, int target) {
-        int[][] dp = new int[one.length][target + 1];
-        return null;
+    public static long[][] many(int[] arr, int money) {
+        if (arr == null || arr.length == 0) {
+            return null;
+        }
+        long[][] dp = new long[arr.length][money + 1];
+        for (int i = 0; i < arr.length; i++) {
+            dp[i][0] = 1;
+        }
+        for (int j = 1; arr[0] * j <= money; j++) {
+            dp[0][arr[0] * j] = 1;
+        }
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = 1; j <= money; j++) {
+                dp[i][j] = dp[i - 1][j];
+                dp[i][j] += j - arr[i] >= 0 ? dp[i][j - arr[i]] : 0;
+                dp[i][j] %= MOD;
+            }
+        }
+        return dp;
     }
-    // dp[i][j] 0..i自由选择普通币， 搞定j元， 有多少方法？
-    public static int[][] many(int[] many, int target) {
-        return null;
+
+    public static long[][] one(int[] arr, int money) {
+        if (arr == null || arr.length == 0) {
+            return null;
+        }
+        long[][] dp = new long[arr.length][money + 1];
+        for (int i = 0; i < arr.length; i++) {
+            dp[i][0] = 1;
+        }
+        if (arr[0] <= money) {
+            dp[0][arr[0]] = 1;
+        }
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = 1; j <= money; j++) {
+                dp[i][j] = dp[i - 1][j];
+                dp[i][j] += j - arr[i] >= 0 ? dp[i - 1][j - arr[i]] : 0;
+                dp[i][j] %= MOD;
+            }
+        }
+        return dp;
     }
+
 }
