@@ -28,7 +28,6 @@ package nowcoder;
 
 import java.util.Scanner;
 
-// TODO
 public class NowCoder_CoinWays {
     static int MOD = (int) (1e9 + 7);
 
@@ -39,17 +38,44 @@ public class NowCoder_CoinWays {
         int m = in.nextInt();
         int[] arr1 = new int[n1];
         int[] arr2 = new int[n2];
-        for (int i = 0; i < n1; i++) {
-            arr1[i] = in.nextInt();
+        String numOfArr1 = in.next();
+        String[] arr1Ele = numOfArr1.split(" ");
+        for (int i = 0; i < arr1Ele.length; i++) {
+            arr1[i] = Integer.parseInt(arr1Ele[i]);
         }
-        for (int i = 0; i < n2; i++) {
-            arr2[i] = in.nextInt();
+        String numOfArr2 = in.next();
+        String[] arr2Ele = numOfArr2.split(" ");
+        for (int i = 0; i < arr2Ele.length; i++) {
+            arr2[i] = Integer.parseInt(arr2Ele[i]);
         }
         System.out.println(ways(arr1, arr2, m));
         in.close();
     }
 
-    public static int ways(int[] arr1, int[] arr2, int m) {
-        return -1;
+    public static int ways(int[] many, int[] one, int target) {
+        if (target < 0) {
+            return 0;
+        }
+        if (many == null || many.length == 0 || one == null || one.length == 0) {
+            return target == 0 ? 1 : 0;
+        }
+        int[][] dpOne = one(one, target);
+        int[][] dpMany = many(many, target);
+        long answer = 0;
+        for (int i = 0; i <= target; i++) {
+            answer += dpMany[many.length - 1][i] * dpOne[one.length - 1][target - i];
+        }
+        return (int) (answer % MOD);
+    }
+
+    // TODO
+	// dp[i][j] 0..i自由选择纪念币， 搞定j元， 有多少方法？
+    public static int[][] one(int[] one, int target) {
+        int[][] dp = new int[one.length][target + 1];
+        return null;
+    }
+    // dp[i][j] 0..i自由选择普通币， 搞定j元， 有多少方法？
+    public static int[][] many(int[] many, int target) {
+        return null;
     }
 }
