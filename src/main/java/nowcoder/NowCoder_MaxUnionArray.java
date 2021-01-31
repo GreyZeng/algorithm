@@ -16,8 +16,11 @@
         5*/
 package nowcoder;
 
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
 /**
- * TODO
  *
  * @author Young
  * @version 1.0
@@ -25,7 +28,38 @@ package nowcoder;
  */
 // https://www.nowcoder.com/practice/677a21987e5d46f1a62cded9509a94f2
 public class NowCoder_MaxUnionArray {
-    public int maxUnionArrayLen(int[] arr) {
-        return -1;
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt();
+		int[] arr = new int[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = Integer.parseInt(in.next());
+		}
+		System.out.println(maxUnionArrayLen(arr));
+		in.close();
+	}
+    public static int maxUnionArrayLen(int[] arr) {
+    	if (arr == null || arr.length == 0) {
+    		return 0;
+    	}
+    	int len = 0;
+    	Set<Integer> set = new HashSet<>();
+    	for (int L = 0; L < arr.length; L++) {
+    		set.clear();
+    		int max = Integer.MIN_VALUE;
+    		int min = Integer.MAX_VALUE;
+    		for (int R = L ; R < arr.length; R++) {
+    			if (set.contains(arr[R])) {
+    				L = R;
+    				break;
+    			}
+    			max = Math.max(max, arr[R]);
+    			min = Math.max(min, arr[R]);
+    			if (max - min == R - L) {
+    				len = Math.max(len, R - L + 1);
+    			}
+    		}
+    	}
+    	return len; 
     }
 }
