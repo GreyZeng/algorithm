@@ -4,7 +4,7 @@
 //        给定一个无序数组arr，其中元素可正、可负、可0。给定一个整数k，求arr所有的子数组中累加和小于或等于k的最长子数组长度
 //        例如：arr = [3, -2, -4, 0, 6], k = -2. 相加和小于等于-2的最长子数组为{3, -2, -4, 0}，所以结果返回4
 //        [要求]
-//        时间复杂度为O(n)O(n)，空间复杂度为O(n)O(n)
+//        时间复杂度为O(n)，空间复杂度为O(n)
 //
 //
 //        输入描述:
@@ -32,20 +32,17 @@ import java.util.*;
 
 public class NowCoder_LessKMaxSubArray {
     public static int maxSubArray(int[] nums, int k) {
-        if (null == nums || 0 == nums.length) {
-            return 0;
-        }
-        int N = nums.length;
+        int n = nums.length;
         // i位置向右边最多能扩到多少累加和最小
-        int[] minSumEnds = new int[N];
+        int[] minSumEnds = new int[n];
         // i位置向右边最多能扩到的最小累加和
-        int[] minSumEndsValue = new int[N];
-        initMinSumEnd(nums, minSumEnds, minSumEndsValue, N);
+        int[] minSumEndsValue = new int[n];
+        initMinSumEnd(nums, minSumEnds, minSumEndsValue, n);
         int end = 0;
         int sum = 0;
         int res = 0;
-        for (int i = 0; i < N; i++) {
-            while (end < N && sum + minSumEndsValue[end] <= k) {
+        for (int i = 0; i < n; i++) {
+            while (end < n && sum + minSumEndsValue[end] <= k) {
                 sum += minSumEndsValue[end];
                 end = minSumEnds[end] + 1;
             }
@@ -75,10 +72,10 @@ public class NowCoder_LessKMaxSubArray {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int N = in.nextInt();
+        int n = in.nextInt();
         int k = in.nextInt();
-        int[] nums = new int[N];
-        for (int i = 0; i < N; i++) {
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
             nums[i] = in.nextInt();
         }
         System.out.println(maxSubArray(nums, k));
