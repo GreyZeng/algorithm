@@ -17,19 +17,15 @@ package leetcode;
 // Input: [7,6,4,3,1]
 // Output: 0
 // Explanation: In this case, no transaction is done, i.e. max profit = 0.
+
+// 1 <= prices.length <= 10^5
+// 0 <= prices[i] <= 10^4
 public class LeetCode_0121_BestTimeToBuyAndSellStock {
 
-	public static int maxProfit(int[] prices) {
-		if (null == prices) {
-			return 0;
-		}
-		int L = prices.length;
-		if (L == 1 || L == 0) {
-			return 0;
-		}
+	public static int maxProfit(int[] prices) { 
 		int min = prices[0];
 		int gap = 0;
-		for (int i = 0; i < L; i++) {
+		for (int i = 1; i < prices.length; i++) {
 			min = Math.min(min, prices[i]);
 			gap = Math.max(gap, prices[i] - min);
 		}

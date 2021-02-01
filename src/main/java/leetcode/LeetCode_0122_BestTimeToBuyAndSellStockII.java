@@ -35,6 +35,7 @@ public class LeetCode_0122_BestTimeToBuyAndSellStockII {
 	public static int maxProfit(int[] prices) {
 		int max = 0;
 		for (int i = 1; i < prices.length; i++) {
+			// 把所有上坡都给抓到
 			max += Math.max((prices[i] - prices[i - 1]), 0);
 		}
 		return max;
