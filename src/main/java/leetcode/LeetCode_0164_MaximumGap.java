@@ -23,14 +23,14 @@ package leetcode;
 //        遍历时，把每个数分到每个桶里面，其中肯定有个桶是空的
 //        桶之间的数取最大差值即可
 //        设置空桶的目的是杀死桶内数据的差值
-// TODO
 public class LeetCode_0164_MaximumGap {
     public static void main(String[] args) {
-        int[] num = {3,6,9,1};
+        int[] num = {3, 6, 9, 1};
         System.out.println(maximumGap(num));
         int[] num2 = {10};
         System.out.println(maximumGap(num2));
     }
+
     public static int maximumGap(int[] nums) {
         if (null == nums || nums.length == 0) {
             return 0;
@@ -49,17 +49,22 @@ public class LeetCode_0164_MaximumGap {
         int[] maxArr = new int[len + 1];
         int[] minArr = new int[len + 1];
         for (int num : nums) {
-            int index = (num - min) * len / (max - min);
+            int index = getIndex(num, len, min, max);
             maxArr[index] = flag[index] ? Math.max(maxArr[index], num) : num;
             minArr[index] = flag[index] ? Math.min(minArr[index], num) : num;
             flag[index] = true;
         }
-        int maxGap = maxArr[0] - minArr[0];
+        int ans = 0;
+        int last = maxArr[0];
         for (int i = 1; i <= len; i++) {
             if (flag[i]) {
-                maxGap = Math.max(maxGap, flag[i - 1] ? maxArr[i] - minArr[i - 1] : maxArr[i] - minArr[i]);
+                ans = Math.max(ans, minArr[i] - last);
+                last = maxArr[i];
             }
         }
-        return maxGap;
+        return ans;
+    }
+    public static int getIndex(long num, long len, long min, long max) {
+        return (int) ((num - min) * len / (max - min));
     }
 }
