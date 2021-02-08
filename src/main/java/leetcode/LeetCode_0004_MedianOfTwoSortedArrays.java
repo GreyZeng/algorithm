@@ -12,17 +12,17 @@ public class LeetCode_0004_MedianOfTwoSortedArrays {
                 return (double) (findKthNum(nums1, nums2, size / 2) + findKthNum(nums1, nums2, (size / 2) + 1)) / 2D;
             }
             // 第(size/2) 小的那个数
-            return (double) findKthNum(nums1, nums2, size / 2 + 1);
+            return findKthNum(nums1, nums2, size / 2 + 1);
         } else if (size1 != 0) {
             if (even) {
                 return (double) (nums1[size / 2] + nums1[(size - 1) / 2]) / 2D;
             }
-            return (double) nums1[size / 2];
+            return nums1[size / 2];
         } else if (size2 != 0) {
             if (even) {
                 return (double) (nums2[size / 2] + nums2[((size - 1) / 2)]) / 2D;
             }
-            return (double) nums2[size / 2];
+            return nums2[size / 2];
         }
         return 0;
 
@@ -58,7 +58,7 @@ public class LeetCode_0004_MedianOfTwoSortedArrays {
         if (kth <= S) {
             return getUpMedian(shorts, 0, kth - 1, longs, 0, kth - 1);
         }
-        if (kth > S && kth <= L) {
+        if (kth <= L) {
             if (longs[kth - S - 1] >= shorts[S - 1]) {
                 return longs[kth - S - 1];
             }
