@@ -28,21 +28,18 @@
         Yes*/
 package luogu;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+
 // https://www.luogu.com.cn/problem/P2197
-// TODO
 public class Luogu_P2197_Nim {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int T = in.nextInt();
-        List<String> ans = new ArrayList<>();
         for (int i = 0; i < T; i++) {
             int n = in.nextInt();
             int[] arr = new int[n];
             for (int j = 0; j < n; j++) {
-                arr[i] = in.nextInt();
+                arr[j] = in.nextInt();
             }
             System.out.println(preWin(arr));
         }
