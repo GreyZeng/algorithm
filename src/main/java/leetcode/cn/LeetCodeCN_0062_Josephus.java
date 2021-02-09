@@ -25,7 +25,10 @@
 package leetcode.cn;
 
 public class LeetCodeCN_0062_Josephus {
-    public static int lastRemaining(int n, int m) {
-        return -1;
+    public static int lastRemaining(int i, int m) {
+        if (i == 1) {
+            return 0;
+        }
+        return (lastRemaining(i - 1, m) + m) % i;
     }
 }
