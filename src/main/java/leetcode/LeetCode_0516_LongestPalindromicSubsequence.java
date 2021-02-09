@@ -23,9 +23,47 @@
         1 <= s.length <= 1000
         s consists only of lowercase English letters.*/
 package leetcode;
-// TODO
+
 public class LeetCode_0516_LongestPalindromicSubsequence {
     public static int longestPalindromeSubseq(String s) {
-        return -1;
+        char[] str1 = s.toCharArray();
+        char[] reverseStr = reverse(str1);
+        return lcp(str1, reverseStr);
+    }
+
+    public static char[] reverse(char[] str1) {
+        char[] str2 = new char[str1.length];
+        int index = str1.length - 1;
+        for (int i = 0; i < str1.length; i++) {
+            str2[i] = str1[index--];
+        }
+        return str2;
+    }
+
+    public static int lcp(char[] str1, char[] str2) {
+        int m = str1.length;
+        int n = str2.length;
+        int[][] dp = new int[m][n];
+        dp[0][0] = str1[0] == str2[0] ? 1 : 0;
+        for (int i = 1; i < m; i++) {
+			dp[i][0] = Math.max(dp[i - 1][0], str1[i] == str2[0] ? 1 : 0);
+		}
+		for (int j = 1; j < n; j++) {
+			dp[0][j] = Math.max(dp[0][j - 1], str1[0] == str2[j] ? 1 : 0);
+		}
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+                if (str1[i] == str2[j]) {
+                    dp[i][j] =Math.max(dp[i][j],dp[i - 1][j - 1] + 1) ;
+                }
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+    public static void main(String[] args) {
+        String test = "A1BC2D33FG2H1I";
+		System.out.println(longestPalindromeSubseq(test));
     }
 }
