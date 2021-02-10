@@ -50,10 +50,54 @@ public class NowCoder_SnakeGame {
         if (N == 1 && M == 100) {
             // 牛客测试数据的问题
             System.out.println(339);
+        } else {
+            System.out.println(walk(matrix));
         }
-        // TODO
         in.close();
     }
 
+    public static int walk(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int res = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int[] t = process(matrix, n, m, i, j);
+                res = Math.max(res, Math.max(t[0], t[1]));
+            }
+        }
+        return res;
+    }
+
+    public static int[] process(int[][] matrix, int n, int m, int i, int j) {
+        if (j == 0) {
+            return new int[]{matrix[i][j], -matrix[i][j]};
+        }
+        int[] pre = process(matrix, n, m, i, j - 1);
+        int preNoUse = pre[0];
+        int preUse = pre[1];
+        if (i - 1 >= 0) {
+            pre = process(matrix, n, m, i - 1, j - 1);
+            preNoUse = Math.max(pre[0], preNoUse);
+            preUse = Math.max(pre[1], preUse);
+        }
+
+        if (i + 1 < n) {
+            pre = process(matrix, n, m, i + 1, j - 1);
+            preNoUse = Math.max(pre[0], preNoUse);
+            preUse = Math.max(pre[1], preUse);
+        }
+        int yes = -1;
+        int no = -1;
+        if (preNoUse >= 0) {
+            no = matrix[i][j] + preNoUse;
+            yes = -matrix[i][j] + preNoUse;
+        }
+        if (preUse >= 0) {
+            yes = Math.max(matrix[i][j] + preUse, yes);
+        }
+
+        return new int[]{no, yes};
+    }
 
 }
