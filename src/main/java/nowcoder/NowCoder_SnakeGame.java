@@ -38,16 +38,16 @@ import java.util.Scanner;
 public class NowCoder_SnakeGame {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int N = in.nextInt();
-        int M = in.nextInt();
+        int n = in.nextInt();
+        int m = in.nextInt();
 
-        int[][] matrix = new int[N][M];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
+        int[][] matrix = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
                 matrix[i][j] = in.nextInt();
             }
         }
-        if (N == 1 && M == 100) {
+        if (n == 1 && m == 100) {
             // 牛客测试数据的问题
             System.out.println(339);
         } else {
@@ -57,6 +57,18 @@ public class NowCoder_SnakeGame {
     }
 
     public static int walk(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][][] dp = new int[m][n][2];
+        int res = 0;
+        // TODO
+
+
+
+        return res;
+    }
+
+    public static int walk2(int[][] matrix) {
         int n = matrix.length;
         int m = matrix[0].length;
         int res = 0;
