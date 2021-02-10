@@ -61,10 +61,46 @@ public class NowCoder_SnakeGame {
         int n = matrix[0].length;
         int[][][] dp = new int[m][n][2];
         int res = 0;
-        // TODO
+        /*int[] pre = new int[2];
+        for (int i = 0; i < m; i++) {
+            dp[i][0][0] = matrix[i][0];
+            dp[i][0][1] = -matrix[i][0];
+        }
 
 
+        int[] pre = process(matrix, n, m, i, j - 1);
+        int preNoUse = pre[0];
+        int preUse = pre[1];
+        if (i - 1 >= 0) {
+            pre = process(matrix, n, m, i - 1, j - 1);
+            preNoUse = Math.max(pre[0], preNoUse);
+            preUse = Math.max(pre[1], preUse);
+        }
 
+        if (i + 1 < n) {
+            pre = process(matrix, n, m, i + 1, j - 1);
+            preNoUse = Math.max(pre[0], preNoUse);
+            preUse = Math.max(pre[1], preUse);
+        }
+        int yes = -1;
+        int no = -1;
+        if (preNoUse >= 0) {
+            no = matrix[i][j] + preNoUse;
+            yes = -matrix[i][j] + preNoUse;
+        }
+        if (preUse >= 0) {
+            yes = Math.max(matrix[i][j] + preUse, yes);
+        }
+
+        return new int[]{no, yes};
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                dp[i][j][0] = 2;
+                dp[i][j][1] = 1;
+                res = Math.max(res, Math.max(dp[i][j][0], dp[i][j][1]));
+            }
+        }*/
         return res;
     }
 
