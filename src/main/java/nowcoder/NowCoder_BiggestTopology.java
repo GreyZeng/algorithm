@@ -83,17 +83,24 @@ public class NowCoder_BiggestTopology {
         if (head == null) {
             return 0;
         }
-        int max = max(head, head);
+        // 以头为节点的最大BST拓扑结构大小是多少
+        int max = maxTopo(head, head);
+        // 最大拓扑结构来自于左树
         max = Math.max(maxBSTSize(head.left), max);
+        // 最大拓扑结构来自于右树
         max = Math.max(maxBSTSize(head.right), max);
         return max;
     }
 
-    public static int max(Node h, Node n) {
-        if (n != null && isBSTNode(h, n, n.value)) {
-            return max(h, n.left) + max(h, n.right) + 1;
+    public static int maxTopo(Node h, Node n) {
+        if (n == null || h == null) {
+            return 0;
         }
-        return 0;
+        // 从h出发，到叶子节点，如果不是bst节点，则直接返回0（贡献值为0）
+        if (!isBSTNode(h, n, n.value)) {
+            return 0;
+        }
+        return maxTopo(h, n.left) + maxTopo(h, n.right) + 1;
     }
 
     public static boolean isBSTNode(Node h, Node n, int value) {
