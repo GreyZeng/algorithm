@@ -27,11 +27,47 @@
 package leetcode;
 
 public class LeetCode_0312_BurstBalloons {
+    // 暴力递归，LeetCode上会直接超时
     public static int maxCoins(int[] nums) {
-        return -1;
+        // 设置辅助数组的原因是让每个气球打爆的情况无差别（无需额外讨论边界的情况）
+        int[] arr = new int[nums.length + 2];
+        arr[0] = 1;
+        arr[nums.length + 1] = 1;
+        System.arraycopy(nums, 0, arr, 1, nums.length);
+        return p(arr, 1, nums.length);
     }
 
+    // L...R范围内，打爆气球的最大分值是
     public static int p(int[] arr, int L, int R) {
-        return -1;
+        if (L == R) {
+            return arr[L - 1] * arr[L] * arr[L + 1];
+        }
+        // 讨论最后打爆L和R的情况
+        int max = Math.max(arr[L - 1] * arr[L] * arr[R + 1] + p(arr, L + 1, R), arr[L - 1] * arr[R] * arr[R + 1] + p(arr, L, R - 1));
+        for (int i = L + 1; i < R; i++) {
+            max = Math.max(max, arr[L - 1] * arr[i] * arr[R + 1] + p(arr, L, i - 1) + p(arr, i + 1, R));
+        }
+        return max;
+    }
+
+    public static int maxCoins2(int[] nums) {
+        // 设置辅助数组的原因是让每个气球打爆的情况无差别（无需额外讨论边界的情况）
+        int n = nums.length;
+        int[] arr = new int[n + 2];
+        arr[0] = 1;
+        arr[n + 1] = 1;
+        System.arraycopy(nums, 0, arr, 1, n);
+        int[][] dp = new int[arr.length][arr.length];
+        for (int L = n; L >= 1; L--) {
+            dp[L][L] = arr[L - 1] * arr[L] * arr[L + 1];
+            for (int R = L + 1; R <= n; R++) {
+                int max = Math.max(arr[L - 1] * arr[L] * arr[R + 1] + dp[L + 1][R], arr[L - 1] * arr[R] * arr[R + 1] + dp[L][R - 1]);
+                for (int i = L + 1; i < R; i++) {
+                    max = Math.max(max, arr[L - 1] * arr[i] * arr[R + 1] + dp[L][i - 1] + dp[i + 1][R]);
+                }
+                dp[L][R] = max;
+            }
+        }
+        return dp[1][n];
     }
 }
