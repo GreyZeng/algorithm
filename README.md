@@ -163,5 +163,14 @@
 [后缀数组](./docs/后缀数组.md)
 
 
+## LeetCode
+
+[LeetCode_146_LRU_Cache](./docs/LeetCode/LeetCode_146_LRU_Cache.md)
+
+[LeetCode_169_Majority_Element](./docs/LeetCode/LeetCode_169_Majority_Element.md)
+
+[LeetCode_200_Number_of_Islands](./docs/LeetCode/LeetCode_200_Number_of_Islands.md)
+
+[LeetCode_629_K_Inverse_Pairs_Array](./docs/LeetCode/LeetCode_629_K_Inverse_Pairs_Array.md)
 
 

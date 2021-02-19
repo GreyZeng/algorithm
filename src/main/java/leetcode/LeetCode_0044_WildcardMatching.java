@@ -18,7 +18,7 @@ public class LeetCode_0044_WildcardMatching {
 			}
 		}
 		if (pi == p.length) {
-			return si == s.length;
+			return false;
 		}
 		// pi没到头
 		// si也没到头
@@ -94,6 +94,8 @@ public class LeetCode_0044_WildcardMatching {
 		String a = "adceb";
 		String b = "*a*b";
 		System.out.println(isMatch1(a, b));
+		System.out.println(isMatch2(a, b));
+		System.out.println(isMatch3(a, b));
 	}
 
 }
