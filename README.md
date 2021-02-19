@@ -1,26 +1,13 @@
-# 解题步骤
+# LeetCode
 
-1. 明确并理解问题，可通过举例来确保理解正确
+[LeetCode_146_LRU_Cache](./docs/LeetCode/LeetCode_146_LRU_Cache.md)
 
-> 确定方法名和输入输出
+[LeetCode_169_Majority_Element](./docs/LeetCode/LeetCode_169_Majority_Element.md)
 
-2. 明确特殊情况如何处理
+[LeetCode_200_Number_of_Islands](./docs/LeetCode/LeetCode_200_Number_of_Islands.md)
 
-> 输入不合法;没有符合条件的答案
+[LeetCode_629_K_Inverse_Pairs_Array](./docs/LeetCode/LeetCode_629_K_Inverse_Pairs_Array.md)
 
-3. 编写程序，确保代码的可读性和良好的编程风格
-
-> 可利用定义辅助方法来确保思路明晰，最好边做边表达自己的思路，以便当方向错误时，面试官尽早接入
-
-4. 寻找测试数据，验证答案可行
-
-5. 列举特殊测试用例
-
-> 看你对单元测试的理解，主要处理边缘情况
-
-6. 时间/空间复杂度分析
-
-# 专题
 
 ## 排序
 
@@ -163,14 +150,6 @@
 [后缀数组](./docs/后缀数组.md)
 
 
-## LeetCode
 
-[LeetCode_146_LRU_Cache](./docs/LeetCode/LeetCode_146_LRU_Cache.md)
-
-[LeetCode_169_Majority_Element](./docs/LeetCode/LeetCode_169_Majority_Element.md)
-
-[LeetCode_200_Number_of_Islands](./docs/LeetCode/LeetCode_200_Number_of_Islands.md)
-
-[LeetCode_629_K_Inverse_Pairs_Array](./docs/LeetCode/LeetCode_629_K_Inverse_Pairs_Array.md)
 
 
