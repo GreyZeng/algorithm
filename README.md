@@ -8,6 +8,10 @@
 
 [LeetCode_629_K_Inverse_Pairs_Array](./docs/LeetCode/LeetCode_629_K_Inverse_Pairs_Array.md)
 
+# 牛客
+
+[汉诺塔II](./docs/NowCoder/NowCoder_HanotaII.md)
+
 
 ## 排序
 
