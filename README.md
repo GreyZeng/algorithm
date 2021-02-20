@@ -1,12 +1,15 @@
 # LeetCode
 
-[LeetCode_146_LRU_Cache](./docs/LeetCode/LeetCode_146_LRU_Cache.md)
+[LeetCode_0146_LRUCache](./docs/LeetCode/LeetCode_0146_LRUCache.md)
 
-[LeetCode_169_Majority_Element](./docs/LeetCode/LeetCode_169_Majority_Element.md)
+[LeetCode_0169_MajorityElement](./docs/LeetCode/LeetCode_0169_MajorityElement.md)
 
-[LeetCode_200_Number_of_Islands](./docs/LeetCode/LeetCode_200_Number_of_Islands.md)
+[LeetCode_0200_NumberOfIslands](./docs/LeetCode/LeetCode_0200_NumberOfIslands.md)
 
-[LeetCode_629_K_Inverse_Pairs_Array](./docs/LeetCode/LeetCode_629_K_Inverse_Pairs_Array.md)
+[LeetCode_0629_KInversePairsArray](./docs/LeetCode/LeetCode_0629_KInversePairsArray.md)
+ 
+[LeetCode_1000_MinimumCostToMergeStones](./docs/LeetCode/LeetCode_1000_MinimumCostToMergeStones.md)
+
 
 # 牛客
 
