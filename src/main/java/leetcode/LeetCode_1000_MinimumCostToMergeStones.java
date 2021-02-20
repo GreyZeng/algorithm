@@ -42,7 +42,10 @@ package leetcode;
 public class LeetCode_1000_MinimumCostToMergeStones {
 	public static int mergeStones(int[] stones, int K) {
         // k和数组长度先做一次过滤
-		
+		int n = stones.length;
+		if ((n - 1) % (K - 1) > 0) {
+			return -1;
+		}
 		return -1;
     }
 	// f(L,R,part) -> L..R范围上一定要合成出part个数，最小代价是多少
