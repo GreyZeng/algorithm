@@ -1,12 +1,4 @@
 [TODO]
-https://leetcode.com/problems/scramble-string/
-tips:
-范围上的尝试
-f(str1,L1,R1,str2,L2,R2) --> 是否为旋变串
---> f(str1,str2, L1, L2, k)
-第一刀可能性，考虑交换和不交换的情况
-
-[TODO]
 N个加油站组成一个环形，给定两个长度都是N的非负数组 oil和dis(N>1)，
 oil[i]代表 第i个加油站存的油可以跑多少千米，
 dis[i]代表第i个加油站到环中下一个加油站相隔 多少千米。 

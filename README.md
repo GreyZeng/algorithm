@@ -1,22 +1,22 @@
 # LeetCode
 
-[LeetCode_0076_MinimumWindowSubstring](./docs/LeetCode/LeetCode_0076_MinimumWindowSubstring.md)
+[LeetCode_0076_MinimumWindowSubstring](docs/leetcode/LeetCode_0076_MinimumWindowSubstring.md)
 
-[LeetCode_0146_LRUCache](./docs/LeetCode/LeetCode_0146_LRUCache.md)
+[LeetCode_0146_LRUCache](docs/leetcode/LeetCode_0146_LRUCache.md)
 
-[LeetCode_0169_MajorityElement](./docs/LeetCode/LeetCode_0169_MajorityElement.md)
+[LeetCode_0169_MajorityElement](docs/leetcode/LeetCode_0169_MajorityElement.md)
 
-[LeetCode_0200_NumberOfIslands](./docs/LeetCode/LeetCode_0200_NumberOfIslands.md)
+[LeetCode_0200_NumberOfIslands](docs/leetcode/LeetCode_0200_NumberOfIslands.md)
 
-[LeetCode_0629_KInversePairsArray](./docs/LeetCode/LeetCode_0629_KInversePairsArray.md)
+[LeetCode_0629_KInversePairsArray](docs/leetcode/LeetCode_0629_KInversePairsArray.md)
  
-[LeetCode_1000_MinimumCostToMergeStones](./docs/LeetCode/LeetCode_1000_MinimumCostToMergeStones.md)
+[LeetCode_1000_MinimumCostToMergeStones](docs/leetcode/LeetCode_1000_MinimumCostToMergeStones.md)
 
 [更多](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/leetcode)
 
 # 牛客
 
-[汉诺塔II](./docs/NowCoder/NowCoder_HanotaII.md)
+[汉诺塔II](docs/nowcoder/NowCoder_HanotaII.md)
 
 [更多](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/nowcoder)
 
