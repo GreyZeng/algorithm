@@ -1,5 +1,7 @@
 # LeetCode
 
+[LeetCode_0076_MinimumWindowSubstring](./docs/LeetCode/LeetCode_0076_MinimumWindowSubstring.md)
+
 [LeetCode_0146_LRUCache](./docs/LeetCode/LeetCode_0146_LRUCache.md)
 
 [LeetCode_0169_MajorityElement](./docs/LeetCode/LeetCode_0169_MajorityElement.md)

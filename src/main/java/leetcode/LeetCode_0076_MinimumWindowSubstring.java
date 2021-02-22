@@ -47,6 +47,7 @@ public class LeetCode_0076_MinimumWindowSubstring {
         int win = 0;
         int l = 0;
         int r = 0;
+        // [finalL, finalL + win] 就是对应的结果字符串
         int finalL = 0;
         while (r != str.length) {
             owe[str[r]]--;
@@ -54,9 +55,11 @@ public class LeetCode_0076_MinimumWindowSubstring {
                 // 有效还款
                 all--;
             }
+            // all等于0说明找到一个符合条件的窗口，开始结算
             if (all == 0) {
                 // 开始移动L，缩小窗口
                 while (owe[str[l]] < 0) {
+                    // owe[str[l]] < 0 都是无效的还款
                     owe[str[l++]]++;
                 }
                 // 窗口没有形成或者窗口当前形成的窗口小于上一次的窗口大小，则更新
