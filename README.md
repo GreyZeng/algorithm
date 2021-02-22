@@ -10,11 +10,13 @@
  
 [LeetCode_1000_MinimumCostToMergeStones](./docs/LeetCode/LeetCode_1000_MinimumCostToMergeStones.md)
 
+[更多](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/leetcode)
 
 # 牛客
 
 [汉诺塔II](./docs/NowCoder/NowCoder_HanotaII.md)
 
+[更多](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/nowcoder)
 
 ## 排序
 

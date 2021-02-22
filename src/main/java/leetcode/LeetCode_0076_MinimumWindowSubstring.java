@@ -1,18 +1,46 @@
+/*
+Given two strings s and t, return the minimum window in s which will contain all the characters in t.
+
+If there is no such window in s that covers all characters in t, return the empty string "".
+
+Note that If there is such a window, it is guaranteed that there will always be only one unique minimum window in s.
+
+Example 1:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Example 2:
+
+Input: s = "a", t = "a"
+Output: "a"
+
+
+Constraints:
+
+1 <= s.length, t.length <= 10^5
+s and t consist of English letters.
+*/
 package leetcode;
 
 
+/**
+ * @author Grey
+ * @date 2021/02/22
+ */
 public class LeetCode_0076_MinimumWindowSubstring {
 
     // 欠账表 + all
     // 滑动窗口
-    // 滑动窗口
     public static String minWindow(String s, String t) {
+        // 如果目标串比原始串还大，则原始串无论如何都无法找到包含目标串所有字符的子串
         if (s.length() < t.length()) {
             return "";
         }
         char[] str = s.toCharArray();
         char[] target = t.toCharArray();
-        int[] order = new int[256]; // 初始化欠帐表
+        // 初始化欠帐表
+        // 如果不止ASCII码的字符，则可以用Hash表来实现欠账表
+        int[] order = new int[256];
         for (char c : target) {
             order[c]++;
         }
@@ -48,12 +76,4 @@ public class LeetCode_0076_MinimumWindowSubstring {
         }
         return s.substring(fL, fR + 1);
     }
-
-    public static void main(String[] args) {
-        // System.out.println("abc".substring(0, 2));
-        String S = "bdab";
-        String T = "ab";
-        System.out.println(minWindow(S, T));
-    }
-
 }

@@ -1,11 +1,16 @@
 ## 题目描述
 
-
 [题目链接](https://leetcode.com/problems/minimum-window-substring/)
 
 
-## 思路
+## 思路 滑动窗口
 
+
+滑动窗口
+欠帐表 map 存str2的字符
+all 总的欠账多少
+有效还款才对all--
+all 到0的时候 L开始移动
 
 
 ## 更多
