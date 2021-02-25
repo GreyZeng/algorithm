@@ -66,11 +66,13 @@ public class LeetCode_0087_ScrambleString {
             return str1[L1] == str2[L2];
         }
         // 枚举第一刀的位置
-//        for (int left = 1; left < k; left++) {
-//            if (f(str1, str2, L1 + left, L2, k - left)) {
-//                return true;
-//            }
-//        }
+        for (int left = 1; left < k; left++) {
+            boolean case1 = f(str1, str2, L1, L2, left) && f(str1, str2, L1 + left, L2 + left, k - left);
+            boolean case2 = f(str1, str2, L1 + left, L2, k - left) && f(str1, str2, L1, L2 + k - left, left);
+            if (case1 || case2) {
+                return true;
+            }
+        }
         return false;
     }
 
