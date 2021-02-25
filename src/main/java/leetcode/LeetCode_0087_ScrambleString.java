@@ -41,6 +41,7 @@ package leetcode;
 
 public class LeetCode_0087_ScrambleString {
 
+    // 记忆化搜索
     public static boolean isScramble(String s1, String s2) {
         if (s1 == null && s2 == null) {
             return true;
@@ -50,6 +51,60 @@ public class LeetCode_0087_ScrambleString {
         }
         if (s2 == null) {
             return false;
+        }
+        if (s1.equals(s2)) {
+            return true;
+        }
+        char[] str1 = s1.toCharArray();
+        char[] str2 = s2.toCharArray();
+        if (!isValid(str1, str2)) {
+            return false;
+        }
+        int N = str1.length;
+        // 0表示没算过
+        // -1表示false
+        // 1表示true
+        int[][][] dp = new int[N][N][N + 1];
+        return f2(str1, str2, 0, 0, N, dp);
+    }
+
+    // str1中，L1往后（包括L1）一共k个字符串 以及  str2中，L2往后（包括L2）一共k个字符串 是否互为扰动串
+    private static boolean f2(char[] str1, char[] str2, int L1, int L2, int k, int[][][] dp) {
+        if (dp[L1][L2][k] != 0) {
+            return dp[L1][L2][k] == 1;
+        }
+        if (k == 1) {
+            // base case， 针对这样的情况，只需要判断str1[L1], str2[L2]
+            dp[L1][L2][k] = (str1[L1] == str2[L2] ? 1 : -1);
+            return dp[L1][L2][k] == 1;
+        }
+        // 枚举第一刀的位置
+        boolean ans = false;
+        for (int cutPoint = 1; cutPoint < k; cutPoint++) {
+            boolean case1 = f2(str1, str2, L1, L2, cutPoint, dp) && f2(str1, str2, L1 + cutPoint, L2 + cutPoint, k - cutPoint, dp);
+            boolean case2 = f2(str1, str2, L1 + cutPoint, L2, k - cutPoint, dp) && f2(str1, str2, L1, L2 + k - cutPoint, cutPoint, dp);
+            if (case1 || case2) {
+                ans = true;
+                break;
+            }
+        }
+        dp[L1][L2][k] = ans ? 1 : -1;
+        return ans;
+    }
+
+    // 暴力递归，在Leetcode上超时
+    public static boolean isScramble2(String s1, String s2) {
+        if (s1 == null && s2 == null) {
+            return true;
+        }
+        if (s1 == null) {
+            return false;
+        }
+        if (s2 == null) {
+            return false;
+        }
+        if (s1.equals(s2)) {
+            return true;
         }
         char[] str1 = s1.toCharArray();
         char[] str2 = s2.toCharArray();
@@ -66,9 +121,9 @@ public class LeetCode_0087_ScrambleString {
             return str1[L1] == str2[L2];
         }
         // 枚举第一刀的位置
-        for (int left = 1; left < k; left++) {
-            boolean case1 = f(str1, str2, L1, L2, left) && f(str1, str2, L1 + left, L2 + left, k - left);
-            boolean case2 = f(str1, str2, L1 + left, L2, k - left) && f(str1, str2, L1, L2 + k - left, left);
+        for (int cutPoint = 1; cutPoint < k; cutPoint++) {
+            boolean case1 = f(str1, str2, L1, L2, cutPoint) && f(str1, str2, L1 + cutPoint, L2 + cutPoint, k - cutPoint);
+            boolean case2 = f(str1, str2, L1 + cutPoint, L2, k - cutPoint) && f(str1, str2, L1, L2 + k - cutPoint, cutPoint);
             if (case1 || case2) {
                 return true;
             }
