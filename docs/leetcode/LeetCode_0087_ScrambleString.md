@@ -76,7 +76,7 @@ public static boolean isScramble(String s1, String s2) {
     }
     if (s2 == null) {
         return false;
-}
+    }
     char[] str1 = s1.toCharArray();
     char[] str2 = s2.toCharArray();
     if (!isValid(str1, str2)) {
@@ -127,7 +127,7 @@ private static boolean isValid(char[] str1, char[] str2) {
 ### 记忆化搜索
 
 由上面的暴力递归过程可知，暴力方法有三个可变参数：
-L1： 取值范围是0....N-1 (其中N是字符串的长度)
+L1：取值范围是0....N-1 (其中N是字符串的长度)
 L2：取值范围是0....N-1 
 k： 取值范围是0....N 
 
@@ -136,14 +136,12 @@ k： 取值范围是0....N
 ```java
 int[][][] dp = new int[N][N][N+1]
 ```
-```
-dp[i][j][k]
-```
-的取值有三种情况：
+
+dp[i][j][k] 的取值有三种情况：
 
 0： 表示没有计算过
 1： 表示str1中i开始推后k个字符和str2中j开始推后k个字符 是互为扰动串
--1： 表示str1中i开始推后k个字符和str2中j开始推后k个字符 不是互为扰动串
+-1：表示str1中i开始推后k个字符和str2中j开始推后k个字符 不是互为扰动串
 
 把这个三维数组加入暴力递归方法中，作为缓存数据，暴力递归方法可以改成：
 

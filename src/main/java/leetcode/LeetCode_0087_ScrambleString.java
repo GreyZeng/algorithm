@@ -40,9 +40,53 @@ s1 and s2 consist of lower-case English letters.*/
 package leetcode;
 
 public class LeetCode_0087_ScrambleString {
+    public static boolean isScramble(String s1, String s2) {
+        if (s1 == null && s2 == null) {
+            return true;
+        }
+        if (s1 == null) {
+            return false;
+        }
+        if (s2 == null) {
+            return false;
+        }
+        if (s1.equals(s2)) {
+            return true;
+        }
+        char[] str1 = s1.toCharArray();
+        char[] str2 = s2.toCharArray();
+        if (!isValid(str1, str2)) {
+            return false;
+        }
+        int N = str1.length;
+        boolean[][][] dp = new boolean[N][N][N + 1];
+
+//TODO
+//        if (k == 1) {
+//            // base case， 针对这样的情况，只需要判断str1[L1], str2[L2]
+//            dp[L1][L2][k] = (str1[L1] == str2[L2] ? 1 : -1);
+//            return dp[L1][L2][k] == 1;
+//        }
+//        // 枚举第一刀的位置
+//        boolean ans = false;
+//        for (int cutPoint = 1; cutPoint < k; cutPoint++) {
+//            boolean case1 = f2(str1, str2, L1, L2, cutPoint, dp) && f2(str1, str2, L1 + cutPoint, L2 + cutPoint, k - cutPoint, dp);
+//            boolean case2 = f2(str1, str2, L1 + cutPoint, L2, k - cutPoint, dp) && f2(str1, str2, L1, L2 + k - cutPoint, cutPoint, dp);
+//            if (case1 || case2) {
+//                ans = true;
+//                break;
+//            }
+//        }
+//        dp[L1][L2][k] = ans ? 1 : -1;
+        // return ans;
+
+
+        return dp[0][0][N];
+
+    }
 
     // 记忆化搜索
-    public static boolean isScramble(String s1, String s2) {
+    public static boolean isScramble2(String s1, String s2) {
         if (s1 == null && s2 == null) {
             return true;
         }
@@ -93,7 +137,7 @@ public class LeetCode_0087_ScrambleString {
     }
 
     // 暴力递归，在Leetcode上超时
-    public static boolean isScramble2(String s1, String s2) {
+    public static boolean isScramble3(String s1, String s2) {
         if (s1 == null && s2 == null) {
             return true;
         }
