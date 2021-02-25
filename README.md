@@ -2,6 +2,8 @@
 
 [LeetCode_0076_MinimumWindowSubstring](docs/leetcode/LeetCode_0076_MinimumWindowSubstring.md)
 
+[LeetCode_0087_ScrambleString](docs/leetcodeLeetCode_0087_ScrambleString.md)
+
 [LeetCode_0146_LRUCache](docs/leetcode/LeetCode_0146_LRUCache.md)
 
 [LeetCode_0169_MajorityElement](docs/leetcode/LeetCode_0169_MajorityElement.md)
