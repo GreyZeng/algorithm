@@ -60,29 +60,27 @@ public class LeetCode_0087_ScrambleString {
         }
         int N = str1.length;
         boolean[][][] dp = new boolean[N][N][N + 1];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                dp[i][j][1] = (str1[i] == str2[j]);
+            }
+        }
 
-//TODO
-//        if (k == 1) {
-//            // base case， 针对这样的情况，只需要判断str1[L1], str2[L2]
-//            dp[L1][L2][k] = (str1[L1] == str2[L2] ? 1 : -1);
-//            return dp[L1][L2][k] == 1;
-//        }
-//        // 枚举第一刀的位置
-//        boolean ans = false;
-//        for (int cutPoint = 1; cutPoint < k; cutPoint++) {
-//            boolean case1 = f2(str1, str2, L1, L2, cutPoint, dp) && f2(str1, str2, L1 + cutPoint, L2 + cutPoint, k - cutPoint, dp);
-//            boolean case2 = f2(str1, str2, L1 + cutPoint, L2, k - cutPoint, dp) && f2(str1, str2, L1, L2 + k - cutPoint, cutPoint, dp);
-//            if (case1 || case2) {
-//                ans = true;
-//                break;
-//            }
-//        }
-//        dp[L1][L2][k] = ans ? 1 : -1;
-        // return ans;
-
-
+        for (int k = 2; k < N + 1; k++) {
+            for (int L1 = 0; L1 <= N - k; L1++) {
+                for (int L2 = 0; L2 <= N - k; L2++) {
+                    for (int cutPoint = 1; cutPoint < k; cutPoint++) {
+                        boolean case1 = dp[L1][L2][cutPoint] && dp[L1 + cutPoint][L2 + cutPoint][k - cutPoint];
+                        boolean case2 = dp[L1 + cutPoint][L2][k - cutPoint] && dp[L1][L2 + k - cutPoint][cutPoint];
+                        if (case1 || case2) {
+                            dp[L1][L2][k] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
         return dp[0][0][N];
-
     }
 
     // 记忆化搜索

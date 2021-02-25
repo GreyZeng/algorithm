@@ -180,6 +180,53 @@ if (dp[L1][L2][k] != 0) {
 
 表示 dp[L1][L2][k] 如果不等于0，说明计算的结果已经算过了，则直接可以拿结果即可。
 
+
+### 动态规划
+
+```java
+public static boolean isScramble(String s1, String s2) {
+    if (s1 == null && s2 == null) {
+        return true;
+    }
+    if (s1 == null) {
+        return false;
+    }
+    if (s2 == null) {
+        return false;
+    }
+    if (s1.equals(s2)) {
+        return true;
+    }
+    char[] str1 = s1.toCharArray();
+    char[] str2 = s2.toCharArray();
+    if (!isValid(str1, str2)) {
+        return false;
+    }
+    int N = str1.length;
+    boolean[][][] dp = new boolean[N][N][N + 1];
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            dp[i][j][1] = (str1[i] == str2[j]);
+        }
+    }
+
+    for (int k = 2; k < N + 1; k++) {
+        for (int L1 = 0; L1 <= N - k; L1++) {
+            for (int L2 = 0; L2 <= N - k; L2++) {
+                for (int cutPoint = 1; cutPoint < k; cutPoint++) {
+                    boolean case1 = dp[L1][L2][cutPoint] && dp[L1 + cutPoint][L2 + cutPoint][k - cutPoint];
+                    boolean case2 = dp[L1 + cutPoint][L2][k - cutPoint] && dp[L1][L2 + k - cutPoint][cutPoint];
+                    if (case1 || case2) {
+                        dp[L1][L2][k] = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return dp[0][0][N];
+}
+```
 ## 更多
 
 
