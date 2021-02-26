@@ -56,18 +56,18 @@ public class LeetCode_0134_GasStation {
     // 2倍的前缀和数组（考察窗口最小值是不是小于0）
     public static int canCompleteCircuit1(int[] gas, int[] cost) {
         int N = gas.length;
-        int[] r = new int[N];
+        int[] h = new int[N];
         for (int i = 0; i < N; i++) {
-            r[i] = gas[i] - cost[i];
+            h[i] = gas[i] - cost[i];
         }
         int R = N << 1;
         int[] p = new int[N << 1];
-        p[0] = r[0];
+        p[0] = h[0];
         for (int i = 1; i < N; i++) {
-            p[i] = r[i] + p[i - 1];
+            p[i] = h[i] + p[i - 1];
         }
         for (int i = 0; i < N; i++) {
-            p[i + N] = r[i] + p[i + N - 1];
+            p[i + N] = h[i] + p[i + N - 1];
         }
         LinkedList<Integer> q = new LinkedList<>();
         boolean[] res = new boolean[R - N + 1];
