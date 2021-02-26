@@ -96,6 +96,7 @@ public class LeetCode_0134_GasStation {
         }
         return -1;
     }
+
     /*
      * TODO 这个方法的时间复杂度O(N)，额外空间复杂度O(1）
      */
@@ -103,5 +104,44 @@ public class LeetCode_0134_GasStation {
         return -1;
     }
 
+    // 暴力解法 O(N^2)
+    public static int canCompleteCircuit3(int[] gas, int[] cost) {
+        int n = gas.length;
+
+        int[] h = new int[n];
+        for (int i = 0; i < n; i++) {
+            h[i] = gas[i] - cost[i];
+        }
+        // 标记良好出发点的位置，开始是-1，说明没有找到良好出发点
+        int good = -1;
+        // h[i] 一直往后累加，累加和记录在preSum中，回到本身，如果不出现负数，i位置就是良好出发点
+        int preSum;
+        for (int i = 0; i < n; i++) {
+            preSum = h[i];
+            for (int j = i + 1; j < n + i + 1; j++) {
+                if (preSum < 0) {
+                    break;
+                }
+                // int index = j % n
+                int index = j > n - 1 ? j -  n : j;
+                preSum += h[index];
+            }
+            if (preSum >= 0) {
+                good = i;
+            }
+        }
+        return good;
+    }
+
+    public static void main(String[] args) {
+        int[] gas = {1, 2, 3, 4, 5};
+        int[] cost = {3, 4, 5, 1, 2};
+        System.out.println(canCompleteCircuit3(gas, cost));
+
+
+        int[] gas2 = {2, 3, 4};
+        int[] cost2 = {3, 4, 3};
+        System.out.println(canCompleteCircuit3(gas2, cost2));
+    }
 
 }
