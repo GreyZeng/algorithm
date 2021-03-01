@@ -61,32 +61,32 @@ public class LeetCode_0134_GasStation {
             h[i] = gas[i] - cost[i];
         }
         int R = N << 1;
-        int[] p = new int[N << 1];
-        p[0] = h[0];
+        int[] doubleLenOfHelper = new int[R];
+        doubleLenOfHelper[0] = h[0];
         for (int i = 1; i < N; i++) {
-            p[i] = h[i] + p[i - 1];
+            doubleLenOfHelper[i] = h[i] + doubleLenOfHelper[i - 1];
         }
         for (int i = 0; i < N; i++) {
-            p[i + N] = h[i] + p[i + N - 1];
+            doubleLenOfHelper[i + N] = h[i] + doubleLenOfHelper[i + N - 1];
         }
         LinkedList<Integer> q = new LinkedList<>();
         boolean[] res = new boolean[R - N + 1];
         int index = 0;
         for (int i = 0; i < R; i++) {
-            while (!q.isEmpty() && p[i] <= p[q.peekLast()]) {
+            while (!q.isEmpty() && doubleLenOfHelper[i] <= doubleLenOfHelper[q.peekLast()]) {
                 q.pollLast();
             }
             q.addLast(i);
             if (q.peekFirst() == (i - N)) {
                 q.pollFirst();
             }
+            // 窗口已经形成了
             if (i >= N - 1) {
                 if (i == N - 1) {
-                    res[index++] = (p[q.peekFirst()] >= 0);
+                    res[index++] = (doubleLenOfHelper[q.peekFirst()] >= 0);
                 } else {
-                    res[index++] = ((p[q.peekFirst()] - p[i - N]) >= 0);
+                    res[index++] = ((doubleLenOfHelper[q.peekFirst()] - doubleLenOfHelper[i - N]) >= 0);
                 }
-
             }
         }
         for (int i = 0; i < R - N + 1; i++) {
@@ -98,7 +98,8 @@ public class LeetCode_0134_GasStation {
     }
 
     /*
-     * TODO 这个方法的时间复杂度O(N)，额外空间复杂度O(1）
+     * TODO
+     *  这个方法的时间复杂度O(N)，额外空间复杂度O(1）
      */
     public static int canCompleteCircuit2(int[] oil, int[] dis) {
         return -1;

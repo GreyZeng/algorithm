@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 //You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.
@@ -45,41 +46,33 @@ import java.util.LinkedList;
 //        -10^4 <= nums[i] <= 10^4
 //        1 <= k <= nums.length
 public class LeetCode_0239_SlidingWindowMaximum {
-    // 滑动窗口最大值
     public static int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
         if (k == 1) {
             return nums;
         }
-        int[] ans = new int[nums.length - k + 1];
-        // 存下标，防止过期
+        if (k == n) {
+            return new int[]{maxOfArr(nums, n)};
+        }
+        // 数组长度是n，窗口是k，则结果数组长度为n - k + 1
+        int[] ans = new int[n - k + 1];
         LinkedList<Integer> qMax = new LinkedList<>();
-        int R = 0; // 有效位置的下一个位置
-        int index = 0;
-        while (R < nums.length) {
-            while (!qMax.isEmpty() && nums[qMax.peekLast()] <= nums[R]) {
-                qMax.pollLast();
-            }
-            qMax.addLast(R);
-            // 因为R保存的是过期位置的下一个下一个位置，所以，一定会有第一个过期下标出现
-            if (qMax.peekFirst() == R - k) {
-                qMax.pollFirst();
-            }
-            if (R >= k - 1) {
-                ans[index++] = nums[qMax.peekFirst()];
-            }
-            R++;
+        int r = 0;
+        while (r < n) {
+            // TODO
+
         }
+
         return ans;
+
     }
 
-    public static void main(String[] args) {
-
-        int[] arr = {1, 3, -1, -3, 5, 3, 6, 7};
-        //int[] arr = {9, 10};
-        int k = 3;
-        int[] a = maxSlidingWindow(arr, k);
-        for (int i = 0; i < a.length; i++) {
-            System.out.println(a[i]);
+    private static int maxOfArr(int[] nums, int n) {
+        int max = nums[0];
+        for (int i = 1; i < n; i++) {
+            max = Math.max(max, nums[i]);
         }
+        return max;
     }
+
 }
