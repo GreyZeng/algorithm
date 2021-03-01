@@ -46,53 +46,6 @@ import java.util.LinkedList;
 //        Therefore, you can't travel around the circuit once no matter where you start.
 public class LeetCode_0134_GasStation {
 
-    public static int canCompleteCircuit1(int[] gas, int[] cost) {
-        int len = gas.length;
-       /* int[] h = new int[len];
-        for (int i = 0; i < len; i++) {
-            h[i] = gas[i] - cost[i];
-        }*/
-        int doubleLen = len << 1;
-        int[] helper = new int[doubleLen];
-        for (int i = 0; i < doubleLen; i++) {
-            if (i < len) {
-                helper[i] = gas[i] - cost[i];
-            }
-            if (i > 1) {
-                helper[i] += helper[i - 1];
-            }
-            if (i >= len) {
-                helper[i] = helper[len - 1] + helper[i - len];
-            }
-        }
-        LinkedList<Integer> q = new LinkedList<>();
-        boolean[] res = new boolean[doubleLen - len + 1];
-        int index = 0;
-        for (int i = 0; i < doubleLen; i++) {
-            while (!q.isEmpty() && helper[i] <= helper[q.peekLast()]) {
-                q.pollLast();
-            }
-            q.addLast(i);
-            if (q.peekFirst() == (i - len)) {
-                q.pollFirst();
-            }
-            // 窗口已经形成了
-            if (i >= len - 1) {
-                if (i == len - 1) {
-                    res[index++] = (helper[q.peekFirst()] >= 0);
-                } else {
-                    res[index++] = ((helper[q.peekFirst()] - helper[i - len]) >= 0);
-                }
-            }
-        }
-        for (int i = 0; i < doubleLen - len + 1; i++) {
-            if (res[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     // 滑动窗口内的最大值和，最小值（双端队列，存下标，不要存值）
     /*
      * 这个方法的时间复杂度O(N)，额外空间复杂度O(N)
@@ -105,40 +58,38 @@ public class LeetCode_0134_GasStation {
     //--> 累加和数组 [1,0,0,3,2]
     //---> 再累加一次 [1,0,0,3,2,3,2,2,5,4]
     //然后滑动窗口最小值，减去L-1位置的数，如果<0,则L不是良好出发点
-    public static int canCompleteCircuitXXX(int[] gas, int[] cost) {
+    public static int canCompleteCircuit(int[] gas, int[] cost) {
         int len = gas.length;
-
         int doubleLen = len << 1;
-        int[] helper = new int[doubleLen];
-        for (int i = 0; i < doubleLen; i++) {
+        int[] h = new int[doubleLen];
+        h[0] = gas[0] - cost[0];
+        for (int i = 1; i < doubleLen; i++) {
             if (i < len) {
-                helper[i] = gas[i] - cost[i];
-            }
-            if (i > 1) {
-                helper[i] += helper[i - 1];
+                h[i] = gas[i] - cost[i];
+                h[i] += h[i - 1];
             }
             if (i >= len) {
-                helper[i] = helper[len - 1] + helper[i - len];
+                h[i] = h[len - 1] + h[i - len];
             }
         }
-        LinkedList<Integer> qMax = new LinkedList<>();
+        LinkedList<Integer> qMin = new LinkedList<>();
         int r = 0;
         int index = 0;
         while (r < doubleLen) {
-            while (!qMax.isEmpty() && helper[qMax.peekLast()] >= helper[r]) {
-                qMax.pollLast();
+            while (!qMin.isEmpty() && h[qMin.peekLast()] >= h[r]) {
+                qMin.pollLast();
             }
-            qMax.addLast(r);
-            if (qMax.peekFirst() == r - len) {
-                qMax.pollFirst();
+            qMin.addLast(r);
+            if (qMin.peekFirst() == r - len) {
+                qMin.pollFirst();
             }
             if (r >= len - 1) {
                 if (r == len - 1) {
-                    if (helper[qMax.peekFirst()] >= 0) {
+                    if (h[qMin.peekFirst()] >= 0) {
                         return index;
                     }
                 } else {
-                    if (helper[qMax.peekFirst()] - helper[r - len] >= 0) {
+                    if (h[qMin.peekFirst()] - h[r - len] >= 0) {
                         return index;
                     }
                 }
@@ -153,8 +104,80 @@ public class LeetCode_0134_GasStation {
      * TODO
      *  这个方法的时间复杂度O(N)，额外空间复杂度O(1）
      */
-    public static int canCompleteCircuit2(int[] oil, int[] dis) {
-        return -1;
+    public  static boolean[] stations(int[] cost, int[] gas) {
+        if (cost == null || gas == null || cost.length < 2
+                || cost.length != gas.length) {
+            return null;
+        }
+        int init = changeDisArrayGetInit(cost, gas);
+        return init == -1 ? new boolean[cost.length] : enlargeArea(cost, init);
+    }
+
+    public static int changeDisArrayGetInit(int[] dis, int[] oil) {
+        int init = -1;
+        for (int i = 0; i < dis.length; i++) {
+            dis[i] = oil[i] - dis[i];
+            if (dis[i] >= 0) {
+                init = i;
+            }
+        }
+        return init;
+    }
+
+    public static boolean[] enlargeArea(int[] dis, int init) {
+        boolean[] res = new boolean[dis.length];
+        int start = init;
+        int end = nextIndex(init, dis.length);
+        int need = 0;
+        int rest = 0;
+        do {
+            // 当前来到的start已经在连通区域中，可以确定后续的开始点一定无法转完一圈
+            if (start != init && start == lastIndex(end, dis.length)) {
+                break;
+            }
+            // 当前来到的start不在连通区域中，就扩充连通区域
+            if (dis[start] < need) { // 当前start无法接到连通区的头部
+                need -= dis[start];
+            } else { // 当前start可以接到连通区的头部，开始扩充连通区域的尾巴
+                rest += dis[start] - need;
+                need = 0;
+                while (rest >= 0 && end != start) {
+                    rest += dis[end];
+                    end = nextIndex(end, dis.length);
+                }
+                // 如果连通区域已经覆盖整个环，当前的start是良好出发点，进入2阶段
+                if (rest >= 0) {
+                    res[start] = true;
+                    connectGood(dis, lastIndex(start, dis.length), init, res);
+                    break;
+                }
+            }
+            start = lastIndex(start, dis.length);
+        } while (start != init);
+        return res;
+    }
+
+    // 已知start的next方向上有一个良好出发点
+    // start如果可以达到这个良好出发点，那么从start出发一定可以转一圈
+    public static void connectGood(int[] dis, int start, int init, boolean[] res) {
+        int need = 0;
+        while (start != init) {
+            if (dis[start] < need) {
+                need -= dis[start];
+            } else {
+                res[start] = true;
+                need = 0;
+            }
+            start = lastIndex(start, dis.length);
+        }
+    }
+
+    public static int lastIndex(int index, int size) {
+        return index == 0 ? (size - 1) : index - 1;
+    }
+
+    public static int nextIndex(int index, int size) {
+        return index == size - 1 ? 0 : (index + 1);
     }
 
     // 暴力解法 O(N^2)
@@ -230,16 +253,15 @@ public class LeetCode_0134_GasStation {
     public static void main(String[] args) {
         int[] gas = {1, 2, 3, 4, 5};
         int[] cost = {3, 4, 5, 1, 2};
-        System.out.println(canCompleteCircuit1(gas, cost));
-        System.out.println(canCompleteCircuit3(gas, cost));
-        System.out.println(canCompleteCircuitXXX(gas, cost));
+//        System.out.println(canCompleteCircuit3(gas, cost));
+//        System.out.println(canCompleteCircuit(gas, cost));
 
 
         int[] gas2 = {2, 3, 4};
         int[] cost2 = {3, 4, 3};
-        System.out.println(canCompleteCircuit1(gas2, cost2));
         System.out.println(canCompleteCircuit3(gas2, cost2));
-        System.out.println(canCompleteCircuitXXX(gas2, cost2));
+        // System.out.println(canCompleteCircuitOfAllPositions(gas2, cost2));
+        System.out.println(canCompleteCircuit(gas2, cost2));
     }
 
 }
