@@ -46,6 +46,52 @@ import java.util.LinkedList;
 //        Therefore, you can't travel around the circuit once no matter where you start.
 public class LeetCode_0134_GasStation {
 
+    public static int canCompleteCircuit1(int[] gas, int[] cost) {
+        int len = gas.length;
+       /* int[] h = new int[len];
+        for (int i = 0; i < len; i++) {
+            h[i] = gas[i] - cost[i];
+        }*/
+        int doubleLen = len << 1;
+        int[] helper = new int[doubleLen];
+        for (int i = 0; i < doubleLen; i++) {
+            if (i < len) {
+                helper[i] = gas[i] - cost[i];
+            }
+            if (i > 1) {
+                helper[i] += helper[i - 1];
+            }
+            if (i >= len) {
+                helper[i] = helper[len - 1] + helper[i - len];
+            }
+        }
+        LinkedList<Integer> q = new LinkedList<>();
+        boolean[] res = new boolean[doubleLen - len + 1];
+        int index = 0;
+        for (int i = 0; i < doubleLen; i++) {
+            while (!q.isEmpty() && helper[i] <= helper[q.peekLast()]) {
+                q.pollLast();
+            }
+            q.addLast(i);
+            if (q.peekFirst() == (i - len)) {
+                q.pollFirst();
+            }
+            // 窗口已经形成了
+            if (i >= len - 1) {
+                if (i == len - 1) {
+                    res[index++] = (helper[q.peekFirst()] >= 0);
+                } else {
+                    res[index++] = ((helper[q.peekFirst()] - helper[i - len]) >= 0);
+                }
+            }
+        }
+        for (int i = 0; i < doubleLen - len + 1; i++) {
+            if (res[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     // 滑动窗口内的最大值和，最小值（双端队列，存下标，不要存值）
     /*
@@ -54,7 +100,95 @@ public class LeetCode_0134_GasStation {
     // tips, 纯能值数组（本身加油站扣去距离，还剩多少?） 累加没有小于0的，就是良好出发点
     // 纯能值数组的前缀和数组
     // 2倍的前缀和数组（考察窗口最小值是不是小于0）
-    public static int canCompleteCircuit1(int[] gas, int[] cost) {
+    // 生成h(i) 的累加和数组
+    //纯能职数组[1,-1,0,3,-1]
+    //--> 累加和数组 [1,0,0,3,2]
+    //---> 再累加一次 [1,0,0,3,2,3,2,2,5,4]
+    //然后滑动窗口最小值，减去L-1位置的数，如果<0,则L不是良好出发点
+    public static int canCompleteCircuitXXX(int[] gas, int[] cost) {
+        int len = gas.length;
+
+        int doubleLen = len << 1;
+        int[] helper = new int[doubleLen];
+        for (int i = 0; i < doubleLen; i++) {
+            if (i < len) {
+                helper[i] = gas[i] - cost[i];
+            }
+            if (i > 1) {
+                helper[i] += helper[i - 1];
+            }
+            if (i >= len) {
+                helper[i] = helper[len - 1] + helper[i - len];
+            }
+        }
+        LinkedList<Integer> qMax = new LinkedList<>();
+        int r = 0;
+        int index = 0;
+        while (r < doubleLen) {
+            while (!qMax.isEmpty() && helper[qMax.peekLast()] >= helper[r]) {
+                qMax.pollLast();
+            }
+            qMax.addLast(r);
+            if (qMax.peekFirst() == r - len) {
+                qMax.pollFirst();
+            }
+            if (r >= len - 1) {
+                if (r == len - 1) {
+                    if (helper[qMax.peekFirst()] >= 0) {
+                        return index;
+                    }
+                } else {
+                    if (helper[qMax.peekFirst()] - helper[r - len] >= 0) {
+                        return index;
+                    }
+                }
+                index++;
+            }
+            r++;
+        }
+        return -1;
+    }
+
+    /*
+     * TODO
+     *  这个方法的时间复杂度O(N)，额外空间复杂度O(1）
+     */
+    public static int canCompleteCircuit2(int[] oil, int[] dis) {
+        return -1;
+    }
+
+    // 暴力解法 O(N^2)
+    public static int canCompleteCircuit3(int[] gas, int[] cost) {
+        int n = gas.length;
+
+        int[] h = new int[n];
+        for (int i = 0; i < n; i++) {
+            h[i] = gas[i] - cost[i];
+        }
+        // 标记良好出发点的位置，开始是-1，说明没有找到良好出发点
+        int good = -1;
+        // h[i] 一直往后累加，累加和记录在preSum中，回到本身，如果不出现负数，i位置就是良好出发点
+        int preSum;
+        for (int i = 0; i < n; i++) {
+            preSum = h[i];
+            for (int j = i + 1; j < n + i + 1; j++) {
+                if (preSum < 0) {
+                    break;
+                }
+                // int index = j % n
+                int index = j > n - 1 ? j - n : j;
+                preSum += h[index];
+            }
+            if (preSum >= 0) {
+                good = i;
+            }
+        }
+        return good;
+    }
+
+
+    // 返回所有位置是不是良好出发点
+    public static boolean[] canCompleteCircuitOfAllPositions(int[] gas, int[] cost) {
         int N = gas.length;
         int[] h = new int[N];
         for (int i = 0; i < N; i++) {
@@ -89,60 +223,23 @@ public class LeetCode_0134_GasStation {
                 }
             }
         }
-        for (int i = 0; i < R - N + 1; i++) {
-            if (res[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /*
-     * TODO
-     *  这个方法的时间复杂度O(N)，额外空间复杂度O(1）
-     */
-    public static int canCompleteCircuit2(int[] oil, int[] dis) {
-        return -1;
-    }
-
-    // 暴力解法 O(N^2)
-    public static int canCompleteCircuit3(int[] gas, int[] cost) {
-        int n = gas.length;
-
-        int[] h = new int[n];
-        for (int i = 0; i < n; i++) {
-            h[i] = gas[i] - cost[i];
-        }
-        // 标记良好出发点的位置，开始是-1，说明没有找到良好出发点
-        int good = -1;
-        // h[i] 一直往后累加，累加和记录在preSum中，回到本身，如果不出现负数，i位置就是良好出发点
-        int preSum;
-        for (int i = 0; i < n; i++) {
-            preSum = h[i];
-            for (int j = i + 1; j < n + i + 1; j++) {
-                if (preSum < 0) {
-                    break;
-                }
-                // int index = j % n
-                int index = j > n - 1 ? j -  n : j;
-                preSum += h[index];
-            }
-            if (preSum >= 0) {
-                good = i;
-            }
-        }
-        return good;
+        // res[i]位置存着每个位置是否为良好出发点
+        return res;
     }
 
     public static void main(String[] args) {
         int[] gas = {1, 2, 3, 4, 5};
         int[] cost = {3, 4, 5, 1, 2};
+        System.out.println(canCompleteCircuit1(gas, cost));
         System.out.println(canCompleteCircuit3(gas, cost));
+        System.out.println(canCompleteCircuitXXX(gas, cost));
 
 
         int[] gas2 = {2, 3, 4};
         int[] cost2 = {3, 4, 3};
+        System.out.println(canCompleteCircuit1(gas2, cost2));
         System.out.println(canCompleteCircuit3(gas2, cost2));
+        System.out.println(canCompleteCircuitXXX(gas2, cost2));
     }
 
 }
