@@ -117,11 +117,11 @@ public class Code_0029_CustomHeap {
                 return o1.compareTo(o2);
             }
         });
-        heap.push(new Integer(3));
-        heap.push(new Integer(4));
-        heap.push(new Integer(2));
-        heap.push(new Integer(1));
-        heap.push(new Integer(7));
+        heap.push(Integer.valueOf(3));
+        heap.push(Integer.valueOf(4));
+        heap.push(Integer.valueOf(2));
+        heap.push(Integer.valueOf(1));
+        heap.push(Integer.valueOf(7));
         System.out.println(heap.pop());
         System.out.println(heap.pop());
         System.out.println(heap.pop());

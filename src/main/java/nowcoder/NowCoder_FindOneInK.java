@@ -31,6 +31,7 @@ public class NowCoder_FindOneInK {
         System.out.println(oneInk2(arr, n, k));
         /*int recover = recover(toK(7, 3), 3, 32);
         System.out.println(recover);*/
+        in.close();
     }
 
     // 用hash表
