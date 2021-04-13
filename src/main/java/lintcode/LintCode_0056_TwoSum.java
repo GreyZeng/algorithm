@@ -1,5 +1,8 @@
 package lintcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // https://www.lintcode.com/problem/56/
 public class LintCode_0056_TwoSum {
     public int[] twoSum(int[] numbers, int target) {
