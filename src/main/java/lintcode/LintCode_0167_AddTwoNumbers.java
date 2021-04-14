@@ -1,8 +1,19 @@
-package leetcode;
+package lintcode;
 
-// https://leetcode.com/problems/add-two-numbers/
-public class LeetCode_0002_AddTwoNumbers {
-    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+/**
+ * https://www.lintcode.com/problem/167/
+ *
+ * @author <a href="mailto:410486047@qq.com">Grey</a>
+ * @date 2021/4/14
+ * @since
+ */
+public class LintCode_0167_AddTwoNumbers {
+    /**
+     * @param l1: the first list
+     * @param l2: the second list
+     * @return: the sum list of l1 and l2
+     */
+    public ListNode addLists(ListNode l1, ListNode l2) {
         if (l1 == null) {
             return l2;
         }
@@ -48,18 +59,9 @@ public class LeetCode_0002_AddTwoNumbers {
         int val;
         ListNode next;
 
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
+        ListNode(int x) {
+            val = x;
+            next = null;
         }
     }
 }
-
-
