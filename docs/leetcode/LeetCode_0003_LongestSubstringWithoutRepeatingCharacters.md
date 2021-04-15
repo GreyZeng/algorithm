@@ -42,6 +42,30 @@ a 的 ascii码是97， arr[97] = 3,表示a上次出现的位置是3。
 
 4. 如何记录i向左扩能扩到最左的位置是哪里？ 可以用一个pre变量来记录，pre初始是-1。
 
+完整代码
+
+```java
+    public int lengthOfLongestSubstring(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int max = 1;
+        int pre = -1;
+        char[] str = s.toCharArray();
+        int[] arr = new int[256];
+        for (char c : str) {
+            arr[c] = -1;
+        }
+        for (int i = 0; i < str.length; i++) {
+            // 上一次出现的位置
+            pre = Math.max(arr[str[i]], pre);
+            max = Math.max(i - pre, max);
+            arr[str[i]] = i;
+        }
+        return max;
+    }
+```
+
 ## 更多
 
 [算法和数据结构笔记](https://github.com/GreyZeng/algorithm)
