@@ -1,5 +1,7 @@
 # LeetCode
 
+[LeetCode_0003_LongestSubstringWithoutRepeatingCharacters](docs/leetcode/LeetCode_0003_LongestSubstringWithoutRepeatingCharacters.md)
+
 [LeetCode_0076_MinimumWindowSubstring](docs/leetcode/LeetCode_0076_MinimumWindowSubstring.md)
 
 [LeetCode_0087_ScrambleString](docs/leetcodeLeetCode_0087_ScrambleString.md)
