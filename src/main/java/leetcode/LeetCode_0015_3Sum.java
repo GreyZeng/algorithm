@@ -114,11 +114,4 @@ public class LeetCode_0015_3Sum {
         }
         return ans;
     }
-
-    public static void main(String[] args) {
-        int[] nums = new int[]{-2, 0, 1, 1, 2};
-        // System.out.println(twoSum(nums,1,5, 0));
-        System.out.println(threeSum(nums));
-        // System.out.println(twoSum(nums, 4));
-    }
 }
