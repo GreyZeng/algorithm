@@ -1,28 +1,14 @@
-# LeetCode
+## 刷题记录
 
-[LeetCode_0003_LongestSubstringWithoutRepeatingCharacters](docs/leetcode/LeetCode_0003_LongestSubstringWithoutRepeatingCharacters.md)
+[LeetCode](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/leetcode)
 
-[LeetCode_0076_MinimumWindowSubstring](docs/leetcode/LeetCode_0076_MinimumWindowSubstring.md)
+[LintCode](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/lintcode)
 
-[LeetCode_0087_ScrambleString](docs/leetcodeLeetCode_0087_ScrambleString.md)
+[luogu](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/luogu)
 
-[LeetCode_0146_LRUCache](docs/leetcode/LeetCode_0146_LRUCache.md)
+[牛客](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/nowcoder)
 
-[LeetCode_0169_MajorityElement](docs/leetcode/LeetCode_0169_MajorityElement.md)
-
-[LeetCode_0200_NumberOfIslands](docs/leetcode/LeetCode_0200_NumberOfIslands.md)
-
-[LeetCode_0629_KInversePairsArray](docs/leetcode/LeetCode_0629_KInversePairsArray.md)
- 
-[LeetCode_1000_MinimumCostToMergeStones](docs/leetcode/LeetCode_1000_MinimumCostToMergeStones.md)
-
-[更多](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/leetcode)
-
-# 牛客
-
-[汉诺塔II](docs/nowcoder/NowCoder_HanotaII.md)
-
-[更多](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/nowcoder)
+[acwing](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/acwing)
 
 ## 排序
 
