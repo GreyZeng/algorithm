@@ -17,7 +17,7 @@ public class LintCode_0174_RemoveNthNodeFromEndOfList {
      * @return: The head of linked list.
      */
     public static ListNode removeNthFromEnd(ListNode head, int n) {
-       // TODO
+      
     	return null;
     }
 }
