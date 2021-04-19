@@ -1,19 +1,18 @@
-package leetcode;
- 
+package lintcode;
 
-public class LeetCode_0021_MergeTwoSortedLists {
-
-    public static class ListNode {
-        public int val;
-        public ListNode next;
-    }
-
-    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-    	if (l1 == null || l2 == null) {
-    		// 如果任何一个链表为空，那么直接返回另外一个链表即可
+// https://www.lintcode.com/problem/165/
+public class LintCode_0165_MergeTwoSortedLists {
+	/**
+	 * @param l1: ListNode l1 is the head of the linked list
+	 * @param l2: ListNode l2 is the head of the linked list
+	 * @return: ListNode head of linked list
+	 */
+	public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+		if (l1 == null || l2 == null) {
+			// 如果任何一个链表为空，那么直接返回另外一个链表即可
 			return l1 == null ? l2 : l1;
 		}
-    	// 谁小谁作为头
+		// 谁小谁作为头
 		ListNode head = l1.val > l2.val ? l2 : l1;
 		// t1 和 t2 表示l1和l2下一个要遍历的位置
 		ListNode t1 = head == l1 ? l1.next : l1;
@@ -45,6 +44,15 @@ public class LeetCode_0021_MergeTwoSortedLists {
 			cur = cur.next;
 		}
 		return head;
-    }
+	}
 
+	public class ListNode {
+		int val;
+		ListNode next;
+
+		ListNode(int x) {
+			val = x;
+			next = null;
+		}
+	}
 }
