@@ -1,23 +1,18 @@
-package leetcode;
+package lintcode;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.LinkedList;
 
-// ()[]{} 三类括号
-// 栈
-// 左压 右出 且匹配
-// 栈空即可，只要有不满足就false
-// 如果只有一类括号，则不需要用栈，直接用一个变量控制即可
-// ref : https://www.lintcode.com/problem/valid-parentheses/description
-public class LeetCode_0020_ValidParentheses {
-
-	public static boolean isValid(String s) {
+public class LintCode_0423_ValidParentheses {
+	/**
+	 * @param s: A string
+	 * @return: whether the string is a valid parentheses
+	 */
+	public static boolean isValidParentheses(String s) {
 		if (s == null || s.length() == 0) {
 			return true;
 		}
 		char[] strs = s.toCharArray();
-		Deque<Character> stack = new ArrayDeque<Character>();
+		LinkedList<Character> stack = new LinkedList<Character>();
 		int len = strs.length;
 		for (int i = 0; i < len; i++) {
 			if (isLeft(strs[i])) {
@@ -40,5 +35,9 @@ public class LeetCode_0020_ValidParentheses {
 	public static boolean isMatch(char left, char right) {
 		return (left == '[' && right == ']') || (left == '(' && right == ')') || (left == '{' && right == '}');
 	}
-
+	
+	public static void main(String[] args) {
+		String s= "[(){[]}()]";
+		System.out.println(isValidParentheses(s));
+	}
 }
