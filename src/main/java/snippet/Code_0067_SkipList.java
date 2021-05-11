@@ -14,7 +14,7 @@ public class Code_0067_SkipList {
         public SkipListNode(K k, V v) {
             key = k;
             val = v;
-            nextNodes = new ArrayList<SkipListNode<K, V>>();
+            nextNodes = new ArrayList<>();
         }
 
         // 遍历的时候，如果是往右遍历到的null(next == null), 遍历结束
@@ -35,12 +35,12 @@ public class Code_0067_SkipList {
 
     public static class SkipListMap<K extends Comparable<K>, V> {
         private static final double PROBABILITY = 0.5; // < 0.5 继续做，>=0.5 停
-        private SkipListNode<K, V> head;
+        private final SkipListNode<K, V> head;
         private int size;
         private int maxLevel;
 
         public SkipListMap() {
-            head = new SkipListNode<K, V>(null, null);
+            head = new SkipListNode<>(null, null);
             head.nextNodes.add(null); // 0
             size = 0;
             maxLevel = 0;
@@ -104,7 +104,7 @@ public class Code_0067_SkipList {
                     head.nextNodes.add(null);
                     maxLevel++;
                 }
-                SkipListNode<K, V> newNode = new SkipListNode<K, V>(key, value);
+                SkipListNode<K, V> newNode = new SkipListNode<>(key, value);
                 for (int i = 0; i <= newNodeLevel; i++) {
                     newNode.nextNodes.add(null);
                 }
