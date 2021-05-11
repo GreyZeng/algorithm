@@ -92,26 +92,31 @@ public class Code_0067_SkipList {
             SkipListNode<K, V> less = mostRightLessNodeInTree(key);
             SkipListNode<K, V> find = less.nextNodes.get(0);
             if (find != null && find.isKeyEqual(key)) {
+                // 要插入的元素就在跳表中，直接修改其val值即可
                 find.val = value;
-            } else { // find == null   8   7   9
+            } else {
+                // 第一步：跳表的size增加
                 size++;
+
+                // 第二步：以0.5的概率决定是否增加层数，一直到不增加层数为止
                 int newNodeLevel = 0;
                 while (Math.random() < PROBABILITY) {
                     newNodeLevel++;
                 }
-                // newNodeLevel
+                // 第三步：新加的节点roll出的层数如果大于了最大层数，此时更新最大层数，且把首节点补充到最大层数那么高
                 while (newNodeLevel > maxLevel) {
                     head.nextNodes.add(null);
                     maxLevel++;
                 }
+                // 第四步：新节点补充到最大层数那么高
                 SkipListNode<K, V> newNode = new SkipListNode<>(key, value);
                 for (int i = 0; i <= newNodeLevel; i++) {
                     newNode.nextNodes.add(null);
                 }
+                // 第五步: 从最高层出发，找到最右的比key小的那个值所在的位置
                 int level = maxLevel;
                 SkipListNode<K, V> pre = head;
                 while (level >= 0) {
-                    // level 层中，找到最右的 < key 的节点
                     pre = mostRightLessNodeInLevel(key, pre, level);
                     if (level <= newNodeLevel) {
                         newNode.nextNodes.set(level, pre.nextNodes.get(level));
