@@ -17,27 +17,8 @@ import java.util.*;
  */
 // FIXME
 public class LeetCode_1206_DesignSkiplist {
-    public static void main(String[] args) {
-//["Skiplist","add","add","add","add","search","erase","search","search","search"]
-//[[],[0],[5],[2],[1],[0],[5],[2],[3],[2]]
 
-        Skiplist skiplist = new Skiplist();
-        skiplist.add(0);
-        skiplist.add(5);
-        skiplist.add(2);
-        skiplist.add(1);
-        System.out.println(skiplist.search(0));
-        System.out.println(skiplist.erase(5));
-
-        System.out.println(skiplist.search(2));
-
-        System.out.println(skiplist.search(3));
-
-        System.out.println(skiplist.search(2));
-
-    }
 }
-
 class Skiplist {
     private ArrayList<Node> heads;
     private final static double POSSIBLE = 0.5d;
@@ -103,7 +84,7 @@ class Skiplist {
             }
             if (pre.left == null) {
                 // 到达heads节点
-                 Node head = new Node(-1);
+                Node head = new Node(-1);
                 pre.up = head;
                 head.down = pre;
                 heads.add(head);
@@ -154,4 +135,3 @@ class Skiplist {
         return true;
     }
 }
-
