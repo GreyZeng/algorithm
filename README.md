@@ -1,14 +1,15 @@
-## 刷题记录
 
-[LeetCode](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/leetcode)
 
-[LintCode](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/lintcode)
+| 平台     | 笔记                    | 代码                                                         |
+| -------- | ----------------------- | ------------------------------------------------------------ |
+| LeetCode | [笔记](./docs/leetcode) | [代码](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/leetcode) |
+| LintCode |                         | [代码](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/lintcode) |
+| luogu    |                         | [代码](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/luogu) |
+| 牛客     | [笔记](./docs/nowcoder) | [代码](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/nowcoder) |
+| acwing   |                         | [代码](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/acwing) |
 
-[luogu](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/luogu)
 
-[牛客](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/nowcoder)
 
-[acwing](https://github.com/GreyZeng/algorithm/tree/master/src/main/java/acwing)
 
 ## 排序
 
