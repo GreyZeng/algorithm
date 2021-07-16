@@ -1,6 +1,5 @@
 package leetcode;
 
-
 //A peak element is an element that is greater than its neighbors.
 //
 //        Given an input array nums, where nums[i] ≠ nums[i+1], find a peak element and return its index.
@@ -25,32 +24,32 @@ package leetcode;
 // 二分
 public class LeetCode_0162_FindPeakElement {
 
-    public static int findPeakElement(int[] nums) {
-        if (nums.length == 1) {
-            return 0;
-        }
+	public static int findPeakElement(int[] nums) {
+		if (nums.length == 1) {
+			return 0;
+		}
 
-        int L = 0;
-        int R = nums.length - 1;
-        if (nums[L] > nums[L + 1]) {
-            return L;
-        }
-        if (nums[R] > nums[R - 1]) {
-            return R;
-        }
-        int M;
-        while (L < R) {
-            M = (L + R) >> 1;
-            if (nums[M] > nums[M + 1] && nums[M] > nums[M - 1]) {
-                return M;
-            }
-            if (nums[M] < nums[M + 1]) {
-                L = M + 1;
-            } else if (nums[M] < nums[M - 1]) {
-                R = M - 1;
-            }
-        }
-        return L;
-    }
+		int L = 0;
+		int R = nums.length - 1;
+		if (nums[L] > nums[L + 1]) {
+			return L;
+		}
+		if (nums[R] > nums[R - 1]) {
+			return R;
+		}
+		int M;
+		while (L < R) {
+			M = L + ((R - L) >> 1);
+			if (nums[M] > nums[M + 1] && nums[M] > nums[M - 1]) {
+				return M;
+			}
+			if (nums[M] < nums[M + 1]) {
+				L = M + 1;
+			} else if (nums[M] < nums[M - 1]) {
+				R = M - 1;
+			}
+		}
+		return L;
+	}
 
 }

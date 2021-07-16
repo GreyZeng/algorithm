@@ -43,37 +43,4 @@ public class Code_0019_BinarySearch {
         }
         return index;
     }
-
-
-    // 局部最小值问题
-    public static int getLessIndex(int[] arr) {
-        if (null == arr || arr.length == 0) {
-            return -1;
-        }
-
-        int N = arr.length;
-        if (N == 1) {
-            return 0;
-        }
-        if (arr[0] < arr[1]) {
-            return 0;
-        }
-        if (arr[N - 1] < arr[N - 2]) {
-            return N - 1;
-        }
-        int L = 1;
-        int R = N - 2;
-        int M = -1;
-        while (L <= R) {
-            M = (L + ((R - L) >> 1));
-            if (arr[M] > arr[M + 1]) {
-                L = M + 1;
-            } else if (arr[M] > arr[M - 1]) {
-                R = M - 1;
-            } else {
-                return M;
-            }
-        }
-        return M;
-    }
 }

@@ -38,14 +38,25 @@ package leetcode;
  * @since
  */
 public class LeetCode_0035_SearchInsertPosition {
-	// TODO
-	public static int searchInsert(int[] nums, int target) {
-		return -1;
-	}
 
-	public static void main(String[] args) {
-		int[] arr = { 1,3,5,6 };
-		int target =2;
-		System.out.println(searchInsert(arr, target));
+	public static int searchInsert(int[] nums, int target) {
+		int L = 0;
+		int R = nums.length - 1;
+		int index = -1;
+		while (L <= R) {
+			int mid = L + ((R - L) >> 1);
+			if (nums[mid] == target) {
+				return mid;
+			} else if (nums[mid] > target) {
+				index = mid;
+				R = mid - 1;
+			} else {
+				L = mid + 1;
+			}
+		}
+		if (index == -1) {
+			return nums.length;
+		}
+		return L;
 	}
 }

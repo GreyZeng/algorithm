@@ -74,16 +74,35 @@ LeetCode_0704_BinarySearch.java
 
 ### 在一个有序数组中，找>=某个数最左侧的位置 
 
+Code_0019_BinarySearch.java
+
 ### 在一个有序数组中，找<=某个数最右侧的位置 
 
-### 局部最小值问题 
+Code_0019_BinarySearch.java
+
+### 相关练习
+
+LeetCode_0035_SearchInsertPosition.java
+
+### 局部最大值问题 
+
+LeetCode_0162_FindPeakElement.java
+
 
 ## 异或运算
 
-### 如何不用额外变量交换两个数 
+### 不用额外变量交换两个值
+
+```
+a = a^b;
+b = a^b;
+a = a^b;
+```
+
 
 ### 一个数组中有一种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这种数 
 
+NowCoder_EvenOddTimes.java
 
 ### 怎么把一个int类型的数，提取出最右侧的1来
 
