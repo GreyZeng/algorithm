@@ -70,6 +70,8 @@ Code_0001_InsertionSort.java
 
 ### 在一个有序数组中，找某个数是否存在 
 
+LeetCode_0704_BinarySearch.java
+
 ### 在一个有序数组中，找>=某个数最左侧的位置 
 
 ### 在一个有序数组中，找<=某个数最右侧的位置 

@@ -12,9 +12,12 @@ import java.util.Arrays;
  */
 public class Code_0001_InsertionSort {
 	public static void insertionSort(int[] arr) {
-		if (arr != null && arr.length >= 2) {
-			for (int i = 1; i < arr.length; i++) {
-				for (int j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
+		if (arr == null || arr.length < 2) {
+			return;
+		}
+		for (int i = 1; i < arr.length; i++) {
+			for (int j = i - 1; j >= 0; j--) {
+				if (arr[j] > arr[j + 1]) {
 					swap(arr, j, j + 1);
 				}
 			}
@@ -99,6 +102,7 @@ public class Code_0001_InsertionSort {
 		boolean succeed = true;
 		for (int i = 0; i < times; i++) {
 			int[] arr1 = generateRandomArray(maxSize, maxValue);
+			// printArray(arr1);
 			int[] arr2 = copyArray(arr1);
 			insertionSort(arr1);
 			absRight(arr2);
