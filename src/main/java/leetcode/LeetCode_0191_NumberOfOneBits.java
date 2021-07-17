@@ -31,6 +31,7 @@ The input must be a binary string of length 32*/
 package leetcode;
 
 public class LeetCode_0191_NumberOfOneBits {
+	
 	public int hammingWeight(int N) {
         int i = 0;
     	while (N != 0) {
