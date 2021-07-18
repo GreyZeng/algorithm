@@ -115,12 +115,15 @@ i & ((~i) + 1)
 ### 一个数组中有两种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这两种数
 
 NowCoder_EvenOddTimesPlus.java
+LeetCode_0260_SingleNumberIII.java
 
 ### 一个数字中有多少个1
 
 LeetCode_0191_NumberOfOneBits.java
 
-### 一个数组中有一种数出现K次，其他数都出现了M次，M > 1,  K < M找到，出现了K次的数，要求，额外空间复杂度O(1)，时间复杂度O(N)
+### 一个数组中有一种数出现K次，其他数都出现了M次，M > 1,  K < M, 找到出现了K次的数，要求，额外空间复杂度O(1)，时间复杂度O(N)
+
+LeetCode_0137_SingleNumberII.java
 
 
 ## 单链表和双向链表
