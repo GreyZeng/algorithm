@@ -136,7 +136,7 @@ LeetCode_0137_SingleNumberII.java
 - LeetCode_0092_ReverseLinkedListII.java
 - LintCode_0035_ReverseLinkedList.java
 
-## 链表中删除给定值的节点
+### 链表中删除给定值的节点
 
 > 为了防止头节点就是要删除的节点，所以一开始要先找到不需要删除的第一个节点
 
