@@ -141,7 +141,7 @@ LeetCode_0137_SingleNumberII.java
 > 为了防止头节点就是要删除的节点，所以一开始要先找到不需要删除的第一个节点
 
 LeetCode_0203_RemoveLinkedListElements.java
-LintCode_0035_ReverseLinkedList.java
+LintCode_0452_RemoveLinkedListElements.java
 
 ## 队列和栈
 
