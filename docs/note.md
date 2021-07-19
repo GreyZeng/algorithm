@@ -134,8 +134,14 @@ LeetCode_0137_SingleNumberII.java
 - Code_0008_ReverseList.java
 - LeetCode_0206_ReverseLinkedList.java
 - LeetCode_0092_ReverseLinkedListII.java
+- LintCode_0035_ReverseLinkedList.java
 
-### 把给定值都删除
+## 链表中删除给定值的节点
+
+> 为了防止头节点就是要删除的节点，所以一开始要先找到不需要删除的第一个节点
+
+LeetCode_0203_RemoveLinkedListElements.java
+LintCode_0035_ReverseLinkedList.java
 
 ## 队列和栈
 
