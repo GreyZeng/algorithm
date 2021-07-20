@@ -197,6 +197,45 @@ O(N ^ d)为除了递归过程之外其他调用的时间复杂度
 
 ## 归并排序
 
-使用master公式区分时间复杂度
+递归方式
+
+左部分排序
+
+右部分排序
+
+申请一个额外数组，进行merge操作，谁小拷贝谁进新的数组
+
+复杂度估计,使用master公式 O(N*logN)
+
+
+非递归方式
+分组进行排序，组的长度从2开始，下一个是4..8..直到N
+
+
+Code_0022_MergeSort.java
+
+小和问题
+
+LeetCode_0315_CountOfSmallerNumbersAfterSelf.java
+
+一个数组中所有的降序对
+
+LeetCodeCN_0051_ReversePairs.java
+LeetCode_0493_ReversePairs.java
+
+```
+在一个数组中，
+对于每个数num，求有多少个后面的数 * 2 依然<num，求总个数
+比如：[3,1,7,0,2]
+3的后面有：1，0
+1的后面有：0
+7的后面有：0，2
+0的后面没有
+2的后面没有
+所以总共有5个
+
+```
+
+
 
  
