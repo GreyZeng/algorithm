@@ -143,34 +143,57 @@ LeetCode_0137_SingleNumberII.java
 LeetCode_0203_RemoveLinkedListElements.java
 LintCode_0452_RemoveLinkedListElements.java
 
+
 ## 队列和栈
 
-### 使用链表实现
+### 双向链表实现栈和队列
 
-### 使用数组实现 
+Code_0011_DoubleEndsToStackAndQueue.java
 
-注意：数组实现队列比较复杂, 需要三个变量控制，begin = 0, end = 0, size = 0
+### 数组实现栈和队列
 
-size控制是否可以取数或者加数
-取从begin取，begin++
-拿从end拿，end++
+Code_0006_ArrayToStackAndQueue.java
+
+### 实现一个特殊的栈，在基本功能的基础上，再实现返回栈中最小元素的功能
+
+**pop、push、getMin操作的时间复杂度都是 O(1)**
+
+方法1. 使用两个栈 空间复杂度O(N)
+```
+LintCode_0012_MinStack.java
+LeetCode_0155_MinStack.java
+```
+
+方法2. 空间复杂度O(1) 但是需要限定值的范围
+
+```
+Code_0013_MinStackO1
+```
+
+### 怎么用数组实现不超过固定大小的队列和栈？
+
+> 用环形数组来实现队列
+
+LeetCode_0622_DesignCircularQueue.java
 
 
-### 最小栈
-
-实现一个特殊的栈，在基本功能的基础上，再实现返回栈中最小元素的功能  
-1）pop、push、getMin操作的时间复杂度都是 O(1)。 
-2）设计的栈类型可以使用现成的栈结构。 
 
 
-### 如何使用队列实现栈
+### 队列和栈的互相转换
+
+```
+LeetCode_0232_ImplementQueueUsingStacks.java
+LeetCode_0225_ImplementStackUsingQueues.java
+```
+**使用队列实现栈的三个原则**
 
 pop stack + push stack
-- 一次性导完
-- 只有pop stack空了才能导数据
-- pop stack不为空不用导数据
 
-### 如何使用栈来实现队列
+- 一次性导完
+
+- 只有pop stack空了才能导数据
+
+- pop stack不为空不用导数据
 
 
 ## 递归
@@ -235,14 +258,36 @@ LeetCode_0493_ReversePairs.java
 所以总共有5个
 
 
-https://leetcode.com/problems/count-of-range-sum/
+
 
 给定一个数组arr，两个整数lower和upper，
 
 返回arr中有多少个子数组的累加和在[lower,upper]范围上
+LeetCode_0327_CountOfRangeSum
+
+方法1：归并排序
+1. 前缀和加速求区间和
+2. 必须以i结尾的达标子数组有多少个
+
+方法2：有序表方式
 
 ```
 
+
+## 随机快排
+
+- Partition
+- 荷兰国旗问题：LeetCode_0075_SortColors.java
+- 快排实现 Code_0025_QuickSort.java 非递归版本
+- 时间复杂度O(N*logN),空间复杂度O(logN)
+
+找第K大/小的数
+- 堆解法
+- 快排解法
+- bfprt算法
+
+LeetCode_0215_KthLargestElementInAnArray.java
+NowCoder_0088_FindKth.java
 
 
  

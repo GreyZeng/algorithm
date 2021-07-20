@@ -1,6 +1,5 @@
 package lintcode;
 
-import java.util.HashSet;
 
 // https://www.lintcode.com/problem/384/
 public class LintCode_0384_LongestSubstringWithoutRepeatingCharacters {
