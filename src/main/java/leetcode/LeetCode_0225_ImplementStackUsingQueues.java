@@ -9,24 +9,15 @@ public class LeetCode_0225_ImplementStackUsingQueues {
         private Queue<Integer> data;
         private Queue<Integer> help;
 
-        /**
-         * Initialize your data structure here.
-         */
         public MyStack() {
             data = new LinkedList<>();
             help = new LinkedList<>();
         }
 
-        /**
-         * Push element x onto stack.
-         */
         public void push(int x) {
             data.offer(x);
         }
 
-        /**
-         * Removes the element on top of the stack and returns that element.
-         */
         public int pop() {
             while (data.size() > 1) {
                 help.offer(data.poll());
@@ -38,9 +29,6 @@ public class LeetCode_0225_ImplementStackUsingQueues {
             return r;
         }
 
-        /**
-         * Get the top element.
-         */
         public int top() {
             while (data.size() > 1) {
                 help.offer(data.poll());
@@ -53,9 +41,6 @@ public class LeetCode_0225_ImplementStackUsingQueues {
             return r;
         }
 
-        /**
-         * Returns whether the stack is empty.
-         */
         public boolean empty() {
             return data.isEmpty();
         }

@@ -172,18 +172,17 @@ Code_0013_MinStackO1
 
 ### 怎么用数组实现不超过固定大小的队列和栈？
 
-> 用环形数组来实现队列
-
+```
 LeetCode_0622_DesignCircularQueue.java
-
-
-
+```
 
 ### 队列和栈的互相转换
 
 ```
 LeetCode_0232_ImplementQueueUsingStacks.java
 LeetCode_0225_ImplementStackUsingQueues.java
+LintCode_0494_ImplementStackByTwoQueues.java
+LintCode_0040_ImplementQueueByTwoStacks.java
 ```
 **使用队列实现栈的三个原则**
 
