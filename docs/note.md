@@ -69,25 +69,25 @@ Code_0001_InsertionSort.java
 ## 二分
 
 ### 在一个有序数组中，找某个数是否存在 
-
+```
 LeetCode_0704_BinarySearch.java
-
+```
 ### 在一个有序数组中，找>=某个数最左侧的位置 
-
+```
 Code_0019_BinarySearch.java
-
+```
 ### 在一个有序数组中，找<=某个数最右侧的位置 
-
+```
 Code_0019_BinarySearch.java
-
+```
 ### 相关练习
-
+```
 LeetCode_0035_SearchInsertPosition.java
-
+```
 ### 局部最大值问题 
-
+```
 LeetCode_0162_FindPeakElement.java
-
+```
 
 ## 异或运算
 
@@ -101,11 +101,11 @@ a = a^b;
 
 
 ### 一个数组中有一种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这种数 
-
+```
 NowCoder_EvenOddTimes.java
 
 LeetCode_0136_SingleNumber.java
-
+```
 ### 怎么把一个int类型的数，提取出最右侧的1来
 
 ```
@@ -113,47 +113,49 @@ i & ((~i) + 1)
 ```
 
 ### 一个数组中有两种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这两种数
-
+```
 NowCoder_EvenOddTimesPlus.java
 LeetCode_0260_SingleNumberIII.java
-
+```
 ### 一个数字中有多少个1
-
+```
 LeetCode_0191_NumberOfOneBits.java
-
+```
 ### 一个数组中有一种数出现K次，其他数都出现了M次，M > 1,  K < M, 找到出现了K次的数，要求，额外空间复杂度O(1)，时间复杂度O(N)
-
+```
 LeetCode_0137_SingleNumberII.java
-
+```
 
 ## 单链表和双向链表
 
-### 单链表和双链表如何反转
+### 单链表和双链表如何反转(递归/迭代版本)
 
-- 递归/迭代版本
-- Code_0008_ReverseList.java
-- LeetCode_0206_ReverseLinkedList.java
-- LeetCode_0092_ReverseLinkedListII.java
-- LintCode_0035_ReverseLinkedList.java
+```
+Code_0008_ReverseList.java
+LeetCode_0206_ReverseLinkedList.java
+LeetCode_0092_ReverseLinkedListII.java
+LintCode_0035_ReverseLinkedList.java
+```
 
 ### 链表中删除给定值的节点
 
-> 为了防止头节点就是要删除的节点，所以一开始要先找到不需要删除的第一个节点
+```
+为了防止头节点就是要删除的节点，所以一开始要先找到不需要删除的第一个节点
 
 LeetCode_0203_RemoveLinkedListElements.java
 LintCode_0452_RemoveLinkedListElements.java
-
+```
 
 ## 队列和栈
 
 ### 双向链表实现栈和队列
-
+```
 Code_0011_DoubleEndsToStackAndQueue.java
-
+```
 ### 数组实现栈和队列
-
+```
 Code_0006_ArrayToStackAndQueue.java
-
+```
 ### 实现一个特殊的栈，在基本功能的基础上，再实现返回栈中最小元素的功能
 
 **pop、push、getMin操作的时间复杂度都是 O(1)**
