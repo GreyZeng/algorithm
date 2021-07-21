@@ -1,10 +1,12 @@
 package nowcoder;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
 // 链接：https://www.nowcoder.com/questionTerminal/23ed40416d9c4c72816edb12daa3bdff
 
 // 来源：牛客网
 
-import java.util.Arrays;
-import java.util.Scanner;
 
 // 请编程实现一个整型数组的归并排序。本题会人工判断,请严格按照题目描述完成
 
