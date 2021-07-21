@@ -18,15 +18,15 @@ public class LintCode_0006_MergeTwoSortedArrays {
         return helper;
     }
 
-    public static int position(int value, int[] A, int offset) {
+    public static int position(int value, int[] bigger, int offset) {
         int smallerThanMe = 0;
         int L = 0;
-        int R = A.length - 1;
+        int R = bigger.length - 1;
         while (L <= R) {
             int mid = L + ((R - L) >> 1);
-            if (A[mid] > value) {
+            if (bigger[mid] > value) {
                 R = mid - 1;
-            } else if (A[mid] < value) {
+            } else if (bigger[mid] < value) {
                 smallerThanMe = (mid + 1);
                 L = mid + 1;
             } else {
@@ -51,7 +51,6 @@ public class LintCode_0006_MergeTwoSortedArrays {
     public static void printArr(int[] arr) {
         for (int n : arr) {
             System.out.print(n + "  ");
-
         }
         System.out.println();
     }
