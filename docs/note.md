@@ -232,10 +232,11 @@ O(N ^ d)为除了递归过程之外其他调用的时间复杂度
 分组进行排序，组的长度从2开始，下一个是4..8..直到N
 
 ```
+Code_0022_MergeSort.java
 LintCode_0006_MergeTwoSortedArrays.java
 LintCode_0064_MergeTwoSortedArrays.java
 LeetCode_0088_MergeSortedArray.java
-Code_0022_MergeSort.java
+NowCoder_MergeSort.java
 ```
 
 小和问题
