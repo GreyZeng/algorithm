@@ -227,7 +227,6 @@ O(N ^ d)为除了递归过程之外其他调用的时间复杂度
 
 复杂度估计, 使用master公式 O(N*logN)
 
-
 非递归方式
 分组进行排序，组的长度从2开始，下一个是4..8..直到N
 
@@ -239,14 +238,17 @@ LeetCode_0088_MergeSortedArray.java
 NowCoder_MergeSort.java
 ```
 
-小和问题
-
+### 小和问题
+```
 LeetCode_0315_CountOfSmallerNumbersAfterSelf.java
+```
 
-一个数组中所有的降序对
-
+### 降序对问题
+```
 LeetCodeCN_0051_ReversePairs.java
 LeetCode_0493_ReversePairs.java
+```
+### 其他问题
 
 ```
 在一个数组中，
