@@ -19,54 +19,57 @@ package leetcode;
 // 方法2： 归并排序
 public class LeetCode_0493_ReversePairs {
 
-	public static int reversePairs(int[] nums) {
-		if (nums == null || nums.length < 2) {
+	public static int reversePairs(int[] A) {
+		if (null == A || A.length < 2) {
 			return 0;
 		}
-		return p(nums, 0, nums.length - 1);
+		int size = A.length;
+		return p(A, 0, size - 1);
 	}
 
-	private static int p(int[] arr, int L, int R) {
+	public static int p(int[] A, int L, int R) {
 		if (L == R) {
 			return 0;
 		}
-		int M = L + ((R - L) >> 1);
-		return p(arr, L, M) + p(arr, M + 1, R) + merge(arr, L, M, R);
+		int mid = ((R - L) >> 1) + L;
+		return p(A, L, mid) + p(A, mid + 1, R) + merge(A, L, mid, R);
 	}
 
-	private static int merge(int[] arr, int L, int M, int R) {
+	public static int merge(int[] A, int l, int mid, int r) {
+		int s = l;
+		int e = mid+1;
 		int pair = 0;
-		int startIndex = M; // 左边部分从M开始
-		int rightEdge = R; // 右边部分从R开始
-		while (startIndex >= L && rightEdge >= M + 1) { 
-			if ((long) arr[startIndex] > 2 * (long) arr[rightEdge]) {
-				pair += ((rightEdge - M));
-				startIndex--;
+		while (s <= mid && e <= r) {
+			if ((long)A[s] - (long)A[e] > (long)(A[e])) {
+				pair+=(r - e + 1);
+				s++;
 			} else {
-				rightEdge--;
+				e++;
 			}
 		}
-		// ---end 在merge之前先统计//
+		int[] helper = new int[r - l + 1];
+		int i = l;
+		int j = mid + 1;
+		int index = 0;
+		
+		while (i <= mid && j <= r) {
+			if (A[i] > A[j]) {
+				helper[index++] = A[i++];
+			} else {
+				helper[index++] = A[j++];
+			}
+		}
+		while (i <= mid) {
+			helper[index++] = A[i++];
+		}
+		while (j <= r) {
+			helper[index++] = A[j++];
+		}
+		int k = 0;
+		for (int num : helper) {
+			A[l + (k++)] = num;
+		}
 
-		// 以下为mergeSort的原始代码
-		int len = R - L + 1;
-		int[] help = new int[len];
-		int l = L;
-		int mid = M + 1;
-		int i = 0;
-		while (l <= M && mid <= R) {
-			help[i++] = arr[l] < arr[mid] ? arr[l++] : arr[mid++];
-		}
-		while (l <= M) {
-			help[i++] = arr[l++];
-		}
-		while (mid <= R) {
-			help[i++] = arr[mid++];
-		}
-		i = 0;
-		for (int t : help) {
-			arr[L + (i++)] = t;
-		}
 		return pair;
 	}
 
