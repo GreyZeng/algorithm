@@ -1,6 +1,6 @@
 package snippet;
 
-import java.util.*;
+import java.util.Stack;
 
 /**
  * 快速排序 给定一个数组arr，和一个整数num。请把小于num的数放在数组的左边，等于num的数放在中间，大于num的数放在数组的右边。
@@ -18,25 +18,36 @@ import java.util.*;
  */
 // 测评：https://www.lintcode.com/problem/464
 public class Code_0025_QuickSort {
-
-	// 递归方法
-	public static void quickSort(int[] arr) {
+	public static class Op {
+		public int l;
+		public int r;
+		public Op(int l , int r) {
+			this.l = l;
+			this.r = r;
+		}
+	}
+	public static void quickSort2(int[] arr) {
 		if (null == arr || arr.length < 2) {
 			return;
-		}
-		process(arr, 0, arr.length - 1);
-	}
-
-	private static void process(int[] arr, int L, int R) {
-		if (L >= R) {
-			return;
-		}
-		swap(arr, L + (int) (Math.random() * (R - L + 1)), R);
+		}	
+		Stack<Op> stack = new Stack<>();
+		int L = 0;
+		int R = arr.length - 1;
+		int pivot = (int)(Math.random()*(R - L + 1));
+		swap(arr, pivot, R);
 		int[] range = sortColors(arr, L, R);
-		process(arr, L, range[0] - 1);
-		process(arr, range[1] + 1, R);
+		stack.push(new Op(0, range[0] - 1));
+		stack.push(new Op(range[1] + 1, R));
+		while (!stack.isEmpty()) {
+			Op op = stack.pop();
+			if (op.l < op.r) {
+				swap(arr, op.l + (int) (Math.random() * (op.r - op.l + 1)), op.r);
+				range = sortColors(arr, op.l, op.r);
+				stack.push(new Op(op.l, range[0] - 1));
+				stack.push(new Op(range[1] + 1, op.r));
+			}
+		}
 	}
-
 	public static void swap(int[] arr, int i, int j) {
 		if (i != j) {
 			arr[i] = arr[i] ^ arr[j];
@@ -59,7 +70,26 @@ public class Code_0025_QuickSort {
 				index++;
 			}
 		}
-		return new int[] { less + 1, more - 1 }; 
+		return new int[] { less + 1, more - 1 };
 	}
+	// 递归方法
+	public static void quickSort(int[] arr) {
+		if (null == arr || arr.length < 2) {
+			return;
+		}
+		process(arr, 0, arr.length - 1);
+	}
+
+	private static void process(int[] arr, int L, int R) {
+		if (L >= R) {
+			return;
+		}
+		swap(arr, L + (int) (Math.random() * (R - L + 1)), R);
+		int[] range = sortColors(arr, L, R);
+		process(arr, L, range[0] - 1);
+		process(arr, range[1] + 1, R);
+	}
+
+	
 
 }
