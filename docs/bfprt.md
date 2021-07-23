@@ -4,6 +4,17 @@
 
 > 无序数组求第K小的数(K从1开始算)
 
+有三种方法：
+
+```
+- 堆解法 O(N*logK)
+- 快排解法 O(N)
+- bfprt算法 O(N)
+```
+
+LeetCode_0215_KthLargestElementInAnArray.java
+NowCoder_0088_FindKth.java
+
 ### Code
 
 - LeetCode_0215_KthLargestElementInAnArray.java

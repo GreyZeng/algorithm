@@ -16,14 +16,8 @@ import java.util.*;
  * <p>
  * 时间复杂度O(N*logN)，额外空间复杂度O(logN)都是这么来的。
  */
+// 测评：https://www.lintcode.com/problem/464
 public class Code_0025_QuickSort {
-	public static void main(String[] args) {
-		int[] arr = { 2, 3, 4, 6, 5, 2, 1 };
-		quickSort(arr);
-		for (int i : arr) {
-			System.out.print(i + " ");
-		}
-	}
 
 	// 递归方法
 	public static void quickSort(int[] arr) {
@@ -54,7 +48,7 @@ public class Code_0025_QuickSort {
 	public static int[] sortColors(int[] arr, int L, int R) {
 		int target = arr[R];
 		int less = L - 1;
-		int more = R;
+		int more = R + 1;
 		int index = L;
 		while (index < more) {
 			if (arr[index] > target) {
@@ -65,9 +59,7 @@ public class Code_0025_QuickSort {
 				index++;
 			}
 		}
-		swap(arr, more, R);
-		return new int[] { less + 1, more };
-
+		return new int[] { less + 1, more - 1 }; 
 	}
 
 }

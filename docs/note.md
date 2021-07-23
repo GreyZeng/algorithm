@@ -277,13 +277,7 @@ LintCode_0148_SortColors.java
 - 快排实现 Code_0025_QuickSort.java 非递归版本
 - 时间复杂度O(N*logN),空间复杂度O(logN)
 
-找第K大/小的数
-- 堆解法
-- 快排解法
-- bfprt算法
 
-LeetCode_0215_KthLargestElementInAnArray.java
-NowCoder_0088_FindKth.java
 
 ## 堆
 
