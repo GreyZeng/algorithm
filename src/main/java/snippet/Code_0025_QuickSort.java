@@ -1,6 +1,6 @@
 package snippet;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * 快速排序
@@ -23,7 +23,38 @@ import java.util.Arrays;
  * 时间复杂度O(N*logN)，额外空间复杂度O(logN)都是这么来的。
  */
 public class Code_0025_QuickSort {
-    public static void quickSort(int[] arr) {
+    // 荷兰国旗问题
+    public static int[] netherlandsFlag(int[] arr, int L, int R) {
+        if (L > R) {
+            return new int[] { -1, -1 };
+        }
+        if (L == R) {
+            return new int[] { L, R };
+        }
+        int less = L - 1;
+        int more = R;
+        int index = L;
+        while (index < more) {
+            if (arr[index] == arr[R]) {
+                index++;
+            } else if (arr[index] < arr[R]) {
+                swap(arr, index++, ++less);
+            } else {
+                swap(arr, index, --more);
+            }
+        }
+        swap(arr, more, R);
+        return new int[] { less + 1, more };
+    }
+
+    public static void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+
+    // 快排递归版本
+    public static void quickSort1(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
@@ -40,40 +71,45 @@ public class Code_0025_QuickSort {
         process(arr, equalArea[1] + 1, R);
     }
 
-    // < 区 i位置的数和<区右一个位置交换<区右移一位，i++
-    // > 区 当前位置的数和>区左边一个位置的数交换，>区左扩，i停在原地
-    // = 区 i++
-    public static int[] netherlandsFlag(int[] array, int L, int R) {
-        if (array == null || L > R) {
-            return new int[]{-1, -1};
+    // 快排非递归版本需要的辅助类
+    // 要处理的是什么范围上的排序
+    public static class Op {
+        public int l;
+        public int r;
+
+        public Op(int left, int right) {
+            l = left;
+            r = right;
         }
-        if (L == R) {
-            return new int[]{L, R};
-        }
-        int less = L - 1;
-        int more = R;
-        int num = array[R];
-        for (int i = L; i < more; i++) {
-            if (array[i] < num) {
-                swap(array, ++less, i);
-            } else if (array[i] > num) {
-                swap(array, i--, --more);
-            }
-        }
-        swap(array, R, more);
-        return new int[]{less + 1, more};
     }
 
-    public static void swap(int[] array, int i, int j) {
-        if (null == array || array.length < 2 || i == j) {
+    // 快排3.0 非递归版本
+    public static void quickSort2(int[] arr) {
+        if (arr == null || arr.length < 2) {
             return;
         }
-        array[i] = array[i] ^ array[j];
-        array[j] = array[i] ^ array[j];
-        array[i] = array[i] ^ array[j];
+        int N = arr.length;
+        swap(arr, (int) (Math.random() * N), N - 1);
+        int[] equalArea = netherlandsFlag(arr, 0, N - 1);
+        int el = equalArea[0];
+        int er = equalArea[1];
+        Stack<Op> stack = new Stack<>();
+        stack.push(new Op(0, el - 1));
+        stack.push(new Op(er + 1, N - 1));
+        while (!stack.isEmpty()) {
+            Op op = stack.pop(); // op.l ... op.r
+            if (op.l < op.r) {
+                swap(arr, op.l + (int) (Math.random() * (op.r - op.l + 1)), op.r);
+                equalArea = netherlandsFlag(arr, op.l, op.r);
+                el = equalArea[0];
+                er = equalArea[1];
+                stack.push(new Op(op.l, el - 1));
+                stack.push(new Op(er + 1, op.r));
+            }
+        }
     }
 
-    // for test
+    // 生成随机数组（用于测试）
     public static int[] generateRandomArray(int maxSize, int maxValue) {
         int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
         for (int i = 0; i < arr.length; i++) {
@@ -82,7 +118,7 @@ public class Code_0025_QuickSort {
         return arr;
     }
 
-    // for test
+    // 拷贝数组（用于测试）
     public static int[] copyArray(int[] arr) {
         if (arr == null) {
             return null;
@@ -94,7 +130,7 @@ public class Code_0025_QuickSort {
         return res;
     }
 
-    // for test
+    // 对比两个数组（用于测试）
     public static boolean isEqual(int[] arr1, int[] arr2) {
         if ((arr1 == null && arr2 != null) || (arr1 != null && arr2 == null)) {
             return false;
@@ -113,7 +149,7 @@ public class Code_0025_QuickSort {
         return true;
     }
 
-    // for test
+    // 打印数组（用于测试）
     public static void printArray(int[] arr) {
         if (arr == null) {
             return;
@@ -124,24 +160,25 @@ public class Code_0025_QuickSort {
         System.out.println();
     }
 
-    // for test
+    // 跑大样本随机测试（对数器）
     public static void main(String[] args) {
         int testTime = 500000;
         int maxSize = 100;
         int maxValue = 100;
         boolean succeed = true;
+        System.out.println("test begin");
         for (int i = 0; i < testTime; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
             int[] arr2 = copyArray(arr1);
-            quickSort(arr1);
-            Arrays.sort(arr2);
+            quickSort1(arr1);
+            quickSort2(arr2);
             if (!isEqual(arr1, arr2)) {
                 succeed = false;
                 break;
             }
         }
-        System.out.println(succeed ? "Nice!" : "Oops!");
-
+        System.out.println("test end");
+        System.out.println("测试" + testTime + "组是否全部通过：" + (succeed ? "是" : "否"));
     }
 
 
