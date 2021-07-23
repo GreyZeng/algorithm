@@ -1,9 +1,25 @@
 package snippet;
 
 /**
- * 堆结构 1）堆结构就是用数组实现的完全二叉树结构 2）完全二叉树中如果每棵子树的最大值都在顶部就是大根堆
- * 3）完全二叉树中如果每棵子树的最小值都在顶部就是小根堆 4）堆结构的heapInsert与heapify操作 5）堆结构的增大和减少
+ * 堆结构 
+ * 1）堆结构就是用数组实现的完全二叉树结构 
+ * 2）完全二叉树中如果每棵子树的最大值都在顶部就是大根堆
+ * 3）完全二叉树中如果每棵子树的最小值都在顶部就是小根堆 
+ * 4）堆结构的heapInsert与heapify操作 
+ * 5）堆结构的增大和减少
  * 6）优先级队列结构，就是堆结构
+ * 
+ * 用数组表示堆的两种情况
+ * 
+ * 如果使用数组0位置，对于i位置来说，它的：
+ * 左孩子 2 * i + 1
+ * 右孩子 2 * i + 2
+ * 父节点 （i - 1）/ 2
+ * 
+ * 如果不用0位置，对于i位置来说，它的：
+ * 左孩子 2 * i 即：i << 1
+ * 右孩子 2 * i + 1 即：i << 1 | 1
+ * 父节点 i / 2 即：i >> 1
  */
 public class Code_0026_Heap {
     public static class MyMinHeap {
@@ -133,17 +149,26 @@ public class Code_0026_Heap {
     }
 
     public static void main(String[] args) {
-        MyMinHeap heap = new MyMinHeap(5);
+        int limit = 5;
+        MyMinHeap heap = new MyMinHeap(limit);
         heap.push(3);
         heap.push(4);
         heap.push(1);
         heap.push(7);
         heap.push(7);
-        System.out.println(heap.pop());
-        System.out.println(heap.pop());
-        System.out.println(heap.pop());
-        System.out.println(heap.pop());
-        System.out.println(heap.pop());
+
+
+        MyMaxHeap maxHeap = new MyMaxHeap(limit);
+        maxHeap.push(heap.pop());
+        maxHeap.push(heap.pop());
+        maxHeap.push(heap.pop());
+        maxHeap.push(heap.pop());
+        maxHeap.push(heap.pop());
+
+
+        for (int i = 0; i < limit; i++) {
+            System.out.println(maxHeap.pop());
+        } 
     }
 
 

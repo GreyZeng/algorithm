@@ -277,8 +277,18 @@ LintCode_0148_SortColors.java
 - 快排实现 Code_0025_QuickSort.java 非递归版本
 - 时间复杂度O(N*logN),空间复杂度O(logN)
 
-
-
 ## 堆
 
-[堆](堆.md)
+```
+Code_0026_Heap.java 
+LintCode_0130_Heapify.java
+```
+
+### 堆排序
+
+堆排序 
+```
+Code_0027_HeapSort.java
+
+Code_0028_DistanceLessK.java
+```
