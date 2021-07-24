@@ -8,13 +8,21 @@ public class LintCode_0006_MergeTwoSortedArrays {
         int[] bigger = m >= n ? A : B;
         int[] smaller = bigger == A ? B : A;
         int[] helper = new int[m + n];
-        for (int i = 0; i < helper.length; i++) {
-            helper[i] = Integer.MIN_VALUE;
-        }
+        int from = 0;
+        int to = 0;
+        int index = 0;
         for (int i = 0; i < smaller.length; i++) {
-            helper[position(smaller[i], bigger, i)] = smaller[i];
+            int position = position(smaller[i], bigger, i);
+            helper[position] = smaller[i];
+            to = position - 1;
+            while (from <= to) {
+                helper[from++] = bigger[index++];
+            }
+            from = position + 1;
         }
-        fillBigger(helper, bigger);
+        while (from < (m + n)) {
+            helper[from++] = bigger[index++];
+        }
         return helper;
     }
 
@@ -34,18 +42,7 @@ public class LintCode_0006_MergeTwoSortedArrays {
                 R = mid - 1;
             }
         }
-        // System.out.println(value + " 在A中有"+(smallerThanMe) +"个数比他小，它自己的偏移量是 " +
-        // offset);
         return smallerThanMe + offset;
-    }
-
-    public static void fillBigger(int[] helper, int[] A) {
-        int index = 0;
-        for (int i = 0; i < helper.length; i++) {
-            if (helper[i] == Integer.MIN_VALUE) {
-                helper[i] = A[index++];
-            }
-        }
     }
 
     public static void printArr(int[] arr) {
