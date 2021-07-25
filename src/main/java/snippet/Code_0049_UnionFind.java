@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.Queue;
 
 // 并查集
+// 1）节点往上找代表点的过程，把沿途的链变成扁平的
+
+// 2）小集合挂在大集合的下面
+
+// 3）如果方法调用很频繁，那么单次调用的代价为O(1)，两个方法都如此
+
 public class Code_0049_UnionFind {
     
     public static class UnionFind<V> {

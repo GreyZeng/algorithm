@@ -23,6 +23,7 @@ public class NowCoder_LowestString {
 		return path.toString();
 	}
 
+	// 不能使用o1和o2直接比字典序的方式，反例：[b,ba]
 	public static class MyComparator implements Comparator<String> {
 		@Override
 		public int compare(String o1, String o2) {

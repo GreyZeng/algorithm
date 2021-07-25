@@ -105,7 +105,8 @@ public class NowCoder_MinimumSpanningTree {
                     }
                 }
             }
-            break;
+            // 如果有森林，就不能break，如果没有森林，就可以break
+            //break;
         }
         return result;
     }

@@ -3,6 +3,7 @@ package lintcode;
 import java.util.*;
 
 // https://www.lintcode.com/problem/topological-sorting/description
+// 用点次来判断拓扑序列
 public class LintCode_0127_TopologicalSorting {
 
 	public static class DirectedGraphNode {
