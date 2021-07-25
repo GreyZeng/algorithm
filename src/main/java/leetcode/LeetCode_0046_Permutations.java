@@ -46,6 +46,7 @@ public class LeetCode_0046_Permutations {
             for (int i = index; i < nums.length; i++) {
                 swap(nums, i, index);
                 p(nums, index + 1, ans);
+                // 恢复现场
                 swap(nums, index, i);
             }
         }

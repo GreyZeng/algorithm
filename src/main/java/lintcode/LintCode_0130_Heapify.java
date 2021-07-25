@@ -26,24 +26,23 @@ public class LintCode_0130_Heapify {
             return;
         }
         int N = A.length;
-        for (int i = N - 1; i >= 0; i--) {
+        for (int i = 0; i < N; i++) {
             heapify(A, i, N);
         }
     }
 
     public static void heapify(int[] arr, int index, int N) {
-        int leftChild = index * 2 + 1;
-        while (leftChild < N) {
-            int smallest = leftChild + 1 < N ? Math.min(arr[leftChild], arr[leftChild + 1]) : arr[leftChild];
-            if (smallest >= arr[index]) {
+        int left = 2 * index + 1;
+        while (left < N) {
+            int smaller = left + 1 < N?Math.min(arr[left], arr[left+1]):arr[left];
+            if (smaller >= arr[index] ) {
                 break;
             }
-            smallest = smallest == arr[leftChild] ? leftChild : leftChild + 1;
-            swap(arr, smallest, index);
-            index = smallest;
-            leftChild = index * 2 + 1;
+            smaller = smaller == arr[left]?left:left+1;
+            swap(arr, index, smaller);
+            index = smaller;
+            left = 2 * index + 1;
         }
-
     }
 
     public static void swap(int[] arr, int i, int j) {
