@@ -3,7 +3,7 @@ package snippet;
 import java.util.Arrays;
 
 
-public class Code_0001_InsertionSort {
+public class Code_0002_InsertionSort {
     public static void insertionSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;

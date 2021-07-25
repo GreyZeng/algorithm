@@ -2,17 +2,7 @@ package snippet;
 
 import java.util.Arrays;
 
-/**
- * 选择排序 过程： arr[0～N-1]范围上，找到最小值所在的位置，然后把最小值交换到0位置。
- * arr[1～N-1]范围上，找到最小值所在的位置，然后把最小值交换到1位置。 arr[2～N-1]范围上，找到最小值所在的位置，然后把最小值交换到2位置。
- * … arr[N-1～N-1]范围上，找到最小值位置，然后把最小值交换到N-1位置。
- * <p>
- * 估算： 很明显，如果arr长度为N，每一步常数操作的数量，如等差数列一般 所以，总的常数操作数量 = a*(N^2) + b*N + c
- * (a、b、c都是常数)
- * <p>
- * 所以选择排序的时间复杂度为O(N^2)。
- */
-public class Code_0002_SelectionSort {
+public class Code_0001_SelectionSort {
 
 	public static void selectionSort(int[] arr) {
 		if (arr == null || arr.length < 2) {
