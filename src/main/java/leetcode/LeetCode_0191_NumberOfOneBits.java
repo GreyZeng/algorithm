@@ -31,26 +31,31 @@ The input must be a binary string of length 32*/
 package leetcode;
 
 public class LeetCode_0191_NumberOfOneBits {
-	
-	public int hammingWeight(int N) {
-        int i = 0;
-    	while (N != 0) {
-    		int t = N & ((~N) + 1);
-    		N^=t;
-    		i++;
-    	}
-    	return i;
+
+    public int hammingWeight(int N) {
+        int t = 0;
+        while (N != 0) {
+            int rightOne = N & ((~N) + 1);
+            if (rightOne != 0) {
+                t++;
+                N -= rightOne;
+            } else {
+                break;
+            }
+        }
+        return t;
     }
 
 
-	// 一个数的二进制有多少个1
-	// 最右侧的1  （N&-N）
-	public static int hammingWeight2(int n) {
-		n = (n & 0x55555555) + ((n >>> 1) & 0x55555555);
-		n = (n & 0x33333333) + ((n >>> 2) & 0x33333333);
-		n = (n & 0x0f0f0f0f) + ((n >>> 4) & 0x0f0f0f0f);
-		n = (n & 0x00ff00ff) + ((n >>> 8) & 0x00ff00ff);
-		n = (n & 0x0000ffff) + ((n >>> 16) & 0x0000ffff);
-		return n;
-	}
+    // TODO
+    // 一个数的二进制有多少个1
+    // 最右侧的1  （N&-N）
+    public static int hammingWeight2(int n) {
+        n = (n & 0x55555555) + ((n >>> 1) & 0x55555555);
+        n = (n & 0x33333333) + ((n >>> 2) & 0x33333333);
+        n = (n & 0x0f0f0f0f) + ((n >>> 4) & 0x0f0f0f0f);
+        n = (n & 0x00ff00ff) + ((n >>> 8) & 0x00ff00ff);
+        n = (n & 0x0000ffff) + ((n >>> 16) & 0x0000ffff);
+        return n;
+    }
 }
