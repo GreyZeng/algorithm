@@ -1,38 +1,27 @@
 package leetcode;
 
 /**
- *  
  * @author Grey
  * @date 2021年7月18日 下午11:53:15
  * @since
  */
 public class LeetCode_0260_SingleNumberIII {
-	public int[] singleNumber(int[] arr) {
-		int eor = 0;
-		for (int num : arr) {
-			eor ^= num;
-		}
-		// 假设出现奇数的两个数是a和b，
-		// 那么eor得到的结果是：a^b
-		// onlyOneRightest表示提取eor最右侧的1
-		// 这个最右侧的位置a和b一定不同（假设a这个位置是1，b这个位置是0）
-		// 因为题目说了是两种数，所以onlyOneRightest肯定不为0；
-		int onlyOneRightest = eor & ((~eor) + 1);
-		// 此时，数组可以分成两批数
-		// 一批数和a一样，都是这个位置为1的
-		// 另外一批数和b一样，都是这个位置为0的
-		int[] result = new int[2];
-		int a = 0;
-		int b = 0;
-		for (int num : arr) {
-			if ((onlyOneRightest & num) != 0) {
-				a ^= num;
-			} else {
-				b ^= num;
-			}
-		}
- 		result[0] = Math.min(a, b);
- 		result[1] = Math.max(a, b);
-		return result;
-	}
+    public static int[] singleNumber(int[] arr) {
+        int eor = 0;
+        for (int n : arr) {
+            eor ^= n;
+        }
+        // 假设出现奇数次的两种数为 a和b
+        // eor = a ^ b
+        // 获取最右侧的1
+        int a = 0;
+        int rightOne = eor & ((~eor) + 1);
+        for (int n : arr) {
+            if ((n & rightOne) == 0) {
+                a ^= n;
+            }
+        }
+        int b = a ^ eor;
+        return new int[]{a, b};
+    }
 }
