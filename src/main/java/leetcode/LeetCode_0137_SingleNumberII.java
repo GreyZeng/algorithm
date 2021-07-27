@@ -20,7 +20,7 @@ public class LeetCode_0137_SingleNumberII {
 		}
 		int ans = 0;
 		for (int i = 0; i < 32; i++) {
-			if (helper[i] % m == 1) {
+			if (helper[i] % m == k) {
 				ans |= (1 << i);
 			}
 		}
