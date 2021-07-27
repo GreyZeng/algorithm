@@ -16,7 +16,8 @@ public class LeetCode_0260_SingleNumberIII {
 		// 那么eor得到的结果是：a^b
 		// onlyOneRightest表示提取eor最右侧的1
 		// 这个最右侧的位置a和b一定不同（假设a这个位置是1，b这个位置是0）
-		int onlyOneRigthest = eor & ((~eor) + 1);
+		// 因为题目说了是两种数，所以onlyOneRightest肯定不为0；
+		int onlyOneRightest = eor & ((~eor) + 1);
 		// 此时，数组可以分成两批数
 		// 一批数和a一样，都是这个位置为1的
 		// 另外一批数和b一样，都是这个位置为0的
@@ -24,7 +25,7 @@ public class LeetCode_0260_SingleNumberIII {
 		int a = 0;
 		int b = 0;
 		for (int num : arr) {
-			if ((onlyOneRigthest & num) != 0) {
+			if ((onlyOneRightest & num) != 0) {
 				a ^= num;
 			} else {
 				b ^= num;
