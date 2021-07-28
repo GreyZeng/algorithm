@@ -14,6 +14,8 @@
 // 最优解 O(N^2)
 package leetcode;
 
+import java.util.Stack;
+
 public class LeetCode_0085_MaximalRectangle {
 	// 一定要以某一行作为底的矩形中，最大矩形是多少
 	// 和全局最大PK一下，如果比全局最大还大，则更新全局最大值
@@ -23,12 +25,10 @@ public class LeetCode_0085_MaximalRectangle {
 			return 0;
 		}
 		int[] help = new int[matrix[0].length];
-		for (int i = 0; i < help.length; i++) {
-			help[i] = matrix[0][i] == '0' ? 0 : 1;
-		}
-		int max = getMax(help);
+	 
+		int max = 0;
 		int row = matrix.length;
-		for (int i = 1; i < row; i++) {
+		for (int i = 0; i < row; i++) {
 			merge(help, matrix[i]);
 			max = Math.max(max, getMax(help));
 		}
@@ -38,13 +38,45 @@ public class LeetCode_0085_MaximalRectangle {
 	// 把m1叠加
 	private static void merge(int[] help, char[] m2) {
 		for (int i = 0; i < help.length; i++) {
-			help[i] = m2[i] == '0' ? 0 : help[i] + 1;
+			help[i] = m2[i] == '0' ? 0 :  (help[i] +  1);
 		}
 	}
 
 	private static int getMax(int[] arr) {
-		// TODO Auto-generated method stub
-		return 0;
+		Stack<Integer> stack = new Stack<>();
+		int max = 0;
+		for (int i = 0; i < arr.length; i++) {
+			while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+				int m = stack.pop();
+				if (stack.isEmpty()) {
+					max = Math.max(max, (m + 1) * arr[m]);
+				} else {
+					max = Math.max(max, (i - m + 1) * arr[m] );
+				}
+				
+			}
+			if (stack.isEmpty()) {
+				max = Math.max(arr[i] * (i + 1), max);
+			} else {
+				max = Math.max(arr[i] * (i - stack.peek()), max);
+			}
+			stack.push(i);
+		}
+		while (!stack.isEmpty()) {
+			int i = stack.pop();
+			if (stack.isEmpty()) {
+				max = Math.max(arr[i] * (i + 1), max);
+			} else {
+				max = Math.max(arr[i] * (i - stack.peek()), max);
+			}
+			 
+		}
+		return max;
+	}
+	public static void main(String[] args) {
+		char[][] rec = {{'0','0','1'} ,{'1','1','1'}};
+		int res = maximalRectangle(rec);
+		System.out.println(res);
 	}
 
 }
