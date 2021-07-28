@@ -1,5 +1,6 @@
 package lintcode;
 
+
 public class LintCode_0452_RemoveLinkedListElements {
 	public class ListNode {
 		int val;
@@ -12,19 +13,21 @@ public class LintCode_0452_RemoveLinkedListElements {
 	}
 
 	public ListNode removeElements(ListNode head, int val) {
-		ListNode t = head;
-		while (t != null && t.val == val) {
-			t = t.next;
+		while (head != null && head.val == val) {
+			head = head.next;
 		}
-		if (t == null) {
-			return null;
+		if (head == null) {
+			return head;
 		}
-		ListNode c = head;
-		while (c.next != null) {
-			if (c.next.val == val) {
-				c.next = c.next.next;
+		ListNode pre = head;
+		ListNode cur = head.next;
+		while (cur != null) {
+			if (cur.val == val) {
+				cur = cur.next;
+				pre.next = cur;
 			} else {
-				c = c.next;
+				pre = cur;
+				cur = cur.next;
 			}
 		}
 		return head;

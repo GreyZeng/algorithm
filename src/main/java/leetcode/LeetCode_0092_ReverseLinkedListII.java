@@ -28,53 +28,52 @@ public class LeetCode_0092_ReverseLinkedListII {
 
 	public static ListNode reverseBetween(ListNode head, int m, int n) {
 		if (m == n) {
+			// 不变
 			return head;
 		}
-
+		ListNode startPre = null;
+		ListNode start = null;
+		ListNode end = null;
+		ListNode endAfter = null;
 		ListNode cur = head;
-		ListNode pre = null;
-		while (m != 1) {
-			m--;
-			n--;
+		int i = 1;
+		while (i <= n) {
+			if (i == m - 1) {
+				startPre = cur;
+			} else if (i == m) {
+				start = cur;
+			} else if (i == n) {
+				end = cur;
+				if (end.next != null) {
+					endAfter = end.next;
+					end.next = null;
+				}
+			}
 			cur = cur.next;
-			pre = pre == null ? head : pre.next;
+			i++;
 		}
-		ListNode tCur = cur;
-		ListNode tF = cur.next;
-		ListNode tPre = pre;
-		while (n != 1) {
-			n--;
-			tF = tF.next;
-			ListNode t = tCur.next;
-			tCur.next = tPre;
-			tPre = tCur;
-			tCur = t;
+		i = m;
+		ListNode pre = null;
+		// 反转链表操作
+		while (i <= n) {
+			ListNode tmp = start.next;
+			start.next = pre;
+			pre = start;
+			start = tmp;
+			if (i == m) {
+				pre.next = endAfter;
+			}
+			i++;
 		}
-// 		System.out.println("tF is " + tF.val);
-// 		System.out.println("tCur is " + tCur.val + " tCur next is " + tCur.next.val);
-// 		System.out.println("tPre is " + tPre.val+ " tPre next is " + tPre.next.val);
-// 		System.out.println("cur is " + cur.val+ " cur next is " + cur.next.val);
-//		
-
-		tCur.next = tPre;
-		if (pre != null) {
-			pre.next = tCur;
-		} else {
-			head = tCur;
+		// 换头了
+		if (m == 1 && n != 1) {
+			return pre;
 		}
-		cur.next = tF;
-//		System.out.println("tF is " + tF.val);
-// 		System.out.println("tCur is " + tCur.val + " tCur next is " + tCur.next.val);
-// 		System.out.println("tPre is " + tPre.val+ " tPre next is " + tPre.next.val);
-// 		System.out.println("cur is " + cur.val+ " cur next is " + cur.next.val);
-//		
-//		//pre.next = tCur;
-//		//cur.next = tCur:;
+		startPre.next = pre;
 		return head;
-
 	}
 
-	public ListNode reverseBetweenRecursive(ListNode head, int m, int n) {
+	public static ListNode reverseBetweenRecursive(ListNode head, int m, int n) {
 		if (m == 1) {
 			return reverseN(head, n);
 		}
@@ -83,9 +82,9 @@ public class LeetCode_0092_ReverseLinkedListII {
 	}
 
 	// 反转链表前N个节点
-	ListNode successor = null;
+	static ListNode successor = null;
 
-	public ListNode reverseN(ListNode head, int n) {
+	public static ListNode reverseN(ListNode head, int n) {
 
 		if (n == 1) {
 			successor = head.next;
