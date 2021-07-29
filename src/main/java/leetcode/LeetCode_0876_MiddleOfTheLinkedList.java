@@ -45,9 +45,6 @@ public class LeetCode_0876_MiddleOfTheLinkedList {
     // [1,2,3,4,5,6] --> 4
     // 奇数返回中点，偶数返回下中点
     public static ListNode middleNode(ListNode head) {
-        if (head == null) {
-            return null;
-        }
         ListNode slow = head;
         ListNode fast = head;
         while (fast != null && fast.next != null) {
