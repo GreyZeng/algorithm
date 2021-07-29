@@ -2,7 +2,6 @@ package leetcode;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 
 // ()[]{} 三类括号
 // 栈

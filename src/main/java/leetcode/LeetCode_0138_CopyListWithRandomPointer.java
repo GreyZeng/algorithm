@@ -15,32 +15,51 @@ public class LeetCode_0138_CopyListWithRandomPointer {
 	}
 
 	public static Node copyRandomList(Node head) {
-		if (null == head) {
+		if (head == null) {
 			return null;
 		}
-		Node c = head;
-		while (c != null) {
-			Node next = c.next;
-			c.next = new Node(c.val);
-			c.next.next = next;
-			c = next;
+		// 以下方法将每个节点的复制节点都在这个节点后面
+		// 如果链表是:1->2->3->4 复制以后，会变成： 1->1->2->2->3->3->4->4
+		Node cur = head;
+		while (cur != null) {
+			Node tmp = cur.next;
+			Node copy = new Node(cur.val);
+			cur.next = copy;
+			copy.next = tmp;
+			cur = tmp;
 		}
-		c = head;
-		while (c != null && c.next != null) {
-			c.next.random = c.random == null ? null : c.random.next;
-			c = c.next.next;
+
+		// 以下方法是设置每个复制节点的random指针
+		cur = head;
+		while (cur != null) {
+			cur.next.random = cur.random == null ? null : cur.random.next;
+			// 无须判断cur.next是否空指针，因为cur永远是原链表的位置，cur只要不为null
+			// cur.next必为复制节点，所以cur只要不为空，cur.next一定存在
+			cur = cur.next.next;
 		}
-		c = head;
-		Node ans = head.next;
-		Node copy = ans;
-		while (c.next.next != null) {
-			c.next = c.next.next;
-			c = c.next;
-			copy.next = copy.next.next;
-			copy = copy.next;
+
+		// 以下方法是断开原链表和复制链表,注意最后一个节点
+		cur = head;
+		Node copyHead = head.next;
+		Node copyCur = copyHead;
+		Node start = copyHead.next;
+		head.next = null;
+		int i = 1;
+		while (start != null) {
+			Node next = start.next;
+			if ((i & 1) == 1) {
+				cur.next = start;
+				cur = start;
+			} else {
+				copyCur.next = start;
+				copyCur = start;
+			}
+			i++;
+			start = next;
 		}
-		c.next = null; 
-		return ans;
+		cur.next = null;
+		copyCur.next = null;
+		return copyHead;
 	}
 
 }
