@@ -35,12 +35,12 @@ package leetcode;
 
 public class LeetCode_0622_DesignCircularQueue {
     static class MyCircularQueue {
-        private int[] arr;
+        private final int[] arr;
         private int pushPosition;
         private int popPosition;
         private int rear;
         private int currentSize;
-        private int limit;
+        private final int limit;
 
         public MyCircularQueue(int k) {
             arr = new int[k];
@@ -72,9 +72,6 @@ public class LeetCode_0622_DesignCircularQueue {
 
         }
 
-        /**
-         * Get the front item from the queue.
-         */
         public int Front() {
             if (isEmpty()) {
                 return -1;
@@ -82,9 +79,6 @@ public class LeetCode_0622_DesignCircularQueue {
             return arr[popPosition];
         }
 
-        /**
-         * Get the last item from the queue.
-         */
         public int Rear() {
             if (isEmpty()) {
                 return -1;
@@ -92,16 +86,10 @@ public class LeetCode_0622_DesignCircularQueue {
             return arr[rear];
         }
 
-        /**
-         * Checks whether the circular queue is empty or not.
-         */
         public boolean isEmpty() {
             return currentSize == 0;
         }
 
-        /**
-         * Checks whether the circular queue is full or not.
-         */
         public boolean isFull() {
             return currentSize == limit;
         }
