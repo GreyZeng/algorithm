@@ -32,61 +32,101 @@ public class LeetCode_0234_PalindromeLinkedList {
 			this.next = next;
 		}
 	}
-
+	public static void main(String[] args) {
+		ListNode head = new ListNode(0);
+		head.next = new ListNode(1);
+		head.next.next = new ListNode(2);
+		head.next.next.next = new ListNode(3);
+		head.next.next.next.next = new ListNode(3);
+		head.next.next.next.next.next = new ListNode(2);
+		head.next.next.next.next.next.next = new ListNode(1);
+		head.next.next.next.next.next.next.next = new ListNode(0);
+		System.out.println(isPalindrome(head));
+	}
 	// 修改原链表，空间O(1)
 	public static boolean isPalindrome(ListNode head) {
-		// 奇数来到中点位置
-		// 偶数来到上中点位置
+		// 0个节点
+		// 1个节点 都是回文
 		if (head == null || head.next == null) {
 			return true;
-		}
+		} 
+		// 判断两个节点
 		if (head.next.next == null) {
 			return head.val == head.next.val;
 		}
-
-		// 链表有3个点或以上
-		ListNode slow = head.next;
-		ListNode fast = head.next.next;
-		while (fast.next != null && fast.next.next != null) {
-			slow = slow.next;
-			fast = fast.next.next;
+		// 判断三个节点
+		if (head.next.next.next == null) {
+			return head.val == head.next.next.val;
 		}
-		ListNode rightHalfHead = slow.next;
-
-		slow.next = null; // 断开成两个链表
 		
-		ListNode reverseRightHalfHead = reverse(rightHalfHead);
-		ListNode backup = reverseRightHalfHead;
-		slow = head;
+		//到这一步，至少有四个节点
+		
+		// 使用快慢指针
+		// 奇数来到中点前一个位置(假设为a)和中点后一个位置(假设为b)
+		// 偶数来到上中点位置(假设为a)和下中点位置(假设为b)
+		// head ... a 这个链表，链表反转一下 a...head
+		// 设置两个指针，一个指向a，一个指向b，每个位置对比，结果记录在result中
+		// 恢复整个链表
+		ListNode slow = head;
+		ListNode fast = head.next.next; 
+		while (fast != null && fast.next != null) {
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		ListNode a = slow;
+		ListNode b = null;
+		ListNode mid = null;
+		if (fast != null) {
+			// 链表个数为奇数
+			mid = a.next;
+			b = a.next.next;
+		} else {
+			b = a.next;
+			// 链表个数为偶数
+		}
+		// 断开链表
+		a.next = null;
+		
+		// 反转前半部分链表
+		ListNode c = reverse(head);
+		
 		boolean result = true;
-		ListNode midLast  = slow;
-		while (slow != null && reverseRightHalfHead != null) {
-			if (slow.val != reverseRightHalfHead.val) {
+		ListNode leftStart = c;
+		ListNode rightStart = b;
+		while (leftStart.next != null) {
+			if (leftStart.val != rightStart.val) {
 				result = false;
 			}
-			midLast = slow;
-			slow = slow.next;
-			reverseRightHalfHead = reverseRightHalfHead.next;
+			leftStart = leftStart.next;
+			rightStart = rightStart.next;
 		}
-		 
-		// 恢复原链表
-		while (midLast.next!=null) {
-			midLast = midLast.next;
+		if(leftStart.val != rightStart.val) {
+			result = false;
 		}
-		midLast.next = reverse(backup);
-		
-		
+		// leftStart来到开始节点
+		// rightStart来到末尾节点
+		ListNode newHead = reverse(leftStart);
+		ListNode cur = newHead;
+		while (cur.next != null) {
+			cur = cur.next;
+		}
+		if (mid == null) {
+			cur.next = b;
+		} else {
+			cur.next = mid;
+			mid.next = b;
+		}
 		return result;
 	}
 
-	public static ListNode reverse(ListNode head) {
+	private static ListNode reverse(ListNode head) {
 		ListNode pre = null;
 		ListNode cur = head;
 		while (cur != null) {
-			ListNode next = cur.next;
+			ListNode tmp = cur.next;
 			cur.next = pre;
 			pre = cur;
-			cur = next;
+			cur = tmp;
 		}
 		return pre;
 	}

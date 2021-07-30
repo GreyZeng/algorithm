@@ -10,43 +10,44 @@ public class LeetCode_0160_IntersectionOfTwoLinkedLists {
 	}
 
 	public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-		if (null == headA || null == headB) {
+		if (null == headA && null == headB) {
 			return null;
 		}
-		ListNode curA = headA;
-		ListNode curB = headB;
-		int n = 0;
-		while (curA.next != null) {
-			n++;
-			curA = curA.next;
-		}
-		while (curB.next != null) {
-			n--;
-			curB = curB.next;
-		}
-		if (curA != curB) {
+		if (null == headA && null != headB) {
 			return null;
 		}
-		int gap = Math.abs(n); 
-		if (n > 0) {
-			curA = headA;
-			curB = headB;
-		} else {
-			curA = headB;
-			curB = headA;
+		if (null != headA && null == headB) {
+			return null;
 		}
-		while (gap > 0) {
-			curA = curA.next;
+		if (headA.next == null && headB.next == null) {
+			return headA == headB ? headA : null;
+		}
+		int lenOfA = getLen(headA);
+		int lenOfB = getLen(headB);
+		ListNode bigger = lenOfA > lenOfB ? headA : headB;
+		ListNode smaller = bigger == headA ? headB : headA;
+		int gap = Math.abs(lenOfA - lenOfB);
+		while (gap != 0) {
+			bigger = bigger.next;
 			gap--;
 		}
-		while (curA != null) {
-			if (curA == curB) {
-				return curA;
+		while (bigger != null && smaller != null) {
+			if (bigger == smaller) {
+				return bigger;
 			}
-			curA = curA.next;
-			curB = curB.next;
+			bigger = bigger.next;
+			smaller = smaller.next;
 		}
 		return null;
+	}
+
+	public static int getLen(ListNode head) {
+		int N = 0;
+		while (head != null) {
+			N++;
+			head = head.next;
+		}
+		return N;
 	}
 
 }
