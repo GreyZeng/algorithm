@@ -10,59 +10,83 @@ package leetcode;
 
 public class LeetCode_0086_PartitionList {
 
-	public class ListNode {
-		int val;
-		ListNode next;
+    public static class ListNode {
 
-		ListNode() {
-		}
+        int val;
+        ListNode next;
 
-		ListNode(int val) {
-			this.val = val;
-		}
+        ListNode() {
+        }
 
-		ListNode(int val, ListNode next) {
-			this.val = val;
-			this.next = next;
-		}
-	}
+        ListNode(int val) {
+            this.val = val;
+        }
 
-	public static ListNode partition(ListNode head, int x) {
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
 
-		ListNode ls = null;// 小于区域的头
-		ListNode lt = null;// 小于区域的尾
-		ListNode ms = null;// 大于区域的头
-		ListNode mt = null;// 大于区域的尾
-		ListNode c = head;
-		while (c != null) {
-			ListNode t = c.next;
-			c.next = null;
-			if (c.val < x) {
-				if (ls == null) {
-					ls = c;
-					lt = c;
-				} else {
-					lt.next = c;
-					lt = lt.next;
-				}
-			}   else {
-				if (ms == null) {
-					ms = c;
-					mt = c;
-				} else {
-					mt.next = c;
-					mt = mt.next;
-				}
-			}
-			c = t;
-		}
+    // 仅做Partition
+    public static ListNode partition(ListNode head, int x) {
+        ListNode lessStart = null;
+        ListNode lessEnd = null;
+        ListNode biggerStart = null;
+        ListNode biggerEnd = null;
+        ListNode cur = head;
+        while (cur != null) { 
+            if (cur.val < x) {
+                if (lessStart == null) {
+                    lessStart = cur;
+                    lessEnd = cur;
+                } else {
+                    lessEnd.next = cur;
+                    lessEnd = cur;
+                }
+            } else {
+                // cur.val >= x
+                // 都放到大于等于区域
+                if (biggerStart == null) {
+                    biggerStart = cur;
+                    biggerEnd = cur;
+                } else {
+                    biggerEnd.next = cur;
+                    biggerEnd = cur;
+                }
+            }
+            cur = cur.next;
+        }
+        if (biggerEnd != null) {
+            biggerEnd.next = null;
+        } 
+        if (lessEnd != null) {
+            lessEnd.next = null;
+        }
+        if (lessStart == null) {
+            return biggerStart;
+        }
+        lessEnd.next = biggerStart;
+        return lessStart;
+    }
 
-		// 小于区域的尾巴， 
-		if (lt != null) { // 如果有小于区域
-			lt.next = ms;
-			mt = mt == null ? lt : mt; // 下一步，谁去连大于区域的头，谁就变成eT
-		}
-		
-		return ls != null ? ls : (ms != null ? ms : mt);
-	}
+    public static void printList(ListNode head) {
+        while (head != null) {
+            System.out.print(head.val + " ");
+            head = head.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(4);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(2);
+        head.next.next.next.next = new ListNode(5);
+        head.next.next.next.next.next = new ListNode(2);
+        printList(head);
+        ListNode t = partition(head, 3);
+        printList(t);
+    }
 }

@@ -74,7 +74,7 @@ public class LeetCode_0234_PalindromeLinkedList {
 			slow = slow.next;
 		}
 		ListNode a = slow;
-		ListNode b = null;
+		ListNode b;
 		ListNode mid = null;
 		if (fast != null) {
 			// 链表个数为奇数
@@ -105,8 +105,7 @@ public class LeetCode_0234_PalindromeLinkedList {
 		}
 		// leftStart来到开始节点
 		// rightStart来到末尾节点
-		ListNode newHead = reverse(leftStart);
-		ListNode cur = newHead;
+		ListNode cur = reverse(leftStart);
 		while (cur.next != null) {
 			cur = cur.next;
 		}

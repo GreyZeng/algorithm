@@ -1,4 +1,6 @@
-//Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are talking about the node number and not the value in the nodes.
+// Given a singly linked list, group all odd nodes together followed by the even nodes. 
+// Please note here we are talking about 
+// the node number and not the value in the nodes.
 //
 //		You should try to do it in place. The program should run in O(1) space complexity and O(nodes) time complexity.
 //
@@ -21,50 +23,55 @@ package leetcode;
 
 public class LeetCode_0328_OddEvenLinkedList {
 
-	public static class ListNode {
-		int val;
-		ListNode next;
-	}
+    public static class ListNode {
+        int val;
+        ListNode next;
+    }
 
-	public ListNode oddEvenList(ListNode head) {
-            if (head == null || head.next == null) {
-                return head;
-            }
-            ListNode oddS = null;
-            ListNode oddE = null;
-            ListNode evenS = null;
-            ListNode evenE = null;
-            
-            ListNode c = head;
-            int count = 1;
-            while (c != null) {
-                ListNode next = c.next;
-                c.next = null;
-                if ((count & 1) != 1) {
-                    if (oddS == null) {
-                        oddS = c;
-                        oddE = c;
-                    } else {
-                        oddE.next = c;
-                        oddE = c;
-                    }
+    // 所有偶数下标的数一定要在奇数下标数之后（注意：是下标而非值）
+    public static ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null || head.next.next == null) {
+            return head;
+        }
+        ListNode oddStart = null;
+        ListNode oddEnd = null;
+        ListNode evenStart = null;
+        ListNode evenEnd = null;
+        ListNode cur = head;
+        int count = 1;
+        while (cur != null) {
+            if ((count & 1) == 1) {
+                // 奇数
+                if (oddStart == null) {
+                    oddStart = cur;
                 } else {
-                    if (evenS == null) {
-                        evenS = c;
-                        evenE = c;
-                    } else {
-                        evenE.next = c;
-                        evenE = c;
-                    }
+                    oddEnd.next = cur;
                 }
-                count++;
-                c = next;
+                oddEnd = cur;
+            } else {
+                // 偶数
+                if (evenStart == null) {
+                    evenStart = cur;
+                } else {
+                    evenEnd.next = cur;
+                }
+                evenEnd = cur;
             }
-            if (evenE != null) {
-                evenE.next = oddS;
-                return evenS;
-            }
-            return evenS;
-	}
+            count++;
+            cur = cur.next;
+        }
+        if (oddEnd != null) {
+            oddEnd.next = null;
+        }
+        if (evenEnd != null) {
+            evenEnd.next = null;
+        }
+        if (oddStart != null) {
+            oddEnd.next = evenStart;
+            return oddStart;
+        }
+        return evenStart;
+
+    }
 
 }
