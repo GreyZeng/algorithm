@@ -1,8 +1,12 @@
 package leetcode;
 
 public class LeetCode_0641_DesignCircularDeque {
-    static class MyCircularDeque {
-
+    class MyCircularDeque {
+        private int[] arr;
+        private int size;
+        private int limit;
+        private int pushIndex;
+        private int popIndex;
         /**
          * Initialize your data structure here. Set the size of the deque to be k.
          */
@@ -14,7 +18,6 @@ public class LeetCode_0641_DesignCircularDeque {
          * Adds an item at the front of Deque. Return true if the operation is successful.
          */
         public boolean insertFront(int value) {
-            // TODO
             return false;
         }
 
@@ -22,7 +25,6 @@ public class LeetCode_0641_DesignCircularDeque {
          * Adds an item at the rear of Deque. Return true if the operation is successful.
          */
         public boolean insertLast(int value) {
-// TODO
             return false;
         }
 
@@ -30,7 +32,6 @@ public class LeetCode_0641_DesignCircularDeque {
          * Deletes an item from the front of Deque. Return true if the operation is successful.
          */
         public boolean deleteFront() {
-// TODO
             return false;
         }
 
@@ -38,7 +39,6 @@ public class LeetCode_0641_DesignCircularDeque {
          * Deletes an item from the rear of Deque. Return true if the operation is successful.
          */
         public boolean deleteLast() {
-// TODO
             return false;
         }
 
@@ -46,7 +46,6 @@ public class LeetCode_0641_DesignCircularDeque {
          * Get the front item from the deque.
          */
         public int getFront() {
-// TODO
             return -1;
         }
 
@@ -54,7 +53,6 @@ public class LeetCode_0641_DesignCircularDeque {
          * Get the last item from the deque.
          */
         public int getRear() {
-// TODO
             return -1;
         }
 
@@ -62,7 +60,6 @@ public class LeetCode_0641_DesignCircularDeque {
          * Checks whether the circular deque is empty or not.
          */
         public boolean isEmpty() {
-// TODO
             return false;
         }
 
@@ -70,7 +67,6 @@ public class LeetCode_0641_DesignCircularDeque {
          * Checks whether the circular deque is full or not.
          */
         public boolean isFull() {
-// TODO
             return false;
         }
     }
