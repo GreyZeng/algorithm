@@ -34,64 +34,56 @@ Please do not use the built-in Queue library.*/
 package leetcode;
 
 public class LeetCode_0622_DesignCircularQueue {
-    static class MyCircularQueue {
-        private final int[] arr;
-        private int pushPosition;
-        private int popPosition;
+    class MyCircularQueue {
+        private int[] arr;
+        private int popIndex;
+        private int pushIndex;
         private int rear;
-        private int currentSize;
-        private final int limit;
-
+        private int size;
+        private int limit;
         public MyCircularQueue(int k) {
-            arr = new int[k];
             limit = k;
+            arr = new int[limit];
         }
 
         public boolean enQueue(int value) {
             if (isFull()) {
                 return false;
             }
-            currentSize++;
-            rear = pushPosition;
-            arr[pushPosition] = value;
-            pushPosition = newPosition(pushPosition);
+            size++;
+            arr[pushIndex] = value;
+            rear = pushIndex;
+            pushIndex = next(pushIndex);
             return true;
-        }
-
-        public int newPosition(int c) {
-            return (c == limit - 1) ? 0 : c + 1;
         }
 
         public boolean deQueue() {
             if (isEmpty()) {
                 return false;
             }
-            currentSize--;
-            popPosition = newPosition(popPosition);
+            size--;
+            popIndex = next(popIndex);
             return true;
-
         }
 
         public int Front() {
-            if (isEmpty()) {
-                return -1;
-            }
-            return arr[popPosition];
+            return isEmpty() ? -1 : arr[popIndex];
         }
 
         public int Rear() {
-            if (isEmpty()) {
-                return -1;
-            }
-            return arr[rear];
+            return isEmpty() ? -1 : arr[rear];
         }
 
         public boolean isEmpty() {
-            return currentSize == 0;
+            return size == 0;
         }
 
         public boolean isFull() {
-            return currentSize == limit;
+            return size == limit;
+        }
+
+        private int next(int pre) {
+            return pre < limit - 1 ? pre + 1 : 0;
         }
     }
 }
