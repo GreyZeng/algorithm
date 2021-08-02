@@ -19,7 +19,12 @@
 // -10^5 <= lower <= upper <= 10^5
 // The answer is guaranteed to fit in a 32-bit integer.
 package leetcode;
+// 方法1：归并排序
 
+// 1. 前缀和加速求区间和
+// 2. 必须以i结尾的达标子数组有多少个
+
+// 方法2：有序表方式 [TODO]
 public class LeetCode_0327_CountOfRangeSum {
     public static int countRangeSum(int[] nums, int lower, int upper) {
         int size = nums.length;
