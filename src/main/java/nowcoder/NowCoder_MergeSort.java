@@ -43,13 +43,19 @@ public class NowCoder_MergeSort {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         int[] num = toArray(line);
-        mergeSort2(num);
+        if (Math.random() < 0.5d) {
+            mergeSort2(num);    
+        } else {
+            mergeSort(num);
+        }
         System.out.println(Arrays.toString(num));
         in.close();
     }
+    // 递归版本
     private static void mergeSort(int[] num) {
         process(num, 0, num.length - 1);
     }
+    // 迭代版本
     public static void mergeSort2(int[] arr) {
 		if (arr == null || arr.length < 2) {
 			return;
