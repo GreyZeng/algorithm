@@ -58,7 +58,6 @@ public class LintCode_0532_ReversePairs {
 				help[index++] = A[s2++];
 			} else {
 				help[index++] = A[s2++];
-				 
 			}
 		}
 		while (s1 <= mid) {
