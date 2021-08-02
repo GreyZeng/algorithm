@@ -1,43 +1,52 @@
 package leetcode;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-// 使用栈来实现队列
+// 三个原则
+// 一次性导完
+// 只有pop stack空了才能导数据
+// pop stack不为空不用导数据
+// ["MyQueue","push","push","peek","pop","empty"]
+// [[],[1],[2],[],[],[]]
 public class LeetCode_0232_ImplementQueueUsingStacks {
     class MyQueue {
-        private Stack<Integer> push;
-        private Stack<Integer> pop;
+        private Deque<Integer> push;
+        private Deque<Integer> pop;
 
         public MyQueue() {
-            push = new Stack<>();
-            pop = new Stack<>();
-        }
-
-        private void pushToPop() {
-            if (pop.isEmpty()) {
-                while (!push.isEmpty()) {
-                    pop.push(push.pop());
-                }
-            }
+            push = new ArrayDeque<>();
+            pop = new ArrayDeque<>();
         }
 
         public void push(int x) {
             push.push(x);
-            pushToPop();
         }
 
         public int pop() {
-            pushToPop();
-            return pop.pop();
+            while (!push.isEmpty()) {
+                pop.push(push.pop());
+            }
+            int result = pop.pop();
+            while (!pop.isEmpty()) {
+                push.push(pop.pop());
+            }
+            return result;
         }
 
         public int peek() {
-            pushToPop();
-            return pop.peek();
+            while (!push.isEmpty()) {
+                pop.push(push.pop());
+            }
+            int result = pop.peek();
+            while (!pop.isEmpty()) {
+                push.push(pop.pop());
+            }
+            return result;
         }
 
         public boolean empty() {
-            return push.isEmpty() && pop.isEmpty();
+            return push.isEmpty();
         }
     }
 

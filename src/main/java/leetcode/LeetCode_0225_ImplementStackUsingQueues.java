@@ -13,32 +13,40 @@ public class LeetCode_0225_ImplementStackUsingQueues {
             data = new LinkedList<>();
             help = new LinkedList<>();
         }
-
+        // 从尾部进
         public void push(int x) {
             data.offer(x);
         }
 
         public int pop() {
-            while (data.size() > 1) {
-                help.offer(data.poll());
+            int result = 0;
+            while (!data.isEmpty()) {
+                int x = data.poll(); 
+                if (data.isEmpty()) {
+                    result = x;
+                } else {
+                    help.offer(x);
+                }
             }
-            int r = data.poll();
             Queue<Integer> t = data;
             data = help;
             help = t;
-            return r;
+            return result;
         }
 
         public int top() {
-            while (data.size() > 1) {
-                help.offer(data.poll());
+            int result = 0;
+            while (!data.isEmpty()) {
+                int x = data.poll();
+                help.offer(x);
+                if (data.isEmpty()) { 
+                    result = x;
+                } 
             }
-            int r = data.poll();
-            help.offer(r);
             Queue<Integer> t = data;
             data = help;
             help = t;
-            return r;
+            return result;
         }
 
         public boolean empty() {
