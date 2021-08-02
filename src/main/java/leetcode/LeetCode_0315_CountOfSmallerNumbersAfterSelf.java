@@ -1,4 +1,6 @@
-/*You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
+/*You are given an integer array nums and you have to return a new counts array. 
+
+The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
 
  
 
@@ -45,7 +47,6 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
 		for (int i = 0; i < size; i++) {
 			result.add(0);
 			nodes[i] = new Node(i, nums[i]);
-
 		}
 		process(nodes, 0, size - 1, result);
 		return result;
@@ -62,39 +63,38 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
 	}
 
 	private static void merge(Node[] nodes, int l, int mid, int r, List<Integer> result) {
-		Node[] helper = new Node[r - l + 1];
-		int i = l;
-		int j = mid + 1;
+		Node[] help = new Node[r - l + 1];
+		int s1 = l;
+		int s2 = mid + 1;
 		int index = 0;
-		while (i <= mid && j <= r) {
-			if (nodes[i].value > nodes[j].value) {
-				// 左边大，copy左边，产生小和
-				result.set(nodes[i].index, result.get(nodes[i].index) + r - j + 1);
-				helper[index++] = nodes[i++];
+		while (s1 <= mid && s2 <= r) {
+			if (nodes[s1].value < nodes[s2].value) {
+				help[index++] = nodes[s2++];
+			} else if (nodes[s1].value > nodes[s2].value) {
+				result.set(nodes[s1].index, result.get(nodes[s1].index) + 1 + r - s2);
+				help[index++] = nodes[s1++];
 			} else {
-				// 右边大或者相等，不产生小和
-				helper[index++] = nodes[j++];
+				help[index++] = nodes[s2++];
 			}
-
 		}
-		while (i <= mid) {
-			helper[index++] = nodes[i++];
+		while (s1 <= mid) {
+			help[index++] = nodes[s1++];
 		}
-		while (j <= r) {
-			helper[index++] = nodes[j++];
+		while (s2 <= r) {
+			help[index++] = nodes[s2++];
 		}
-		int k = 0;
-		for (Node num : helper) {
-			nodes[l + (k++)] = num;
+		index = 0;
+		for (Node v : help) {
+			nodes[l + (index++)] = v;
 		}
 	}
 
 	public static void main(String[] args) {
 		int[] nums = { 5, 2, 6, 1 };
-		List<Integer> integers = countSmaller(nums);
-		for (int num : integers) {
-			System.out.println(num);
+		List<Integer> result = countSmaller(nums);
+		for (int num : result) {
+			System.out.print(num);
 		}
+		System.out.println();
 	}
-
 }

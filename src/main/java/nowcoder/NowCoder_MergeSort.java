@@ -20,10 +20,9 @@ import java.util.Scanner;
 // 输出
 // [1, 2, 3, 4, 5, 12, 17]
 /**
- * 归并排序 
- * 1）整体是递归，左边排好序+右边排好序+merge让整体有序 
+ * 归并排序 1）整体是递归，左边排好序+右边排好序+merge让整体有序
  * 
- * 2）让其整体有序的过程里用了排外序方法 
+ * 2）让其整体有序的过程里用了排外序方法
  * 
  * 3）利用master公式来求解时间复杂度
  * 
@@ -39,24 +38,26 @@ import java.util.Scanner;
  * 归并排序的实质是把比较行为变成了有序信息并传递，比O(N^2)的排序快
  */
 public class NowCoder_MergeSort {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-        int[] num = toArray(line);
-        if (Math.random() < 0.5d) {
-            mergeSort2(num);    
-        } else {
-            mergeSort(num);
-        }
-        System.out.println(Arrays.toString(num));
-        in.close();
-    }
-    // 递归版本
-    private static void mergeSort(int[] num) {
-        process(num, 0, num.length - 1);
-    }
-    // 迭代版本
-    public static void mergeSort2(int[] arr) {
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		String line = in.nextLine();
+		int[] num = toArray(line);
+		if (Math.random() < 0.5d) {
+			mergeSort2(num);
+		} else {
+			mergeSort(num);
+		}
+		System.out.println(Arrays.toString(num));
+		in.close();
+	}
+
+	// 递归版本
+	private static void mergeSort(int[] num) {
+		process(num, 0, num.length - 1);
+	}
+
+	// 迭代版本
+	public static void mergeSort2(int[] arr) {
 		if (arr == null || arr.length < 2) {
 			return;
 		}
@@ -83,49 +84,49 @@ public class NowCoder_MergeSort {
 		}
 	}
 
-    private static void process(int[] num, int L, int R) {
-        if (L == R) {
-            return;
-        }
-        int mid = (R + L) / 2;
-        process(num, L, mid);
-        process(num, mid + 1, R);
-        merge(num, L, mid, R);
-    }
+	private static void process(int[] num, int L, int R) {
+		if (L == R) {
+			return;
+		}
+		int M = L + ((R - L) >> 1);
+		process(num, L, M);
+		process(num, M + 1, R);
+		merge(num, L, M, R);
+	}
 
-    // L...mid有序
-    // mid+1 ... r有序
-    private static void merge(int[] num, int l, int mid, int r) {
-        int[] result = new int[r - l + 1];
-        int i = l;
-        int j = mid + 1;
-        int index = 0;
-        while (i <= mid && j <= r) {
-            if (num[i] < num[j]) {
-                result[index++] = num[i++];
-            } else {
-                result[index++] = num[j++];
-            }
-        }
-        while (i <= mid) {
-            result[index++] = num[i++];
-        }
-        while (j <= r) {
-            result[index++] = num[j++];
-        }
-        index = 0;
-        for (i = l; i <= r; i++) {
-            num[i] = result[index++];
-        }
-    }
+	// L...mid有序
+	// mid+1 ... r有序
+	private static void merge(int[] num, int L, int M, int R) {
+		int[] help = new int[R - L + 1];
+		int L1 = L;
+		int L2 = M + 1;
+		int index = 0;
+		while (L1 <= M && L2 <= R) {
+			if (num[L1] <= num[L2]) {
+				help[index++] = num[L1++];
+			} else {
+				help[index++] = num[L2++];
+			}
+		}
+		while (L1 <= M) {
+			help[index++] = num[L1++];
+		}
+		while (L2 <= R) {
+			help[index++] = num[L2++];
+		}
+		index = 0;
+		for (int v : help) {
+			num[L + (index++)] = v;
+		}
+	}
 
-    public static int[] toArray(String line) {
-        String s = line.substring(1, line.length() - 1);
-        String[] data = s.split(",");
-        int[] arr = new int[data.length];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = Integer.valueOf(data[i].trim());
-        }
-        return arr;
-    }
+	public static int[] toArray(String line) {
+		String s = line.substring(1, line.length() - 1);
+		String[] data = s.split(",");
+		int[] arr = new int[data.length];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = Integer.valueOf(data[i].trim());
+		}
+		return arr;
+	}
 }
