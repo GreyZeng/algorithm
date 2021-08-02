@@ -23,7 +23,11 @@ package lintcode;
  * @since
  */
 public class LintCode_0532_ReversePairs {
-
+	public static void main(String[] args) {
+		int[] A = {2, 4, 1, 3, 5};
+		long result = reversePairs(A);
+		System.out.println(result);
+	}
 	public static long reversePairs(int[] A) {
 		if (null == A || A.length < 2) {
 			return 0;
@@ -41,30 +45,32 @@ public class LintCode_0532_ReversePairs {
 	}
 
 	public static long merge(int[] A, int l, int mid, int r) {
-		int[] helper = new int[r - l + 1];
-		int i = l;
-		int j = mid + 1;
+		int[] help = new int[r - l + 1];
+		int s1 = l;
+		int s2 = mid + 1;
 		int index = 0;
-		long pair = 0;
-		while (i <= mid && j <= r) {
-			if (A[i] > A[j]) {
-				pair += (r - j + 1);
-				helper[index++] = A[i++];
-				
+		long result = 0;
+		while (s1 <= mid && s2 <= r) {
+			if (A[s1] > A[s2]) {
+				result += (r - s2 + 1);
+				help[index++] = A[s1++];
+			} else if (A[s1] < A[s2]) {
+				help[index++] = A[s2++];
 			} else {
-				helper[index++] = A[j++];
+				help[index++] = A[s2++];
+				 
 			}
 		}
-		while (i <= mid) {
-			helper[index++] = A[i++];
+		while (s1 <= mid) {
+			help[index++] = A[s1++];
 		}
-		while (j <= r) {
-			helper[index++] = A[j++];
+		while (s2 <= r) {
+			help[index++] = A[s2++];
 		}
-		int k = 0;
-		for (int num : helper) {
-			A[l + (k++)] = num;
+		index = 0;
+		for (int v : help) {
+			A[l + (index++)] = v;
 		}
-		return pair;
+		return result;
 	}
 }
