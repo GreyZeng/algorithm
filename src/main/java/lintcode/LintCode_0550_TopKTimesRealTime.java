@@ -64,8 +64,7 @@ public class LintCode_0550_TopKTimesRealTime {
                 }
             }
 
-          
-       
+
         }
 
         // 次数由多到少，次数一样，按字典序由小到大
@@ -80,7 +79,7 @@ public class LintCode_0550_TopKTimesRealTime {
                     return o1.value.compareTo(o2.value);
                 }
             }
-            
+
         }
 
         private Node[] heap; // heap[0]门槛
@@ -147,12 +146,12 @@ public class LintCode_0550_TopKTimesRealTime {
         }
 
         private void heapInsert(int i) {
-            while (comp.compare(heap[i],heap[(i-1)/2])<0) {
+            while (comp.compare(heap[i], heap[(i - 1) / 2]) < 0) {
                 swap(i, (i - 1) / 2);
                 i = (i - 1) / 2;
             }
         }
-        
+
         private void heapify(int i) {
             int leftChild = 2 * i + 1;
             while (leftChild < heapSize) {
@@ -168,7 +167,7 @@ public class LintCode_0550_TopKTimesRealTime {
                 } else {
                     best = heap[leftChild];
                 }
-                if (comp.compare(heap[i],best)<0) {
+                if (comp.compare(heap[i], best) < 0) {
                     break;
                 }
                 int bestIndex = best == heap[leftChild] ? leftChild : leftChild + 1;
@@ -177,7 +176,7 @@ public class LintCode_0550_TopKTimesRealTime {
                 leftChild = 2 * i + 1;
             }
         }
-       
+
         private void swap(int i, int j) {
             indexMap.put(heap[i], j);
             indexMap.put(heap[j], i);

@@ -111,18 +111,12 @@ public class Code_0029_CustomHeap {
     }
 
     public static void main(String[] args) {
-        HeapGreater<Integer> heap = new HeapGreater<Integer>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o1.compareTo(o2);
-            }
-        });
-        heap.push(Integer.valueOf(3));
-        heap.push(Integer.valueOf(4));
-        heap.push(Integer.valueOf(2));
-        heap.push(Integer.valueOf(1));
-        heap.push(Integer.valueOf(7));
-        System.out.println(heap.pop());
+        HeapGreater<Integer> heap = new HeapGreater<>(Integer::compareTo);
+        heap.push(3);
+        heap.push(4);
+        heap.push(2);
+        heap.push(1);
+        heap.push(7);
         System.out.println(heap.pop());
         System.out.println(heap.pop());
         System.out.println(heap.pop());
