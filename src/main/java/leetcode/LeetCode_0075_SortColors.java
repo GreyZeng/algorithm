@@ -18,39 +18,35 @@ package leetcode;
 public class LeetCode_0075_SortColors {
     // 荷兰国旗问题
     public static void sortColors(int[] nums) {
-        if(nums == null || nums.length <= 1) {
-        	return;
-        }
-        int L = -1;
-        int R = nums.length;
+        int l = -1;
+        int r = nums.length;
         int i = 0;
-        while (i < R) {
-        	if (nums[i] > 1) {
-        		swap(nums,i,--R);
-        	} else if (nums[i] < 1) {
-        		swap(nums,i++,++L);
-        	} else {
-        		i++;
-        	}
+        while (i < r) {
+            if (nums[i] < 1) {
+                swap(nums, ++l, i++);
+            } else if (nums[i] > 1) {
+                swap(nums, --r, i);
+            } else {
+                // nums[i] == 1
+                i++;
+            }
         }
     }
 
-    private static void swap(int[] nums, int L, int R) {
-        if (L == R) {
-            return;
+    public static void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
         }
-        nums[L] = nums[L] ^ nums[R];
-        nums[R] = nums[L] ^ nums[R];
-        nums[L] = nums[L] ^ nums[R];
     }
 
     public static void main(String[] args) {
-        int[] nums = {0	,1,2,1,0,2,2,0,2,1};
+        int[] nums = { 0, 1, 2, 1, 0, 2, 2, 0, 2, 1 };
         sortColors(nums);
-        for (int i = 0; i < nums.length; i++) {
-            System.out.print(nums[i] + " ");
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
     }
-
 
 }

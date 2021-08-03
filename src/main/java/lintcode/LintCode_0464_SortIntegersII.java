@@ -1,4 +1,4 @@
-package snippet;
+package lintcode;
 
 import java.util.Stack;
 
@@ -17,36 +17,23 @@ import java.util.Stack;
  * 时间复杂度O(N*logN)，额外空间复杂度O(logN)都是这么来的。
  */
 // 测评：https://www.lintcode.com/problem/464
-public class Code_0025_QuickSort {
-	public static class Op {
-		public int l;
-		public int r;
-		public Op(int l , int r) {
-			this.l = l;
-			this.r = r;
-		}
-	}
-	public static void quickSort2(int[] arr) {
+public class LintCode_0464_SortIntegersII {
+	
+	// 递归方法
+	public static void sortIntegers2(int[] arr) {
 		if (null == arr || arr.length < 2) {
 			return;
-		}	
-		Stack<Op> stack = new Stack<>();
-		int L = 0;
-		int R = arr.length - 1;
-		int pivot = (int)(Math.random()*(R - L + 1));
-		swap(arr, pivot, R);
-		int[] range = sortColors(arr, L, R);
-		stack.push(new Op(0, range[0] - 1));
-		stack.push(new Op(range[1] + 1, R));
-		while (!stack.isEmpty()) {
-			Op op = stack.pop();
-			if (op.l < op.r) {
-				swap(arr, op.l + (int) (Math.random() * (op.r - op.l + 1)), op.r);
-				range = sortColors(arr, op.l, op.r);
-				stack.push(new Op(op.l, range[0] - 1));
-				stack.push(new Op(range[1] + 1, op.r));
-			}
 		}
+		process(arr, 0, arr.length - 1);
+	}
+	private static void process(int[] arr, int L, int R) {
+		if (L >= R) {
+			return;
+		}
+		swap(arr, L + (int) (Math.random() * (R - L + 1)), R);
+		int[] range = sortColors(arr, L, R);
+		process(arr, L, range[0] - 1);
+		process(arr, range[1] + 1, R);
 	}
 	public static void swap(int[] arr, int i, int j) {
 		if (i != j) {
@@ -72,24 +59,38 @@ public class Code_0025_QuickSort {
 		}
 		return new int[] { less + 1, more - 1 };
 	}
-	// 递归方法
-	public static void quickSort(int[] arr) {
+	// TODO 
+	// 快速排序非递归版本
+	public static class Op {
+		public int l;
+		public int r;
+		public Op(int l , int r) {
+			this.l = l;
+			this.r = r;
+		}
+	}
+	// 测评时候需要把sortIntegers21改成sortIntegers2
+	public static void sortIntegers21(int[] arr) {
 		if (null == arr || arr.length < 2) {
 			return;
-		}
-		process(arr, 0, arr.length - 1);
-	}
-
-	private static void process(int[] arr, int L, int R) {
-		if (L >= R) {
-			return;
-		}
-		swap(arr, L + (int) (Math.random() * (R - L + 1)), R);
+		}	
+		Stack<Op> stack = new Stack<>();
+		int L = 0;
+		int R = arr.length - 1;
+		int pivot = (int)(Math.random()*(R - L + 1));
+		swap(arr, pivot, R);
 		int[] range = sortColors(arr, L, R);
-		process(arr, L, range[0] - 1);
-		process(arr, range[1] + 1, R);
+		stack.push(new Op(0, range[0] - 1));
+		stack.push(new Op(range[1] + 1, R));
+		while (!stack.isEmpty()) {
+			Op op = stack.pop();
+			if (op.l < op.r) {
+				swap(arr, op.l + (int) (Math.random() * (op.r - op.l + 1)), op.r);
+				range = sortColors(arr, op.l, op.r);
+				stack.push(new Op(op.l, range[0] - 1));
+				stack.push(new Op(range[1] + 1, op.r));
+			}
+		}
 	}
-
-	
 
 }
