@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
-public class LintCode_0550_TopKTimesRealTime {
+public class LintCode_0550_TopKFrequentWordsII {
     public class TopK {
         public class Node {
             public String value;
@@ -63,8 +63,6 @@ public class LintCode_0550_TopKTimesRealTime {
                     return o2.value.compareTo(o1.value);
                 }
             }
-
-
         }
 
         // 次数由多到少，次数一样，按字典序由小到大
