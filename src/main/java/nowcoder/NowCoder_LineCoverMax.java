@@ -21,7 +21,6 @@
 //        3
 package nowcoder;
 
-
 import java.util.*;
 
 // 暴力解
@@ -35,11 +34,12 @@ public class NowCoder_LineCoverMax {
         for (int i = 0; i < m.length; i++) {
             lines[i] = new Line(m[i][0], m[i][1]);
         }
-        Arrays.sort(lines, new StartComparator());
-        PriorityQueue<Line> heap = new PriorityQueue<>(new EndComparator());
+        Arrays.sort(lines, Comparator.comparingInt(o -> o.start));
+        PriorityQueue<Line> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.end));
         int max = 0;
         for (Line line : lines) {
-            // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，heap.peek().end < line.start，如果不算的话，heap.peek().end <= line.start
+            // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，heap.peek().end <
+            // line.start，如果不算的话，heap.peek().end <= line.start
             while (!heap.isEmpty() && heap.peek().end < line.start) {
                 heap.poll();
             }
@@ -80,6 +80,8 @@ public class NowCoder_LineCoverMax {
         return map;
     }
 
+    //[1...3],[2..6],[4..9]，问：哪个区间描的最多，可以用线段树(注意离散化，注意在范围内+1以后，执行的不是querySum而是queryMax)
+//注意：不管什么线段，开始位置排序，线段开始位置越早，越先处理
     public static class SegmentTree {
         private int MAXN;
         private int[] arr;
@@ -143,7 +145,6 @@ public class NowCoder_LineCoverMax {
         }
     }
 
-
     // 暴力解
     // 1. 首先得到线段的最大值和最小值
     // 2. 最大值和最小值按单位1等分，看每条线覆盖了多少，抓一下全局max
@@ -171,7 +172,6 @@ public class NowCoder_LineCoverMax {
         return maxCover;
     }
 
-
     public static class Line {
         public int start;
         public int end;
@@ -182,24 +182,8 @@ public class NowCoder_LineCoverMax {
         }
     }
 
-    public static class StartComparator implements Comparator<Line> {
-        @Override
-        public int compare(Line o1, Line o2) {
-            return o1.start - o2.start;
-        }
-    }
 
-    public static class EndComparator implements Comparator<Line> {
-        @Override
-        public int compare(Line o1, Line o2) {
-            return o1.end - o2.end;
-        }
-
-    }
-
-
-
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int N = in.nextInt();
         int[][] lines = new int[N][2];
@@ -207,42 +191,13 @@ public class NowCoder_LineCoverMax {
             lines[i][0] = in.nextInt();
             lines[i][1] = in.nextInt();
         }
-        System.out.println(maxCover3(lines));
+        if (Math.random() < 0.3d) {
+            System.out.println(maxCover(lines));
+        } else if (Math.random() < 0.7d) {
+            System.out.println(maxCover2(lines));
+        } else {
+            System.out.println(maxCover3(lines));
+        }
         in.close();
-    }*/
-
-    public static int[][] generateLines(int N, int L, int R) {
-        int size = (int) (Math.random() * N) + 1;
-        int[][] ans = new int[size][2];
-        for (int i = 0; i < size; i++) {
-            int a = L + (int) (Math.random() * (R - L + 1));
-            int b = L + (int) (Math.random() * (R - L + 1));
-            if (a == b) {
-                b = a + 1;
-            }
-            ans[i][0] = Math.min(a, b);
-            ans[i][1] = Math.max(a, b);
-        }
-        return ans;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("test begin");
-        int N = 100;
-        int L = 0;
-        int R = 200;
-        int testTimes = 200000;
-        for (int i = 0; i < testTimes; i++) {
-            int[][] lines = generateLines(N, L, R);
-            int ans2 = maxCover2(lines);
-            int ans3 = maxCover3(lines);
-            int ans = maxCover(lines);
-            if (ans != ans3 || ans2 != ans3) {
-                System.out.println("Oops!");
-                break;
-            }
-        }
-        System.out.println("test end");
     }
 }
-
