@@ -39,7 +39,7 @@ import java.util.TreeSet;
 
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
 public class LintCode_0550_TopKTimesRealTime {
-    public static class TopK {
+    public class TopK {
         public class Node {
             public String value;
             public int times;
@@ -195,36 +195,6 @@ public class LintCode_0550_TopKTimesRealTime {
         }
     }
 
-    public static void main(String[] args) {
-        int k = 3;
-        TopK topK = new TopK(k);
-        List<String> topk = new ArrayList<>();
-        topK.add("yes");
-        topK.add("lint");
-        topK.add("code");
-        topK.add("yes");
-
-        // topK.add("code");
-        // topK.add("baby");
-        // topK.add("you");
-        // topK.add("baby");
-        // topK.add("chrome");
-        topk = topK.topk();
-        for (String s : topk) {
-            System.out.println(s);
-        }
-        System.out.println("=--");
-        topK.add("safari");
-        topK.add("lint");
-        topK.add("code");
-        topK.add("body");
-        topK.add("lint");
-        topK.add("code");
-        topk = topK.topk();
-        for (String s : topk) {
-            System.out.println(s);
-        }
-
-    }
+    
 
 }
