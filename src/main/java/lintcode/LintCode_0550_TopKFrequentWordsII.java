@@ -33,55 +33,80 @@ package lintcode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.TreeSet;
 
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
 public class LintCode_0550_TopKFrequentWordsII {
-    public class TopK {
-        private TreeSet<Word> topK;
-        public TopK(int k) {
-            topK = new TreeSet<>(new TopKComparator());
-        }
+	
+	public class TopK {
+		private TreeSet<Word> topK;
+		private Heap heap;
+		
+		public TopK(int k) {
+			topK = new TreeSet<>(new TopKComparator());
+			heap = new Heap(k, new ThresholdComparator());
+		}
 
-        public void add(String str) {
+		public void add(String str) {
 
-        }
+		}
 
-        public List<String> topk() {
-            List<String> result = new ArrayList<>();
-            for (Word word : topK) {
-                result.add(word.value);
-            }
-            return result;
-        }
+		public List<String> topk() {
+			List<String> result = new ArrayList<>();
+			for (Word word : topK) {
+				result.add(word.value);
+			}
+			return result;
+		}
 
-        private class Word {
-            public String value;
-            public int times;
+		private class Word {
+			public String value;
+			public int times;
 
-            public Word(String v, int t) {
-                value = v;
-                times = t;
-            }
-        }
+			public Word(String v, int t) {
+				value = v;
+				times = t;
+			}
+		}
 
-        private class TopKComparator implements Comparator<Word> {
-            @Override
-            public int compare(Word o1, Word o2) {
-                // 次数大的排前面，次数一样字典序在小的排前面
-                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
-            }
-        }
-        private class ThresholdComparator implements Comparator<Word> {
+		private class TopKComparator implements Comparator<Word> {
+			@Override
+			public int compare(Word o1, Word o2) {
+				// 次数大的排前面，次数一样字典序在小的排前面
+				return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
+			}
+		}
 
-            @Override
-            public int compare(Word o1, Word o2) {
-                // 设置堆门槛，堆顶元素最先被淘汰
-                return o1.times == o2.times ? o2.value.compareTo(o2.value) : (o1.times - o2.times);
-            }
-        }
+		private class ThresholdComparator implements Comparator<Word> {
 
+			@Override
+			public int compare(Word o1, Word o2) {
+				// 设置堆门槛，堆顶元素最先被淘汰
+				return o1.times == o2.times ? o2.value.compareTo(o2.value) : (o1.times - o2.times);
+			}
+		}
 
-    }
+		private class Heap {
+			private Word[] words;
+			private Comparator<Word> comparator;
+			private Map<Word, Integer> indexMap;
+
+			public Heap(int k, Comparator<Word> comparator) {
+				words = new Word[k];
+				this.comparator = comparator;
+			}
+
+			public void add(Word word) {
+
+			}
+
+			public Word poll() {
+				return null;
+			}
+		}
+	}
 }
