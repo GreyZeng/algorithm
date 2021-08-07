@@ -15,7 +15,7 @@
 说明
 {-28，-29}这个子数组的异或和为7，是所有子数组中最大的
 备注:
-时间复杂度O(nlog2n)O(nlog2n)，额外空间复杂度O(nlog2n)O(nlog2n)。*/
+时间复杂度O(nlog2n)，额外空间复杂度O(nlog2n)。*/
 package nowcoder;
 
 import java.util.Scanner;
