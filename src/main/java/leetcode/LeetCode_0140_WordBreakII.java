@@ -36,8 +36,9 @@ Output:
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 public class LeetCode_0140_WordBreakII {
 
@@ -53,10 +54,11 @@ public class LeetCode_0140_WordBreakII {
         }
     }
 
-    public static List<String> wordBreak(String s, List<String> wordDict) {
-        if (null == wordDict || wordDict.isEmpty()) {
+    public static List<String> wordBreak(String s, List<String> words) {
+        if (null == words || words.isEmpty()) {
             return new ArrayList<>();
         }
+        Set<String> wordDict = new HashSet<String>(words);
         Node root = buildTrie(wordDict);
         char[] str = s.toCharArray();
         int N = str.length;
@@ -72,47 +74,56 @@ public class LeetCode_0140_WordBreakII {
                 cur = cur.nexts[p];
                 if (cur.end && dp[i + 1]) {
                     dp[index] = true;
-                    //break;
+                    // break;
                 }
             }
         }
         if (!dp[0]) {
             return new ArrayList<>();
         }
-        ArrayList<String> path = new ArrayList<>();
+        List<String> path = new ArrayList<>();
         List<String> ans = new ArrayList<>();
         process(str, 0, root, dp, path, ans);
         return ans;
 
     }
 
-    public static void process(final char[] str, int index, Node root, final boolean[] dp, ArrayList<String> path, List<String> ans) {
+    // 0...index-1已经处理完毕，收集的字符串在path中，最后的句子存在ans中
+    public static void process(final char[] str, int index, Node root, final boolean[] dp, List<String> path,
+            List<String> ans) {
         if (index == str.length) {
-            StringBuilder builder = new StringBuilder();
+            // 收集一个句子
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < path.size() - 1; i++) {
-                builder.append(path.get(i) + " ");
+                sb.append(path.get(i) + " ");
             }
-            builder.append(path.get(path.size() - 1));
-            ans.add(builder.toString());
-        } else {
-            Node cur = root;
-            for (int end = index; end < str.length; end++) {
-                int road = str[end] - 'a';
-                if (cur.nexts[road] == null) {
-                    break;
-                }
-                cur = cur.nexts[road];
-                if (cur.end && dp[end + 1]) {
-                    path.add(cur.path);
-                    process(str, end + 1, root, dp, path, ans);
-                    path.remove(path.size() - 1);
-                }
+            sb.append(path.get(path.size() - 1));
+            ans.add(sb.toString());
+            return;
+        }
+        Node cur = root;
+        for (int i = index; i < str.length; i++) {
+            // 如果没有往下的路，直接杀死这条路径
+            if (cur.nexts[str[i] - 'a'] == null) {
+                break;
             }
+
+            cur = cur.nexts[str[i] - 'a'];
+            if (cur.end && dp[i + 1]) {
+                // 是否是一个有效的拼接，包括两个部分
+                // 当前位置已经是结尾了 cur.end
+                // 当前位置后面有拼接出完整字符串的能力(dp[i+1] == true)
+                path.add(cur.path);
+                process(str, i + 1, root, dp, path, ans);
+                // 恢复现场
+                path.remove(path.size() - 1);
+            }
+
         }
     }
 
     // 构造前缀树
-    private static Node buildTrie(List<String> wordDict) {
+    private static Node buildTrie(Set<String> wordDict) {
         Node root = new Node();
 
         for (String str : wordDict) {
@@ -130,6 +141,4 @@ public class LeetCode_0140_WordBreakII {
         }
         return root;
     }
-
-
 }
