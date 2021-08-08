@@ -92,7 +92,9 @@ public class NowCoder_MaxXorSubArray {
                 int bit = (num >>> i) & 1;
                 int except = (i == 31) ? bit : (bit ^ 1);
                 except = cur.next[except] != null ? except : (except ^ 1);
-                res |= (bit ^ except) << i;
+                // ((bit ^ except) << i)  --> i位置异或好的结果
+                // 每次和res做或运算，走完32轮，res就把所有位置的异或结果收集到了
+                res |= ((bit ^ except) << i);
                 cur = cur.next[except];
             }
             return res;
