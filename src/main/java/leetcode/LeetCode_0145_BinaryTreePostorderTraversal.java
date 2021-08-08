@@ -88,7 +88,7 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
         stack.push(h);
         while (!stack.isEmpty()) {
             c = stack.peek();
-            // 如果c的左孩子和有孩子都不为空，且上一个节点不是c的有孩子，说明是c是新加入 的节点，把左孩子压栈
+            // 如果c的左孩子和有孩子都不为空，且上一个节点不是c的右孩子，说明是c是新加入的节点，把左孩子压栈
             if (c.left != null && h != c.left && h != c.right) {
                 stack.push(c.left);
             } else if (c.right != null && h != c.right) {

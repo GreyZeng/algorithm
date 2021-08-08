@@ -1,8 +1,9 @@
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 public class LeetCode_0144_BinaryTreePreorderTraversal {
     public class TreeNode {
@@ -23,9 +24,51 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
             this.right = right;
         }
     }
-    // Morris遍历实现先序遍历
+
+    // 递归方式
+    public List<Integer> preorderTraversal3(TreeNode root) {
+        List<Integer> ans = new ArrayList<Integer>();
+        pre(root, ans);
+        return ans;
+    }
+
+    public void pre(TreeNode root, List<Integer> ans) {
+        if (root == null) {
+            return;
+        }
+        ans.add(root.val);
+        pre(root.left, ans);
+        pre(root.right, ans);
+    }
+
+    // 【非递归】先序遍历
+    // 1. 弹出就打印
+    // 2. 如果有右孩子，先压右孩子
+    // 3. 如果有左孩子，就压左孩子
+    // 然后重复1， 2， 3步（栈不为空循环执行）
+    public static List<Integer> preorderTraversal2(TreeNode head) {
+        List<Integer> ans = new ArrayList<>();
+        if (head == null) {
+            return ans;
+        }
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode cur = head;
+        stack.push(cur);
+        while (!stack.isEmpty()) {
+            TreeNode c = stack.pop();
+            ans.add(c.val);
+            if (c.right != null) {
+                stack.push(c.right);
+            }
+            if (c.left != null) {
+                stack.push(c.left);
+            }
+        }
+        return ans;
+    }
+
+    // Morris遍历实现先序遍历，空间复杂度O(1)
     public static List<Integer> preorderTraversal(TreeNode root) {
-        
         List<Integer> ans = new ArrayList<>();
         if (root == null) {
             return ans;
@@ -34,7 +77,6 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
         TreeNode mostRight;
         while (cur != null) {
             mostRight = cur.left;
-            
             if (mostRight != null) {
                 while (mostRight.right != null && mostRight.right != cur) {
                     mostRight = mostRight.right;
@@ -47,56 +89,12 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
                 } else {
                     mostRight.right = null;
                 }
-            }else {
+            } else {
                 ans.add(cur.val);
             }
             cur = cur.right;
         }
         return ans;
-    }
-    // 【非递归】先序遍历
-    // 1. 弹出就打印
-    // 2. 如果有右孩子，先压右孩子
-    // 3. 如果有左孩子，就压左孩子
-    // 然后重复1， 2， 3步（栈不为空循环执行）
-    public static List<Integer> preorderTraversal2(TreeNode head) {
-        List<Integer> ans = new ArrayList<>();
-        if (head == null) {
-            return ans;
-        }
-        TreeNode cur = head;
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(cur);
-        while (!stack.isEmpty()) {
-            cur = stack.pop();
-            ans.add(cur.val);
-            if (cur.right != null) {
-                stack.push(cur.right);
-            }
-            if (cur.left != null) {
-                stack.push(cur.left);
-            }
-        }
-        return ans;
-    }
-
-    // 递归方式
-    public static List<Integer> preorderTraversal3(TreeNode root) {
-        List<Integer> ans = new ArrayList<>();
-        if (root == null) {
-            return ans;
-        }
-        pre(root, ans);
-        return ans;
-    }
-
-    private static void pre(TreeNode root, List<Integer> ans) {
-        if (root == null) {
-            return;
-        }
-        ans.add(root.val);
-        pre(root.left, ans);
-        pre(root.right, ans);
     }
 
 }
