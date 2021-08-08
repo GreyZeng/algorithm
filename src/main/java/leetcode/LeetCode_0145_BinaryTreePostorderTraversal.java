@@ -1,6 +1,8 @@
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.Stack;
 
@@ -113,8 +115,8 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
             return ans;
         }
         TreeNode cur = head;
-        Stack<TreeNode> stack = new Stack<>();
-        Stack<TreeNode> helper = new Stack<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        Deque<TreeNode> helper = new ArrayDeque<>();
         stack.push(cur);
         while (!stack.isEmpty()) {
             cur = stack.pop();

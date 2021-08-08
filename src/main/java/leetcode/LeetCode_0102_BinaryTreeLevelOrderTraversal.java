@@ -121,10 +121,11 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
 			return ans;
 		}
 		Queue<TreeNode> queue = new LinkedList<>();
-		queue.offer(root);
+		List<Integer> item = new ArrayList<>();
 		TreeNode curEnd = root;
 		TreeNode nextEnd = null;
-		List<Integer> item = new ArrayList<>();
+		TreeNode cur = root;
+		queue.offer(cur);
 		while (!queue.isEmpty()) {
 			TreeNode c = queue.poll();
 			if (c.left != null) {
@@ -136,12 +137,14 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
 				nextEnd = c.right;
 			}
 			item.add(c.val);
-			if (curEnd == c) {
+			if (c == curEnd) {
 				ans.add(item);
 				item = new ArrayList<>();
 				curEnd = nextEnd;
 			}
 		}
+		return ans;
+
 		return ans;
 	}
 

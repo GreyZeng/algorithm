@@ -52,10 +52,10 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
             return ans;
         }
         Deque<TreeNode> stack = new ArrayDeque<>();
-        TreeNode cur = head;
-        stack.push(cur);
+        TreeNode c = head;
+        stack.push(c);
         while (!stack.isEmpty()) {
-            TreeNode c = stack.pop();
+            c = stack.pop();
             ans.add(c.val);
             if (c.right != null) {
                 stack.push(c.right);
