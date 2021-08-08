@@ -14,12 +14,13 @@
 //  [3]
 //]
 package leetcode;
-
+ 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.Queue; 
 
 
 public class LeetCode_0107_BinaryTreeLevelOrderTraversalII {
@@ -32,35 +33,37 @@ public class LeetCode_0107_BinaryTreeLevelOrderTraversalII {
 
 	public List<List<Integer>> levelOrderBottom(TreeNode root) {
 		List<List<Integer>> ans = new ArrayList<>();
-		Stack<List<Integer>> help = new Stack<>();
+		Deque<List<Integer>> stack = new ArrayDeque<>();
 		if (root == null) {
 			return ans;
 		}
-		Queue<TreeNode> queue = new LinkedList<>();
-		queue.offer(root);
-		TreeNode curEnd = root;
+		TreeNode cur = root;
+		TreeNode curEnd = cur;
 		TreeNode nextEnd = null;
+		Queue<TreeNode> queue = new LinkedList<>();
+		queue.offer(cur);
 		List<Integer> item = new ArrayList<>();
-		while (!queue.isEmpty()) {
-			TreeNode c = queue.poll();
-			if (c.left != null) {
-				queue.offer(c.left);
-				nextEnd = c.left;
+		while (!queue.isEmpty() ) {
+			cur = queue.poll();
+			if (cur.left != null) {
+				queue.offer(cur.left);
+				nextEnd = cur.left;
 			}
-			if (c.right != null) {
-				queue.offer(c.right);
-				nextEnd = c.right;
+			if (cur.right != null) {
+				queue.offer(cur.right);
+				nextEnd = cur.right;
 			}
-			item.add(c.val);
-			if (c == curEnd) {
-				help.push(item);
+			item.add(cur.val);
+			if (cur == curEnd) {
+				stack.push(item);
 				item = new ArrayList<>();
 				curEnd = nextEnd;
 			}
 		}
-		while (!help.isEmpty()) {
-			ans.add(help.pop());
+		while (!stack.isEmpty() ) {
+			ans.add(stack.pop());
 		}
+		
 		return ans;
 	}
 }
