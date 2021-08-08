@@ -31,7 +31,6 @@ public class LeetCode_0637_AverageOfLevelsInBinaryTree {
 		}
 		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(root);
-
 		TreeNode curEnd = root;
 		TreeNode nextEnd = null;
 		int countOfLevel = 0;
@@ -41,12 +40,10 @@ public class LeetCode_0637_AverageOfLevelsInBinaryTree {
 			if (c.left != null) {
 				queue.offer(c.left);
 				nextEnd = c.left;
-
 			}
 			if (c.right != null) {
 				queue.offer(c.right);
 				nextEnd = c.right;
-
 			}
 			sumOfLevel += Double.valueOf(c.val);
 			countOfLevel++;
