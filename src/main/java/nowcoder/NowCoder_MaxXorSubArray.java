@@ -90,6 +90,7 @@ public class NowCoder_MaxXorSubArray {
             int res = 0;
             for (int i = 31; i >= 0; i--) {
                 int bit = (num >>> i) & 1;
+                // 最高位期待一样，其余位置期待相反
                 int except = (i == 31) ? bit : (bit ^ 1);
                 except = cur.next[except] != null ? except : (except ^ 1);
                 // ((bit ^ except) << i)  --> i位置异或好的结果
