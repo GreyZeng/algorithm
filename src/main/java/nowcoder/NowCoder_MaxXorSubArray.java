@@ -22,7 +22,7 @@ import java.util.Scanner;
 
 // https://www.nowcoder.com/questionTerminal/43f62c52fbac47feaeabe40ac1ab9091
 public class NowCoder_MaxXorSubArray {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         int[] arr = new int[n];
@@ -31,31 +31,31 @@ public class NowCoder_MaxXorSubArray {
         }
         System.out.println(maxEor(arr, n));
         in.close();
+
+       
     }
 
-    // 暴力解，利用前缀异或和数组
+    // // 暴力解，利用前缀异或和数组
     public static int maxXor(int[] arr, int n) {
         if (arr == null || n == 0) {
             return 0;
         }
         int[] eor = new int[n];
+        // 生成前缀异或和数组
         eor[0] = arr[0];
         for (int i = 1; i < n; i++) {
             eor[i] = eor[i - 1] ^ arr[i];
         }
         int max = eor[0];
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i < n; i++) {
+            max = Math.max(max, eor[i]);
             for (int j = i; j < n; j++) {
-                if (i == 0) {
-                    max = Math.max(eor[j], max);
-                } else {
-                    max = Math.max(eor[j] ^ eor[i - 1], max);
-                }
+                max = Math.max(max, eor[j] ^ eor[i - 1]);
             }
         }
         return max;
     }
-
+    
     public static int maxEor(int[] arr, int n) {
         if (arr == null || n == 0) {
             return 0;
