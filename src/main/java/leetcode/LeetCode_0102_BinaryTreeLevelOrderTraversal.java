@@ -144,8 +144,6 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
 			}
 		}
 		return ans;
-
-		return ans;
 	}
 
 	// 用LinkedList和HashMap
