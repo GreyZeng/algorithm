@@ -83,7 +83,7 @@ public class LeetCode_0662_MaximumWidthOfBinaryTree {
 			this.right = right;
 		}
 	}
-
+	
 	public int widthOfBinaryTree(TreeNode root) {
 		Queue<AnnotateNode> queue = new LinkedList<>();
 		queue.offer(new AnnotateNode(root, 0, 0));
