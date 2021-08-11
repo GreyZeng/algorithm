@@ -65,57 +65,49 @@ import java.util.Queue;
 
 public class LeetCode_0662_MaximumWidthOfBinaryTree {
 
-	public class TreeNode {
-		int val;
-		TreeNode left;
-		TreeNode right;
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+    }
 
-		TreeNode() {
-		}
+    public int widthOfBinaryTree(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int max = 1;
+        Queue<AnnotateNode> queue = new LinkedList<>();
+        queue.offer(new AnnotateNode(root, 0, 0));
+        int curDepth = 0;
+        int left = 0;
+        while (!queue.isEmpty()) {
+            AnnotateNode node = queue.poll();
+            if (node.node != null) {
+                // 当作一个满二叉树来对待
+                // 所以一个节点的左孩子等于2 * i
+                // 一个节点右孩子的位置是：2*i+1
+                queue.offer(new AnnotateNode(node.node.left, node.depth + 1, node.pos * 2));
+                queue.offer(new AnnotateNode(node.node.right, node.depth + 1, node.pos * 2 + 1));
+                if (curDepth != node.depth) {
+                    // 下一层开始结算上一层的结果
+                    curDepth = node.depth;
+                    left = node.pos;
+                }
+                max = Math.max(max, node.pos - left + 1);
+            }
+        }
+        return max;
+    }
 
-		TreeNode(int val) {
-			this.val = val;
-		}
+    static class AnnotateNode {
+        TreeNode node;
+        int depth;
+        int pos;
 
-		TreeNode(int val, TreeNode left, TreeNode right) {
-			this.val = val;
-			this.left = left;
-			this.right = right;
-		}
-	}
-	
-	public int widthOfBinaryTree(TreeNode root) {
-		Queue<AnnotateNode> queue = new LinkedList<>();
-		queue.offer(new AnnotateNode(root, 0, 0));
-		int currdepth = 0;
-		int left = 0;
-		int res = 0;
-		while (!queue.isEmpty()) {
-			AnnotateNode a = queue.poll();
-			if (a.node != null) {
-				queue.offer(new AnnotateNode(a.node.left, a.depth + 1, a.pos * 2));
-				queue.offer(new AnnotateNode(a.node.right, a.depth + 1, a.pos * 2 + 1));
-				if (currdepth != a.depth) {
-					currdepth = a.depth;
-					left = a.pos;
-				}
-				res = Math.max(res, a.pos - left + 1);
-			}
-
-		}
-
-		return res;
-	}
-
-	static class AnnotateNode {
-		TreeNode node;
-		int depth;
-		int pos;
-
-		public AnnotateNode(TreeNode node, int depth, int pos) {
-			this.node = node;
-			this.depth = depth;
-			this.pos = pos;
-		}
-	}
+        public AnnotateNode(TreeNode node, int depth, int pos) {
+            this.node = node;
+            this.depth = depth;
+            this.pos = pos;
+        }
+    }
 }
