@@ -29,36 +29,36 @@ import java.util.Scanner;
 // https://www.nowcoder.com/questionTerminal/380d49d7f99242709ab4b91c36bf2acc
 public class NowCoder_MaxSubBSTSize {
 
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int count = scanner.nextInt();
-        Node root = new Node(scanner.nextInt());
-        HashMap<Integer, Node> hashMap = new HashMap<>();
-        hashMap.put(root.value, root);
-        int[][] nodes = new int[count][3];
-        for (int i = 0; i < count; i++) {
-            for (int j = 0; j < 3; j++) {
-                int v = scanner.nextInt();
-                if (v != 0) {
-                    hashMap.put(v, new Node(v));
-                }
-                nodes[i][j] = v;
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Node head = constructTree(sc, n);
+        System.out.println(maxSubBSTSize(head));
+        sc.close();
+    }
+
+    public static Node constructTree(Scanner sc, int n) {
+        HashMap<Integer, Node> map = new HashMap<>();
+        int rootVal = sc.nextInt();
+        Node root = new Node(rootVal);
+        map.put(rootVal, root);
+        for (int i = 0; i < n; i++) {
+            int nodeVal = sc.nextInt();
+            int leftVal = sc.nextInt();
+            int rightVal = sc.nextInt();
+            if (map.containsKey(nodeVal)) {
+                Node tmpNode = map.get(nodeVal);
+                Node leftNode = leftVal == 0 ? null : new Node(leftVal);
+                Node rightNode = rightVal == 0 ? null : new Node(rightVal);
+                tmpNode.left = leftNode;
+                tmpNode.right = rightNode;
+                if (leftVal != 0)
+                    map.put(leftVal, leftNode);
+                if (rightVal != 0)
+                    map.put(rightVal, rightNode);
             }
         }
-        for (int i = 0; i < count; i++) {
-            int[] arr = nodes[i];
-            Node fakeRoot = hashMap.get(arr[0]);
-            if (arr[1] != 0) {
-                fakeRoot.left = hashMap.get(arr[1]);
-            }
-            if (arr[2] != 0) {
-                fakeRoot.right = hashMap.get(arr[2]);
-            }
-        }
-        root = hashMap.get(root.value);
-        System.out.println(maxSubBSTSize(root));
-        scanner.close();
+        return root;
     }
 
     public static class Node {
@@ -71,54 +71,56 @@ public class NowCoder_MaxSubBSTSize {
         }
     }
 
-    public static class Info {
-        public boolean isBST;
-        public int maxSubBSTSize;
-        public int min;
-        public int max;
-
-        public Info(boolean isBST, int maxSubBSTSize, int min, int max) {
-            this.isBST = isBST;
-            this.maxSubBSTSize = maxSubBSTSize;
-            this.min = min;
-            this.max = max;
-        }
-    }
-
     public static int maxSubBSTSize(Node head) {
-        return p(head).maxSubBSTSize;
+        if (head == null) {
+            return 0;
+        }
+        return process(head).maxSubBSTSize;
     }
 
-    public static Info p(Node head) {
-        if (null == head) {
+    public static Info process(Node head) {
+        if (head == null) {
             return null;
         }
-        Info left = p(head.left);
-        boolean isBST = true;
-        int maxSubBSTSize = 0;
+        Info left = process(head.left);
+        Info right = process(head.right);
+        int maxSubBSTSize = 1;
         int max = head.value;
         int min = head.value;
+        boolean isBST = true;
         if (left != null) {
-            min = Math.min(left.min, min);
-            max = Math.max(left.max, max);
-            isBST = (left.isBST && head.value > left.max);
+            maxSubBSTSize = Math.max(left.maxSubBSTSize, maxSubBSTSize);
+            max = Math.max(max, left.max);
+            min = Math.min(min, left.min);
+            isBST = isBST && left.isBST && (head.value > left.max);
         }
-        Info right = p(head.right);
         if (right != null) {
-            min = Math.min(right.min, min);
-            max = Math.max(right.max, max);
-            isBST = isBST && (right.isBST && head.value < right.min);
+            maxSubBSTSize = Math.max(right.maxSubBSTSize, maxSubBSTSize);
+            max = Math.max(max, right.max);
+            min = Math.min(min, right.min);
+            isBST = isBST && right.isBST && (head.value < right.min);
         }
         if (isBST) {
-            maxSubBSTSize =
-                    (right != null ? right.maxSubBSTSize : 0)
-                            +
-                            (left != null ? left.maxSubBSTSize : 0)
-                            + 1;
-        } else {
-            maxSubBSTSize = Math.max((right != null ? right.maxSubBSTSize : 0), (left != null ? left.maxSubBSTSize : 0));
+            maxSubBSTSize = Math.max(
+                    (left != null ? left.maxSubBSTSize : 0) + (right != null ? right.maxSubBSTSize : 0) + 1,
+                    maxSubBSTSize);
+        }
+        return new Info(maxSubBSTSize, max, min, isBST);
+    }
+
+    public static class Info {
+        public int maxSubBSTSize;
+        public boolean isBST;
+        public int max;
+        public int min;
+
+        public Info(int maxSubBSTSize, int max, int min, boolean isBST) {
+            this.isBST = isBST;
+            this.maxSubBSTSize = maxSubBSTSize;
+            this.max = max;
+            this.min = min;
         }
 
-        return new Info(isBST, maxSubBSTSize, min, max);
     }
+
 }
