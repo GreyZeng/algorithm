@@ -1,5 +1,8 @@
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Given a binary tree, determine if it is a valid binary search tree (BST).
 //
 //		Assume a BST is defined as follows:
@@ -28,6 +31,10 @@ package leetcode;
 //		Input: [5,1,4,null,null,3,6]
 //		Output: false
 //		Explanation: The root node's value is 5 but its right child's value is 4.
+// 是否为二叉搜索树
+// 1. 中序遍历严格递增（递归或者Morris遍历实现中序遍历）
+// 2. 二叉树递归套路
+
 public class LeetCode_0098_ValidateBinarySearchTree {
 
 	public static class TreeNode {
@@ -36,47 +43,73 @@ public class LeetCode_0098_ValidateBinarySearchTree {
 		TreeNode right;
 	}
 
-	public static class Info {
-		public int max;
-		public int min;
-		public boolean isBST;
-
-		public Info(int max, int min, boolean isBST) {
-			this.max = max;
-			this.min = min;
-			this.isBST = isBST;
-		}
-
-	}
-
 	public boolean isValidBST(TreeNode head) {
-		if (head == null) {
+		if (null == head) {
 			return true;
 		}
-		return p(head).isBST;
+		return process(head).isBST;
 	}
 
-	public static Info p(TreeNode head) {
+	public Info process(TreeNode head) {
 		if (head == null) {
 			return null;
 		}
+
+		Info left = process(head.left);
+		Info right = process(head.right);
 		int max = head.val;
 		int min = head.val;
-		Info left = p(head.left);
-		if (null != left) {
+		boolean isBST = true;
+
+		if (left != null) {
 			max = Math.max(left.max, max);
 			min = Math.min(left.min, min);
+			isBST = left.isBST && (head.val > left.max);
 		}
-		Info right = p(head.right);
 		if (right != null) {
 			max = Math.max(right.max, max);
 			min = Math.min(right.min, min);
+			isBST = isBST && right.isBST && (head.val < right.min);
 		}
-		boolean isBST = (left != null && left.max < head.val && right != null && right.min > head.val && right.isBST
-				&& left.isBST) || (left == null && right != null && right.min > head.val && right.isBST)
-				|| (left != null && left.max < head.val && right == null && left.isBST)
-				|| (left == null && right == null);
-		return new Info(max, min, isBST);
+		return new Info(isBST, max, min);
+	}
+
+	public class Info {
+		public boolean isBST;
+		public int max;
+		public int min;
+
+		public Info(boolean isBST, int max, int min) {
+			this.isBST = isBST;
+			this.max = max;
+			this.min = min;
+		}
+	}
+
+	// 中序遍历递增
+	public boolean isValidBST3(TreeNode head) {
+		if (head == null) {
+			return true;
+		}
+		List<Integer> result = new ArrayList<>();
+		in(head, result);
+		int start = result.get(0);
+		for (int i = 1; i < result.size(); i++) {
+			if (result.get(i) <= start) {
+				return false;
+			}
+			start = result.get(i);
+		}
+		return true;
+	}
+
+	public void in(TreeNode root, List<Integer> list) {
+		if (root == null) {
+			return;
+		}
+		in(root.left, list);
+		list.add(root.val);
+		in(root.right, list);
 	}
 
 	// morris遍历
