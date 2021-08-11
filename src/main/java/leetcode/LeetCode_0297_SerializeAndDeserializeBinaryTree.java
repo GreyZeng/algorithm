@@ -69,15 +69,15 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
 
         String[] valid = data.split(",");
         int size = 0;
-        TreeNode root = new TreeNode(Integer.valueOf(valid[size++]));
+        TreeNode root = new TreeNode(Integer.parseInt(valid[size++]));
         queue.offer(root);
         int N = valid.length;
         while (!queue.isEmpty() && size < N) {
             TreeNode c = queue.poll();
-            c.left = "null".equals(valid[size]) ? null : new TreeNode(Integer.valueOf(valid[size]));
+            c.left = "null".equals(valid[size]) ? null : new TreeNode(Integer.parseInt(valid[size]));
             size++;
             if (size < N) {
-                c.right = "null".equals(valid[size]) ? null : new TreeNode(Integer.valueOf(valid[size]));
+                c.right = "null".equals(valid[size]) ? null : new TreeNode(Integer.parseInt(valid[size]));
                 size++;
             }
             if (c.left != null) {
