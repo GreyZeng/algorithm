@@ -26,67 +26,74 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
         }
     }
 
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.right = new TreeNode(4);
+        //   System.out.print(serialize(root));
+        System.out.print(serialize(deserialize(serialize(root))));
+    }
+
     // 按层序列化
     public static String serialize(TreeNode root) {
-        if (null == root) {
+        if (root == null) {
             return "[]";
         }
         Queue<TreeNode> queue = new LinkedList<>();
-        Queue<Integer> list = new LinkedList<>();
-        queue.offer(root);
-        StringBuilder sb = new StringBuilder();
+        TreeNode cur = root;
+        queue.offer(cur);
+        StringBuilder sb = new StringBuilder("[");
+        int size;
         while (!queue.isEmpty()) {
-            TreeNode c = queue.poll();
-            if (c != null) {
-                list.offer(c.val);
-                queue.offer(c.left);
-                queue.offer(c.right);
-            } else {
-                list.offer(null);
+            size = queue.size();
+            for (; size > 0; size--) {
+                TreeNode s = queue.poll();
+                sb.append(s == null ? "#" : s.val).append(",");
+                if (s != null) {
+                    if (s.left != null) {
+                        queue.offer(s.left);
+                    } else {
+                        queue.offer(null);
+                    }
+                    if (s.right != null) {
+                        queue.offer(s.right);
+                    } else {
+                        queue.offer(null);
+                    }
+                }
             }
         }
-        int size = list.size();
-        sb.append("[");
-        while (!list.isEmpty()) {
-            sb.append(list.poll());
-            size--;
-            if (size != 0) {
-                sb.append(",");
-            } else {
-                sb.append("]");
-            }
-        }
+        sb.append("]");
         return sb.toString();
     }
 
     // 按层反序列化
     public static TreeNode deserialize(String data) {
-        if (data == null || data.length() < 1 || "[]".equals(data)) {
+        if ("[]".equals(data)) {
             return null;
         }
-        data = data.substring(1, data.length() - 1);
+        String strs = data.substring(1, data.length() - 1);
+        String[] split = strs.split(",");
+        TreeNode root = new TreeNode(Integer.parseInt(split[0]));
         Queue<TreeNode> queue = new LinkedList<>();
-
-        String[] valid = data.split(",");
-        int size = 0;
-        TreeNode root = new TreeNode(Integer.parseInt(valid[size++]));
         queue.offer(root);
-        int N = valid.length;
+        int size = 1;
+        int N = split.length;
         while (!queue.isEmpty() && size < N) {
-            TreeNode c = queue.poll();
-            c.left = "null".equals(valid[size]) ? null : new TreeNode(Integer.parseInt(valid[size]));
+            TreeNode cur = queue.poll();
+            cur.left = "#".equals(split[size]) ? null : new TreeNode(Integer.parseInt(split[size]));
             size++;
             if (size < N) {
-                c.right = "null".equals(valid[size]) ? null : new TreeNode(Integer.parseInt(valid[size]));
+                cur.right = "#".equals(split[size]) ? null : new TreeNode(Integer.parseInt(split[size]));
                 size++;
             }
-            if (c.left != null) {
-                queue.offer(c.left);
+            if (cur.left != null) {
+                queue.offer(cur.left);
             }
-            if (c.right != null) {
-                queue.offer(c.right);
+            if (cur.right != null) {
+                queue.offer(cur.right);
             }
-
         }
         return root;
     }
@@ -150,14 +157,6 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
         }
     }
 
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-        root.left.right = new TreeNode(4);
-        System.out.print(serialize(root));
-        // System.out.print(serialize(deserialize(serialize(root))));
-    }
 
     // 先序序列化
     public static String serialize2(TreeNode root) {
