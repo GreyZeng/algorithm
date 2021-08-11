@@ -41,8 +41,7 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
             return "[]";
         }
         Queue<TreeNode> queue = new LinkedList<>();
-        TreeNode cur = root;
-        queue.offer(cur);
+        queue.offer(root);
         StringBuilder sb = new StringBuilder("[");
         int size;
         while (!queue.isEmpty()) {
@@ -51,16 +50,8 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
                 TreeNode s = queue.poll();
                 sb.append(s == null ? "#" : s.val).append(",");
                 if (s != null) {
-                    if (s.left != null) {
-                        queue.offer(s.left);
-                    } else {
-                        queue.offer(null);
-                    }
-                    if (s.right != null) {
-                        queue.offer(s.right);
-                    } else {
-                        queue.offer(null);
-                    }
+                    queue.offer(s.left);
+                    queue.offer(s.right);
                 }
             }
         }
