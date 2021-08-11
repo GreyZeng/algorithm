@@ -1,51 +1,38 @@
 package leetcode;
 
+
+// 平衡二叉树要么是一棵空树. 要么保证左右子树的高度之差不大于 1. 子树也必须是一颗平衡二叉树
 public class LeetCode_0110_BalancedBinaryTree {
 
-	public class TreeNode {
-		int val;
-		TreeNode left;
-		TreeNode right;
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+    }
 
-		TreeNode() {
-		}
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return process(root).isB;
+    }
 
-		TreeNode(int val) {
-			this.val = val;
-		}
+    private Info process(TreeNode root) {
+        if (root == null) {
+            return new Info(0, true);
+        }
+        Info left = process(root.left);
+        Info right = process(root.right);
+        return new Info(Math.max(left.height, right.height) + 1, left.isB && right.isB && (Math.abs(left.height - right.height) <= 1));
+    }
 
-		TreeNode(int val, TreeNode left, TreeNode right) {
-			this.val = val;
-			this.left = left;
-			this.right = right;
-		}
-	}
+    public class Info {
+        public int height;
+        public boolean isB;
 
-	public static boolean isBalanced(TreeNode root) {
-		if (root == null) {
-			return true;
-		}
-		return p(root).isBalanced;
-	}
-
-	private static Info p(TreeNode root) {
-		if (root == null) {
-			return new Info(0, true);
-		}
-		Info left = p(root.left);
-		Info right = p(root.right);
-		return new Info(Math.max(left.height, right.height) + 1,
-				left.isBalanced && right.isBalanced && Math.abs(left.height - right.height) <= 1);
-	}
-
-	public static class Info {
-		public int height;
-		public boolean isBalanced;
-
-		public Info(int height, boolean isBalanced) {
-			this.height = height;
-			this.isBalanced = isBalanced;
-		}
-	}
-
+        public Info(int h, boolean isB) {
+            height = h;
+            this.isB = isB;
+        }
+    }
 }
