@@ -21,40 +21,40 @@ public class LeetCode_0958_CheckCompletenessOfABinaryTree {
 		}
 	}
 
-	public static class Info {
-		public boolean isFull;
-		public boolean isCBT;
-		public int height;
+	
 
-		public Info(int height, boolean isFull, boolean isCBT) {
-			this.height = height;
-			this.isCBT = isCBT;
-			this.isFull = isFull;
-		}
-	}
-
-	public static boolean isCompleteTree(TreeNode root) {
+	public boolean isCompleteTree(TreeNode root) {
 		if (null == root) {
 			return true;
 		}
-		return p(root).isCBT;
+		return process(root).isCBT;
 	}
 
-	public static Info p(TreeNode head) {
-		if (head == null) {
-			return new Info(0, true, true);
+	public Info process(TreeNode root) {
+		if (root == null) {
+			return new Info(true, true, 0);
 		}
-		Info left = p(head.left);
-		Info right = p(head.right);
-		boolean isFull = false;
-		boolean isCBT = false;
-		int height = 0;
-		isFull = left.isFull && right.isFull && left.height == right.height;
-		isCBT = (left.isFull && right.isCBT && left.height == right.height)
-				|| (left.isFull && right.isFull && left.height - right.height <= 1 && left.height - right.height >= 0)
-				|| (left.isCBT && right.isFull && left.height - right.height == 1);
-		height = Math.max(left.height, right.height) + 1;
-		return new Info(height,isFull, isCBT);
+		Info left = process(root.left);
+		Info right = process(root.right);
+		int height = Math.max(left.height, right.height) + 1;
+		boolean isCBT = (left.isFull && right.isFull
+				&& ((left.height - right.height) == 1 || left.height == right.height))
+				|| (left.isCBT && right.isFull && (left.height - right.height) == 1)
+				|| (left.isFull && right.isCBT && (left.height == right.height));
+		boolean isFull = left.isFull && right.isFull && (right.height == left.height);
+		return new Info(isCBT, isFull, height);
 	}
+	public class Info {
+		public boolean isCBT; // 是否完全二叉树
+		public boolean isFull; // 是否满二叉树
+		public int height; // 高度
+
+		public Info(boolean isCBT, boolean isFull, int height) {
+			this.isCBT = isCBT;
+			this.isFull = isFull;
+			this.height = height;
+		}
+	}
+
 
 }
