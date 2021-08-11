@@ -1,5 +1,6 @@
 package leetcode;
 
+// 和116题一样
 public class LeetCode_0117_PopulatingNextRightPointersInEachNodeII {
     public static class Node {
         public int val;
