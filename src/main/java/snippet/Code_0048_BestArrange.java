@@ -120,10 +120,10 @@ public class Code_0048_BestArrange {
         Arrays.sort(programs, new ProgramComparator());
         int timeLine = 0;
         int result = 0;
-        for (int i = 0; i < programs.length; i++) {
-            if (timeLine <= programs[i].start) {
+        for (Program program : programs) {
+            if (timeLine <= program.start) {
                 result++;
-                timeLine = programs[i].end;
+                timeLine = program.end;
             }
         }
         return result;
