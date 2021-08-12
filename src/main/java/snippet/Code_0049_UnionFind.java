@@ -7,16 +7,16 @@ import java.util.Queue;
 
 // 并查集
 // 1）节点往上找代表点的过程，把沿途的链变成扁平的
-
 // 2）小集合挂在大集合的下面
-
 // 3）如果方法调用很频繁，那么单次调用的代价为O(1)，两个方法都如此
-
 public class Code_0049_UnionFind {
     
     public static class UnionFind<V> {
+        // 快速找到某个节点是否存在
         private HashMap<V, Node<V>> nodeMap;
+        // 找到某个节点的父节点
         private HashMap<Node<V>, Node<V>> parentMap;
+        // 每个代表节点代表的节点个数
         private HashMap<Node<V>, Integer> sizeMap;
 
         public UnionFind(List<V> values) {
