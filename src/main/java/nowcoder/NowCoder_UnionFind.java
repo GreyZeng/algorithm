@@ -52,16 +52,16 @@ import java.util.*;
 // https://www.nowcoder.com/questionTerminal/e7ed657974934a30b2010046536a5372
 public class NowCoder_UnionFind {
 
-    static class UnionFind {
-        private int record[];// record[i] 表示i的所属的代表点是i
-
+	static class UnionFind {
+        private int record[]; //
+ 
         UnionFind(int n) {
             record = new int[n + 1];
             for (int i = 1; i < n + 1; i++) {
                 record[i] = i;
             }
         }
-
+ 
         public int find(int x) {
             int fx = x;
             while (fx != record[fx]) {
@@ -74,7 +74,7 @@ public class NowCoder_UnionFind {
             }
             return fx;
         }
-
+ 
         public void union(int x, int y) {
             int fx = find(x);
             int fy = find(y);
@@ -82,21 +82,25 @@ public class NowCoder_UnionFind {
                 record[fx] = fy;
             }
         }
-
+ 
         public boolean isSameSet(int x, int y) {
             return find(x) == find(y);
         }
     }
-
+ 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int size = in.nextInt();
-        int count = in.nextInt();
-        UnionFind unionFind = new UnionFind(size);
-        for (int i = 0; i < count; i++) {
-            int opt = in.nextInt();
-            int v1 = in.nextInt();
-            int v2 = in.nextInt();
+        String line = in.nextLine();
+        String[] data = line.split(" ");
+        int N = Integer.parseInt(data[0]);
+        int M = Integer.parseInt(data[1]);
+        UnionFind unionFind = new UnionFind(N);
+        for (int i = 0; i < M; i++) {
+        	line = in.nextLine();
+        	data = line.split(" ");
+            int opt = Integer.parseInt(data[0]);
+            int v1 =  Integer.parseInt(data[1]);
+            int v2 =  Integer.parseInt(data[2]);
             if (opt == 1) {
                 System.out.println(unionFind.isSameSet(v1, v2) ? "Yes" : "No");
             } else {
@@ -105,4 +109,5 @@ public class NowCoder_UnionFind {
         }
         in.close();
     }
+ 
 }
