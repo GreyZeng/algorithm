@@ -30,6 +30,7 @@ public class LeetCode_0130_SurroundedRegions {
         }
         int M = board.length;
         int N = board[0].length;
+        // 四周的O都可以被解救
         for (int i = 0; i < M; i++) {
             if (board[i][0] == 'O') {
                 free(board, i, 0);
