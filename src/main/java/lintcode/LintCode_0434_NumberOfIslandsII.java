@@ -9,7 +9,6 @@ import java.util.List;
 //
 //设定0表示海洋, 1代表岛屿, 并且上下左右相邻的1为同一个岛屿.
 // https://www.lintcode.com/problem/434/
-// TODO
 public class LintCode_0434_NumberOfIslandsII {
 	class Point {
 		int x;
@@ -26,7 +25,92 @@ public class LintCode_0434_NumberOfIslandsII {
 		}
 	}
 
-	public List<Integer> numIslands2(int n, int m, Point[] operators) {
-		return new ArrayList<>();
+	public static List<Integer> numIslands2(int n, int m, Point[] positions) {
+		if (null == positions || positions.length == 0) {
+			return new ArrayList<>();
+		}
+		UnionFind uf = new UnionFind(n, m);
+		List<Integer> ans = new ArrayList<>();
+		for (Point position : positions) {
+			ans.add(uf.connect(position.x, position.y));
+		}
+		return ans;
+	}
+
+	public static class UnionFind {
+		private int[] parent;
+		private int[] size;
+		private int[] help;
+		private final int row;
+		private final int col;
+		private int sets;
+
+		public UnionFind(int m, int n) {
+			row = m;
+			col = n;
+			sets = 0;
+			int len = row * col;
+			parent = new int[len];
+			size = new int[len];
+			help = new int[len];
+		}
+
+		private int index(int r, int c) {
+			return r * col + c;
+		}
+
+		private int find(int i) {
+			int hi = 0;
+			while (i != parent[i]) {
+				help[hi++] = i;
+				i = parent[i];
+			}
+			// 并查集的优化，扁平化
+			for (hi--; hi >= 0; hi--) {
+				parent[help[hi]] = i;
+			}
+			return i;
+		}
+
+		private void union(int r1, int c1, int r2, int c2) {
+			if (r1 < 0 || r1 == row || r2 < 0 || r2 == row || c1 < 0 || c1 == col || c2 < 0 || c2 == col) {
+				return;
+			}
+			int i1 = index(r1, c1);
+			int i2 = index(r2, c2);
+			if (size[i1] == 0 || size[i2] == 0) {
+				return;
+			}
+			int f1 = find(i1);
+			int f2 = find(i2);
+			if (f1 != f2) {
+				// 并查集的优化1，小挂大
+				if (size[f1] >= size[f2]) {
+					size[f1] += size[f2];
+					parent[f2] = f1;
+				} else {
+					size[f2] += size[f1];
+					parent[f1] = f2;
+				}
+				sets--;
+			}
+		}
+
+		public int connect(int r, int c) {
+			int index = index(r, c);
+			if (size[index] == 0) {
+				// 新加入节点
+				parent[index] = index;
+				size[index] = 1;
+				sets++;
+				// 把新加入节点和四面八方的节点union一下。
+				union(r - 1, c, r, c);
+				union(r + 1, c, r, c);
+				union(r, c - 1, r, c);
+				union(r, c + 1, r, c);
+			}
+			return sets;
+		}
+
 	}
 }
