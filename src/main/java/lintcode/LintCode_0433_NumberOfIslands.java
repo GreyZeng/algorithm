@@ -44,17 +44,17 @@ public class LintCode_0433_NumberOfIslands {
             }
         }
         for (int i = 1; i < row; i++) {
-            if (board[i - 1][0]  && board[i][0] ) {
+            if (board[i - 1][0] && board[i][0]) {
                 uf.union(i - 1, 0, i, 0);
             }
         }
         for (int i = 1; i < row; i++) {
             for (int j = 1; j < col; j++) {
-                if (board[i][j] ) {
-                    if (board[i][j - 1] ) {
+                if (board[i][j]) {
+                    if (board[i][j - 1]) {
                         uf.union(i, j - 1, i, j);
                     }
-                    if (board[i - 1][j] ) {
+                    if (board[i - 1][j]) {
                         uf.union(i - 1, j, i, j);
                     }
                 }
@@ -63,35 +63,30 @@ public class LintCode_0433_NumberOfIslands {
         return uf.getSets();
     }
 
-    public static int oneArrIndex(int M, int N, int i, int j) {
-        return i * N + j + 1;
-    }
+    // M行N列的二维数组映射成一维数组的位置
 
     public static class UnionFind {
-        private int col;
-        private int row;
         private int[] records;
         private int[] size;
         private int sets;
+        private int col;
 
         public UnionFind(int row, int col, boolean[][] board) {
-            this.row = row;
             this.col = col;
-            int n = row * col + 1;
-            // n的代表点就是records[n],因为二维数组的下标可以转换成一维数组下标（从1开始），所以可以将二维数组某个点的代表点用records[n]表示
-            // 其中n = oneArrIndex(i,j)
-            records = new int[n];
-            size = new int[n];
-
-            for (int r = 0; r < row; r++) {
-                for (int c = 0; c < col; c++) {
-                    if (board[r][c]) {
-                        int i = oneArrIndex(row, col, r, c);
-                        records[i] = i;
-                        size[i] = 1;
+            int volume = row * col;
+            records = new int[volume];
+            size = new int[volume];
+            
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    if (board[i][j]) {
+                        int a = map(i, j);
+                        records[a] = a;
+                        size[a] = 1;
                         sets++;
                     }
                 }
+
             }
         }
 
@@ -99,36 +94,38 @@ public class LintCode_0433_NumberOfIslands {
             return sets;
         }
 
+        public int map(int i, int j) {
+            return this.col * i + j;
+        }
+
         public void union(int x, int y, int x2, int y2) {
-            int fa = find(oneArrIndex(row, col, x, y));
-            int fb = find(oneArrIndex(row, col, x2, y2));
-            if (fa != fb) {
-                int sizeFb = size[fb];
-                int sizeFa = size[fa];
-                int all = sizeFa + sizeFb;
-                if (sizeFa > sizeFb) {
-                    records[fb] = fa;
-                    size[fa] = all;
-                    //size[fb] = all;
-                } else {
-                    records[fa] = fb;
-                    // size[fa] = all;
-                    size[fb] = all;
-                }
+            int a = find(map(x, y));
+            int b = find(map(x2, y2));
+            if (a == b) {
+                return;
+            }
+            int sizeA = size[a];
+            int sizeB = size[b];
+            if (sizeA > sizeB) {
+                records[a] = b;
+                size[a] = sizeA + sizeB;
+                sets--;
+            } else {
+                records[b] = a;
+                size[b] = sizeA + sizeB;
                 sets--;
             }
         }
 
         private int find(int a) {
-            int t = a;
-            while (t != records[t]) {
-                t = records[t];
+            int rA = a;
+            while (rA != records[rA]) {
+                rA = records[rA];
             }
-            int ans = t;
-            // 扁平化操作
-            while (a != t) {
+            int ans = rA;
+            while (a != rA) {
                 int m = records[a];
-                records[m] = t;
+                records[a] = rA;
                 a = m;
             }
             return ans;
