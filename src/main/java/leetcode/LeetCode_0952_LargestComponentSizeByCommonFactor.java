@@ -2,7 +2,20 @@
 
         There are A.length nodes, labelled A[0] to A[A.length - 1];
         There is an edge between A[i] and A[j] if and only if A[i] and A[j] share a common factor greater than 1.
-        Return the size of the largest connected component in the graph.*/
+        Return the size of the largest connected component in the graph.
+
+        给定一个由不同正整数的组成的非空数组 A，考虑下面的图：
+
+有 A.length 个节点，按从 A[0] 到 A[A.length - 1] 标记；
+只有当 A[i] 和 A[j] 共用一个大于 1 的公因数时，A[i] 和 A[j] 之间才有一条边。
+返回图中最大连通组件的大小。
+
+ 
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/largest-component-size-by-common-factor
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+        */
 package leetcode;
 
 import java.util.*;
