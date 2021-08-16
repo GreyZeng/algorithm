@@ -18,64 +18,74 @@ package lintcode;
 // https://www.lintcode.com/problem/graph-valid-tree/description
 public class LintCode_0178_GraphValidTree {
 
-	// 如何判断环？ 如果一个node节点中两个点的代表点一样，说明出现了环，直接返回false
-	class UnionFind {
-		int[] parent, rank;
-		int group;
+    // 如何判断环？ 如果一个node节点中两个点的代表点一样，说明出现了环，直接返回false
+    class UnionFind {
+        private int[] records;
+        private int[] size;
+        private int group;
 
-		public UnionFind(int n) {
-			parent = new int[n];
-			rank = new int[n];
-			for (int i = 0; i < n; i++) {
-				parent[i] = i;
-				rank[i] = 1;
-			}
+        public UnionFind(int n) {
+            records = new int[n];
+            size = new int[n];
+            for (int i = 0; i < n; i++) {
+                records[i] = i;
+                size[i] = 1;
+            }
+            group = n;
+        }
 
-			group = n;
-		}
+        public int find(int i) {
+            int fx = i;
+            while (fx != records[fx]) {
+                fx = records[fx];
+            }
+            // fx就是其代表点
+            // 扁平化操作
+            while (i != fx) {
+                int m = records[i];
+                records[i] = fx;
+                i = m;
+            }
+            return fx;
+        }
 
-		public int find(int p) {
-			if (p != parent[p]) {
-				parent[p] = find(parent[p]);
-			}
+        public void union(int i, int j) {
+            int findI = find(i);
+            int findJ = find(j);
+            if (findI != findJ) {
+                int sizeI = size[i];
+                int sizeJ = size[j];
+                if (sizeI < sizeJ) {
+                    records[records[i]] = records[j];
+                    size[j] = sizeI + sizeJ;
+                } else {
+                    records[records[j]] = records[i];
+                    size[i] = sizeI + sizeJ;
+                }
+                group--;
+            }
+        }
 
-			return parent[p];
-		}
+        public int getGroup() {
+            return group;
+        }
+    }
 
-		public void union(int p, int q) {
-			int pRoot = find(p), qRoot = find(q);
-			if (pRoot == qRoot) {
-				return;
-			}
+    public boolean validTree(int n, int[][] edges) {
+        // write your code here
+        if (n == 0) {
+            return true;
+        }
 
-			if (rank[pRoot] < rank[qRoot]) {
-				parent[pRoot] = qRoot;
-			} else if (rank[pRoot] > rank[qRoot]) {
-				parent[qRoot] = pRoot;
-			} else {
-				parent[pRoot] = qRoot;
-				rank[qRoot]++;
-			}
+        if (n - 1 != edges.length) {
+            return false;
+        }
 
-			group--;
-		}
-	}
+        UnionFind uf = new UnionFind(n);
+        for (int[] edge : edges) {
+            uf.union(edge[0], edge[1]);
+        }
 
-	public boolean validTree(int n, int[][] edges) {
-		// write your code here
-		if (n == 0) {
-			return true;
-		}
-
-		if (n - 1 != edges.length) {
-			return false;
-		}
-
-		UnionFind uf = new UnionFind(n);
-		for (int[] edge : edges) {
-			uf.union(edge[0], edge[1]);
-		}
-
-		return uf.group == 1;
-	}
+        return uf.getGroup() == 1;
+    }
 }
