@@ -18,16 +18,53 @@ public class LintCode_0127_TopologicalSorting {
         }
     }
 
-    // 使用BFS实现，已通过验证
-    public ArrayList<DirectedGraphNode> topSort(ArrayList<DirectedGraphNode> graph) {
+    // DFS方式
+    // 出度从大到小
+    public static ArrayList<DirectedGraphNode> topSort(ArrayList<DirectedGraphNode> graph) {
+
+        HashMap<DirectedGraphNode, Record> order = new HashMap<>();
+        for (DirectedGraphNode cur : graph) {
+            f(cur, order);
+        }
+        ArrayList<Record> recordArr = new ArrayList<>();
+        for (Record r : order.values()) {
+            recordArr.add(r);
+        }
+        recordArr.sort(new MyComparator());
+        ArrayList<DirectedGraphNode> ans = new ArrayList<>();
+        for (Record r : recordArr) {
+            ans.add(r.node);
+        }
+        return ans;
+    }
+
+    public static Record f(DirectedGraphNode cur, HashMap<DirectedGraphNode, Record> order) {
+        if (order.containsKey(cur)) {
+            return order.get(cur);
+        }
+        long out = 1;
+        for (DirectedGraphNode next : cur.neighbors) {
+            out += f(next, order).out;
+        }
+        Record ans = new Record(cur, out);
+        order.put(cur, ans);
+        return ans;
+    }
+
+    // 使用BFS实现，
+    // 入度为0
+    // 已通过验证
+    public ArrayList<DirectedGraphNode> topSort2(ArrayList<DirectedGraphNode> graph) {
         HashMap<DirectedGraphNode, Integer> map = buildIndex(graph);
         Queue<DirectedGraphNode> starts = new LinkedList<>();
 
+        // 有可能有多个点是入度为0（森林）
         for (Map.Entry<DirectedGraphNode, Integer> entry : map.entrySet()) {
             if (entry.getValue() == 0) {
                 starts.add(entry.getKey());
             }
         }
+        // 宽度优选遍历
         ArrayList<DirectedGraphNode> ans = new ArrayList<>();
         while (!starts.isEmpty()) {
             DirectedGraphNode node = starts.poll();
@@ -86,35 +123,4 @@ public class LintCode_0127_TopologicalSorting {
         }
     }
 
-    // DFS方式
-    public static ArrayList<DirectedGraphNode> topSort2(ArrayList<DirectedGraphNode> graph) {
-
-        HashMap<DirectedGraphNode, Record> order = new HashMap<>();
-        for (DirectedGraphNode cur : graph) {
-            f(cur, order);
-        }
-        ArrayList<Record> recordArr = new ArrayList<>();
-        for (Record r : order.values()) {
-            recordArr.add(r);
-        }
-        recordArr.sort(new MyComparator());
-        ArrayList<DirectedGraphNode> ans = new ArrayList<>();
-        for (Record r : recordArr) {
-            ans.add(r.node);
-        }
-        return ans;
-    }
-
-    public static Record f(DirectedGraphNode cur, HashMap<DirectedGraphNode, Record> order) {
-        if (order.containsKey(cur)) {
-            return order.get(cur);
-        }
-        long out = 1;
-        for (DirectedGraphNode next : cur.neighbors) {
-            out += f(next, order).out;
-        }
-        Record ans = new Record(cur, out);
-        order.put(cur, ans);
-        return ans;
-    }
 }
