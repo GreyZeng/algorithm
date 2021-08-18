@@ -26,9 +26,9 @@ public class NowCoder_ReverseStack {
 	}
 
 	public int getBottom(int[] stack, int top) {
-		if (top == 1)
+		if (top == 1) {
 			return stack[top - 1];
-		else {
+		} else {
 			int tmp = stack[top - 1];
 			top--;
 			int bottom = getBottom(stack, top);
