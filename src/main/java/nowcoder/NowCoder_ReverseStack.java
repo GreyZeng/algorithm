@@ -35,17 +35,15 @@ public class NowCoder_ReverseStack {
         }
     }
     public static int[] reverseStackRecursively1(int[] stack, int top) {
-        if (top < 1) {
-            return stack;
-        } else {
+        if (top >= 1) {
             // 获取栈底元素
             int bottom = getBottom(stack, top--);
             // 逆序
             stack = reverseStackRecursively1(stack, top);
             // 栈低放栈顶
             stack[top++] = bottom;
-            return stack;
         }
+        return stack;
     }
 
     public static int getBottom(int[] stack, int top) {
