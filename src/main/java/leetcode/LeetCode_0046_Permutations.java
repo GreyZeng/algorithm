@@ -38,8 +38,8 @@ public class LeetCode_0046_Permutations {
     public static void p(int[] nums, int index, List<List<Integer>> ans) {
         if (index == nums.length - 1) {
             List<Integer> path = new ArrayList<>();
-            for (int i = 0; i < nums.length; i++) {
-                path.add(nums[i]);
+            for (int num : nums) {
+                path.add(num);
             }
             ans.add(path);
         } else {

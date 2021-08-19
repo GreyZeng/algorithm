@@ -66,7 +66,10 @@ public class LeetCode_0047_PermutationsII {
     }
 
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3};
-        permuteUnique(nums);
+        int[] nums = {1, 2, 3,1};
+        List<List<Integer>> ans = permuteUnique(nums);
+        for (List<Integer> a : ans) {
+            System.out.println(a);
+        }
     }
 }
