@@ -108,12 +108,11 @@ public class LintCode_0092_Backpack {
             if (rest == 0) {
                 dp[i][0] = m;
                 ans = dp[i][0];
-                return ans;
             } else {
                 dp[i][rest] = m - rest;
                 ans = dp[i][rest];
-                return ans;
             }
+            return ans;
         }
 
         if (rest == 0) {
@@ -161,13 +160,7 @@ public class LintCode_0092_Backpack {
         }
         int n = notOver.size();
         int[][] dp = new int[n + 1][m + 1];
-        for (int i = 0; i < n + 1; i++) {
-            for (int j = 0; j < m + 1; j++) {
-                dp[i][j] = -1;
-            }
-        }
-        // dp[n][0] = m;
-        for (int j = 1; j < m + 1; j++) {
+        for (int j = 0; j < m + 1; j++) {
             dp[n][j] = m - j;
         }
         for (int i = 0; i < n + 1; i++) {
@@ -183,5 +176,69 @@ public class LintCode_0092_Backpack {
             }
         }
         return dp[0][m];
+    }
+
+    // 动态规划+压缩数组优化
+    // FIXME
+    public static int backPack4(int m, int[] A) {
+        if (null == A || A.length == 0 || m == 0) {
+            return 0;
+        }
+        List<Integer> notOver = new ArrayList<>();
+        int sum = 0;
+        boolean over = true;
+        for (int a : A) {
+            if (a == m) {
+                // 如果有一个物品正好等于背包容量，直接返回
+                return m;
+            } else if (a < m) {
+                over = false;
+                notOver.add(a);
+                sum += a;
+            }
+        }
+        if (over) {
+            // 物品重量都大于背包重量，直接返回0
+            return 0;
+        }
+        if (sum <= m) {
+            // 能拿的货物之和的重量都没有超过m
+            // 直接返回货品重量之和
+            return sum;
+        }
+        int n = notOver.size();
+        int[] dp = new int[m + 1];
+        for (int i = 0; i < m + 1; i++) {
+            dp[i] = m - i;
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = 1; j < m + 1; j++) {
+                int pre = dp[j];
+                int t = j - notOver.get(i);
+                if (t >= 0) {
+                    dp[j] = Math.max(pre, dp[t]);
+                }
+            }
+        }
+        return dp[m];
+
+        // write your code here
+//        int[] dp = new int[m + 1];
+//
+//        for (int i = 0; i < A.length; i++) {
+//            for (int j = m; j >= 0; j--) {
+//                if (j >= A[i]) {
+//                    dp[j] = Math.max(dp[j], dp[j - A[i]] + A[i]);
+//                }
+//            }
+//        }
+//        return dp[m];
+    }
+
+    public static void main(String[] args) {
+        int m = 10;
+        int[] A = {3, 4, 8, 5};
+        int t = backPack4(m, A);
+        System.out.println(t);
     }
 }

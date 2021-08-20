@@ -34,21 +34,21 @@ import java.util.Scanner;
 
 public class NowCoder_Knapsack {
 
-	public static int getMaxValue(int[] w, int[] v, int bag) {
-		if (w == null || v == null || w.length == 0 || v.length == 0) {
+	public static int getMaxValue(int[] A, int[] V, int m) {
+		if (A == null || V == null || A.length == 0 || V.length == 0) {
 			return 0;
 		}
-		int N = w.length;
-		int[][] dp = new int[N + 1][bag + 1];
+		int N = A.length;
+		int[][] dp = new int[N + 1][m + 1];
 		for (int i = N - 1; i >= 0; i--) {
-			for (int j = 0; j <= bag; j++) {
+			for (int j = 0; j <= m; j++) {
 				dp[i][j] = dp[i + 1][j];
-				if (j - w[i] >= 0) {
-					dp[i][j] = Math.max(dp[i][j], dp[i + 1][j - w[i]] + v[i]);
+				if (j - A[i] >= 0) {
+					dp[i][j] = Math.max(dp[i][j], dp[i + 1][j - A[i]] + V[i]);
 				}
 			}
 		}
-		return dp[0][bag];
+		return dp[0][m];
 	}
 
 	public static int getMaxValue2(int[] w, int[] v, int bag) {
