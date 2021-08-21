@@ -179,60 +179,21 @@ public class LintCode_0092_Backpack {
     }
 
     // 动态规划+压缩数组优化
-    // FIXME
+    // TODO
     public static int backPack4(int m, int[] A) {
         if (null == A || A.length == 0 || m == 0) {
             return 0;
         }
-        List<Integer> notOver = new ArrayList<>();
-        int sum = 0;
-        boolean over = true;
-        for (int a : A) {
-            if (a == m) {
-                // 如果有一个物品正好等于背包容量，直接返回
-                return m;
-            } else if (a < m) {
-                over = false;
-                notOver.add(a);
-                sum += a;
-            }
-        }
-        if (over) {
-            // 物品重量都大于背包重量，直接返回0
-            return 0;
-        }
-        if (sum <= m) {
-            // 能拿的货物之和的重量都没有超过m
-            // 直接返回货品重量之和
-            return sum;
-        }
-        int n = notOver.size();
+        // 离m最近的比m小的值
         int[] dp = new int[m + 1];
-        for (int i = 0; i < m + 1; i++) {
-            dp[i] = m - i;
-        }
-        for (int i = n - 1; i >= 0; i--) {
-            for (int j = 1; j < m + 1; j++) {
-                int pre = dp[j];
-                int t = j - notOver.get(i);
-                if (t >= 0) {
-                    dp[j] = Math.max(pre, dp[t]);
+        for (int k : A) {
+            for (int j = m; j >= 0; j--) {
+                if (j >= k) {
+                    dp[j] = Math.max(dp[j], dp[j - k] + k);
                 }
             }
         }
         return dp[m];
-
-        // write your code here
-//        int[] dp = new int[m + 1];
-//
-//        for (int i = 0; i < A.length; i++) {
-//            for (int j = m; j >= 0; j--) {
-//                if (j >= A[i]) {
-//                    dp[j] = Math.max(dp[j], dp[j - A[i]] + A[i]);
-//                }
-//            }
-//        }
-//        return dp[m];
     }
 
     public static void main(String[] args) {

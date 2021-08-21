@@ -49,5 +49,124 @@ package lintcode;
  * @since
  */
 public class LintCode_0125_BackpackII {
-    // TODO
+    // 暴力递归版本
+    public int backPackII(int m, int[] A, int[] V) {
+        if (A == null || V == null || A.length == 0 || V.length == 0 || m == 0) {
+            return 0;
+        }
+        int len = A.length;
+        return p(A, V, len, 0, m);
+    }
+
+    // 0...i-1已经搞定，还剩下rest空间
+    // 返回还能获取的最大价值
+    public int p(int[] A, int[] V, int len, int i, int rest) {
+        if (rest < 0) {
+            return -1;
+        }
+        if (i == len) {
+            // i到结尾位置了，没办法产生任何价值了
+            return 0;
+        }
+        // 选择i位置
+        int yes = p(A, V, len, i + 1, rest - A[i]);
+        // 不选择i位置
+        int no = p(A, V, len, i + 1, rest);
+        if (yes != -1) {
+            return Math.max(no, yes + V[i]);
+        }
+        return no;
+    }
+
+    public int backPackII2(int bag, int[] w, int[] v) {
+        if (w == null || v == null || w.length == 0 || v.length == 0 || bag == 0) {
+            return 0;
+        }
+        int N = w.length;
+        int[][] dp = new int[N + 1][bag + 1];
+        for (int i = 0; i < N + 1; i++) {
+            for (int j = 0; j < bag + 1; j++) {
+                dp[i][j] = -1;
+            }
+        }
+        dp2(w, v, N, 0, bag, dp);
+        return dp[0][bag];
+    }
+
+    public int dp2(int[] w, int[] v, int len, int i, int rest, int[][] dp) {
+        if (dp[i][rest] != -1) {
+            return dp[i][rest];
+        }
+        // rest空间不能为负数
+
+        if (i == len) {
+            dp[i][rest] = 0;
+            return dp[i][rest];
+        }
+        int p1 = dp2(w, v, len, i + 1, rest, dp);
+        if (rest - w[i] >= 0) {
+            int p2 = dp2(w, v, len, i + 1, rest - w[i], dp);
+            if (p2 != -1) { // p2 不为-1才能算做正常解
+                p2 += v[i];
+            }
+            dp[i][rest] = Math.max(p1, p2);
+            return dp[i][rest];
+        }
+        dp[i][rest] = p1;
+        return dp[i][rest];
+    }
+
+    // 动态规划
+    public int backPackII3(int bag, int[] w, int[] v) {
+        if (w == null || v == null || w.length == 0 || v.length == 0 || bag == 0) {
+            return 0;
+        }
+        int N = w.length;
+        int[][] dp = new int[N + 1][bag + 1];
+        for (int i = 0; i < N + 1; i++) {
+            for (int j = 0; j < bag + 1; j++) {
+                dp[i][j] = -1;
+            }
+        }
+        for (int j = 0; j < bag + 1; j++) {
+            dp[N][j] = 0;
+        }
+        // 选择i位置
+        for (int i = N; i >= 0; i--) {
+            for (int j = 0; j < bag + 1; j++) {
+                dp[i][j] = dp[i + 1][j];
+                if (j - w[i] >= 0 && dp[i + 1][j - w[i]] != -1) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i + 1][j - w[i]] + v[i]);
+                }
+            }
+        }
+        return dp[0][bag];
+    }
+
+    // 动态规划+压缩数组
+    public int backPackII4(int m, int[] w, int[] v) {
+        if (w == null || v == null || w.length == 0 || v.length == 0 || m == 0) {
+            return 0;
+        }
+        int N = w.length;
+        int[] dp = new int[m + 1];
+
+        // 选择i位置
+        for (int i = 0; i < N; i++) {
+            for (int j = m; j >= 0; j--) {
+                if (j - w[i] >= 0) {
+                    dp[j] = Math.max(dp[j], dp[j - w[i]] + v[i]);
+                }
+            }
+        }
+        return dp[m];
+    }
+
+    public static void main(String[] args) {
+        int[] w = {2, 3, 5, 7};
+        int[] v = {1, 5, 2, 4};
+        int i = new LintCode_0125_BackpackII().backPackII4(10, w, v);
+        System.out.println(i);
+    }
+
 }
