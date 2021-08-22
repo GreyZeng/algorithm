@@ -97,7 +97,7 @@ public class LeetCode_0691_StickersToSpellWord {
         return sb.toString();
     }
 
-    // 优化1: 二维数组可以代替词频数组
+    // 优化1: 二维数组可以代替词频数组，也可以自然排序
     // 优化2：只选择含有第一个字符的贴纸去尝试
     // 也会超时
     public int minStickers2(String[] stickers, String target) {
