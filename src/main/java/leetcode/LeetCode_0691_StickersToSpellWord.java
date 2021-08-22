@@ -1,5 +1,8 @@
 package leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // 我们给出了 N 种不同类型的贴纸。每个贴纸上都有一个小写的英文单词。
 
 // 你希望从自己的贴纸集合中裁剪单个字母并重新排列它们，从而拼写出给定的目标字符串 target。
@@ -57,7 +60,7 @@ public class LeetCode_0691_StickersToSpellWord {
         int res = p(stickers, target);
         return res == Integer.MAX_VALUE ? -1 : res;
     }
-    
+
     public int p(String[] stickers, String target) {
         if (target.length() == 0) {
             return 0;
@@ -88,13 +91,115 @@ public class LeetCode_0691_StickersToSpellWord {
         for (int i = 0; i < 26; i++) {
             int times = dict[i];
             for (int k = 0; k < times; k++) {
-                sb.append((char)(i + 'a'));
+                sb.append((char) (i + 'a'));
             }
         }
         return sb.toString();
     }
+
     // 优化1: 二维数组可以代替词频数组
     // 优化2：只选择含有第一个字符的贴纸去尝试
+    // 也会超时
+    public int minStickers2(String[] stickers, String target) {
+        if (target == null || target.length() < 1) {
+            return 0;
+        }
+        int res = p2(build2D(stickers), target);
+        return res == Integer.MAX_VALUE ? -1 : res;
+    }
 
-    
+    public int p2(int[][] stickers, String target) {
+        if (target.length() == 0) {
+            return 0;
+        }
+        char[] t = target.toCharArray();
+        int ways = Integer.MAX_VALUE;
+        // 每一张贴纸作为第一张贴纸，搞定后续的方法数
+        for (int[] first : stickers) {
+            // 搞定第一个字符的的贴纸才考虑后续过程
+            if (first[t[0] - 'a'] > 0) {
+                String rest = minus(first, t);
+                // rest长度==target长度，说明没有搞定任何情况
+                if (rest.length() != target.length()) {
+                    ways = Math.min(p2(stickers, rest), ways);
+                }
+            }
+        }
+        return ways == Integer.MAX_VALUE ? Integer.MAX_VALUE : ways + 1;
+    }
+
+    // 增加缓存
+    // 可以AC
+    public int minStickers3(String[] stickers, String target) {
+        if (target == null || target.length() < 1) {
+            return 0;
+        }
+        Map<String, Integer> map = new HashMap<>();
+        map.put("", 0);
+        int res = p3(build2D(stickers), target, map);
+        return res == Integer.MAX_VALUE ? -1 : res;
+    }
+
+    public int p3(int[][] stickers, String target, Map<String, Integer> map) {
+        if (map.containsKey(target)) {
+            return map.get(target);
+        }
+        if (target.length() == 0) {
+            map.put(target, 0);
+            return 0;
+        }
+        char[] t = target.toCharArray();
+        int ways = Integer.MAX_VALUE;
+        // 每一张贴纸作为第一张贴纸，搞定后续的方法数
+        for (int[] first : stickers) {
+            // 搞定第一个字符的的贴纸才考虑后续过程
+            if (first[t[0] - 'a'] > 0) {
+                String rest = minus(first, t);
+                // rest长度==target长度，说明没有搞定任何情况
+                if (rest.length() != target.length()) {
+                    ways = Math.min(p3(stickers, rest, map), ways);
+                }
+            }
+        }
+        ways = ways == Integer.MAX_VALUE ? Integer.MAX_VALUE : ways + 1;
+        map.put(target, ways);
+        return ways;
+    }
+    // 将字符串数组转换成二维数组
+
+    public int[][] build2D(String[] stickers) {
+        int n = stickers.length;
+        int[][] s = new int[n][26];
+        for (int i = 0; i < n; i++) {
+            char[] line = stickers[i].toCharArray();
+            for (int j = 0; j < line.length; j++) {
+                s[i][line[j] - 'a']++;
+            }
+        }
+        return s;
+    }
+
+    private String minus(int[] first, char[] t) {
+        int[] count = new int[first.length];
+        for (int i = 0; i < first.length; i++) {
+            count[i] = first[i];
+        }
+        StringBuilder sb = new StringBuilder();
+        for (char c : t) {
+            if (count[c - 'a'] > 0) {
+                count[c - 'a']--;
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        String target = "thehat";
+        String[] stickers = { "with", "example", "science" };
+        int rest = new LeetCode_0691_StickersToSpellWord().minStickers2(stickers, target);
+        System.out.println(rest);
+    }
+
 }
