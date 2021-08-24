@@ -40,12 +40,6 @@ package lintcode;
  * @since
  */
 public class LintCode_0077_LongestCommonSubsequence {
-    public static void main(String[] args) {
-        String A = "bedaacbade";
-        String B = "dccaeedbeb";
-        int i = new LintCode_0077_LongestCommonSubsequence().longestCommonSubsequence(A, B);
-        System.out.println(i);
-    }
 
     // 暴力方法
     public int longestCommonSubsequence(String A, String B) {
@@ -92,15 +86,15 @@ public class LintCode_0077_LongestCommonSubsequence {
         int n = str2.length;
         int[][] dp = new int[m][n];
         dp[0][0] = str1[0] == str2[0] ? 1 : 0;
-        for (int i = 1 ; i < n; i++) {
-            dp[0][i] = str1[0] == str2[i]?1:dp[0][i - 1];
+        for (int i = 1; i < n; i++) {
+            dp[0][i] = str1[0] == str2[i] ? 1 : dp[0][i - 1];
         }
-        for (int i = 1 ; i < m; i++) {
-            dp[i][0] = str1[i] == str2[0]?1:dp[i - 1][0];
+        for (int i = 1; i < m; i++) {
+            dp[i][0] = str1[i] == str2[0] ? 1 : dp[i - 1][0];
         }
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
-                dp[i][j] = Math.max(dp[i - 1][j],dp[i][j - 1]);
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 if (str1[i] == str2[j]) {
                     dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - 1] + 1);
                 } else {
