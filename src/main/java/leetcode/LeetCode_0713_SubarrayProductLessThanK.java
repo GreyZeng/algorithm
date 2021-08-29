@@ -20,10 +20,10 @@ public class LeetCode_0713_SubarrayProductLessThanK {
 		if (k <= 1) {
 			return 0;
 		}
-		int L = 0;
+        int L = 0;
 		int R = 0;
 		int count = 0;
-		int base = 1;
+		int base = 1; 
 		while (R < nums.length) {
 			base *= nums[R];
 			while (base >= k) {

@@ -36,53 +36,57 @@
 package nowcoder;
 
 import java.util.LinkedList;
-import java.util.Scanner; 
+import java.util.Scanner;
 
+// arr[L..R]达标，则arr中内部的任何一个子数组都达标
+// arr[L..R]不达标，则arr扩充后肯定也不达标
+// L...R 范围如果达标，其子数组个数为：
 public class NowCoder_AllLessNumSubArray {
-
 	public static int getNum(int[] arr, int num) {
-		LinkedList<Integer> pMax = new LinkedList<>();
-		LinkedList<Integer> pMin = new LinkedList<>();
-		int L = 0;
-		int R = 0;
+		LinkedList<Integer> qMax = new LinkedList<Integer>();
+		LinkedList<Integer> qMin = new LinkedList<Integer>();
+		int l = 0;
+		int r = 0;
 		int count = 0;
-		while (L < arr.length) {
-			while (R < arr.length) {
-				while (!pMax.isEmpty() && arr[pMax.peekLast()] <= arr[R]) {
-					pMax.pollLast();
+		int len = arr.length;
+		while (l < len) {
+			while (r < len) {
+				while (!qMax.isEmpty() && arr[qMax.peekLast()] <= arr[r]) {
+					qMax.pollLast();
 				}
-				pMax.addLast(R);
-				while (!pMin.isEmpty() && arr[pMin.peekLast()] >= arr[R]) {
-					pMin.pollLast();
+				qMax.addLast(r);
+				while (!qMin.isEmpty() && arr[qMin.peekLast()] >= arr[r]) {
+					qMin.pollLast();
 				}
-				pMin.addLast(R);
-				if (arr[pMax.peekFirst()] - arr[pMin.peekFirst()] > num) {
+				qMin.addLast(r);
+				if (arr[qMax.peekFirst()] - arr[qMin.peekFirst()] > num) {
 					break;
 				}
-				R++;
+				r++;
 			}
-			count += (R - L);
-
-			if (pMax.peekFirst() == L) {
-				pMax.pollFirst();
+			// l是满足条件的位置，r是不满足条件的第一个位置
+			// 必须以l开头的满足条件的子数组个数为： r - 1 - (l - 1) = r - l
+			count += (r - l);
+			if (qMax.peekFirst() == l) {
+				qMax.pollFirst();
 			}
-			if (pMin.peekFirst() == L) {
-				pMin.pollFirst();
+			if (qMin.peekFirst() == l) {
+				qMin.pollFirst();
 			}
-			L++;
+			l++;
 		}
 		return count;
 	}
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		int lenOfArray = in.nextInt();
-		int target = in.nextInt();
-		int[] arr = new int[lenOfArray];
-		for (int i = 0; i < lenOfArray; i++) {
+		int size = in.nextInt();
+		int num = in.nextInt();
+		int[] arr = new int[size];
+		for (int i = 0; i < size; i++) {
 			arr[i] = in.nextInt();
 		}
-		System.out.println(getNum(arr, target));
-		in.close();
+		System.out.println(getNum(arr, num));
+		in.close(); 
 	}
 }
