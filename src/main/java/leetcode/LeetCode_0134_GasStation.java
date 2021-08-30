@@ -54,10 +54,10 @@ public class LeetCode_0134_GasStation {
     // 纯能值数组的前缀和数组
     // 2倍的前缀和数组（考察窗口最小值是不是小于0）
     // 生成h(i) 的累加和数组
-    //纯能职数组[1,-1,0,3,-1]
-    //--> 累加和数组 [1,0,0,3,2]
-    //---> 再累加一次 [1,0,0,3,2,3,2,2,5,4]
-    //然后滑动窗口最小值，减去L-1位置的数，如果<0,则L不是良好出发点
+    // 纯能职数组[1,-1,0,3,-1]
+    // --> 累加和数组 [1,0,0,3,2]
+    // ---> 再累加一次 [1,0,0,3,2,3,2,2,5,4]
+    // 然后滑动窗口最小值，减去L-1位置的数，如果<0,则L不是良好出发点
     public static int canCompleteCircuit(int[] gas, int[] cost) {
         int len = gas.length;
         int doubleLen = len << 1;
@@ -101,12 +101,10 @@ public class LeetCode_0134_GasStation {
     }
 
     /*
-     * TODO
-     *  这个方法的时间复杂度O(N)，额外空间复杂度O(1）
+     * TODO 这个方法的时间复杂度O(N)，额外空间复杂度O(1）
      */
-    public  static boolean[] stations(int[] cost, int[] gas) {
-        if (cost == null || gas == null || cost.length < 2
-                || cost.length != gas.length) {
+    public static boolean[] stations(int[] cost, int[] gas) {
+        if (cost == null || gas == null || cost.length < 2 || cost.length != gas.length) {
             return null;
         }
         int init = changeDisArrayGetInit(cost, gas);
@@ -182,33 +180,29 @@ public class LeetCode_0134_GasStation {
 
     // 暴力解法 O(N^2)
     public static int canCompleteCircuit3(int[] gas, int[] cost) {
-        int n = gas.length;
-
-        int[] h = new int[n];
-        for (int i = 0; i < n; i++) {
-            h[i] = gas[i] - cost[i];
+        int len = cost.length;
+        int[] helper = new int[len];
+        for (int i = 0; i < helper.length; i++) {
+            helper[i] = gas[i] - cost[i];
         }
-        // 标记良好出发点的位置，开始是-1，说明没有找到良好出发点
-        int good = -1;
-        // h[i] 一直往后累加，累加和记录在preSum中，回到本身，如果不出现负数，i位置就是良好出发点
-        int preSum;
-        for (int i = 0; i < n; i++) {
-            preSum = h[i];
-            for (int j = i + 1; j < n + i + 1; j++) {
-                if (preSum < 0) {
+        int pre = 0;
+        for (int i = 0; i < len; i++) {
+            pre = helper[i];
+            if (pre < 0) {
+                continue;
+            }
+            for (int j = i + 1; j < len + i + 1; j++) {
+                pre += helper[j < len ? j : (j - len)];
+                if (pre < 0) {
                     break;
                 }
-                // int index = j % n
-                int index = j > n - 1 ? j - n : j;
-                preSum += h[index];
             }
-            if (preSum >= 0) {
-                good = i;
+            if (pre >= 0) {
+                return i;
             }
         }
-        return good;
+        return -1;
     }
-
 
     // 返回所有位置是不是良好出发点
     public static boolean[] canCompleteCircuitOfAllPositions(int[] gas, int[] cost) {
@@ -249,19 +243,4 @@ public class LeetCode_0134_GasStation {
         // res[i]位置存着每个位置是否为良好出发点
         return res;
     }
-
-    public static void main(String[] args) {
-        int[] gas = {1, 2, 3, 4, 5};
-        int[] cost = {3, 4, 5, 1, 2};
-//        System.out.println(canCompleteCircuit3(gas, cost));
-//        System.out.println(canCompleteCircuit(gas, cost));
-
-
-        int[] gas2 = {2, 3, 4};
-        int[] cost2 = {3, 4, 3};
-        System.out.println(canCompleteCircuit3(gas2, cost2));
-        // System.out.println(canCompleteCircuitOfAllPositions(gas2, cost2));
-        System.out.println(canCompleteCircuit(gas2, cost2));
-    }
-
 }
