@@ -40,6 +40,11 @@ package leetcode;
 // 计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。
 // 你可以认为每种硬币的数量是无限的。
 public class LeetCode_0322_CoinChange {
+    public static void main(String[] args) {
+
+    }
+
+    // 暴力递归
     public static int coinChange1(int[] coins, int amount) {
         if (coins == null || coins.length == 0) {
             return -1;
@@ -49,6 +54,9 @@ public class LeetCode_0322_CoinChange {
 
     // 从i...往后自由选择，凑成rest的最少的硬币个数
     public static int p(int[] coins, int i, int rest) {
+        if (rest < 0) {
+            return -1;
+        }
         if (rest == 0) {
             return 0;
         }
@@ -59,79 +67,67 @@ public class LeetCode_0322_CoinChange {
         }
         // 既没有到最后，也还有剩余
         int min = Integer.MAX_VALUE;
-        // TODO
-        
-        return min;
-    }
-    // 优化枚举行为
-    public static int coinChange(int[] coins, int amount) {
-        if (coins == null || coins.length == 0 || amount < 0) {
-            return -1;
-        }
-        if (amount == 0) {
-            return 0;
-        }
-        int N = coins.length;
-        // 自由使用0..i位置的钱，拼出j元的最小张数是多少？
-        int[][] dp = new int[N][amount + 1];
-        for (int i = 0; i <= amount; i++) {
-            if (i % coins[0] == 0) {
-                dp[0][i] = i / coins[0];
-            } else {
-                dp[0][i] = -1;
+        int num = 0;
+        while (num * coins[i] <= rest) {
+            int after = p(coins, i + 1, rest - num * coins[i]);
+            if (after != -1) {
+                min = Math.min(num + after, min);
             }
+            num++;
         }
-        for (int i = 1; i < N; i++) {
-            for (int j = 1; j <= amount; j++) {
-                if (dp[i - 1][j] != -1) {
-                    dp[i][j] = dp[i - 1][j];
-                } else {
-                    dp[i][j] = Integer.MAX_VALUE;
-                }
-                if (j - coins[i] >= 0 && dp[i][j - coins[i]] != -1) {
-                    dp[i][j] = Math.min(dp[i][j], dp[i][j - coins[i]] + 1);
-                }
-                if (dp[i][j] == Integer.MAX_VALUE) {
-                    dp[i][j] = -1;
-                }
-            }
-        }
-        return dp[N - 1][amount];
+        return min == Integer.MAX_VALUE ? -1 : min;
     }
 
-    // 未优化版本
     public static int coinChange2(int[] coins, int amount) {
-        if (coins == null || coins.length == 0 || amount < 0) {
+        if (coins == null || coins.length == 0) {
             return -1;
         }
-        int N = coins.length;
-        // 自由使用0..i位置的钱，拼出j元的最小张数是多少？
-        int[][] dp = new int[N][amount + 1];
-        for (int i = 0; i <= amount; i++) {
-            if (i % coins[0] == 0) {
-                dp[0][i] = i / coins[0];
-            } else {
-                dp[0][i] = -1;
+        int n = coins.length;
+        int[][] dp = new int[n + 1][amount + 1];
+        for (int i = 1; i < amount + 1; i++) {
+            dp[n][i] = -1;
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = 1; j < amount + 1; j++) {
+                int min = Integer.MAX_VALUE;
+                int num = 0;
+                // 枚举行为，可以继续优化
+                while (num * coins[i] <= j) {
+                    int after = dp[i + 1][j - num * coins[i]];
+                    if (after != -1) {
+                        min = Math.min(num + after, min);
+                    }
+                    num++;
+                }
+                dp[i][j] = (min == Integer.MAX_VALUE ? -1 : min);
             }
         }
-        for (int i = 1; i < N; i++) {
-            for (int j = 1; j <= amount; j++) {
-                if (dp[i - 1][j] != -1) {
-                    dp[i][j] = dp[i - 1][j];
-                } else {
-                    dp[i][j] = Integer.MAX_VALUE;
-                }
-                int k = 0;
-                while (j - k * coins[i] >= 0 && dp[i][j - k * coins[i]] != -1) {
-                    dp[i][j] = Math.min(dp[i][j], dp[i][j - k * coins[i]] + k);
-                    k++;
-                }
-                if (dp[i][j] == Integer.MAX_VALUE) {
-                    dp[i][j] = -1;
+        return dp[0][amount];
+    }
+
+    // 优化枚举行为
+    public static int coinChange3(int[] coins, int amount) {
+        if (coins == null || coins.length == 0) {
+            return -1;
+        }
+        int n = coins.length;
+        int[][] dp = new int[n + 1][amount + 1];
+        for (int i = 1; i < amount + 1; i++) {
+            dp[n][i] = -1;
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = 1; j < amount + 1; j++) {
+                dp[i][j] = dp[i + 1][j];
+                if (j - coins[i] >= 0 && dp[i][j - coins[i]] != -1) {
+                    if (dp[i][j] == -1) {
+                        dp[i][j] = dp[i][j - coins[i]] + 1;
+                    } else {
+                        dp[i][j] = Math.min(dp[i][j - coins[i]] + 1, dp[i][j]);
+                    }
                 }
             }
         }
-        return dp[N - 1][amount];
+        return dp[0][amount];
     }
 
 }
