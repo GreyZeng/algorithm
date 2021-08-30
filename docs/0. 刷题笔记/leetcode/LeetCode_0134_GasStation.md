@@ -22,34 +22,32 @@ h[i]=gas[i]-cost[i];
 
 我们可以很容易得到一个结论：**h(i) 往后累加，并回到i位置，不出现负数，就是良好出发点 ，这个i位置就是良好出发点。**
 
-```java
-// 暴力解法 O(N^2)
-    public static int canCompleteCircuit3(int[] gas, int[] cost) {
-        int n = gas.length;
+以每个位置作为i位置，依次走这个逻辑，所以这个解法的复杂度是 O(N^2)，代码如下：
 
-        int[] h = new int[n];
-        for (int i = 0; i < n; i++) {
-            h[i] = gas[i] - cost[i];
+```java
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int len = cost.length;
+        int[] helper = new int[len];
+        for (int i = 0; i < helper.length; i++) {
+            helper[i] = gas[i] - cost[i];
         }
-        // 标记良好出发点的位置，开始是-1，说明没有找到良好出发点
-        int good = -1;
-        // h[i] 一直往后累加，累加和记录在preSum中，回到本身，如果不出现负数，i位置就是良好出发点
-        int preSum;
-        for (int i = 0; i < n; i++) {
-            preSum = h[i];
-            for (int j = i + 1; j < n + i + 1; j++) {
-                if (preSum < 0) {
+        int pre = 0;
+        for (int i = 0; i < len; i++) {
+            pre = helper[i];
+            if (pre < 0) {
+                continue;
+            }
+            for (int j = i + 1; j < len + i + 1; j++) {
+                pre += helper[j < len ? j : (j - len)];
+                if (pre < 0) {
                     break;
                 }
-                // int index = j % n
-                int index = j > n - 1 ? j - n : j;
-                preSum += h[index];
             }
-            if (preSum >= 0) {
-                good = i;
+            if (pre >= 0) {
+                return i;
             }
         }
-        return good;
+        return -1;
     }
 ```
 
@@ -73,7 +71,7 @@ h[i]=gas[i]-cost[i];
 [1,0,0,3,2]
 ```
 
-用这个累加和数组在和h[i]数组相加，得到一个两倍长度的数组
+用这个累加和数组再和h[i]数组相加，得到一个两倍长度的数组
 
 ```java
 [1,0,0,3,2,3,2,2,5,4]
@@ -85,7 +83,13 @@ h[i]=gas[i]-cost[i];
 
 L...L + n - 1 是第x个窗口，最小值m，
 
-如果 m - num[L-1] >= 0 则x是良好出发点
+如果:
+
+```java
+m - h[L-1] >= 0
+```
+
+则x是良好出发点
 
 反之，则x不是良好出发点, 完整代码：
 
