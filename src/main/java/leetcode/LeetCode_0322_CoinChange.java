@@ -36,8 +36,33 @@ If that amount of money cannot be made up by any combination of the coins, retur
         0 <= amount <= 10^4*/
 package leetcode;
 
+// 给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
+// 计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。
+// 你可以认为每种硬币的数量是无限的。
 public class LeetCode_0322_CoinChange {
+    public static int coinChange1(int[] coins, int amount) {
+        if (coins == null || coins.length == 0) {
+            return -1;
+        }
+        return p(coins, 0, amount);
+    }
 
+    // 从i...往后自由选择，凑成rest的最少的硬币个数
+    public static int p(int[] coins, int i, int rest) {
+        if (rest == 0) {
+            return 0;
+        }
+        // rest不为空
+        if (i == coins.length) {
+            // i 已经走到尽头
+            return -1;
+        }
+        // 既没有到最后，也还有剩余
+        int min = Integer.MAX_VALUE;
+        // TODO
+        
+        return min;
+    }
     // 优化枚举行为
     public static int coinChange(int[] coins, int amount) {
         if (coins == null || coins.length == 0 || amount < 0) {
@@ -107,12 +132,6 @@ public class LeetCode_0322_CoinChange {
             }
         }
         return dp[N - 1][amount];
-    }
-
-    public static void main(String[] args) {
-        int[] nums = {186, 419, 83, 408};
-        int t = 6249;
-        System.out.println(coinChange(nums, t));
     }
 
 }
