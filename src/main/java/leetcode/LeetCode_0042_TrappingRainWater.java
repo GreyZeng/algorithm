@@ -10,7 +10,6 @@ package leetcode;
 public class LeetCode_0042_TrappingRainWater {
 
     // 双指针
-    // TODO
     public static int trap(int[] arr) {
         if (null == arr || arr.length <= 2) {
             return 0;
