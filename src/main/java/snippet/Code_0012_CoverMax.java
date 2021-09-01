@@ -16,9 +16,9 @@ public class Code_0012_CoverMax {
     // 以每个位置作为结尾来找，假设某个位置是103，长度是5，
     // 其实就是找[0，102]范围内>=98的最左的点
     public static int maxCover1(int[][] lines) {
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i < lines.length; i++) {
+        int min = lines[0][0];
+        int max = lines[0][1];
+        for (int i = 1; i < lines.length; i++) {
             min = Math.min(min, lines[i][0]);
             max = Math.max(max, lines[i][1]);
         }
@@ -100,28 +100,6 @@ public class Code_0012_CoverMax {
     }
 
     public static void main(String[] args) {
-
-        Line l1 = new Line(4, 9);
-        Line l2 = new Line(1, 4);
-        Line l3 = new Line(7, 15);
-        Line l4 = new Line(2, 4);
-        Line l5 = new Line(4, 6);
-        Line l6 = new Line(3, 7);
-
-        // 底层堆结构，heap
-        PriorityQueue<Line> heap = new PriorityQueue<>(new StartComparator());
-        heap.add(l1);
-        heap.add(l2);
-        heap.add(l3);
-        heap.add(l4);
-        heap.add(l5);
-        heap.add(l6);
-
-        while (!heap.isEmpty()) {
-            Line cur = heap.poll();
-            System.out.println(cur.start + "," + cur.end);
-        }
-
         System.out.println("test begin");
         int N = 100;
         int L = 0;
