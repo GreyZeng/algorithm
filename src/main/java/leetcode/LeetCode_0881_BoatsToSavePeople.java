@@ -1,4 +1,6 @@
-/*You are given an array people where people[i] is the weight of the ith person, and an infinite number of boats where each boat can carry a maximum weight of limit. Each boat carries at most two people at the same time, provided the sum of the weight of those people is at most limit.
+/*You are given an array people where people[i] is the weight of the ith person, 
+and an infinite number of boats where each boat can carry a maximum weight of limit. 
+Each boat carries at most two people at the same time, provided the sum of the weight of those people is at most limit.
 
         Return the minimum number of boats to carry every given person.
 
@@ -33,7 +35,15 @@ import java.util.Arrays;
  * @author Young
  * @version 1.0
  * @date 2021/2/9 13:30
- */
+*/
+// tips:
+// 排序双指针
+// 找到小于等于limit/2 的最右边的位置
+// 双指针
+// [1,3,3,3,4,5,5,5, | 6,6,6,7,7,7,8,9,9]
+//                L    R
+// L往左 搭配 R 往右 凑一艘船
+// 考虑 L + R 和 limit的关系，左右先耗尽的情况具体分析
 public class LeetCode_0881_BoatsToSavePeople {
     public static int numRescueBoats(int[] people, int limit) {
         Arrays.sort(people);
@@ -41,7 +51,9 @@ public class LeetCode_0881_BoatsToSavePeople {
         int lessMostRight = getLessMostRight(people, pivot);
         int L = lessMostRight;
         int R = lessMostRight + 1;
+        // 左边人的数量
         int leftRemain = lessMostRight + 1;
+        // 右边人的数量
         int rightRemain = people.length - leftRemain;
         int merge = 0;
         while (L >= 0 && R < people.length) {
@@ -55,8 +67,14 @@ public class LeetCode_0881_BoatsToSavePeople {
                 L--;
             }
         }
-
-        return (leftRemain / 2) + (leftRemain % 2) + rightRemain + merge;
+        return (leftRemain / 2) // 左边剩余的都可以两个人一个船
+                + 
+                (leftRemain % 2) // 如果左边两两分完了，这里是0，如果没有，这里是1，这一个人单独一个船 
+                + 
+                rightRemain  // 右边剩余的只能一个人一个船
+                + 
+                merge // 中间部分表示左边一个人搭配右边一个人
+                ;  
     }
 
 
