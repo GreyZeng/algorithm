@@ -1,5 +1,4 @@
 package leetcode;
- 
 
 // 判断一棵树是否是平衡二叉树
 // 平衡二叉树要么是一棵空树. 
@@ -7,39 +6,40 @@ package leetcode;
 // 子树也必须是一颗平衡二叉树
 public class LeetCode_0110_BalancedBinaryTree {
 
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-    }
+	public static class TreeNode {
+		int val;
+		TreeNode left;
+		TreeNode right;
+	}
 
-    public static boolean isBalanced(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
-        return process(root).isB;
-    }
+	public static boolean isBalanced(TreeNode root) {
+		if (root == null) {
+			return true;
+		}
+		return process(root).isB;
+	}
 
-    private static Info process(TreeNode root) {
-        if (root == null) {
-            return new Info(0, true);
-        }
-        Info left = process(root.left);
-        Info right = process(root.right);
-        return new Info(Math.max(left.height, right.height) + 1, left.isB && right.isB && (Math.abs(left.height - right.height) <= 1));
-    }
+	private static Info process(TreeNode root) {
+		if (root == null) {
+			return new Info(0, true);
+		}
+		Info left = process(root.left);
+		Info right = process(root.right);
+		return new Info(Math.max(left.height, right.height) + 1,
+				left.isB && right.isB && (Math.abs(left.height - right.height) <= 1));
+	}
 
-    public static class Info {
-        public int height;
-        public boolean isB;
+	public static class Info {
+		public int height;
+		public boolean isB;
 
-        public Info(int h, boolean isB) {
-            height = h;
-            this.isB = isB;
-        }
-    }
-    
-    public static boolean isBalanced1(TreeNode head) {
+		public Info(int h, boolean isB) {
+			height = h;
+			this.isB = isB;
+		}
+	}
+
+	public static boolean isBalanced1(TreeNode head) {
 		boolean[] ans = new boolean[1];
 		ans[0] = true;
 		process1(head, ans);
@@ -57,34 +57,34 @@ public class LeetCode_0110_BalancedBinaryTree {
 		}
 		return Math.max(leftHeight, rightHeight) + 1;
 	}
-	
+
 	// for test
-		public static TreeNode generateRandomBST(int maxLevel, int maxValue) {
-			return generate(1, maxLevel, maxValue);
-		}
+	public static TreeNode generateRandomBST(int maxLevel, int maxValue) {
+		return generate(1, maxLevel, maxValue);
+	}
 
-		// for test
-		public static TreeNode generate(int level, int maxLevel, int maxValue) {
-			if (level > maxLevel || Math.random() < 0.5) {
-				return null;
-			}
-			TreeNode head = new TreeNode();
-			head.val = (int) (Math.random() * maxValue);
-			head.left = generate(level + 1, maxLevel, maxValue);
-			head.right = generate(level + 1, maxLevel, maxValue);
-			return head;
+	// for test
+	public static TreeNode generate(int level, int maxLevel, int maxValue) {
+		if (level > maxLevel || Math.random() < 0.5) {
+			return null;
 		}
+		TreeNode head = new TreeNode();
+		head.val = (int) (Math.random() * maxValue);
+		head.left = generate(level + 1, maxLevel, maxValue);
+		head.right = generate(level + 1, maxLevel, maxValue);
+		return head;
+	}
 
-		public static void main(String[] args) {
-			int maxLevel = 5;
-			int maxValue = 100;
-			int testTimes = 1000000;
-			for (int i = 0; i < testTimes; i++) {
-				TreeNode head = generateRandomBST(maxLevel, maxValue);
-				if (isBalanced1(head) != isBalanced(head)) {
-					System.out.println("Oops!");
-				}
+	public static void main(String[] args) {
+		int maxLevel = 5;
+		int maxValue = 100;
+		int testTimes = 1000000;
+		for (int i = 0; i < testTimes; i++) {
+			TreeNode head = generateRandomBST(maxLevel, maxValue);
+			if (isBalanced1(head) != isBalanced(head)) {
+				System.out.println("Oops!");
 			}
-			System.out.println("finish!");
 		}
+		System.out.println("finish!");
+	}
 }
