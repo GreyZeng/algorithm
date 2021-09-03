@@ -1,7 +1,9 @@
 package leetcode;
 
-
-// 平衡二叉树要么是一棵空树. 要么保证左右子树的高度之差不大于 1. 子树也必须是一颗平衡二叉树
+// 判断一棵树是否是平衡二叉树
+// 平衡二叉树要么是一棵空树. 
+// 要么保证左右子树的高度之差不大于 1. 
+// 子树也必须是一颗平衡二叉树
 public class LeetCode_0110_BalancedBinaryTree {
 
     public class TreeNode {
