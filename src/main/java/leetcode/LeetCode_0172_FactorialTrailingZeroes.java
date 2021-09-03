@@ -28,15 +28,15 @@ package leetcode;
 public class LeetCode_0172_FactorialTrailingZeroes {
 
     // 5的因子有多少个
-    // 25, 125... 不止一个5，所以不能单纯n/5，应该把n/5的结果一直/5,直到n<5为止。
     public static int trailingZeroes(int n) {
-        int re = 0;
-        while (n >= 5) {
-            n = n / 5;
-            re += n;
-        }
-        return re;
-    }
+		int ans = 0;
+		while (n != 0) {
+			n /= 5;
+			ans += n;
+		}
+		return ans;
+	}
+
 
     public static void main(String[] args) {
         System.out.println(trailingZeroes(25));
