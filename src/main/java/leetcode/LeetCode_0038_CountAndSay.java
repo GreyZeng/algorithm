@@ -30,6 +30,7 @@ Explanation: For n = 3 the term was "21" in which we have two groups "2" and "1"
 
 package leetcode;
 
+// 测评链接：https://leetcode.com/problems/count-and-say/
 public class LeetCode_0038_CountAndSay {
 
 	public static String countAndSay(int n) {
@@ -45,15 +46,14 @@ public class LeetCode_0038_CountAndSay {
 		String pre = countAndSay(n - 1);
 		char[] p = pre.toCharArray();
 		StringBuilder sb = new StringBuilder();
-
 		int num = 1;
 		for (int i = 1; i < p.length; i++) {
 			if (p[i] == p[i - 1]) {
 				num++;
-				continue;
+			} else {
+				sb.append(num).append(p[i - 1]);
+				num = 1;
 			}
-			sb.append(num).append(p[i - 1]);
-			num = 1;
 		}
 		sb.append(num).append(p[p.length-1]);
 		return sb.toString();
