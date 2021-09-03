@@ -25,6 +25,8 @@ package leetcode;
 //        Constraints:
 //
 //        1 <= n <= 10^4
+// 阶乘后有几个零
+// 测评链接：https://leetcode-cn.com/problems/factorial-trailing-zeroes/
 public class LeetCode_0172_FactorialTrailingZeroes {
 
     // 5的因子有多少个
