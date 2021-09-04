@@ -1,11 +1,13 @@
 //package class42;
-package go;
+package leetcode;
+
+// TODO
 // leetcode测试链接：https://leetcode.com/problems/super-egg-drop
 // 方法1和方法2会超时
 // 方法3勉强通过
 // 方法4打败100%
 // 方法5打败100%，方法5是在方法4的基础上做了进一步的常数优化
-public class Code02_ThrowChessPiecesProblem {
+public class LeetCode_0887_ThrowChessPiecesProblem {
 
 	public static int superEggDrop1(int kChess, int nLevel) {
 		if (nLevel < 1 || kChess < 1) {
