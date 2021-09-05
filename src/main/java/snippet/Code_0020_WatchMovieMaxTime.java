@@ -1,5 +1,5 @@
 //package class35;
-package go;
+package snippet;
 import java.util.Arrays;
 
 // 来自小红书
@@ -7,7 +7,7 @@ import java.util.Arrays;
 // 已知有2000场电影开始和结束都在同一天，这一天从00:00开始到23:59结束
 // 一定要选3场完全不冲突的电影来观看，返回最大的观影时间
 // 如果无法选出3场完全不冲突的电影来观看，返回-1
-public class Code03_WatchMovieMaxTime {
+public class Code_0020_WatchMovieMaxTime {
 
 	// 暴力方法，枚举前三场所有的可能全排列
 	public static int maxEnjoy1(int[][] movies) {
