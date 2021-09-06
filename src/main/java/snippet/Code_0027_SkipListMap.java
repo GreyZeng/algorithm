@@ -1,8 +1,8 @@
 //package class36;
-package go;
+package snippet;
 import java.util.ArrayList;
 
-public class Code02_SkipListMap {
+public class Code_0027_SkipListMap {
 
 	// 跳表的节点定义
 	public static class SkipListNode<K extends Comparable<K>, V> {
