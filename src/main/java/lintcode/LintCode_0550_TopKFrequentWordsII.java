@@ -304,38 +304,29 @@ public class LintCode_0550_TopKFrequentWordsII {
     }
 
     public static void main(String[] args) {
-//        int arrLen = 100;
-//        int strLen = 20;
-//        int testTimes = 100000;
-//        for (int i = 0; i < testTimes; i++) {
-//            String[] arr = generateRandomStringArray(arrLen, strLen);
-//            int k = (int) (Math.random() * arrLen);
-//
-//            TopK topK = new TopK(k);
-//            TopK2 topK2 = new TopK2(k);
-//            // 随机调用add的次数
-//            int addTimes = Math.min(arr.length, k + (int) (Math.random() * k));
-//            for (int j = 0; j < addTimes; j++) {
-//                topK.add(arr[j]);
-//                topK2.add(arr[j]);
-//            }
-//            List<String> res1 = topK.topk();
-//            List<String> res2 = topK2.topk();
-//            if (!equalList(res1, res2)) {
-//                System.out.println("oops!!");
-//                break;
-//            }
-//        }
-//        System.out.println("finish!");
-       TopK2 tk2 = new TopK2(2);
-        tk2.add("a");
-        tk2.add("a");
-        tk2.add("b");
-        tk2.add("C");
-        tk2.add("C");
-        tk2.add("a");
-        List<String> result  = tk2.topk();
-        System.out.println(result);
+        int arrLen = 100;
+        int strLen = 20;
+        int testTimes = 100000;
+        for (int i = 0; i < testTimes; i++) {
+            String[] arr = generateRandomStringArray(arrLen, strLen);
+            int k = (int) (Math.random() * arrLen);
+
+            TopK topK = new TopK(k);
+            TopK2 topK2 = new TopK2(k);
+            // 随机调用add的次数
+            int addTimes = Math.min(arr.length, k + (int) (Math.random() * k));
+            for (int j = 0; j < addTimes; j++) {
+                topK.add(arr[j]);
+                topK2.add(arr[j]);
+            }
+            List<String> res1 = topK.topk();
+            List<String> res2 = topK2.topk();
+            if (!equalList(res1, res2)) {
+                System.out.println("oops!!");
+                break;
+            }
+        }
+        System.out.println("finish!");
 
     }
 
