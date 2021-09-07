@@ -40,7 +40,7 @@ import java.util.TreeSet;
 
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
 public class LintCode_0550_TopKFrequentWordsII {
-    public class TopK {
+    public static class TopK {
         private TreeSet<Word> topK;
         private Heap heap;
         private Map<String, Word> map;
@@ -282,5 +282,70 @@ public class LintCode_0550_TopKFrequentWordsII {
             }
             return result;
         }
+    }
+
+    // for test
+    public static String generateRandomString(int strLen) {
+        char[] ans = new char[(int) (Math.random() * strLen) + 1];
+        for (int i = 0; i < ans.length; i++) {
+            int value = (int) (Math.random() * 6);
+            ans[i] = (char) (97 + value);
+        }
+        return String.valueOf(ans);
+    }
+
+    // for test
+    public static String[] generateRandomStringArray(int arrLen, int strLen) {
+        String[] ans = new String[(int) (Math.random() * arrLen) + 1];
+        for (int i = 0; i < ans.length; i++) {
+            ans[i] = generateRandomString(strLen);
+        }
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        int arrLen = 100;
+        int strLen = 20;
+        int testTimes = 100000;
+        for (int i = 0; i < testTimes; i++) {
+            String[] arr = generateRandomStringArray(arrLen, strLen);
+            int k = (int) (Math.random() * arrLen);
+
+            TopK topK = new TopK(k);
+            TopK2 topK2 = new TopK2(k);
+            // 随机调用add的次数
+            int addTimes = Math.min(arr.length, k + (int) (Math.random() * k));
+            for (int j = 0; j < addTimes; j++) {
+                topK.add(arr[j]);
+                topK2.add(arr[j]);
+            }
+            List<String> res1 = topK.topk();
+            List<String> res2 = topK2.topk();
+            if (!equalList(res1, res2)) {
+                System.out.println("oops!!");
+                break;
+            }
+        }
+        System.out.println("finish!");
+
+    }
+
+    private static boolean equalList(List<String> res1, List<String> res2) {
+        if (null == res1) {
+            return res2 == null;
+        }
+        if (res1.isEmpty()) {
+            return res2 != null && res2.isEmpty();
+        }
+        if (res1.size() != res2.size()) {
+            return false;
+        }
+        for (int i = 0; i < res1.size(); i++) {
+            if (!res1.get(i).equals(res2.get(i))) {
+                return false;
+            }
+        }
+        return true;
+
     }
 }
