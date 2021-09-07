@@ -40,197 +40,247 @@ import java.util.TreeSet;
 
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
 public class LintCode_0550_TopKFrequentWordsII {
+    public class TopK {
+        private TreeSet<Word> topK;
+        private Heap heap;
+        private Map<String, Word> map;
+        private int k;
 
-	public static void main(String[] args) {
-		TopK topk = new TopK(2);
-		topk.add("lint");
-		topk.add("code");
-		topk.add("code");
-		List<String> ans = topk.topk();
-		System.out.println(ans);
+        public TopK(int k) {
+            this.k = k;
+            topK = new TreeSet<>(new TopKComparator());
+            heap = new Heap(k, new ThresholdComparator());
+            map = new HashMap<>();
+        }
 
-	}
+        public void add(String str) {
+            if (k == 0) {
+                return;
+            }
+            Word word = map.get(str);
+            if (word == null) {
+                // 新增元素
+                word = new Word(str, 1);
+                // 是否到达门槛可以替换堆中元素
+                if (heap.isReachThreshold(word)) {
+                    if (heap.isFull()) {
+                        Word toBeRemoved = heap.poll();
+                        topK.remove(toBeRemoved);
+                    }
+                    heap.add(word);
+                    topK.add(word);
+                }
+            } else {
+                if (heap.contains(word)) {
+                    topK.remove(word);
+                    word.times++;
+                    topK.add(word);
+                    heap.resign(word);
+                } else {
+                    word.times++;
+                    if (heap.isReachThreshold(word)) {
+                        if (heap.isFull()) {
+                            Word toBeRemoved = heap.poll();
+                            topK.remove(toBeRemoved);
+                        }
+                        heap.add(word);
+                        topK.add(word);
+                    }
+                }
+            }
+            map.put(str, word);
+        }
 
-	public static class TopK {
-		private TreeSet<Word> topK;
-		private Heap heap;
-		private Map<String, Word> map;
-		private int k;
+        public List<String> topk() {
+            if (k == 0) {
+                return new ArrayList<>();
+            }
+            List<String> result = new ArrayList<>();
+            for (Word word : topK) {
+                result.add(word.value);
+            }
+            return result;
+        }
 
-		public TopK(int k) {
-			this.k = k;
-			topK = new TreeSet<>(new TopKComparator());
-			heap = new Heap(k, new ThresholdComparator());
-			map = new HashMap<>();
-		}
+        private class Word {
+            public String value;
+            public int times;
 
-		public void add(String str) {
-			if (k == 0) {
-				return;
-			}
-			Word word = map.get(str);
-			if (word == null) {
-				// 新增元素
-				word = new Word(str, 1);
-				// 是否到达门槛可以替换堆中元素
-				if (heap.isReachThreshold(word)) {
-					if (heap.isFull()) {
-						Word toBeRemoved = heap.poll();
-						topK.remove(toBeRemoved);
-					}
-					heap.add(word);
-					topK.add(word);
-				}
-			} else {
-				if (heap.contains(word)) {
-					topK.remove(word);
-					word.times++;
-					topK.add(word);
-					heap.resign(word);
-				} else {
-					word.times++;
-					if (heap.isReachThreshold(word)) {
-						if (heap.isFull()) {
-							Word toBeRemoved = heap.poll();
-							topK.remove(toBeRemoved);
-						}
-						heap.add(word);
-						topK.add(word);
-					}
-				}
-			}
-			map.put(str, word);
-		}
+            public Word(String v, int t) {
+                value = v;
+                times = t;
+            }
+        }
 
-		public List<String> topk() {
-			if (k == 0) {
-				return new ArrayList<>();
-			}
-			List<String> result = new ArrayList<>();
-			for (Word word : topK) {
-				result.add(word.value);
-			}
-			return result;
-		}
+        private class TopKComparator implements Comparator<Word> {
+            @Override
+            public int compare(Word o1, Word o2) {
+                // 次数大的排前面，次数一样字典序在小的排前面
+                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
+            }
+        }
 
-		private class Word {
-			public String value;
-			public int times;
+        private class ThresholdComparator implements Comparator<Word> {
 
-			public Word(String v, int t) {
-				value = v;
-				times = t;
-			}
-		}
+            @Override
+            public int compare(Word o1, Word o2) {
+                // 设置堆门槛，堆顶元素最先被淘汰
+                return o1.times == o2.times ? o2.value.compareTo(o1.value) : (o1.times - o2.times);
+            }
+        }
 
-		private class TopKComparator implements Comparator<Word> {
-			@Override
-			public int compare(Word o1, Word o2) {
-				// 次数大的排前面，次数一样字典序在小的排前面
-				return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
-			}
-		}
+        private class Heap {
+            private Word[] words;
+            private Comparator<Word> comparator;
+            private Map<Word, Integer> indexMap;
 
-		private class ThresholdComparator implements Comparator<Word> {
+            public Heap(int k, Comparator<Word> comparator) {
+                words = new Word[k];
+                indexMap = new HashMap<>();
+                this.comparator = comparator;
+            }
 
-			@Override
-			public int compare(Word o1, Word o2) {
-				// 设置堆门槛，堆顶元素最先被淘汰
-				return o1.times == o2.times ? o2.value.compareTo(o1.value) : (o1.times - o2.times);
-			}
-		}
+            public boolean isEmpty() {
+                return indexMap.isEmpty();
+            }
 
-		private class Heap {
-			private Word[] words;
-			private Comparator<Word> comparator;
-			private Map<Word, Integer> indexMap;
+            public boolean isFull() {
+                return indexMap.size() == words.length;
+            }
 
-			public Heap(int k, Comparator<Word> comparator) {
-				words = new Word[k];
-				indexMap = new HashMap<>();
-				this.comparator = comparator;
-			}
+            public boolean isReachThreshold(Word word) {
+                if (isEmpty() || indexMap.size() < words.length) {
+                    return true;
+                } else {
+                    return comparator.compare(words[0], word) < 0;
+                }
+            }
 
-			public boolean isEmpty() {
-				return indexMap.isEmpty();
-			}
+            public void add(Word word) {
+                int size = indexMap.size();
+                words[size] = word;
+                indexMap.put(word, size);
+                heapInsert(size);
 
-			public boolean isFull() {
-				return indexMap.size() == words.length;
-			}
+            }
 
-			public boolean isReachThreshold(Word word) {
-				if (isEmpty() || indexMap.size() < words.length) {
-					return true;
-				} else {
-					if (comparator.compare(words[0], word) < 0) {
-						return true;
-					}
-					return false;
-				}
-			}
+            private void heapify(int i) {
+                int size = indexMap.size();
+                int leftChildIndex = 2 * i + 1;
+                while (leftChildIndex < size) {
+                    Word weakest = leftChildIndex + 1 < size
+                            ? (comparator.compare(words[leftChildIndex], words[leftChildIndex + 1]) < 0
+                            ? words[leftChildIndex]
+                            : words[leftChildIndex + 1])
+                            : words[leftChildIndex];
+                    if (comparator.compare(words[i], weakest) < 0) {
+                        break;
+                    }
+                    int weakestIndex = weakest == words[leftChildIndex] ? leftChildIndex : leftChildIndex + 1;
+                    swap(weakestIndex, i);
+                    i = weakestIndex;
+                    leftChildIndex = 2 * i + 1;
+                }
+            }
 
-			public void add(Word word) {
-				int size = indexMap.size();
-				words[size] = word;
-				indexMap.put(word, size);
-				heapInsert(size);
+            public void resign(Word word) {
+                int i = indexMap.get(word);
+                heapify(i);
+                heapInsert(i);
+            }
 
-			}
+            private void heapInsert(int i) {
+                while (comparator.compare(words[i], words[(i - 1) / 2]) < 0) {
+                    swap(i, (i - 1) / 2);
+                    i = (i - 1) / 2;
+                }
+            }
 
-			private void heapify(int i) {
-				int size = indexMap.size();
-				int leftChildIndex = 2 * i + 1;
-				while (leftChildIndex < size) {
-					Word weakest = leftChildIndex + 1 < size
-							? (comparator.compare(words[leftChildIndex], words[leftChildIndex + 1]) < 0
-									? words[leftChildIndex]
-									: words[leftChildIndex + 1])
-							: words[leftChildIndex];
-					if (comparator.compare(words[i], weakest) < 0) {
-						break;
-					}
-					int weakestIndex = weakest == words[leftChildIndex] ? leftChildIndex : leftChildIndex + 1;
-					swap(weakestIndex, i);
-					i = weakestIndex;
-					leftChildIndex = 2 * i + 1;
-				}
-			}
+            public boolean contains(Word word) {
+                return indexMap.containsKey(word);
+            }
 
-			public void resign(Word word) {
-				int i = indexMap.get(word);
-				heapify(i);
-				heapInsert(i);
-			}
+            public Word poll() {
+                Word result = words[0];
+                swap(0, indexMap.size() - 1);
+                indexMap.remove(result);
+                heapify(0);
+                return result;
+            }
 
-			private void heapInsert(int i) {
-				while (comparator.compare(words[i], words[(i - 1) / 2]) < 0) {
-					swap(i, (i - 1) / 2);
-					i = (i - 1) / 2;
-				}
-			}
+            private void swap(int i, int j) {
+                if (i != j) {
+                    indexMap.put(words[i], j);
+                    indexMap.put(words[j], i);
+                    Word tmp = words[i];
+                    words[i] = words[j];
+                    words[j] = tmp;
+                }
+            }
+        }
+    }
 
-			public boolean contains(Word word) {
-				return indexMap.containsKey(word);
-			}
+    // 该方法是对数器，也可以通过lintcode测评
+    public static class TopK2 {
+        private TreeSet<Word> topK;
+        private Map<String, Word> indexMap;
+        private int k;
 
-			public Word poll() {
-				Word result = words[0];
-				swap(0, indexMap.size() - 1);
-				indexMap.remove(result);
-				heapify(0);
-				return result;
-			}
+        private class TopKComparator implements Comparator<Word> {
+            @Override
+            public int compare(Word o1, Word o2) {
+                // 次数大的排前面，次数一样字典序在小的排前面
+                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
+            }
+        }
 
-			private void swap(int i, int j) {
-				if (i != j) {
-					indexMap.put(words[i], j);
-					indexMap.put(words[j], i);
-					Word tmp = words[i];
-					words[i] = words[j];
-					words[j] = tmp;
-				}
-			}
-		}
-	}
+        public TopK2(int k) {
+            this.k = k;
+            topK = new TreeSet<>(new TopKComparator());
+            indexMap = new HashMap<>();
+        }
+
+        private class Word {
+            public String value;
+            public int times;
+
+            public Word(String v, int t) {
+                value = v;
+                times = t;
+            }
+        }
+
+        public void add(String str) {
+            if (k == 0) {
+                return;
+            }
+            Word word = indexMap.get(str);
+            if (word == null) {
+                // 新增元素
+                word = new Word(str, 1);
+                topK.add(word);
+            } else {
+                topK.remove(word);
+                word.times++;
+                topK.add(word);
+            }
+            indexMap.put(str, word);
+        }
+
+        public List<String> topk() {
+            if (k == 0) {
+                return new ArrayList<>();
+            }
+            List<String> result = new ArrayList<>();
+            int t = k;
+            for (Word word : topK) {
+                if (t == 0) {
+                    break;
+                }
+                result.add(word.value);
+                t--;
+            }
+            return result;
+        }
+    }
 }
