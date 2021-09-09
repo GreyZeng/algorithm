@@ -43,40 +43,62 @@ import java.util.Stack;
  * 原先A压的是谁，那么谁就是A左边离它最近的最小值
  */
 public class NowCoder_MonoStackII {
-    // 有重复值
+    // arr[i] 中有重复值
+    // int[i][0] -- > 左边离i位置最近的比i小的数的位置
+    // int[i][1] -- > 右边离i位置最近的比i小的数的位置
     public static int[][] getNearLess(int[] arr) {
-        if (null == arr || arr.length == 0) {
+        if (arr == null || arr.length == 0) {
             return null;
         }
-        int N = arr.length;
-        int[][] r = new int[N][2];
-
+        int n = arr.length;
+        int[][] result = new int[n][2];
+        if (arr.length == 1) {
+            result[0][0] = -1;
+            result[0][1] = -1;
+            return result;
+        }
+        // 栈顶到栈底从大到小
         Stack<List<Integer>> stack = new Stack<>();
-
-        for (int i = 0; i < N; i++) {
-            while (!stack.isEmpty() && !stack.peek().isEmpty() && arr[stack.peek().get(0)] > arr[i]) {
-                List<Integer> vs = stack.pop();
-                for (int v : vs) {
-                    r[v][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
-                    r[v][1] = i;
-                }
-            }
-            if (stack.isEmpty() || arr[stack.peek().get(0)] != arr[i]) {
-                List<Integer> vs = new ArrayList<>();
-                vs.add(i);
-                stack.add(vs);
-            } else {
+        for (int i = 0; i < n; i++) {
+            if (stack.isEmpty()) {
+                // 栈空，直接进入
+                List<Integer> list = new ArrayList<>();
+                list.add(i);
+                stack.push(list); 
+            } else if (arr[stack.peek().get(0)] < arr[i]) {
+                // 走到这个分支，说明栈不为空
+                // 如果栈顶元素对应的arr值比当前值arr[i]小
+                // arr[i]进栈（另外启一个List)
+                List<Integer> list = new ArrayList<>();
+                list.add(i);
+                stack.push(list); 
+            } else if (arr[stack.peek().get(0)] == arr[i]) {
+                // 处理重复元素的逻辑
                 stack.peek().add(i);
+            } else {
+                if (arr[stack.peek().get(0)] > arr[i]) {
+                    // 如果栈顶元素对应的arr值比当前值arr[i]大
+                    // 则走弹出元素的逻辑：
+                    // 弹出位置（一个List）中的所有元素右边离它最近的比它小的数就是i
+                   // List下面压着的List中最右边的元素就是左边离它最近的比它小的数。
+                    List<Integer> pop = stack.pop();
+                    for (int index : pop) {
+                        result[index][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
+                        result[index][1] = i;
+                    }
+                    // i--以后循环会跑i++，其实就是下轮循环再次判断arr[i]位置的值和栈顶元素的关系
+                    i--;
+                }
             }
         }
         while (!stack.isEmpty()) {
-            List<Integer> vs = stack.pop();
-            for (int v : vs) {
-                r[v][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
-                r[v][1] = -1;
+            List<Integer> pop = stack.pop();
+            for (int k = 0; k < pop.size(); k++) {
+                result[pop.get(k)][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
+                result[pop.get(k)][1] = -1;
             }
         }
-        return r;
+        return result;
     }
 
     public static void main(String[] args) {
@@ -93,6 +115,12 @@ public class NowCoder_MonoStackII {
         }
         System.out.println(sb.toString());
         in.close();
+        // int[] arr = { 3, 4, 1, 5, 6, 2, 7 };
+        // int[][] result = getNearLess(arr);
+        // for (int i = 0; i < result.length; i++) {
+        //     System.out.println(result[i][0] + " == " + result[i][1]);
+        // }
     }
 
 }
+
