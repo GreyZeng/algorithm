@@ -48,8 +48,6 @@
 //36
 package nowcoder;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -93,15 +91,15 @@ public class NowCoder_AllTimesMinToMax {
     }
 
     public static void main(String[] args) {
-        int[] n = {81, 87, 47, 59, 81, 18, 25, 40, 56, 0};
-        System.out.println(max(n));
-//        Scanner in = new Scanner(System.in);
-//        int n = in.nextInt();
-//        int[] arr = new int[n];
-//        for (int i = 0; i < n; i++) {
-//            arr[i] = in.nextInt();
-//        }
-//        System.out.println(max(arr));
-//        in.close();
+//        int[] n = {81, 87, 47, 59, 81, 18, 25, 40, 56, 0};
+//        System.out.println(max(n));
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
+        }
+        System.out.println(max(arr));
+        in.close();
     }
 }
