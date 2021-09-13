@@ -9,7 +9,7 @@ public class LintCode_0006_MergeTwoSortedArrays {
         int[] smaller = bigger == A ? B : A;
         int[] helper = new int[m + n];
         int from = 0;
-        int to = 0;
+        int to;
         int index = 0;
         for (int i = 0; i < smaller.length; i++) {
             int position = position(smaller[i], bigger, i);
