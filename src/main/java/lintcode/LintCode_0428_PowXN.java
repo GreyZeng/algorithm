@@ -5,8 +5,7 @@ public class LintCode_0428_PowXN {
     // 类fabanacci问题
     // pow X N   ( N 转成2进制）
     // 复杂度 log（N）
-    public static double myPow(double x, int n) {
-        // write your code here
+    public static double myPow(double x, int n) { 
         int pow = Math.abs(n == Integer.MIN_VALUE ? n + 1 : n);
         double ans = 1D;
         double t = x;
@@ -24,9 +23,5 @@ public class LintCode_0428_PowXN {
             ans = 1D / ans;
         }
         return ans;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(myPow(3d, 2));
     }
 }
