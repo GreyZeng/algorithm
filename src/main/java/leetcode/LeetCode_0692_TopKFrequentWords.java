@@ -21,7 +21,9 @@
 package leetcode;
 
 import java.util.*;
-
+//给定一个由字符串组成的数组String[] strs，给定一个正数K 返回词频最大的前K个字符串，假设结果是唯一的
+//- 方法1：Hash表+小根堆
+//- 方法2：用bfprt和快排改进
 public class LeetCode_0692_TopKFrequentWords {
     public static class Node {
         public String value;

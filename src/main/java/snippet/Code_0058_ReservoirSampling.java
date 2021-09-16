@@ -12,7 +12,12 @@ package snippet;
 // 当K号球吐出的时候（K>10) ,我们通过以下决策决定是否要入袋
 // 1) 10/K的概率决定球是否入袋 f(K) -> 如果返回10以内的数，则入袋，如果返回10以外的数，则扔掉
 // 2) 第一步中如果决定入袋，那么袋子中已经存在的球以等概率丢弃一个。
-
+//证明
+//假设吐出了17号球，3号球在袋中的概率
+//
+//        ```
+//        1 * （1- 10/11 * 1/10) * (1 - 10/12 * 1/10) *....(1 - 10/17 * 1/10) = 10/17
+//        ```
 // 用处
 // （10亿个抽100）
 // 一台服务器 放100个用户
@@ -40,24 +45,24 @@ public class Code_0058_ReservoirSampling {
 
         public void add(int num) {
             // 球个数增加
-        	count++;
+            count++;
             // 如果球的个数没有超过容量
-        	if(count <= N) {
-        		// 则入袋
-        		bag[count-1] = num;
-        	} else if (rand(count)<=N) {
-        		// 否则以N/count的概率入袋
-        		bag[rand(N) - 1] = num;
-        	}
+            if (count <= N) {
+                // 则入袋
+                bag[count - 1] = num;
+            } else if (rand(count) <= N) {
+                // 否则以N/count的概率入袋
+                bag[rand(N) - 1] = num;
+            }
         }
 
         // 返回袋子中最终选中的球
         public int[] choices() {
-        	int[] res = new int[N];
-        	for (int i = 0; i < N; i++) {
-        		res[i] = bag[i];
-        	}
-           return res;
+            int[] res = new int[N];
+            for (int i = 0; i < N; i++) {
+                res[i] = bag[i];
+            }
+            return res;
         }
 
     }
