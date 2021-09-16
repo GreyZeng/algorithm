@@ -59,9 +59,7 @@ public class Code_0058_ReservoirSampling {
         // 返回袋子中最终选中的球
         public int[] choices() {
             int[] res = new int[N];
-            for (int i = 0; i < N; i++) {
-                res[i] = bag[i];
-            }
+            System.arraycopy(bag, 0, res, 0, N);
             return res;
         }
 
