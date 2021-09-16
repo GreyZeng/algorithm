@@ -16,6 +16,10 @@
 //        输出
 //        8
 package nowcoder;
+//一个人可以一次往上迈1个台阶，也可以迈2个台阶
+//
+//        返回这个人迈上N级台阶的方法数
 // TODO
 public class NowCoder_Stair {
+
 }
