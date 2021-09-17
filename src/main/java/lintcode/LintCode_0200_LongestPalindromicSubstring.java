@@ -1,9 +1,12 @@
-package leetcode;
-// manacher算法
-// 最长回文子串
-public class LeetCode_0005_LongestPalindromicSubstring {
-    
-    public static String longestPalindrome(String s) {
+package lintcode;
+
+public class LintCode_0200_LongestPalindromicSubstring {
+
+    /**
+     * @param s: input string
+     * @return: a string as the longest palindromic substring
+     */
+    public String longestPalindrome(String s) {
         if (s == null || s.length() <= 1) {
             return s;
         }
@@ -52,4 +55,5 @@ public class LeetCode_0005_LongestPalindromicSubstring {
         }
         return strs;
     }
+
 }

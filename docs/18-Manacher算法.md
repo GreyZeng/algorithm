@@ -39,6 +39,7 @@ i' 自己的回文区域在L。。。R外，i到R的距离就是i的回文半径
 i' 自己的回文区域左边界和L压线，需要继续验，R外的情况
 
 LeetCode_0005_LongestPalindromicSubstring.java
+LintCode_0200_LongestPalindromicSubstring.java
 
 LeetCode_0647_PalindromicSubstrings.java
 
