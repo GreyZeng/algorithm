@@ -4,8 +4,6 @@ package leetcode;
 //        N为长的矩形一共包含的子矩阵有 (N*(N+1)) / 2
 //        相等的时候不算
 
-import java.util.Stack;
-
 //https://leetcode-cn.com/problems/count-submatrices-with-all-ones/
 // i位置左右两边离他最近的比他小的位置是b,a，b位置上的数是Y，C位置上的数是Z
 // 则i位置弹出的时候，一共要算：（X - max(Y,Z)) * ((L + 1) * L / 2)
