@@ -1,5 +1,6 @@
 package leetcode;
-
+// manacher算法
+// 最长回文子串
 public class LeetCode_0005_LongestPalindromicSubstring {
 
     public static String longestPalindrome(String s) {
