@@ -24,15 +24,18 @@ package snippet;
 // 用户检查是否是首次登录
 // 用户是第几个登录的用户
 // 如果非首次登录，直接丢弃，如果首次登录，那么以第100/N概率选中
+// 分布式蓄水池算法使用：https://www.jianshu.com/p/7a9ea6ece2af
 public class Code_0058_ReservoirSampling {
     public static class RandomBox {
         private int[] bag;
-        private int N;
+        // 袋子容量
+        private int capacity;
+        // 第几号球
         private int count;
 
         public RandomBox(int capacity) {
             bag = new int[capacity];
-            N = capacity;
+            this.capacity = capacity;
             count = 0;
         }
 
@@ -47,19 +50,19 @@ public class Code_0058_ReservoirSampling {
             // 球个数增加
             count++;
             // 如果球的个数没有超过容量
-            if (count <= N) {
+            if (count <= capacity) {
                 // 则入袋
                 bag[count - 1] = num;
-            } else if (rand(count) <= N) {
+            } else if (rand(count) <= capacity) {
                 // 否则以N/count的概率入袋
-                bag[rand(N) - 1] = num;
+                bag[rand(capacity) - 1] = num;
             }
         }
 
         // 返回袋子中最终选中的球
         public int[] choices() {
-            int[] res = new int[N];
-            System.arraycopy(bag, 0, res, 0, N);
+            int[] res = new int[capacity];
+            System.arraycopy(bag, 0, res, 0, capacity);
             return res;
         }
 
