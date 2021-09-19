@@ -25,6 +25,19 @@ package snippet;
 // 用户是第几个登录的用户
 // 如果非首次登录，直接丢弃，如果首次登录，那么以第100/N概率选中
 // 分布式蓄水池算法使用：https://www.jianshu.com/p/7a9ea6ece2af
+// ## 相关习题
+//
+//LeetCode_0398_RandomPickIndex.java
+//
+//LeetCode_0382_LinkedListRandomNode.java
+//
+//LeetCode_0692_TopKFrequentWords.java
+//
+//NowCoder_Bitorrent.java
+//
+//## UUID全局唯一生成器
+//
+//base + 各区域的服务器 range + base 最小值+range 压力被range分散掉
 public class Code_0058_ReservoirSampling {
     public static class RandomBox {
         private int[] bag;
