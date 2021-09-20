@@ -1,5 +1,14 @@
 package lintcode;
+// manacher算法
 
+// 最长回文子串
+// 
+// LeetCode_0005_LongestPalindromicSubstring.java
+// LintCode_0200_LongestPalindromicSubstring.java
+
+// LeetCode_0647_PalindromicSubstrings.java
+
+// LeetCode_0214_ShortestPalindrome.java
 public class LintCode_0200_LongestPalindromicSubstring {
 
     /**
