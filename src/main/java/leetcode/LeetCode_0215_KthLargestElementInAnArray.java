@@ -98,9 +98,11 @@ public class LeetCode_0215_KthLargestElementInAnArray {
     public static int findKthLargest3(int[] nums, int k) {
         PriorityQueue<Integer> h = new PriorityQueue<>();
         int i = 0;
+        // 经历这个循环，前K个数的第K大的数就是h的堆顶元素
         while (i < k) {
             h.offer(nums[i++]);
         }
+        // 每次入一个，出一个，这样就保证了堆顶元素永远保持第K大的元素
         while (i < nums.length) {
             h.offer(nums[i++]);
             h.poll();
