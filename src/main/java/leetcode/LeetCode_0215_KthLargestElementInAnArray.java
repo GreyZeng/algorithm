@@ -1,7 +1,6 @@
 package leetcode;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -52,19 +51,6 @@ public class LeetCode_0215_KthLargestElementInAnArray {
         return arr[(R + L) / 2];
 
     }
-
-    /*public static void insertionSort(int[] arr, int L, int R) {
-        if (L == R) {
-            return;
-        }
-        for (int i = L + 1; i <= R; i++) {
-            for (int j = i - 1; j >= L && arr[j] > arr[j + 1]; j--) {
-                swap(arr, j, j + 1);
-            }
-        }
-
-    }*/
-
     // 快排改进算法
     // 第K小 == 第 nums.length - k 大
     public static int findKthLargest2(int[] nums, int k) {
@@ -108,16 +94,6 @@ public class LeetCode_0215_KthLargestElementInAnArray {
         nums[m] = nums[t];
         nums[t] = tmp;
     }
-
-
-    public static class MyComparator implements Comparator<Integer> {
-
-        @Override
-        public int compare(Integer o1, Integer o2) {
-            return o2 - o1;
-        }
-    }
-
     public static int findKthLargest3(int[] nums, int k) {
         PriorityQueue<Integer> h = new PriorityQueue<>();
         int i = 0;
@@ -130,15 +106,4 @@ public class LeetCode_0215_KthLargestElementInAnArray {
         }
         return h.peek();
     }
-
-    public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 4, 5};
-        System.out.println(findKthLargest(nums, 1));
-        System.out.println(findKthLargest(nums, 2));
-        System.out.println(findKthLargest(nums, 3));
-        System.out.println(findKthLargest(nums, 4));
-        System.out.println(findKthLargest(nums, 5));
-    }
-
-
 }
