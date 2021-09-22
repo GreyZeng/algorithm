@@ -24,7 +24,7 @@ public class LeetCode_0215_KthLargestElementInAnArray {
         int pivot = nums[L + (int) (Math.random() * (R - L + 1))];
         int[] range = partition(nums, L, R, pivot);
         if (index >= range[0] && index <= range[1]) {
-            return nums[index];
+            return pivot;
         } else if (index < range[0]) {
             return p(nums, L, range[0] - 1, index);
         } else {
@@ -66,7 +66,7 @@ public class LeetCode_0215_KthLargestElementInAnArray {
         int pivot = medianOfMedians(nums, L, R);
         int[] range = partition(nums, L, R, pivot);
         if (index >= range[0] && index <= range[1]) {
-            return nums[index];
+            return pivot;
         } else if (index < range[0]) {
             return bfprt(nums, L, range[0] - 1, index);
         } else {
