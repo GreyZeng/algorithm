@@ -94,6 +94,7 @@ public class LeetCode_0215_KthLargestElementInAnArray {
         nums[m] = nums[t];
         nums[t] = tmp;
     }
+    // 第K大 --> 第 (len - K + 1) 小
     public static int findKthLargest3(int[] nums, int k) {
         PriorityQueue<Integer> h = new PriorityQueue<>();
         int i = 0;
