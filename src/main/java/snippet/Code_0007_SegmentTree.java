@@ -17,14 +17,15 @@ public class Code_0007_SegmentTree {
 
 		public SegmentTree(int[] origin) {
 			MAXN = origin.length + 1;
-			arr = new int[MAXN]; // arr[0] 不用 从1开始使用
+			arr = new int[MAXN];
+			// 0位置不用 从1位置开始使用
 			for (int i = 1; i < MAXN; i++) {
 				arr[i] = origin[i - 1];
 			}
 			sum = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围的累加和信息
-			lazy = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围沒有往下傳遞的纍加任務
-			change = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围有没有更新操作的任务
-			update = new boolean[MAXN << 2]; // 用来支持脑补概念中，某一个范围更新任务，更新成了什么
+			lazy = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围沒有往下传递的累加任务
+			change = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围更新任务，更新成了什么
+			update = new boolean[MAXN << 2]; // 用来支持脑补概念中，某一个范围有没有更新操作的任务
 		}
 
 		private void pushUp(int rt) {
