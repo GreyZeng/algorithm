@@ -28,6 +28,7 @@ package leetcode;
 import java.util.Arrays;
 import java.util.Comparator;
 
+// 至少移除多少个区间后可以保证线段不重合
 // 转换成非重叠区域的个数
 public class LeetCode_0435_NonOverlappingIntervals {
     public static int eraseOverlapIntervals(int[][] intervals) {
@@ -40,15 +41,16 @@ public class LeetCode_0435_NonOverlappingIntervals {
             arr[i++] = new Interval(interval[0], interval[1]);
         }
         Arrays.sort(arr, new MyComparator());
-        int delete = 1;
+        // 非重叠区域个数
+        int notOverlap = 1;
         int b = arr[0].end;
         for (i = 1; i < arr.length; i++) {
             if (arr[i].start >= b) {
-                delete++;
+                notOverlap++;
                 b = arr[i].end;
             }
         }
-        return arr.length - delete;
+        return arr.length - notOverlap;
     }
 
     public static class MyComparator implements Comparator<Interval> {
@@ -67,11 +69,5 @@ public class LeetCode_0435_NonOverlappingIntervals {
             this.start = start;
             this.end = end;
         }
-    }
-
-    public static void main(String[] args) {
-        int[][] nums = {{1, 100}, {11, 22}, {1, 11}, {2, 12}};
-        int i = eraseOverlapIntervals(nums);
-        System.out.println(i);
     }
 }
