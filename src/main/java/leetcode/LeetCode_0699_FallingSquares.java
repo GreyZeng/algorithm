@@ -2,13 +2,19 @@
 
         The i-th square dropped (positions[i] = (left, side_length)) is a square with the left-most point being positions[i][0] and sidelength positions[i][1].
 
-        The square is dropped with the bottom edge parallel to the number line, and from a higher height than all currently landed squares. We wait for each square to stick before dropping the next.
+        The square is dropped with the bottom edge parallel to the number line, and from a higher height than all currently landed squares. 
+        
+        We wait for each square to stick before dropping the next.
 
         The squares are infinitely sticky on their bottom edge,
-        and will remain fixed to any positive length surface they touch (either the number line or another square). Squares dropped adjacent to each other will not stick together prematurely.
+        and will remain fixed to any positive length surface they touch (either the number line or another square). 
+        
+        Squares dropped adjacent to each other will not stick together prematurely.
 
 
-        Return a list ans of heights. Each height ans[i] represents the current highest height of any square we have dropped, after dropping squares represented by positions[0], positions[1], ..., positions[i].
+        Return a list ans of heights. Each height ans[i] represents the current highest height of any square we have dropped, 
+        
+        after dropping squares represented by positions[0], positions[1], ..., positions[i].
 
         Example 1:
 
@@ -20,7 +26,9 @@
         After the second drop of positions[1] = [2, 3]: __aaa __aaa __aaa _aa__ _aa__ -------------- The maximum height of any square is 5.
         The larger square stays on top of the smaller square despite where its center of gravity is, because squares are infinitely sticky on their bottom edge.
 
-        After the third drop of positions[1] = [6, 1]: __aaa __aaa __aaa _aa _aa___a -------------- The maximum height of any square is still 5. Thus, we return an answer of [2, 5, 5].
+        After the third drop of positions[1] = [6, 1]: __aaa __aaa __aaa _aa _aa___a -------------- The maximum height of any square is still 5. 
+        
+        Thus, we return an answer of [2, 5, 5].
 
 
 
@@ -114,9 +122,11 @@ public class LeetCode_0699_FallingSquares {
     }
 
     public HashMap<Integer, Integer> index(int[][] positions) {
+        // TreeSet只存有效的区间范围
         TreeSet<Integer> set = new TreeSet<>();
         for (int[] arr : positions) {
             set.add(arr[0]);
+            // 边缘重合部分不算
             set.add(arr[0] + arr[1] - 1);
         }
         HashMap<Integer, Integer> map = new HashMap<>();
@@ -145,6 +155,14 @@ public class LeetCode_0699_FallingSquares {
             tree.update(L, R, height, 1, N, 1);
         }
         return ans;
+    }
 
+    public static void main(String[] args) {
+        LeetCode_0699_FallingSquares fq = new LeetCode_0699_FallingSquares();
+        int[][] positions = { { 0, 1 }, { 1, 1 } };
+        List<Integer> size = fq.fallingSquares(positions);
+        for (int i : size) {
+            System.out.println(i);
+        }
     }
 }
