@@ -31,12 +31,32 @@
 根据以上流程，我们需要对数组进行一次预处理，即，记录每个字符串出现的最右位置，由于题目限定是小写字母，所以可以通过如下方式来保存每个字符的最右位置
 
 ```java
-int[] lastPosition = new int[26];
+int[] help = new int[26];
 for (int i = 0; i < str.length; i++) {
-    lastPosition[str[i] - 'a'] = i;
+     help[str[i] - 'a'] = i;
 }
 ```
 
+主流程代码
+
+```java
+        int right = 0;
+        int pre = right;
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < str.length; i++) {
+        	// 是否可以将right位置扩散
+        	right = Math.max(right, help[str[i] - 'a']);
+        	if(i == right) {
+        		// 当前位置已经是能扩散的最右位置了
+        		// 收集答案 
+        		ans.add(right - pre + 1);
+        		pre = right + 1;
+        	}
+        }
+        return ans;
+```
+
+pre记录上一刀的位置，便于求每个区间的长度（题目要求）， 当前遍历到的位置i如果正好是目前区间能扩散的最右位置right，则结算。
 
 ## 更多
 
