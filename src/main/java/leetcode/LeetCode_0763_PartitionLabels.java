@@ -30,23 +30,18 @@ public class LeetCode_0763_PartitionLabels {
 
     // 统计每一个字符最后出现的位置
     // 从头遍历字符，如果找到之前字符最大出现位置下标和当前下标相等，则找到了分割点
-    public static List<Integer> partitionLabels(String S) {
-        char[] str = S.toCharArray();
-        int[] lastPosition = new int[26];
-        for (int i = 0; i < str.length; i++) {
-            lastPosition[str[i] - 'a'] = i;
+    public static List<Integer> partitionLabels(String s) {
+        char[] str = s.toCharArray();
+        int[] help = new int[26];
+        for (char m : str) {
+            help[m - 'a']++;
         }
-        List<Integer> ans = new ArrayList<>();
         int right = 0;
-        int s = 0;
         for (int i = 0; i < str.length; i++) {
-            right = Math.max(lastPosition[str[i] - 'a'], right);
-            if (right == i) {
-                ans.add(i - s + 1);
-                s = right + 1;
-            }
+            // TODO
         }
-        return ans;
+        return null;
+
     }
 
     public static void main(String[] args) {
