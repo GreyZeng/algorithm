@@ -16,10 +16,34 @@
 //        输出
 //        8
 package nowcoder;
+
+import java.math.BigInteger;
+import java.util.Scanner;
+
 //一个人可以一次往上迈1个台阶，也可以迈2个台阶
 //
 //        返回这个人迈上N级台阶的方法数
-// TODO
 public class NowCoder_Stair {
 
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt(); 
+		in.close();
+		if (n <= 2) {
+			System.out.println(n);
+			return;
+		}
+		BigInteger f1 = BigInteger.valueOf(1);
+		BigInteger f2 = BigInteger.valueOf(2);
+		BigInteger result = null;
+		
+		for (int i = 3; i < n + 1; i++) {
+			result = f1.add(f2);
+			f1 = f2;
+			f2 = result;
+		}
+		System.out.println(result);
+	}
+	
+	
 }
