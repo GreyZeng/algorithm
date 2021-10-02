@@ -3,7 +3,35 @@ package snippet;
 import java.util.Arrays;
 
 
-public class Code_0003_BubbleSort {
+public class Code_0001_Sort {
+	// 插入排序
+	public static void insertionSort(int[] arr) {
+		if (arr == null || arr.length < 2) {
+			return;
+		}
+		int n = arr.length;
+		for (int i = 1; i < n; i++) {
+			for (int j = i - 1; j >= 0; j--) {
+				if (arr[j] > arr[j + 1]) {
+					swap(arr, j + 1, j);
+				}
+			}
+		}
+	}
+	// 选择排序
+	public static void selectionSort(int[] arr) {
+		if (arr == null || arr.length < 2) {
+			return;
+		}
+		for (int i = 0; i < arr.length - 1; i++) {
+			int min = i;
+			for (int j = i + 1; j < arr.length; j++) {
+				min = arr[j] < arr[min] ? j : min;
+			}
+			swap(arr, i, min);
+		}
+	}
+	// 冒泡排序
 	public static void bubbleSort(int[] arr) {
 		if (arr == null || arr.length < 2) {
 			return;
@@ -95,12 +123,28 @@ public class Code_0003_BubbleSort {
 		for (int i = 0; i < times; i++) {
 			int[] arr1 = generateRandomArray(maxSize, maxValue);
 			int[] arr2 = copyArray(arr1);
+			int[] arr3 = copyArray(arr1);
+			int[] arr4 = copyArray(arr1);
 			bubbleSort(arr1);
-			absRight(arr2);
-			if (!isEqual(arr1, arr2)) {
+			selectionSort(arr2);
+			insertionSort(arr3);
+			absRight(arr4);
+			if (!isEqual(arr1, arr4)) {
 				succeed = false;
 				printArray(arr1);
+				printArray(arr4);
+				break;
+			}
+			if (!isEqual(arr2, arr4)) {
+				succeed = false;
 				printArray(arr2);
+				printArray(arr4);
+				break;
+			}
+			if (!isEqual(arr3, arr4)) {
+				succeed = false;
+				printArray(arr3);
+				printArray(arr4);
 				break;
 			}
 		}
