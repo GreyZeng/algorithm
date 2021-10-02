@@ -1,7 +1,6 @@
 package nowcoder;
 
 
-
 //链接：https://www.nowcoder.com/questionTerminal/d5c1e5ffbe124306a3a2ec5fe4139021
 //来源：牛客网
 //
@@ -35,41 +34,94 @@ package nowcoder;
 //2
 //4
 //13
+
 import java.util.Scanner;
+
 public class NowCoder_Ceramic {
-	public static final int MOD = 10007;
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		int T = in.nextInt();
-		int[] arr = new int[T];
-		for (int i = 0; i < T; i++) {
-			arr[i] = in.nextInt();
-		}
-		for (int n: arr) {
-			System.out.println(ways(n));
-		}
-		in.close();
-	}
-	private static long ways(int n) {
-		if (n <= 2) {
-			return n;
-		}
-		if (n ==3) {
-			return 4; 
-		}
-		long a = 1;
-		long b = 2;
-		long c = 4;
-		long r = 0;
-		for (int i = 4; i <= n; i++) {
-			r = (a + b + c)%MOD;
-			a = b;
-			b = c;
-			c = r;
-		}
-		return r;
-	}
-	// TODO 优化
-	
+    public static final int MOD = 10007;
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int T = in.nextInt();
+        int[] arr = new int[T];
+        for (int i = 0; i < T; i++) {
+            arr[i] = in.nextInt();
+        }
+        for (int n : arr) {
+            System.out.println(ways2(n));
+        }
+        in.close();
+    }
+
+    // f(n)=f(n-1) + f(n-2) + f(n-3)
+    private static long ways(int n) {
+        if (n <= 2) {
+            return n;
+        }
+        if (n == 3) {
+            return 4;
+        }
+        long a = 1;
+        long b = 2;
+        long c = 4;
+        long r = 0;
+        for (int i = 4; i <= n; i++) {
+            r = (a + b + c) % MOD;
+            a = b;
+            b = c;
+            c = r;
+        }
+        return r;
+    }
+
+    // 优化版本
+    private static long ways2(int n) {
+        if (n <= 2) {
+            return n;
+        }
+        if (n == 3) {
+            return 4;
+        }
+        long[][] base = {{1, 1, 0}, {1, 0, 1}, {1, 0, 0}};
+        long[][] result = matrixPow(base, n - 3);
+        return (4 * result[0][0] + 2 * result[1][0] + result[2][0]) % MOD;
+    }
+
+    private static long[][] matrixPow(long[][] base, int n) {
+        long[][] ans = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+        long[][] t = base;
+        while (n != 0) {
+            if ((n & 1) != 0) {
+                ans = matrix(ans, t);
+            }
+            t = matrix(t, t);
+            n = (n >> 1);
+        }
+        return ans;
+    }
+
+    private static long[][] matrix(long[][] ans, long[][] t) {
+        long[][] result = new long[3][3];
+        result[0][0] = (ans[0][0] * t[0][0] + ans[0][1] * t[1][0] + ans[0][2] * t[2][0]) % MOD;
+
+        result[0][1] = (ans[0][0] * t[0][1] + ans[0][1] * t[1][1] + ans[0][2] * t[2][1]) % MOD;
+
+        result[0][2] = (ans[0][0] * t[0][2] + ans[0][1] * t[1][2] + ans[0][2] * t[2][2]) % MOD;
+
+        result[1][0] = (ans[1][0] * t[0][0] + ans[1][1] * t[1][0] + ans[1][2] * t[2][0]) % MOD;
+
+        result[1][1] = (ans[1][0] * t[0][1] + ans[1][1] * t[1][1] + ans[1][2] * t[2][1]) % MOD;
+
+        result[1][2] = (ans[1][0] * t[0][2] + ans[1][1] * t[1][2] + ans[1][2] * t[2][2]) % MOD;
+
+        result[2][0] = (ans[2][0] * t[0][0] + ans[2][1] * t[1][0] + ans[2][2] * t[2][0]) % MOD;
+
+        result[2][1] = (ans[2][0] * t[0][1] + ans[2][1] * t[1][1] + ans[2][2] * t[2][1]) % MOD;
+
+        result[2][2] = (ans[2][0] * t[0][2] + ans[2][1] * t[1][2] + ans[2][2] * t[2][2]) % MOD;
+
+        return result;
+    }
+
 
 }
