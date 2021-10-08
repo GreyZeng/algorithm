@@ -46,5 +46,4 @@ public class LeetCode_0704_BinarySearch {
 		}
 		return -1;
 	}
-
 }
