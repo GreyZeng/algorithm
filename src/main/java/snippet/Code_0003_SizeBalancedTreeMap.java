@@ -1,6 +1,6 @@
 package snippet;
 
-public class Code_0061_SizeBalancedTreeMap {
+public class Code_0003_SizeBalancedTreeMap {
 
 	public static class SBTNode<K extends Comparable<K>, V> {
 		public K key;

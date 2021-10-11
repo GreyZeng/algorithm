@@ -1,5 +1,5 @@
-//package class36;
 package snippet;
+
 import java.util.ArrayList;
 
 public class Code_0027_SkipListMap {
