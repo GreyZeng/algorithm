@@ -53,7 +53,9 @@ public class Code_0002_AVLTreeMap {
 			int leftHeight = cur.l != null ? cur.l.h : 0;
 			int rightHeight = cur.r != null ? cur.r.h : 0;
 			if (Math.abs(leftHeight - rightHeight) > 1) {
+				// 平衡被破坏
 				if (leftHeight > rightHeight) {
+					// LL, LR
 					int leftLeftHeight = cur.l != null && cur.l.l != null ? cur.l.l.h : 0;
 					int leftRightHeight = cur.l != null && cur.l.r != null ? cur.l.r.h : 0;
 					if (leftLeftHeight >= leftRightHeight) {
@@ -151,17 +153,26 @@ public class Code_0002_AVLTreeMap {
 				cur.l = delete(cur.l, key);
 			} else {
 				if (cur.l == null && cur.r == null) {
+					// 左右孩子都没有，直接删除
 					cur = null;
 				} else if (cur.l == null && cur.r != null) {
+					// 左边为空，右孩子不为空
+					// 右孩子接管
 					cur = cur.r;
 				} else if (cur.l != null && cur.r == null) {
+					// 左孩子不为空，右孩子为空
+					// 左孩子接管
 					cur = cur.l;
 				} else {
+					// 左右孩子都不为空
+					// 找到右数上的最左节点 ，即后继节点 -> des
 					AVLNode<K, V> des = cur.r;
 					while (des.l != null) {
 						des = des.l;
 					}
+					// 删掉后继节点
 					cur.r = delete(cur.r, des.k);
+					// 后继节点的接替现在的节点位置
 					des.l = cur.l;
 					des.r = cur.r;
 					cur = des;
