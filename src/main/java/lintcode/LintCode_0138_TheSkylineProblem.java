@@ -1,22 +1,10 @@
-package leetcode;
+package lintcode;
 
 import java.util.*;
 
 // 有序表的使用
-//tips:
-//		最大高度的变化
-//		开始变化的时候，最高高度开始变化，结算前一次的轮廓线
-//		建立一组记录：
-//		每个大楼的开始和结束点对应的最大高度
-//		离散化处理
-//
-//		封装对象：
-//		[3,7,6]  -> 3 + 6 , 7 - 6
-//
-//		第一个有序表 记录次数
-//		第二个有序表 记录轮廓
-//		为了防止纸片大楼，在排序的时候，把+放在-之前
-public class LeetCode_0218_TheSkylineProblem {
+// TODO
+public class LintCode_0138_TheSkylineProblem {
     public static class Node {
         public int x;
         public int height;
@@ -37,7 +25,7 @@ public class LeetCode_0218_TheSkylineProblem {
     // 轮廓线只出现在最大高度变化的位置
     // 所以需要记录某个大楼从哪个位置开始增加了一个高度
     // 从哪个位置减少了一个高度
-    public static List<List<Integer>> getSkyline(int[][] buildings) {
+    public static List<List<Integer>> buildingOutline(int[][] buildings) {
         List<Node> nodes = buildNodes(buildings);
         TreeMap<Integer, Integer> heightTimesMap = new TreeMap<>();
         TreeMap<Integer, Integer> result = new TreeMap<>();
@@ -63,13 +51,8 @@ public class LeetCode_0218_TheSkylineProblem {
             }
         }
         List<List<Integer>> ans = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
-           int key =  entry.getKey();
-           int value = entry.getValue();
-           if (ans.isEmpty() || ans.get(ans.size() - 1).get(1) != value) {
-               ans.add(new ArrayList<>(Arrays.asList(key, value)));
-           }
-        }
+        // FIXME
+        // TODO
         return ans;
     }
 
@@ -86,7 +69,7 @@ public class LeetCode_0218_TheSkylineProblem {
     }
     public static void main(String[] args) {
         int[][] building = { { 1, 3, 3 }, { 2, 4, 4 }, { 5, 6, 1 } };
-        List<List<Integer>> list = getSkyline(building);
+        List<List<Integer>> list = buildingOutline(building);
         System.out.println(list);
     }
 }
