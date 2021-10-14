@@ -1,13 +1,23 @@
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.Map.Entry;
-
+import java.util.*;
+//【举例】
+//		matrix ={{2,5,6}, {1,7,4}, {4,6,7}, {3,6,5}, {10,13,2}, {9,11,3}, {12,14,4},{10,12,5} }
+//		返回: {{1,2,4},{2,4,6}, {4,6,7}, {6,7,4}, {9,10,3}, {10,12,5}, {12,14,4}}
 // 有序表的使用
+//tips:
+//		最大高度的变化
+//		开始变化的时候，最高高度开始变化，结算前一次的轮廓线
+//		建立一组记录：
+//		每个大楼的开始和结束点对应的最大高度
+//		离散化处理
+//
+//		封装对象：
+//		[3,7,6]  -> 3 + 6 , 7 - 6
+//
+//		第一个有序表 记录次数
+//		第二个有序表 记录轮廓
+//		为了防止纸片大楼，在排序的时候，把+放在-之前
 public class LeetCode_0218_TheSkylineProblem {
 	public static class Node {
 		public int x;
@@ -27,9 +37,8 @@ public class LeetCode_0218_TheSkylineProblem {
 				return o1.x - o2.x;
 			}
 			if (o1.h != o2.h) {
-				return o1.h > 0 ? -1 : 1;
+				return o1.h > o2.h ? -1 : 1;
 			}
-
 			return 0;
 		}
 
@@ -60,7 +69,7 @@ public class LeetCode_0218_TheSkylineProblem {
 			}
 		}
 		List<List<Integer>> ans = new ArrayList<>();
-		for (Entry<Integer, Integer> entry : result.entrySet()) {
+		for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
 			int curX = entry.getKey();
 			int curMaxHeight = entry.getValue();
 			if (ans.isEmpty() || ans.get(ans.size() - 1).get(1) != curMaxHeight) {
