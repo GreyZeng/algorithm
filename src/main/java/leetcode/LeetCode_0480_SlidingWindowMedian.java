@@ -1,6 +1,10 @@
-package snippet;
+package leetcode;
 
-public class Code_0062_SlidingWindowMedian {
+// https://leetcode-cn.com/problems/sliding-window-median/
+// 有序表改写
+// tips：
+// 有序表找第K小
+public class LeetCode_0480_SlidingWindowMedian {
 
 	public static class SBTNode<K extends Comparable<K>> {
 		public K key;
@@ -203,6 +207,9 @@ public class Code_0062_SlidingWindowMedian {
 		}
 	}
 
+	// 支持重复数据（节点记录一下重复的个数，即size含义）
+	// 取出位于index位置的数~
+	// 每次只删除一个
 	public static double[] medianSlidingWindow(int[] nums, int k) {
 		SizeBalancedTreeMap<Node> map = new SizeBalancedTreeMap<>();
 		for (int i = 0; i < k - 1; i++) {
