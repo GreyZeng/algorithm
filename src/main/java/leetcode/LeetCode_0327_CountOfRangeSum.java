@@ -19,15 +19,16 @@
 // -10^5 <= lower <= upper <= 10^5
 // The answer is guaranteed to fit in a 32-bit integer.
 package leetcode;
+
+
+import java.util.HashSet;
+
 // 方法1：归并排序
 
 // 思路
 // 1. 前缀和加速求区间和
 // 2. 必须以i结尾的达标子数组有多少个
-
-import java.util.HashSet;
-
-// 方法2：有序表方式
+// 方法2：改写有序表
 // 思路：
 // 子数组必须以i位置结尾，有多少是落在[a,b], 就可以通过前缀和
 // 0 - 0
@@ -39,42 +40,42 @@ import java.util.HashSet;
 
 // 有序表提供add(num) [可以加入重复数字] 和 search(L,R)【L...R中有多少个，其实只需要提供<num的数有多少个这个接口加工而来】 两个接口即可
 // 左滑不处理，右滑累加，每个数据项里面包含节点个数
-
 public class LeetCode_0327_CountOfRangeSum {
 	public static int countRangeSum(int[] nums, int lower, int upper) {
 		int size = nums.length;
-		long[] sum = new long[size];
-		sum[0] = nums[0];
+		long[] preSum = new long[size];
+		preSum[0] = nums[0];
 		for (int i = 1; i < size; i++) {
-			sum[i] = nums[i] + sum[i - 1];
+			preSum[i] = nums[i] + preSum[i - 1];
 		}
-		return p(sum, 0, size - 1, lower, upper);
+		return p(preSum, 0, size - 1, lower, upper);
 	}
 
-	public static int p(long[] sum, int i, int j, int lower, int upper) {
+	public static int p(long[] preSum, int i, int j, int lower, int upper) {
 		if (i == j) {
-			if (sum[i] >= lower && sum[j] <= upper) {
+			if (preSum[i] >= lower && preSum[j] <= upper) {
 				return 1;
 			}
 			return 0;
 		}
 		int mid = i + ((j - i) >> 1);
-		return p(sum, i, mid, lower, upper) + p(sum, mid + 1, j, lower, upper) + merge(sum, i, mid, j, lower, upper);
+		return p(preSum, i, mid, lower, upper) + p(preSum, mid + 1, j, lower, upper) + merge(preSum, i, mid, j, lower, upper);
 	}
 
-	private static int merge(long[] sum, int i, int mid, int j, int lower, int upper) {
+	private static int merge(long[] preSum, int i, int mid, int j, int lower, int upper) {
 		// 单调性->滑动窗口
 		int pair = 0;
 		int L = i;
 		int R = i;
 		int S = mid + 1;
+		// 不回退，所以O(logN)
 		while (S <= j) {
-			long max = sum[S] - lower;
-			long min = sum[S] - upper;
-			while (L <= mid && sum[L] < min) {
+			long max = preSum[S] - lower;
+			long min = preSum[S] - upper;
+			while (L <= mid && preSum[L] < min) {
 				L++;
 			}
-			while (R <= mid && sum[R] <= max) {
+			while (R <= mid && preSum[R] <= max) {
 				R++;
 			}
 			pair += (R - L);
@@ -87,26 +88,26 @@ public class LeetCode_0327_CountOfRangeSum {
 		int r = mid + 1;
 		int index = 0;
 		while (l <= mid && r <= j) {
-			if (sum[l] > sum[r]) {
-				helper[index++] = sum[r++];
+			if (preSum[l] > preSum[r]) {
+				helper[index++] = preSum[r++];
 			} else {
-				helper[index++] = sum[l++];
+				helper[index++] = preSum[l++];
 			}
 		}
 		while (l <= mid) {
-			helper[index++] = sum[l++];
+			helper[index++] = preSum[l++];
 		}
 		while (r <= j) {
-			helper[index++] = sum[r++];
+			helper[index++] = preSum[r++];
 		}
 		int k = 0;
 		for (long num : helper) {
-			sum[i + (k++)] = num;
+			preSum[i + (k++)] = num;
 		}
 		return pair;
 	}
 
-	// TODO 改有序表的方式实现。
+	// 通过改有序表的方式实现。
 	public static int countRangeSum2(int[] nums, int lower, int upper) {
 		// 黑盒，加入数字（前缀和），不去重，可以接受重复数字
 		// < num , 有几个数？
@@ -247,12 +248,5 @@ public class LeetCode_0327_CountOfRangeSum {
 			}
 			return ans;
 		}
-
-		// > 7 8...
-		// <8 ...<=7
-		public long moreKeySize(long key) {
-			return root != null ? (root.all - lessKeySize(key + 1)) : 0;
-		}
-
 	}
 }
