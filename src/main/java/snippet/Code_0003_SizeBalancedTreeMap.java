@@ -7,7 +7,8 @@ public class Code_0003_SizeBalancedTreeMap {
 		public V value;
 		public SBTNode<K, V> l;
 		public SBTNode<K, V> r;
-		public int size; // 不同的key的数量
+		// AVL对应的是数的高度h，SBT对应的是不同的key的数量
+		public int size;
 
 		public SBTNode(K key, V value) {
 			this.key = key;
