@@ -38,37 +38,37 @@ public class LeetCode_0218_TheSkylineProblem {
     // 所以需要记录某个大楼从哪个位置开始增加了一个高度
     // 从哪个位置减少了一个高度
     public static List<List<Integer>> getSkyline(int[][] buildings) {
-        List<Node> items = buildNodes(buildings);
-        // 最大高度出现的次数
-        TreeMap<Integer, Integer> heightTimes = new TreeMap<>();
+        List<Node> nodes = buildNodes(buildings);
+        TreeMap<Integer, Integer> heightTimesMap = new TreeMap<>();
         TreeMap<Integer, Integer> result = new TreeMap<>();
-        for (Node item : items) {
-            if (item.height > 0) {
-                if (!heightTimes.containsKey(item.height)) {
-                    heightTimes.put(item.height, 1);
+        for (Node node : nodes) {
+            int height = node.height;
+            if (height > 0) {
+                if (heightTimesMap.containsKey(height)) {
+                    heightTimesMap.put(height, heightTimesMap.get(height) +1 );
                 } else {
-                    heightTimes.put(item.height, heightTimes.get(item.height) + 1);
+                    heightTimesMap.put(height, 1);
                 }
             } else {
-                if (heightTimes.get(-item.height) == 1) {
-                    heightTimes.remove(-item.height);
+                if (heightTimesMap.get(-height) == 1) {
+                    heightTimesMap.remove(-height);
                 } else {
-                    heightTimes.put(-item.height, heightTimes.get(-item.height) - 1);
+                    heightTimesMap.put(-height, heightTimesMap.get(-height) - 1);
                 }
             }
-            if (heightTimes.isEmpty()) {
-                result.put(item.x, 0);
+            if (heightTimesMap.isEmpty()) {
+                result.put(node.x, 0);
             } else {
-                result.put(item.x, heightTimes.lastKey());
+                result.put(node.x, heightTimesMap.lastKey());
             }
         }
         List<List<Integer>> ans = new ArrayList<>();
         for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
-            int curX = entry.getKey();
-            int curMaxHeight = entry.getValue();
-            if (ans.isEmpty() || ans.get(ans.size() - 1).get(1) != curMaxHeight) {
-                ans.add(new ArrayList<>(Arrays.asList(curX, curMaxHeight)));
-            }
+           int key =  entry.getKey();
+           int value = entry.getValue();
+           if (ans.isEmpty() || ans.get(ans.size() - 1).get(1) != value) {
+               ans.add(new ArrayList<>(Arrays.asList(key, value)));
+           }
         }
         return ans;
     }
@@ -83,11 +83,5 @@ public class LeetCode_0218_TheSkylineProblem {
         }
         list.sort(new MyComparator());
         return list;
-    }
-
-    public static void main(String[] args) {
-        int[][] build = {{0,2,3},{2,5,3}};
-        List<List<Integer>> skyline = getSkyline(build);
-        System.out.println(skyline);
     }
 }
