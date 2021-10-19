@@ -26,4 +26,19 @@ public class LintCode_0035_ReverseLinkedList {
         }
         return pre;
     }
+
+    public ListNode reverse2(ListNode head) {
+        return reverseNode(head);
+    }
+
+    public ListNode reverseNode(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode tail = head.next;
+        ListNode t = reverseNode(head.next);
+        head.next = null;
+        tail.next = head;
+        return t;
+    }
 }

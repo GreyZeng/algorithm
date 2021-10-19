@@ -9,6 +9,7 @@ package leetcode;
 //Follow up:
 //
 //A linked list can be reversed either iteratively or recursively. Could you implement both?
+// https://leetcode-cn.com/problems/reverse-linked-list/
 public class LeetCode_0206_ReverseLinkedList {
     public static class ListNode {
         int val;
@@ -28,12 +29,12 @@ public class LeetCode_0206_ReverseLinkedList {
     }
 
     // 非递归版本
-    public ListNode reverseList(ListNode head) {
-        if (null == head || head.next == null) {
-            return head;
+    public ListNode reverseList(ListNode node) {
+        if (node == null || node.next == null) {
+            return node;
         }
-        ListNode cur = head;
         ListNode pre = null;
+        ListNode cur = node;
         while (cur != null) {
             ListNode t = cur.next;
             cur.next = pre;
@@ -47,15 +48,15 @@ public class LeetCode_0206_ReverseLinkedList {
     public ListNode reverseList2(ListNode head) {
         return reverse(head);
     }
-
-    //
+    
     public ListNode reverse(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
+        ListNode tail = head.next;
         ListNode t = reverse(head.next);
-        head.next.next = head;
         head.next = null;
+        tail.next = head;
         return t;
     }
 }
