@@ -74,13 +74,11 @@ public class Code_0070_BestSplitForEveryPosition {
 		for (int i = 0; i < n; i++) {
 			sum[i + 1] = sum[i] + arr[i];
 		}
-		// s[0] = 0
 		int[] s = new int[n];
 		s[1] = Math.min(arr[0], arr[1]);
 		int bestSplitPosition = 1;
 		int begin = 0;
 		for (int i = 2; i < n; i++) {
-			// 分割点从1开始，不回退
 			int ans = s[i - 1];
 			for (begin = bestSplitPosition; begin <= i; begin++) {
 				int right = sum(sum, begin, i);
