@@ -17,17 +17,17 @@ import java.util.Scanner;
 
 public class NowCoder_StoneMerge {
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int N = in.nextInt();
-        int[] arr = new int[N];
-        for (int i = 0; i < N; i++) {
-            arr[i] = in.nextInt();
-        }
-        int minCost = min2(arr);
-        System.out.println(minCost);
-        in.close();
-    }
+//    public static void main(String[] args) {
+//        Scanner in = new Scanner(System.in);
+//        int N = in.nextInt();
+//        int[] arr = new int[N];
+//        for (int i = 0; i < N; i++) {
+//            arr[i] = in.nextInt();
+//        }
+//        int minCost = min2(arr);
+//        System.out.println(minCost);
+//        in.close();
+//    }
 
     public static int min1(int[] arr) {
         if (arr == null || arr.length <= 1) {
@@ -38,7 +38,9 @@ public class NowCoder_StoneMerge {
         return p1(arr, 0, n - 1, sum);
     }
 
+    // 暴力递归版本
     // L...R范围内，最小代价
+    // 枚举开头位置的合并情况
     public static int p1(int[] arr, int L, int R, int[] sum) {
         if (L == R) {
             return 0;
@@ -57,6 +59,69 @@ public class NowCoder_StoneMerge {
         return minCost;
     }
 
+    // 以上暴力递归改成动态规划
+    public static int min2(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return 0;
+        }
+        int[] sum = sum(arr);
+        int n = arr.length;
+        int[][] dp = new int[n][n];
+        for (int i = 0; i < n - 1; i++) {
+            dp[i][i + 1] = arr[i] + arr[i + 1];
+        }
+        for (int k = n - 3; k >= 0; k--) {
+            int j = n - 1;
+            int i = k;
+            while (j >= n - k - 1) {
+                dp[i][j] = dp[i + 1][j] + arr[i] + rangeSum(sum, i + 1, j);
+                int t = i + 1;
+                while (t < j) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i][t] + rangeSum(sum, i, t) + ((t + 1 == j) ? arr[j] : rangeSum(sum, t + 1, j) + dp[t + 1][j]));
+                    t++;
+                }
+                i--;
+                j--;
+            }
+        }
+        return dp[0][n - 1];
+    }
+
+    // 四边形不等式优化
+    public static int min3(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return 0;
+        }
+        int[] sum = sum(arr);
+        int n = arr.length;
+        int[][] dp = new int[n][n];
+        // 最优划分点
+        int[][] best = new int[n][n];
+        for (int i = 0; i < n - 1; i++) {
+            best[i][i + 1] = i;
+            dp[i][i + 1] = arr[i] + arr[i + 1];
+        }
+        for (int k = n - 3; k >= 0; k--) {
+            int j = n - 1;
+            int i = k;
+            while (j >= n - k - 1) {
+                dp[i][j] = dp[i + 1][j] + arr[i] + rangeSum(sum, i + 1, j);
+                int t = i + 1;
+                best[i][j] = t;
+                while (t <= best[i + 1][j]) {
+                    int newCost = dp[i][t] + rangeSum(sum, i, t) + ((t + 1 == j) ? arr[j] : rangeSum(sum, t + 1, j) + dp[t + 1][j]);
+                    if (newCost <= dp[i][j]) {
+                        dp[i][j] = newCost;
+                        best[i][j] = t;
+                    }
+                    t++;
+                }
+                i--;
+                j--;
+            }
+        }
+        return dp[0][n - 1];
+    }
 
     public static int[] sum(int[] arr) {
         int n = arr.length;
@@ -72,63 +137,6 @@ public class NowCoder_StoneMerge {
         return s[r + 1] - s[l];
     }
 
-    public static int min2(int[] arr) {
-        if (arr == null || arr.length <= 1) {
-            return 0;
-        }
-        int[] sum = sum(arr);
-        int n = arr.length;
-        int[][] dp = new int[n][n];
-        for (int i = 0; i < n - 1; i++) {
-            dp[i][i + 1] = arr[i] + arr[i + 1];
-        }
-        for (int i = n - 3; i >= 0; i--) {
-            int j = n - 1;
-            int k = i;
-            while (j >= n - i - 1) {
-                dp[k][j] = dp[k + 1][j] + arr[k] + rangeSum(sum, k + 1, j);
-                int start = k + 1;
-                while (start < j) {
-                    dp[k][j] = Math.min(dp[k][j], dp[k][start] + rangeSum(sum, k, start) + ((start + 1 == j) ? arr[j] : rangeSum(sum, start + 1, j) + dp[start + 1][j]));
-                    start++;
-                }
-                k--;
-                j--;
-            }
-        }
-        return dp[0][n - 1];
-    }
-
-    public static int min3(int[] arr) {
-        if (arr == null || arr.length < 2) {
-            return 0;
-        }
-        int N = arr.length;
-        int[] s = sum(arr);
-        int[][] dp = new int[N][N]; // 最优划分
-        int[][] best = new int[N][N]; // 最优划分点 对角线没有划分点，可以忽略
-        // 以下循环填倒数第二条对角线的值
-        for (int i = 0; i < N - 1; i++) {
-            best[i][i + 1] = i;
-            dp[i][i + 1] = rangeSum(s, i, i + 1);
-        }
-        for (int L = N - 3; L >= 0; L--) {
-            for (int R = L + 2; R < N; R++) {
-                int next = Integer.MAX_VALUE;
-                int choose = -1;
-                for (int leftEnd = best[L][R - 1]; leftEnd <= best[L + 1][R]; leftEnd++) {
-                    int cur = dp[L][leftEnd] + dp[leftEnd + 1][R];
-                    if (cur <= next) {
-                        next = cur;
-                        choose = leftEnd;
-                    }
-                }
-                best[L][R] = choose;
-                dp[L][R] = next + rangeSum(s, L, R);
-            }
-        }
-        return dp[0][N - 1];
-    }
 
     public static int[] randomArray(int len, int maxValue) {
         int[] arr = new int[len];
@@ -138,35 +146,29 @@ public class NowCoder_StoneMerge {
         return arr;
     }
 
-//    public static void main(String[] args) {
-//        int N = 15;
-//        int maxValue = 100;
-//        int testTime = 1000;
-//        System.out.println("测试开始");
-//        int[] arr = null;
-//        int ans1 = 0;
-//        int ans2 = 0;
-//        int ans3 = 0;
-//
-//        for (int i = 0; i < testTime; i++) {
-//            int len = (int) (Math.random() * N);
-//            arr = randomArray(len, maxValue);
-//            ans1 = min1(arr);
-//            ans2 = min2(arr);
-//            ans3 = min3(arr);
-//            if (ans1 != ans2 || ans1 != ans3) {
-//                System.out.println("Oops!");
-//                break;
-//            }
-//        }
-////        for (int m : arr) {
-////            System.out.print(" " + m);
-////        }
-////        System.out.println();
-////        System.out.println(ans1);
-////        System.out.println(ans2);
-////        System.out.println(ans3);
-//        System.out.println("测试结束");
-//    }
+    public static void main(String[] args) {
+        int N = 15;
+        int maxValue = 100;
+        int testTime = 1000;
+        System.out.println("测试开始");
+        int[] arr = null;
+        int ans1 = 0;
+        int ans2 = 0;
+        int ans3 = 0;
+
+        for (int i = 0; i < testTime; i++) {
+            int len = (int) (Math.random() * N);
+            arr = randomArray(len, maxValue);
+            ans1 = min1(arr);
+            ans2 = min2(arr);
+            ans3 = min3(arr);
+            if (ans1 != ans2 || ans1 != ans3) {
+                System.out.println("Oops!");
+                break;
+            }
+        }
+
+        System.out.println("测试结束");
+    }
 
 }
