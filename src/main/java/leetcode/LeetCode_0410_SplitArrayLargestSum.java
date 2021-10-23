@@ -55,8 +55,32 @@ public class LeetCode_0410_SplitArrayLargestSum {
 
     // 不优化枚举的动态规划方法，O(N^2 * K)
     public static int splitArray1(int[] nums, int m) {
+        int n = nums.length;
+        if (n == 1) {
+            // 根据题意，m此时必定等于nums.length
+            return nums[0];
+        }
+        int[] sum = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            sum[i + 1] = sum[i] + nums[i];
+        }
+        if (m == 1) {
+            return sum(sum, 0, n - 1);
+        }
+        if (m == n) {
+            return max(nums);
+        }
+        
         // TODO
         return -1;
+    }
+
+    public static int max(int[] arr) {
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            max = Math.max(max, arr[i]);
+        }
+        return max;
     }
 
     // 枚举优化，O(N * K)
