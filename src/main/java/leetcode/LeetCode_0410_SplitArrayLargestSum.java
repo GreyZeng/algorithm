@@ -154,6 +154,9 @@ public class LeetCode_0410_SplitArrayLargestSum {
                 for (int k = i - 2; k >= Math.max(best[i - 1][j] - 1, 0); k--) {
                     int next = Math.max(dp[k][j - 1], sum(sum, k + 1, i));
                     if (next < dp[i][j]) {
+                        // 只有明显好处的时候才移动
+                        // 否则会推高下一次遍历的下限值
+                        // 可能导致下一次遍历得不到最优解
                         dp[i][j] = next;
                         best[i][j] = k;
                     }
@@ -165,19 +168,27 @@ public class LeetCode_0410_SplitArrayLargestSum {
         return dp[n - 1][m];
     }
 
+
     // 最优解
-    public static int splitArray3(int[] nums, int M) {
-        long sum = 0;
-        for (int i = 0; i < nums.length; i++) {
+    //  1. 先定一个目标（比如定成累加和 为 0 ~ sum 之间的一个值） 看下需要划分几块
+    // 2. 二分 达标位置（取最左的位置）
+    // O(N*log2Sum)
+    // sum如果很大，可以考虑上述四边形不等式优化解
+    public static int splitArray3(int[] nums, int m) {
+        long sum = nums[0];
+        int n = nums.length;
+        for (int i = 1; i < n; i++) {
             sum += nums[i];
         }
+        // 所以每一部分的累加和的区间范围是[0,sum]
+        // 累加和固定以后，反推出需要几个部分
         long l = 0;
         long r = sum;
         long ans = 0;
         while (l <= r) {
-            long mid = (l + r) / 2;
-            long cur = getNeedParts(nums, mid);
-            if (cur <= M) {
+            long mid = l + ((r - l) >> 1);
+            int part = getParts(nums, mid);
+            if (part <= m) {
                 ans = mid;
                 r = mid - 1;
             } else {
@@ -185,25 +196,27 @@ public class LeetCode_0410_SplitArrayLargestSum {
             }
         }
         return (int) ans;
+
     }
 
-    public static int getNeedParts(int[] arr, long aim) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > aim) {
+    private static int getParts(int[] nums, long aim) {
+        int n = nums.length;
+        for (int m : nums) {
+            if (m > aim) {
                 return Integer.MAX_VALUE;
             }
         }
-        int parts = 1;
-        int all = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            if (all + arr[i] > aim) {
-                parts++;
-                all = arr[i];
+        int part = 1;
+        int sumOfPart = nums[0];
+        for (int i = 1; i < n; i++) {
+            if (sumOfPart + nums[i] > aim) {
+                part++;
+                sumOfPart = nums[i];
             } else {
-                all += arr[i];
+                sumOfPart += nums[i];
             }
         }
-        return parts;
+        return part;
     }
 
     public static int[] randomArray(int len, int maxValue) {
@@ -215,8 +228,8 @@ public class LeetCode_0410_SplitArrayLargestSum {
     }
 
     public static void printArray(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        for (int j : arr) {
+            System.out.print(j + " ");
         }
         System.out.println();
     }
