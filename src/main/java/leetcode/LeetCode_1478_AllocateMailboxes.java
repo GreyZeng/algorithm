@@ -79,7 +79,7 @@ import java.util.Arrays;
 public class LeetCode_1478_AllocateMailboxes {
 
 	public static int minDistance1(int[] arr, int m) {
-		
+
 		int n = arr.length;
 		if (m == n) {
 			// 邮局数量和居民区数量一样，在每个居民区建一个邮筒即可。
@@ -88,6 +88,9 @@ public class LeetCode_1478_AllocateMailboxes {
 		}
 		// 保证居民区有序
 		Arrays.sort(arr);
+		// record[i][j] 假设邮局建立在中点（偶数为上中点）位置，其他位置到这个中点的累加和是多少
+		int[][] records = new int[n][m + 1];
+		
 		// 0...n-1号房子在m个邮筒安排下的最佳总路程
 		int[][] dp = new int[n][m + 1];
 		// 第0列弃而不用，因为0个邮筒没法安排
