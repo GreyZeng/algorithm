@@ -1,11 +1,16 @@
-package snippet;
+package leetcode;
 
 import java.util.Arrays;
-//一条直线上有居民点，邮局只能建在居民点上。给定一个有序正数数组arr，每个值表示 居民点的一维坐标，再给定一个正数 num，表示邮局数量。选择num个居民点建立num个 邮局，使所有的居民点到最近邮局的总距离最短，返回最短的总距离
-//        【举例】
-//        arr=[1,2,3,4,5,1000]，num=2。
-//        第一个邮局建立在 3 位置，第二个邮局建立在 1000 位置。那么 1 位置到邮局的距离 为 2， 2 位置到邮局距离为 1，3 位置到邮局的距离为 0，4 位置到邮局的距离为 1， 5 位置到邮局的距 离为 2，1000 位置到邮局的距离为 0。
-//        这种方案下的总距离为 6， 其他任何方案的总距离都不会 比该方案的总距离更短，所以返回6
+
+//给你一个房屋数组houses 和一个整数 k ，其中 houses[i] 是第 i 栋房子在一条街上的位置，现需要在这条街上安排 k 个邮筒。
+//
+//请你返回每栋房子与离它最近的邮筒之间的距离的 最小 总和。
+//
+//答案保证在 32 位有符号整数范围以内。
+//
+//来源：力扣（LeetCode）
+//链接：https://leetcode-cn.com/problems/allocate-mailboxes
+//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 //
 //        题目
 //        arr有序(表示距离)
@@ -39,9 +44,10 @@ import java.util.Arrays;
 //        4. 一个单独格子不会依赖本行和本列的某些值
 //        --> dp[i][j]和临近位置关系来优化枚举行为
 //        生成choose和dp规模一样，存最优划分
-public class Code_0071_PostOfficeProblem {
+public class LeetCode_1478_AllocateMailboxes {
 
-    public static int min1(int[] arr, int num) {
+    public static int minDistance1(int[] arr, int num) {
+        Arrays.sort(arr);
         if (arr == null || num < 1 || arr.length < num) {
             return 0;
         }
@@ -68,7 +74,8 @@ public class Code_0071_PostOfficeProblem {
         return dp[N - 1][num];
     }
 
-    public static int min2(int[] arr, int num) {
+    public static int minDistance2(int[] arr, int num) {
+        Arrays.sort(arr);
         if (arr == null || num < 1 || arr.length < num) {
             return 0;
         }
@@ -135,8 +142,8 @@ public class Code_0071_PostOfficeProblem {
             int len = (int) (Math.random() * N) + 1;
             int[] arr = randomSortedArray(len, maxValue);
             int num = (int) (Math.random() * N) + 1;
-            int ans1 = min1(arr, num);
-            int ans2 = min2(arr, num);
+            int ans1 = minDistance1(arr, num);
+            int ans2 = minDistance2(arr, num);
             if (ans1 != ans2) {
                 printArray(arr);
                 System.out.println(num);
