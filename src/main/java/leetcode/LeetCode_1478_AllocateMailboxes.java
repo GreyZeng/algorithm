@@ -94,8 +94,15 @@ public class LeetCode_1478_AllocateMailboxes {
 		// 第一列
 		// 表示必须要建一个邮筒的情况下，处理0...i号邮筒，此时，邮筒应该建在中间位置
 		// 0号房子一个邮筒，安排策略就是在0号房子下安排这个邮筒，距离为0 dp[0][1] = 0
+		int bestPosition = 0;
 		for (int i = 1; i < n; i++) {
-			// int bestPosition = ?;
+			if ((i & 1) == 1) {
+				// 偶数取下中点
+				// [0..1] 取 1
+				// [0..2] 依然取 1 bestPosition不变
+				// [0..3] 取 2
+				bestPosition++;
+			}
 			// dp[i][1] = 0...i号每个居民点到bestPosition的距离之和。
 		}
 
