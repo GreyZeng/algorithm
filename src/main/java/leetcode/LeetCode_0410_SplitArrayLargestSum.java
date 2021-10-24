@@ -104,8 +104,65 @@ public class LeetCode_0410_SplitArrayLargestSum {
 
     // 用了枚举优化，O(N * K)
     public static int splitArray2(int[] nums, int m) {
-        // TODO
-        return -1;
+        int n = nums.length;
+        // 前缀和加速
+        int[] sum = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            sum[i + 1] = sum[i] + nums[i];
+        }
+
+        //dp[i][j] 表示0...i分成j份的最好结果
+        int[][] dp = new int[n][m + 1];
+        int[][] best = new int[n][m + 1];
+        // 第0列无意义
+        // 从第一列开始, 只分一份的情况下，就是累加和
+        dp[0][1] = nums[0];
+        //System.out.println("best[0][1] = " + best[0][1]);
+        for (int i = 1; i < n; i++) {
+            dp[i][1] = dp[i - 1][1] + nums[i];
+
+            // best可以认为以0号位置为分割点
+            //System.out.println("best[" + i + "][" + 1 + "] = " + best[i][1]);
+        }
+
+        // dp[i - 1][i] 表示 i个元素分成i份，只有唯一分法，
+        // dp[i - 1][i] 就是 0...i - 1的最大值
+        int max = dp[0][1];
+        for (int i = 2; i <= m; i++) {
+            max = Math.max(max, nums[i - 1]);
+            dp[i - 1][i] = max;
+            best[i - 1][i] = i - 1;
+            //System.out.println("best[" + (i - 1) + "][" + i + "] = " + best[i - 1][i]);
+        }
+        // 普遍位置
+        for (int j = 2; j <= m; j++) {
+            for (int i = j; i < n; i++) {
+                // 最后一份只有一个元素, 0...i, 最后一个元素的位置是i，最后一份留给最后一个元素
+                // 留最后一个元素给最后一堆数组
+                dp[i][j] = Math.max(nums[i], dp[i - 1][j - 1]);
+                best[i][j] = i - 1;
+                //System.out.println("dp[" + (i) + "][" + j + "] 至少= " + dp[i][j]);
+                // 依次考察留2个元素给最后一个数组
+                // 留3个元素给最后一个数组
+                // ...
+//                for (int k = 2; i + 1 - k >= j - 1; k++) {
+//                    dp[i][j] = Math.min(dp[i][j], Math.max(dp[i - k][j - 1], sum(sum, i - k + 1, i)));
+//                }
+//                if (i == 2 && j == 2) {
+//                    System.out.println("");
+//                }
+                for (int k = i - 2; k >= Math.max(best[i - 1][j] - 1, 0); k--) {
+                    int next = Math.max(dp[k][j - 1], sum(sum, k + 1, i));
+                    if (next < dp[i][j]) {
+                        dp[i][j] = next;
+                        best[i][j] = k;
+                    }
+                }
+//                System.out.println("best[" + (i) + "][" + j + "] = " + best[i][j]);
+//                System.out.println("dp[" + (i) + "][" + j + "] = " + dp[i][j]);
+            }
+        }
+        return dp[n - 1][m];
     }
 
     // 最优解
@@ -190,6 +247,6 @@ public class LeetCode_0410_SplitArrayLargestSum {
         System.out.println("测试结束");
 //        int[] arr = {2, 3, 1, 2, 4, 3};
 //        int k = 5;
-//        System.out.println(splitArray1(arr, k));
+//        System.out.println(splitArray2(arr, k));
     }
 }
