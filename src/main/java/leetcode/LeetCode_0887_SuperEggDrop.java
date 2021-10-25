@@ -53,56 +53,30 @@ package leetcode;
 // 方法4打败100%
 // 方法5打败100%，方法5是在方法4的基础上做了进一步的常数优化
 public class LeetCode_0887_SuperEggDrop {
-
-	// 暴力递归方式
-	// FIXME
-	public static int superEggDrop1(int k, int n) {
-		if (n < 1 || k < 1) {
+	public static int superEggDrop1(int kChess, int nLevel) {
+		if (nLevel < 1 || kChess < 1) {
 			return 0;
 		}
-		return p(n, k);
+		return process1(nLevel, kChess);
 	}
 
-	// 剩下rest层，剩下k个鸡蛋，一定要验出最好层数方法数量
-	public static int p(int rest, int k) {
-		if (rest == 0 || k == 1) {
-			// 剩下一个鸡蛋了，只能逐层尝试
+	// rest还剩多少层楼需要去验证
+	// k还有多少颗棋子能够使用
+	// 一定要验证出最高的不会碎的楼层！但是每次都是坏运气。
+	// 返回至少需要扔几次？
+	public static int process1(int rest, int k) {
+		if (rest == 0) {
+			return 0;
+		}
+		if (k == 1) {
 			return rest;
 		}
-		// 最后一个鸡蛋弃而不用
-		// rest层要k-1个鸡蛋来验
-		int min = p(rest, k - 1) + 0;
-		// 枚举最后一个鸡蛋验证几层
-		for (int i = 1; i <= rest; i++) {
-			min = Math.min(min, Math.max(min, p(rest - i, k - 1) + i));
+		int min = Integer.MAX_VALUE;
+		for (int i = 1; i != rest + 1; i++) { // 第一次扔的时候，仍在了i层
+			min = Math.min(min, Math.max(process1(i - 1, k - 1), process1(rest - i, k)));
 		}
-		return min;
+		return min + 1;
 	}
-
-//	 public static int superEggDrop1(int kChess, int nLevel) {
-//	        if (nLevel < 1 || kChess < 1) {
-//	            return 0;
-//	        }
-//	        return process1(nLevel, kChess);
-//	    }
-//
-//	    // rest还剩多少层楼需要去验证
-//	    // k还有多少颗棋子能够使用
-//	    // 一定要验证出最高的不会碎的楼层！但是每次都是坏运气。
-//	    // 返回至少需要扔几次？
-//	    public static int process1(int rest, int k) {
-//	        if (rest == 0) {
-//	            return 0;
-//	        }
-//	        if (k == 1) {
-//	            return rest;
-//	        }
-//	        int min = Integer.MAX_VALUE;
-//	        for (int i = 1; i != rest + 1; i++) { // 第一次扔的时候，仍在了i层
-//	            min = Math.min(min, Math.max(process1(i - 1, k - 1), process1(rest - i, k)));
-//	        }
-//	        return min + 1;
-//	    }
 	public static int superEggDrop2(int kChess, int nLevel) {
 		if (nLevel < 1 || kChess < 1) {
 			return 0;
