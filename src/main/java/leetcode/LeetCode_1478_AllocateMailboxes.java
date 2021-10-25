@@ -121,44 +121,56 @@ public class LeetCode_1478_AllocateMailboxes {
         return dp[n - 1][m];
     }
 
-    public static int minDistance2(int[] arr, int num) {
-        if (arr == null || num < 1 || arr.length < num) {
+    // 使用四边形不等式优化枚举行为
+    public static int minDistance2(int[] arr, int m) {
+        int n = arr.length;
+        if (m == n) {
+            // 邮局数量和居民区数量一样，在每个居民区建一个邮筒即可。
+            // 总距离就是0
             return 0;
         }
+        // 保证居民区有序
         Arrays.sort(arr);
-        int N = arr.length;
-        int[][] w = new int[N + 1][N + 1];
-        for (int L = 0; L < N; L++) {
-            for (int R = L + 1; R < N; R++) {
-                w[L][R] = w[L][R - 1] + arr[R] - arr[(L + R) >> 1];
+        // 0...n-1号房子在m个邮筒安排下的最佳总路程
+        int[][] dp = new int[n][m + 1];
+        int[][] best = new int[n][m + 1];
+        // record[i][j] 假设邮局建立在中点（偶数为上中点）位置，其他位置到这个中点的累加和是多少
+        // 类似一维数组中前缀和加速求累加和的作用
+        // 对角线都是0，因为对角线中i==j, 只需要这个位置建一个邮筒即可。距离为0
+        int[][] records = new int[n + 1][n + 1];
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                // 中点位置
+                int mid = i + ((j - i) >> 1);
+                records[i][j] = records[i][j - 1] + arr[j] - arr[mid];
+                // dp[j][1] 表示只要一个邮筒，从0...j的最佳方案，即records[0][j] 值
+                dp[j][1] = records[0][j];
+                // 0...i位置只建一个邮筒的话，最佳位置是中点
+                best[i][1] = mid;
+                //System.out.println("record[" + i + "][" + j + "] = " + records[i][j]);
             }
         }
-        int[][] dp = new int[N][num + 1];
-        int[][] best = new int[N][num + 1];
-        for (int i = 0; i < N; i++) {
-            dp[i][1] = w[0][i];
-            best[i][1] = -1;
-        }
-        for (int j = 2; j <= num; j++) {
-            for (int i = N - 1; i >= j; i--) {
-                int down = best[i][j - 1];
-                int up = i == N - 1 ? N - 1 : best[i + 1][j];
-                int ans = Integer.MAX_VALUE;
-                int bestChoose = -1;
-                for (int leftEnd = down; leftEnd <= up; leftEnd++) {
-                    int leftCost = leftEnd == -1 ? 0 : dp[leftEnd][j - 1];
-                    int rightCost = leftEnd == i ? 0 : w[leftEnd + 1][i];
-                    int cur = leftCost + rightCost;
-                    if (cur <= ans) {
-                        ans = cur;
-                        bestChoose = leftEnd;
+
+        // 第0列没意义
+        // 第一列上述循环已经填完
+        // 从第二列开始填起
+        for (int j = 2; j < m + 1; j++) {
+            for (int i = j; i < n; i++) {
+                // 考虑最后一个邮筒的负责范围，至少可以负责最后一个居民点
+                dp[i][j] = dp[i - 1][j - 1] + records[i][i];
+                // 最优划分点至少是0...i-1上的划分点，往右
+                best[i][j] = best[i - 1][j];
+                for (int k = i - 2; k >= best[i - 1][j]; k--) {
+                    // 最后一个邮筒负责最后两个居民点起步
+                    int next = dp[k][j - 1] + records[k + 1][i];
+                    if (next <= dp[i][j]) {
+                        dp[i][j] = next;
+                        best[i][j] = k;
                     }
                 }
-                dp[i][j] = ans;
-                best[i][j] = bestChoose;
             }
         }
-        return dp[N - 1][num];
+        return dp[n - 1][m];
     }
 
     // for test
