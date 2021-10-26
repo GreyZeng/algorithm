@@ -100,6 +100,7 @@ public class Code_0070_BestSplitForEveryPosition {
 				int leftSum = sum(sum, 0, split);
 				int rightSum = sum(sum, split + 1, i);
 				int result = Math.min(leftSum, rightSum);
+				// 一定要>=, 因为如果严格大于，会错过0的情况
 				if (result >= S[i]) {
 					S[i] = result;
 					best = split;
