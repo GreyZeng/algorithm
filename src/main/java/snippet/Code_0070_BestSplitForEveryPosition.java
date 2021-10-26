@@ -61,39 +61,41 @@ public class Code_0070_BestSplitForEveryPosition {
 		return ans;
 	}
 
-	// 四边形不等式优化
 	public static int[] bestSplit3(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return new int[0];
 		}
-		int n = arr.length;
-		if (n == 1) {
-			return new int[] { 0 };
-		}
-		int[] sum = new int[n + 1];
-		for (int i = 0; i < n; i++) {
+		int N = arr.length;
+		int[] ans = new int[N];
+		ans[0] = 0;
+		// arr =   {5, 3, 1, 3}
+		//          0  1  2  3
+		// sum ={0, 5, 8, 9, 12}
+		//       0  1  2  3   4
+		// 0~2 ->  sum[3] - sum[0]
+		// 1~3 ->  sum[4] - sum[1]
+		int[] sum = new int[N + 1];
+		for (int i = 0; i < N; i++) {
 			sum[i + 1] = sum[i] + arr[i];
 		}
-		int[] s = new int[n];
-		s[1] = Math.min(arr[0], arr[1]);
-		int bestSplitPosition = 1;
-		int begin = 0;
-		for (int i = 2; i < n; i++) {
-			int ans = s[i - 1];
-			for (begin = bestSplitPosition; begin <= i; begin++) {
-				int right = sum(sum, begin, i);
-				int left = sum(sum, 0, begin - 1);
-				if (Math.min(right, left) >= ans) {
-					bestSplitPosition = begin;
-					ans = Math.min(right, left);
+		// 最优划分
+		// 0~range-1上，最优划分是左部分[0~best]  右部分[best+1~range-1]
+		int best = 0;
+		for (int range = 1; range < N; range++) {
+			while (best + 1 < range) {
+				int before = Math.min(sum(sum, 0, best), sum(sum, best + 1, range));
+				int after = Math.min(sum(sum, 0, best + 1), sum(sum, best + 2, range));
+				// 注意，一定要是>=，只是>会出错
+				// 课上会讲解
+				if (after >= before) {
+					best++;
 				} else {
 					break;
 				}
 			}
-			s[i] = ans;
+			ans[range] = Math.min(sum(sum, 0, best), sum(sum, best + 1, range));
 		}
-		return s;
-
+		return ans;
 	}
 
 	public static int[] randomArray(int len, int max) {
@@ -122,21 +124,16 @@ public class Code_0070_BestSplitForEveryPosition {
 		int max = 30;
 		int testTime = 1000000;
 		System.out.println("测试开始");
-		int[] arr = null;
-		int[] ans1 = null;
-		int[] ans2 = null;
-		int[] ans3 = null;
 		for (int i = 0; i < testTime; i++) {
 			int len = (int) (Math.random() * N);
-			arr = randomArray(len, max);
-			ans1 = bestSplit1(arr);
-			ans2 = bestSplit2(arr);
-			ans3 = bestSplit3(arr);
+			int[] arr = randomArray(len, max);
+			int[] ans1 = bestSplit1(arr);
+			int[] ans2 = bestSplit2(arr);
+			int[] ans3 = bestSplit3(arr);
 			if (!isSameArray(ans1, ans2) || !isSameArray(ans1, ans3)) {
 				System.out.println("Oops!");
-				break;
 			}
 		}
-		System.out.println("测试结束"); 
+		System.out.println("测试结束");
 	}
 }
