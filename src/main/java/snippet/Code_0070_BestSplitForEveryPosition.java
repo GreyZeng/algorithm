@@ -3,7 +3,7 @@ package snippet;
 
 // `S(N-1)`表示在`arr[0…N-1]`范围上，做最优划分所得到的`min{左部分累加和，右部分累加和}的最大值`, 
 // 现在要求返回一个长度为N的s数组，
-// s[i]表示在`arr[0…i]`范围上，做最优划分所得到的min{左部分累加和，右部分累加和}的最大值, 得到整个s数组的过程，做到时间复杂度O(N)
+// S[i]表示在`arr[0…i]`范围上，做最优划分所得到的min{左部分累加和，右部分累加和}的最大值, 得到整个S数组的过程，做到时间复杂度O(N)
 
 // tips:
 // 1. sum和范围有单调性
@@ -11,91 +11,110 @@ package snippet;
 //    都有O(N)的优化
 // 3. 前缀和加速（前缀和数组多加一位，不需要判断边界）
 public class Code_0070_BestSplitForEveryPosition {
-
+	// 暴力枚举
 	public static int[] bestSplit1(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return new int[0];
 		}
-		int N = arr.length;
-		int[] ans = new int[N];
-		ans[0] = 0;
-		for (int range = 1; range < N; range++) {
-			for (int s = 0; s < range; s++) {
-				int sumL = 0;
-				for (int L = 0; L <= s; L++) {
-					sumL += arr[L];
+		int n = arr.length;
+		if (n == 1) {
+			return new int[] { 0 };
+		}
+		int[] S = new int[n];
+		S[0] = 0;
+
+		for (int i = 1; i < n; i++) {
+			// 枚举左右两个部分
+			// split表示分割点
+			for (int split = 0; split < i; split++) {
+				int leftSum = 0;
+				int rightSum = 0;
+				// 左边：0...split
+				for (int l = 0; l <= split; l++) {
+					leftSum += arr[l];
 				}
-				int sumR = 0;
-				for (int R = s + 1; R <= range; R++) {
-					sumR += arr[R];
+				// 右边：split+1,i
+				for (int r = split + 1; r <= i; r++) {
+					rightSum += arr[r];
 				}
-				ans[range] = Math.max(ans[range], Math.min(sumL, sumR));
+				S[i] = Math.max(S[i], Math.min(leftSum, rightSum));
 			}
 		}
-		return ans;
+		return S;
+	}
+
+	// 暴力解基础上通过前缀和加速
+	public static int[] bestSplit2(int[] arr) {
+		if (arr == null || arr.length == 0) {
+			return new int[0];
+		}
+		int n = arr.length;
+		if (n == 1) {
+			return new int[] { 0 };
+		}
+		// 前缀和数组，任意i...j位置上的值通过sum[j + 1] - sum[i]获取
+		int[] sum = new int[n + 1];
+		sum[0] = 0;
+		for (int i = 1; i < n + 1; i++) {
+			sum[i] = sum[i - 1] + arr[i - 1];
+		}
+		int[] S = new int[n];
+		S[0] = 0;
+		for (int i = 1; i < n; i++) {
+			// 枚举左右两个部分
+			// split表示分割点
+			for (int split = 0; split < i; split++) {
+				// 使用前缀和加速，减少了一阶
+				int leftSum = sum(sum, 0, split);
+				int rightSum = sum(sum, split + 1, i);
+				S[i] = Math.max(S[i], Math.min(leftSum, rightSum));
+			}
+		}
+		return S;
+
+	}
+
+	// 最优解，四边形不等式优化
+	public static int[] bestSplit3(int[] arr) {
+		if (arr == null || arr.length == 0) {
+			return new int[0];
+		}
+		int n = arr.length;
+		if (n == 1) {
+			return new int[] { 0 };
+		}
+		// 前缀和数组，任意i...j位置上的值通过sum[j + 1] - sum[i]获取
+		int[] sum = new int[n + 1];
+		sum[0] = 0;
+		for (int i = 1; i < n + 1; i++) {
+			sum[i] = sum[i - 1] + arr[i - 1];
+		}
+		int[] S = new int[n];
+		S[0] = 0;
+		// 记录前一个位置最优划分点在哪里
+		int best = 0;
+		for (int i = 1; i < n; i++) {
+			// 四边形不等式优化
+			S[i] = Math.min(sum(sum, 0, best), sum(sum, best + 1, i));
+			for (int split = best; split < i; split++) {
+				int leftSum = sum(sum, 0, split);
+				int rightSum = sum(sum, split + 1, i);
+				int result = Math.min(leftSum, rightSum);
+				if (result >= S[i]) {
+					S[i] = result;
+					best = split;
+				} else {
+					break;
+				}
+			}
+		}
+
+		return S;
 	}
 
 	// 求原来的数组arr中，arr[L...R]的累加和
 	public static int sum(int[] sum, int L, int R) {
 		return sum[R + 1] - sum[L];
-	}
-
-	public static int[] bestSplit2(int[] arr) {
-		if (arr == null || arr.length == 0) {
-			return new int[0];
-		}
-		int N = arr.length;
-		int[] ans = new int[N];
-		ans[0] = 0;
-		int[] sum = new int[N + 1];
-		for (int i = 0; i < N; i++) {
-			sum[i + 1] = sum[i] + arr[i];
-		}
-		for (int range = 1; range < N; range++) {
-			for (int s = 0; s < range; s++) {
-				int sumL = sum(sum, 0, s);
-				int sumR = sum(sum, s + 1, range);
-				ans[range] = Math.max(ans[range], Math.min(sumL, sumR));
-			}
-		}
-		return ans;
-	}
-
-	public static int[] bestSplit3(int[] arr) {
-		if (arr == null || arr.length == 0) {
-			return new int[0];
-		}
-		int N = arr.length;
-		int[] ans = new int[N];
-		ans[0] = 0;
-		// arr =   {5, 3, 1, 3}
-		//          0  1  2  3
-		// sum ={0, 5, 8, 9, 12}
-		//       0  1  2  3   4
-		// 0~2 ->  sum[3] - sum[0]
-		// 1~3 ->  sum[4] - sum[1]
-		int[] sum = new int[N + 1];
-		for (int i = 0; i < N; i++) {
-			sum[i + 1] = sum[i] + arr[i];
-		}
-		// 最优划分
-		// 0~range-1上，最优划分是左部分[0~best]  右部分[best+1~range-1]
-		int best = 0;
-		for (int range = 1; range < N; range++) {
-			while (best + 1 < range) {
-				int before = Math.min(sum(sum, 0, best), sum(sum, best + 1, range));
-				int after = Math.min(sum(sum, 0, best + 1), sum(sum, best + 2, range));
-				// 注意，一定要是>=，只是>会出错
-				// 课上会讲解
-				if (after >= before) {
-					best++;
-				} else {
-					break;
-				}
-			}
-			ans[range] = Math.min(sum(sum, 0, best), sum(sum, best + 1, range));
-		}
-		return ans;
 	}
 
 	public static int[] randomArray(int len, int max) {
