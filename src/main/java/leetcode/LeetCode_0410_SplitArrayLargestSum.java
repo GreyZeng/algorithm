@@ -32,208 +32,210 @@ package leetcode;
 //        来源：力扣（LeetCode）
 //        链接：https://leetcode-cn.com/problems/split-array-largest-sum
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-//tips:
-//        从左往右的尝试模型，按最后一个画家负责的情况枚举情况
-//        k块
-//        min(max(s1,s2...sk))
-//        四边形不等式不是最优解
-//        O(N * K)
-//
-//        目标定，至少需要几个画家？
-//        累加和--》二分--》几个画家
-//
-//        有一个最优解
-//
-//        1. 先定一个目标（比如定成累加和 为 0 ~ sum 之间的一个值） 看下需要划分几块
-//        2. 二分 达标位置（取最左的位置）
-//        O(N*log2Sum)
+//       满足 min(max(s1,s2...sk))
+//        但是四边形不等式不是最优解
+// FIXME
 public class LeetCode_0410_SplitArrayLargestSum {
-	// 不优化枚举的动态规划方法，O(N^2 * K)
-	public static int splitArray1(int[] nums, int m) {
-		if (nums == null || nums.length == 0) {
-			return 0;
-		}
-		int n = nums.length;
-		int[] sum = new int[n + 1];
-		for (int i = 1; i < n + 1; i++) {
-			sum[i] = sum[i - 1] + nums[i - 1];
-		}
-		// dp[i][j] 表示 0....i分成j部分的答案是多少
-		// 第0列和第0行没意义
-		int[][] dp = new int[n][m + 1];
+    // 不优化枚举的动态规划方法，O(N^2 * K)
+    public static int splitArray1(int[] nums, int m) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = nums.length;
+        if (n == m) {
+            // 要分的部分和数组长度一致，取全局最大值
+            int max = nums[0];
+            for (int i = 1; i < n; i++) {
+                max = Math.max(nums[i], max);
+            }
+            return max;
+        }
+        long[] sum = new long[n + 1];
+        for (int i = 0; i < n; i++) {
+            sum[i + 1] = sum[i] + nums[i];
+        }
+        // dp[i][j] 表示 0....i分成j部分的答案是多少
+        // 第0列没意义
+        // 第0行除了dp[i][1]有意义，其他都没意义
+        long[][] dp = new long[n][m + 1];
+        // 如果只能分一个部分，答案就是累加和
+        for (int i = 0; i < n; i++) {
+            dp[i][1] = sum(sum, 0, i);
+        }
+        int max = nums[0];
+        for (int i = 1; i < m + 1; i++) {
+            max = Math.max(max, nums[i]);
+            dp[i - 1][i] = max;
 
-		// 如果只能分一个部分，答案就是累加和
-		for (int i = 1; i < n; i++) {
-			dp[i][1] = sum(sum, 0, i);
-		}
-		// 如果分的部分数量正好等于数组元素个数，那么每个部分对应一个数组元素
-		
-		return dp[n][m];
-	}
+        }
+        // 如果分的部分正好等于数组长度，则取全局最大值即可
+        // dp[0][1] = nums[0];
+        for (int i = 1; i < n; i++) {
+            for (int j = 2; j < m + 1; j++) {
+                // dp[i][j] 至少是这个值，最后一个位置分给最后一部分
+                long ans = Integer.MAX_VALUE;
+                for (int k = 0; k <= i; k++) {
+                    long cur = Math.max(dp[k][j - 1], sum(sum, k + 1, i));
+//                    System.out.println("dp[" + i + "][" + j + "]=" + dp[i][j]);
+                    if (cur < ans) {
+                        ans = cur;
+                    }
+                }
+                dp[i][j] = ans;
+            }
+        }
+        return (int) dp[n - 1][m];
+    }
 
-	// 求原数组arr[L...R]的累加和
-	// 其中sum为前缀和数组
-	public static int sum(int[] sum, int L, int R) {
-		return sum[R + 1] - sum[L];
-	}
+    // 求原数组arr[L...R]的累加和
+    // 其中sum为前缀和数组
+    public static long sum(long[] sum, int L, int R) {
+        return sum[R + 1] - sum[L];
+    }
 
-	// 用了枚举优化，O(N * K)
-	public static int splitArray2(int[] nums, int m) {
-		int n = nums.length;
-		// 前缀和加速
-		int[] sum = new int[n + 1];
-		for (int i = 0; i < n; i++) {
-			sum[i + 1] = sum[i] + nums[i];
-		}
+    // 用了枚举优化，O(N * K)
+    public static int splitArray2(int[] nums, int m) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = nums.length;
+        if (n == m) {
+            int max = nums[0];
+            for (int i = 1; i < n; i++) {
+                max = Math.max(nums[i], max);
+            }
+            return max;
+        }
+        long[] sum = new long[n + 1];
+        for (int i = 0; i < n; i++) {
+            sum[i + 1] = sum[i] + nums[i];
+        }
+        // dp[i][j] 表示 0....i分成j部分的答案是多少
+        // 第0列没意义
+        // 第0行除了dp[i][1]有意义，其他都没意义
+        long[][] dp = new long[n][m + 1];
+        // 记录dp[i][j]的最佳划分，最后一个部分位置负责到哪里
+        int[][] best = new int[n][m + 1];
+        // 如果只能分一个部分，答案就是累加和
+        for (int i = 0; i < n; i++) {
+            dp[i][1] = sum(sum, 0, i);
+        }
 
-		// dp[i][j] 表示0...i分成j份的最好结果
-		int[][] dp = new int[n][m + 1];
-		int[][] best = new int[n][m + 1];
-		// 第0列无意义
-		// 从第一列开始, 只分一份的情况下，就是累加和
-		dp[0][1] = nums[0];
-		// System.out.println("best[0][1] = " + best[0][1]);
-		for (int i = 1; i < n; i++) {
-			dp[i][1] = dp[i - 1][1] + nums[i];
+        // 如果分的部分数量正好等于数组元素个数，那么每个部分对应一个数组元素
+        for (int j = 2; j < m + 1; j++) {
+            for (int i = n - 1; i >= 1; i--) {
+                // dp[i][j] 至少是这个值，最后一个位置分给最后一部分
+                dp[i][j] = Math.max(dp[i - 1][j - 1], nums[i]);
+                best[i][j] = best[i - 1][j];
+                int down = best[i - 1][j];
+                int up = i + 1 < n ? best[i + 1][j] : n - 1;
+                for (int k = down; k <= up; k++) {
+                    long next = Math.max(dp[k][j - 1], sum(sum, k + 1, i));
+                    if (next <= dp[i][j]) {
+                        dp[i][j] = next;
+                        best[i][j] = k;
+                    }
+                }
+            }
+        }
+        return (int) dp[n - 1][m];
+    }
 
-			// best可以认为以0号位置为分割点
-			// System.out.println("best[" + i + "][" + 1 + "] = " + best[i][1]);
-		}
+    // 最优解
+    // 1. 先定一个目标（比如定成累加和 为 0 ~ sum 之间的一个值） 看下需要划分几块
+    // 2. 二分 达标位置（取最左的位置）
+    // O(N*log2Sum)
+    // sum如果很大，可以考虑上述四边形不等式优化解
+    public static int splitArray3(int[] nums, int m) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = nums.length;
+        long sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        // 0...sum
+        long l = 0;
+        long r = sum;
+        long ans = 0;
+        while (l <= r) {
+            long aim = (l + r) / 2;
+            long part = getNeedParts(nums, aim);
+            if (part <= m) {
+                // 每一份分太大块了
+                r = aim - 1;
+                ans = aim;
+            } else {
+                // 每一份分小了
+                l = aim + 1;
 
-		// dp[i - 1][i] 表示 i个元素分成i份，只有唯一分法，
-		// dp[i - 1][i] 就是 0...i - 1的最大值
-		int max = dp[0][1];
-		for (int i = 2; i <= m; i++) {
-			max = Math.max(max, nums[i - 1]);
-			dp[i - 1][i] = max;
-			best[i - 1][i] = i - 1;
-			// System.out.println("best[" + (i - 1) + "][" + i + "] = " + best[i - 1][i]);
-		}
-		// 普遍位置
-		for (int j = 2; j <= m; j++) {
-			for (int i = j; i < n; i++) {
-				// 最后一份只有一个元素, 0...i, 最后一个元素的位置是i，最后一份留给最后一个元素
-				// 留最后一个元素给最后一堆数组
-				dp[i][j] = Math.max(nums[i], dp[i - 1][j - 1]);
-				best[i][j] = i - 1;
-				// System.out.println("dp[" + (i) + "][" + j + "] 至少= " + dp[i][j]);
-				// 依次考察留2个元素给最后一个数组
-				// 留3个元素给最后一个数组
-				// ...
-//                for (int k = 2; i + 1 - k >= j - 1; k++) {
-//                    dp[i][j] = Math.min(dp[i][j], Math.max(dp[i - k][j - 1], sum(sum, i - k + 1, i)));
-//                }
-//                if (i == 2 && j == 2) {
-//                    System.out.println("");
-//                }
-				for (int k = i - 2; k >= Math.max(best[i - 1][j] - 1, 0); k--) {
-					int next = Math.max(dp[k][j - 1], sum(sum, k + 1, i));
-					if (next < dp[i][j]) {
-						// 只有明显好处的时候才移动
-						// 否则会推高下一次遍历的下限值
-						// 可能导致下一次遍历得不到最优解
-						dp[i][j] = next;
-						best[i][j] = k;
-					}
-				}
-//                System.out.println("best[" + (i) + "][" + j + "] = " + best[i][j]);
-//                System.out.println("dp[" + (i) + "][" + j + "] = " + dp[i][j]);
-			}
-		}
-		return dp[n - 1][m];
-	}
+            }
+        }
+        return (int) ans;
+    }
 
-	// 最优解
-	// 1. 先定一个目标（比如定成累加和 为 0 ~ sum 之间的一个值） 看下需要划分几块
-	// 2. 二分 达标位置（取最左的位置）
-	// O(N*log2Sum)
-	// sum如果很大，可以考虑上述四边形不等式优化解
-	public static int splitArray3(int[] nums, int m) {
-		long sum = nums[0];
-		int n = nums.length;
-		for (int i = 1; i < n; i++) {
-			sum += nums[i];
-		}
-		// 所以每一部分的累加和的区间范围是[0,sum]
-		// 累加和固定以后，反推出需要几个部分
-		long l = 0;
-		long r = sum;
-		long ans = 0;
-		while (l <= r) {
-			long mid = l + ((r - l) >> 1);
-			int part = getParts(nums, mid);
-			if (part <= m) {
-				ans = mid;
-				r = mid - 1;
-			} else {
-				l = mid + 1;
-			}
-		}
-		return (int) ans;
+    public static int getNeedParts(int[] arr, long aim) {
+        for (int n : arr) {
+            if (n > aim) {
+                return Integer.MAX_VALUE;
+            }
+        }
+        int part = 1;
+        int all = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if ((arr[i] + all) > aim) {
+                part++;
+                all = arr[i];
+            } else {
+                all += arr[i];
+            }
+        }
+        return part;
+    }
 
-	}
+    public static int[] randomArray(int len, int maxValue) {
+        int[] arr = new int[len];
+        for (int i = 0; i < len; i++) {
+            arr[i] = (int) (Math.random() * maxValue);
+        }
+        return arr;
+    }
 
-	private static int getParts(int[] nums, long aim) {
-		int n = nums.length;
-		for (int m : nums) {
-			if (m > aim) {
-				return Integer.MAX_VALUE;
-			}
-		}
-		int part = 1;
-		int sumOfPart = nums[0];
-		for (int i = 1; i < n; i++) {
-			if (sumOfPart + nums[i] > aim) {
-				part++;
-				sumOfPart = nums[i];
-			} else {
-				sumOfPart += nums[i];
-			}
-		}
-		return part;
-	}
+    public static void printArray(int[] arr) {
+        for (int j : arr) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
+    }
 
-	public static int[] randomArray(int len, int maxValue) {
-		int[] arr = new int[len];
-		for (int i = 0; i < len; i++) {
-			arr[i] = (int) (Math.random() * maxValue);
-		}
-		return arr;
-	}
+    public static void main(String[] args) {
+        int m = 3;
+        int[] arr = {6, 1, 2, 2};
+        System.out.println(splitArray1(arr, m));
+//        int N = 4;
+//        int maxValue = 10;
+//        int testTime = 10000;
+//        System.out.println("测试开始");
+//        for (int i = 0; i < testTime; i++) {
+//            int len = (int) (Math.random() * N) + 1;
+//            int M = Math.min((int) (Math.random() * N) + 1, len);
+//            int[] arr = randomArray(len, maxValue);
+//            int ans1 = splitArray1(arr, M);
+//            int ans2 = splitArray2(arr, M);
+//            int ans3 = splitArray3(arr, M);
+//            if (ans1 != ans2 || ans1 != ans3) {
+//                System.out.print("arr : " + arr.length);
+//                printArray(arr);
+//                System.out.println("M : " + M);
+//                System.out.println("ans1 : " + ans1);
+//                System.out.println("ans2 : " + ans2);
+//                System.out.println("ans3 : " + ans3);
+//                System.out.println("Oops!");
+//                break;
+//            }
+//        }
+//        System.out.println("测试结束");
 
-	public static void printArray(int[] arr) {
-		for (int j : arr) {
-			System.out.print(j + " ");
-		}
-		System.out.println();
-	}
-
-	public static void main(String[] args) {
-		int N = 100;
-		int maxValue = 100;
-		int testTime = 10000;
-		System.out.println("测试开始");
-		for (int i = 0; i < testTime; i++) {
-			int len = (int) (Math.random() * N) + 1;
-			int M = Math.min((int) (Math.random() * N) + 1, len);
-			int[] arr = randomArray(len, maxValue);
-			int ans1 = splitArray1(arr, M);
-			int ans2 = splitArray2(arr, M);
-			int ans3 = splitArray3(arr, M);
-			if (ans1 != ans2 || ans1 != ans3) {
-				System.out.print("arr : ");
-				printArray(arr);
-				System.out.println("M : " + M);
-				System.out.println("ans1 : " + ans1);
-				System.out.println("ans2 : " + ans2);
-				System.out.println("ans3 : " + ans3);
-				System.out.println("Oops!");
-				break;
-			}
-		}
-		System.out.println("测试结束");
-//        int[] arr = {2, 3, 1, 2, 4, 3};
-//        int k = 5;
-//        System.out.println(splitArray2(arr, k));
-	}
+    }
 }
