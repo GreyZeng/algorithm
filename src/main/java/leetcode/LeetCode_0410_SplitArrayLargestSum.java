@@ -80,46 +80,8 @@ public class LeetCode_0410_SplitArrayLargestSum {
 	// 用了枚举优化，O(N * K)
 	// FIXME
 	public static int splitArray2(int[] nums, int m) {
-		if (nums == null || nums.length == 0) {
-			return 0;
-		}
-		int n = nums.length;
-		long[] sum = new long[n + 1];
-		for (int i = 1; i < n + 1; i++) {
-			sum[i] = sum[i - 1] + nums[i - 1];
-		}
-		// dp[i][j] 0....i 由 j个人来处理，最优处理是多少
-		long[][] dp = new long[n][m + 1];
-		int[][] best = new int[n][m + 1];
-		dp[0][1] = nums[0];
-		// best[0][1] = 0;
-		for (int i = 1; i < n; i++) {
-			// 数组分一个部分，就是累加和
-			dp[i][1] = dp[i - 1][1] + nums[i];
-			// best[i][1] = 0;
-		}
-		for (int i = 2; i < m + 1; i++) {
-			// i个元素分i份, 每个元素一份
-			dp[i - 1][i] = Math.max(nums[i - 1], dp[i - 2][i - 1]);
-			best[i - 1][i] = i - 2;
-		}
-		for (int j = 2; j < m + 1; j++) {
-			for (int i = n - 1; i >= j; i--) {
-				// dp[i][j] 至少可以是这个值。
-				dp[i][j] = Math.max(dp[i - 1][j - 1], nums[i]);
-				best[i][j] = i == n - 1 ? n - 1 : best[i + 1][j];
-				int up = i == n - 1 ? n - 1 : best[i + 1][j];
-				int down = best[i - 1][j];
-				for (int k = up; k >= down; k--) {
-					long cur = Math.max(dp[k][j - 1], sum(sum, k + 1, i));
-					if (cur < dp[i][j]) {
-						dp[i][j] = cur;
-						best[i][j] = k;
-					}
-				}
-			}
-		}
-		return (int) dp[n - 1][m];
+		// TODO
+		return -1;
 	}
 
 	public static int splitArray3(int[] nums, int M) {
