@@ -77,11 +77,50 @@ public class LeetCode_0410_SplitArrayLargestSum {
 		return sum[R + 1] - sum[L];
 	}
 
-	// 用了枚举优化，O(N * K)
+	// 用了四边形不等式优化，O(N * K)
 	// FIXME
 	public static int splitArray2(int[] nums, int m) {
-		// TODO
-		return -1;
+		if (nums == null || nums.length == 0) {
+			return 0;
+		}
+		int n = nums.length;
+		long[] sum = new long[n + 1];
+		for (int i = 1; i < n + 1; i++) {
+			sum[i] = sum[i - 1] + nums[i - 1];
+		}
+		// dp[i][j] 0....i 由 j个人来处理，最优处理是多少
+		long[][] dp = new long[n][m + 1];
+		int[][] best = new int[n][m + 1];
+		dp[0][1] = nums[0];
+		// best[0][1] = 0;
+		for (int i = 1; i < n; i++) {
+			// 数组分一个部分，就是累加和
+			dp[i][1] = dp[i - 1][1] + nums[i];
+			// best[i][1] = 0
+		}
+		long max = dp[0][1];
+		for (int i = 2; i < m + 1; i++) {
+			// i个元素分i份, 每个元素一份
+			 max = Math.max(max, nums[i - 1]);
+	            dp[i - 1][i] = max;
+	            best[i - 1][i] = i - 1;
+		}
+		for (int j = 2; j < m + 1; j++) {
+			for (int i = j; i < n; i++) {
+				// dp[i][j] 至少可以是这个值。
+				// TODO 上界？
+				dp[i][j] = Math.max(dp[i - 1][j - 1] , nums[i]);
+				best[i][j] = i - 1;
+				for (int k = i - 2; k >= Math.max(best[i - 1][j] - 1, 0); k--) {
+					long next = Math.max(dp[k][j - 1], sum(sum, k + 1, i));
+					if (next < dp[i][j]) {
+						dp[i][j] = next;
+						best[i][j] = k;
+					}
+				}
+			}
+		}
+		return (int) dp[n - 1][m];
 	}
 
 	public static int splitArray3(int[] nums, int M) {
@@ -140,10 +179,10 @@ public class LeetCode_0410_SplitArrayLargestSum {
 	}
 
 	public static void main(String[] args) {
-		// int N = 100;
-		int N = 5;
-		//	int maxValue = 100;
-		int maxValue = 7;
+		int N = 100;
+		// int N = 5;
+		int maxValue = 100;
+		// int maxValue = 7;
 		int testTime = 10000;
 		System.out.println("测试开始");
 		for (int i = 0; i < testTime; i++) {
