@@ -2,7 +2,7 @@ package snippet;
 
 // leetcode原题
 // 测试链接：https://leetcode.com/problems/split-array-largest-sum/
-public class Code04_SplitArrayLargestSum {
+public class Code_0071_SplitArrayLargestSum {
 
 	// 求原数组arr[L...R]的累加和
 	public static int sum(int[] sum, int L, int R) {

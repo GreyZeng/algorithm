@@ -2,7 +2,7 @@ package snippet;
 
 import java.util.Arrays;
 
-public class Code01_PostOfficeProblem {
+public class Code_0072_PostOfficeProblem {
 
 	public static int min1(int[] arr, int num) {
 		if (arr == null || num < 1 || arr.length < num) {
