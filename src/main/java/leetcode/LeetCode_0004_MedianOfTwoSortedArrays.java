@@ -1,6 +1,36 @@
 package leetcode;
 
+// https://leetcode.com/problems/median-of-two-sorted-arrays/
 public class LeetCode_0004_MedianOfTwoSortedArrays {
+    // 暴力解法 O(M+N)
+    public double findMedianSortedArrays1(int[] nums1, int[] nums2) {
+        int[] result = new int[nums1.length + nums2.length];
+        int i = 0;
+        int j = 0;
+        int index = 0;
+        while (i < nums1.length && j < nums2.length) {
+            if (nums1[i] < nums2[j]) {
+                result[index++] = nums1[i++];
+            } else if (nums1[i] > nums2[j]) {
+                result[index++] = nums2[j++];
+            } else {
+                result[index++] = nums1[i++];
+            }
+        }
+        while (j < nums2.length) {
+            result[index++] = nums2[j++];
+        }
+        while (i < nums1.length) {
+            result[index++] = nums1[i++];
+        }
+        if ((result.length & 1) == 1) {
+            // 奇数
+            return result[result.length / 2];
+        }
+        return (double) ((result[result.length / 2] + result[(result.length - 1) / 2]) / 2d);
+    }
+
+    // 最优解 O(log(M+N))
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int size1 = nums1 == null ? 0 : nums1.length;
         int size2 = nums2 == null ? 0 : nums2.length;
