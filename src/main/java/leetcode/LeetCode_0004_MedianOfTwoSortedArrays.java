@@ -55,34 +55,69 @@ public class LeetCode_0004_MedianOfTwoSortedArrays {
             return nums2[size / 2];
         }
         return 0;
-
     }
-
-    // 获取两个长度不等的数组中第K小的数
+    public static void main(String[] args) {
+        int[] shorts = {1,3,5,7};
+        int[] longs = {2,4,6,8,10,12};
+        int s2 = findKthNum(shorts, longs, 2);
+        int s1 = findKthNum(shorts, longs, 1);
+       // int s0 = findKthNum(shorts, longs, 0);
+System.out.println(s2);
+        System.out.println(s1);
+       // System.out.println(s0);
+    }
+    // 获取两个长度不等的有序数组中第K小的数（K从1开始算）
     // 已知：getUpMedian:获取两个长度相等的排序数组merge后的上中位数
+    // 假设longs表示长数组，shorts表示短数组
     // kth的范围包括：
-    // 1. <= 短数组的长度
-    // long 取前kth个数
-    // short 取前kth个数
+    // 第一种情况 k小于等于短数组的长度
+    // longs 取前kth个数
+    // shorts 取前kth个数
     // 调用getUpMedian函数，拿到中位数
-    //
-    // 2. > 短数组长度 <= 长数组长度
-    // short都有可能
-    // long 排除掉 前(kth - short.len - 1) 个数，以及[kth + 1, long.len]区间的所有数
-    // 手动验证一下long中第(kth - short.len)位置上的数是不是比short最后一个数大，
-    // 如果是，long中第(kth - short.len)位置上的数即为第Kth小的数
-    // 如果不是，long中第(kth - short.len)位置上的数即为第Kth小的数直接排除掉
-    // long 中剩余数和 short中所有数用一次getUpMedian方法求得的值即为第kth小的数
-    //
-    // 3. > 长数组长度 <= 长数组长度+短数组长度
-    // short 中排除掉前面(kth - long.len)个数
-    // long 中排除掉前( kth - short.len - 1) 个数
-    // 手动判断下short和long中剩余数中最左边的数是不是第kth小的数，如果是，直接返回，如果不是，排除掉这两个最左边的数
-    // short和long剩余数用getUpMedian
+    // 例如：
+    // shorts [1,3,5,7]
+    // longs  [2,4,6,8,10,12]
+    // 取第2小的数,客观上，第2小的数是2，
+    // 可能存在的范围是shorts的前2个数中，也可能存在在longs的前2个数中
+    // 除此之外，不能是其他范围，因为超过这个范围，就不止第2小了。
+
+    // 第2种情况，k大于短数组长度但k小于等于长数组长度
+    // shorts都有可能
+    // longs 排除掉 前(kth - shorts.len - 1) 个数，以及[kth + 1, longs.len]区间的所有数
+    // 手动验证一下long中第(kth - shorts.len)位置上的数是不是比shorts最后一个数大，
+    // 如果是，longs中第(kth - shorts.len)位置上的数即为第Kth小的数
+    // 如果不是，longs中第(kth - shorts.len)位置上的数即为第Kth小的数直接排除掉
+    // longs 中剩余数和 shorts中所有数用一次getUpMedian方法求得的值即为第kth小的数
+    // 例如：
+    //  shorts [1,3,5,7]
+    //  longs  [2,4,6,8,10,12,14,16，18]
+    // 求第7小的数，此时
+    // shorts中的数都有可能是第6小的数，
+    // 但是，longs中，可以排除如下位置的数
+    // 1. 从第8小的数开始一直到第longs.len小的数都可以排除。
+    // 2. 从 7 - shorts.len - 1 即：7 - 4 - 1 = 3 ，longs中第3小之前的数都可以排除，
+    // 排除完毕后，验证一下longs中第3小的数是不是比shorts中最后一个数大，如果是，则longs中第3小的数即位两个数组的第7小的数。
+    // 如果不是，则longs中剩余可选的数继续和shorts调用getUpMedian方法。
+    // 第3种情况 k大于 长数组长度 但是k小于等于 长数组长度+短数组长度
+    // shorts 中排除掉前面(kth - longs.len)个数
+    // longs 中排除掉前( kth - shorts.len - 1) 个数
+    // 手动判断下shorts和longs中剩余数中最左边的数是不是第kth小的数，如果是，直接返回，如果不是，排除掉这两个最左边的数
+    // shorts和longs剩余数用getUpMedian获取的结果即为答案
+    // 举例说明
+    // shorts [1,3,5,7,9,11] 长度是6
+    // longs [2,4,6,8,10,12,14,16,18,20,22,24] 长度是12
+    // 求第15小的数
+    // shorts中可以排除掉前面2个数（15 - longs.len - 1）= 2 因为即便shorts中第1小的数比longs中所有数都大，它也只能算第13小的数，
+    // 第2小的数即便比longs中所有数都大，也只能算全局第14小的数。
+    // longs中可以排除掉第1一直到第8小（即：15 - shorts.len  - 1 = 8）的数，因为longs中第8小的数即便比shorts数所有数都大，也只能是全局第14小的数。
+    // 进过排除后，shorts中和longs中可选范围为
+    // [x,x,5,7,9,11]
+    // [x,x,x,x,x,x,x,x,18,20,22,24]
+    // 先手动判断一下，longs中的18和shorts中的5是否是第15小的数，如果是直接返回，如果不是，
+    // shorts中[7,9,11] 和 longs中 [20,22,24] 使用getUpMedian获取的结果即为答案
     public static int findKthNum(int[] arr1, int[] arr2, int kth) {
         int[] longs = arr1.length >= arr2.length ? arr1 : arr2;
         int[] shorts = longs == arr1 ? arr2 : arr1;
-
         int S = shorts.length;
         int L = longs.length;
         if (kth <= S) {
@@ -103,7 +138,7 @@ public class LeetCode_0004_MedianOfTwoSortedArrays {
         return getUpMedian(shorts, kth - L, S - 1, longs, kth - S, L - 1);
     }
 
-    // 获取两个长度相等的排序数组merge后的上中位数
+    // 获取两个长度相等的有序数组merge后的上中位数
     public static int getUpMedian(int[] A, int s1, int e1, int[] B, int s2, int e2) {
         if (s1 == e1) {
             return Math.min(A[s1], B[s2]);
