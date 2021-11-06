@@ -46,7 +46,7 @@ public class LeetCode_0010_RegularExpressionMatching {
     // str中不能含有. 和 *
     // exp中，*不能开头，且两个*不能连在一起
     // exp中，.可以替换成任何的非空字符，*必须和前面的字符一起作用，可以让前面的字符变成0个或者多个
-    // 比如：exp: abc*b 可以匹配 str: abb, 有可以匹配str: abcb 以可以匹配：abcccb，也可以匹配abccccccb,依次类推
+    // 比如：exp: abc*b 可以匹配 str: abb, 也可以匹配str: abcb 也可以匹配：abcccb，也可以匹配abccccccb,依次类推
     // exp: ab.b 可以匹配 abmb，abcb，abdb，依次类推，但是不能匹配abb，因为.不能替换空字符
     private static boolean isValid(char[] str, char[] exp) {
 
@@ -70,6 +70,7 @@ public class LeetCode_0010_RegularExpressionMatching {
         char[] str = s.toCharArray();
         char[] exp = p.toCharArray();
         if (!isValid(str, exp)) {
+            // 这个校验无论做不做都可以过leetcode的测评
             return false;
         }
         int M = str.length;
@@ -113,11 +114,7 @@ public class LeetCode_0010_RegularExpressionMatching {
     }
 
 
-    public static void main(String[] args) {
-        String a = "";
-        String b = "c*ab";
-        System.out.println(isMatch(a, b));
-    }
+
 
     // 暴力递归
     public static boolean isMatch0(String s, String p) {
@@ -138,11 +135,11 @@ public class LeetCode_0010_RegularExpressionMatching {
             return str.length == si;
         }
         if (si == str.length) {
-            if (ei == exp.length) {
-                // 情况2.
-                // str串都到了最后，exp也到了最后,肯定匹配成功
-                return true;
-            }
+//            if (ei == exp.length) {
+//                // 情况2.
+//                // str串都到了最后，exp也到了最后,肯定匹配成功
+//                return true;
+//            }
             // 情况3.
             // str串如果到了最后(成了个空串)
             // exp串还没结束，则exp余下的串必须是：X*Y*C*M* 这样”字符+*“成对出现的格式，因为只有这样的格式才能匹配一个空串（每个*把它前一个字母消掉）
@@ -214,6 +211,13 @@ public class LeetCode_0010_RegularExpressionMatching {
         boolean ans = process2(s, e, si, ei + 2, dp);
         dp[si][ei] = ans ? 1 : -1;
         return ans;
+    }
+
+
+    public static void main(String[] args) {
+        String s = "aa";
+        String b = "a*";
+        System.out.println(isMatch3(s, b));
     }
 
 }
