@@ -21,19 +21,19 @@ public class LeetCode_0005_LongestPalindromicSubstring {
             return s;
         }
         char[] str = s.toCharArray();
-        char[] strs = manacherStr(str);
-        int[] pArr = new int[strs.length];
+        char[] manacherStr = manacherStr(str);
+        int[] pArr = new int[manacherStr.length];
         int c = 0;
         int r = 0;
         int i = 1;
-        int len = strs.length;
+        int len = manacherStr.length;
         int max = 1;
         while (i < len) {
             // pArr[i] 至少不需要扩的大小
             pArr[i] = i < r ? Math.min(r - i, pArr[c - (i - c)]) : 1;
             // 暴力扩
             while (i + pArr[i] < len && i - pArr[i] >= 0) {
-                if (strs[i + pArr[i]] == strs[i - pArr[i]]) {
+                if (manacherStr[i + pArr[i]] == manacherStr[i - pArr[i]]) {
                     pArr[i]++;
                 } else {
                     break;
@@ -59,7 +59,7 @@ public class LeetCode_0005_LongestPalindromicSubstring {
         // 构造最大回文子串
         StringBuilder sb = new StringBuilder();
         for (i = n - max + 2; i < n + max; i += 2) {
-            sb.append(strs[i]);
+            sb.append(manacherStr[i]);
         }
         return sb.toString();
     }

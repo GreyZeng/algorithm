@@ -1,5 +1,3 @@
-# 使用manacher算法解决最长回文子串问题
-
 ## 要解决的问题
 
 > 求一个字符串最长回文子串是什么。且时间复杂度 `O(N)`
@@ -21,6 +19,68 @@
 在字符串的每两个位置之间插入一个特殊字符，变成一个预处理后的字符串，比如我们可以以`#`作为特殊字符（特殊字符选哪个无所谓，不必非要是原始串中不含有的字符），将`1ABBA2`这个字符串预处理成`1#A#B#B#A#2`，用预处理串来跑这个暴力解法，会得到`#A#B#B#A#`这个是预处理串的最长回文子串，我们可以很方便把这个串还原成原始串的最长回文子串。
 
 暴力解法时间复杂度为`O(N^2)`。
+
+暴力方法的示例代码如下：
+
+```java
+public class LeetCode_0005_LongestPalindromicSubstring {
+    // 暴力解法
+    public static String longestPalindrome1(String s) {
+        if (s.length() == 1) {
+            return s;
+        }
+        char[] str = s.toCharArray();
+        char[] mStr = manacherStr(str);
+        int max = 1; // 最大回文长度至少是1
+        int lM = 0; // 记录最长回文的左边界的上一个位置
+        int rM = 0; // 记录最长回文的有边界的下一个位置
+        for (int i = 1; i < mStr.length; i++) {
+            int curMax = 1; // 当前的最大回文长度至少是1
+            int l = i - 1;
+            int r = i + 1;
+            while (l >= 0 && r < mStr.length) {
+                if (mStr[l] == mStr[r]) {
+                    // 暴力扩充
+                    l--;
+                    r++;
+                } else {
+                    break;
+                }
+            }
+            curMax = r - l - 1;
+            if (curMax > max) {
+                // 当前最长回文长度已经超过了max了
+                // 更新中心值
+                // 更新max值
+                max = curMax;
+                lM = l;
+                rM = r;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = lM + 2; i < rM; i += 2) {
+            sb.append(mStr[i]);
+        }
+        return sb.toString();
+    }
+
+    public static char[] manacherStr(char[] str) {
+        final char c = '#';
+        char[] mStr = new char[(str.length << 1) | 1];
+        mStr[0] = c;
+        mStr[1] = str[0];
+        int index = 1;
+        for (int i = 2; i < mStr.length; i++) {
+            if ((i & 1) != 1) {
+                mStr[i] = c;
+            } else {
+                mStr[i] = str[index++];
+            }
+        }
+        return mStr;
+    }
+}
+```
 
 ## Manacher算法
 
@@ -69,7 +129,6 @@
 关于情况2，我们假设`i'`为`i`关于`c`对称的点，`r'`为`r`关于`c`对称的点，示例图如下：
 
 ![image](https://img2020.cnblogs.com/blog/683206/202109/683206-20210920125517266-138475304.png)
-
 
 细分如下几种情况：
 
@@ -139,7 +198,7 @@
 
 ```java
 public class LeetCode_0005_LongestPalindromicSubstring {
-    
+
     public static String longestPalindrome(String s) {
         if (s == null || s.length() <= 1) {
             return s;
