@@ -1,36 +1,99 @@
+//Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+//
+//        The overall run time complexity should be O(log (m+n)).
+//
+//
+//
+//        Example 1:
+//
+//        Input: nums1 = [1,3], nums2 = [2]
+//        Output: 2.00000
+//        Explanation: merged array = [1,2,3] and median is 2.
+//        Example 2:
+//
+//        Input: nums1 = [1,2], nums2 = [3,4]
+//        Output: 2.50000
+//        Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+//        Example 3:
+//
+//        Input: nums1 = [0,0], nums2 = [0,0]
+//        Output: 0.00000
+//        Example 4:
+//
+//        Input: nums1 = [], nums2 = [1]
+//        Output: 1.00000
+//        Example 5:
+//
+//        Input: nums1 = [2], nums2 = []
+//        Output: 2.00000
+//
+//
+//        Constraints:
+//
+//        nums1.length == m
+//        nums2.length == n
+//        0 <= m <= 1000
+//        0 <= n <= 1000
+//        1 <= m + n <= 2000
+//        -106 <= nums1[i], nums2[i] <= 106
 package leetcode;
 
 // https://leetcode.com/problems/median-of-two-sorted-arrays/
 public class LeetCode_0004_MedianOfTwoSortedArrays {
-    // 暴力解法 O(M+N)
+    // 解法1 O(M+N)
     public double findMedianSortedArrays1(int[] nums1, int[] nums2) {
-        int[] result = new int[nums1.length + nums2.length];
+        // 题目已经说明nums1和nums2不能同时为空
+        if (null == nums1 || nums1.length == 0) {
+            return median(nums2);
+        }
+        if (null == nums2 || nums2.length == 0) {
+            return median(nums1);
+        }
+        int m = nums1.length;
+        int n = nums2.length;
+        int[] nums = new int[m + n];
         int i = 0;
         int j = 0;
         int index = 0;
-        while (i < nums1.length && j < nums2.length) {
-            if (nums1[i] < nums2[j]) {
-                result[index++] = nums1[i++];
-            } else if (nums1[i] > nums2[j]) {
-                result[index++] = nums2[j++];
+        while (i < m && j < n) {
+            if (nums1[i] >= nums2[j]) {
+                nums[index++] = nums2[j++];
             } else {
-                result[index++] = nums1[i++];
+                nums[index++] = nums1[i++];
             }
         }
-        while (j < nums2.length) {
-            result[index++] = nums2[j++];
+        while (i < m) {
+            nums[index++] = nums1[i++];
         }
-        while (i < nums1.length) {
-            result[index++] = nums1[i++];
+        while (j < n) {
+            nums[index++] = nums2[j++];
         }
-        if ((result.length & 1) == 1) {
+        return median(nums);
+    }
+
+    public static double median(int[] arr) {
+        int len = arr.length;
+        if ((len & 1) == 1) {
             // 奇数
-            return result[result.length / 2];
+            return arr[len / 2];
         }
-        return (double) ((result[result.length / 2] + result[(result.length - 1) / 2]) / 2d);
+        return ((arr[len / 2] + arr[(len - 1) / 2]) / 2d);
     }
 
     // 最优解 O(log(M+N))
+    public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+        // 题目已经说明nums1和nums2不能同时为空
+        if (null == nums1 || nums1.length == 0) {
+            return median(nums2);
+        }
+        if (null == nums2 || nums2.length == 0) {
+            return median(nums1);
+        }
+        // TODO
+        return 0d;
+    }
+
+
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int size1 = nums1 == null ? 0 : nums1.length;
         int size2 = nums2 == null ? 0 : nums2.length;
@@ -56,16 +119,7 @@ public class LeetCode_0004_MedianOfTwoSortedArrays {
         }
         return 0;
     }
-    public static void main(String[] args) {
-        int[] shorts = {1,3,5,7};
-        int[] longs = {2,4,6,8,10,12};
-        int s2 = findKthNum(shorts, longs, 2);
-        int s1 = findKthNum(shorts, longs, 1);
-       // int s0 = findKthNum(shorts, longs, 0);
-System.out.println(s2);
-        System.out.println(s1);
-       // System.out.println(s0);
-    }
+
     // 获取两个长度不等的有序数组中第K小的数（K从1开始算）
     // 已知：getUpMedian:获取两个长度相等的排序数组merge后的上中位数
     // 假设longs表示长数组，shorts表示短数组
@@ -168,5 +222,16 @@ System.out.println(s2);
                 return getUpMedian(A, mid1 + 1, e1, B, s2, mid2 - 1);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        int[] shorts = {1, 3, 5, 7};
+        int[] longs = {2, 4, 6, 8, 10, 12};
+        int s2 = findKthNum(shorts, longs, 2);
+        int s1 = findKthNum(shorts, longs, 1);
+        // int s0 = findKthNum(shorts, longs, 0);
+        System.out.println(s2);
+        System.out.println(s1);
+        // System.out.println(s0);
     }
 }
