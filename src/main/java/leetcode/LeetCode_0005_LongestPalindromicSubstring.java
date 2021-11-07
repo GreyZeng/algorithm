@@ -9,8 +9,13 @@ package leetcode;
 // LeetCode_0647_PalindromicSubstrings.java
 
 // LeetCode_0214_ShortestPalindrome.java
+// 约束
+//1 <= s.length <= 1000
+//s consist of only digits and English letters.
 public class LeetCode_0005_LongestPalindromicSubstring {
-    
+
+
+    // Manacher算法 O(N)
     public static String longestPalindrome(String s) {
         if (s == null || s.length() <= 1) {
             return s;
@@ -59,11 +64,59 @@ public class LeetCode_0005_LongestPalindromicSubstring {
         return sb.toString();
     }
 
-    public static char[] manacherStr(char[] str) {
-        char[] strs = new char[str.length << 1 | 1];
-        for (int i = 0; i < strs.length; i++) {
-            strs[i] = ((i & 1) == 1) ? str[i >> 1] : '#';
+    // 暴力解法
+    public static String longestPalindrome1(String s) {
+        if (s.length() == 1) {
+            return s;
         }
-        return strs;
+        char[] str = s.toCharArray();
+        char[] mStr = manacherStr(str);
+        int max = 1; // 最大回文长度至少是1
+        int lM = 0; // 记录最长回文的左边界的上一个位置
+        int rM = 0; // 记录最长回文的有边界的下一个位置
+        for (int i = 1; i < mStr.length; i++) {
+            int curMax = 1; // 当前的最大回文长度至少是1
+            int l = i - 1;
+            int r = i + 1;
+            while (l >= 0 && r < mStr.length) {
+                if (mStr[l] == mStr[r]) {
+                    // 暴力扩充
+                    l--;
+                    r++;
+                } else {
+                    break;
+                }
+            }
+            curMax = r - l - 1;
+            if (curMax > max) {
+                // 当前最长回文长度已经超过了max了
+                // 更新中心值
+                // 更新max值
+                max = curMax;
+                lM = l;
+                rM = r;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = lM + 2; i < rM; i += 2) {
+            sb.append(mStr[i]);
+        }
+        return sb.toString();
+    }
+
+    public static char[] manacherStr(char[] str) {
+        final char c = '#';
+        char[] mStr = new char[(str.length << 1) | 1];
+        mStr[0] = c;
+        mStr[1] = str[0];
+        int index = 1;
+        for (int i = 2; i < mStr.length; i++) {
+            if ((i & 1) != 1) {
+                mStr[i] = c;
+            } else {
+                mStr[i] = str[index++];
+            }
+        }
+        return mStr;
     }
 }
