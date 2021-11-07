@@ -217,7 +217,7 @@ public class LeetCode_0010_RegularExpressionMatching {
     public static void main(String[] args) {
         String s = "aa";
         String b = "a*";
-        System.out.println(isMatch3(s, b));
+
     }
 
 }
