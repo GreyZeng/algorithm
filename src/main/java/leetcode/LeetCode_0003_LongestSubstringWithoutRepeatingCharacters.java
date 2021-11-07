@@ -10,25 +10,23 @@ public class LeetCode_0003_LongestSubstringWithoutRepeatingCharacters {
     // 3. 如何记录i位置上一次出现的位置呢？ 可以用一个整型数组arr来表示，a 的 ascii码是97， arr[97] = 3,表示a上次出现的位置是3.
     // 4. 如何记录i向左扩能扩到最左的位置是哪里？ 可以用一个pre变量来记录，pre初始是-1，
     public static int lengthOfLongestSubstring(String s) {
-        if (null == s) {
+        if (null == s || s.length() == 0) {
             return 0;
         }
-        if (s.length() <= 1) {
-            return s.length();
+        if (s.length() == 1) {
+            return 1;
         }
         char[] str = s.toCharArray();
         int n = str.length;
         int[] arr = new int[128];
         Arrays.fill(arr, -1);
         int max = 1;
-        int mostLeft;
-        int prePos = -1;
+        int preLeft = -1;
         for (int i = 0; i < n; i++) {
-            // 上次出现的位置
-            prePos = Math.max(arr[str[i]], prePos);
-            mostLeft = i - prePos;
-            max = Math.max(mostLeft, max);
+            preLeft = Math.max(arr[str[i]], preLeft);
             arr[str[i]] = i;
+            int cur = i - preLeft;
+            max = Math.max(max, cur);
         }
         return max;
     }
