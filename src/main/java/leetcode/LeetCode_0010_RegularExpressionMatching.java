@@ -114,8 +114,6 @@ public class LeetCode_0010_RegularExpressionMatching {
     }
 
 
-
-
     // 暴力递归
     public static boolean isMatch0(String s, String p) {
         if (s == null || p == null) {
@@ -212,12 +210,4 @@ public class LeetCode_0010_RegularExpressionMatching {
         dp[si][ei] = ans ? 1 : -1;
         return ans;
     }
-
-
-    public static void main(String[] args) {
-        String s = "aa";
-        String b = "a*";
-
-    }
-
 }

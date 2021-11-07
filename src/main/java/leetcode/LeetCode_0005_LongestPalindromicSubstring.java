@@ -14,7 +14,6 @@ package leetcode;
 //s consist of only digits and English letters.
 public class LeetCode_0005_LongestPalindromicSubstring {
 
-
     // Manacher算法 O(N)
     public static String longestPalindrome(String s) {
         if (s == null || s.length() <= 1) {
@@ -22,13 +21,20 @@ public class LeetCode_0005_LongestPalindromicSubstring {
         }
         char[] str = s.toCharArray();
         char[] manacherStr = manacherStr(str);
-        int[] pArr = new int[manacherStr.length];
-        int c = 0;
-        int r = 0;
-        int i = 1;
+        // 一个整型数组，长度和预处理串一样，存每个位置的最长回文半径是多少。
         int len = manacherStr.length;
+        int[] pArr = new int[len];
+        pArr[0] = 1;
+        pArr[len - 1] = 1;
+        // 回文最右边界，只要某个位置能扩到超过这个位置，就更新r这个值，初始值为0，因为一个字符串回文字符串至少是1，
+        // 可以以第0个字符为中心且以0为最右边界(即：第0个字符本身作为一个回文串)
+        int r = 0;
+        // 就是扩到r位置的的中心点，即pArr[c] = r - c + 1，初始值为0，与r的初始值定为0一样的考虑。
+        int c = 0;
+        // 当前遍历到的位置，因为pArr[0]=1, pArr[len - 1] = 1;所以i可以从1开始遍历,一直到len - 2
+        int i = 1;
         int max = 1;
-        while (i < len) {
+        while (i < len - 1) {
             // pArr[i] 至少不需要扩的大小
             pArr[i] = i < r ? Math.min(r - i, pArr[c - (i - c)]) : 1;
             // 暴力扩
