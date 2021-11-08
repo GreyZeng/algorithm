@@ -40,7 +40,7 @@
  */
 package leetcode;
 
-
+// TODO 需要强化练习
 public class LeetCode_0010_RegularExpressionMatching {
     // 判断是否合法的str和exp
     // str中不能含有. 和 *
