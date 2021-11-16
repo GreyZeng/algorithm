@@ -36,7 +36,11 @@
  * Example 5:
  *
  * Input: s = "mississippi" p = "mis*is*p*." Output: false
- *
+ *1 <= s.length <= 20
+ * 1 <= p.length <= 30
+ * s contains only lowercase English letters.
+ * p contains only lowercase English letters, '.', and '*'.
+ * It is guaranteed for each appearance of the character '*', there will be a previous valid character to match.
  */
 package leetcode;
 
@@ -49,7 +53,6 @@ public class LeetCode_0010_RegularExpressionMatching {
     // 比如：exp: abc*b 可以匹配 str: abb, 也可以匹配str: abcb 也可以匹配：abcccb，也可以匹配abccccccb,依次类推
     // exp: ab.b 可以匹配 abmb，abcb，abdb，依次类推，但是不能匹配abb，因为.不能替换空字符
     private static boolean isValid(char[] str, char[] exp) {
-
         for (char c : str) {
             if (c == '.' || c == '*') {
                 return false;
@@ -125,47 +128,51 @@ public class LeetCode_0010_RegularExpressionMatching {
     }
 
     // 这个递归的前提条件是：ei位置不能为*
-    private static boolean process0(char[] str, char[] exp, int si, int ei) {
-        if (ei == exp.length) {
+    private static boolean process0(char[] s, char[] p, int si, int pi) {
+        if (pi == p.length) {
             // 情况1.
             // exp串都到了最后，则str必须也到了最后才可以，
             // 否则str如果残余一些还没匹配，则肯定匹配失败
-            return str.length == si;
+            return s.length == si;
         }
-        if (si == str.length) {
+        if (si == s.length) {
 //            if (ei == exp.length) {
 //                // 情况2.
 //                // str串都到了最后，exp也到了最后,肯定匹配成功
 //                return true;
 //            }
+            if (((p.length - pi) & 1) == 1) {
+                // pi及以后的字符必须首先是偶数个，剩余奇数个数了,后面如何如何都做不到变成空串了。
+                return false;
+            }
             // 情况3.
             // str串如果到了最后(成了个空串)
             // exp串还没结束，则exp余下的串必须是：X*Y*C*M* 这样”字符+*“成对出现的格式，因为只有这样的格式才能匹配一个空串（每个*把它前一个字母消掉）
             // 所以exp接下来的串中，ei位置不为*，ei+1位置必须是*，
             // 这样一来，ei和ei+1就可以搭配生成一个空串与str匹配 因为 X* 可以匹配 ”“，同时递归调用从ei+2位置开始匹配上str串
-            if (ei + 1 < exp.length && exp[ei + 1] == '*') {
-                return process0(str, exp, si, ei + 2);
+            if (pi + 1 < p.length && p[pi + 1] == '*') {
+                return process0(s, p, si, pi + 2);
             }
             return false;
         }
         // 情况4. ei的下一个位置不是* (下面的情况5，6都是ei的下一个位置是*的情况)
         // 那么exp[ei] 位置 必须要和str[si]位置的字符一样，或者exp[ei]位置是个.也可以
         // 然后就ei和si就匹配上了，接下来调用递归 从 ei+1 , si+1之后开始匹配
-        if (ei + 1 == exp.length || exp[ei + 1] != '*') {
-            return (exp[ei] == str[si] || exp[ei] == '.') && process0(str, exp, si + 1, ei + 1);
+        if (pi + 1 == p.length || p[pi + 1] != '*') {
+            return (p[pi] == s[si] || p[pi] == '.') && process0(s, p, si + 1, pi + 1);
         }
 
         // 情况5. ei+1位置是*，
         // 那么不管ei位置是什么，我可以通过ei+1位置的*把ei位置的值消掉，相当于ei和ei+1已经成了空的，
         // 接下来调用递归
         // 用si去匹配ei+2位置，如果匹配上，也返回true
-        if (process0(str, exp, si, ei + 2)) {
+        if (process0(s, p, si, pi + 2)) {
             return true;
         }
         // 情况6. ei+1位置是*
         // 这里的while循环的意思是：ei+1位置的*让ei位置的值变成N个去一一匹配str串，匹配上了则返回true
-        while (si != str.length && (exp[ei] == str[si] || exp[ei] == '.')) {
-            if (process0(str, exp, si + 1, ei + 2)) {
+        while (si != s.length && (p[pi] == s[si] || p[pi] == '.')) {
+            if (process0(s, p, si + 1, pi + 2)) {
                 return true;
             }
             si++;
