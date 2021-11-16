@@ -142,7 +142,7 @@ public class LeetCode_0010_RegularExpressionMatching {
 //                return true;
 //            }
             if (((p.length - pi) & 1) == 1) {
-                // pi及以后的字符必须首先是偶数个，剩余奇数个数了,后面如何如何都做不到变成空串了。
+                // pi及以后的字符必须首先是偶数个，剩余奇数个数了,后面如何都做不到变成空串了。
                 return false;
             }
             // 情况3.
