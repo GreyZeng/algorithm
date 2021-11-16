@@ -44,14 +44,45 @@
  */
 package leetcode;
 
-// TODO 需要强化练习
 public class LeetCode_0010_RegularExpressionMatching {
-    // 判断是否合法的str和exp
-    // str中不能含有. 和 *
-    // exp中，*不能开头，且两个*不能连在一起
-    // exp中，.可以替换成任何的非空字符，*必须和前面的字符一起作用，可以让前面的字符变成0个或者多个
-    // 比如：exp: abc*b 可以匹配 str: abb, 也可以匹配str: abcb 也可以匹配：abcccb，也可以匹配abccccccb,依次类推
-    // exp: ab.b 可以匹配 abmb，abcb，abdb，依次类推，但是不能匹配abb，因为.不能替换空字符
+
+    // 斜率优化版本
+    public static boolean isMatch(String s, String p) {
+        if (s == null || p == null) {
+            return false;
+        }
+        char[] str = s.toCharArray();
+        char[] exp = p.toCharArray();
+        if (!isValid(str, exp)) {
+            return false;
+        }
+        boolean[][] dp = new boolean[str.length + 1][exp.length + 1];
+        // 最后一列除了最后一个位置，都是false
+        dp[str.length][exp.length] = true;
+        for (int i = exp.length - 2; i >= 0; i--) {
+            if (i + 1 < exp.length && exp[i + 1] == '*') {
+                dp[str.length][i] = dp[str.length][i + 2];
+            }
+        }
+        for (int si = str.length - 1; si >= 0; si--) {
+            for (int pi = exp.length - 1; pi >= 0; pi--) {
+                if (pi == exp.length - 1 || exp[pi + 1] != '*') {
+                    dp[si][pi] = (str[si] == exp[pi] || exp[pi] == '.') && dp[si + 1][pi + 1];
+                } else {
+                    if (dp[si][pi + 2]) {
+                        dp[si][pi] = true;
+                    } else {
+                        // dp[si][pi] = dp[si][pi + 2];
+                        dp[si][pi] = (exp[pi] == str[si] || exp[pi] == '.') && (dp[si + 1][pi + 2] || dp[si + 1][pi]);
+                    }
+
+                }
+            }
+        }
+
+        return dp[0][0];
+    }
+
     private static boolean isValid(char[] str, char[] exp) {
         for (char c : str) {
             if (c == '.' || c == '*') {
@@ -66,57 +97,6 @@ public class LeetCode_0010_RegularExpressionMatching {
         return true;
     }
 
-    public static boolean isMatch(String s, String p) {
-        if (s == null || p == null) {
-            return false;
-        }
-        char[] str = s.toCharArray();
-        char[] exp = p.toCharArray();
-        if (!isValid(str, exp)) {
-            // 这个校验无论做不做都可以过leetcode的测评
-            return false;
-        }
-        int M = str.length;
-        int N = exp.length;
-        boolean[][] dp = new boolean[M + 1][N + 1];
-        dp[M][N] = true;
-        for (int i = N - 2; i >= 0; i -= 2) {
-            if (exp[i] != '*' && exp[i + 1] == '*') {
-                dp[M][i] = true;
-            } else {
-                break;
-            }
-        }
-        if (M > 0 && N > 0) {
-            if (str[M - 1] == exp[N - 1] || exp[N - 1] == '.') {
-                dp[M - 1][N - 1] = true;
-            }
-        }
-        for (int i = M - 1; i >= 0; i--) {
-            for (int j = N - 2; j >= 0; j--) {
-                if (exp[j + 1] != '*') {
-                    dp[i][j] = ((exp[j] == str[i]) || (exp[j] == '.')) && dp[i + 1][j + 1];
-                } else {
-                    if (exp[j] != '.' && exp[j] != str[i]) {
-                        dp[i][j] = dp[i][j + 2];
-                    } else {
-                        if (dp[i][j + 2]) {
-                            dp[i][j] = dp[i][j + 2];
-                        } else {
-                            if (i + 1 >= M || str[i] != str[i + 1] && (exp[j] != '.')) {
-                                dp[i][j] = dp[i + 1][j + 2];
-                            } else {
-                                dp[i][j] = dp[i + 1][j];
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return dp[0][0];
-    }
-
-
     // 暴力递归
     public static boolean isMatch0(String s, String p) {
         if (s == null || p == null) {
@@ -127,94 +107,117 @@ public class LeetCode_0010_RegularExpressionMatching {
         return isValid(str, exp) && process0(str, exp, 0, 0);
     }
 
-    // 这个递归的前提条件是：ei位置不能为*
     private static boolean process0(char[] s, char[] p, int si, int pi) {
         if (pi == p.length) {
-            // 情况1.
-            // exp串都到了最后，则str必须也到了最后才可以，
-            // 否则str如果残余一些还没匹配，则肯定匹配失败
-            return s.length == si;
+            return si == s.length;
         }
+        // pi还没有到头
         if (si == s.length) {
-//            if (ei == exp.length) {
-//                // 情况2.
-//                // str串都到了最后，exp也到了最后,肯定匹配成功
-//                return true;
-//            }
             if (((p.length - pi) & 1) == 1) {
                 // pi及以后的字符必须首先是偶数个，剩余奇数个数了,后面如何都做不到变成空串了。
                 return false;
             }
-            // 情况3.
-            // str串如果到了最后(成了个空串)
-            // exp串还没结束，则exp余下的串必须是：X*Y*C*M* 这样”字符+*“成对出现的格式，因为只有这样的格式才能匹配一个空串（每个*把它前一个字母消掉）
-            // 所以exp接下来的串中，ei位置不为*，ei+1位置必须是*，
-            // 这样一来，ei和ei+1就可以搭配生成一个空串与str匹配 因为 X* 可以匹配 ”“，同时递归调用从ei+2位置开始匹配上str串
             if (pi + 1 < p.length && p[pi + 1] == '*') {
+                // 后面必须是 : 有效字符 + "*"的组合模式
                 return process0(s, p, si, pi + 2);
             }
             return false;
         }
-        // 情况4. ei的下一个位置不是* (下面的情况5，6都是ei的下一个位置是*的情况)
-        // 那么exp[ei] 位置 必须要和str[si]位置的字符一样，或者exp[ei]位置是个.也可以
-        // 然后就ei和si就匹配上了，接下来调用递归 从 ei+1 , si+1之后开始匹配
-        if (pi + 1 == p.length || p[pi + 1] != '*') {
-            return (p[pi] == s[si] || p[pi] == '.') && process0(s, p, si + 1, pi + 1);
-        }
 
-        // 情况5. ei+1位置是*，
-        // 那么不管ei位置是什么，我可以通过ei+1位置的*把ei位置的值消掉，相当于ei和ei+1已经成了空的，
-        // 接下来调用递归
-        // 用si去匹配ei+2位置，如果匹配上，也返回true
+        if (pi == p.length - 1 || p[pi + 1] != '*') {
+            return (s[si] == p[pi] || p[pi] == '.') && process0(s, p, si + 1, pi + 1);
+        }
+        // pi 不是最后一个位置，且 p[pi+1] == '*'
+        // 看p[pi] 和 s[si] 是否相等
+//        if (p[pi] != s[si] && p[pi] != '.') {
+//            return false;
+//        }
+        // p[pi] == '.' 或者 p[pi] == s[si] 且 p[pi + 1] = '*'
+        // p[pi] 和 p[pi+1]至少可以消解为空串，即p[pi]位置不做匹配
         if (process0(s, p, si, pi + 2)) {
             return true;
         }
-        // 情况6. ei+1位置是*
-        // 这里的while循环的意思是：ei+1位置的*让ei位置的值变成N个去一一匹配str串，匹配上了则返回true
-        while (si != s.length && (p[pi] == s[si] || p[pi] == '.')) {
-            if (process0(s, p, si + 1, pi + 2)) {
-                return true;
+        // p[pi] 匹配 s[si]
+        // 然后将p[pi+1]的'*'衍生出:
+        // 0个p[pi]
+        // 1个p[pi]
+        // 2个p[pi]
+        // ...
+        // n个p[pi]
+        for (int i = si; i < s.length; i++) {
+            if (p[pi] == s[i] || p[pi] == '.') {
+                if (process0(s, p, i + 1, pi + 2)) {
+                    return true;
+                }
+            } else {
+                break;
             }
-            si++;
         }
         return false;
     }
 
     // 动态规划
-    public boolean isMatch2(String s, String p) {
+    public static boolean isMatch1(String s, String p) {
         if (s == null || p == null) {
             return false;
         }
         char[] str = s.toCharArray();
         char[] exp = p.toCharArray();
+        if (!isValid(str, exp)) {
+            return false;
+        }
         int[][] dp = new int[str.length + 1][exp.length + 1];
-        return isValid(str, exp) && process2(str, exp, 0, 0, dp);
+        // dp[i][j] == 0 表示没有填过
+        // dp[i][j] == 1 表示匹配上
+        // dp[i][j] == - 1表示没有匹配上
+
+        return dp1(str, exp, 0, 0, dp);
     }
 
-
-    private boolean process2(char[] s, char[] e, int si, int ei, int[][] dp) {
-        if (dp[si][ei] != 0) {
-            return dp[si][ei] == 1;
+    public static boolean dp1(char[] s, char[] p, int si, int pi, int[][] dp) {
+        if (dp[si][pi] != 0) {
+            return dp[si][pi] == 1;
         }
-        if (ei == e.length) {
+        if (pi == p.length) {
             boolean ans = (si == s.length);
-            dp[si][ei] = ans ? 1 : -1;
+            dp[si][pi] = ans ? 1 : -1;
             return ans;
         }
-        if (ei + 1 == e.length || e[ei + 1] != '*') {
-            boolean ans = (si != s.length && (s[si] == e[ei] || e[ei] == '.') && process2(s, e, si + 1, ei + 1, dp));
-            dp[si][ei] = ans ? 1 : -1;
-            return ans;
-        }
-        while (si != s.length && (e[ei] == s[si] || e[ei] == '.')) {
-            if (process2(s, e, si, ei + 2, dp)) {
-                dp[si][ei] = 1;
-                return true;
+        if (si == s.length) {
+            if (((p.length - pi) & 1) == 1) {
+                dp[si][pi] = -1;
+                return false;
             }
-            si++;
+            if (pi + 1 < p.length && p[pi + 1] == '*') {
+                boolean ans = dp1(s, p, si, pi + 2, dp);
+                dp[si][pi] = ans ? 1 : -1;
+                return ans;
+            }
+            dp[si][pi] = -1;
+            return false;
         }
-        boolean ans = process2(s, e, si, ei + 2, dp);
-        dp[si][ei] = ans ? 1 : -1;
-        return ans;
+
+        if (pi == p.length - 1 || p[pi + 1] != '*') {
+            boolean ans = (s[si] == p[pi] || p[pi] == '.') && dp1(s, p, si + 1, pi + 1, dp);
+            dp[si][pi] = ans ? 1 : -1;
+            return ans;
+        }
+        if (dp1(s, p, si, pi + 2, dp)) {
+            dp[si][pi] = 1;
+            return true;
+        }
+        for (int i = si; i < s.length; i++) {
+            if (p[pi] == s[i] || p[pi] == '.') {
+                if (dp1(s, p, i + 1, pi + 2, dp)) {
+                    dp[si][pi] = 1;
+                    return true;
+                }
+            } else {
+                break;
+            }
+        }
+        dp[si][pi] = -1;
+        return false;
     }
+
 }
