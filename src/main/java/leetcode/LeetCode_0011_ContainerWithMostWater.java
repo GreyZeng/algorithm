@@ -20,21 +20,18 @@ package leetcode;
 // https://leetcode.com/problems/container-with-most-water/
 public class LeetCode_0011_ContainerWithMostWater {
     public static int maxArea(int[] height) {
-        if (height.length <= 1) {
+        if (height == null || height.length <= 1) {
             return 0;
         }
-        int len = height.length;
-        int max = 0;
         int l = 0;
-        int r = len - 1;
+        int r = height.length - 1;
+        int max = Math.min(height[l], height[r]) * r;
         while (l < r) {
             if (height[l] < height[r]) {
-                // 左边为基准，因为右边有兜底
-                max = Math.max(max, (r - l) * (height[l]));
+                max = Math.max(max, height[l] * (r - l));
                 l++;
             } else {
-                // 右边为基准，因为左边有兜底
-                max = Math.max(max, (r - l) * height[r]);
+                max = Math.max(max, height[r] * (r - l));
                 r--;
             }
         }
