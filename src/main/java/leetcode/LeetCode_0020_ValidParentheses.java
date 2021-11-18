@@ -15,16 +15,15 @@ public class LeetCode_0020_ValidParentheses {
 		if (s == null || s.length() == 0) {
 			return true;
 		}
-		char[] strs = s.toCharArray();
-		Deque<Character> stack = new ArrayDeque<Character>();
-		int len = strs.length;
-		for (int i = 0; i < len; i++) {
-			if (isLeft(strs[i])) {
-				stack.push(strs[i]);
+		char[] str = s.toCharArray();
+		Deque<Character> stack = new ArrayDeque<>();
+		for (char c : str) {
+			if (isLeft(c)) {
+				stack.push(c);
 			} else {
 				if (stack.isEmpty()) {
 					return false;
-				} else if (!isMatch(stack.poll(), strs[i])) {
+				} else if (!isMatch(stack.poll(), c)) {
 					return false;
 				}
 			}
