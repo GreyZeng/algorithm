@@ -2494,16 +2494,6 @@ Leetcode题目：https://leetcode.com/problems/letter-combinations-of-a-phone-nu
 进阶：你能尝试使用一趟扫描实现吗？
 Leetcode题目：https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 
-
-数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且有效的括号组合。
-示例 1：
-输入：n = 3
-输出：["((()))","(()())","(())()","()(())","()()()"]
-示例 2：
-输入：n = 1
-输出：["()"]
-Leetcode题目：https://leetcode.com/problems/generate-parentheses/
-
 给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。
 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
 示例 1：

@@ -18,67 +18,37 @@ import java.util.List;
 // 如果只需要返回数量，则只需要卡特兰数即可
 public class LeetCode_0022_GenerateParentheses {
 
-	public static List<String> generateParenthesis(int n) {
-		if (0 == n) {
-			return new ArrayList<>();
-		}
-		char[] path = new char[n << 1];
-		List<String> list = new ArrayList<>();
-		process(path, 0, list);
-		return list;
-	}
-	public static List<String> generateParenthesis2(int n) {
-		if (0 == n) {
-			return new ArrayList<>();
-		}
-		char[] path = new char[n << 1];
-		List<String> list = new ArrayList<>();
-		process(path, 0,0,n, list);
-		return list;
-	}
-	// 剪枝方式
-	private static void process(char[] path, int index,int leftMRight, int leftRest, List<String> list) {
-		if (index == path.length) {
-			list.add(new String(path));
-			return;
-		}
-		if (leftMRight > 0) {
-			path[index] = ')';
-			process(path, index+1, leftMRight-1, leftRest,list);
-		}
-		if (leftRest > 0) {
-			path[index] = '(';
-			process(path, index+1, leftMRight+1, leftRest-1, list);
-		}
-	}
-	private static void process(char[] path, int index, List<String> list) {
-		if (index == path.length) {
-			if (isValid(path)) {
-				list.add(String.valueOf(path));
-			}
-		} else {
-			path[index] = '(';
-			process(path, index + 1, list);
-			path[index] = ')';
-			process(path, index + 1, list);
+    public static List<String> generateParenthesis(int n) {
+        if (0 == n) {
+            return new ArrayList<>();
+        }
+        char[] path = new char[n << 1];
+        List<String> list = new ArrayList<>();
+        process(path, 0, 0, n, list);
+        return list;
+    }
 
-		}
-	}
-
-	private static boolean isValid(char[] path) {
-		int count = 0;
-		for (char c : path) {
-			if (c == '(') {
-				count++;
-			}
-			if (c == ')') {
-				count--;
-			}
-			if( count < 0) {
-				return false;
-			}
-		}
-		return count == 0;
-	}
+    // 剪枝方式
+    // path: 所有做过的决定 path 0...index - 1 已经做完决定，当前轮到index位置上做决定
+    // leftMinusRight 之前做的决定中，左括号减去右括号的数量
+    // leftRest 还剩下几个左括号
+    // 结果放list中
+    private static void process(char[] path, int index, int leftMinusRight, int leftRest, List<String> list) {
+        if (index == path.length) {
+            // 之所以可以这样做，是因为剪枝做的完善
+            list.add(new String(path));
+            return;
+        }
+        if (leftMinusRight > 0) {
+            // 左括号减去右括号如果大于0，一定可以做一个右括号的决定
+            path[index] = ')';
+            process(path, index + 1, leftMinusRight - 1, leftRest, list);
+        }
+        if (leftRest > 0) {
+            // 左括号有剩余，一定可以做一个左括号的决定
+            path[index] = '(';
+            process(path, index + 1, leftMinusRight + 1, leftRest - 1, list);
+        }
+    }
 
 }
