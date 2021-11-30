@@ -10,7 +10,10 @@ import java.util.Deque;
 // 如果只有一类括号，则不需要用栈，直接用一个变量控制即可
 // ref : https://www.lintcode.com/problem/valid-parentheses/description
 public class LeetCode_0020_ValidParentheses {
-
+	public static void main(String[] args) {
+		boolean b = isValid("()()()()()(){");
+		System.out.println(b);
+	}
 	public static boolean isValid(String s) {
 		if (s == null || s.length() == 0) {
 			return true;
