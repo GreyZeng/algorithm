@@ -14,13 +14,6 @@ public class LeetCode_0023_MergeKSortedLists {
         ListNode next;
     }
 
-    public static class MyComparator implements Comparator<ListNode> {
-        @Override
-        public int compare(ListNode o1, ListNode o2) {
-            return o1.val - o2.val;
-        }
-    }
-
     public static ListNode mergeKLists(ListNode[] lists) {
         if (null == lists || lists.length == 0) {
             return null;
@@ -28,7 +21,8 @@ public class LeetCode_0023_MergeKSortedLists {
         if (1 == lists.length) {
             return lists[0];
         }
-        PriorityQueue<ListNode> queue = new PriorityQueue<>(new MyComparator());
+        // 小根堆
+        PriorityQueue<ListNode> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.val));
         for (ListNode list : lists) {
             if (null != list) {
                 queue.add(list);
