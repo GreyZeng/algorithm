@@ -22,7 +22,7 @@ public class LeetCode_0023_MergeKSortedLists {
     }
 
     public static ListNode mergeKLists(ListNode[] lists) {
-        if (null == lists) {
+        if (null == lists || lists.length == 0) {
             return null;
         }
         if (1 == lists.length) {
