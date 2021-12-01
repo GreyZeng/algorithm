@@ -47,14 +47,10 @@ public class LeetCode_0023_MergeKSortedLists {
                     res = res.next;
                     queue.add(n);
                 } else {
-                    res.next = n;
                     res = res.next;
                 }
             }
         }
         return head;
-
     }
-
-
 }
