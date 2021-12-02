@@ -36,7 +36,7 @@
 //        0 <= n <= 1000
 //        1 <= m + n <= 2000
 //        -106 <= nums1[i], nums2[i] <= 106
-package leetcode;
+package leetcode.hard;
 
 // https://leetcode.com/problems/median-of-two-sorted-arrays/
 public class LeetCode_0004_MedianOfTwoSortedArrays {
