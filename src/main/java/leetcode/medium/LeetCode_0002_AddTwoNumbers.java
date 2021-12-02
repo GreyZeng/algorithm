@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 // https://leetcode.com/problems/add-two-numbers/
 public class LeetCode_0002_AddTwoNumbers {
