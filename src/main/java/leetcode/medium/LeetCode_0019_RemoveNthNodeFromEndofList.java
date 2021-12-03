@@ -19,6 +19,7 @@ public class LeetCode_0019_RemoveNthNodeFromEndofList {
         while (cur != null) {
             n--;
             if (n == -1) {
+                // 遍历到n+1位置后，记录一下pre的位置
                 pre = head;
             }
             if (n < -1) {
@@ -27,6 +28,7 @@ public class LeetCode_0019_RemoveNthNodeFromEndofList {
             cur = cur.next;
         }
         if (pre == null) {
+            // 删除的节点就是头部节点
             return head.next;
         }
         pre.next = pre.next.next;
