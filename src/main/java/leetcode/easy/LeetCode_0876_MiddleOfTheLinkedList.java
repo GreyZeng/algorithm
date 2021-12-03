@@ -21,7 +21,7 @@
 //Note:
 //
 //The number of nodes in the given list will be between 1 and 100.
-package leetcode;
+package leetcode.easy;
 
 public class LeetCode_0876_MiddleOfTheLinkedList {
     public static class ListNode {
