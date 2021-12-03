@@ -19,7 +19,7 @@
 //
 //        1 <= nums.length <= 8
 //        -10 <= nums[i] <= 10
-package leetcode;
+package leetcode.medium;
 
 import java.util.ArrayList;
 import java.util.List;
