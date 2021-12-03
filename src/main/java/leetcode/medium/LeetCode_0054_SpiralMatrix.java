@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,23 +36,27 @@ public class LeetCode_0054_SpiralMatrix {
             return new ArrayList<>();
         }
         int N = matrix[0].length;
+        // 左上角坐标
         int ltx = 0;
         int lty = 0;
+        // 右下角坐标
         int rbx = M - 1;
         int rby = N - 1;
         List<Integer> list = new ArrayList<>();
         while (lty <= rby && ltx <= rbx) {
-            spiralOrder(matrix, M, N, ltx++, lty++, rbx--, rby--, list);
+            spiralOrder(matrix, ltx++, lty++, rbx--, rby--, list);
         }
         return list;
     }
 
-    private static void spiralOrder(int[][] matrix, int m, int n, int ltx, int lty, int rbx, int rby, List<Integer> list) {
+    private static void spiralOrder(int[][] matrix, int ltx, int lty, int rbx, int rby, List<Integer> list) {
         if (ltx == rbx) {
+            // 内侧是一条直线
             for (int i = lty; i <= rby; i++) {
                 list.add(matrix[ltx][i]);
             }
         } else if (lty == rby) {
+            // 内侧是一条直线
             for (int i = ltx; i <= rbx; i++) {
                 list.add(matrix[i][lty]);
             }
