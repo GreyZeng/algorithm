@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 /**
  * Given an array of non-negative integers, you are initially positioned at the
