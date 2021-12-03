@@ -15,11 +15,13 @@ public class LeetCode_0073_SetMatrixZeroes {
         for (int i = 0; i < N; i++) {
             if (matrix[0][i] == 0) {
                 t = true;
+                break;
             }
         }
-        for (int i = 0; i < M; i++) {
-            if (matrix[i][0] == 0) {
+        for (int[] ints : matrix) {
+            if (ints[0] == 0) {
                 l = true;
+                break;
             }
         }
         for (int i = M - 1; i >= 1; i--) {
