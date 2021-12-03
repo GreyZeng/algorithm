@@ -1,5 +1,6 @@
-package leetcode;
+package leetcode.medium;
 
+@Deprecated
 public class LeetCode_0008_StringToInteger {
     // trim前后空格
     // remove 开头部分的0，开头有+、-的时候，略过开头的+，-在remove掉0， 标志位置m
