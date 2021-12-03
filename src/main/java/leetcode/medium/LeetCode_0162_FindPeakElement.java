@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //A peak element is an element that is greater than its neighbors.
 //
