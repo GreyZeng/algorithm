@@ -1,5 +1,6 @@
-package leetcode;
+package leetcode.easy;
 
+@Deprecated
 public class LeetCode_0069_SqrtX {
 
     // x一定非负，输入可以保证
@@ -11,19 +12,19 @@ public class LeetCode_0069_SqrtX {
             return 1;
         }
         long res = 0;
-        long t = 0;
+        long t;
         long L = 1;
         long R = x;
         while (L <= R) {
             t = (L + R) >> 1;
             if (t * t <= x) {
-                res =  t;
+                res = t;
                 L = t + 1;
-            } else  {
+            } else {
                 R = t - 1;
             }
         }
-        return (int)res;
+        return (int) res;
     }
 
 }
