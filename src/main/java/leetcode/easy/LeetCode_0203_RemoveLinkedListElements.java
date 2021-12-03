@@ -4,7 +4,7 @@
 //
 //Input:  1->2->6->3->4->5->6, val = 6
 //Output: 1->2->3->4->5
-package leetcode;
+package leetcode.easy;
 
 public class LeetCode_0203_RemoveLinkedListElements {
 	public static class ListNode {
@@ -29,7 +29,7 @@ public class LeetCode_0203_RemoveLinkedListElements {
 			head = head.next;
 		}
 		if (head == null) {
-			return head;
+			return null;
 		}
 		ListNode pre = head;
 		ListNode cur = head.next;

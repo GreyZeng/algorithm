@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 // 判断一棵树是否是平衡二叉树
 // 平衡二叉树要么是一棵空树. 
