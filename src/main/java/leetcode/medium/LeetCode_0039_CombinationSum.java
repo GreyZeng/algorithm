@@ -40,7 +40,7 @@ You may return the combinations in any order.
         1 <= candidates[i] <= 200
         All elements of candidates are distinct.
         1 <= target <= 500*/
-package leetcode;
+package leetcode.medium;
 
 import java.util.ArrayList;
 import java.util.List;

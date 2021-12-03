@@ -11,7 +11,7 @@
  * <p>
  * Your algorithm should run in O(n) time and uses constant extra space.
  */
-package leetcode;
+package leetcode.hard;
 
 public class LeetCode_0041_FirstMissingPositive {
     // L 指针和R指针
@@ -38,5 +38,4 @@ public class LeetCode_0041_FirstMissingPositive {
         arr[R] = arr[L] ^ arr[R];
         arr[L] = arr[L] ^ arr[R];
     }
-
 }

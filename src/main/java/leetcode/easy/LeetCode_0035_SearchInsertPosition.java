@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 /**
  * Given a sorted array of distinct integers and a target value, return the
