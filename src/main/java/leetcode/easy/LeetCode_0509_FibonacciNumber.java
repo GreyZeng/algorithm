@@ -26,8 +26,9 @@
 //        Note:
 //
 //        0 ≤ N ≤ 30.
-package leetcode;
+package leetcode.easy;
 
+// https://www.cnblogs.com/greyzeng/p/15388178.html
 public class LeetCode_0509_FibonacciNumber {
     // 暴力解法（递归版本）O(2^n)
     public static int fib(int N) {
