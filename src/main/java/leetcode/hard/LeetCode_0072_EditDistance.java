@@ -35,7 +35,7 @@
         来源：力扣（LeetCode）
         链接：https://leetcode-cn.com/problems/edit-distance
         著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。*/
-package leetcode;
+package leetcode.hard;
 
 // ref : NowCoder_EditDistance.java
 public class LeetCode_0072_EditDistance {
@@ -46,6 +46,7 @@ public class LeetCode_0072_EditDistance {
 
     public static int minEditCost(String str1, String str2, int ic, int dc, int rc) {
         if (ic + dc < rc) {
+            // 如果“插入+删除”的代价小于“替换”代价，则用“插入+删除”代价替换“替换”代价
             rc = ic + dc;
         }
         char[] w1 = str1.toCharArray();
@@ -62,7 +63,6 @@ public class LeetCode_0072_EditDistance {
         }
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
-
                 if (w1[i - 1] != w2[j - 1]) {
                     dp[i][j] = rc + dp[i - 1][j - 1];
                 } else {
