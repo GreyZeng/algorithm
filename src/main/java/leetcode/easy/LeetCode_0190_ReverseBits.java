@@ -1,5 +1,6 @@
-package leetcode;
+package leetcode.easy;
 
+//TODO
 public class LeetCode_0190_ReverseBits {
 
     // 代码看着很魔幻吧？
