@@ -22,7 +22,7 @@
 
         0 <= s.length <= 3 * 10^4
         s[i] is '(', or ')'.*/
-package leetcode;
+package leetcode.hard;
 
 
 // tips: 以i结尾的答案全部收集一遍
