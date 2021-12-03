@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 // 然后弹出一个元素X，然后从这个弹出元素的下一个元素开始和堆顶元素比
 // 如果X比堆顶元素大，则堆顶元素弹出，X进入小根堆
 // 如果X比堆顶元素小，则直接不需要进入堆顶，作为结果链表
+// https://www.cnblogs.com/greyzeng/p/7551789.html
 public class LeetCode_0023_MergeKSortedLists {
 
     public static class ListNode {
