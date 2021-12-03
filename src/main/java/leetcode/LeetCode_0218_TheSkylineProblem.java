@@ -26,14 +26,7 @@ public class LeetCode_0218_TheSkylineProblem {
             this.height = height;
         }
     }
-
-    public static class MyComparator implements Comparator<Node> {
-        @Override
-        public int compare(Node o1, Node o2) {
-            return o1.x - o2.x;
-        }
-    }
-
+    
     // 轮廓线只出现在最大高度变化的位置
     // 所以需要记录某个大楼从哪个位置开始增加了一个高度
     // 从哪个位置减少了一个高度
@@ -45,7 +38,7 @@ public class LeetCode_0218_TheSkylineProblem {
             int height = node.height;
             if (height > 0) {
                 if (heightTimesMap.containsKey(height)) {
-                    heightTimesMap.put(height, heightTimesMap.get(height) +1 );
+                    heightTimesMap.put(height, heightTimesMap.get(height) + 1);
                 } else {
                     heightTimesMap.put(height, 1);
                 }
@@ -64,11 +57,11 @@ public class LeetCode_0218_TheSkylineProblem {
         }
         List<List<Integer>> ans = new ArrayList<>();
         for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
-           int key =  entry.getKey();
-           int value = entry.getValue();
-           if (ans.isEmpty() || ans.get(ans.size() - 1).get(1) != value) {
-               ans.add(new ArrayList<>(Arrays.asList(key, value)));
-           }
+            int key = entry.getKey();
+            int value = entry.getValue();
+            if (ans.isEmpty() || ans.get(ans.size() - 1).get(1) != value) {
+                ans.add(new ArrayList<>(Arrays.asList(key, value)));
+            }
         }
         return ans;
     }
@@ -81,11 +74,12 @@ public class LeetCode_0218_TheSkylineProblem {
             // 在某个位置减少了一个高度
             list.add(new Node(building[1], -building[2]));
         }
-        list.sort(new MyComparator());
+        list.sort(Comparator.comparingInt((Node o) -> o.x));
         return list;
     }
+
     public static void main(String[] args) {
-        int[][] building = { { 1, 3, 3 }, { 2, 4, 4 }, { 5, 6, 1 } };
+        int[][] building = {{1, 3, 3}, {2, 4, 4}, {5, 6, 1}};
         List<List<Integer>> list = getSkyline(building);
         System.out.println(list);
     }
