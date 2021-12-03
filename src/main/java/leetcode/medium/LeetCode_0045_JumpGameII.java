@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //Given an array of non-negative integers, you are initially positioned at the first index of the array.
 //
@@ -25,25 +25,23 @@ public class LeetCode_0045_JumpGameII {
         if (N == 0 || N == 1) {
             return 0;
         }
-
         int step = 0; // 当前最少步数跳到i
         int cur = 0; // 跳的步数不超过step，最右位置
-        int next = arr[0]; // 跳的步数不超过step+1，最右位置
+        int mostRight = arr[0]; // 跳的步数不超过step+1，最右位置
         for (int i = 0; i < N; i++) {
             // 当前步数不超过step，最右的位置不足到i
             if (cur < i) {
                 // 更新step的步数
                 step++;
                 // cur到step+1能走到的最右位置
-                cur = next;
+                cur = mostRight;
             }
             // 更新next到下一步能走到的最右位置
-            next = Math.max(next, arr[i] + i);
-            if (next >= N - 1) {
+            mostRight = Math.max(mostRight, arr[i] + i);
+            if (mostRight >= N - 1) {
                 return step + 1;
             }
         }
         return step;
     }
-
 }
