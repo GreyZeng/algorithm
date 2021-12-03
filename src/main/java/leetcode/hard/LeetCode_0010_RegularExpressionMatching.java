@@ -42,7 +42,7 @@
  * p contains only lowercase English letters, '.', and '*'.
  * It is guaranteed for each appearance of the character '*', there will be a previous valid character to match.
  */
-package leetcode;
+package leetcode.hard;
 
 public class LeetCode_0010_RegularExpressionMatching {
 
@@ -79,7 +79,7 @@ public class LeetCode_0010_RegularExpressionMatching {
                 }
             }
         }
-
+        // p从0开始一直到最后，能否匹配出s从0开始一直到最后的位置
         return dp[0][0];
     }
 
