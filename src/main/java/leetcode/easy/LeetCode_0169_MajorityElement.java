@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 
 //Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
@@ -16,11 +16,12 @@ package leetcode;
 // 水王问题
 public class LeetCode_0169_MajorityElement {
     public static void main(String[] args) {
-        int[] nums1 = {3,2,3};
-        int[] nums2 = {2,2,1,1,1,2,2};
+        int[] nums1 = {3, 2, 3};
+        int[] nums2 = {2, 2, 1, 1, 1, 2, 2};
         System.out.println(majorityElement(nums1));
         System.out.println(majorityElement(nums2));
     }
+
     // 已知数组中一定有某个数个数大于N/2个，求这个数
     // tips:每次删除两个不同的数，这个数肯定会剩下来
     public static int majorityElement(int[] nums) {
