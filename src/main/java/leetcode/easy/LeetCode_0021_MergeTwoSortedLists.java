@@ -1,6 +1,7 @@
-package leetcode;
+package leetcode.easy;
 
 // leetcode: https://leetcode.com/problems/merge-two-sorted-lists
+// https://www.cnblogs.com/greyzeng/p/7551789.html
 public class LeetCode_0021_MergeTwoSortedLists {
 
     public static class ListNode {
