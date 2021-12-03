@@ -22,6 +22,7 @@ package leetcode.medium;
 //        Follow up: Your solution should be in logarithmic complexity.
 // 返回局部高点
 // 二分
+// https://www.cnblogs.com/greyzeng/p/15000448.html
 public class LeetCode_0162_FindPeakElement {
 
     public int findPeakElement(int[] nums) {

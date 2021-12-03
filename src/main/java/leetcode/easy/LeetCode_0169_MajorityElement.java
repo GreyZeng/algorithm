@@ -14,6 +14,7 @@ package leetcode.easy;
 //		Input: [2,2,1,1,1,2,2]
 //		Output: 2
 // 水王问题
+// https://www.cnblogs.com/greyzeng/p/14410280.html
 public class LeetCode_0169_MajorityElement {
     public static void main(String[] args) {
         int[] nums1 = {3, 2, 3};
