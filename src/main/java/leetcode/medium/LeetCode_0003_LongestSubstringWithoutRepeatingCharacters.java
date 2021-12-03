@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 // NowCoder: https://www.nowcoder.com/practice/b56799ebfd684fb394bd315e89324fb4
 // LintCode: https://www.lintcode.com/problem/384/
+// https://www.cnblogs.com/greyzeng/p/4605924.html
 public class LeetCode_0003_LongestSubstringWithoutRepeatingCharacters {
     // 1. 必须以i结尾的字符串最大不重复字串的长度是?,假设为x，所有位置x值中最大的值就是答案。
     // 2. i位置的x的值取决于两个因素，第一个因素是i-1向左边能扩到最左位置（即：i-1位置上的x值），第二个因素是i位置的值上一次出现的位置 （这两个因素取最大值）

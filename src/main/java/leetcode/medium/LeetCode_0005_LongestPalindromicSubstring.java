@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 // manacher算法
 
 // 最长回文子串
@@ -12,6 +12,8 @@ package leetcode;
 // 约束
 //1 <= s.length <= 1000
 //s consist of only digits and English letters.
+// https://www.cnblogs.com/greyzeng/p/15314213.html
+// https://leetcode.com/problems/longest-palindromic-substring/
 public class LeetCode_0005_LongestPalindromicSubstring {
 
     // Manacher算法 O(N)
