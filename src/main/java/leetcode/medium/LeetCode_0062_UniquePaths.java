@@ -1,6 +1,27 @@
-package leetcode;
+package leetcode.medium;
 
 public class LeetCode_0062_UniquePaths {
+    // 动态规划解法
+    public static int uniquePaths1(int m, int n) {
+        if (m == 1 || n == 1) return 1;
+        int res = 0, i, j;
+        int[][] dp = new int[m][n];
+        // 将单边界的情况赋值为1
+        for (i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+        for (j = 0; j < n; j++) {
+            dp[0][j] = 1;
+        }
+        // 动态规划
+        for (i = 1; i < m; i++) {
+            for (j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+
     // C((m-1)/(n+m-2)) = (m+n-2)!/(m-1)!(n-1)!
     // m = k , m+n = n
     public static int uniquePaths(int m, int n) {
@@ -36,5 +57,4 @@ public class LeetCode_0062_UniquePaths {
     public static long gcd(long m, long n) {
         return n == 0 ? m : gcd(n, m % n);
     }
-
 }
