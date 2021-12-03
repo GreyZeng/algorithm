@@ -1,5 +1,7 @@
-package leetcode;
+package leetcode.medium;
 
+// Given two integers a and b, return the sum of the two integers without using the operators + and -.
+@Deprecated
 public class LeetCode_0371_SumOfTwoIntegers {
 
     public static int getSum(int a, int b) {
