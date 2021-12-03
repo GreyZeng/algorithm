@@ -31,15 +31,6 @@ public class LeetCode_0104_MaximumDepthOfBinaryTree {
 		}
 		Info left = process(root.left);
 		Info right = process(root.right);
-		if (left == null && right == null) {
-			return new Info(1);
-		}
-		if (left == null) {
-			return new Info(right.max + 1);
-		}
-		if (right == null) {
-			return new Info(left.max + 1);
-		}
 		return new Info(Math.max(right.max, left.max) + 1);
 	}
 	public static class Info {
@@ -54,7 +45,7 @@ public class LeetCode_0104_MaximumDepthOfBinaryTree {
 			return 0;
 		}
 		TreeNode cur = head;
-		TreeNode mostRight = null;
+		TreeNode mostRight;
 		int curLevel = 0;
 		int maxHeight = Integer.MIN_VALUE;
 		while (cur != null) {
