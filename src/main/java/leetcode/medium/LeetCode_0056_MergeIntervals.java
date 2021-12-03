@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,15 +35,6 @@ public class LeetCode_0056_MergeIntervals {
         }
     }
 
-    public static class RangeComparator implements Comparator<Range> {
-
-        @Override
-        public int compare(Range o1, Range o2) {
-            return o1.start - o2.start;
-        }
-
-    }
-
     // 开始位置排序
     // intervals N * 2
     public static int[][] merge(int[][] intervals) {
@@ -55,11 +46,11 @@ public class LeetCode_0056_MergeIntervals {
             return intervals;
         }
         Range[] ranges = arrToRange(intervals, N);
-        Arrays.sort(ranges, new RangeComparator());
+        Arrays.sort(ranges, Comparator.comparingInt(o -> o.start));
         List<Range> t = new ArrayList<>();
         Range index = ranges[0];
         for (int i = 1; i < N; i++) {
-            if (index.end >= ranges[i].start) {
+            if (ranges[i].start <= index.end) {
                 index = merge(index, ranges[i]);
             } else {
                 t.add(index);
@@ -91,27 +82,4 @@ public class LeetCode_0056_MergeIntervals {
         }
         return ranges;
     }
-
-    public static void main(String[] args) {
-       /* int[][] arr = {{1, 3}, {2, 6}, {6, 10}, {15, 18}};
-        List<Range> range = new ArrayList<>();
-        arrToRange(arr, range);
-        Arrays.sort(arr);
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[0].length; j++) {
-                System.out.print(arr[i][j] + " ");
-            }
-            System.out.println();
-        }*/
-        int[][] me = {{1, 4}, {5, 6}};
-        int[][] res = merge(me);
-        for (int i = 0; i < res.length; i++) {
-            for (int j = 0; j < res[0].length; j++) {
-                System.out.print(res[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-
 }
