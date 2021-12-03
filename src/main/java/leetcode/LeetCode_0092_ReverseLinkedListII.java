@@ -33,7 +33,7 @@ public class LeetCode_0092_ReverseLinkedListII {
 		}
 		ListNode startPre = null;
 		ListNode start = null;
-		ListNode end = null;
+		ListNode end;
 		ListNode endAfter = null;
 		ListNode cur = head;
 		int i = 1;

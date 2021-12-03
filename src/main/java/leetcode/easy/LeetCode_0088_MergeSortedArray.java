@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 //Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
 //
@@ -22,6 +22,7 @@ package leetcode;
 //		nums2.length == n
 public class LeetCode_0088_MergeSortedArray {
 
+    // 从尾部开始处理
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
         int index = (m + n);
         while (m > 0 && n > 0) {
@@ -35,5 +36,4 @@ public class LeetCode_0088_MergeSortedArray {
             nums1[--index] = nums2[--n];
         }
     }
-
 }

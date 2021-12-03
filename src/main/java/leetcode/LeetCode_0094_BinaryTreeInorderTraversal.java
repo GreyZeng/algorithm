@@ -16,7 +16,7 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
 
     // 递归方式
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> ans = new ArrayList<Integer>();
+        List<Integer> ans = new ArrayList<>();
         in(root, ans);
         return ans;
     }
@@ -61,7 +61,7 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
         }
         List<Integer> ans = new ArrayList<>();
         TreeNode cur = root;
-        TreeNode mostRight = null;
+        TreeNode mostRight;
         while (cur != null) {
             mostRight = cur.left;
             if (mostRight != null) {

@@ -34,8 +34,7 @@ public class LeetCode_0078_Subsets {
 
     private static void process(int[] nums, int i, LinkedList<Integer> path, List<List<Integer>> ansList) {
         if (i == nums.length) {
-            List<Integer> list = new ArrayList<>();
-            list.addAll(path);
+            List<Integer> list = new ArrayList<>(path);
             ansList.add(list);
         } else {
             process(nums, i + 1, path, ansList);
