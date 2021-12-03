@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //Example 2:
 //
@@ -18,6 +18,7 @@ package leetcode;
 //        2 <= n <= 10^5
 //        0 <= height[i] <= 10^4
 // https://leetcode.com/problems/container-with-most-water/
+// https://www.cnblogs.com/greyzeng/p/5918205.html
 public class LeetCode_0011_ContainerWithMostWater {
     public static int maxArea(int[] height) {
         if (height == null || height.length <= 1) {
