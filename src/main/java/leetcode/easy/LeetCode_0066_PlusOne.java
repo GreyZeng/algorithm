@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 //Given a non-empty array of digits representing a non-negative integer, increment one to the integer.
 //
@@ -28,6 +28,7 @@ package leetcode;
 //
 //1 <= digits.length <= 100
 //0 <= digits[i] <= 9
+@Deprecated
 public class LeetCode_0066_PlusOne {
 
     public static int[] plusOne(int[] digits) {
@@ -54,9 +55,7 @@ public class LeetCode_0066_PlusOne {
         } else {
             int[] res = new int[M];
             res[0] = 1;
-            for (int i = 1; i < M; i++) {
-                res[i] = digits[i - 1];
-            }
+            System.arraycopy(digits, 0, res, 1, M - 1);
             return res;
         }
 
@@ -65,8 +64,8 @@ public class LeetCode_0066_PlusOne {
     public static void main(String[] args) {
         int[] digits = {9, 9, 9, 9};
         int[] res = plusOne(digits);
-        for (int i = 0; i < res.length; i++) {
-            System.out.print(res[i] + " ");
+        for (int re : res) {
+            System.out.print(re + " ");
         }
     }
 
