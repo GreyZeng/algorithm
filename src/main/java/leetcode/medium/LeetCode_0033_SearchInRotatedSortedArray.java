@@ -1,5 +1,5 @@
-package leetcode;
-
+package leetcode.medium;
+// https://leetcode-cn.com/problems/search-in-rotated-sorted-array/
 public class LeetCode_0033_SearchInRotatedSortedArray {
 
 	// L..M..R 位置的数只要不相等，就可以二分，如果三个都相等，就无法二分
