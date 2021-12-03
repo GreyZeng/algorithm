@@ -75,6 +75,7 @@ public class LeetCode_0015_3Sum {
                 L++;
             } else { // nums[L] + nums[R] == target
                 if (L == 0 || nums[L - 1] != nums[L]) {
+                    // 过滤掉重复数据对
                     List<Integer> cur = new ArrayList<>();
                     cur.add(nums[L]);
                     cur.add(nums[R]);
