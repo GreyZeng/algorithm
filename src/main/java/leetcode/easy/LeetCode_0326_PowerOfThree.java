@@ -18,7 +18,7 @@
         Output: false
         Follow up:
         Could you do it without using any loop / recursion?*/
-package leetcode;
+package leetcode.easy;
 
 
 public class LeetCode_0326_PowerOfThree {
