@@ -22,7 +22,7 @@
 
         0 <= nums.length <= 3000
         -105 <= nums[i] <= 105*/
-package leetcode;
+package leetcode.medium;
 
 
 import java.util.ArrayList;
@@ -42,6 +42,8 @@ import java.util.List;
 // 1. 排序
 // 遍历每个元素，然后取出这个元素，然后剩下的数调用二元组的算法 算 其余元素相加 和这个元素之和为目标元素的答案
 // 从右往左 ，可以优化效率
+// https://leetcode.com/problems/3sum/
+// https://www.cnblogs.com/greyzeng/p/7775192.html
 public class LeetCode_0015_3Sum {
     public static List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
