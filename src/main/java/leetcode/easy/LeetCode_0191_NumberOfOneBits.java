@@ -28,7 +28,7 @@ Explanation: The input binary string 11111111111111111111111111111101 has a tota
 Constraints:
 
 The input must be a binary string of length 32*/
-package leetcode;
+package leetcode.easy;
 
 public class LeetCode_0191_NumberOfOneBits {
 
