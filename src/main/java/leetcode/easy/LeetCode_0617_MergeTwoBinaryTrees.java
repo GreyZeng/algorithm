@@ -21,7 +21,7 @@
 
 
 		Note: The merging process must start from the root nodes of both trees.*/
-package leetcode;
+package leetcode.easy;
 
 
 public class LeetCode_0617_MergeTwoBinaryTrees {
