@@ -11,7 +11,6 @@ package snippet;
 public class Code_0073_ReverseString {
     public static String reverse(String s) {
         char[] arr = s.toCharArray();
-        // 第一个单词和最后一个单词互换
         for (int i = 0; i < arr.length / 2; i++) {
             char t = arr[i];
             arr[i] = arr[arr.length - 1 - i];
