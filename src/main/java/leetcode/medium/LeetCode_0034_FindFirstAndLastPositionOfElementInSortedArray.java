@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 public class LeetCode_0034_FindFirstAndLastPositionOfElementInSortedArray {
 
