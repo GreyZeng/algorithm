@@ -1,6 +1,7 @@
-package leetcode;
+package leetcode.easy;
 
 // 不适用
+@Deprecated
 public class LeetCode_0237_DeleteNodeInLinkedList {
     public class ListNode {
         int val;
