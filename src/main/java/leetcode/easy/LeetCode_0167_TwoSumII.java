@@ -29,23 +29,23 @@ Constraints:
 -1000 <= nums[i] <= 1000
 nums is sorted in increasing order.
 -1000 <= target <= 1000*/
-package leetcode;
+package leetcode.easy;
 
 public class LeetCode_0167_TwoSumII {
-	public static int[] twoSum(int[] numbers, int target) {
-		int n = numbers.length;
-		int l = 0;
-		int r = n - 1;
-		while (l < r) {
-			int sum = numbers[l] + numbers[r];
-			if (sum == target) {
-				return new int[]{l + 1, r + 1};
-			} else if (sum < target) {
-				l++;
-			} else {
-				r--;
-			}
-		}
-		return new int[]{0,0}; 
-	}
+    public static int[] twoSum(int[] numbers, int target) {
+        int n = numbers.length;
+        int l = 0;
+        int r = n - 1;
+        while (l < r) {
+            int sum = numbers[l] + numbers[r];
+            if (sum == target) {
+                return new int[]{l + 1, r + 1};
+            } else if (sum < target) {
+                l++;
+            } else {
+                r--;
+            }
+        }
+        return new int[]{0, 0};
+    }
 }

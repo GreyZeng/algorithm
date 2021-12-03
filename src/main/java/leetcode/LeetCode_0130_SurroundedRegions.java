@@ -178,8 +178,7 @@ public class LeetCode_0130_SurroundedRegions {
         private int find(int a) {
             int t = a;
             while (t != records[t]) {
-                int m = records[t];
-                t = m;
+                t = records[t];
             }
             int ans = t;
             // 扁平化操作
