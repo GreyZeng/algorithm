@@ -5,7 +5,7 @@ package snippet;
 // 方法3勉强通过
 // 方法4打败100%
 // 方法5打败100%，方法5是在方法4的基础上做了进一步的常数优化
-public class Code02_ThrowChessPiecesProblem {
+public class Code_0074_ThrowChessPiecesProblem {
 
 	public static int superEggDrop1(int kChess, int nLevel) {
 		if (nLevel < 1 || kChess < 1) {
