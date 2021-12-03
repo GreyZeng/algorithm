@@ -18,6 +18,7 @@ package leetcode.easy;
 //		Constraints:
 //
 //		s consists only of printable ASCII characters.
+@Deprecated
 public class LeetCode_0125_ValidPalindrome {
 
     public static boolean isPalindrome(String s) {

@@ -1,5 +1,5 @@
-package leetcode;
-
+package leetcode.easy;
+// https://www.cnblogs.com/greyzeng/p/15385402.html
 public class LeetCode_0136_SingleNumber {
 
     public static int singleNumber(int[] nums) {
