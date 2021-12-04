@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 //Reverse a singly linked list.
 //
@@ -12,20 +12,7 @@ package leetcode;
 // https://leetcode-cn.com/problems/reverse-linked-list/
 public class LeetCode_0206_ReverseLinkedList {
     public static class ListNode {
-        int val;
         ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
     }
 
     // 非递归版本
@@ -48,7 +35,7 @@ public class LeetCode_0206_ReverseLinkedList {
     public ListNode reverseList2(ListNode head) {
         return reverse(head);
     }
-    
+
     public ListNode reverse(ListNode head) {
         if (head == null || head.next == null) {
             return head;
