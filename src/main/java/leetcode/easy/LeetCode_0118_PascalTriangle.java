@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class LeetCode_0118_PascalTriangle {
             list.add(1);
             ans.add(list);
         }
-        int size = 0;
+        int size;
         for (int i = 1; i < numRows; i++) {
             List<Integer> t = ans.get(i - 1);
             size = t.size();
