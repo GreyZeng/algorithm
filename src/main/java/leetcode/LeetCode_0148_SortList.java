@@ -191,9 +191,7 @@ public class LeetCode_0148_SortList {
     }
 
     public static void swap(ListNode[] nodes, int i, int j) {
-        if (i == j) {
-            return;
-        } else {
+        if (i != j) {
             ListNode t = nodes[i];
             nodes[i] = nodes[j];
             nodes[j] = t;
