@@ -31,7 +31,7 @@ Note:
 
 S.length <= 1000
 S only consists of '(' and ')' characters.*/
-package leetcode;
+package leetcode.medium;
 
 // ref : https://www.lintcode.com/problem/minimum-add-to-make-parentheses-valid/description
 public class LeetCode_0921_MinimumAddToMakeParenthesesValid {
@@ -44,6 +44,7 @@ public class LeetCode_0921_MinimumAddToMakeParenthesesValid {
             if (str == ')') {
                 count--;
                 if (count == -1) {
+                    // 说明左括号无法cover住右括号了，需要补上一个
                     count = 0;
                     need++;
                 }
