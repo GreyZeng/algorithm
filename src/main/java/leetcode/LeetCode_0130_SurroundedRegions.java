@@ -70,10 +70,7 @@ public class LeetCode_0130_SurroundedRegions {
     }
 
     public static boolean inValid(char[][] board, int i, int j) {
-        if (i < 0 || j < 0 || i > board.length - 1 || j > board[0].length - 1 || board[i][j] != 'O') {
-            return false;
-        }
-        return true;
+        return i >= 0 && j >= 0 && i <= board.length - 1 && j <= board[0].length - 1 && board[i][j] == 'O';
     }
 
     // 以下为并查集解法 LeetCode 21ms

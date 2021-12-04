@@ -28,11 +28,11 @@
 //
 //		0 <= haystack.length, needle.length <= 5 * 10^4
 //		haystack and needle consist of only lower-case English characters.
-package leetcode;
+package leetcode.easy;
 
 // KMP算法
+// https://www.cnblogs.com/greyzeng/p/15317466.html
 public class LeetCode_0028_ImplementStrStr {
-
 
     public static int strStr(String str, String match) {
         if (str == null || match == null || match.length() > str.length()) {

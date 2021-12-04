@@ -30,10 +30,11 @@
         / \
         1   2
         Return false.*/
-package leetcode;
+package leetcode.easy;
 
 import java.util.ArrayList;
 
+// 使用kmp算法来解：https://www.cnblogs.com/greyzeng/p/15317466.html
 public class LeetCode_0572_SubtreeOfAnotherTree {
     public static class TreeNode {
         int val;

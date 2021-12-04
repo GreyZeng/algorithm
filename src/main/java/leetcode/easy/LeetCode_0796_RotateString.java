@@ -12,8 +12,9 @@
 //        Note:
 //
 //        A and B will have length at most 100.
-package leetcode;
+package leetcode.easy;
 
+// 使用kmp算法解：https://www.cnblogs.com/greyzeng/p/15317466.html
 public class LeetCode_0796_RotateString {
     public static boolean rotateString(String A, String B) {
         if (A.length() != B.length()) {
