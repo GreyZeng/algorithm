@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //一条包含字母 A-Z 的消息通过以下映射进行了 编码 ：
 //
@@ -51,12 +51,15 @@ public class LeetCode_0091_DecodeWays {
         }
         char[] str = s.toCharArray();
         int n = str.length;
+        // i位置往后所有解码情况数
         int[] dp = new int[n + 1];
         dp[n] = 1;
         for (int i = n - 1; i >= 0; i--) {
             if (str[i] == '0') {
+                // i位置居然让我独立面对0，则为错误决策
                 dp[i] = 0;
             } else {
+                // 只使用i位置的值来解码
                 dp[i] = dp[i + 1];
                 if (i + 1 < n && str[i + 1] <= '6' && str[i] == '2') {
                     dp[i] = dp[i + 1] + dp[i + 2];
