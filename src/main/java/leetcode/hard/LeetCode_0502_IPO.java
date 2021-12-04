@@ -1,6 +1,10 @@
-//Suppose LeetCode will start its IPO soon. In order to sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the IPO. Since it has limited resources, it can only finish at most k distinct projects before the IPO. Help LeetCode design the best way to maximize its total capital after finishing at most k distinct projects.
+//Suppose LeetCode will start its IPO soon. In order to sell a good price of its shares to Venture Capital,
+// LeetCode would like to work on some projects to increase its capital before the IPO.
+// Since it has limited resources, it can only finish at most k distinct projects before the IPO.
+// Help LeetCode design the best way to maximize its total capital after finishing at most k distinct projects.
 //
-//        You are given several projects. For each project i, it has a pure profit Pi and a minimum capital of Ci is needed to start the corresponding project. Initially, you have W capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital.
+//        You are given several projects. For each project i, it has a pure profit Pi and a minimum capital of Ci is needed to start the corresponding project.
+//        Initially, you have W capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital.
 //
 //        To sum up, pick a list of at most k distinct projects from given projects to maximize your final capital, and output your final maximized capital.
 //
@@ -18,7 +22,7 @@
 //        You may assume all numbers in the input are non-negative integers.
 //        The length of Profits array and Capital array will not exceed 50,000.
 //        The answer is guaranteed to fit in a 32-bit signed integer.
-package leetcode;
+package leetcode.hard;
 
 
 import java.util.ArrayList;
@@ -37,23 +41,12 @@ public class LeetCode_0502_IPO {
         }
     }
 
-    public static class MaxComparator implements Comparator<Project> {
-
-        @Override
-        public int compare(Project o1, Project o2) {
-            return o2.profit - o1.profit;
-        }
-    }
-
-    public static class MinComparator implements Comparator<Project> {
-        @Override
-        public int compare(Project o1, Project o2) {
-            return o1.capital - o2.capital;
-        }
-    }
-
+    // k项目个数
+    // W初始资金
+    // Profits收益
+    // Capital花费
+    // 所有花费可以cover的项目中，取最大收益的项目
     public static int findMaximizedCapital(int k, int W, int[] Profits, int[] Capital) {
-
         if (k == 0) {
             return W;
         }
@@ -62,8 +55,8 @@ public class LeetCode_0502_IPO {
         }
         k = Math.min(Profits.length, k); // 因为项目无法重复做，所以k最大只能是项目个数
         Project[] projects = initProjects(Profits, Capital);
-        PriorityQueue<Project> min = new PriorityQueue<>(new MinComparator());
-        PriorityQueue<Project> max = new PriorityQueue<>(new MaxComparator());
+        PriorityQueue<Project> min = new PriorityQueue<>(Comparator.comparingInt((Project o) -> o.capital));
+        PriorityQueue<Project> max = new PriorityQueue<>((o1, o2) -> o2.profit - o1.profit);
 
         for (Project project : projects) {
             min.offer(project);
