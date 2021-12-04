@@ -27,8 +27,8 @@ public class LeetCode_0316_RemoveDuplicateLetters {
         int R = 0;
         // 词频表
         int[] map = new int[26];
-        for (int i = 0; i < str.length; i++) {
-            map[str[i] - 'a']++;
+        for (char c : str) {
+            map[c - 'a']++;
         }
         StringBuilder sb = new StringBuilder();
         while (R != str.length) {
