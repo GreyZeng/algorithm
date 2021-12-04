@@ -30,7 +30,7 @@
 //        1 <= text1.length <= 1000
 //        1 <= text2.length <= 1000
 //        The input strings consist of lowercase English characters only.
-package leetcode;
+package leetcode.medium;
 
 public class LeetCode_1143_LongestCommonSubsequence {
     public int longestCommonSubsequence(String text1, String text2) {
