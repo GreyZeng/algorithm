@@ -50,7 +50,7 @@ public class LeetCode_0166_FractionToRecurringDecimal {
         sb.append(M);
         if (N == 0) {
             if (ttt < 0) {
-                return "-" + sb.toString();
+                return "-" + sb;
             }
             return sb.toString();
         }
@@ -73,7 +73,7 @@ public class LeetCode_0166_FractionToRecurringDecimal {
             map.put(N, sb.length());
         }
         if (ttt < 0) {
-            return "-" + sb.toString();
+            return "-" + sb;
         }
         return sb.toString();
     }

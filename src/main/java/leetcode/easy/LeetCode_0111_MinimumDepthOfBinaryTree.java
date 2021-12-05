@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 // 二叉树递归套路
 // Morris遍历
@@ -23,6 +23,7 @@ public class LeetCode_0111_MinimumDepthOfBinaryTree {
             this.right = right;
         }
     }
+
     // morris遍历方式
     public static int minDepth(TreeNode head) {
         if (head == null) {
@@ -33,7 +34,7 @@ public class LeetCode_0111_MinimumDepthOfBinaryTree {
         int curHeight = 0;
         int min = Integer.MAX_VALUE;
         while (cur != null) {
-            
+
             mostRight = cur.left;
             if (mostRight != null) {
                 int dulplicate = 1;
@@ -48,12 +49,12 @@ public class LeetCode_0111_MinimumDepthOfBinaryTree {
                     continue;
                 } else {
                     if (mostRight.left == null) {
-                        min = Math.min(min,curHeight);
+                        min = Math.min(min, curHeight);
                     }
                     curHeight -= dulplicate;
                     mostRight.right = null;
                 }
-            } else{
+            } else {
                 curHeight++;
             }
             cur = cur.right;
@@ -94,7 +95,6 @@ public class LeetCode_0111_MinimumDepthOfBinaryTree {
     }
 
     public static class Info {
-
         public int minH;
 
         public Info(int minH) {
