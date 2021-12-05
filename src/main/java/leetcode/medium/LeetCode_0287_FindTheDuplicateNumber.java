@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
 //
@@ -37,6 +37,7 @@ package leetcode;
 //        1 <= nums[i] <= n
 //        All the integers in nums appear only once except for precisely one integer which appears two or more times.
 public class LeetCode_0287_FindTheDuplicateNumber {
+    // 单链表入环节点就是重复数字
     public static int findDuplicate(int[] nums) {
 
         int s = nums[0];
