@@ -1,5 +1,7 @@
-package leetcode;
+package leetcode.medium;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 //Evaluate the value of an arithmetic expression in Reverse Polish Notation.
@@ -35,7 +37,7 @@ import java.util.Stack;
 public class LeetCode_0150_EvaluateReversePolishNotation {
 
     public static int evalRPN(String[] tokens) {
-        Stack<Integer> stack = new Stack<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         for (String token : tokens) {
             if ("+".equals(token)) {
 
