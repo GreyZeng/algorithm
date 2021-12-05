@@ -15,7 +15,7 @@ Shuffle a set of numbers without duplicates.
 
 // Returns the random shuffling of array [1,2,3].
         solution.shuffle();*/
-package leetcode;
+package leetcode.medium;
 
 public class LeetCode_0384_ShuffleAnArray {
     public class Solution {

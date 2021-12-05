@@ -37,14 +37,6 @@ public class LeetCode_0347_TopKFrequentElements {
         }
     }
 
-    public static class MyComparator implements Comparator<Node> {
-
-        @Override
-        public int compare(Node o1, Node o2) {
-            return o1.times - o2.times;
-        }
-    }
-
     public int[] topKFrequent(int[] nums, int k) {
         if (nums == null || nums.length == 0 || nums.length < k) {
             return null;
@@ -57,7 +49,7 @@ public class LeetCode_0347_TopKFrequentElements {
                 freq.put(i, new Node(i, freq.get(i).times + 1));
             }
         }
-        PriorityQueue<Node> topK = new PriorityQueue<>(new MyComparator());
+        PriorityQueue<Node> topK = new PriorityQueue<>(Comparator.comparingInt((Node o) -> o.times));
         Set<Integer> keys = freq.keySet();
         for (Integer key : keys) {
             Node t = freq.get(key);
