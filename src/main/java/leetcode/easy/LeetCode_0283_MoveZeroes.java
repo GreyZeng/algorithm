@@ -8,7 +8,7 @@
 
         You must do this in-place without making a copy of the array.
         Minimize the total number of operations.*/
-package leetcode;
+package leetcode.easy;
 
 public class LeetCode_0283_MoveZeroes {
     // 双指针
@@ -36,10 +36,10 @@ public class LeetCode_0283_MoveZeroes {
     }
 
     public static void main(String[] args) {
-        int[] nums = {5,0,3,2,0,4,0};
+        int[] nums = {5, 0, 3, 2, 0, 4, 0};
         moveZeroes(nums);
-        for (int i = 0; i < nums.length; i++) {
-            System.out.println(nums[i]);
+        for (int num : nums) {
+            System.out.println(num);
         }
     }
 
