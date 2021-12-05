@@ -37,11 +37,10 @@
 //        0 <= points.length <= 10^4
 //        points[i].length == 2
 //        -2^31 <= xstart < xend <= 2^31 - 1
-package leetcode;
+package leetcode.medium;
 
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class LeetCode_0452_MinimumNumberOfArrowsToBurstBalloons {
 
@@ -53,7 +52,14 @@ public class LeetCode_0452_MinimumNumberOfArrowsToBurstBalloons {
         for (int i = 0; i < m.length; i++) {
             lines[i] = new Line(m[i][0], m[i][1]);
         }
-        Arrays.sort(lines, new MyComparator());
+        Arrays.sort(lines, (o1, o2) -> {
+            if (o1.end > o2.end) {
+                return 1;
+            } else if (o1.end < o2.end) {
+                return -1;
+            }
+            return 0;
+        });
         int min = 1;
         int b = lines[0].end;
         for (int i = 1; i < lines.length; i++) {
@@ -73,18 +79,6 @@ public class LeetCode_0452_MinimumNumberOfArrowsToBurstBalloons {
         public Line(int s, int e) {
             start = s;
             end = e;
-        }
-    }
-
-    public static class MyComparator implements Comparator<Line> {
-        @Override
-        public int compare(Line o1, Line o2) {
-            if (o1.end > o2.end) {
-                return 1;
-            } else if (o1.end < o2.end) {
-                return -1;
-            }
-            return 0;
         }
     }
 
