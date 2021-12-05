@@ -33,7 +33,7 @@ s = "catsandog"
 wordDict = ["cats", "dog", "sand", "and", "cat"]
 Output:
 []*/
-package leetcode;
+package leetcode.hard;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -89,13 +89,12 @@ public class LeetCode_0140_WordBreakII {
     }
 
     // 0...index-1已经处理完毕，收集的字符串在path中，最后的句子存在ans中
-    public static void process(final char[] str, int index, Node root, final boolean[] dp, List<String> path,
-            List<String> ans) {
+    public static void process(final char[] str, int index, Node root, final boolean[] dp, List<String> path, List<String> ans) {
         if (index == str.length) {
             // 收集一个句子
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < path.size() - 1; i++) {
-                sb.append(path.get(i) + " ");
+                sb.append(path.get(i)).append(" ");
             }
             sb.append(path.get(path.size() - 1));
             ans.add(sb.toString());
@@ -107,7 +106,6 @@ public class LeetCode_0140_WordBreakII {
             if (cur.nexts[str[i] - 'a'] == null) {
                 break;
             }
-
             cur = cur.nexts[str[i] - 'a'];
             if (cur.end && dp[i + 1]) {
                 // 是否是一个有效的拼接，包括两个部分
