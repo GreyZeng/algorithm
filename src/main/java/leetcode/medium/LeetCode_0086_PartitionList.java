@@ -6,7 +6,7 @@
 //
 //Input: head = 1->4->3->2->5->2, x = 3
 //Output: 1->2->2->4->3->5
-package leetcode;
+package leetcode.medium;
 
 public class LeetCode_0086_PartitionList {
 
@@ -35,7 +35,7 @@ public class LeetCode_0086_PartitionList {
         ListNode biggerStart = null;
         ListNode biggerEnd = null;
         ListNode cur = head;
-        while (cur != null) { 
+        while (cur != null) {
             if (cur.val < x) {
                 if (lessStart == null) {
                     lessStart = cur;
@@ -57,7 +57,7 @@ public class LeetCode_0086_PartitionList {
         }
         if (biggerEnd != null) {
             biggerEnd.next = null;
-        } 
+        }
         if (lessEnd != null) {
             lessEnd.next = null;
         }
