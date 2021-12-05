@@ -20,7 +20,7 @@ and return a list of integers representing the size of these parts.
 
         S will have length in range [1, 500].
         S will consist of lowercase English letters ('a' to 'z') only.*/
-package leetcode;
+package leetcode.medium;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,20 +35,20 @@ public class LeetCode_0763_PartitionLabels {
         // help收集每个字符最右位置
         int[] help = new int[26];
         for (int i = 0; i < str.length; i++) {
-        	help[str[i] - 'a'] = i;
+            help[str[i] - 'a'] = i;
         }
         int right = 0;
         int pre = right;
         List<Integer> ans = new ArrayList<>();
         for (int i = 0; i < str.length; i++) {
-        	// 是否可以将right位置扩散
-        	right = Math.max(right, help[str[i] - 'a']);
-        	if(i == right) {
-        		// 当前位置已经是能扩散的最右位置了
-        		// 收集答案 
-        		ans.add(right - pre + 1);
-        		pre = right + 1;
-        	}
+            // 是否可以将right位置扩散
+            right = Math.max(right, help[str[i] - 'a']);
+            if (i == right) {
+                // 当前位置已经是能扩散的最右位置了
+                // 收集答案
+                ans.add(right - pre + 1);
+                pre = right + 1;
+            }
         }
         return ans;
     }
