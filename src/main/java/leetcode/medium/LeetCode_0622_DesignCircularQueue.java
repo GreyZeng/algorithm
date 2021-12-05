@@ -31,16 +31,17 @@ Note:
 All values will be in the range of [0, 1000].
 The number of operations will be in the range of [1, 1000].
 Please do not use the built-in Queue library.*/
-package leetcode;
+package leetcode.medium;
 
 public class LeetCode_0622_DesignCircularQueue {
     class MyCircularQueue {
-        private int[] arr;
+        private final int[] arr;
         private int popIndex;
         private int pushIndex;
         private int rear;
         private int size;
-        private int limit;
+        private final int limit;
+
         public MyCircularQueue(int k) {
             limit = k;
             arr = new int[limit];

@@ -36,7 +36,6 @@ public class LeetCode_0394_DecodeString {
     }
 
     private static String[] p(char[] str, int len, int j) {
-
         StringBuilder sb = new StringBuilder();
         int pre = 0;
         int i = j;
