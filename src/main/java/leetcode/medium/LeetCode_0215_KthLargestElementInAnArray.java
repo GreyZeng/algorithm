@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
  * 方法2. bfprt算法 (严格收敛到O(N),但是空间复杂度O(N))
  */
 public class LeetCode_0215_KthLargestElementInAnArray {
-    
+
     // 快排改进算法
     // 第K小 == 第 nums.length - k + 1 大
     public static int findKthLargest2(int[] nums, int k) {
@@ -95,7 +95,7 @@ public class LeetCode_0215_KthLargestElementInAnArray {
         Arrays.sort(arr, L, R);
         return arr[(R + L) / 2];
     }
-    
+
     // 第K大 --> 第 (len - K + 1) 小
     public static int findKthLargest3(int[] nums, int k) {
         PriorityQueue<Integer> h = new PriorityQueue<>();
