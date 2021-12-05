@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -13,6 +13,7 @@ public class LeetCode_0225_ImplementStackUsingQueues {
             data = new LinkedList<>();
             help = new LinkedList<>();
         }
+
         // 从尾部进
         public void push(int x) {
             data.offer(x);
@@ -21,7 +22,7 @@ public class LeetCode_0225_ImplementStackUsingQueues {
         public int pop() {
             int result = 0;
             while (!data.isEmpty()) {
-                int x = data.poll(); 
+                int x = data.poll();
                 if (data.isEmpty()) {
                     result = x;
                 } else {
@@ -39,9 +40,9 @@ public class LeetCode_0225_ImplementStackUsingQueues {
             while (!data.isEmpty()) {
                 int x = data.poll();
                 help.offer(x);
-                if (data.isEmpty()) { 
+                if (data.isEmpty()) {
                     result = x;
-                } 
+                }
             }
             Queue<Integer> t = data;
             data = help;
