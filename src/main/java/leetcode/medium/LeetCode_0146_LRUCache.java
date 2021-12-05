@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 import java.util.HashMap;
 
@@ -42,6 +42,7 @@ import java.util.HashMap;
 //        0 <= key <= 3000
 //        0 <= value <= 104
 //        At most 3 * 104 calls will be made to get and put.
+// https://www.cnblogs.com/greyzeng/p/14413345.html
 public class LeetCode_0146_LRUCache {
 
     public static class LRUCache {
@@ -137,7 +138,6 @@ public class LeetCode_0146_LRUCache {
                     map.put(key, node);
                     list.addLast(node);
                 }
-
             }
         }
     }
