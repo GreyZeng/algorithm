@@ -11,10 +11,11 @@
 
 // Follow up:
 // Could you solve it with constant space complexity? (The output array does not count as extra space for the purpose of space complexity analysis.)
-package leetcode;
+package leetcode.medium;
 
 public class LeetCode_0238_ProductOfArrayExceptSelf {
 
+    // 后缀积数组维持右边的积，左边部分用变脸来维持前缀积
     public static int[] productExceptSelf(int[] nums) {
         int N = nums.length;
         int[] result = new int[N];
@@ -31,8 +32,11 @@ public class LeetCode_0238_ProductOfArrayExceptSelf {
         return result;
     }
 
+    // 扩展 : 如果仅仅是不能用除号，把结果直接填在nums里呢？
+    // 解法：数一共几个0；每一个位得到结果就是，a / b，位运算替代 /
+    
     public static void main(String[] args) {
-        int[] nums = { 1, 2, 3, 4 };
+        int[] nums = {2, 3, 4, 5};
         int[] result = productExceptSelf(nums);
         for (int i : result) {
             System.out.println(i + " ");
