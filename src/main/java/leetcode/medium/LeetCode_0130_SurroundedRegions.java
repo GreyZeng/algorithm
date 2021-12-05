@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //Given a 2D board containing 'X' and 'O' (the letter O), capture all regions surrounded by 'X'.
 //
@@ -138,6 +138,7 @@ public class LeetCode_0130_SurroundedRegions {
 
         private int[] records;
         private int[] size;
+
         public UnionFind(int n) {
             // n的代表点就是records[n],因为二维数组的下标可以转换成一维数组下标（从1开始），所以可以将二维数组某个点的代表点用records[n]表示
             // 其中n = oneArrIndex(i,j)
@@ -155,20 +156,20 @@ public class LeetCode_0130_SurroundedRegions {
 
         public void union(int a, int b) {
             int fa = find(a);
-            int fb = find(b); 
+            int fb = find(b);
             if (fa != fb) {
-            	int sizeFb = size[fb];
-            	int sizeFa = size[fa];
-            	int all = sizeFa + sizeFb;
-            	if (sizeFa > sizeFb) {
-            		records[fb] = fa;
-            		size[fa] = all;
-            		//size[fb] = all;
-            	} else {
-            		records[fa] = fb;
-            		// size[fa] = all;
-            		size[fb] = all;
-            	}
+                int sizeFb = size[fb];
+                int sizeFa = size[fa];
+                int all = sizeFa + sizeFb;
+                if (sizeFa > sizeFb) {
+                    records[fb] = fa;
+                    size[fa] = all;
+                    //size[fb] = all;
+                } else {
+                    records[fa] = fb;
+                    // size[fa] = all;
+                    size[fb] = all;
+                }
             }
         }
 
@@ -223,7 +224,7 @@ public class LeetCode_0130_SurroundedRegions {
         return res;
     }
 
-    
+
     public static char[][] copyArr(char[][] c) {
         char[][] res = new char[c.length][c[0].length];
         for (int i = 0; i < c.length; i++) {

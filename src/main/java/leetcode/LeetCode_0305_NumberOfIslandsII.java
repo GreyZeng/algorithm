@@ -17,9 +17,9 @@ public class LeetCode_0305_NumberOfIslandsII {
 	}
 
 	public static class UnionFind1 {
-		private int[] parent;
-		private int[] size;
-		private int[] help;
+		private final int[] parent;
+		private final int[] size;
+		private final int[] help;
 		private final int row;
 		private final int col;
 		private int sets;
@@ -100,9 +100,9 @@ public class LeetCode_0305_NumberOfIslandsII {
 	}
 
 	public static class UnionFind2 {
-		private HashMap<String, String> parent;
-		private HashMap<String, Integer> size;
-		private ArrayList<String> help;
+		private final HashMap<String, String> parent;
+		private final HashMap<String, Integer> size;
+		private final ArrayList<String> help;
 		private int sets;
 
 		public UnionFind2() {
@@ -141,15 +141,15 @@ public class LeetCode_0305_NumberOfIslandsII {
 		}
 
 		public int connect(int r, int c) {
-			String key = String.valueOf(r) + "_" + String.valueOf(c);
+			String key = r + "_" + c;
 			if (!parent.containsKey(key)) {
 				parent.put(key, key);
 				size.put(key, 1);
 				sets++;
-				String up = String.valueOf(r - 1) + "_" + String.valueOf(c);
-				String down = String.valueOf(r + 1) + "_" + String.valueOf(c);
-				String left = String.valueOf(r) + "_" + String.valueOf(c - 1);
-				String right = String.valueOf(r) + "_" + String.valueOf(c + 1);
+				String up = r - 1 + "_" + c;
+				String down = r + 1 + "_" + c;
+				String left = r + "_" + (c - 1);
+				String right = r + "_" + (c + 1);
 				union(up, key);
 				union(down, key);
 				union(left, key);
