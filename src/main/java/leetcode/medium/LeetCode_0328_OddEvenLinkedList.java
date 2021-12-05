@@ -19,15 +19,15 @@
 //		The relative order inside both the even and odd groups should remain as it was in the input.
 //		The first node is considered odd, the second node even and so on ...
 //		The length of the linked list is between [0, 10^4].
-package leetcode;
+package leetcode.medium;
 
 public class LeetCode_0328_OddEvenLinkedList {
 
     public static class ListNode {
-        int val;
         ListNode next;
     }
 
+    // 奇数节点和偶数节点放在一起
     // 所有偶数下标的数一定要在奇数下标数之后（注意：是下标而非值）
     public static ListNode oddEvenList(ListNode head) {
         if (head == null || head.next == null || head.next.next == null) {
@@ -60,17 +60,11 @@ public class LeetCode_0328_OddEvenLinkedList {
             count++;
             cur = cur.next;
         }
-        if (oddEnd != null) {
-            oddEnd.next = null;
-        }
         if (evenEnd != null) {
             evenEnd.next = null;
         }
-        if (oddStart != null) {
-            oddEnd.next = evenStart;
-            return oddStart;
-        }
-        return evenStart;
+        oddEnd.next = evenStart;
+        return oddStart;
 
     }
 
