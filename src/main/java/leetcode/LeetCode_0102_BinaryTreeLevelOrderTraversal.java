@@ -58,11 +58,10 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
 			size++;
 			if (front == null) {
 				front = c;
-				end = c;
 			} else {
 				end.next = c;
-				end = c;
 			}
+			end = c;
 		}
 
 		public boolean isEmpty() {
@@ -91,7 +90,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
 		MyNode curEnd = head;
 		MyNode nextEnd = null;
 		List<Integer> item = new ArrayList<>();
-		MyNode t = null;
+		MyNode t;
 		while (!queue.isEmpty()) {
 			MyNode c = queue.poll();
 			if (c.data.left != null) {

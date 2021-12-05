@@ -23,7 +23,7 @@
 
         You may assume the interval's end point is always bigger than its start point.
         Intervals like [1,2] and [2,3] have borders "touching" but they don't overlap each other.*/
-package leetcode;
+package leetcode.medium;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -40,7 +40,7 @@ public class LeetCode_0435_NonOverlappingIntervals {
         for (int[] interval : intervals) {
             arr[i++] = new Interval(interval[0], interval[1]);
         }
-        Arrays.sort(arr, new MyComparator());
+        Arrays.sort(arr, Comparator.comparingInt((Interval o) -> o.end));
         // 非重叠区域个数
         int notOverlap = 1;
         int b = arr[0].end;
@@ -51,14 +51,6 @@ public class LeetCode_0435_NonOverlappingIntervals {
             }
         }
         return arr.length - notOverlap;
-    }
-
-    public static class MyComparator implements Comparator<Interval> {
-
-        @Override
-        public int compare(Interval o1, Interval o2) {
-            return o1.end - o2.end;
-        }
     }
 
     public static class Interval {
