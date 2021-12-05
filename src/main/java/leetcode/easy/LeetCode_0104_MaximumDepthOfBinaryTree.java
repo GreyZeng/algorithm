@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 // ref:https://www.lintcode.com/problem/maximum-depth-of-binary-tree/description
 public class LeetCode_0104_MaximumDepthOfBinaryTree {
