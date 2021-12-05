@@ -58,7 +58,7 @@ Explanation:The maximum width existing in the fourth level with the length 8 (6,
 Constraints:
 
 The given binary tree will have between 1 and 3000 nodes.*/
-package leetcode;
+package leetcode.medium;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -66,7 +66,6 @@ import java.util.Queue;
 public class LeetCode_0662_MaximumWidthOfBinaryTree {
 
     public class TreeNode {
-        int val;
         TreeNode left;
         TreeNode right;
     }
