@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.
 //
@@ -29,6 +29,4 @@ public class LeetCode_0152_MaximumProductSubarray {
         }
         return max;
     }
-
-
 }
