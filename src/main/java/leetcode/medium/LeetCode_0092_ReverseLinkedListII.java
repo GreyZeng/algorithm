@@ -6,7 +6,7 @@
 
 // Input: 1->2->3->4->5->NULL, m = 2, n = 4
 // Output: 1->4->3->2->5->NULL
-package leetcode;
+package leetcode.medium;
 
 public class LeetCode_0092_ReverseLinkedListII {
     public static class ListNode {
@@ -81,11 +81,10 @@ public class LeetCode_0092_ReverseLinkedListII {
         return head;
     }
 
-    // 反转链表前N个节点
     static ListNode successor = null;
 
+    // 反转链表前N个节点
     public static ListNode reverseN(ListNode head, int n) {
-
         if (n == 1) {
             successor = head.next;
             return head;
@@ -94,7 +93,6 @@ public class LeetCode_0092_ReverseLinkedListII {
         head.next.next = head;
         head.next = successor;
         return last;
-
     }
 
     public static void main(String[] args) {
