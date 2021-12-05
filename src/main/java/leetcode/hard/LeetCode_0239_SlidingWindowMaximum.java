@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.hard;
 
 import java.util.LinkedList;
 
@@ -44,6 +44,7 @@ import java.util.LinkedList;
 //        1 <= nums.length <= 10^5
 //        -10^4 <= nums[i] <= 10^4
 //        1 <= k <= nums.length
+// https://www.cnblogs.com/greyzeng/p/14463104.html
 public class LeetCode_0239_SlidingWindowMaximum {
     public static int[] maxSlidingWindow(int[] nums, int k) {
         int n = nums.length;
