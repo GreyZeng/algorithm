@@ -39,21 +39,19 @@ public class LeetCode_0086_PartitionList {
             if (cur.val < x) {
                 if (lessStart == null) {
                     lessStart = cur;
-                    lessEnd = cur;
                 } else {
                     lessEnd.next = cur;
-                    lessEnd = cur;
                 }
+                lessEnd = cur;
             } else {
                 // cur.val >= x
                 // 都放到大于等于区域
                 if (biggerStart == null) {
                     biggerStart = cur;
-                    biggerEnd = cur;
                 } else {
                     biggerEnd.next = cur;
-                    biggerEnd = cur;
                 }
+                biggerEnd = cur;
             }
             cur = cur.next;
         }
