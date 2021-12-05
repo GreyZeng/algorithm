@@ -11,7 +11,7 @@
 
 		Output:
 		[5,6]*/
-package leetcode;
+package leetcode.easy;
 
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 public class LeetCode_0448_FindAllNumbersDisappearedInAnArray {
 
     public static List<Integer> findDisappearedNumbers(int[] nums) {
-        ArrayList<Integer> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         if (nums == null || nums.length == 0) {
             return list;
         }
@@ -44,14 +44,14 @@ public class LeetCode_0448_FindAllNumbersDisappearedInAnArray {
             if (nums[t - 1] == t) {
                 break;
             }
-            int m = nums[t-1];
+            int m = nums[t - 1];
             nums[t - 1] = t;
             nums[i] = m;
         }
     }
 
     public static void main(String[] args) {
-        int[] nums = {4,3,2,7,8,2,3,1};
+        int[] nums = {4, 3, 2, 7, 8, 2, 3, 1};
         List<Integer> disappearedNumbers = findDisappearedNumbers(nums);
         System.out.println(disappearedNumbers);
     }
