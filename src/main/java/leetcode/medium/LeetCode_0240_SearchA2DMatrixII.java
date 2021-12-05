@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
 //
@@ -28,7 +28,7 @@ package leetcode;
 //All the integers in each column are sorted in ascending order.
 //-10^9 <= target <= 10^9
 public class LeetCode_0240_SearchA2DMatrixII {
-
+    // 从右上角开始
     public static boolean searchMatrix(int[][] m, int target) {
         int M = m.length;
         int N = m[0].length;
