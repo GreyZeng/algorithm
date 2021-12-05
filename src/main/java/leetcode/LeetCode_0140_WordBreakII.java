@@ -58,7 +58,7 @@ public class LeetCode_0140_WordBreakII {
         if (null == words || words.isEmpty()) {
             return new ArrayList<>();
         }
-        Set<String> wordDict = new HashSet<String>(words);
+        Set<String> wordDict = new HashSet<>(words);
         Node root = buildTrie(wordDict);
         char[] str = s.toCharArray();
         int N = str.length;
