@@ -35,7 +35,6 @@ public class LeetCode_0350_IntersectionOfTwoArraysII {
             return new int[]{};
         }
         HashMap<Integer, Integer> map1 = new HashMap<>();
-
         for (int j : nums1) {
             if (map1.containsKey(j)) {
                 map1.put(j, map1.get(j) + 1);
