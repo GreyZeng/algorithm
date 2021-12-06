@@ -28,10 +28,7 @@
 //-1000000 <=arr[i] <=1000000
 package nowcoder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 单调栈
@@ -53,25 +50,26 @@ public class NowCoder_MonoStackII {
         int n = arr.length;
         int[][] result = new int[n][2];
         if (arr.length == 1) {
+            // 只有一个元素
             result[0][0] = -1;
             result[0][1] = -1;
             return result;
         }
         // 栈顶到栈底从大到小
-        Stack<List<Integer>> stack = new Stack<>();
+        Deque<List<Integer>> stack = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
             if (stack.isEmpty()) {
                 // 栈空，直接进入
                 List<Integer> list = new ArrayList<>();
                 list.add(i);
-                stack.push(list); 
+                stack.push(list);
             } else if (arr[stack.peek().get(0)] < arr[i]) {
                 // 走到这个分支，说明栈不为空
                 // 如果栈顶元素对应的arr值比当前值arr[i]小
                 // arr[i]进栈（另外启一个List)
                 List<Integer> list = new ArrayList<>();
                 list.add(i);
-                stack.push(list); 
+                stack.push(list);
             } else if (arr[stack.peek().get(0)] == arr[i]) {
                 // 处理重复元素的逻辑
                 stack.peek().add(i);
@@ -80,7 +78,7 @@ public class NowCoder_MonoStackII {
                     // 如果栈顶元素对应的arr值比当前值arr[i]大
                     // 则走弹出元素的逻辑：
                     // 弹出位置（一个List）中的所有元素右边离它最近的比它小的数就是i
-                   // List下面压着的List中最右边的元素就是左边离它最近的比它小的数。
+                    // List下面压着的List中最右边的元素就是左边离它最近的比它小的数。
                     List<Integer> pop = stack.pop();
                     for (int index : pop) {
                         result[index][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
@@ -93,9 +91,9 @@ public class NowCoder_MonoStackII {
         }
         while (!stack.isEmpty()) {
             List<Integer> pop = stack.pop();
-            for (int k = 0; k < pop.size(); k++) {
-                result[pop.get(k)][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
-                result[pop.get(k)][1] = -1;
+            for (Integer num : pop) {
+                result[num][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
+                result[num][1] = -1;
             }
         }
         return result;
@@ -113,7 +111,7 @@ public class NowCoder_MonoStackII {
         for (int i = 0; i < N; i++) {
             sb.append(r[i][0]).append(" ").append(r[i][1]).append("\n");
         }
-        System.out.println(sb.toString());
+        System.out.println(sb);
         in.close();
         // int[] arr = { 3, 4, 1, 5, 6, 2, 7 };
         // int[][] result = getNearLess(arr);

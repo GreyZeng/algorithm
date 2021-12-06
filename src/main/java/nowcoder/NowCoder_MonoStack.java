@@ -52,9 +52,7 @@ public class NowCoder_MonoStack {
         }
         int N = arr.length;
         int[][] r = new int[N][2];
-
-        Stack<Integer> stack = new Stack<>();
-
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < N; i++) {
             while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
                 int v = stack.pop();
@@ -83,7 +81,7 @@ public class NowCoder_MonoStack {
         for (int i = 0; i < N; i++) {
             sb.append(r[i][0]).append(" ").append(r[i][1]).append("\n");
         }
-        System.out.println(sb.toString());
+        System.out.println(sb);
         in.close();
     }
 
