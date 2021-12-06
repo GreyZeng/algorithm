@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -10,24 +10,11 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
         int val;
         TreeNode left;
         TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 
     // 递归方式
     public List<Integer> preorderTraversal3(TreeNode root) {
-        List<Integer> ans = new ArrayList<Integer>();
+        List<Integer> ans = new ArrayList<>();
         pre(root, ans);
         return ans;
     }

@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.easy;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class LeetCode_0145_BinaryTreePostorderTraversal {
 
-   
+
     public class TreeNode {
         int val;
         TreeNode left;
@@ -27,6 +27,7 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
             this.right = right;
         }
     }
+
     // morris遍历实现后续遍历
     public static List<Integer> postorderTraversal(TreeNode head) {
         List<Integer> ans = new ArrayList<>();
@@ -34,7 +35,7 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
             return ans;
         }
         TreeNode cur = head;
-        TreeNode mostRight = null;
+        TreeNode mostRight;
         while (cur != null) {
             mostRight = cur.left;
             if (mostRight != null) {
@@ -50,24 +51,25 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
                     mostRight.right = null;
                     collectEdge(cur.left, ans);
                 }
-            } 
+            }
             cur = cur.right;
         }
         collectEdge(head, ans);
         return ans;
     }
+
     public static void collectEdge(TreeNode node, List<Integer> ans) {
         TreeNode tail = reverse(node);
         TreeNode c = tail;
-        while (c!=null) {
+        while (c != null) {
             ans.add(c.val);
             c = c.right;
         }
         reverse(tail);
     }
-    
+
     private static TreeNode reverse(TreeNode n) {
-        TreeNode pre = null; 
+        TreeNode pre = null;
         TreeNode c = n;
         while (c != null) {
             TreeNode t = c.right;
