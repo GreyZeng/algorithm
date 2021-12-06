@@ -25,7 +25,7 @@ So the median is the mean of the two middle value.
 
         If all integer numbers from the stream are between 0 and 100, how would you optimize it?
         If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?*/
-package leetcode;
+package leetcode.hard;
 
 
 import java.util.Comparator;
@@ -34,28 +34,13 @@ import java.util.PriorityQueue;
 // 一个大根堆，一个小根堆  size维持差值<2
 public class LeetCode_0295_FindMedianFromDataStream {
     public static class MedianFinder {
-        public static class MinHeap implements Comparator<Integer> {
 
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o1 - o2;
-            }
-        }
-
-        public static class MaxHeap implements Comparator<Integer> {
-
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o2 - o1;
-            }
-        }
-
-        private PriorityQueue<Integer> minHeap;
-        private PriorityQueue<Integer> maxHeap;
+        private final PriorityQueue<Integer> minHeap;
+        private final PriorityQueue<Integer> maxHeap;
 
         public MedianFinder() {
-            minHeap = new PriorityQueue<>(new MinHeap());
-            maxHeap = new PriorityQueue<>(new MaxHeap());
+            minHeap = new PriorityQueue<>(Comparator.comparingInt((Integer o) -> o));
+            maxHeap = new PriorityQueue<>((o1, o2) -> o2 - o1);
         }
 
         public void addNum(int num) {
