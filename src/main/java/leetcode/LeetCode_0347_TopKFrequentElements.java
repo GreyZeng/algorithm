@@ -49,7 +49,7 @@ public class LeetCode_0347_TopKFrequentElements {
                 freq.put(i, new Node(i, freq.get(i).times + 1));
             }
         }
-        PriorityQueue<Node> topK = new PriorityQueue<>(Comparator.comparingInt((Node o) -> o.times));
+        PriorityQueue<Node> topK = new PriorityQueue<>(Comparator.comparingInt(o -> o.times));
         Set<Integer> keys = freq.keySet();
         for (Integer key : keys) {
             Node t = freq.get(key);
