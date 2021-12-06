@@ -16,7 +16,7 @@ Given a non-empty array of integers, return the k most frequent elements.
         It's guaranteed that the answer is unique, in other words the set of the top k frequent elements is unique.
         You can return the answer in any order.
 */
-package leetcode;
+package leetcode.medium;
 
 import java.util.Comparator;
 import java.util.HashMap;
