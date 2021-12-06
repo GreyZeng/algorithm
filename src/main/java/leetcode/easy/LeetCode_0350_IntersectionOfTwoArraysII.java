@@ -17,11 +17,12 @@
         What if the given array is already sorted? How would you optimize your algorithm?
         What if nums1's size is small compared to nums2's size? Which algorithm is better?
         What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?*/
-package leetcode;
+package leetcode.easy;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 // 词频表
@@ -54,7 +55,7 @@ public class LeetCode_0350_IntersectionOfTwoArraysII {
             }
         }
         Set<Integer> set = map2.keySet();
-        ArrayList<Integer> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         int t;
         for (int i : set) {
             t = map2.get(i);
