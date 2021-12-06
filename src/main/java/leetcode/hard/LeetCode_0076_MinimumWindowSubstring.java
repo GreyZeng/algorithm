@@ -20,7 +20,7 @@ Constraints:
 1 <= s.length, t.length <= 10^5
 s and t consist of English letters.
 */
-package leetcode;
+package leetcode.hard;
 
 /**
  * @author Grey
