@@ -10,7 +10,7 @@
         1 0 0 1 0
 
         Output: 4*/
-package leetcode;
+package leetcode.medium;
 
 // tips 正方形必须以i,j作为右下角情况，哪个正方形内部都是1且最大
 // 依赖 左边一个位置，上面一个位置，左上角位置
