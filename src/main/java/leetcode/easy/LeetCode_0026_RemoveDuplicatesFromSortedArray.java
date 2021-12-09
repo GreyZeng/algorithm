@@ -38,27 +38,17 @@
  */
 package leetcode.easy;
 
-@Deprecated
 public class LeetCode_0026_RemoveDuplicatesFromSortedArray {
-    public static int removeDuplicates(int[] nums) {
-        if (null == nums) {
-            return 0;
-        }
-        int L = nums.length;
-        if (L == 1) {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0) {
             return 1;
         }
-        int index = 1;
-        int cur = 0;
-        while (index <= L - 1) {
-            if (nums[index] != nums[cur]) {
-                int t = nums[cur + 1];
-                nums[cur + 1] = nums[index];
-                nums[index] = t;
-                cur++;
+        int fill = 0;
+        for (int cur = 0; cur < nums.length; cur++) {
+            if (nums[cur] != nums[fill]) {
+                nums[++fill] = nums[cur];
             }
-            index++;
         }
-        return cur + 1;
+        return fill + 1;
     }
 }
