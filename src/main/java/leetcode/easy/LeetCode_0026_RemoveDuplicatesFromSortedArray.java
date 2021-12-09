@@ -41,7 +41,7 @@ package leetcode.easy;
 public class LeetCode_0026_RemoveDuplicatesFromSortedArray {
     public int removeDuplicates(int[] nums) {
         if (nums.length == 0) {
-            return 1;
+            return 0;
         }
         int fill = 0;
         for (int cur = 0; cur < nums.length; cur++) {
