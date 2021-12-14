@@ -13,8 +13,7 @@ public class Code_0001_Sort {
         if (arr == null || arr.length < 2) {
             return;
         }
-        int n = arr.length;
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < arr.length; i++) {
             for (int j = i - 1; j >= 0; j--) {
                 if (arr[j] > arr[j + 1]) {
                     swap(arr, j + 1, j);
@@ -69,7 +68,6 @@ public class Code_0001_Sort {
         // Math.random() -> [0,1)
         // Math.random() * N -> [0,N)
         // (int)(Math.random()*N) -> [0,N-1]
-
         int[] arr = new int[(int) (Math.random() * (maxSize + 1))];
         for (int i = 0; i < arr.length; i++) {
             // [-? , +?]
@@ -82,8 +80,8 @@ public class Code_0001_Sort {
         if (null == arr1) {
             return;
         }
-        for (int i = 0; i < arr1.length; i++) {
-            System.out.print(arr1[i] + " ");
+        for (int j : arr1) {
+            System.out.print(j + " ");
         }
         System.out.println();
     }
@@ -114,9 +112,7 @@ public class Code_0001_Sort {
             return null;
         }
         int[] arr2 = new int[arr1.length];
-        for (int i = 0; i < arr1.length; i++) {
-            arr2[i] = arr1[i];
-        }
+        System.arraycopy(arr1, 0, arr2, 0, arr1.length);
         return arr2;
     }
 

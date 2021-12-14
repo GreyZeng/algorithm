@@ -27,21 +27,21 @@ package leetcode.easy;
  *
  * @author Grey
  * @date 2021年7月16日 下午9:04:48
- * @since
+ * @since 1.8
  */
+// https://leetcode.com/problems/binary-search/
 public class LeetCode_0704_BinarySearch {
     public int search(int[] nums, int target) {
-        int L = 0;
-        int R = nums.length - 1;
-        while (L <= R) {
-            int mid = L + ((R - L) >> 1);
+        int l = 0;
+        int r = nums.length - 1;
+        while (l <= r) {
+            int mid = l + ((r - l) >> 1);
             if (nums[mid] == target) {
                 return mid;
-            } else if (nums[mid] < target) {
-                L = mid + 1;
+            } else if (nums[mid] > target) {
+                r = mid - 1;
             } else {
-                // nums[mid] > target
-                R = mid - 1;
+                l = mid + 1;
             }
         }
         return -1;
