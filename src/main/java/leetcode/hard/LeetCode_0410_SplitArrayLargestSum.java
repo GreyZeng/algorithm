@@ -123,45 +123,48 @@ public class LeetCode_0410_SplitArrayLargestSum {
         return (int) dp[n - 1][m];
     }
 
-    public static int splitArray3(int[] nums, int M) {
-        long sum = 0;
+    // 最优解
+    public static int splitArray3(int[] nums, int m) {
+        int sum = 0;
         for (int num : nums) {
             sum += num;
         }
-        long l = 0;
-        long r = sum;
-        long ans = 0;
+        int l = 0;
+        int r = sum;
+        int ans = 0;
         while (l <= r) {
-            long mid = (l + r) / 2;
-            long cur = getNeedParts(nums, mid);
-            if (cur <= M) {
+            int mid = l + ((r - l) >> 1);
+            int parts = getParts(nums, mid);
+            if (parts > m) {
+                // mid越大，parts才会越小
+                l = mid + 1;
+            } else {
                 ans = mid;
                 r = mid - 1;
-            } else {
-                l = mid + 1;
             }
         }
-        return (int) ans;
+        return ans;
     }
 
-    // 达到某个aim，需要把数组分成多少个部分
-    public static int getNeedParts(int[] arr, long aim) {
-        for (int j : arr) {
-            if (j > aim) {
+    // 达到aim要分几部分
+    public static int getParts(int[] nums, int aim) {
+        for (int num : nums) {
+            if (num > aim) {
                 return Integer.MAX_VALUE;
             }
         }
-        int parts = 1;
-        int all = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            if (all + arr[i] > aim) {
-                parts++;
-                all = arr[i];
+        int part = 1;
+        int all = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (all + nums[i] > aim) {
+                part++;
+                all = nums[i];
             } else {
-                all += arr[i];
+                all += nums[i];
             }
         }
-        return parts;
+
+        return part;
     }
 
     public static int[] randomArray(int len, int maxValue) {
