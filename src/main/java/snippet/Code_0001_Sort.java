@@ -5,6 +5,10 @@ import java.util.Arrays;
 // https://www.cnblogs.com/greyzeng/p/15186769.html
 public class Code_0001_Sort {
     // 插入排序
+    // 和数据状况有关系
+    // 数组本身有序的时候，O(N)
+    // 数据本身没有序的时候，O(N^2)
+    // 数据复杂度只看最差情况的复杂度
     public static void insertionSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
