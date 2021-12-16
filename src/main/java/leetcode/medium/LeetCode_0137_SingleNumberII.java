@@ -13,16 +13,18 @@ public class LeetCode_0137_SingleNumberII {
         return km(nums, 1, 3);
     }
 
-    public static int km(int[] arr, int k, int m) {
-        int[] helper = new int[32];
-        for (int value : arr) {
-            for (int j = 0; j < 32; j++) {
-                helper[j] += ((value >> j) & 1);
+    public int km(int[] arr, int k, int m) {
+        int[] bit = new int[32];
+        // 将arr中的每个元素转换成二进制填充到bit数组中，每个位置上的数字累加
+        for (int n : arr) {
+            for (int i = 0; i < 32; i++) {
+                bit[i] += ((n >>> i) & 1);
             }
         }
         int ans = 0;
         for (int i = 0; i < 32; i++) {
-            if (helper[i] % m == k) {
+            if (bit[i] % m != 0) {
+                // 出现了k次的数在i位置是1
                 ans |= (1 << i);
             }
         }
