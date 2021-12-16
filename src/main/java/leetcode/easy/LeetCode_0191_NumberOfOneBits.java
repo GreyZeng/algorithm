@@ -32,24 +32,22 @@ package leetcode.easy;
 
 public class LeetCode_0191_NumberOfOneBits {
 
-    public int hammingWeight(int N) {
-        int t = 0;
-        while (N != 0) {
-            int rightOne = N & ((~N) + 1);
-            if (rightOne != 0) {
-                t++;
-                N -= rightOne;
-            } else {
-                break;
+    // 一个数的二进制有多少个1
+    // 最右侧的1  （N&-N）
+    public int hammingWeight(int n) {
+        int num = 0;
+        while (n != 0) {
+            int mostRightOne = (n) & ((~n) + 1);
+            if ((mostRightOne & n) != 0) {
+                num++;
             }
+            n ^= mostRightOne;
         }
-        return t;
+        return num;
     }
 
 
     // TODO
-    // 一个数的二进制有多少个1
-    // 最右侧的1  （N&-N）
     public static int hammingWeight2(int n) {
         n = (n & 0x55555555) + ((n >>> 1) & 0x55555555);
         n = (n & 0x33333333) + ((n >>> 2) & 0x33333333);
