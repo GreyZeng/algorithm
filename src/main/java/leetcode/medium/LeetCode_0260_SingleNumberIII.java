@@ -12,17 +12,19 @@ public class LeetCode_0260_SingleNumberIII {
         for (int n : arr) {
             eor ^= n;
         }
-        // 假设出现奇数次的两种数为 a和b
-        // eor = a ^ b
-        // 获取最右侧的1
+        // 最右侧的1
+        int mostRightOne = (eor) & ((~eor) + 1);
+        // eor的结果就是 a^b
+        // 假设a和mostRightOne位置上的1一致
+        // b就肯定和mostRightOne位置上的1不一致
         int a = 0;
-        int rightOne = eor & ((~eor) + 1);
         for (int n : arr) {
-            if ((n & rightOne) == 0) {
+            if ((n & mostRightOne) != 0) {
+                // a阵营中的数
                 a ^= n;
             }
         }
         int b = a ^ eor;
-        return new int[]{a, b};
+        return new int[] { a, b }; 
     }
 }
