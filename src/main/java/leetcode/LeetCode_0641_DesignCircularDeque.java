@@ -2,6 +2,7 @@ package leetcode;
 
 // TODO
 public class LeetCode_0641_DesignCircularDeque {
+
     class MyCircularDeque {
         
         public MyCircularDeque(int k) {

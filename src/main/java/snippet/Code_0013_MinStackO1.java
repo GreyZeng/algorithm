@@ -15,6 +15,7 @@ public class Code_0013_MinStackO1 {
         private Stack<Long> stack;
 
         public MinStack() {
+            // 二进制：11111111111111111111111111111111
             offset = 4294967295L;
             stack = new Stack<>();
         }
