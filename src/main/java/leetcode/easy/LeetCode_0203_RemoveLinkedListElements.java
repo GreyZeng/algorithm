@@ -25,24 +25,26 @@ public class LeetCode_0203_RemoveLinkedListElements {
 	}
 
 	public static ListNode removeElements(ListNode head, int val) {
-		while (head != null && head.val == val) {
-			head = head.next;
-		}
-		if (head == null) {
-			return null;
-		}
-		ListNode pre = head;
-		ListNode cur = head.next;
-		while (cur != null) {
-			if (cur.val == val) {
-				cur = cur.next;
-				pre.next = cur;
-			} else {
-				pre = cur;
-				cur = cur.next;
-			}
-		}
-		return head;
-		
+		if (null == head) {
+            return null;
+        }
+        while (head != null && head.val == val) {
+            head = head.next;
+        }
+        if (head == null) {
+            return null;
+        }
+        ListNode c = head;
+        ListNode n = c.next;
+        while (n != null) {
+            if (n.val == val) {
+                c.next = n.next;
+               n = n.next;
+            } else {
+                c = n;
+                n = c.next;
+            }
+        }
+        return head;
 	}
 }

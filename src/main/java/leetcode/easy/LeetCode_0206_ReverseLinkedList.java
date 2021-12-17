@@ -16,12 +16,12 @@ public class LeetCode_0206_ReverseLinkedList {
     }
 
     // 非递归版本
-    public ListNode reverseList(ListNode node) {
-        if (node == null || node.next == null) {
-            return node;
+    public ListNode reverseList(ListNode head) {
+        if (null==head) {
+            return null;
         }
         ListNode pre = null;
-        ListNode cur = node;
+        ListNode cur = head;
         while (cur != null) {
             ListNode t = cur.next;
             cur.next = pre;
