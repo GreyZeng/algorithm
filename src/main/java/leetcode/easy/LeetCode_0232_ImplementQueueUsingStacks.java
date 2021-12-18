@@ -10,9 +10,9 @@ import java.util.Deque;
 // ["MyQueue","push","push","peek","pop","empty"]
 // [[],[1],[2],[],[],[]]
 public class LeetCode_0232_ImplementQueueUsingStacks {
-    class MyQueue {
-        private Deque<Integer> push;
-        private Deque<Integer> pop;
+    static class MyQueue {
+        private final Deque<Integer> push;
+        private final Deque<Integer> pop;
 
         public MyQueue() {
             push = new ArrayDeque<>();
