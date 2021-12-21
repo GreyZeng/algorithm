@@ -17,16 +17,15 @@ public class LeetCode_0206_ReverseLinkedList {
 
     // 非递归版本
     public ListNode reverseList(ListNode head) {
-        if (null==head) {
-            return null;
+        if (head == null || head.next == null) {
+            return head;
         }
         ListNode pre = null;
-        ListNode cur = head;
-        while (cur != null) {
-            ListNode t = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = t;
+        while (head != null) {
+            ListNode t = head.next;
+            head.next = pre;
+            pre = head;
+            head = t;
         }
         return pre;
     }
@@ -36,14 +35,14 @@ public class LeetCode_0206_ReverseLinkedList {
         return reverse(head);
     }
 
+    // 反转head为头的链表，并把反转后的头节点返回
     public ListNode reverse(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode tail = head.next;
-        ListNode t = reverse(head.next);
+        ListNode pre = reverse(head.next);
+        head.next.next = head;
         head.next = null;
-        tail.next = head;
-        return t;
+        return pre;
     }
 }

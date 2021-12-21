@@ -1,6 +1,9 @@
 package snippet;
 
-// 单链表反转（递归，非递归）
+/**
+ * 单链表反转（递归，非递归） 
+ * @see LeetCode_0206_ReverseLinkedList.java
+ */
 // 单链表部分反转（递归，非递归）
 // 双向链表反转
 public class Code_0008_ReverseList {
@@ -19,37 +22,6 @@ public class Code_0008_ReverseList {
 			this.val = val;
 			this.next = next;
 		}
-	}
-
-	// 非递归版本
-	public ListNode reverseList(ListNode head) {
-		if (null == head || head.next == null) {
-			return head;
-		}
-
-		ListNode pre = null;
-		while (head != null) {
-			ListNode t = head.next;
-			head.next = pre;
-			pre = head;
-			head = t;
-		}
-		return pre;
-	}
-
-	// 递归版本
-	public ListNode reverseListRecursive(ListNode head) {
-		return reverse(head);
-	}
-
-	public ListNode reverse(ListNode head) {
-		if (head == null || head.next == null) {
-			return head;
-		}
-		ListNode t = reverse(head.next);
-		head.next.next = head;
-		head.next = null;
-		return t;
 	}
 
 	// 反转链表的一部分
