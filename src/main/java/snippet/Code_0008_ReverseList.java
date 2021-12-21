@@ -1,7 +1,8 @@
 package snippet;
 
 /**
- * 单链表反转（递归，非递归） 
+ * 单链表反转（递归，非递归）
+ * 
  * @see LeetCode_0206_ReverseLinkedList.java
  */
 // 单链表部分反转（递归，非递归）
@@ -22,6 +23,33 @@ public class Code_0008_ReverseList {
 			this.val = val;
 			this.next = next;
 		}
+	}
+
+	// 双向链表反转
+	public static class DoubleNode {
+		public DoubleNode next;
+		public DoubleNode last;
+		public int value;
+
+		public DoubleNode(int v) {
+			value = v;
+		}
+	}
+
+	public static DoubleNode reverse(DoubleNode head) {
+		if (head == null || head.next == null) {
+			return head;
+		}
+		DoubleNode pre = null;
+		DoubleNode t = null;
+		while (head != null) {
+			t = head.next;
+			head.next = pre;
+			pre = head;
+			head = t;
+			pre.last = head;
+		}
+		return pre;
 	}
 
 	// 反转链表的一部分
@@ -83,33 +111,6 @@ public class Code_0008_ReverseList {
 		head.next = successor;
 		return last;
 
-	}
-
-	// 双向链表反转
-	public static class DoubleNode {
-		public DoubleNode next;
-		public DoubleNode last;
-		public int value;
-
-		public DoubleNode(int v) {
-			value = v;
-		}
-	}
-
-	public static DoubleNode reverse(DoubleNode head) {
-		if (head == null || head.next == null) {
-			return head;
-		}
-		DoubleNode pre = null;
-		DoubleNode t = null;
-		while (head != null) {
-			t = head.next;
-			head.next = pre;
-			pre = head;
-			head = t;
-			pre.last = head;
-		}
-		return pre;
 	}
 
 }
