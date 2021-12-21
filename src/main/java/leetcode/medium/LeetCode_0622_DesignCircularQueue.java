@@ -34,7 +34,7 @@ Please do not use the built-in Queue library.*/
 package leetcode.medium;
 
 public class LeetCode_0622_DesignCircularQueue {
-    class MyCircularQueue {
+    private static class MyCircularQueue {
         private final int[] arr;
         private int popIndex;
         private int pushIndex;
