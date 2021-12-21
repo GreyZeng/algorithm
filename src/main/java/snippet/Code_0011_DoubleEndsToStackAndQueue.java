@@ -2,7 +2,7 @@ package snippet;
 
 // 双向链表实现栈和队列 
 public class Code_0011_DoubleEndsToStackAndQueue {
-    public final static class Node<T> {
+    private final static class Node<T> {
         public T data;
         public Node<T> next;
         public Node<T> last;

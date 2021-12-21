@@ -34,7 +34,7 @@ public class LeetCode_0155_MinStack {
 
     static class MinStackO1 {
         private final long offset;
-        private Stack<Long> stack;
+        private final Stack<Long> stack;
 
         public MinStackO1() {
             // 二进制：11111111111111111111111111111111
@@ -55,6 +55,8 @@ public class LeetCode_0155_MinStack {
                 int min = Math.min(num, getMin());
                 right = ((long) (min) & offset);
             }
+            // left 存 stack1中的值
+            // right为对应的stack2中的值，即min值
             stack.push((left | right));
         }
 
@@ -72,6 +74,11 @@ public class LeetCode_0155_MinStack {
             long peek = stack.peek();
             return (int) (peek & offset);
         }
+    }
+
+    public static void main(String[] args) {
+        long offset = 4294967295L;
+        System.out.println(Long.toBinaryString(offset));
     }
 
 }
