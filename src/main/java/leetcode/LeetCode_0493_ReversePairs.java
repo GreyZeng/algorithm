@@ -17,6 +17,8 @@ package leetcode;
 
 // TODO 方法1： 树状数组
 // 方法2： 归并排序
+// 小和问题是一个数右边有多少个数比它自己大
+// 降序对问题就是求一个数右边有多少个数比它小，可以从右往左来算
 public class LeetCode_0493_ReversePairs {
 
 	public static int reversePairs(int[] A) {
@@ -37,11 +39,11 @@ public class LeetCode_0493_ReversePairs {
 
 	public static int merge(int[] A, int l, int mid, int r) {
 		int s = l;
-		int e = mid+1;
+		int e = mid + 1;
 		int pair = 0;
 		while (s <= mid && e <= r) {
-			if ((long)A[s] - (long)A[e] > (long)(A[e])) {
-				pair+=(r - e + 1);
+			if ((long) A[s] - (long) A[e] > (long) (A[e])) {
+				pair += (r - e + 1);
 				s++;
 			} else {
 				e++;
@@ -51,7 +53,7 @@ public class LeetCode_0493_ReversePairs {
 		int i = l;
 		int j = mid + 1;
 		int index = 0;
-		
+
 		while (i <= mid && j <= r) {
 			if (A[i] > A[j]) {
 				helper[index++] = A[i++];
