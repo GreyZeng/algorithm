@@ -69,6 +69,7 @@ public class NowCoder_MergeSort {
 			int L = 0;
 			while (L < N) {
 				if (mergeSize >= N - L) {
+					// 左组不够了
 					break;
 				}
 				int M = L + mergeSize - 1;
