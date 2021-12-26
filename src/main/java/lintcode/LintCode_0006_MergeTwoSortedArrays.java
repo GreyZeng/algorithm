@@ -26,6 +26,7 @@ public class LintCode_0006_MergeTwoSortedArrays {
         return helper;
     }
 
+    // value在bigger的位置是多少
     public static int position(int value, int[] bigger, int offset) {
         int smallerThanMe = 0;
         int L = 0;
@@ -53,8 +54,8 @@ public class LintCode_0006_MergeTwoSortedArrays {
     }
 
     public static void main(String[] args) {
-        int[] A = { 1, 5 };
-        int[] B = { 2, 3 };
+        int[] A = {1, 5};
+        int[] B = {2, 3};
         int[] R = mergeSortedArray(A, B);
         printArr(R);
     }
