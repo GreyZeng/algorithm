@@ -1,14 +1,13 @@
 package snippet;
 
 /**
- * 归并排序 1）整体是递归，左边排好序+右边排好序+merge让整体有序
+ * 归并排序
+ * <p>
+ * 1）整体是递归，左边排好序+右边排好序+merge让整体有序
  * <p>
  * 2）让其整体有序的过程里用了排外序方法
  * <p>
  * 3）利用master公式来求解时间复杂度
- * <p>
- * 4）当然可以用非递归实现
- * <p>
  * <p>
  * T(N) = 2*T(N/2) + O(N^1)
  * <p>
@@ -67,26 +66,30 @@ public class Code_0067_MergeSort {
         if (arr == null || arr.length < 2) {
             return;
         }
-        int N = arr.length;
-        // 步长
-        int mergeSize = 1;
-        while (mergeSize < N) { // log N
-            // 当前左组的，第一个位置
-            int L = 0;
-            while (L < N) {
-                if (mergeSize >= N - L) {
+        int len = arr.length;
+        // 步长，1，2，4，8....
+        int step = 1;
+        while (step < len) {
+            // 左组的第一个位置
+            int lStart = 0;
+            while (lStart < len) {
+                if (lStart + step >= len) {
+                    // 没有右组
                     break;
                 }
-                int M = L + mergeSize - 1;
-                int R = M + Math.min(mergeSize, N - M - 1);
-                merge(arr, L, M, R);
-                L = R + 1;
+                int mid = lStart + step - 1;
+                // rEnd不能越界
+                int rEnd = mid + Math.min(step, len - mid - 1);
+                // 右组中第一个位置
+                // 中点位置
+                merge(arr, lStart, mid, rEnd);
+                lStart = rEnd + 1;
             }
             // 防止溢出
-            if (mergeSize > N / 2) {
+            if (step > (len / 2)) {
                 break;
             }
-            mergeSize <<= 1;
+            step <<= 1;
         }
     }
 
@@ -105,9 +108,7 @@ public class Code_0067_MergeSort {
             return null;
         }
         int[] res = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            res[i] = arr[i];
-        }
+        System.arraycopy(arr, 0, res, 0, arr.length);
         return res;
     }
 
