@@ -29,11 +29,11 @@ import java.util.List;
 // 方法1：小和问题 改归并
 // 方法2：TODO  利用只支持单点增加 + 范围查询的动态开点线段树（累加和）
 public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
-    public static class Key {
+    public static class Node {
         public int value;
         public int index;
 
-        public Key(int index, int value) {
+        public Node(int index, int value) {
             this.value = value;
             this.index = index;
         }
@@ -42,66 +42,65 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
     // 思路转换为：一个数的右边有多少个数比它小！
     // 改归并排序（从大到小）
     public static List<Integer> countSmaller(int[] nums) {
-        int size = nums.length;
-        List<Integer> result = new ArrayList<>(size);
-        Key[] nodes = new Key[size];
-        for (int i = 0; i < size; i++) {
+        List<Integer> result = new ArrayList<>(nums.length);
+        Node[] nodes = new Node[nums.length];
+        for (int i = 0; i < nums.length; i++) {
             result.add(0);
-            nodes[i] = new Key(i, nums[i]);
+            nodes[i] = new Node(i, nums[i]);
         }
-        process(nodes, 0, size - 1, result);
+        process(nodes, 0, nums.length - 1, result);
         return result;
     }
 
-    private static void process(Key[] nodes, int L, int R, List<Integer> result) {
-        if (L == R) {
+    private static void process(Node[] nodes, int l, int r, List<Integer> result) {
+        if (l == r) {
             return;
         }
-        int mid = L + ((R - L) >> 1);
-        process(nodes, L, mid, result);
-        process(nodes, mid + 1, R, result);
-        merge(nodes, L, mid, R, result);
+        int m = l + ((r - l) >> 1);
+        process(nodes, l, m, result);
+        process(nodes, m + 1, r, result);
+        merge(nodes, l, m, r, result);
     }
 
-    private static void merge(Key[] nodes, int l, int mid, int r, List<Integer> result) {
-        Key[] help = new Key[r - l + 1];
+    private static void merge(Node[] nodes, int l, int m, int r, List<Integer> result) {
+        Node[] help = new Node[r - l + 1];
         int s1 = l;
-        int s2 = mid + 1;
+        int s2 = m + 1;
         int index = 0;
-        while (s1 <= mid && s2 <= r) {
-            if (nodes[s1].value < nodes[s2].value) {
-                help[index++] = nodes[s2++];
-            } else if (nodes[s1].value > nodes[s2].value) {
-                result.set(nodes[s1].index, result.get(nodes[s1].index) + 1 + r - s2);
+        while (s1 <= m && s2 <= r) {
+            if (nodes[s1].value > nodes[s2].value) {
+                result.set(nodes[s1].index, result.get(nodes[s1].index) + r - s2 + 1);
                 help[index++] = nodes[s1++];
+            } else if (nodes[s1].value < nodes[s2].value) {
+                help[index++] = nodes[s2++];
             } else {
                 help[index++] = nodes[s2++];
             }
         }
-        while (s1 <= mid) {
+        while (s1 <= m) {
             help[index++] = nodes[s1++];
         }
         while (s2 <= r) {
             help[index++] = nodes[s2++];
         }
-        index = 0;
-        for (Key v : help) {
-            nodes[l + (index++)] = v;
+        for (int i = 0; i < help.length; i++) {
+            nodes[l + i] = help[i];
         }
     }
 
-    public static class Node {
+
+    public static class Segment {
         public int sum;
-        public Node left;
-        public Node right;
+        public Segment left;
+        public Segment right;
     }
 
     public static class DynamicSegmentTree {
-        public Node root;
+        public Segment root;
         public int size;
 
         public DynamicSegmentTree(int max) {
-            root = new Node();
+            root = new Segment();
             size = max;
         }
 
@@ -109,19 +108,19 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
             add(root, 1, size, i, v);
         }
 
-        private void add(Node c, int l, int r, int i, int v) {
+        private void add(Segment c, int l, int r, int i, int v) {
             if (l == r) {
                 c.sum += v;
             } else {
                 int mid = (l + r) / 2;
                 if (i <= mid) {
                     if (c.left == null) {
-                        c.left = new Node();
+                        c.left = new Segment();
                     }
                     add(c.left, l, mid, i, v);
                 } else {
                     if (c.right == null) {
-                        c.right = new Node();
+                        c.right = new Segment();
                     }
                     add(c.right, mid + 1, r, i, v);
                 }
@@ -133,7 +132,7 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
             return query(root, 1, size, s, e);
         }
 
-        private int query(Node c, int l, int r, int s, int e) {
+        private int query(Segment c, int l, int r, int s, int e) {
             if (c == null) {
                 return 0;
             }
