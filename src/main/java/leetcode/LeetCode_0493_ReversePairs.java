@@ -26,53 +26,56 @@ public class LeetCode_0493_ReversePairs {
             return 0;
         }
         int size = A.length;
-        return p(A, 0, size - 1);
+        return process(A, 0, size - 1);
     }
 
-    public static int p(int[] A, int L, int R) {
-        if (L == R) {
+    public static int process(int[] a, int l, int r) {
+        if (l == r) {
             return 0;
         }
-        int mid = ((R - L) >> 1) + L;
-        return p(A, L, mid) + p(A, mid + 1, R) + merge(A, L, mid, R);
+        int m = l + ((r - l) >> 1);
+        return process(a, l, m) + process(a, m + 1, r) + merge(a, l, m, r);
     }
 
-    public static int merge(int[] A, int l, int mid, int r) {
-        int s = l;
-        int e = mid + 1;
-        int pair = 0;
-        while (s <= mid && e <= r) {
-            if ((long) A[s] - (long) A[e] > (long) (A[e])) {
-                pair += (r - e + 1);
-                s++;
+    public static int merge(int[] a, int l, int m, int r) {
+        // 先执行统计
+        int ans = 0;
+        int s1 = l;
+        int s2 = m + 1;
+        while (s1 <= m && s2 <= r) {
+            if ((long) a[s1] - (long) a[s2] > (long) a[s2]) {
+                ans += (r - s2 + 1);
+                s1++;
             } else {
-                e++;
+                s2++;
             }
         }
-        int[] helper = new int[r - l + 1];
-        int i = l;
-        int j = mid + 1;
+        // 以下是经典mergesort排序
+        int[] help = new int[r - l + 1];
+        s1 = l;
+        s2 = m + 1;
         int index = 0;
 
-        while (i <= mid && j <= r) {
-            if (A[i] > A[j]) {
-                helper[index++] = A[i++];
+        while (s1 <= m && s2 <= r) {
+            if (a[s1] < a[s2]) {
+                help[index++] = a[s2++];
+            } else if (a[s1] > a[s2]) {
+                help[index++] = a[s1++];
             } else {
-                helper[index++] = A[j++];
+                help[index++] = a[s2++];
             }
         }
-        while (i <= mid) {
-            helper[index++] = A[i++];
+        while (s1 <= m) {
+            help[index++] = a[s1++];
         }
-        while (j <= r) {
-            helper[index++] = A[j++];
+        while (s2 <= r) {
+            help[index++] = a[s2++];
         }
-        int k = 0;
-        for (int num : helper) {
-            A[l + (k++)] = num;
+        index = 0;
+        for (int n : help) {
+            a[l + (index++)] = n;
         }
-
-        return pair;
+        return ans;
     }
 
 }
