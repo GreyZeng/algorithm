@@ -18,40 +18,39 @@
 //堆是一种数据结构，它通常有三种方法：push， pop 和 top。其中，“push”添加新的元素进入堆，“pop”删除堆中最小/最大元素，“top”返回堆中最小/最大元素。
 //把一个无序整数数组变成一个堆数组。如果是最小堆，每个元素A[i]，我们将得到A[i * 2 + 1] >= A[i]和A[i * 2 + 2] >= A[i]
 //返回其中任何一个。
-package lintcode;
+package lintcode.medium;
 
 public class LintCode_0130_Heapify {
-	public static void heapify(int[] A) {
-		if (null == A || A.length <= 1) {
-			return;
-		}
-		int N = A.length;
-		for (int i = N - 1; i >= 0; i--) {
-			heapify(A, i, N);
-		}
-	}
+    public static void heapify(int[] A) {
+        if (null == A || A.length <= 1) {
+            return;
+        }
+        int len = A.length;
+        for (int i = len - 1; i >= 0; i--) {
+            heapify(A, i, len);
+        }
+    }
 
-	public static void heapify(int[] arr, int i, int size) {
-		int leftChildIndex = 2 * i + 1;
-		while (leftChildIndex < size) {
-			// 左孩子存在
-			int smaller = leftChildIndex + 1 < size ? Math.min(arr[leftChildIndex], arr[leftChildIndex + 1])
-					: arr[leftChildIndex];
-			if (smaller >= arr[i]) {
-				break;
-			}
-			smaller = arr[leftChildIndex] == smaller ? leftChildIndex : leftChildIndex + 1;
-			swap(arr, i, smaller);
-			i = smaller;
-			leftChildIndex = 2 * i + 1;
-		}
-	}
+    private static void heapify(int[] arr, int i, int n) {
+        int left = 2 * i + 1;
+        while (left < n) {
+            int min = left + 1 < n ? Math.min(arr[left], arr[left + 1]) : arr[left];
+            if (min >= arr[i]) {
+                break;
+            }
+            min = arr[left] == min ? left : left + 1;
+            swap(arr, i, min);
+            i = min;
+            left = 2 * i + 1;
+        }
+    }
 
-	public static void swap(int[] arr, int i, int j) {
-		if (i != j) {
-			arr[i] = arr[i] ^ arr[j];
-			arr[j] = arr[i] ^ arr[j];
-			arr[i] = arr[i] ^ arr[j];
-		}
-	}
+
+    public static void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
+        }
+    }
 }

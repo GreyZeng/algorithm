@@ -12,6 +12,8 @@
 
 [快速排序](docs/快速排序.md)
 
+[堆](docs/堆.md)
+
 [二叉树的递归套路](docs/二叉树递归套路.md)
 
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
