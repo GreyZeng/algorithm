@@ -25,7 +25,8 @@ import java.util.*;
 
 // 暴力解
 // 堆
-// 线段数
+// https://www.cnblogs.com/greyzeng/p/15058662.html
+// 线段树解法
 public class NowCoder_LineCoverMax {
 
     // 堆解法
