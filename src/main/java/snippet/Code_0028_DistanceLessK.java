@@ -18,7 +18,6 @@ public class Code_0028_DistanceLessK {
         for (; i <= k; i++) {
             heap.add(arr[i]);
         }
-
         int index = 0;
         for (; i < arr.length && index < arr.length; i++, index++) {
             heap.offer(arr[i]);
