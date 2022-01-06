@@ -20,37 +20,37 @@
 //返回其中任何一个。
 package lintcode.medium;
 
+// https://www.lintcode.com/problem/130/
 public class LintCode_0130_Heapify {
-    public static void heapify(int[] A) {
-        if (null == A || A.length <= 1) {
+    public static void heapify(int[] arr) {
+        if (arr == null || arr.length <= 1) {
             return;
         }
-        int len = A.length;
-        for (int i = len - 1; i >= 0; i--) {
-            heapify(A, i, len);
+        for (int i = arr.length - 1; i >= 0; i--) {
+            heapify(arr, i, arr.length);
         }
     }
 
     private static void heapify(int[] arr, int i, int n) {
         int left = 2 * i + 1;
         while (left < n) {
-            int min = left + 1 < n ? Math.min(arr[left], arr[left + 1]) : arr[left];
-            if (min >= arr[i]) {
+            int min = left + 1 < n && arr[left + 1] < arr[left] ? left + 1 : left;
+            if (arr[i] <= arr[min]) {
                 break;
             }
-            min = arr[left] == min ? left : left + 1;
             swap(arr, i, min);
             i = min;
             left = 2 * i + 1;
         }
+
     }
 
-
-    public static void swap(int[] arr, int i, int j) {
+    private static void swap(int[] arr, int i, int j) {
         if (i != j) {
             arr[i] = arr[i] ^ arr[j];
             arr[j] = arr[i] ^ arr[j];
             arr[i] = arr[i] ^ arr[j];
         }
     }
+
 }
