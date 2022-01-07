@@ -49,7 +49,7 @@ public class Code_0076_EveryStepShowBoss {
             daddyLimit = limit;
         }
 
-        // 当前处理i号事件，arr[i] -> id,  buyOrRefund
+        // 当前处理i号事件，arr[i] -> id, buyOrRefund
         public void operate(int time, int id, boolean buyOrRefund) {
             if (!buyOrRefund && !customers.containsKey(id)) {
                 return;
@@ -129,6 +129,10 @@ public class Code_0076_EveryStepShowBoss {
             ans.add(whoDaddies.getDaddies());
         }
         return ans;
+    }
+
+    public static List<List<Integer>> myCompare(int[] arr, boolean[] opt, int k) {
+        
     }
 
     // 干完所有的事，模拟，不优化

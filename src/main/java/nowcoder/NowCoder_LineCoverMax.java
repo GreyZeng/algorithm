@@ -28,6 +28,10 @@ import java.util.*;
 // https://www.cnblogs.com/greyzeng/p/15058662.html
 // 线段树解法
 public class NowCoder_LineCoverMax {
+    // TODO
+    public static int maxCover4(int[][] m) {
+        return -1;       
+    }
 
     // 堆解法
     public static int maxCover(int[][] m) {
@@ -39,8 +43,9 @@ public class NowCoder_LineCoverMax {
         PriorityQueue<Line> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.end));
         int max = 0;
         for (Line line : lines) {
-            // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，heap.peek().end <
-            // line.start，如果不算的话，heap.peek().end <= line.start
+            // 这里要注意
+            // 如果[1,2] ,[2, 3] 中2 算一个重合点的话，heap.peek().end < line.start
+            // 如果不算的话，heap.peek().end <= line.start
             while (!heap.isEmpty() && heap.peek().end < line.start) {
                 heap.poll();
             }
@@ -81,8 +86,8 @@ public class NowCoder_LineCoverMax {
         return map;
     }
 
-    //[1...3],[2..6],[4..9]，问：哪个区间描的最多，可以用线段树(注意离散化，注意在范围内+1以后，执行的不是querySum而是queryMax)
-//注意：不管什么线段，开始位置排序，线段开始位置越早，越先处理
+    // [1...3],[2..6],[4..9]，问：哪个区间描的最多，可以用线段树(注意离散化，注意在范围内+1以后，执行的不是querySum而是queryMax)
+    // 注意：不管什么线段，开始位置排序，线段开始位置越早，越先处理
     public static class SegmentTree {
         private int MAXN;
         private int[] arr;
@@ -182,7 +187,6 @@ public class NowCoder_LineCoverMax {
             end = e;
         }
     }
-
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
