@@ -14,6 +14,10 @@
 
 [堆和加强堆](docs/堆和加强堆.md)
 
+[前缀树](docs/前缀树.md)
+
+[基于桶的排序](docs/基于桶的排序.md)
+
 [二叉树的递归套路](docs/二叉树递归套路.md)
 
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
