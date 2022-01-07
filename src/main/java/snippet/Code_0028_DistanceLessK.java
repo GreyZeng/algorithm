@@ -4,24 +4,28 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 
 /**
- * 已知一个几乎有序的数组。几乎有序是指，如果把数组排好顺序的话，每个元素移动的距离一定不超过k，并且k相对于数组长度来说是比较小的。
- * 请选择一个合适的排序策略，对这个数组进行排序。
+ * 已知一个几乎有序的数组。
+ * <p>
+ * 几乎有序是指，如果把数组排好顺序的话，每个元素移动的距离一定不超过k，并且k相对于数组长度来说是比较小的。
+ * <p>
+ * 请选择一个合适的排序策略，对这个数组进行排序。(从小到大)
+ * <p>
  * tips:
  * 加k个数进堆，然后再加入一个，弹出一个，最后堆里面剩下的继续弹出即可
- * O(N*logK)
+ * 时间复杂度：O(N*logK)
  */
 public class Code_0028_DistanceLessK {
     public static void sortedArrDistanceLessK(int[] arr, int k) {
         k = Math.min(arr.length - 1, k);
         PriorityQueue<Integer> heap = new PriorityQueue<>();
         int i = 0;
-        for (; i <= k; i++) {
-            heap.add(arr[i]);
+        for (; i < k + 1; i++) {
+            heap.offer(arr[i]);
         }
         int index = 0;
-        for (; i < arr.length && index < arr.length; i++, index++) {
+        for (; i < arr.length; i++) {
             heap.offer(arr[i]);
-            arr[index] = heap.poll();
+            arr[index++] = heap.poll();
         }
         while (!heap.isEmpty()) {
             arr[index++] = heap.poll();
@@ -75,7 +79,7 @@ public class Code_0028_DistanceLessK {
         if ((arr1 == null && arr2 != null) || (arr1 != null && arr2 == null)) {
             return false;
         }
-        if (arr1 == null && arr2 == null) {
+        if (arr1 == null) {
             return true;
         }
         if (arr1.length != arr2.length) {
@@ -94,8 +98,8 @@ public class Code_0028_DistanceLessK {
         if (arr == null) {
             return;
         }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        for (int j : arr) {
+            System.out.print(j + " ");
         }
         System.out.println();
     }
