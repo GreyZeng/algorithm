@@ -34,6 +34,9 @@ import java.util.*;
 
         1\leq start,end \leq 10^51≤start,end≤10
         5*/
+// 暴力解法
+// 堆解法
+// 线段树解法 TODO
 public class NowCoder_LineCoverMax2 {
 
     private static Line[] toLine(int[][] arr) {
@@ -45,7 +48,6 @@ public class NowCoder_LineCoverMax2 {
     }
 
     public static class Line {
-
         public int start;
         public int end;
 
@@ -63,7 +65,7 @@ public class NowCoder_LineCoverMax2 {
             lines[i][0] = in.nextInt();
             lines[i][1] = in.nextInt();
         }
-        System.out.println(maxCover(lines));
+        System.out.println(maxCover2(lines));
         in.close();
     }
 
@@ -89,6 +91,21 @@ public class NowCoder_LineCoverMax2 {
         }
         return coverMax;
     }
+
     // 堆解法
-    
+    public static int maxCover2(int[][] arr) {
+        Line[] lines = toLine(arr);
+        Arrays.sort(lines, Comparator.comparingInt(o -> o.start));
+        PriorityQueue<Line> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.end));
+        int max = 1;
+        for (Line line : lines) {
+            while (!heap.isEmpty() && heap.peek().end <= line.start) {
+                heap.poll();
+            }
+            heap.offer(line);
+            max = Math.max(heap.size(), max);
+        }
+        return max;
+    }
+
 }
