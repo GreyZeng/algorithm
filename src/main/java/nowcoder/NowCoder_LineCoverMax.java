@@ -28,10 +28,6 @@ import java.util.*;
 // https://www.cnblogs.com/greyzeng/p/15058662.html
 // 线段树解法
 public class NowCoder_LineCoverMax {
-    // TODO
-    public static int maxCover4(int[][] m) {
-        return -1;       
-    }
 
     // 堆解法
     public static int maxCover(int[][] m) {
