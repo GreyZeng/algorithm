@@ -12,24 +12,24 @@ import java.util.Arrays;
  * 3)应用范围有限，需要样本的数据状况满足桶的划分
  */
 public class Code_0031_CountSort {
-
-    // only for 0~200 value
+    // 非负数
     public static void countSort(int[] arr) {
-        if (arr == null || arr.length < 2) {
+        if (null == arr || arr.length <= 1) {
             return;
         }
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            max = Math.max(max, arr[i]);
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            max = Math.max(arr[i], max);
         }
-        int[] bucket = new int[max + 1];
-        for (int i = 0; i < arr.length; i++) {
-            bucket[arr[i]]++;
+        int[] help = new int[max + 1];
+        for (int j : arr) {
+            help[j]++;
         }
-        int i = 0;
-        for (int j = 0; j < bucket.length; j++) {
-            while (bucket[j]-- > 0) {
-                arr[i++] = j;
+        int t = 0;
+        for (int i = 0; i < help.length; i++) {
+            while (help[i] != 0) {
+                arr[t++] = i;
+                help[i]--;
             }
         }
     }
@@ -65,7 +65,7 @@ public class Code_0031_CountSort {
         if ((arr1 == null && arr2 != null) || (arr1 != null && arr2 == null)) {
             return false;
         }
-        if (arr1 == null && arr2 == null) {
+        if (arr1 == null) {
             return true;
         }
         if (arr1.length != arr2.length) {
