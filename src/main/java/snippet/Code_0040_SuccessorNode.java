@@ -26,6 +26,8 @@ public class Code_0040_SuccessorNode {
     // 如果右子树为空
     // 当前节点如果是父节点的左孩子，则后继节点是其父节点
     // 当前节点如果是其父节点的右孩子，则继续找当前节点父节点的父节点
+    // 中序遍历的时间复杂度O(N)
+    // 优化后的时间复杂度是O(K) K为当前节点和后继节点的距离
     public static Node getSuccessorNode(Node node) {
         if (node == null) {
             return node;
