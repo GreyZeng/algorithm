@@ -3,17 +3,57 @@ package snippet;
 import java.util.Arrays;
 
 /**
- * 基数排序 一般来讲，基数排序要求，样本是10进制的正整数 1. 找到最大值，这个最大值是几位的 2. 其他数不足这个位数的，用0补齐 3.
- * 准备10个桶，每个桶是队列 4. 从个位依次进桶 5. 然后依次倒出 6. 根据十位数进桶 7. 依次倒出 ....... 桶排序思想下的排序：计数排序
- * & 基数排序
+ * 基数排序 一般来讲，基数排序要求，样本是10进制的正整数, 流程如下
  * <p>
- * 1)桶排序思想下的排序都是不基于比较的排序
+ * 1. 找到最大值，这个最大值是几位的
  * <p>
- * 2)时间复杂度为O(N)，额外空间负载度O(M)
+ * 2. 其他数不足这个位数的，用0补齐
  * <p>
- * 3)应用范围有限，需要样本的数据状况满足桶的划分
+ * 3. 准备10个桶，每个桶是队列
+ * <p>
+ * 4. 从个位依次进桶
+ * <p>
+ * 5. 然后依次倒出
+ * <p>
+ * 6. 根据十位数进桶
+ * <p>
+ * 7. 依次倒出 .......
+ * <p>
+ * 1) 桶排序思想下的排序都是不基于比较的排序
+ * <p>
+ * 2) 时间复杂度为O(N)，额外空间复杂度O(M)
+ * <p>
+ * 3) 应用范围有限，需要样本的数据状况满足桶的划分
  */
 public class Code_0032_RadixSort {
+    // TODO
+    public static void radixSort2(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            max = Math.max(arr[i], max);
+        }
+        // 最大值有几位
+        int bit = 0;
+        while (max != 0) {
+            bit++;
+            max /= 10;
+        }
+        
+        
+    }
+    // 获取某个数在某一位上的值
+    // 从1开始
+    public static int digit(int num, int digit) {
+        int mod = 1;
+        for(int i = 1; i <= digit; i++) {
+            mod *=10;
+        }
+        return num / mod;
+    }
+
 
     // only for no-negative value
     public static void radixSort(int[] arr) {
@@ -25,8 +65,8 @@ public class Code_0032_RadixSort {
 
     public static int maxbits(int[] arr) {
         int max = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            max = Math.max(max, arr[i]);
+        for (int j : arr) {
+            max = Math.max(max, j);
         }
         int res = 0;
         while (max != 0) {
