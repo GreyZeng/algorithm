@@ -26,7 +26,7 @@ import java.util.Arrays;
  * 3) 应用范围有限，需要样本的数据状况满足桶的划分
  */
 public class Code_0032_RadixSort {
-    // TODO
+
     public static void radixSort2(int[] arr) {
         if (arr == null || arr.length <= 1) {
             return;
@@ -41,19 +41,19 @@ public class Code_0032_RadixSort {
             bit++;
             max /= 10;
         }
-        
+        final int[] help = new int[10];
+        for (int num : arr) {
+            for (int i = 1; i <= bit; i++) {
+                help[digit(num,i)]++;
+            }
+        }
         
     }
     // 获取某个数在某一位上的值
     // 从1开始
     public static int digit(int num, int digit) {
-        int mod = 1;
-        for(int i = 1; i <= digit; i++) {
-            mod *=10;
-        }
-        return num / mod;
+        return ((num / (int)Math.pow(10,digit - 1)) % 10);
     }
-
 
     // only for no-negative value
     public static void radixSort(int[] arr) {
