@@ -27,7 +27,8 @@ import java.util.Arrays;
  */
 public class Code_0032_RadixSort {
 
-    public static void radixSort2(int[] arr) {
+    // 非负数
+    public static void radixSort(int[] arr) {
         if (arr == null || arr.length <= 1) {
             return;
         }
@@ -36,81 +37,38 @@ public class Code_0032_RadixSort {
             max = Math.max(arr[i], max);
         }
         // 最大值有几位
-        int bit = 0;
+        int bits = 0;
         while (max != 0) {
-            bit++;
+            bits++;
             max /= 10;
         }
-        final int[] help = new int[10];
-        for (int num : arr) {
-            for (int i = 1; i <= bit; i++) {
-                help[digit(num,i)]++;
+        int[] help = new int[arr.length];
+        for (int bit = 1; bit <= bits; bit++) {
+            int[] count = new int[10];
+            for (int num : arr) {
+                count[digit(num, bit)]++;
+            }
+            // 前缀和
+            for (int j = 1; j < 10; j++) {
+                count[j] = count[j - 1] + count[j];
+            }
+            // 倒序遍历数组
+            for (int i = arr.length - 1; i >= 0; i--) {
+                int pos = digit(arr[i], bit);
+                help[--count[pos]] = arr[i];
+            }
+            int m = 0;
+            for (int num : help) {
+                arr[m++] = num;
             }
         }
-        
+
     }
+
     // 获取某个数在某一位上的值
-    // 从1开始
+    // 从1开始，从个位开始
     public static int digit(int num, int digit) {
-        return ((num / (int)Math.pow(10,digit - 1)) % 10);
-    }
-
-    // only for no-negative value
-    public static void radixSort(int[] arr) {
-        if (arr == null || arr.length < 2) {
-            return;
-        }
-        radixSort(arr, 0, arr.length - 1, maxbits(arr));
-    }
-
-    public static int maxbits(int[] arr) {
-        int max = Integer.MIN_VALUE;
-        for (int j : arr) {
-            max = Math.max(max, j);
-        }
-        int res = 0;
-        while (max != 0) {
-            res++;
-            max /= 10;
-        }
-        return res;
-    }
-
-    // arr[L..R]排序  ,  最大值的十进制位数digit
-    public static void radixSort(int[] arr, int L, int R, int digit) {
-        final int radix = 10;
-        int i = 0, j = 0;
-        // 有多少个数准备多少个辅助空间
-        int[] help = new int[R - L + 1];
-        for (int d = 1; d <= digit; d++) { // 有多少位就进出几次
-            // 10个空间
-            // count[0] 当前位(d位)是0的数字有多少个
-            // count[1] 当前位(d位)是(0和1)的数字有多少个
-            // count[2] 当前位(d位)是(0、1和2)的数字有多少个
-            // count[i] 当前位(d位)是(0~i)的数字有多少个
-            int[] count = new int[radix]; // count[0..9]
-            for (i = L; i <= R; i++) {
-                // 103  1   3
-                // 209  1   9
-                j = getDigit(arr[i], d);
-                count[j]++;
-            }
-            for (i = 1; i < radix; i++) {
-                count[i] = count[i] + count[i - 1];
-            }
-            for (i = R; i >= L; i--) {
-                j = getDigit(arr[i], d);
-                help[count[j] - 1] = arr[i];
-                count[j]--;
-            }
-            for (i = L, j = 0; i <= R; i++, j++) {
-                arr[i] = help[j];
-            }
-        }
-    }
-
-    public static int getDigit(int x, int d) {
-        return ((x / ((int) Math.pow(10, d - 1))) % 10);
+        return ((num / (int) Math.pow(10, digit - 1)) % 10);
     }
 
     // for test
@@ -173,7 +131,7 @@ public class Code_0032_RadixSort {
     public static void main(String[] args) {
         int testTime = 500000;
         int maxSize = 100;
-        int maxValue = 100000;
+        int maxValue = 10000;
         boolean succeed = true;
         for (int i = 0; i < testTime; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
@@ -189,10 +147,10 @@ public class Code_0032_RadixSort {
         }
         System.out.println(succeed ? "Nice!" : "Fucking fucked!");
 
-        int[] arr = generateRandomArray(maxSize, maxValue);
-        printArray(arr);
-        radixSort(arr);
-        printArray(arr);
+//        int[] arr = generateRandomArray(maxSize, maxValue);
+//        printArray(arr);
+//        radixSort(arr);
+//        printArray(arr);
 
     }
 
