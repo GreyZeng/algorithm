@@ -1,10 +1,11 @@
-package leetcode;
+package leetcode.easy;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
+// https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
 public class LeetCode_0094_BinaryTreeInorderTraversal {
 
     public class TreeNode {
@@ -16,7 +17,7 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
 
     // 递归方式
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> ans = new ArrayList<>();
+        List<Integer> ans = new LinkedList<>();
         in(root, ans);
         return ans;
     }
@@ -34,19 +35,19 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
     // 1.整条左边界入栈
     // 2.弹出就打印
     // 3.来到右树上继续执行1
-    public static List<Integer> inorderTraversal2(TreeNode root) {
-        List<Integer> ans = new ArrayList<>();
-        if (root == null) {
-            return ans;
+    public static List<Integer> inorderTraversal2(TreeNode head) {
+        if (null == head) {
+            return new LinkedList<>();
         }
-        Deque<TreeNode> stack = new ArrayDeque<>();
-        TreeNode cur = root;
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> ans = new LinkedList<>();
+        TreeNode cur = head;
         while (!stack.isEmpty() || cur != null) {
             if (cur != null) {
                 stack.push(cur);
                 cur = cur.left;
             } else {
-                cur = stack.poll();
+                cur = stack.pop();
                 ans.add(cur.val);
                 cur = cur.right;
             }

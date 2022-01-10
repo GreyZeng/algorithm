@@ -1,10 +1,11 @@
 package leetcode.easy;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
+// https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
 public class LeetCode_0144_BinaryTreePreorderTraversal {
     public class TreeNode {
         int val;
@@ -14,7 +15,7 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
 
     // 递归方式
     public List<Integer> preorderTraversal3(TreeNode root) {
-        List<Integer> ans = new ArrayList<>();
+        List<Integer> ans = new LinkedList<>();
         pre(root, ans);
         return ans;
     }
@@ -34,21 +35,20 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
     // 3. 如果有左孩子，就压左孩子
     // 然后重复1， 2， 3步（栈不为空循环执行）
     public static List<Integer> preorderTraversal2(TreeNode head) {
-        List<Integer> ans = new ArrayList<>();
-        if (head == null) {
-            return ans;
+        if (null == head) {
+            return new LinkedList<>();
         }
-        Deque<TreeNode> stack = new ArrayDeque<>();
-        TreeNode c = head;
-        stack.push(c);
+        List<Integer> ans = new LinkedList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(head);
         while (!stack.isEmpty()) {
-            c = stack.pop();
-            ans.add(c.val);
-            if (c.right != null) {
-                stack.push(c.right);
+            TreeNode node = stack.pop();
+            ans.add(node.val);
+            if (node.right != null) {
+                stack.push(node.right);
             }
-            if (c.left != null) {
-                stack.push(c.left);
+            if (node.left != null) {
+                stack.push(node.left);
             }
         }
         return ans;

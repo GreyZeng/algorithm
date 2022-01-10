@@ -1,13 +1,12 @@
 package leetcode.easy;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+//https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
 public class LeetCode_0145_BinaryTreePostorderTraversal {
-
 
     public class TreeNode {
         int val;
@@ -112,33 +111,32 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
     // 然后：逆序一下，就变成了后序遍历
     // 所以用两个栈即可实现
     public static List<Integer> postorderTraversal2(TreeNode head) {
-        List<Integer> ans = new ArrayList<>();
         if (head == null) {
-            return ans;
+            return new LinkedList<>();
         }
-        TreeNode cur = head;
-        Deque<TreeNode> stack = new ArrayDeque<>();
-        Deque<TreeNode> helper = new ArrayDeque<>();
-        stack.push(cur);
-        while (!stack.isEmpty()) {
-            cur = stack.pop();
-            helper.push(cur);
-            if (cur.left != null) {
-                stack.push(cur.left);
+        Stack<TreeNode> s1 = new Stack<>();
+        Stack<TreeNode> s2 = new Stack<>();
+        List<Integer> ans = new LinkedList<>();
+        s1.add(head);
+        while (!s1.isEmpty()) {
+            TreeNode node = s1.pop();
+            s2.push(node);
+            if (node.left != null) {
+                s1.push(node.left);
             }
-            if (cur.right != null) {
-                stack.push(cur.right);
+            if (node.right != null) {
+                s1.push(node.right);
             }
-        }
-        while (!helper.isEmpty()) {
-            ans.add(helper.pop().val);
+        } 
+        while (!s2.isEmpty() ) {
+            ans.add(s2.pop().val);
         }
         return ans;
     }
 
     // 递归方式
     public static List<Integer> postorderTraversal3(TreeNode root) {
-        List<Integer> ans = new ArrayList<>();
+        List<Integer> ans = new LinkedList<>();
         if (root == null) {
             return ans;
         }
