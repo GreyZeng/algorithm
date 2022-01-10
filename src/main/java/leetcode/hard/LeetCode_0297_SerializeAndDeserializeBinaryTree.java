@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.hard;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -14,6 +14,7 @@ import java.util.Stack;
 //	  1
 //		1
 // 中序遍历的结果都是： [null,1,1,1,null]
+// https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/
 public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
 
     public static class TreeNode {
@@ -31,7 +32,7 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
         root.left = new TreeNode(2);
         root.right = new TreeNode(3);
         root.left.right = new TreeNode(4);
-        //   System.out.print(serialize(root));
+        // System.out.print(serialize(root));
         System.out.print(serialize(deserialize(serialize(root))));
     }
 
@@ -147,7 +148,6 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
             return root;
         }
     }
-
 
     // 先序序列化
     public static String serialize2(TreeNode root) {
