@@ -3,11 +3,12 @@ package snippet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
-// 序列化和反序列化
 
+// 序列化和反序列化
 public class Code_0077_SerializeAndReconstructTree {
 
-    /*
+    /**
+     * <pre>
      * 二叉树可以通过先序、后序或者按层遍历的方式序列化和反序列化，
      * 以下代码全部实现了。
      * 但是，二叉树无法通过中序遍历的方式实现序列化和反序列化
@@ -21,8 +22,8 @@ public class Code_0077_SerializeAndReconstructTree {
      *          \
      *           2
      * 补足空位置的中序遍历结果都是{ null, 1, null, 2, null}
-     *       
-     * */
+     * </pre>
+     */
     public static class Node {
 
         public int value;
@@ -104,7 +105,7 @@ public class Code_0077_SerializeAndReconstructTree {
         if (poslist == null || poslist.size() == 0) {
             return null;
         }
-        // 左右中  ->  stack(中右左)
+        // 左右中 -> stack(中右左)
         Stack<String> stack = new Stack<>();
         while (!poslist.isEmpty()) {
             stack.push(poslist.poll());
@@ -132,7 +133,7 @@ public class Code_0077_SerializeAndReconstructTree {
             Queue<Node> queue = new LinkedList<Node>();
             queue.add(head);
             while (!queue.isEmpty()) {
-                head = queue.poll(); // head 父   子
+                head = queue.poll(); // head 父 子
                 if (head.left != null) {
                     ans.add(String.valueOf(head.left.value));
                     queue.add(head.left);
