@@ -13,7 +13,7 @@ public class NowCoder_LowestString {
      * @return string字符串
      */
     public static String minString(String[] strs) {
-        Arrays.sort(strs,(o1, o2) -> (o1 + o2).compareTo(o2 + o1));
+        Arrays.sort(strs, (o1, o2) -> (o1 + o2).compareTo(o2 + o1));
         StringBuilder sb = new StringBuilder();
         for (String s : strs) {
             sb.append(s);
