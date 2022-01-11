@@ -1,22 +1,22 @@
-package lintcode;
+package lintcode.hard;
 
 import java.util.ArrayList;
 import java.util.List;
+
 // leetcode 431
 // https://www.lintcode.com/problem/1530/
-// tips: 每个子节点转换成自己左树的右边界 + 深度优先遍历
 public class LintCode_1530_EncodeNaryTreeToBinaryTree {
-    class UndirectedGraphNode {
+    static class UndirectedGraphNode {
         int label;
         List<UndirectedGraphNode> neighbors;
 
         UndirectedGraphNode(int x) {
             label = x;
-            neighbors = new ArrayList<UndirectedGraphNode>();
+            neighbors = new ArrayList<>();
         }
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         public int val;
         public TreeNode left, right;
 
@@ -26,12 +26,13 @@ public class LintCode_1530_EncodeNaryTreeToBinaryTree {
         }
     }
 
+    // 解码
     public UndirectedGraphNode decode(TreeNode root) {
         if (root == null) {
             return null;
         }
         UndirectedGraphNode node = new UndirectedGraphNode(root.val);
-        node.neighbors = de(root.left);
+        node.neighbors = de(root.right);
         return node;
     }
 
@@ -39,38 +40,39 @@ public class LintCode_1530_EncodeNaryTreeToBinaryTree {
         ArrayList<UndirectedGraphNode> children = new ArrayList<>();
         while (root != null) {
             UndirectedGraphNode cur = new UndirectedGraphNode(root.val);
-            cur.neighbors = de(root.left);
+            cur.neighbors = de(root.right);
             children.add(cur);
-            root = root.right;
+            root = root.left;
         }
         return children;
     }
 
-    /**
-     * @param root: N-ary tree
-     * @return: binary tree
-     */
+    // 每个子节点转换成自己左树的右边界或者右树的左边界 + 深度优先遍历
+    // 编码
     public TreeNode encode(UndirectedGraphNode root) {
         if (root == null) {
             return null;
         }
         TreeNode head = new TreeNode(root.label);
-        head.left = en(root.neighbors);
+        // 右树的左边界
+        head.right = en(root.neighbors);
         return head;
     }
 
-    private TreeNode en(List<UndirectedGraphNode> children) {
+    private TreeNode en(List<UndirectedGraphNode> neighbors) {
+        TreeNode c = null;
         TreeNode head = null;
-        TreeNode cur = null;
-        for (UndirectedGraphNode child : children) {
-            TreeNode tNode = new TreeNode(child.label);
+        for (UndirectedGraphNode neighbor : neighbors) {
+            TreeNode node = new TreeNode(neighbor.label);
             if (head == null) {
-                head = tNode;
+                // 头节点为空，建出来
+                head = node;
             } else {
-                cur.right = tNode;
+                // 否则挂在当前节点的右树的左边界上
+                c.left = node;
             }
-            cur = tNode;
-            cur.left = en(child.neighbors);
+            c = node;
+            c.right = en(neighbor.neighbors);
         }
         return head;
     }
