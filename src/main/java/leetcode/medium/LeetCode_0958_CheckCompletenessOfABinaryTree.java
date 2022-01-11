@@ -1,5 +1,8 @@
-package leetcode;
+package leetcode.medium;
 
+import java.util.LinkedList;
+
+// 什么是完全二叉树：每一层都是满的，或者即便不满，也是从左到右依次变满的
 public class LeetCode_0958_CheckCompletenessOfABinaryTree {
 
     public static class TreeNode {
@@ -8,7 +11,44 @@ public class LeetCode_0958_CheckCompletenessOfABinaryTree {
         TreeNode right;
     }
 
+    // 暴力解法
+    // 1. 某个节点没有左孩子但是有右孩子，一定不是完全二叉树
+    // 2. 第一次出现左右孩子不双全的时候，接下来的节点都是叶子节点
+    public boolean isCompleteTree0(TreeNode head) {
+        if (head == null) {
+            return true;
+        }
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        // 是否遇到过左右两个孩子不双全的节点
+        boolean leaf = false;
+        TreeNode l = null;
+        TreeNode r = null;
+        queue.add(head);
+        while (!queue.isEmpty()) {
+            head = queue.poll();
+            l = head.left;
+            r = head.right;
+            if (
+            // 如果遇到了不双全的节点之后，又发现当前节点不是叶节点
+            (leaf && (l != null || r != null)) || (l == null && r != null)
 
+            ) {
+                return false;
+            }
+            if (l != null) {
+                queue.add(l);
+            }
+            if (r != null) {
+                queue.add(r);
+            }
+            if (l == null || r == null) {
+                leaf = true;
+            }
+        }
+        return true;
+    }
+
+    // 二叉树的递归套路
     public boolean isCompleteTree(TreeNode root) {
         if (null == root) {
             return true;
@@ -42,6 +82,5 @@ public class LeetCode_0958_CheckCompletenessOfABinaryTree {
             this.height = height;
         }
     }
-
 
 }
