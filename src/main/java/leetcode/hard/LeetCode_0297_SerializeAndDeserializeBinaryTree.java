@@ -33,8 +33,8 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
         root.left = new TreeNode(2);
         root.right = new TreeNode(3);
         root.left.right = new TreeNode(4);
-        System.out.println(serialize(root));
-        System.out.println(serialize(deserialize(serialize(root))));
+        System.out.println(serialize3(root));
+        System.out.println(serialize3(deserialize3(serialize3(root))));
     }
 
     // 按层序列化
@@ -87,63 +87,55 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
         return head;
     }
 
-    // 后序方式序列化
-    public static String serialize3(TreeNode root) {
-        Stack<Integer> stack = new Stack<>();
-        posSerial(root, stack);
-        return generate(stack);
-    }
-
-    private static String generate(Stack<Integer> ans) {
-        int size = ans.size();
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        while (!ans.isEmpty()) {
-            sb.append(ans.pop());
-            size--;
-            if (size != 0) {
-                sb.append(",");
-            } else {
-                sb.append("]");
+    // 后序方式序列化 迭代方法
+    public static String serialize3(TreeNode head) {
+        if (head == null) {
+            return "[]";
+        }
+        // 后序遍历的结果加入栈（可以用递归也可以用迭代）
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+        stack1.push(head);
+        while (!stack1.isEmpty()) {
+            TreeNode c = stack1.pop();
+            stack2.push(c);
+            if (c != null) {
+                stack1.push(c.left);
+                stack1.push(c.right);
             }
         }
+        // 栈->字符串
+        StringBuilder sb = new StringBuilder("[");
+        while (!stack2.isEmpty()) {
+            TreeNode node = stack2.pop();
+            sb.append(node == null ? "#" : node.val).append(",");
+        }
+        sb.append("]");
         return sb.toString();
     }
 
-    private static void posSerial(TreeNode root, Stack<Integer> stack) {
-        if (null == root) {
-            stack.push(null);
-        } else {
-            stack.push(root.val);
-            posSerial(root.right, stack);
-            posSerial(root.left, stack);
-        }
-
-    }
-
-    // 后序方式反序列化
+    // 后序方式反序列化 迭代方式
     public static TreeNode deserialize3(String data) {
-        if (null == data || data.length() < 1) {
+        if ("[]".equals(data)) {
             return null;
         }
-        data = data.substring(1, data.length() - 1);
-        Stack<Integer> stack = new Stack<>();
-        for (String e : data.split(",")) {
-            stack.push("null".equals(e) ? null : Integer.valueOf(e));
+        String[] values = data.substring(1, data.length() - 2).split(",");
+        Stack<String> stack = new Stack<>();
+        for (String value : values) {
+            stack.push(value);
         }
-        return posSerial(stack);
+        return posDerial(stack);
     }
 
-    private static TreeNode posSerial(Stack<Integer> stack) {
-        Integer i = stack.pop();
-        if (null == i) {
+    private static TreeNode posDerial(Stack<String> stack) {
+        String s = stack.pop();
+        if ("#".equals(s)) {
             return null;
-        } else {
-            TreeNode root = new TreeNode(i);
-            root.right = posSerial(stack);
-            root.left = posSerial(stack);
-            return root;
         }
+        TreeNode root = new TreeNode(Integer.valueOf(s));
+        root.right = posDerial(stack);
+        root.left = posDerial(stack);
+        return root;
     }
 
     // 先序序列化
