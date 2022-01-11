@@ -8,10 +8,6 @@ import java.util.HashSet;
 //https://www.nowcoder.com/questionTerminal/f1f6a1a1b6f6409b944f869dc8fd3381
 public class NowCoder_LowestString {
 
-    /**
-     * @param strs string字符串一维数组 the strings
-     * @return string字符串
-     */
     public static String minString(String[] strs) {
         Arrays.sort(strs, (o1, o2) -> (o1 + o2).compareTo(o2 + o1));
         StringBuilder sb = new StringBuilder();
