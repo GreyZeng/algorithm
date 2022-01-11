@@ -65,7 +65,7 @@ import java.util.Queue;
 
 public class LeetCode_0662_MaximumWidthOfBinaryTree {
 
-    public class TreeNode {
+    public static class TreeNode {
         TreeNode left;
         TreeNode right;
     }
