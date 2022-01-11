@@ -2,7 +2,6 @@ package nowcoder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 
 //[编程题]拼接所有的字符串产生字典序最小的字符串
@@ -14,20 +13,12 @@ public class NowCoder_LowestString {
      * @return string字符串
      */
     public static String minString(String[] strs) {
-        Arrays.sort(strs,new MyComp());
+        Arrays.sort(strs,(o1, o2) -> (o1 + o2).compareTo(o2 + o1));
         StringBuilder sb = new StringBuilder();
         for (String s : strs) {
             sb.append(s);
         }
         return sb.toString();
-    }
-
-    public static class MyComp implements Comparator<String> {
-
-        @Override
-        public int compare(String o1, String o2) {
-            return (o1 + o2).compareTo(o2 + o1);
-        }
     }
 
     // 暴力解
