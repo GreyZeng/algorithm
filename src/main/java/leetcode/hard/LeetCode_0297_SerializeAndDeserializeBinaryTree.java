@@ -33,8 +33,8 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
         root.left = new TreeNode(2);
         root.right = new TreeNode(3);
         root.left.right = new TreeNode(4);
-        System.out.println(serialize3(root));
-        System.out.println(serialize3(deserialize3(serialize3(root))));
+        System.out.println(serialize2(root));
+       System.out.println(serialize2(deserialize2(serialize2(root))));
     }
 
     // 按层序列化
@@ -138,66 +138,49 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
         return root;
     }
 
-    // 先序序列化
-    public static String serialize2(TreeNode root) {
-        Queue<Integer> ans = new LinkedList<>();
-        preSerial(root, ans);
-        return generate(ans);
-    }
-
-    private static Queue<Integer> generate(String data) {
-        Queue<Integer> queue = new LinkedList<>();
-        for (String e : data.split(",")) {
-            queue.offer("null".equals(e) ? null : Integer.valueOf(e));
+    // 先序方式序列化 迭代做法
+    // 头 左 右
+    public static String serialize2(TreeNode head) {
+        if (head == null) {
+            return "[]";
         }
-        return queue;
-    }
-
-    private static String generate(Queue<Integer> ans) {
-        int size = ans.size();
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        while (!ans.isEmpty()) {
-            sb.append(ans.poll());
-            size--;
-            if (size != 0) {
-                sb.append(",");
-            } else {
-                sb.append("]");
+        StringBuilder sb = new StringBuilder("[");
+        Stack<TreeNode> queue = new Stack<>();
+        queue.push(head);
+        while (!queue.isEmpty()) {
+            TreeNode c = queue.pop();
+            sb.append(c == null ? "#" : c.val).append(",");
+            if (c != null) {
+                queue.push(c.right);
+                queue.push(c.left);
             }
         }
+        sb.append("]");
         return sb.toString();
-    }
-
-    private static void preSerial(TreeNode root, Queue<Integer> ans) {
-        if (root == null) {
-            ans.offer(null);
-        } else {
-            ans.offer(root.val);
-            preSerial(root.left, ans);
-            preSerial(root.right, ans);
-        }
     }
 
     // 先序反序列化
     public static TreeNode deserialize2(String data) {
-        if (null == data || data.length() < 1) {
+        if ("[]".equals(data)) {
             return null;
         }
-        data = data.substring(1, data.length() - 1);
-        return preDeserial(generate(data));
+        String[] values = data.substring(1, data.length() - 2).split(",");
+        Queue<TreeNode> queue = new LinkedList<>();
+        for (String value : values) {
+            queue.offer("#".equals(value) ? null : new TreeNode(Integer.valueOf(value)));
+        }
+        return preDesrial(queue);
     }
 
-    private static TreeNode preDeserial(Queue<Integer> elements) {
-        Integer t = elements.poll();
-        if (t == null) {
+    private static TreeNode preDesrial(Queue<TreeNode> queue) {
+        TreeNode node = queue.poll();
+        if (node == null) {
             return null;
-        } else {
-            TreeNode root = new TreeNode(t);
-            root.left = preDeserial(elements);
-            root.right = preDeserial(elements);
-            return root;
         }
+        node.left = preDesrial(queue);
+        node.right = preDesrial(queue);
+        return node;
     }
+    
 
 }
