@@ -1,28 +1,30 @@
 package snippet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * 给定一棵二叉树的头节点head，任何两个节点之间都存在距离(经过的节点数！）， 返回整棵二叉树的最大距离
  */
 public class Code_0042_MaxDistance {
 
-    public static class Node {
+    public static class TreeNode {
         public int value;
-        public Node left;
-        public Node right;
+        public TreeNode left;
+        public TreeNode right;
 
-        public Node(int data) {
+        public TreeNode(int data) {
             this.value = data;
         }
     }
 
-    public static int maxDistance1(Node head) {
+    public static int maxDistance1(TreeNode head) {
         if (head == null) {
             return 0;
         }
-        ArrayList<Node> arr = getPrelist(head);
-        HashMap<Node, Node> parentMap = getParentMap(head);
+        ArrayList<TreeNode> arr = getPrelist(head);
+        HashMap<TreeNode, TreeNode> parentMap = getParentMap(head);
         int max = 0;
         for (int i = 0; i < arr.size(); i++) {
             for (int j = i; j < arr.size(); j++) {
@@ -32,13 +34,13 @@ public class Code_0042_MaxDistance {
         return max;
     }
 
-    public static ArrayList<Node> getPrelist(Node head) {
-        ArrayList<Node> arr = new ArrayList<>();
+    public static ArrayList<TreeNode> getPrelist(TreeNode head) {
+        ArrayList<TreeNode> arr = new ArrayList<>();
         fillPrelist(head, arr);
         return arr;
     }
 
-    public static void fillPrelist(Node head, ArrayList<Node> arr) {
+    public static void fillPrelist(TreeNode head, ArrayList<TreeNode> arr) {
         if (head == null) {
             return;
         }
@@ -47,14 +49,14 @@ public class Code_0042_MaxDistance {
         fillPrelist(head.right, arr);
     }
 
-    public static HashMap<Node, Node> getParentMap(Node head) {
-        HashMap<Node, Node> map = new HashMap<>();
+    public static HashMap<TreeNode, TreeNode> getParentMap(TreeNode head) {
+        HashMap<TreeNode, TreeNode> map = new HashMap<>();
         map.put(head, null);
         fillParentMap(head, map);
         return map;
     }
 
-    public static void fillParentMap(Node head, HashMap<Node, Node> parentMap) {
+    public static void fillParentMap(TreeNode head, HashMap<TreeNode, TreeNode> parentMap) {
         if (head.left != null) {
             parentMap.put(head.left, head);
             fillParentMap(head.left, parentMap);
@@ -65,9 +67,9 @@ public class Code_0042_MaxDistance {
         }
     }
 
-    public static int distance(HashMap<Node, Node> parentMap, Node o1, Node o2) {
-        HashSet<Node> o1Set = new HashSet<>();
-        Node cur = o1;
+    public static int distance(HashMap<TreeNode, TreeNode> parentMap, TreeNode o1, TreeNode o2) {
+        HashSet<TreeNode> o1Set = new HashSet<>();
+        TreeNode cur = o1;
         o1Set.add(cur);
         while (parentMap.get(cur) != null) {
             cur = parentMap.get(cur);
@@ -77,7 +79,7 @@ public class Code_0042_MaxDistance {
         while (!o1Set.contains(cur)) {
             cur = parentMap.get(cur);
         }
-        Node lowestAncestor = cur;
+        TreeNode lowestAncestor = cur;
         cur = o1;
         int distance1 = 1;
         while (cur != lowestAncestor) {
@@ -93,45 +95,45 @@ public class Code_0042_MaxDistance {
         return distance1 + distance2 - 1;
     }
 
-    public static int maxDistance2(Node head) {
-        return process(head).maxDistance;
+    public static int maxDistance2(TreeNode head) {
+        if (head == null) {
+            return 0;
+        }
+        return process(head).max;
     }
 
     public static class Info {
-        public int maxDistance;
-        public int height;
+        public int maxHeight; // 从当前节点插到最底部最大高度
+        public int max; // 当前树的最大距离
 
-        public Info(int m, int h) {
-            maxDistance = m;
-            height = h;
+        public Info(int max, int maxHeight) {
+            this.max = max;
+            this.maxHeight = maxHeight;
         }
     }
 
-    public static Info process(Node x) {
-        if (x == null) {
+    private static Info process(TreeNode head) {
+        if (head == null) {
             return new Info(0, 0);
         }
-        Info leftInfo = process(x.left);
-        Info rightInfo = process(x.right);
-        int height = Math.max(leftInfo.height, rightInfo.height) + 1;
-        int p1 = leftInfo.maxDistance;
-        int p2 = rightInfo.maxDistance;
-        int p3 = leftInfo.height + rightInfo.height + 1;
-        int maxDistance = Math.max(Math.max(p1, p2), p3);
-        return new Info(maxDistance, height);
+        Info left = process(head.left);
+        Info right = process(head.right);
+        int max = Math.max(left.maxHeight + right.maxHeight + 1, Math.max(left.max, right.max));
+        int maxHeight = Math.max(left.maxHeight, right.maxHeight) + 1;
+        return new Info(max, maxHeight);
     }
 
     // for test
-    public static Node generateRandomBST(int maxLevel, int maxValue) {
+    public static TreeNode generateRandomBST(int maxLevel, int maxValue) {
         return generate(1, maxLevel, maxValue);
     }
 
     // for test
-    public static Node generate(int level, int maxLevel, int maxValue) {
+    public static TreeNode generate(int level, int maxLevel, int maxValue) {
         if (level > maxLevel || Math.random() < 0.5) {
             return null;
         }
-        Node head = new Node((int) (Math.random() * maxValue));
+        TreeNode head = new TreeNode((int) (Math.random() * maxValue));
         head.left = generate(level + 1, maxLevel, maxValue);
         head.right = generate(level + 1, maxLevel, maxValue);
         return head;
@@ -142,7 +144,7 @@ public class Code_0042_MaxDistance {
         int maxValue = 100;
         int testTimes = 1000000;
         for (int i = 0; i < testTimes; i++) {
-            Node head = generateRandomBST(maxLevel, maxValue);
+            TreeNode head = generateRandomBST(maxLevel, maxValue);
             if (maxDistance1(head) != maxDistance2(head)) {
                 System.out.println("Oops!");
             }
