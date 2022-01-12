@@ -1,7 +1,6 @@
 package leetcode.medium;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //Given a binary tree, determine if it is a valid binary search tree (BST).
 //
@@ -37,114 +36,118 @@ import java.util.List;
 public class LeetCode_0098_ValidateBinarySearchTree {
 
     public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+
+        public TreeNode(int data) {
+            this.val = data;
+        }
     }
 
-    public boolean isValidBST(TreeNode head) {
+    public static boolean isValidBST2(TreeNode head) {
+        if (head == null) {
+            return true;
+        }
+        ArrayList<TreeNode> arr = new ArrayList<>();
+        in(head, arr);
+        for (int i = 1; i < arr.size(); i++) {
+            if (arr.get(i).val <= arr.get(i - 1).val) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void in(TreeNode head, ArrayList<TreeNode> arr) {
+        if (head == null) {
+            return;
+        }
+        in(head.left, arr);
+        arr.add(head);
+        in(head.right, arr);
+    }
+
+    public static boolean isValidBST(TreeNode head) {
         if (null == head) {
             return true;
         }
-        return process(head).isBST;
+        return p(head).isBST;
     }
 
-    public Info process(TreeNode head) {
+    public static Info p(TreeNode head) {
         if (head == null) {
             return null;
         }
-
-        Info left = process(head.left);
-        Info right = process(head.right);
-        int max = head.val;
-        int min = head.val;
-        boolean isBST = true;
-
-        if (left != null) {
-            max = Math.max(left.max, max);
-            min = Math.min(left.min, min);
-            isBST = left.isBST && (head.val > left.max);
+        Info left = p(head.left);
+        Info right = p(head.right);
+        if (left == null && right == null) {
+            return new Info(head.val, head.val, true);
         }
-        if (right != null) {
-            max = Math.max(right.max, max);
-            min = Math.min(right.min, min);
-            isBST = isBST && right.isBST && (head.val < right.min);
+
+        if (left == null) {
+            // right != null
+            return new Info(
+                    Math.max(head.val,right.max), 
+                    Math.min(head.val,right.min), 
+                    right.isBST && head.val < right.min);
         }
-        return new Info(isBST, max, min);
+        if (right == null) {
+            // left != null
+            return new Info(
+                    Math.max(head.val,left.max), 
+                    Math.min(head.val,left.min), 
+                    left.isBST && head.val > left.max);
+        }
+        return new Info(
+                Math.max(head.val, Math.max(left.max, right.max)), 
+                Math.min(head.val, Math.min(left.min, right.min)), 
+                left.isBST && right.isBST && head.val < right.min && head.val > left.max);
+        
     }
 
-    public class Info {
-        public boolean isBST;
-        public int max;
-        public int min;
-
-        public Info(boolean isBST, int max, int min) {
-            this.isBST = isBST;
+    public static class Info {
+        public Info(int max, int min, boolean isBST) {
             this.max = max;
             this.min = min;
+            this.isBST = isBST;
         }
+
+        private int max;
+        private int min;
+        private boolean isBST;
+
     }
 
-    // 中序遍历递增
-    public boolean isValidBST3(TreeNode head) {
-        if (head == null) {
-            return true;
-        }
-        List<Integer> result = new ArrayList<>();
-        in(head, result);
-        int start = result.get(0);
-        for (int i = 1; i < result.size(); i++) {
-            if (result.get(i) <= start) {
-                return false;
-            }
-            start = result.get(i);
-        }
-        return true;
+
+
+    // for test
+    public static TreeNode generateRandomBST(int maxLevel, int maxValue) {
+        return generate(1, maxLevel, maxValue);
     }
 
-    public void in(TreeNode root, List<Integer> list) {
-        if (root == null) {
-            return;
+    // for test
+    public static TreeNode generate(int level, int maxLevel, int maxValue) {
+        if (level > maxLevel || Math.random() < 0.5) {
+            return null;
         }
-        in(root.left, list);
-        list.add(root.val);
-        in(root.right, list);
+        TreeNode head = new TreeNode((int) (Math.random() * maxValue));
+        head.left = generate(level + 1, maxLevel, maxValue);
+        head.right = generate(level + 1, maxLevel, maxValue);
+        return head;
     }
 
-    // morris遍历
-    public boolean isValidBST2(TreeNode head) {
-        if (head == null) {
-            return true;
-        }
-        TreeNode cur = head;
-        TreeNode mostRight;
-        TreeNode pre = null;
-        while (cur != null) {
-            mostRight = cur.left;
-            if (mostRight != null) {
-                while (mostRight.right != null && mostRight.right != cur) {
-                    mostRight = mostRight.right;
-                }
-                if (mostRight.right == null) {
-                    mostRight.right = cur;
-                    cur = cur.left;
-                } else {
-                    mostRight.right = null;
-                    if (pre != null && pre.val >= cur.val) {
-                        return false;
-                    }
-                    pre = cur;
-                    cur = cur.right;
-                }
-            } else {
-                if (pre != null && pre.val >= cur.val) {
-                    return false;
-                }
-                pre = cur;
-                cur = cur.right;
+    public static void main(String[] args) {
+        int maxLevel = 4;
+        int maxValue = 100;
+        int testTimes = 1000000;
+        for (int i = 0; i < testTimes; i++) {
+            TreeNode head = generateRandomBST(maxLevel, maxValue);
+            if (isValidBST2(head) != isValidBST(head)) {
+                System.out.println("Oops!");
             }
         }
-        return true;
+        System.out.println("finish!");
     }
 
 }
