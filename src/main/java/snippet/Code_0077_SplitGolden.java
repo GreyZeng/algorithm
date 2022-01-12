@@ -1,7 +1,6 @@
+package snippet;
 
-package nowcoder;
-
-import java.util.*;
+import java.util.PriorityQueue;
 
 /**
  * 一块金条切成两半，是需要花费和长度数值一样的铜板的。 比如长度为20的金条， 不管怎么切，都要花费20个铜板。 一群人想整分整块金条，怎么分最省铜板?
@@ -12,7 +11,8 @@ import java.util.*;
  * 注：堆和排序是解决贪心问题的最常用的两种方案
  */
 // https://www.nowcoder.com/questionTerminal/418d2fcdf7f24d6f8f4202e23951c0da
-public class NowCoder_SplitGolden {
+// https://www.lintcode.com/problem/minimum-cost-to-connect-sticks/description
+public class Code_0077_SplitGolden {
     public static long lessMoney(long[] arr) {
         if (arr == null || arr.length <= 1) {
             return 0;
