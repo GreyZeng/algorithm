@@ -33,6 +33,7 @@ import java.util.ArrayList;
 // 是否为二叉搜索树
 // 1. 中序遍历严格递增（递归或者Morris遍历实现中序遍历）
 // 2. 二叉树递归套路
+// https://leetcode-cn.com/problems/validate-binary-search-tree/
 public class LeetCode_0098_ValidateBinarySearchTree {
 
     public static class TreeNode {

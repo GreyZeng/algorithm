@@ -22,6 +22,7 @@ public class LeetCode_0543_DiameterOfBinaryTree {
         public TreeNode right;
     }
 
+    
     public static int diameterOfBinaryTree(TreeNode head) {
         if (head == null) {
             return 0;
