@@ -3,18 +3,22 @@ package leetcode.medium;
 import java.util.LinkedList;
 
 // 什么是完全二叉树：每一层都是满的，或者即便不满，也是从左到右依次变满的
+// https://leetcode-cn.com/problems/check-completeness-of-a-binary-tree/
 public class LeetCode_0958_CheckCompletenessOfABinaryTree {
-
     public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+        public int value;
+        public TreeNode left;
+        public TreeNode right;
+
+        public TreeNode(int data) {
+            this.value = data;
+        }
     }
 
-    // 暴力解法
+    // 解法一
     // 1. 某个节点没有左孩子但是有右孩子，一定不是完全二叉树
     // 2. 第一次出现左右孩子不双全的时候，接下来的节点都是叶子节点
-    public boolean isCompleteTree0(TreeNode head) {
+    public static boolean isCompleteTree(TreeNode head) {
         if (head == null) {
             return true;
         }
@@ -29,8 +33,8 @@ public class LeetCode_0958_CheckCompletenessOfABinaryTree {
             l = head.left;
             r = head.right;
             if (
-            // 如果遇到了不双全的节点之后，又发现当前节点不是叶节点
-            (leaf && (l != null || r != null)) || (l == null && r != null)
+                // 如果遇到了不双全的节点之后，又发现当前节点不是叶节点
+                    (leaf && (l != null || r != null)) || (l == null && r != null)
 
             ) {
                 return false;
@@ -49,38 +53,77 @@ public class LeetCode_0958_CheckCompletenessOfABinaryTree {
     }
 
     // 二叉树的递归套路
-    public boolean isCompleteTree(TreeNode root) {
-        if (null == root) {
+    public static boolean isCompleteTree2(TreeNode head) {
+        if (null == head) {
             return true;
         }
-        return process(root).isCBT;
+        return p(head).isCBT;
     }
 
-    public Info process(TreeNode root) {
-        if (root == null) {
+    private static Info p(TreeNode head) {
+        if (head == null) {
             return new Info(true, true, 0);
         }
-        Info left = process(root.left);
-        Info right = process(root.right);
+        Info left = p(head.left);
+        Info right = p(head.right);
         int height = Math.max(left.height, right.height) + 1;
-        boolean isCBT = (left.isFull && right.isFull
-                && ((left.height - right.height) == 1 || left.height == right.height))
-                || (left.isCBT && right.isFull && (left.height - right.height) == 1)
-                || (left.isFull && right.isCBT && (left.height == right.height));
-        boolean isFull = left.isFull && right.isFull && (right.height == left.height);
-        return new Info(isCBT, isFull, height);
+        boolean isFull = left.isFull && right.isFull && (left.height == right.height);
+        if (isFull) {
+            // 是满二叉树，肯定是完全二叉树
+            return new Info(true, true, height);
+        }
+        // 不是满二叉树
+        if (left.height == right.height) {
+            boolean isCBT = left.isFull && right.isCBT;
+            return new Info(false, isCBT, height);
+        }
+        if (left.height - right.height == 1) {
+            boolean isCBT = left.isCBT && right.isFull;
+            return new Info(false, isCBT, height);
+        }
+        return new Info(false, false, height);
     }
 
     public static class Info {
-        public boolean isCBT; // 是否完全二叉树
-        public boolean isFull; // 是否满二叉树
-        public int height; // 高度
+        private boolean isFull;
+        private boolean isCBT;
+        private int height;
 
-        public Info(boolean isCBT, boolean isFull, int height) {
-            this.isCBT = isCBT;
+        public Info(boolean isFull, boolean isCBT, int height) {
             this.isFull = isFull;
+            this.isCBT = isCBT;
             this.height = height;
         }
     }
+
+    // for test
+    public static TreeNode generateRandomBST(int maxLevel, int maxValue) {
+        return generate(1, maxLevel, maxValue);
+    }
+
+    // for test
+    public static TreeNode generate(int level, int maxLevel, int maxValue) {
+        if (level > maxLevel || Math.random() < 0.5) {
+            return null;
+        }
+        TreeNode head = new TreeNode((int) (Math.random() * maxValue));
+        head.left = generate(level + 1, maxLevel, maxValue);
+        head.right = generate(level + 1, maxLevel, maxValue);
+        return head;
+    }
+
+    public static void main(String[] args) {
+        int maxLevel = 5;
+        int maxValue = 100;
+        int testTimes = 1000000;
+        for (int i = 0; i < testTimes; i++) {
+            TreeNode head = generateRandomBST(maxLevel, maxValue);
+            if (isCompleteTree(head) != isCompleteTree2(head)) {
+                System.out.println("Oops!");
+            }
+        }
+        System.out.println("finish!");
+    }
+
 
 }
