@@ -7,31 +7,32 @@ import java.util.Queue;
 /**
  * 求二叉树最宽的层有多少个节点 发现每一层的开始或者每一层的结束位置 可以用map实现，也可以不用map实现
  */
+// https://www.nowcoder.com/questionTerminal/e276c75bb92e4ac8b058b75157f09ba7
 public class Code_0039_TreeMaxWidth {
-    public static class Node {
+    public static class TreeNode {
         public int value;
-        public Node left;
-        public Node right;
+        public TreeNode left;
+        public TreeNode right;
 
-        public Node(int data) {
+        public TreeNode(int data) {
             this.value = data;
         }
     }
 
-    public static int maxWidthUseMap(Node head) {
+    public static int getMaxWidthWithMap(TreeNode head) {
         if (head == null) {
             return 0;
         }
-        Queue<Node> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(head);
         // key 在 哪一层，value
-        HashMap<Node, Integer> levelMap = new HashMap<>();
+        HashMap<TreeNode, Integer> levelMap = new HashMap<>();
         levelMap.put(head, 1);
         int curLevel = 1; // 当前你正在统计哪一层的宽度
         int curLevelNodes = 0; // 当前层curLevel层，宽度目前是多少
         int max = 0;
         while (!queue.isEmpty()) {
-            Node cur = queue.poll();
+            TreeNode cur = queue.poll();
             int curNodeLevel = levelMap.get(cur);
             if (cur.left != null) {
                 levelMap.put(cur.left, curNodeLevel + 1);
@@ -53,29 +54,31 @@ public class Code_0039_TreeMaxWidth {
         return max;
     }
 
-    public static int maxWidthNoMap(Node head) {
+
+    public static int getMaxWidth(TreeNode head) {
         if (head == null) {
             return 0;
         }
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(head);
-        Node curEnd = head; // 当前层，最右节点是谁
-        Node nextEnd = null; // 下一层，最右节点是谁
-        int max = 0;
-        int curLevelNodes = 0; // 当前层的节点数
+        Queue<TreeNode> queue = new LinkedList<>();
+        int max = 1;
+        queue.offer(head);
+        TreeNode curEnd = head;
+        TreeNode nextEnd = null;
+        int curLevelNodes = 0;
         while (!queue.isEmpty()) {
-            Node cur = queue.poll();
-            if (cur.left != null) {
-                queue.add(cur.left);
-                nextEnd = cur.left;
+            TreeNode c = queue.poll();
+            if (c.left != null) {
+                queue.offer(c.left);
+                nextEnd = c.left;
             }
-            if (cur.right != null) {
-                queue.add(cur.right);
-                nextEnd = cur.right;
+            if (c.right != null) {
+                queue.offer(c.right);
+                nextEnd = c.right;
             }
             curLevelNodes++;
-            if (cur == curEnd) {
-                max = Math.max(max, curLevelNodes);
+            // 当前节点已经到结束了
+            if (c == curEnd) {
+                max = Math.max(curLevelNodes, max);
                 curLevelNodes = 0;
                 curEnd = nextEnd;
             }
@@ -84,16 +87,16 @@ public class Code_0039_TreeMaxWidth {
     }
 
     // for test
-    public static Node generateRandomBST(int maxLevel, int maxValue) {
+    public static TreeNode generateRandomBST(int maxLevel, int maxValue) {
         return generate(1, maxLevel, maxValue);
     }
 
     // for test
-    public static Node generate(int level, int maxLevel, int maxValue) {
+    public static TreeNode generate(int level, int maxLevel, int maxValue) {
         if (level > maxLevel || Math.random() < 0.5) {
             return null;
         }
-        Node head = new Node((int) (Math.random() * maxValue));
+        TreeNode head = new TreeNode((int) (Math.random() * maxValue));
         head.left = generate(level + 1, maxLevel, maxValue);
         head.right = generate(level + 1, maxLevel, maxValue);
         return head;
@@ -104,8 +107,8 @@ public class Code_0039_TreeMaxWidth {
         int maxValue = 100;
         int testTimes = 1000000;
         for (int i = 0; i < testTimes; i++) {
-            Node head = generateRandomBST(maxLevel, maxValue);
-            if (maxWidthUseMap(head) != maxWidthNoMap(head)) {
+            TreeNode head = generateRandomBST(maxLevel, maxValue);
+            if (getMaxWidthWithMap(head) != getMaxWidth(head)) {
                 System.out.println("Oops!");
             }
         }
