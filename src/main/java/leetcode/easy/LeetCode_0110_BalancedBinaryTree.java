@@ -12,30 +12,31 @@ public class LeetCode_0110_BalancedBinaryTree {
         TreeNode right;
     }
 
-    public static boolean isBalanced(TreeNode root) {
-        if (root == null) {
+    public static boolean isBalanced(TreeNode head) {
+        if (null == head) {
             return true;
         }
-        return process(root).isB;
+        return p(head).isBalanced;
     }
 
-    private static Info process(TreeNode root) {
-        if (root == null) {
+    private static Info p(TreeNode head) {
+        if (head == null) {
             return new Info(0, true);
         }
-        Info left = process(root.left);
-        Info right = process(root.right);
-        return new Info(Math.max(left.height, right.height) + 1,
-                left.isB && right.isB && (Math.abs(left.height - right.height) <= 1));
+        Info left = p(head.left);
+        Info right = p(head.right);
+        int height = Math.max(left.height, right.height) + 1;
+        boolean isBalanced = (Math.abs(left.height - right.height) <= 1) && left.isBalanced && right.isBalanced;
+        return new Info(height, isBalanced);
     }
 
     public static class Info {
-        public int height;
-        public boolean isB;
+        private int height;
+        private boolean isBalanced;
 
-        public Info(int h, boolean isB) {
-            height = h;
-            this.isB = isB;
+        public Info(int height, boolean isBalanced) {
+            this.height = height;
+            this.isBalanced = isBalanced;
         }
     }
 
