@@ -30,6 +30,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
+// https://www.lintcode.com/problem/1202/
 public class LeetCode_0502_IPO {
     public static class Project {
         public int profit;
