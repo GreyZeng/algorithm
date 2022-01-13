@@ -53,48 +53,11 @@ public class Code_0043_MaxSubBSTHead {
         return getBSTSize(leftAns) >= getBSTSize(rightAns) ? leftAns : rightAns;
     }
 
+    // FIXME
     public static Node maxSubBSTHead2(Node head) {
-        if (head == null) {
-            return null;
-        }
-        return p(head).maxSubBSTHead;
-    }
-
-    public static Info p(Node head) {
-        if (head == null) {
-            return null;
-        }
-        Info left = p(head.left);
-        Info right = p(head.right);
-        if (right == null && left == null) {
-            return new Info(head, head.value, head.value, 1);
-        }
-        Node maxSubBSTHead = left.size > right.size ? left.maxSubBSTHead : right.maxSubBSTHead;
-        int size = maxSubBSTHead == left.maxSubBSTHead?left.size:right.size;
-        int max = maxSubBSTHead == left.maxSubBSTHead?left.max:right.max;
-        int min = maxSubBSTHead == left.maxSubBSTHead?left.min:right.min;
-        if(head.value >= right.min && head.value <= left.max){
-            return new Info(maxSubBSTHead,max,min,size);
-        }
-        // TODO
         return null;
     }
 
-    public static class Info {
-
-        public Info(Node maxSubBSTHead, int max, int min, int size) {
-            this.maxSubBSTHead = maxSubBSTHead;
-            this.max = max;
-            this.min = min;
-            this.size = size;
-        }
-
-        private Node maxSubBSTHead;
-        private int max;
-        private int min;
-        private int size;// 最大搜索子树的大小
-
-    }
 //    public static Node maxSubBSTHead2(Node head) {
 //        if (head == null) {
 //            return null;
@@ -167,9 +130,9 @@ public class Code_0043_MaxSubBSTHead {
     }
 
     public static void main(String[] args) {
-        int maxLevel = 4;
+        int maxLevel = 5;
         int maxValue = 100;
-        int testTimes = 1000000;
+        int testTimes = 70;
         for (int i = 0; i < testTimes; i++) {
             Node head = generateRandomBST(maxLevel, maxValue);
             if (maxSubBSTHead1(head) != maxSubBSTHead2(head)) {
