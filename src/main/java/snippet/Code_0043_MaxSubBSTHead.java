@@ -6,7 +6,9 @@ import java.util.ArrayList;
  * 给定一棵二叉树的头节点head， 返回这颗二叉树中最大的二叉搜索子树的头节点
  */
 public class Code_0043_MaxSubBSTHead {
+
     public static class Node {
+
         public int value;
         public Node left;
         public Node right;
@@ -63,26 +65,29 @@ public class Code_0043_MaxSubBSTHead {
             return null;
         }
         Info left = p(head.left);
-        if (left == null) {
-            Info right = p(head.right);
-            if (right == null) {
-                return new Info(head, head.value, head.value);
-            }
+        Info right = p(head.right);
+        if (right == null && left == null) {
+            return new Info(head, head.value, head.value, 1);
         }
+        Node maxSubBSTHead = left.size > right.size ? left.maxSubBSTHead : right.maxSubBSTHead;
+        
         // TODO
         return null;
     }
 
     public static class Info {
-        public Info(Node maxSubBSTHead, int max, int min) {
+
+        public Info(Node maxSubBSTHead, int max, int min, int size) {
             this.maxSubBSTHead = maxSubBSTHead;
             this.max = max;
             this.min = min;
+            this.size = size;
         }
 
         private Node maxSubBSTHead;
         private int max;
         private int min;
+        private int size;// 最大搜索子树的大小
 
     }
 //    public static Node maxSubBSTHead2(Node head) {
@@ -168,6 +173,5 @@ public class Code_0043_MaxSubBSTHead {
         }
         System.out.println("finish!");
     }
-
 
 }
