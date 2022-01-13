@@ -70,7 +70,12 @@ public class Code_0043_MaxSubBSTHead {
             return new Info(head, head.value, head.value, 1);
         }
         Node maxSubBSTHead = left.size > right.size ? left.maxSubBSTHead : right.maxSubBSTHead;
-        
+        int size = maxSubBSTHead == left.maxSubBSTHead?left.size:right.size;
+        int max = maxSubBSTHead == left.maxSubBSTHead?left.max:right.max;
+        int min = maxSubBSTHead == left.maxSubBSTHead?left.min:right.min;
+        if(head.value >= right.min && head.value <= left.max){
+            return new Info(maxSubBSTHead,max,min,size);
+        }
         // TODO
         return null;
     }
