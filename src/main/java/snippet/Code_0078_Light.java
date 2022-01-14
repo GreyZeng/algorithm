@@ -36,23 +36,25 @@ public class Code_0078_Light {
         }
     }
 
+    // 贪心算法
     public static int minLight2(String road) {
         char[] str = road.toCharArray();
-        int i = 0;
         int light = 0;
+        int i = 0;
         while (i < str.length) {
             if (str[i] == 'X') {
+                // continue;
                 i++;
             } else {
                 light++;
-                if (i + 1 == str.length) {
-                    break;
-                } else { // 有i位置  i+ 1   X  .
-                    if (str[i + 1] == 'X') {
-                        i = i + 2;
+                if (i + 1 < str.length) {
+                    if (str[i + 1] == '.') {
+                        i += 3;
                     } else {
-                        i = i + 3;
+                        i += 2;
                     }
+                } else {
+                    break;
                 }
             }
         }
