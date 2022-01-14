@@ -75,34 +75,39 @@ public class Code_0080_MaxHappy {
     }
 
     public static int maxHappy2(Employee head) {
-        Info allInfo = process(head);
-        return Math.max(allInfo.no, allInfo.yes);
+        if (head == null) {
+            return 0;
+        }
+        Info p = p(head);
+        return Math.max(p.yes, p.no);
+    }
+
+    public static Info p(Employee head) {
+        if (head == null) {
+            return new Info(0, 0);
+        }
+        int yes = head.happy;
+        int no = 0;
+        for (Employee n : head.nexts) {
+            Info next = p(n);
+            no += Math.max(next.no, next.yes);
+            yes += next.no;
+        }
+        return new Info(yes, no);
     }
 
     public static class Info {
-        public int no;
-        public int yes;
+        private int no;
+        private int yes;
 
-        public Info(int n, int y) {
-            no = n;
-            yes = y;
+        public Info(int yes, int no) {
+            this.yes = yes;
+            this.no = no;
         }
+
+
     }
 
-    public static Info process(Employee x) {
-        if (x == null) {
-            return new Info(0, 0);
-        }
-        int no = 0;
-        int yes = x.happy;
-        for (Employee next : x.nexts) {
-            Info nextInfo = process(next);
-            no += Math.max(nextInfo.no, nextInfo.yes);
-            yes += nextInfo.no;
-
-        }
-        return new Info(no, yes);
-    }
 
     // for test
     public static Employee genarateBoss(int maxLevel, int maxNexts, int maxHappy) {
