@@ -31,30 +31,31 @@ import java.util.Stack;
 // 方法2 并查集 ，LeetCode和牛客上对应的题目都可以通过，不会出现栈溢出的情况
 // lintcode 433
 public class LeetCode_0200_NumberOfIslands {
-
     public static int numIslands3(char[][] board) {
-        int islands = 0;
+        if (null == board || board.length == 0 || board[0].length == 0) {
+            return 0;
+        }
+        int ans = 0;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] == '1') {
-                    islands++;
+                    ans++;
                     infect(board, i, j);
                 }
             }
         }
-        return islands;
+        return ans;
     }
 
-    // 从(i,j)这个位置出发，把所有练成一片的'1'字符，变成0
-    public static void infect(char[][] board, int i, int j) {
-        if (i < 0 || i == board.length || j < 0 || j == board[0].length || board[i][j] != '1') {
+    private static void infect(char[][] board, int i, int j) {
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != '1') {
             return;
         }
-        board[i][j] = 0;
-        infect(board, i - 1, j);
+        board[i][j] = '2';
         infect(board, i + 1, j);
-        infect(board, i, j - 1);
         infect(board, i, j + 1);
+        infect(board, i - 1, j);
+        infect(board, i, j - 1);
     }
 
     public static int numIslands1(char[][] board) {
