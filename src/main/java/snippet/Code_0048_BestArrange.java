@@ -117,7 +117,7 @@ public class Code_0048_BestArrange {
     }
 
     public static int bestArrange2(Program[] programs) {
-        Arrays.sort(programs, new ProgramComparator());
+        Arrays.sort(programs, Comparator.comparingInt(o -> o.end));
         int timeLine = 0;
         int result = 0;
         for (Program program : programs) {
@@ -129,14 +129,6 @@ public class Code_0048_BestArrange {
         return result;
     }
 
-    public static class ProgramComparator implements Comparator<Program> {
-
-        @Override
-        public int compare(Program o1, Program o2) {
-            return o1.end - o2.end;
-        }
-
-    }
 
     // for test
     public static Program[] generatePrograms(int programSize, int timeMax) {

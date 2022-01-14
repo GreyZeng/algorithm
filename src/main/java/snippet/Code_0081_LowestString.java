@@ -1,4 +1,4 @@
-package nowcoder;
+package snippet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 //[编程题]拼接所有的字符串产生字典序最小的字符串
 //https://www.nowcoder.com/questionTerminal/f1f6a1a1b6f6409b944f869dc8fd3381
-public class NowCoder_LowestString {
+public class Code_0081_LowestString {
 
     public static String minString(String[] strs) {
         Arrays.sort(strs, (o1, o2) -> (o1 + o2).compareTo(o2 + o1));
@@ -72,8 +72,8 @@ public class NowCoder_LowestString {
     }
 
     private static void printArray(String[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + ",");
+        for (String s : arr) {
+            System.out.print(s + ",");
         }
         System.out.println();
 
