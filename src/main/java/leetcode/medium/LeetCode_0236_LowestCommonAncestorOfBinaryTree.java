@@ -12,39 +12,45 @@ public class LeetCode_0236_LowestCommonAncestorOfBinaryTree {
     }
 
     public static TreeNode lowestCommonAncestor(TreeNode head, TreeNode o1, TreeNode o2) {
-        return process(head, o1, o2).ancestor;
+        if (o1 == null) {
+            return o2;
+        }
+        if (o2 == null) {
+            return o1;
+        }
+        // o1和o2都不为null
+        return p(head, o1, o2).ancestor;
     }
 
-    public static Info process(TreeNode h, TreeNode o1, TreeNode o2) {
-        if (h == null) {
+    public static Info p(TreeNode head, TreeNode o1, TreeNode o2) {
+        if (head == null) {
             return new Info(false, false, null);
         }
-        Info left = process(h.left, o1, o2);
-        Info right = process(h.right, o1, o2);
-        boolean f1 = left.findO1 || right.findO1 || h == o1;
-        boolean f2 = right.findO2 || left.findO2 || h == o2;
-        TreeNode a = null;
-        if (f1 && f2) {
-            if (left.findO1 && left.findO2) {
-                a = left.ancestor;
-            } else if (right.findO1 && right.findO2) {
-                a = right.ancestor;
-            } else {
-                a = h;
+        Info leftInfo = p(head.left, o1, o2);
+        Info rightInfo = p(head.right, o1, o2);
+        boolean findA = leftInfo.findA || rightInfo.findA || head == o1;
+        boolean findB = leftInfo.findB || rightInfo.findB || head == o2;
+        if (findA && findB) {
+            if (leftInfo.findA && leftInfo.findB) {
+                return new Info(true, true, leftInfo.ancestor);
+            } else if (rightInfo.findA && rightInfo.findB) {
+                return new Info(true, true, rightInfo.ancestor);
             }
+            return new Info(true, true, head);
         }
-        return new Info(f1, f2, a);
+        return new Info(findA, findB, null);
     }
 
     public static class Info {
-        public boolean findO1;
-        public boolean findO2;
-        public TreeNode ancestor;
-
-        public Info(boolean f1, boolean f2, TreeNode a) {
-            findO1 = f1;
-            findO2 = f2;
-            ancestor = a;
+        public Info(boolean findA, boolean findB, TreeNode ancestor) {
+            this.findA = findA;
+            this.findB = findB;
+            this.ancestor = ancestor;
         }
+
+        private boolean findA;
+        private boolean findB;
+        private TreeNode ancestor;
+
     }
 }
