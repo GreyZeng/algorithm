@@ -1,11 +1,12 @@
-package leetcode;
+package leetcode.hard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-// TODO 
+
 // https://leetcode.com/problems/number-of-islands-ii/
+// LintCode 434
 public class LeetCode_0305_NumberOfIslandsII {
     public static List<Integer> numIslands21(int m, int n, int[][] positions) {
         UnionFind1 uf = new UnionFind1(m, n);

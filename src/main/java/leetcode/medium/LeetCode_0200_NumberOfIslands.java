@@ -30,6 +30,7 @@ import java.util.Stack;
 // 方法1 感染函数 O(N*M)[只能过LeetCode上这题，但是过不了牛客上NC109的这题：会出现栈溢出的错误，可以采用并查集的方式]
 // 方法2 并查集 ，LeetCode和牛客上对应的题目都可以通过，不会出现栈溢出的情况
 // lintcode 433
+// https://leetcode-cn.com/problems/number-of-islands/
 public class LeetCode_0200_NumberOfIslands {
     public static int numIslands3(char[][] board) {
         if (null == board || board.length == 0 || board[0].length == 0) {
@@ -47,6 +48,7 @@ public class LeetCode_0200_NumberOfIslands {
         return ans;
     }
 
+    // 感染函数做法
     private static void infect(char[][] board, int i, int j) {
         if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != '1') {
             return;
@@ -161,6 +163,7 @@ public class LeetCode_0200_NumberOfIslands {
 
     }
 
+    // 并查集做法
     public static int numIslands2(char[][] board) {
         int row = board.length;
         int col = board[0].length;
