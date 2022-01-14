@@ -68,7 +68,7 @@ public class Code_0049_UnionFind {
 
 
         private static class Node<V> {
-            private V value;
+            private final V value;
 
             public Node(V value) {
                 this.value = value;
