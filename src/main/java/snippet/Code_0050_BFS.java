@@ -1,28 +1,42 @@
 package snippet;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-
 import snippet.graph.Node;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
+
 /**
- * 宽度优先遍历 宽度优先遍历 1，利用队列实现 2，从源节点开始依次按照宽度进队列，然后弹出 3，每弹出一个点，把该节点所有没有进过队列的邻接点放入队列
+ * 宽度优先遍历 宽度优先遍历
+ * <p>
+ * 1，利用队列实现
+ * <p>
+ * 2，从源节点开始依次按照宽度进队列，然后弹出
+ * <p>
+ * 3，每弹出一个点，把该节点所有没有进过队列的邻接点放入队列
+ * <p>
  * 4，直到队列变空
  */
+// FIXME
 public class Code_0050_BFS {
 
-    public static void bfs(Node node) {
+    public static List<Node> bfs(Node node) {
+
         if (null == node) {
-            return;
+            return null;
         }
+        List<Node> ans = new ArrayList<>();
         Queue<Node> queue = new LinkedList<>();
         HashSet<Node> set = new HashSet<>();
         queue.offer(node);
         set.add(node);
         while (!queue.isEmpty()) {
             Node cur = queue.poll();
-            System.out.println(cur.value);
+            //System.out.println(cur.value);
+            ans.add(cur);
             if (cur.nexts != null && !cur.nexts.isEmpty()) {
                 for (Node t : cur.nexts) {
                     if (!set.contains(t)) {
@@ -32,9 +46,41 @@ public class Code_0050_BFS {
                 }
             }
         }
+        return ans;
+    }
+
+    // 递归版本
+    private static List<Node> bfs2(Node node) {
+        if (null == node) {
+            return null;
+        }
+        List<Node> ans = new ArrayList<>();
+        Set<Node> set = new HashSet<>();
+        ans.add(node);
+        set.add(node);
+        bfs(node, ans, set);
+        return ans;
+    }
+
+    private static void bfs(Node node, List<Node> ans, Set<Node> set) {
+        if (node.nexts != null && !node.nexts.isEmpty()) {
+            for (Node next : node.nexts) {
+                if (!set.contains(next)) {
+                    set.add(next);
+                    ans.add(next);
+                }
+                bfs(next, ans, set);
+            }
+
+        }
     }
 
     public static void main(String[] args) {
+        test1();
+        test2();
+    }
+
+    private static void test2() {
         Node t3 = new Node(3);
         Node t4 = new Node(4);
         Node t5 = new Node(5);
@@ -50,6 +96,33 @@ public class Code_0050_BFS {
         t5.nexts.add(t7);
         t6.nexts.add(t4);
         t7.nexts.add(t8);
-        bfs(t3);
+        List<Node> bfs = bfs2(t3);
+        for (Node n : bfs) {
+            System.out.print(n.value + " ");
+        }
+        System.out.println();
+    }
+
+    private static void test1() {
+        Node t3 = new Node(3);
+        Node t4 = new Node(4);
+        Node t5 = new Node(5);
+        Node t6 = new Node(6);
+        Node t7 = new Node(7);
+        Node t8 = new Node(8);
+        Node t9 = new Node(9);
+        t3.nexts.add(t6);
+        t3.nexts.add(t5);
+        t4.nexts.add(t7);
+        t4.nexts.add(t9);
+        t5.nexts.add(t8);
+        t5.nexts.add(t7);
+        t6.nexts.add(t4);
+        t7.nexts.add(t8);
+        List<Node> bfs = bfs(t3);
+        for (Node n : bfs) {
+            System.out.print(n.value + " ");
+        }
+        System.out.println();
     }
 }
