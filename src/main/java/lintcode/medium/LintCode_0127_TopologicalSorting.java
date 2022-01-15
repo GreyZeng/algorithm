@@ -1,11 +1,14 @@
-package lintcode;
+package lintcode.medium;
 
 import java.util.*;
 
 // https://www.lintcode.com/problem/topological-sorting/description
 // DFS方式和BFS方式
-// 用点次来判断拓扑序列
-// 用某个点能延申的最大深度来判断拓扑序
+// DFS中，有如下两种评价标准
+// 
+// 1. 用点次来判断拓扑序列
+// 
+// 2. 用某个点能延申的最大深度来判断拓扑序
 public class LintCode_0127_TopologicalSorting {
 
     public static class DirectedGraphNode {
@@ -19,7 +22,7 @@ public class LintCode_0127_TopologicalSorting {
     }
 
     // DFS方式
-    // 出度从大到小
+    // 考察出度从大到小
     public static ArrayList<DirectedGraphNode> topSort(ArrayList<DirectedGraphNode> graph) {
 
         HashMap<DirectedGraphNode, Record> order = new HashMap<>();
@@ -51,10 +54,60 @@ public class LintCode_0127_TopologicalSorting {
         return ans;
     }
 
+    // DFS方式
+    // 考察深度
+    public static ArrayList<DirectedGraphNode> topSort2(ArrayList<DirectedGraphNode> graph) {
+        HashMap<DirectedGraphNode, Record2> order = new HashMap<>();
+        for (DirectedGraphNode cur : graph) {
+            f2(cur, order);
+        }
+        ArrayList<Record2> recordArr = new ArrayList<>();
+        for (Record2 r : order.values()) {
+            recordArr.add(r);
+        }
+        recordArr.sort(new MyComparator2());
+        ArrayList<DirectedGraphNode> ans = new ArrayList<DirectedGraphNode>();
+        for (Record2 r : recordArr) {
+            ans.add(r.node);
+        }
+        return ans;
+    }
+
+    public static Record2 f2(DirectedGraphNode cur, HashMap<DirectedGraphNode, Record2> order) {
+        if (order.containsKey(cur)) {
+            return order.get(cur);
+        }
+        int follow = 0;
+        for (DirectedGraphNode next : cur.neighbors) {
+            follow = Math.max(follow, f2(next, order).deep);
+        }
+        Record2 ans = new Record2(cur, follow + 1);
+        order.put(cur, ans);
+        return ans;
+    }
+
+    public static class Record2 {
+        public DirectedGraphNode node;
+        public int deep;
+
+        public Record2(DirectedGraphNode n, int o) {
+            node = n;
+            deep = o;
+        }
+    }
+
+    public static class MyComparator2 implements Comparator<Record2> {
+
+        @Override
+        public int compare(Record2 o1, Record2 o2) {
+            return o2.deep - o1.deep;
+        }
+    }
+
     // 使用BFS实现，
     // 入度为0
     // 已通过验证
-    public ArrayList<DirectedGraphNode> topSort2(ArrayList<DirectedGraphNode> graph) {
+    public ArrayList<DirectedGraphNode> topSort3(ArrayList<DirectedGraphNode> graph) {
         HashMap<DirectedGraphNode, Integer> map = buildIndex(graph);
         Queue<DirectedGraphNode> starts = new LinkedList<>();
 
