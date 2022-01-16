@@ -22,7 +22,6 @@ import java.util.Queue;
 public class Code_0050_BFS {
 
     public static List<Node> bfs(Node node) {
-
         if (null == node) {
             return new ArrayList<>();
         }

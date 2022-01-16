@@ -2,11 +2,12 @@ package snippet;
 
 import snippet.graph.Node;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Stack;
 
 /**
  * 深度优先遍历
@@ -24,10 +25,10 @@ public class Code_0051_DFS {
     // 迭代版本
     public static List<Node> dfs(Node node) {
         if (node == null) {
-            return null;
+            return new ArrayList<>();
         }
         List<Node> ans = new ArrayList<>();
-        Stack<Node> stack = new Stack<>();
+        Deque<Node> stack = new ArrayDeque<>();
         HashSet<Node> set = new HashSet<>();
         stack.add(node);
         set.add(node);
@@ -50,7 +51,7 @@ public class Code_0051_DFS {
     // 递归版本
     public static List<Node> dfs2(Node node) {
         if (node == null) {
-            return null;
+            return new ArrayList<>();
         }
         List<Node> ans = new ArrayList<>();
         Set<Node> set = new HashSet<>();
@@ -70,10 +71,8 @@ public class Code_0051_DFS {
         }
     }
 
-
     public static void main(String[] args) {
         test1();
-        System.out.println();
         test2();
     }
 
@@ -87,6 +86,7 @@ public class Code_0051_DFS {
         Node t9 = new Node(9);
         Node t10 = new Node(10);
         t3.nexts.add(t6);
+        t3.nexts.add(t10);
         t3.nexts.add(t5);
         t4.nexts.add(t7);
         t4.nexts.add(t9);
@@ -101,6 +101,7 @@ public class Code_0051_DFS {
         for (Node n : dfs) {
             System.out.print(n.value + " ");
         }
+        System.out.println();
     }
 
     private static void test2() {
@@ -113,6 +114,7 @@ public class Code_0051_DFS {
         Node t9 = new Node(9);
         Node t10 = new Node(10);
         t3.nexts.add(t6);
+        t3.nexts.add(t10);
         t3.nexts.add(t5);
         t4.nexts.add(t7);
         t4.nexts.add(t9);
@@ -127,5 +129,6 @@ public class Code_0051_DFS {
         for (Node n : dfs) {
             System.out.print(n.value + " ");
         }
+        System.out.println();
     }
 }
