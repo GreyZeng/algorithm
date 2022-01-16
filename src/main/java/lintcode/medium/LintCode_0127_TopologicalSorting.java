@@ -66,7 +66,7 @@ public class LintCode_0127_TopologicalSorting {
             recordArr.add(r);
         }
         recordArr.sort(new MyComparator2());
-        ArrayList<DirectedGraphNode> ans = new ArrayList<DirectedGraphNode>();
+        ArrayList<DirectedGraphNode> ans = new ArrayList<>();
         for (Record2 r : recordArr) {
             ans.add(r.node);
         }
@@ -138,9 +138,7 @@ public class LintCode_0127_TopologicalSorting {
     public HashMap<DirectedGraphNode, Integer> buildIndex(ArrayList<DirectedGraphNode> graph) {
         HashMap<DirectedGraphNode, Integer> map = new HashMap<>();
         for (DirectedGraphNode node : graph) {
-            if (!map.containsKey(node)) {
-                map.put(node, 0);
-            }
+            map.putIfAbsent(node, 0);
             for (DirectedGraphNode neighbor : node.neighbors) {
                 if (map.containsKey(neighbor)) {
                     map.put(neighbor, map.get(neighbor) + 1);
@@ -175,5 +173,4 @@ public class LintCode_0127_TopologicalSorting {
             }
         }
     }
-
 }
