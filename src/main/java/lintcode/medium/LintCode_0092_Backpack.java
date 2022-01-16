@@ -1,4 +1,4 @@
-package lintcode;
+package lintcode.medium;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import java.util.List;
 //
 //
 //        你不可以将物品进行切割。
+// https://www.lintcode.com/problem/92/
 public class LintCode_0092_Backpack {
     // 暴力递归
     public int backPack(int m, int[] A) {

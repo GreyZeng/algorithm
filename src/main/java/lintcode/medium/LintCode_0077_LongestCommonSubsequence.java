@@ -30,15 +30,9 @@
 //        解释：
 //
 //        LCS 是 "AC"
-package lintcode;
+package lintcode.medium;
 
-/**
- * https://www.lintcode.com/problem/longest-common-subsequence/description
- *
- * @author <a href="mailto:410486047@qq.com">Grey</a>
- * @date 2021/8/24
- * @since
- */
+// https://www.lintcode.com/problem/longest-common-subsequence
 public class LintCode_0077_LongestCommonSubsequence {
 
     // 暴力方法

@@ -32,6 +32,7 @@
 //        The input strings consist of lowercase English characters only.
 package leetcode.medium;
 
+// https://leetcode-cn.com/problems/longest-common-subsequence/
 public class LeetCode_1143_LongestCommonSubsequence {
     public int longestCommonSubsequence(String text1, String text2) {
         if (text1 == null || text1.length() == 0) {

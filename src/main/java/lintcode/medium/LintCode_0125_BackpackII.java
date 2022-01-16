@@ -1,4 +1,4 @@
-package lintcode;
+package lintcode.medium;
 //描述
 //        有 n 个物品和一个大小为 m 的背包. 给定数组 A 表示每个物品的大小和数组 V 表示每个物品的价值.
 //
@@ -43,11 +43,7 @@ package lintcode;
 //        挑战
 //        O(nm) 空间复杂度可以通过, 你能把空间复杂度优化为O(m)吗？
 
-/**
- * @author <a href="mailto:410486047@qq.com">Grey</a>
- * @date 2021/8/20
- * @since
- */
+// https://www.lintcode.com/problem/125/
 public class LintCode_0125_BackpackII {
     // 暴力递归版本
     public int backPackII(int m, int[] A, int[] V) {

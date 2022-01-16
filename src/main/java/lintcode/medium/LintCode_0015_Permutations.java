@@ -1,4 +1,4 @@
-package lintcode;
+package lintcode.medium;
 //样例
 //        样例 1：
 //
@@ -31,11 +31,7 @@ package lintcode;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author <a href="mailto:410486047@qq.com">Grey</a>
- * @date 2021/8/19
- * @since
- */
+//https://www.lintcode.com/problem/15/
 public class LintCode_0015_Permutations {
     // 递归方法
     public List<List<Integer>> permute(int[] nums) {
