@@ -165,8 +165,8 @@ public class LeetCode_0691_StickersToSpellWord {
         map.put(target, ways);
         return ways;
     }
-    // 将字符串数组转换成二维数组
 
+    // 将字符串数组转换成二维数组
     public int[][] build2D(String[] stickers) {
         int n = stickers.length;
         int[][] s = new int[n][26];
@@ -197,7 +197,7 @@ public class LeetCode_0691_StickersToSpellWord {
 
     public static void main(String[] args) {
         String target = "thehat";
-        String[] stickers = { "with", "example", "science" };
+        String[] stickers = {"with", "example", "science"};
         int rest = new LeetCode_0691_StickersToSpellWord().minStickers2(stickers, target);
         System.out.println(rest);
     }
