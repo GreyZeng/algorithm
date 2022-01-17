@@ -1,6 +1,11 @@
 package lintcode.medium;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
 // https://www.lintcode.com/problem/topological-sorting/description
 // DFS方式和BFS方式
@@ -29,10 +34,7 @@ public class LintCode_0127_TopologicalSorting {
         for (DirectedGraphNode cur : graph) {
             f(cur, order);
         }
-        ArrayList<Record> recordArr = new ArrayList<>();
-        for (Record r : order.values()) {
-            recordArr.add(r);
-        }
+        ArrayList<Record> recordArr = new ArrayList<>(order.values());
         recordArr.sort(new MyComparator());
         ArrayList<DirectedGraphNode> ans = new ArrayList<>();
         for (Record r : recordArr) {
@@ -61,10 +63,7 @@ public class LintCode_0127_TopologicalSorting {
         for (DirectedGraphNode cur : graph) {
             f2(cur, order);
         }
-        ArrayList<Record2> recordArr = new ArrayList<>();
-        for (Record2 r : order.values()) {
-            recordArr.add(r);
-        }
+        ArrayList<Record2> recordArr = new ArrayList<>(order.values());
         recordArr.sort(new MyComparator2());
         ArrayList<DirectedGraphNode> ans = new ArrayList<>();
         for (Record2 r : recordArr) {
@@ -108,47 +107,48 @@ public class LintCode_0127_TopologicalSorting {
     // 入度为0
     // 已通过验证
     public ArrayList<DirectedGraphNode> topSort3(ArrayList<DirectedGraphNode> graph) {
-        HashMap<DirectedGraphNode, Integer> map = buildIndex(graph);
+        if (null == graph || graph.isEmpty()) {
+            return new ArrayList<>();
+        }
+        // 遍历所有点，找到每个点的入度数据
+        Map<DirectedGraphNode, Integer> map = new HashMap<>();
+        for (DirectedGraphNode node : graph) {
+            map.putIfAbsent(node, 0);
+            ArrayList<DirectedGraphNode> neighbors = node.neighbors;
+            for (DirectedGraphNode n : neighbors) {
+                if (!map.containsKey(n)) {
+                    map.put(n, 1);
+                } else {
+                    map.put(n, map.get(n) + 1);
+                }
+            }
+        }
+        // 入度为0的点加入队列
         Queue<DirectedGraphNode> starts = new LinkedList<>();
-
-        // 有可能有多个点是入度为0（森林）
         for (Map.Entry<DirectedGraphNode, Integer> entry : map.entrySet()) {
             if (entry.getValue() == 0) {
                 starts.add(entry.getKey());
             }
         }
-        // 宽度优选遍历
+        // 宽度优先遍历
         ArrayList<DirectedGraphNode> ans = new ArrayList<>();
         while (!starts.isEmpty()) {
-            DirectedGraphNode node = starts.poll();
-            ans.add(node);
-            if (node.neighbors != null && !node.neighbors.isEmpty()) {
-                for (DirectedGraphNode neighbor : node.neighbors) {
-                    if (map.get(neighbor) == 1) {
-                        starts.offer(neighbor);
+            DirectedGraphNode poll = starts.poll();
+            ans.add(poll);
+            // map.remove(poll);
+            if (poll.neighbors != null && !poll.neighbors.isEmpty()) {
+                for (DirectedGraphNode nb : poll.neighbors) {
+                    if (map.get(nb) == 1) {
+                        //map.remove(nb);
+                        starts.offer(nb);
                     }
-                    map.put(neighbor, map.get(neighbor) - 1);
+                    map.put(nb, map.get(nb) - 1);
                 }
             }
         }
         return ans;
     }
 
-    // 所有点以及其入度是多少对应关系
-    public HashMap<DirectedGraphNode, Integer> buildIndex(ArrayList<DirectedGraphNode> graph) {
-        HashMap<DirectedGraphNode, Integer> map = new HashMap<>();
-        for (DirectedGraphNode node : graph) {
-            map.putIfAbsent(node, 0);
-            for (DirectedGraphNode neighbor : node.neighbors) {
-                if (map.containsKey(neighbor)) {
-                    map.put(neighbor, map.get(neighbor) + 1);
-                } else {
-                    map.put(neighbor, 1);
-                }
-            }
-        }
-        return map;
-    }
 
     public static class Record {
         public DirectedGraphNode node;
