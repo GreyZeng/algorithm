@@ -1,6 +1,13 @@
 package snippet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.Stack;
 
 // https://www.nowcoder.com/questionTerminal/c23eab7bb39748b6b224a8a3afbe396b
 // 最小生成树 K算法
@@ -18,7 +25,7 @@ public class Code_0083_K {
     public static Set<Edge> K(Graph graph) {
 
         // 1）总是从权值最小的边开始考虑，依次考察权值依次变大的边
-        PriorityQueue<Edge> queue = new PriorityQueue<>(new MyComparator());
+        PriorityQueue<Edge> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.weight));
         for (Edge edge : graph.edges) {
             queue.offer(edge);
         }
@@ -132,13 +139,6 @@ public class Code_0083_K {
             }
             return n;
         }
-
     }
 
-    public static class MyComparator implements Comparator<Edge> {
-        @Override
-        public int compare(Edge o1, Edge o2) {
-            return o1.weight - o2.weight;
-        }
-    }
 }
