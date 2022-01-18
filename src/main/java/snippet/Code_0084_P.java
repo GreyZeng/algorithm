@@ -1,6 +1,7 @@
 package snippet;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -20,7 +21,7 @@ public class Code_0084_P {
 //    6）当所有点都被选取，最小生成树就得到了
     public static Set<Edge> P(Graph graph) {
         // 解锁的边进入小根堆
-        PriorityQueue<Edge> priorityQueue = new PriorityQueue<>((o1, o2) -> o1.weight - o2.weight);
+        PriorityQueue<Edge> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(o -> o.weight));
 
         // 哪些点被解锁出来了
         HashSet<Node> nodeSet = new HashSet<>();
