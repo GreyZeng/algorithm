@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -29,13 +30,62 @@ public class LintCode_0127_TopologicalSorting {
     // DFS方式
     // 考察出度从大到小
     public static ArrayList<DirectedGraphNode> topSort(ArrayList<DirectedGraphNode> graph) {
+        if (null == graph) {
+            return new ArrayList<>();
+        }
+        Map<DirectedGraphNode, Info> map = new HashMap<>();
+        for (DirectedGraphNode node : graph) {
+            p(node, map);
+        }
+        List<Info> list = new ArrayList<>(map.values());
+        list.sort((o1, o2) -> {
+            if (o2.out > o1.out) {
+                return 1;
+            } else if (o2.out < o1.out) {
+                return -1;
+            }
+            return 0;
+        });
+        ArrayList<DirectedGraphNode> ans = new ArrayList<>();
+        for (Info info : list) {
+            ans.add(info.node);
+        }
+        return ans;
+    }
 
+    // 当前遍历的节点是node，之前遍历的节点和出度关系存map中
+    public static Info p(DirectedGraphNode node, Map<DirectedGraphNode, Info> map) {
+        if (map.containsKey(node)) {
+            return map.get(node);
+        }
+        long size = 0;
+        for (DirectedGraphNode neighbor : node.neighbors) {
+            size += p(neighbor, map).out;
+        }
+        Info info = new Info(node, size + 1);
+        map.put(node, info);
+        return info;
+    }
+
+    public static class Info {
+        public DirectedGraphNode node;
+        public long out;
+
+        public Info(DirectedGraphNode node, long out) {
+            this.node = node;
+            this.out = out;
+        }
+    }
+
+    // DFS方式
+    // 考察深度
+    public static ArrayList<DirectedGraphNode> topSort2(ArrayList<DirectedGraphNode> graph) {
         HashMap<DirectedGraphNode, Record> order = new HashMap<>();
         for (DirectedGraphNode cur : graph) {
-            f(cur, order);
+            f2(cur, order);
         }
         ArrayList<Record> recordArr = new ArrayList<>(order.values());
-        recordArr.sort(new MyComparator());
+        recordArr.sort((o1, o2) -> (o2.deep - o1.deep));
         ArrayList<DirectedGraphNode> ans = new ArrayList<>();
         for (Record r : recordArr) {
             ans.add(r.node);
@@ -43,36 +93,7 @@ public class LintCode_0127_TopologicalSorting {
         return ans;
     }
 
-    public static Record f(DirectedGraphNode cur, HashMap<DirectedGraphNode, Record> order) {
-        if (order.containsKey(cur)) {
-            return order.get(cur);
-        }
-        long out = 1;
-        for (DirectedGraphNode next : cur.neighbors) {
-            out += f(next, order).out;
-        }
-        Record ans = new Record(cur, out);
-        order.put(cur, ans);
-        return ans;
-    }
-
-    // DFS方式
-    // 考察深度
-    public static ArrayList<DirectedGraphNode> topSort2(ArrayList<DirectedGraphNode> graph) {
-        HashMap<DirectedGraphNode, Record2> order = new HashMap<>();
-        for (DirectedGraphNode cur : graph) {
-            f2(cur, order);
-        }
-        ArrayList<Record2> recordArr = new ArrayList<>(order.values());
-        recordArr.sort(new MyComparator2());
-        ArrayList<DirectedGraphNode> ans = new ArrayList<>();
-        for (Record2 r : recordArr) {
-            ans.add(r.node);
-        }
-        return ans;
-    }
-
-    public static Record2 f2(DirectedGraphNode cur, HashMap<DirectedGraphNode, Record2> order) {
+    public static Record f2(DirectedGraphNode cur, HashMap<DirectedGraphNode, Record> order) {
         if (order.containsKey(cur)) {
             return order.get(cur);
         }
@@ -80,26 +101,18 @@ public class LintCode_0127_TopologicalSorting {
         for (DirectedGraphNode next : cur.neighbors) {
             follow = Math.max(follow, f2(next, order).deep);
         }
-        Record2 ans = new Record2(cur, follow + 1);
+        Record ans = new Record(cur, follow + 1);
         order.put(cur, ans);
         return ans;
     }
 
-    public static class Record2 {
+    public static class Record {
         public DirectedGraphNode node;
         public int deep;
 
-        public Record2(DirectedGraphNode n, int o) {
+        public Record(DirectedGraphNode n, int o) {
             node = n;
             deep = o;
-        }
-    }
-
-    public static class MyComparator2 implements Comparator<Record2> {
-
-        @Override
-        public int compare(Record2 o1, Record2 o2) {
-            return o2.deep - o1.deep;
         }
     }
 
@@ -139,7 +152,7 @@ public class LintCode_0127_TopologicalSorting {
             if (poll.neighbors != null && !poll.neighbors.isEmpty()) {
                 for (DirectedGraphNode nb : poll.neighbors) {
                     if (map.get(nb) == 1) {
-                        //map.remove(nb);
+                        // map.remove(nb);
                         starts.offer(nb);
                     }
                     map.put(nb, map.get(nb) - 1);
@@ -147,30 +160,5 @@ public class LintCode_0127_TopologicalSorting {
             }
         }
         return ans;
-    }
-
-
-    public static class Record {
-        public DirectedGraphNode node;
-        public long out;
-
-        public Record(DirectedGraphNode n, long o) {
-            node = n;
-            out = o;
-        }
-    }
-
-    public static class MyComparator implements Comparator<Record> {
-
-        @Override
-        public int compare(Record o1, Record o2) {
-            if (o2.out > o1.out) {
-                return 1;
-            } else if (o1.out > o2.out) {
-                return -1;
-            } else {
-                return 0;
-            }
-        }
     }
 }
