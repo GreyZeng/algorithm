@@ -1,8 +1,10 @@
 package snippet;
 
-import java.util.ArrayList;
+import snippet.graph.Edge;
+import snippet.graph.Graph;
+import snippet.graph.Node;
+
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -19,7 +21,7 @@ public class Code_0084_P {
 //    4）如果会，不要当前边，继续考察剩下解锁的边中最小的边，重复3）
 //    5）如果不会，要当前边，将该边的指向点加入到被选取的点中，重复2）
 //    6）当所有点都被选取，最小生成树就得到了
-    public static Set<Edge> P(Graph graph) {
+    public static Set<Edge> primMST(Graph graph) {
         // 解锁的边进入小根堆
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(o -> o.weight));
 
@@ -45,47 +47,44 @@ public class Code_0084_P {
                     }
                 }
             }
-            // 如果有森林，就不能break，如果没有森林，就可以break
-            //break;
+            // break;
         }
         return result;
     }
 
-    public static class Graph {
-        public HashMap<Integer, Node> nodes;
-        public HashSet<Edge> edges;
-
-        public Graph(int n) {
-            nodes = new HashMap<>();
-            edges = new HashSet<>(n);
+    // 请保证graph是连通图
+    // graph[i][j]表示点i到点j的距离，如果是系统最大值代表无路
+    // 返回值是最小连通图的路径之和
+    public static int prim(int[][] graph) {
+        int size = graph.length;
+        int[] distances = new int[size];
+        boolean[] visit = new boolean[size];
+        visit[0] = true;
+        for (int i = 0; i < size; i++) {
+            distances[i] = graph[0][i];
         }
+        int sum = 0;
+        for (int i = 1; i < size; i++) {
+            int minPath = Integer.MAX_VALUE;
+            int minIndex = -1;
+            for (int j = 0; j < size; j++) {
+                if (!visit[j] && distances[j] < minPath) {
+                    minPath = distances[j];
+                    minIndex = j;
+                }
+            }
+            if (minIndex == -1) {
+                return sum;
+            }
+            visit[minIndex] = true;
+            sum += minPath;
+            for (int j = 0; j < size; j++) {
+                if (!visit[j] && distances[j] > graph[minIndex][j]) {
+                    distances[j] = graph[minIndex][j];
+                }
+            }
+        }
+        return sum;
     }
 
-    public static class Node {
-        public int value;
-        public int in;
-        public int out;
-        public ArrayList<Node> nexts;
-        public ArrayList<Edge> edges;
-
-        public Node(int value) {
-            this.value = value;
-            in = 0;
-            out = 0;
-            nexts = new ArrayList<>();
-            edges = new ArrayList<>();
-        }
-    }
-
-    public static class Edge {
-        public int weight;
-        public Node from;
-        public Node to;
-
-        public Edge(int weight, Node from, Node to) {
-            this.weight = weight;
-            this.from = from;
-            this.to = to;
-        }
-    }
 }
