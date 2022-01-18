@@ -24,8 +24,9 @@
         s consists only of lowercase English letters.*/
 package leetcode;
 
+//https://www.lintcode.com/problem/667/
 public class LeetCode_0516_LongestPalindromicSubsequence {
-    
+
     public static int longestPalindromeSubseq(String s) {
         char[] str = s.toCharArray();
         int n = str.length;
@@ -47,7 +48,7 @@ public class LeetCode_0516_LongestPalindromicSubsequence {
         }
         return dp[0][n - 1];
     }
-    
+
     public static int longestPalindromeSubseq2(String s) {
         char[] str1 = s.toCharArray();
         char[] reverseStr = reverse(str1);
@@ -84,8 +85,5 @@ public class LeetCode_0516_LongestPalindromicSubsequence {
         }
         return dp[m - 1][n - 1];
     }
-    
-    
-
 
 }
