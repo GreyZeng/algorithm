@@ -6,7 +6,7 @@
 //
 //        Now, we send a signal from a certain node K. How long will it take for all nodes to receive the signal?
 //        If it is impossible, return -1.
-package leetcode;
+package leetcode.medium;
 
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class LeetCode_0743_NetworkDelayTime {
                 from = n;
             }
         }
-        HashMap<Node, Integer> map = dijkstra2(from,N);
+        HashMap<Node, Integer> map = dijkstra2(from, N);
         int sum = -1;
 
         for (Map.Entry<Node, Integer> entry : map.entrySet()) {
