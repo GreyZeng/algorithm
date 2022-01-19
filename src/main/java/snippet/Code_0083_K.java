@@ -15,7 +15,6 @@ import java.util.Stack;
 // https://www.nowcoder.com/questionTerminal/c23eab7bb39748b6b224a8a3afbe396b
 // 最小生成树 K算法
 public class Code_0083_K {
-
     // K算法 （边权值排序，并查集）（如果无向图会少一侧的情况，按情况补充即可）
     // 最小生成树算法之Kruskal
     // 1）总是从权值最小的边开始考虑，依次考察权值依次变大的边
