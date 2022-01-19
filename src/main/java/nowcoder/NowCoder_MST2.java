@@ -11,38 +11,28 @@ import java.util.Scanner;
 //注意重边的情况。n≤10000, m≤100,000n\le 10000,\ m\le100,000n≤10000, m≤100,000，边权0<c≤100000< c\le100000<c≤10000。
 // 输出最小的花费代价使得这n户人家连接起来。
 // https://www.nowcoder.com/questionTerminal/c23eab7bb39748b6b224a8a3afbe396b
+// P算法
 public class NowCoder_MST2 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String[] mn = in.nextLine().split(" ");
-        int n = Integer.valueOf(mn[0]);
-        int m = Integer.valueOf(mn[1]);
-        int[][] graph = new int[m][n];
+        int n = in.nextInt();
+        int m = in.nextInt();
+        int[][] graph = new int[m][3];
         for (int i = 0; i < m; i++) {
-            String[] abc = in.nextLine().split(" ");
             // from
-            graph[i][0] = Integer.valueOf(abc[0]);
+            graph[i][0] = in.nextInt();
             // to
-            graph[i][1] = Integer.valueOf(abc[1]);
+            graph[i][1] = in.nextInt();
             // weight
-            graph[i][2] = Integer.valueOf(abc[2]);
+            graph[i][2] = in.nextInt();
         }
-        System.out.println(minCost(graph));
+        System.out.println(p(graph, n));
         in.close();
     }
 
-    public static int minCost(int[][] graph) {
-        int[][] mst = p(graph);
-        int ans = 0;
-        for (int i = 0; i < mst.length; i++) {
-            ans += mst[i][2];
-        }
-        return ans;
-    }
-
-    // TODO p算法生成最小生成树
-    public static int[][] p(int[][] graph) {
-        return null;
+    // P算法生成最小生成树
+    public static int p(int[][] graph, int n) {
+        return -1;
     }
 
 }
