@@ -12,8 +12,31 @@ package nowcoder;
 
 import java.util.Stack;
 
-// 逆序一个栈
+// 用递归函数和栈操作逆序栈
 public class NowCoder_ReverseStack {
+    public static int[] reverseStackRecursively(int[] stack, int top) {
+        if (top >= 1) {
+            // 获取栈底元素
+            int bottom = getBottom(stack, top);
+            // 逆序
+            stack = reverseStackRecursively(stack, --top);
+            // 栈低放栈顶
+            stack[top] = bottom;
+        }
+        return stack;
+    }
+
+    public static int getBottom(int[] stack, int top) {
+        if (top == 1) {
+            return stack[0];
+        } else {
+            int tmp = stack[--top];
+            int bottom = getBottom(stack, top);
+            stack[--top] = tmp;
+            return bottom;
+        }
+    }
+
     public static void reverseStackRecursively3(Stack<Integer> stack) {
         if (stack.isEmpty()) {
             return;
@@ -32,74 +55,6 @@ public class NowCoder_ReverseStack {
             int last = f(stack);
             stack.push(result);
             return last;
-        }
-    }
-    public static int[] reverseStackRecursively1(int[] stack, int top) {
-        if (top >= 1) {
-            // 获取栈底元素
-            int bottom = getBottom(stack, top--);
-            // 逆序
-            stack = reverseStackRecursively1(stack, top);
-            // 栈低放栈顶
-            stack[top++] = bottom;
-        }
-        return stack;
-    }
-
-    public static int getBottom(int[] stack, int top) {
-        if (top == 1) {
-            return stack[top - 1];
-        } else {
-            int tmp = stack[top - 1];
-            top--;
-            int bottom = getBottom(stack, top);
-            stack[top - 1] = tmp;
-            top++;
-            return bottom;
-        }
-    }
-
-    // 这个算法破坏了栈的结构
-    public static int[] reverseStackRecursively2(int[] stack, int top) {
-        if (top == 0) {
-            return null;
-        }
-        recursive(stack, 0, top - 1);
-        return stack;
-    }
-
-    private static void recursive(int[] stack, int start, int end) {
-        if (start >= end) {
-            return;
-        }
-        stack[start] ^= stack[end];
-        stack[end] ^= stack[start];
-        stack[start] ^= stack[end];
-        recursive(stack, start + 1, end - 1);
-    }
-    public static void main(String[] args) {
-
-        Stack<Integer> stack = new Stack<>();
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        reverseStackRecursively3(stack);
-        while (!stack.isEmpty()) {
-            System.out.println(stack.pop());
-        }
-        System.out.println("---");
-        int top = 5;
-        int[] stack1 = new int[]{1,2,3,4,5};
-        reverseStackRecursively1(stack1,top);
-        for (int i : stack1) {
-            System.out.println(i);
-        }
-
-        System.out.println("---");
-        int[] stack2 = new int[]{1,2,3,4,5};
-        reverseStackRecursively2(stack2,top);
-        for (int i : stack2) {
-            System.out.println(i);
         }
     }
 }
