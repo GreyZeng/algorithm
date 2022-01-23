@@ -24,52 +24,40 @@ package leetcode.medium;
 import java.util.ArrayList;
 import java.util.List;
 
+// https://leetcode-cn.com/problems/permutations-ii/
 public class LeetCode_0047_PermutationsII {
     public static List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
-        p(nums, 0, ans);
+        process(0, nums, ans);
         return ans;
     }
 
-    // 所有index以后的数字都可以来到index位置进行替换
-    // 生成的组合放在path里面
-    public static void p(int[] nums, int index, List<List<Integer>> ans) {
-        if (index == nums.length - 1) {
+    private static void process(int i, int[] nums, List<List<Integer>> ans) {
+        if (i == nums.length - 1) {
             List<Integer> path = new ArrayList<>();
-            for (int num : nums) {
-                path.add(num);
+            for (int n : nums) {
+                path.add(n);
             }
             ans.add(path);
         } else {
-            boolean[] visit = new boolean[21]; // 根据题目意思，数字的范围在[-10,10],所以准备21个长度的数组即可
-            for (int i = index; i < nums.length; i++) {
-                //System.out.println("i 位置:"+i+" 值："+nums[i] + " 开始收集" );
-                if (!visit[nums[i] + 10]) {
-                    //  System.out.println("i 位置:"+i+" 值："+nums[i] + " 收集过" );
-                    visit[nums[i] + 10] = true;
-                    swap(nums, i, index);
-                    p(nums, index + 1, ans);
-                    swap(nums, index, i);
+            boolean[] visited = new boolean[21];
+            for (int index = i; index < nums.length; index++) {
+                if (!visited[nums[index] + 10]) {
+                    visited[nums[index] + 10] = true;
+                    swap(index, i, nums);
+                    process(i + 1, nums, ans);
+                    swap(index, i, nums);
                 }
             }
-            //System.out.println("收集的结果是：" + ans);
         }
     }
 
-    public static void swap(int[] nums, int i, int j) {
-        if (i == j) {
+    private static void swap(int index, int i, int[] nums) {
+        if (index == i) {
             return;
         }
-        int t = nums[i];
-        nums[i] = nums[j];
-        nums[j] = t;
-    }
-
-    public static void main(String[] args) {
-        int[] nums = {1, 2, 3,1};
-        List<List<Integer>> ans = permuteUnique(nums);
-        for (List<Integer> a : ans) {
-            System.out.println(a);
-        }
+        nums[i] = nums[i] ^ nums[index];
+        nums[index] = nums[i] ^ nums[index];
+        nums[i] = nums[i] ^ nums[index];
     }
 }

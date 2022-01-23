@@ -170,6 +170,4 @@ public class NowCoder_RobotWalk {
         }
         return dp[start];
     }
-
-
 }
