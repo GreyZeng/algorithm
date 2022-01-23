@@ -8,7 +8,7 @@
 // 由于方案数可能比较大，所以答案需要对1e9+7取模。
 //
 //输入描述:
-//输出包括一行四个正整数N（2<=N<=5000）、M(1<=M<=N)、K(1<=K<=5000)、P(1<=P<=N)。
+//输入包括一行四个正整数N（2<=N<=5000）、M(1<=M<=N)、K(1<=K<=5000)、P(1<=P<=N)。
 //
 //
 //输出描述:
@@ -36,45 +36,52 @@
 //时间复杂度O(n*k),空间复杂度O(N)
 package nowcoder;
 
-import java.util.Scanner;
-
 public class NowCoder_RobotWalk {
     public static int MOD = (int) 1e9 + 7;
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int len = in.nextInt();
-        int start = in.nextInt() - 1;
-        int step = in.nextInt();
-        int end = in.nextInt() - 1;
+//        Scanner in = new Scanner(System.in);
+//        int len = in.nextInt();
+//        int start = in.nextInt() - 1;
+//        int step = in.nextInt();
+//        int end = in.nextInt() - 1;
+//        System.out.println(ways(len, start, step, end) % MOD);
+//        System.out.println(ways2(len, start, step, end) % MOD);
+//        System.out.println(ways3(len, start, step, end) % MOD);
+//        System.out.println(ways4(len, start, step, end) % MOD);
+//        in.close();
+        test();
+    }
+
+    public static void test() {
+        int len = 5;
+        int start = 1;
+        int step = 3;
+        int end = 2;
+        System.out.println(ways(len, start, step, end) % MOD);
         System.out.println(ways2(len, start, step, end) % MOD);
         System.out.println(ways3(len, start, step, end) % MOD);
         System.out.println(ways4(len, start, step, end) % MOD);
-        in.close();
     }
 
-    // 暴力递归 无法AC
-    // 从start开始，恰好走step步，到达end的方法数
+    // 暴力递归
     public static long ways(int len, int start, int step, int end) {
         if (step == 0) {
-            // 没有步数可以走了
-            // M正好是P位置，找到一种方法，否则没有方法
-            return (start == end ? 1 : 0);
+            if (start == end) {
+                return 1L;
+            }
+            return 0L;
         }
-        // K != 0 还有步数可以走
-        long ways = 0;
+        // step不止一步
         if (start == 0) {
-            // 只能往右边走
-            ways += ways(len, start + 1, step - 1, end);
+            return ways(len, start + 1, step - 1, end);
         } else if (start == len - 1) {
-            ways += ways(len, start - 1, step - 1, end);
+            return ways(len, start - 1, step - 1, end);
         } else {
-            ways = (ways(len, start - 1, step - 1, end) + ways(len, start + 1, step - 1, end));
+            return (ways(len, start - 1, step - 1, end) + ways(len, start + 1, step - 1, end));
         }
-        return ways;
     }
 
-    // 缓存法，可以AC
     public static long ways2(int len, int start, int step, int end) {
         long[][] dp = new long[len][step + 1];
         for (int i = 0; i < len; i++) {
@@ -82,36 +89,31 @@ public class NowCoder_RobotWalk {
                 dp[i][j] = -1L;
             }
         }
-        p(len, start, step, end, dp);
+        dp(len, start, step, end, dp);
         return dp[start][step];
-
     }
 
-    private static long p(int len, int start, int step, int end, long[][] dp) {
+    private static long dp(int len, int start, int step, int end, long[][] dp) {
         if (dp[start][step] != -1L) {
             return dp[start][step] % MOD;
         }
         if (step == 0) {
-            // 没有步数可以走了
-            // M正好是P位置，找到一种方法，否则没有方法
-            long ans = (start == end ? 1 : 0);
-            dp[start][step] = ans;
-            return ans;
+            dp[start][step] = start == end ? 1L : 0L;
+            return dp[start][step];
         }
-        // K != 0 还有步数可以走
-        long ways = 0;
+        long ans;
+        // step不止一步
         if (start == 0) {
-            // 只能往右边走
-            ways += (p(len, start + 1, step - 1, end, dp));
+            ans = dp(len, start + 1, step - 1, end, dp);
         } else if (start == len - 1) {
-            ways += (p(len, start - 1, step - 1, end, dp));
+            ans = dp(len, start - 1, step - 1, end, dp);
         } else {
-            ways = (p(len, start - 1, step - 1, end, dp) + p(len, start + 1, step - 1, end, dp));
+            ans = (dp(len, start - 1, step - 1, end, dp) + dp(len, start + 1, step - 1, end, dp));
         }
-        dp[start][step] = ways;
-        return ways;
+        dp[start][step] = ans;
+        return ans;
     }
-
+    
     // 动态规划
     public static long ways3(int len, int start, int step, int end) {
         long[][] dp = new long[len][step + 1];
