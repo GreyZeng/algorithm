@@ -14,23 +14,20 @@ public class NowCoder_PrintAllSubSequence {
     // 有重复值
     // 测评链接：https://www.nowcoder.com/questionTerminal/6c91e4855afc43638521d1171c252818
     public String[] getAllSubs(String s) {
-        if (s == null) {
-            return null;
-        }
-        List<String> res = new ArrayList<>();
+        // 子序列一定是连续的
         char[] str = s.toCharArray();
         String path = "";
-        p(str, 0, path, res);
-        final int size = res.size();
-        return res.toArray(new String[size]);
+        List<String> ans = new ArrayList<>();
+        process(0,str,path,ans);
+        return ans.toArray(new String[ans.size()]);
     }
 
-    private void p(char[] str, int i, String path, List<String> res) {
+    private void process(int i, char[] str, String path, List<String> ans) {
         if (i == str.length) {
-            res.add(path);
-            return;
+            ans.add(path);
+        } else {
+            process(i+1,str,path,ans);
+            process(i+1,str,path+str[i],ans);
         }
-        p(str, i + 1, path, res);
-        p(str, i + 1, path + str[i], res);
     }
 }
