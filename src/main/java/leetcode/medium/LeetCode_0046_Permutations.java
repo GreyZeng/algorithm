@@ -63,7 +63,7 @@ public class LeetCode_0046_Permutations {
         nums[i] = nums[i] ^ nums[index];
     }
 
-    // TODO 非递归方法
+    // 非递归方法
     public List<List<Integer>> permute2(int[] nums) {
         //先判断数组的特殊情况
         ArrayList<List<Integer>> res = new ArrayList<>();
