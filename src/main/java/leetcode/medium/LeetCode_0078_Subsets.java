@@ -22,31 +22,31 @@ import java.util.List;
 //		[1,2],
 //		[]
 //		]
+// https://leetcode-cn.com/problems/subsets/description/
 public class LeetCode_0078_Subsets {
 
     // 记得清除现场
     public static List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> a = new ArrayList<>();
-        LinkedList<Integer> p = new LinkedList<>();
-        process(nums, 0, p, a);
-        return a;
+        if (nums == null || nums.length < 1) {
+            return new ArrayList<>();
+        }
+        List<List<Integer>> ans = new ArrayList<>();
+        LinkedList<Integer> path = new LinkedList<>();
+        process(0, nums, path, ans);
+        return ans;
     }
 
-    private static void process(int[] nums, int i, LinkedList<Integer> path, List<List<Integer>> ansList) {
+    // 从i以及往后，nums所有的子集合存在ans里面
+    public static void process(int i, int[] nums, LinkedList<Integer> path, List<List<Integer>> ans) {
         if (i == nums.length) {
             List<Integer> list = new ArrayList<>(path);
-            ansList.add(list);
+            ans.add(list);
         } else {
-            process(nums, i + 1, path, ansList);
+            process(i + 1, nums, path, ans);
+            // 选了i位置的值
             path.addLast(nums[i]);
-            process(nums, i + 1, path, ansList);
+            process(i + 1, nums, path, ans);
             path.removeLast();
         }
     }
-
-    public static void main(String[] args) {
-        int[] nums = {1, 2, 3};
-        System.out.println(subsets(nums));
-    }
-
 }
