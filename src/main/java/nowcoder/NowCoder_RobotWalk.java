@@ -47,12 +47,12 @@ public class NowCoder_RobotWalk {
         int start = in.nextInt() - 1;
         int step = in.nextInt();
         int end = in.nextInt() - 1;
-        System.out.println(ways(len, start, step, end) % MOD);
-        System.out.println(ways2(len, start, step, end) % MOD);
-        System.out.println(ways3(len, start, step, end) % MOD);
+//        System.out.println(ways(len, start, step, end) % MOD);
+//        System.out.println(ways2(len, start, step, end) % MOD);
+//        System.out.println(ways3(len, start, step, end) % MOD);
         System.out.println(ways4(len, start, step, end) % MOD);
         in.close();
-        // test();
+        //test();
     }
 
     public static void test() {
@@ -142,22 +142,18 @@ public class NowCoder_RobotWalk {
 
     // 空间压缩
     public static long ways4(int len, int start, int step, int end) {
-        // int times = step + 1;
         long[] dp = new long[len];
-        // 第一列
         dp[end] = 1L;
-        // 从第一列开始
-        // 每列从上到下
         long tmp = 0;
-        for (int i = 1; i < step + 1; i++) {
-            for (int j = 0; j < len; j++) {
-                long ways = dp[j];
-                if (j == 0) {
-                    dp[j] = dp[j + 1] % MOD;
-                } else if (j == len - 1) {
-                    dp[j] = tmp % MOD;
+        for (int j = 1; j < step + 1; j++) {
+            for (int i = 0; i < len; i++) {
+                long ways = dp[i];
+                if (i == 0) {
+                    dp[i] = dp[1] % MOD;
+                } else if (i == len - 1) {
+                    dp[i] = tmp % MOD;
                 } else {
-                    dp[j] = tmp % MOD + dp[j + 1] % MOD;
+                    dp[i] = tmp % MOD + dp[i + 1] % MOD;
                 }
                 tmp = ways;
             }
