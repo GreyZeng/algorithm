@@ -36,21 +36,23 @@
 //时间复杂度O(n*k),空间复杂度O(N)
 package nowcoder;
 
+import java.util.Scanner;
+
 public class NowCoder_RobotWalk {
     public static int MOD = (int) 1e9 + 7;
 
     public static void main(String[] args) {
-//        Scanner in = new Scanner(System.in);
-//        int len = in.nextInt();
-//        int start = in.nextInt() - 1;
-//        int step = in.nextInt();
-//        int end = in.nextInt() - 1;
-//        System.out.println(ways(len, start, step, end) % MOD);
-//        System.out.println(ways2(len, start, step, end) % MOD);
-//        System.out.println(ways3(len, start, step, end) % MOD);
-//        System.out.println(ways4(len, start, step, end) % MOD);
-//        in.close();
-        test();
+        Scanner in = new Scanner(System.in);
+        int len = in.nextInt();
+        int start = in.nextInt() - 1;
+        int step = in.nextInt();
+        int end = in.nextInt() - 1;
+        System.out.println(ways(len, start, step, end) % MOD);
+        System.out.println(ways2(len, start, step, end) % MOD);
+        System.out.println(ways3(len, start, step, end) % MOD);
+        System.out.println(ways4(len, start, step, end) % MOD);
+        in.close();
+        // test();
     }
 
     public static void test() {
@@ -82,6 +84,7 @@ public class NowCoder_RobotWalk {
         }
     }
 
+    // 动态规划-缓存法
     public static long ways2(int len, int start, int step, int end) {
         long[][] dp = new long[len][step + 1];
         for (int i = 0; i < len; i++) {
@@ -113,36 +116,25 @@ public class NowCoder_RobotWalk {
         dp[start][step] = ans;
         return ans;
     }
-    
-    // 动态规划
+
+    // 动态规划版本
     public static long ways3(int len, int start, int step, int end) {
         long[][] dp = new long[len][step + 1];
-        for (int i = 0; i < len; i++) {
-            for (int j = 0; j <= step; j++) {
-                if (j == 0) {
-                    if (i == end) {
-                        dp[i][j] = 1;
-                    } else {
-                        dp[i][j] = 0;
-                    }
+        // 填好第0列
+        dp[end][0] = 1L;
+        // 判断边界
+//        dp[0][1] = dp[1][0];
+//        dp[len - 1][1] = dp[len - 2][0];
+        // 第一行
+        for (int j = 1; j < step + 1; j++) {
+            for (int i = 0; i < len; i++) {
+                if (i == 0) {
+                    dp[i][j] = dp[1][j - 1];
+                } else if (i == len - 1) {
+                    dp[i][j] = dp[len - 2][j - 1];
                 } else {
-                    dp[i][j] = -1L;
+                    dp[i][j] = dp[i - 1][j - 1] % MOD + dp[i + 1][j - 1] % MOD;
                 }
-            }
-        }
-        // 从第一列开始
-        // 每列从上到下
-        for (int i = 1; i < step + 1; i++) {
-            for (int j = 0; j < len; j++) {
-                long ways = 0;
-                if (j == 0) {
-                    ways += dp[j + 1][i - 1];
-                } else if (j == len - 1) {
-                    ways += dp[j - 1][i - 1];
-                } else {
-                    ways = dp[j - 1][i - 1] + dp[j + 1][i - 1];
-                }
-                dp[j][i] = ways % MOD;
             }
         }
         return dp[start][step];
