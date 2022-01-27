@@ -12,7 +12,7 @@ package nowcoder;
 //        返回：101
 public class NowCoder_Cards {
     // 暴力递归
-    public int cardGame(int[] A, int n) {
+    public static int cardGame(int[] A, int n) {
         if (n == 0) {
             return 0;
         }
@@ -22,29 +22,28 @@ public class NowCoder_Cards {
         if (n == 2) {
             return Math.max(A[0], A[1]);
         }
-        return Math.max(f(A, n, 0, n - 1), s(A, n, 0, n - 1));
+        return Math.max(first(A, n, 0, A.length - 1), second(A, n, 0, A.length - 1));
     }
 
-    // 范围上的尝试
+    // 范围上的尝试模型
     // 先手函数
-    public int f(int[] A, int n, int L, int R) {
-        if (L == R) {
-            // 只有一个数
-            return A[R];
+    public static int first(int[] A, int n, int start, int end) {
+        if (start == end) {
+            return A[start];
         }
-        return Math.max(A[L] + s(A, n, L + 1, R), A[R] + s(A, n, L, R - 1));
+        return Math.max(A[start] + second(A, n, start + 1, end), A[end] + second(A, n, start, end - 1));
     }
 
     // 后手函数
-    public int s(int[] A, int n, int L, int R) {
-        if (L == R) {
-            // 只有一个数
+    public static int second(int[] A, int n, int start, int end) {
+        if (start == end) {
             return 0;
         }
-        return Math.min(f(A, n, L + 1, R), f(A, n, L, R - 1));
+        return Math.min(first(A, n, start + 1, end), first(A, n, start, end - 1));
     }
 
-    // 动态规划优化版本
+
+    //动态规划优化版本
     public int cardGame2(int[] A, int n) {
         if (n == 0) {
             return 0;
