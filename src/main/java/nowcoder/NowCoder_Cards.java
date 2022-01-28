@@ -42,9 +42,7 @@ public class NowCoder_Cards {
         return Math.min(first(A, n, start + 1, end), first(A, n, start, end - 1));
     }
 
-
-    //动态规划优化版本
-    public int cardGame2(int[] A, int n) {
+    public static int cardGame2(int[] A, int n) {
         if (n == 0) {
             return 0;
         }
@@ -54,22 +52,31 @@ public class NowCoder_Cards {
         if (n == 2) {
             return Math.max(A[0], A[1]);
         }
-        int[][] f = new int[n][n];
-        int[][] s = new int[n][n];
+        int[][] firstMap = new int[n][n];
+        int[][] secondMap = new int[n][n];
+        // 对角线
         for (int i = 0; i < n; i++) {
-            f[i][i] = A[i];
+            firstMap[i][i] = A[i];
         }
-        // i表示列
+        // 对角线下班区域不用管
+        // 对角线上半区域
         for (int i = 1; i < n; i++) {
             int r = 0;
             int c = i;
-            while (r < n - i || c < n) {
-                s[r][c] = Math.min(f[r + 1][c], f[r][c - 1]);
-                f[r][c] = Math.max(A[r] + s[r + 1][c], A[c] + s[r][c - 1]);
+            while (c < n) {
+                firstMap[r][c] = Math.max(A[r] + secondMap[r + 1][c], A[c] + secondMap[r][c - 1]);
+                secondMap[r][c] = Math.min(firstMap[r + 1][c], firstMap[r][c - 1]);
                 r++;
                 c++;
             }
         }
-        return Math.max(f[0][n - 1], s[0][n - 1]);
+        return Math.max(firstMap[0][n - 1], secondMap[0][n - 1]);
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {5, 7, 4, 5, 8, 1, 6, 0, 3, 4, 6, 1, 7};
+        System.out.println(cardGame(arr, arr.length));
+        System.out.println(cardGame2(arr, arr.length));
+
     }
 }
