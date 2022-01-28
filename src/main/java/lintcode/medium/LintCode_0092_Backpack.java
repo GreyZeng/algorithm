@@ -1,8 +1,5 @@
 package lintcode.medium;
 
-import java.util.ArrayList;
-import java.util.List;
-
 //描述
 //        在n个物品中挑选若干物品装入背包，最多能装多满？假设背包的大小为m，每个物品的大小为A_{i}A
 //        i
@@ -61,47 +58,15 @@ public class LintCode_0092_Backpack {
     }
 
     // 动态规划
-    public static int backPack3(int m, int[] A) {
-        if (null == A || A.length == 0 || m == 0) {
+    public static int backPack3(int m, int[] arr) {
+        if (arr == null || arr.length < 1) {
             return 0;
         }
-        List<Integer> notOver = new ArrayList<>();
-        int sum = 0;
-        boolean over = true;
-        for (int a : A) {
-            if (a == m) {
-                // 如果有一个物品正好等于背包容量，直接返回
-                return m;
-            } else if (a < m) {
-                over = false;
-                notOver.add(a);
-                sum += a;
-            }
-        }
-        if (over) {
-            // 物品重量都大于背包重量，直接返回0
-            return 0;
-        }
-        if (sum <= m) {
-            // 能拿的货物之和的重量都没有超过m
-            // 直接返回货品重量之和
-            return sum;
-        }
-        int n = notOver.size();
-        int[][] dp = new int[n + 1][m + 1];
-        for (int j = 0; j < m + 1; j++) {
-            dp[n][j] = m - j;
-        }
-        for (int i = 0; i < n + 1; i++) {
-            dp[i][0] = m;
-        }
-        for (int i = n - 1; i >= 0; i--) {
-            for (int j = 1; j < m + 1; j++) {
-                dp[i][j] = dp[i + 1][j];
-                int t = j - notOver.get(i);
-                if (t >= 0) {
-                    dp[i][j] = Math.max(dp[i + 1][j], dp[i + 1][t]);
-                }
+        int[][] dp = new int[arr.length + 1][m + 1];
+        for (int i = arr.length - 1; i >= 0; i--) {
+            for (int j = 0; j < m + 1; j++) {
+                int p1 = dp[i + 1][j];
+                dp[i][j] = j >= arr[i] ? Math.max(arr[i] + dp[i + 1][j - arr[i]], p1) : p1;
             }
         }
         return dp[0][m];
