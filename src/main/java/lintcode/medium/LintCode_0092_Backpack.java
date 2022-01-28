@@ -73,23 +73,22 @@ public class LintCode_0092_Backpack {
     }
 
     // 动态规划+压缩数组优化
-    // TODO
-    public static int backPack4(int m, int[] A) {
-        if (null == A || A.length == 0 || m == 0) {
+    public static int backPack4(int m, int[] arr) {
+        if (arr == null || arr.length < 1) {
             return 0;
         }
-        // 离m最近的比m小的值
         int[] dp = new int[m + 1];
-        for (int k : A) {
+        for (int i = arr.length - 1; i >= 0; i--) {
             for (int j = m; j >= 0; j--) {
-                if (j >= k) {
-                    dp[j] = Math.max(dp[j], dp[j - k] + k);
+                if (j >= arr[i]) {
+                    dp[j] = Math.max(dp[j - arr[i]] + arr[i], dp[j]);
                 }
             }
         }
         return dp[m];
     }
 
+ 
     public static void main(String[] args) {
         int m = 10;
         int[] A = {3, 4, 8, 5};
