@@ -13,38 +13,25 @@ import java.util.List;
 // https://www.lintcode.com/problem/92/
 public class LintCode_0092_Backpack {
     // 暴力递归
-    public int backPack(int m, int[] A) {
-        if (null == A || A.length == 0 || m == 0) {
+    public static int backPack(int m, int[] arr) {
+        if (arr == null || arr.length < 1) {
             return 0;
         }
-        List<Integer> notOver = new ArrayList<>();
-        int sum = 0;
-        boolean over = true;
-        for (int a : A) {
-            if (a == m) {
-                // 如果有一个物品正好等于背包容量，直接返回
-                return m;
-            } else if (a < m) {
-                over = false;
-                notOver.add(a);
-                sum += a;
-            }
-        }
-        if (over) {
-            // 物品重量都大于背包重量，直接返回0
+        return p(m, 0, arr);
+    }
+
+    // 还剩rest容量,得到的最大容量是多少
+    // 从i开始到最后，得到的最大容量是多少
+    public static int p(int rest, int i, int[] arr) {
+        if (i == arr.length) {
             return 0;
         }
-        if (sum <= m) {
-            // 能拿的货物之和的重量都没有超过m
-            // 直接返回货品重量之和
-            return sum;
-        }
-        // notOver过滤出可以装的物品
-        return p(m, notOver, 0, m);
+        int p1 = p(rest, i + 1, arr);
+        return rest >= arr[i] ? Math.max(arr[i] + p(rest - arr[i], i + 1, arr), p1) : p1;
     }
 
     // 0 ~ i - 1 已经做好选择，还剩余j，从i开始做选择，能拿到的最大不超过M的重量是多少
-    public int p(int m, List<Integer> notOver, int i, int j) {
+    public static int p(int m, List<Integer> notOver, int i, int j) {
         if (i == notOver.size()) {
             if (j == 0) {
                 return m;
@@ -63,7 +50,7 @@ public class LintCode_0092_Backpack {
     }
 
     // 缓存
-    public int backPack2(int m, int[] A) {
+    public static int backPack2(int m, int[] A) {
         if (null == A || A.length == 0 || m == 0) {
             return 0;
         }
@@ -100,7 +87,7 @@ public class LintCode_0092_Backpack {
         return dp[0][m];
     }
 
-    public int p2(int m, List<Integer> notOver, int i, int rest, int[][] dp) {
+    public static int p2(int m, List<Integer> notOver, int i, int rest, int[][] dp) {
         if (dp[i][rest] != -1) {
             return dp[i][rest];
         }
@@ -133,7 +120,7 @@ public class LintCode_0092_Backpack {
 
 
     // 动态规划
-    public int backPack3(int m, int[] A) {
+    public static int backPack3(int m, int[] A) {
         if (null == A || A.length == 0 || m == 0) {
             return 0;
         }
@@ -200,7 +187,9 @@ public class LintCode_0092_Backpack {
     public static void main(String[] args) {
         int m = 10;
         int[] A = {3, 4, 8, 5};
-        int t = backPack4(m, A);
-        System.out.println(t);
+        System.out.println(backPack(m, A));
+        System.out.println(backPack2(m, A));
+        System.out.println(backPack3(m, A));
+        System.out.println(backPack4(m, A));
     }
 }
