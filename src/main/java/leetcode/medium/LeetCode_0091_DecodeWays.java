@@ -45,69 +45,77 @@ package leetcode.medium;
 //        链接：https://leetcode-cn.com/problems/decode-ways
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0091_DecodeWays {
-    public static int numDecodings2(String s) {
-        if (s == null || s.length() < 1) {
+    public static int numDecodings(String s) {
+        if (null == s || s.length() < 1) {
             return 0;
         }
         char[] str = s.toCharArray();
-        int n = str.length;
-        // i位置往后所有解码情况数
-        int[] dp = new int[n + 1];
-        dp[n] = 1;
-        for (int i = n - 1; i >= 0; i--) {
+        int[] dp = new int[str.length + 1];
+        dp[str.length] = 1;
+        for (int i = str.length - 1; i >= 0; i--) {
             if (str[i] == '0') {
-                // i位置居然让我独立面对0，则为错误决策
                 dp[i] = 0;
             } else {
-                // 只使用i位置的值来解码
                 dp[i] = dp[i + 1];
-                if (i + 1 < n && str[i + 1] <= '6' && str[i] == '2') {
-                    dp[i] = dp[i + 1] + dp[i + 2];
-                }
-                if (i + 1 < n && str[i] == '1') {
-                    dp[i] = dp[i + 1] + dp[i + 2];
+                if (str[i] == '1' && i + 1 < str.length) {
+                    dp[i] = dp[i] + dp[i + 2];
+                } else if (str[i] == '2' && i + 1 < str.length && str[i + 1] <= '6') {
+                    dp[i] += dp[i + 2];
                 }
             }
         }
         return dp[0];
-
     }
-
-    // 超时
-    public static int numDecodings(String s) {
-        if (s == null || s.length() < 1) {
+    
+    // 暴力方法，无法AC
+    public static int numDecodings2(String s) {
+        if (null == s || s.length() < 1) {
             return 0;
         }
         char[] str = s.toCharArray();
-        return p(str, 0);
+        return process(0, str);
+
     }
 
-    // 0 ~ i-1位置搞定了，接下来搞定i位置以及后续位置
-    public static int p(char[] str, int i) {
-        // i到终止位置，找到一种方法
+    // 从i一直到最后，得到的解码数
+    public static int process(int i, char[] str) {
+        if (i > str.length) {
+            return 0;
+        }
         if (i == str.length) {
             return 1;
         }
-        // i位置独立面对0字符，说明之前的决策有问题。直接返回0种
+        // i < str.length
         if (str[i] == '0') {
             return 0;
         }
-        // i独立转换
-        int p = p(str, i + 1);
-        if (i + 1 < str.length && str[i + 1] <= '6' && str[i] == '2') {
-            return p + p(str, i + 2);
+        if (str[i] == '1') {
+            int p1 = process(i + 1, str);
+            int p2 = process(i + 2, str);
+            return p1 + p2;
         }
-        if (i + 1 < str.length && str[i] == '1') {
-            return p + p(str, i + 2);
+        if (str[i] == '2') {
+            int p1 = process(i + 1, str);
+            if (i + 1 < str.length && str[i + 1] <= '6') {
+                p1 += process(i + 2, str);
+            }
+            return p1;
         }
-        return p;
+        return process(i + 1, str);
     }
 
     public static void main(String[] args) {
         System.out.println(numDecodings("12"));
+        System.out.println(numDecodings2("12"));
+        System.out.println("---");
         System.out.println(numDecodings("1"));
+        System.out.println(numDecodings2("1"));
+        System.out.println("---");
         System.out.println(numDecodings("26"));
+        System.out.println(numDecodings2("26"));
+        System.out.println("---");
         System.out.println(numDecodings("2611055971756562"));
+        System.out.println(numDecodings2("2611055971756562"));
     }
 
 }
