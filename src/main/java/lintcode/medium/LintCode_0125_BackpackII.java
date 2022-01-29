@@ -45,36 +45,31 @@ package lintcode.medium;
 
 // https://www.lintcode.com/problem/125/
 public class LintCode_0125_BackpackII {
-    // 暴力递归版本
-    public int backPackII(int m, int[] A, int[] V) {
-        if (A == null || V == null || A.length == 0 || V.length == 0 || m == 0) {
+    // w[]表示重量
+    // v[]表示价值
+    // 暴力递归
+    public static int backPackII(int m, int[] w, int[] v) {
+        if (m <= 0 || w == null || w.length < 1 || v == null || v.length < 1) {
             return 0;
         }
-        int len = A.length;
-        return p(A, V, len, 0, m);
+        return process(0, m, w, v);
     }
 
-    // 0...i-1已经搞定，还剩下rest空间
-    // 返回还能获取的最大价值
-    public int p(int[] A, int[] V, int len, int i, int rest) {
-        if (rest < 0) {
-            return -1;
-        }
-        if (i == len) {
-            // i到结尾位置了，没办法产生任何价值了
+    // i号及其往后所有的物品在重量允许范围内的最大价值是多少
+    public static int process(int i, int m, int[] w, int[] v) {
+        if (i == w.length) {
             return 0;
         }
-        // 选择i位置
-        int yes = p(A, V, len, i + 1, rest - A[i]);
-        // 不选择i位置
-        int no = p(A, V, len, i + 1, rest);
-        if (yes != -1) {
-            return Math.max(no, yes + V[i]);
+        // 不选i号商品
+        int p1 = process(i + 1, m, w, v);
+        if (m >= w[i]) {
+            // 这种情况下，才有资格选i号商品
+            return Math.max(p1, v[i] + process(i + 1, m - w[i], w, v));
         }
-        return no;
+        return p1;
     }
 
-    public int backPackII2(int bag, int[] w, int[] v) {
+    public static int backPackII2(int bag, int[] w, int[] v) {
         if (w == null || v == null || w.length == 0 || v.length == 0 || bag == 0) {
             return 0;
         }
@@ -89,7 +84,7 @@ public class LintCode_0125_BackpackII {
         return dp[0][bag];
     }
 
-    public int dp2(int[] w, int[] v, int len, int i, int rest, int[][] dp) {
+    public static int dp2(int[] w, int[] v, int len, int i, int rest, int[][] dp) {
         if (dp[i][rest] != -1) {
             return dp[i][rest];
         }
@@ -113,7 +108,7 @@ public class LintCode_0125_BackpackII {
     }
 
     // 动态规划
-    public int backPackII3(int bag, int[] w, int[] v) {
+    public static int backPackII3(int bag, int[] v, int[] w) {
         if (w == null || v == null || w.length == 0 || v.length == 0 || bag == 0) {
             return 0;
         }
@@ -140,7 +135,7 @@ public class LintCode_0125_BackpackII {
     }
 
     // 动态规划+压缩数组
-    public int backPackII4(int m, int[] w, int[] v) {
+    public static int backPackII4(int m, int[] w, int[] v) {
         if (w == null || v == null || w.length == 0 || v.length == 0 || m == 0) {
             return 0;
         }
@@ -161,8 +156,10 @@ public class LintCode_0125_BackpackII {
     public static void main(String[] args) {
         int[] w = {2, 3, 5, 7};
         int[] v = {1, 5, 2, 4};
-        int i = new LintCode_0125_BackpackII().backPackII4(10, w, v);
-        System.out.println(i);
+        System.out.println(backPackII(10, w, v));
+        System.out.println(backPackII2(10, w, v));
+        //System.out.println(backPackII3(10, w, v));
+        System.out.println(backPackII4(10, w, v));
     }
 
 }
