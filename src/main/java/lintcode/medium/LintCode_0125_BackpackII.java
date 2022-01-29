@@ -102,58 +102,54 @@ public class LintCode_0125_BackpackII {
         return ans;
     }
 
-    // 动态规划
-    public static int backPackII3(int bag, int[] v, int[] w) {
-        if (w == null || v == null || w.length == 0 || v.length == 0 || bag == 0) {
+    // 动态规划解
+    public static int backPackII3(int m, int[] w, int[] v) {
+        if (m <= 0 || w == null || w.length < 1 || v == null || v.length < 1) {
             return 0;
         }
-        int N = w.length;
-        int[][] dp = new int[N + 1][bag + 1];
-        for (int i = 0; i < N + 1; i++) {
-            for (int j = 0; j < bag + 1; j++) {
-                dp[i][j] = -1;
-            }
-        }
-        for (int j = 0; j < bag + 1; j++) {
-            dp[N][j] = 0;
-        }
-        // 选择i位置
-        for (int i = N; i >= 0; i--) {
-            for (int j = 0; j < bag + 1; j++) {
+        int[][] dp = new int[w.length + 1][m + 1];
+        // 倒数第一行都是0
+        // 从倒数第二行开始填
+        for (int i = w.length - 1; i >= 0; i--) {
+            for (int j = m; j >= 0; j--) {
                 dp[i][j] = dp[i + 1][j];
-                if (j - w[i] >= 0 && dp[i + 1][j - w[i]] != -1) {
-                    dp[i][j] = Math.max(dp[i][j], dp[i + 1][j - w[i]] + v[i]);
+                if (j >= w[i]) {
+                    dp[i][j] = Math.max(dp[i][j], v[i] + dp[i + 1][j - w[i]]);
+                }
+                if (j == m && i == 0) {
+                    break;
                 }
             }
         }
-        return dp[0][bag];
+        return dp[0][m];
     }
 
-    // 动态规划+压缩数组
     public static int backPackII4(int m, int[] w, int[] v) {
-        if (w == null || v == null || w.length == 0 || v.length == 0 || m == 0) {
+        if (m <= 0 || w == null || w.length < 1 || v == null || v.length < 1) {
             return 0;
         }
-        int N = w.length;
         int[] dp = new int[m + 1];
-
-        // 选择i位置
-        for (int i = 0; i < N; i++) {
+        for (int i = w.length - 1; i >= 0; i--) {
             for (int j = m; j >= 0; j--) {
-                if (j - w[i] >= 0) {
-                    dp[j] = Math.max(dp[j], dp[j - w[i]] + v[i]);
+                if (j >= w[i]) {
+                    //int tmp = dp[j - w[i]];
+                    dp[j] = Math.max(dp[j], v[i] + dp[j - w[i]]);
+                }
+                if (i == 0) {
+                    break;
                 }
             }
         }
         return dp[m];
     }
+   
 
     public static void main(String[] args) {
         int[] w = {2, 3, 5, 7};
         int[] v = {1, 5, 2, 4};
         System.out.println(backPackII(10, w, v));
         System.out.println(backPackII2(10, w, v));
-        //System.out.println(backPackII3(10, w, v));
+        System.out.println(backPackII3(10, w, v));
         System.out.println(backPackII4(10, w, v));
     }
 
