@@ -1,4 +1,5 @@
 package lintcode.medium;
+
 //描述
 //        有 n 个物品和一个大小为 m 的背包. 给定数组 A 表示每个物品的大小和数组 V 表示每个物品的价值.
 //
@@ -42,7 +43,6 @@ package lintcode.medium;
 //
 //        挑战
 //        O(nm) 空间复杂度可以通过, 你能把空间复杂度优化为O(m)吗？
-
 // https://www.lintcode.com/problem/125/
 public class LintCode_0125_BackpackII {
     // w[]表示重量
@@ -69,42 +69,37 @@ public class LintCode_0125_BackpackII {
         return p1;
     }
 
-    public static int backPackII2(int bag, int[] w, int[] v) {
-        if (w == null || v == null || w.length == 0 || v.length == 0 || bag == 0) {
+    // 缓存法
+    public static int backPackII2(int m, int[] w, int[] v) {
+        if (m <= 0 || w == null || w.length < 1 || v == null || v.length < 1) {
             return 0;
         }
-        int N = w.length;
-        int[][] dp = new int[N + 1][bag + 1];
-        for (int i = 0; i < N + 1; i++) {
-            for (int j = 0; j < bag + 1; j++) {
+        int[][] dp = new int[w.length + 1][m + 1];
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[0].length; j++) {
                 dp[i][j] = -1;
             }
         }
-        dp2(w, v, N, 0, bag, dp);
-        return dp[0][bag];
+        return process2(0, m, w, v, dp);
     }
 
-    public static int dp2(int[] w, int[] v, int len, int i, int rest, int[][] dp) {
-        if (dp[i][rest] != -1) {
-            return dp[i][rest];
+    public static int process2(int i, int m, int[] w, int[] v, int[][] dp) {
+        if (dp[i][m] != -1) {
+            return dp[i][m];
         }
-        // rest空间不能为负数
-
-        if (i == len) {
-            dp[i][rest] = 0;
-            return dp[i][rest];
+        if (i == w.length) {
+            dp[i][m] = 0;
+            return 0;
         }
-        int p1 = dp2(w, v, len, i + 1, rest, dp);
-        if (rest - w[i] >= 0) {
-            int p2 = dp2(w, v, len, i + 1, rest - w[i], dp);
-            if (p2 != -1) { // p2 不为-1才能算做正常解
-                p2 += v[i];
-            }
-            dp[i][rest] = Math.max(p1, p2);
-            return dp[i][rest];
+        // 最后一行都是0
+        // 从最后一行开始
+        int ans = process2(i + 1, m, w, v, dp);
+        if (i < w.length && m >= w[i]) {
+            // 这种情况下，才有资格选i号商品
+            ans = Math.max(ans, v[i] + process2(i + 1, m - w[i], w, v, dp));
         }
-        dp[i][rest] = p1;
-        return dp[i][rest];
+        dp[i][m] = ans;
+        return ans;
     }
 
     // 动态规划
