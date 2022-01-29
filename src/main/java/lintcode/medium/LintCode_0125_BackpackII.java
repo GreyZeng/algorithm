@@ -132,7 +132,6 @@ public class LintCode_0125_BackpackII {
         for (int i = w.length - 1; i >= 0; i--) {
             for (int j = m; j >= 0; j--) {
                 if (j >= w[i]) {
-                    //int tmp = dp[j - w[i]];
                     dp[j] = Math.max(dp[j], v[i] + dp[j - w[i]]);
                 }
                 if (i == 0) {
@@ -142,7 +141,7 @@ public class LintCode_0125_BackpackII {
         }
         return dp[m];
     }
-   
+
 
     public static void main(String[] args) {
         int[] w = {2, 3, 5, 7};
