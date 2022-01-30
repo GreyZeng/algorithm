@@ -154,8 +154,8 @@ public class LeetCode_0691_StickersToSpellWord {
         int[][] s = new int[n][26];
         for (int i = 0; i < n; i++) {
             char[] line = stickers[i].toCharArray();
-            for (int j = 0; j < line.length; j++) {
-                s[i][line[j] - 'a']++;
+            for (char c : line) {
+                s[i][c - 'a']++;
             }
         }
         return s;
@@ -163,9 +163,7 @@ public class LeetCode_0691_StickersToSpellWord {
 
     private String minus(int[] first, char[] t) {
         int[] count = new int[first.length];
-        for (int i = 0; i < first.length; i++) {
-            count[i] = first[i];
-        }
+        System.arraycopy(first, 0, count, 0, first.length);
         StringBuilder sb = new StringBuilder();
         for (char c : t) {
             if (count[c - 'a'] > 0) {
