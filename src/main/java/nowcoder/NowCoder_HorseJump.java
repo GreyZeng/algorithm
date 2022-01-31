@@ -41,8 +41,8 @@ public class NowCoder_HorseJump {
 		int p6 = ways(i + 1, j + 2, a, b, step - 1);
 		int p7 = ways(i + 1, j - 2, a, b, step - 1);
 		int p8 = ways(i + 2, j - 1, a, b, step - 1);
-		return (p1 == -1 ? 0 : p1) + (p2 == -1 ? 0 : p2) + (p3 == -1 ? 0 : p3) + (p4 == -1 ? 0 : p4)
-				+ (p5 == -1 ? 0 : p5) + (p6 == -1 ? 0 : p6) + (p7 == -1 ? 0 : p7) + (p8 == -1 ? 0 : p8);
+		return ((p1 == -1) ? 0 : p1) + ((p2 == -1) ? 0 : p2) + ((p3 == -1) ? 0 : p3) + ((p4 == -1) ? 0 : p4)
+                + ((p5 == -1) ? 0 : p5) + ((p6 == -1) ? 0 : p6) + ((p7 == -1) ? 0 : p7) + ((p8 == -1) ? 0 : p8);
 	}
 
 	// 根据暴力递归改动态规划
@@ -75,9 +75,7 @@ public class NowCoder_HorseJump {
 				}
 			}
 		}
-
 		return dp[0][0][step];
-
 	}
 
 }
