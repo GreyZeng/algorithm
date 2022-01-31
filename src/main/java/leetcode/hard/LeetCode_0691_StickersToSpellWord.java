@@ -33,46 +33,44 @@ import java.util.Map;
 // 链接：https://leetcode-cn.com/problems/stickers-to-spell-word
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0691_StickersToSpellWord {
-    // 暴力解，枚举每一张贴纸作为第一张贴纸的情况
-    // 暴力方法，会超时
-    public int minStickers(String[] stickers, String target) {
-        if (target == null || target.length() < 1) {
+    public static int minStickers(String[] stickers, String target) {
+        if (stickers == null || stickers.length < 1 || target.length() < 1) {
             return 0;
         }
-        int res = p(stickers, target);
-        return res == Integer.MAX_VALUE ? -1 : res;
+        int p = process(stickers, target);
+        return p == Integer.MAX_VALUE ? -1 : p;
     }
 
-    public int p(String[] stickers, String target) {
+    public static int process(String[] stickers, String target) {
         if (target.length() == 0) {
+            // 目标是空串，只需要0张贴纸
             return 0;
         }
         int ways = Integer.MAX_VALUE;
-        // 每一张贴纸作为第一张贴纸，搞定后续的方法数
-        for (String first : stickers) {
-            String rest = minus(first, target);
-            // rest长度==target长度，说明没有搞定任何情况
-            if (rest.length() != target.length()) {
-                ways = Math.min(p(stickers, rest), ways);
+        for (String s : stickers) {
+            String rest = minus(s, target);
+            if (target.length() != rest.length()) {
+                // 有效
+                ways = Math.min(process(stickers, rest), ways);
             }
         }
         return ways == Integer.MAX_VALUE ? Integer.MAX_VALUE : ways + 1;
     }
 
-    private String minus(String first, String target) {
-        char[] s1 = first.toCharArray();
+    private static String minus(String first, String target) {
         char[] s2 = target.toCharArray();
+        char[] s1 = first.toCharArray();
         StringBuilder sb = new StringBuilder();
         int[] dict = new int[26];
-        for (char s : s2) {
-            dict[s - 'a']++;
+        for (char c : s2) {
+            dict[c - 'a']++;
         }
-        for (char s : s1) {
-            dict[s - 'a']--;
+        for (char c : s1) {
+            dict[c - 'a']--;
         }
         for (int i = 0; i < 26; i++) {
             int times = dict[i];
-            for (int k = 0; k < times; k++) {
+            for (int m = 0; m < times; m++) {
                 sb.append((char) (i + 'a'));
             }
         }
