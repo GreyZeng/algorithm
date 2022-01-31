@@ -43,8 +43,8 @@ import java.util.Scanner;
 // L...R 范围如果达标，其子数组个数为：
 public class NowCoder_AllLessNumSubArray {
 	public static int getNum(int[] arr, int num) {
-		LinkedList<Integer> qMax = new LinkedList<Integer>();
-		LinkedList<Integer> qMin = new LinkedList<Integer>();
+		LinkedList<Integer> qMax = new LinkedList<>();
+		LinkedList<Integer> qMin = new LinkedList<>();
 		int l = 0;
 		int r = 0;
 		int count = 0;
