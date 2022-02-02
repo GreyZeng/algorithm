@@ -16,7 +16,7 @@ public class Code_0082_KillMonster {
 		// monster在经历K次打击后所有可能的掉血情况是
 		long all = (long) Math.pow(M + 1, K);
 		long kill = process(K, M, N);
-		return (double) ((double) kill / (double) all);
+		return (double) kill / (double) all;
 	}
 	
 //	// 怪兽还剩hp点血
