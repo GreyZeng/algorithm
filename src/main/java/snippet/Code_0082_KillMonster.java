@@ -4,7 +4,8 @@ package snippet;
 //[0...M]的血量 到底流失多少？每一次在[0...M]上等概率的获得一个值 求K次打击之后，英雄把怪兽砍死的概率
 //
 // tips:
-//可能性：(M+1)^K次方 优化枚举行为
+//怪兽在经历K次打击后所有可能的掉血情况是(M+1)^K次方
+// 可优化枚举行为
 //
 //血量<=0 -> (M+1)^time 次数
 public class Code_0082_KillMonster {
@@ -12,19 +13,22 @@ public class Code_0082_KillMonster {
 		if (N < 1 || M < 1 || K < 1) {
 			return 0;
 		}
+		// monster在经历K次打击后所有可能的掉血情况是
 		long all = (long) Math.pow(M + 1, K);
 		long kill = process(K, M, N);
 		return (double) ((double) kill / (double) all);
 	}
-
-	// 怪兽还剩hp点血
-	// 每次的伤害在[0~M]范围上
-	// 还有times次可以砍
-	// 返回砍死的情况数！
+	
+//	// 怪兽还剩hp点血
+//	// 每次的伤害在[0~M]范围上
+//	// 还有times次可以砍
+//	// 返回砍死的情况数！
 	public static long process(int times, int M, int hp) {
 		if (times == 0) {
 			return hp <= 0 ? 1 : 0;
 		}
+		// 怪兽已经死了
+		// 但是还可以砍
 		if (hp <= 0) {
 			return (long) Math.pow(M + 1, times);
 		}
