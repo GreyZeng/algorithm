@@ -1,11 +1,57 @@
 package snippet;
 
 import java.util.HashMap;
-import java.util.Map.Entry;
+import java.util.Map;
 
 //arr是货币数组，其中的值都是正数。再给定一个正数aim。每个值都认为是一张货币，认为值相同的货币没有任何不同，返回组成aim的方法数
 // 例如：arr = {1,2,1,1,2,1,2}，aim = 4  方法：1+1+1+1、1+1+2、2+2  一共就3种方法，所以返回3
 public class Code_0052_CoinsWaySameValueSamePaper {
+
+    public static int coinsWay(int[] arr, int aim) {
+        if (arr == null || arr.length == 0 || aim < 0) {
+            return 0;
+        }
+        if (aim == 0) {
+            return 1;
+        }
+        //统计每一张纸币出现的张数
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int key : arr) {
+            if (map.containsKey(key)) {
+                map.put(key, map.get(key) + 1);
+            } else {
+                map.put(key, 1);
+            }
+        }
+        int size = map.size();
+        int[] coins = new int[size];
+        int[] zhangs = new int[size];
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            coins[--size] = entry.getKey();
+            zhangs[size] = entry.getValue();
+        }
+        return process(0, coins, zhangs, aim);
+    }
+
+    // i号硬币及其往后所有硬币自由组合，组成aim的方法数
+    public static int process(int i, int[] coins, int[] zhangs, int aim) {
+        if (aim == 0) {
+            return 1;
+        }
+        // aim不为0
+        if (i == coins.length) {
+            return 0;
+        }
+        // aim不为0，且i没到头
+        // 不选i号
+        int ways = 0;
+        for (int index = 0; index <= zhangs[i] && coins[i] * index <= aim; index++) {
+            // 必须选0张i位置的
+            ways += process(i + 1, coins, zhangs, aim - coins[i] * index);
+        }
+        return ways;
+    }
+
 
     public static class Info {
         public int[] coins;
@@ -17,6 +63,7 @@ public class Code_0052_CoinsWaySameValueSamePaper {
         }
     }
 
+    //
     public static Info getInfo(int[] arr) {
         HashMap<Integer, Integer> counts = new HashMap<>();
         for (int value : arr) {
@@ -30,32 +77,11 @@ public class Code_0052_CoinsWaySameValueSamePaper {
         int[] coins = new int[N];
         int[] zhangs = new int[N];
         int index = 0;
-        for (Entry<Integer, Integer> entry : counts.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : counts.entrySet()) {
             coins[index] = entry.getKey();
             zhangs[index++] = entry.getValue();
         }
         return new Info(coins, zhangs);
-    }
-
-    public static int coinsWay(int[] arr, int aim) {
-        if (arr == null || arr.length == 0 || aim < 0) {
-            return 0;
-        }
-        Info info = getInfo(arr);
-        return process(info.coins, info.zhangs, 0, aim);
-    }
-
-    // coins 面值数组，正数且去重
-    // zhangs 每种面值对应的张数
-    public static int process(int[] coins, int[] zhangs, int index, int rest) {
-        if (index == coins.length) {
-            return rest == 0 ? 1 : 0;
-        }
-        int ways = 0;
-        for (int zhang = 0; zhang * coins[index] <= rest && zhang <= zhangs[index]; zhang++) {
-            ways += process(coins, zhangs, index + 1, rest - (zhang * coins[index]));
-        }
-        return ways;
     }
 
     public static int dp1(int[] arr, int aim) {
