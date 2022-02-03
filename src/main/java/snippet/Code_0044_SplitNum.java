@@ -7,26 +7,23 @@
 package snippet;
 
 public class Code_0044_SplitNum {
-
-    public static int split(int n) {
-        return f(1, n);
+    public static int splitNum(int n) {
+        return process(1, n);
     }
-
-    public static int f(int pre, int rest) {
+    
+    public static int process(int pre, int rest) {
         if (rest == 0) {
             return 1;
         }
         if (pre > rest) {
-            // 前一次划分的东西，比rest还多，说明rest无论怎么划分，都不满足要求，因为划分必须按升序来
             return 0;
         }
-        int way = 0;
+        int ways = 0;
         for (int i = pre; i <= rest; i++) {
-            way += f(i, rest - i);
+            ways += process(i, rest - i);
         }
-        return way;
+        return ways;
     }
-
 
     public static int split2(int n) {
         // 行pre
@@ -87,7 +84,7 @@ public class Code_0044_SplitNum {
     public static void main(String[] args) {
         int value = 100;
         for (int i = 1; i < value; i++) {
-            int ans1 = split(i);
+            int ans1 = splitNum(i);
             int ans2 = split2(i);
             int ans3 = split3(i);
             if (ans1 != ans2 || ans2 != ans3) {
