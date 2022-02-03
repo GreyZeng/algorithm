@@ -6,8 +6,8 @@
 		可以优化枚举行为（前面有：分硬币方法，股票问题3）*/
 package snippet;
 
-
 public class Code_0044_SplitNum {
+
     public static int split(int n) {
         return f(1, n);
     }
@@ -82,6 +82,20 @@ public class Code_0044_SplitNum {
             }
         }
         return dp[1][n];
+    }
+
+    public static void main(String[] args) {
+        int value = 100;
+        for (int i = 1; i < value; i++) {
+            int ans1 = split(i);
+            int ans2 = split2(i);
+            int ans3 = split3(i);
+            if (ans1 != ans2 || ans2 != ans3) {
+                System.out.println("oops");
+                break;
+            }
+        }
+        System.out.println("nice");
     }
 
 
