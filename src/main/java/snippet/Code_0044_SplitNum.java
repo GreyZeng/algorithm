@@ -10,7 +10,7 @@ public class Code_0044_SplitNum {
     public static int splitNum(int n) {
         return process(1, n);
     }
-    
+
     public static int process(int pre, int rest) {
         if (rest == 0) {
             return 1;
@@ -24,6 +24,7 @@ public class Code_0044_SplitNum {
         }
         return ways;
     }
+
 
     public static int split2(int n) {
         // 行pre
@@ -83,16 +84,17 @@ public class Code_0044_SplitNum {
 
     public static void main(String[] args) {
         int value = 100;
+        System.out.println("begin");
         for (int i = 1; i < value; i++) {
             int ans1 = splitNum(i);
             int ans2 = split2(i);
             int ans3 = split3(i);
             if (ans1 != ans2 || ans2 != ans3) {
-                System.out.println("oops");
+                System.out.println("Oops!!!");
                 break;
             }
         }
-        System.out.println("nice");
+        System.out.println("end");
     }
 
 
