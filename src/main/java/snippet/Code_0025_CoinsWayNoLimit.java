@@ -13,11 +13,8 @@ public class Code_0025_CoinsWayNoLimit {
 
     // i..... to aim
     public static int p(int[] arr, int i, int rest) {
-        if (rest == 0) {
-            return 1;
-        }
         if (i == arr.length) {
-            return 0;
+            return rest == 0 ? 1 : 0;
         }
         // rest not null and i not to end
         int ways = 0;
@@ -27,20 +24,21 @@ public class Code_0025_CoinsWayNoLimit {
         return ways;
     }
 
-    public static int dp1(int[] arr, int aim) {
+    public static int coinWaysDp1(int[] arr, int aim) {
         if (arr == null || arr.length == 0 || aim < 0) {
             return 0;
         }
-        int N = arr.length;
-        int[][] dp = new int[N + 1][aim + 1];
-        dp[N][0] = 1;
-        for (int index = N - 1; index >= 0; index--) {
-            for (int rest = 0; rest <= aim; rest++) {
+        int[][] dp = new int[arr.length + 1][aim + 1];
+        // 0 col finished
+        // last row finished
+        dp[arr.length][0] = 1;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            for (int j = 0; j <= aim; j++) {
                 int ways = 0;
-                for (int zhang = 0; zhang * arr[index] <= rest; zhang++) {
-                    ways += dp[index + 1][rest - (zhang * arr[index])];
+                for (int zhangs = 0; j - arr[i] * zhangs >= 0; zhangs++) {
+                    ways += dp[i + 1][j - arr[i] * zhangs];
                 }
-                dp[index][rest] = ways;
+                dp[i][j] = ways;
             }
         }
         return dp[0][aim];
@@ -96,7 +94,7 @@ public class Code_0025_CoinsWayNoLimit {
             int[] arr = randomArray(maxLen, maxValue);
             int aim = (int) (Math.random() * maxValue);
             int ans1 = coinWays(arr, aim);
-            int ans2 = dp1(arr, aim);
+            int ans2 = coinWaysDp1(arr, aim);
             int ans3 = dp2(arr, aim);
             if (ans1 != ans2 || ans1 != ans3) {
                 System.out.println("Oops!");
