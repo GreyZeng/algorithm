@@ -44,24 +44,25 @@ public class Code_0025_CoinsWayNoLimit {
         return dp[0][aim];
     }
 
-    public static int dp2(int[] arr, int aim) {
+    public static int coinWaysDp2(int[] arr, int aim) {
         if (arr == null || arr.length == 0 || aim < 0) {
             return 0;
         }
-        int N = arr.length;
-        int[][] dp = new int[N + 1][aim + 1];
-        dp[N][0] = 1;
-        for (int index = N - 1; index >= 0; index--) {
-            for (int rest = 0; rest <= aim; rest++) {
-                dp[index][rest] = dp[index + 1][rest];
-                if (rest - arr[index] >= 0) {
-                    dp[index][rest] += dp[index][rest - arr[index]];
+        int[][] dp = new int[arr.length + 1][aim + 1];
+        // 0 col finished
+        // last row finished
+        dp[arr.length][0] = 1;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            for (int j = 0; j <= aim; j++) {
+                dp[i][j] = dp[i + 1][j];
+                if (j - arr[i] >= 0) {
+                    dp[i][j] += dp[i][j - arr[i]];
                 }
             }
         }
         return dp[0][aim];
     }
-
+    
     // 为了测试
     public static int[] randomArray(int maxLen, int maxValue) {
         int N = (int) (Math.random() * maxLen);
@@ -78,8 +79,8 @@ public class Code_0025_CoinsWayNoLimit {
 
     // 为了测试
     public static void printArray(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        for (int num : arr) {
+            System.out.print(num + " ");
         }
         System.out.println();
     }
@@ -95,7 +96,7 @@ public class Code_0025_CoinsWayNoLimit {
             int aim = (int) (Math.random() * maxValue);
             int ans1 = coinWays(arr, aim);
             int ans2 = coinWaysDp1(arr, aim);
-            int ans3 = dp2(arr, aim);
+            int ans3 = coinWaysDp2(arr, aim);
             if (ans1 != ans2 || ans1 != ans3) {
                 System.out.println("Oops!");
                 printArray(arr);
