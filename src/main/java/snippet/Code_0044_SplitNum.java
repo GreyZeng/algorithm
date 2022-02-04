@@ -47,34 +47,19 @@ public class Code_0044_SplitNum {
         return dp[1][n];
     }
 
-    public static int split3(int n) {
-        // 行pre
-        // 列rest
-        // dp[0][...] 弃而不用
+    public static int splitNum3(int n) {
         int[][] dp = new int[n + 1][n + 1];
-        // dp[...][0] = 0 第0列为1
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i < n + 1; i++) {
             dp[i][0] = 1;
-            // 对角线都是1(因为对角线表示pre的值和rest相等，由于需要递增，所以只有一种方式）
             dp[i][i] = 1;
         }
-        // 左下半区全为0
-        for (int pre = n - 1; pre >= 1; pre--) {
-            for (int rest = pre + 1; rest <= n; rest++) {
-//                dp[pre][rest] += dp[pre][rest - pre];
-//                dp[pre][rest] += dp[pre + 1][rest - pre - 1];
-//                dp[pre][rest] += dp[pre + 2][rest - pre - 2];
-//                dp[pre][rest] += dp[pre + 3][rest - pre - 3];
-//                dp[pre][rest] += dp[pre + 4][rest - pre - 4];
-//                dp[pre][rest] += dp[pre + 5][rest - pre - 5];
-
-
-//                dp[pre + 1][rest] += dp[pre + 1][rest - pre - 1];
-//                dp[pre + 1][rest] += dp[pre + 2][rest - pre - 2];
-//                dp[pre + 1][rest] += dp[pre + 3][rest - pre - 3];
-//                dp[pre + 1][rest] += dp[pre + 4][rest - pre - 4];
-//                dp[pre + 1][rest] += dp[pre + 5][rest - pre - 5];
-                dp[pre][rest] = dp[pre + 1][rest] + dp[pre][rest - pre];
+        for (int i = 2; i < n + 1; i++) {
+            int c = i;
+            int r = 1;
+            while (c < n + 1) {
+                dp[r][c] = dp[r + 1][c] + ((c - r >= 0) ? dp[r][c - r] : 0);
+                r++;
+                c++;
             }
         }
         return dp[1][n];
@@ -86,7 +71,7 @@ public class Code_0044_SplitNum {
         for (int i = 1; i < value; i++) {
             int ans1 = splitNum(i);
             int ans2 = splitNum2(i);
-            int ans3 = split3(i);
+            int ans3 = splitNum3(i);
             if (ans1 != ans2 || ans2 != ans3) {
                 System.out.println("Oops!!!");
                 break;
