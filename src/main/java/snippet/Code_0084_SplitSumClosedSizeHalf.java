@@ -1,5 +1,9 @@
 package snippet;
 
+//给定一个正数数组arr，请把arr中所有的数分成两个集合 如果arr长度为偶数，两个集合包含数的个数要一样多 如果arr长度为奇数，
+//       两个集合包含数的个数必须只差一个 请尽量让两个集合的累加和接近 返回： 最接近的情况下，较小集合的累加和
+//
+//       tips: 偶数个的时候，比如8，考虑4个的情况 奇数个的时候，比如7，要考虑4个和3个的情况
 public class Code_0084_SplitSumClosedSizeHalf {
     public static int right(int[] arr) {
         if (arr == null || arr.length < 2) {
@@ -217,9 +221,9 @@ public class Code_0084_SplitSumClosedSizeHalf {
 
     // for test
     public static void main(String[] args) {
-        int maxLen = 10;
-        int maxValue = 50;
-        int testTime = 10000;
+        int maxLen = 20;
+        int maxValue = 100;
+        int testTime = 100000;
         System.out.println("测试开始");
         for (int i = 0; i < testTime; i++) {
             int len = (int) (Math.random() * maxLen);
