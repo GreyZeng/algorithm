@@ -1,7 +1,9 @@
 package snippet;
 
+// 给定一个正数数组arr， 请把arr中所有的数分成两个集合，尽量让两个集合的累加和接近
+// 返回： 最接近的情况下，较小集合的累加和
 public class Code_0083_SplitSumClosed {
-    public static int right(int[] arr) {
+    public static int splitSumClosed(int[] arr) {
         if (arr == null || arr.length < 2) {
             return 0;
         }
@@ -9,26 +11,22 @@ public class Code_0083_SplitSumClosed {
         for (int num : arr) {
             sum += num;
         }
-        return process(arr, 0, sum / 2);
+        int aim = sum / 2;
+        return process(arr, 0, aim);
     }
 
-    // arr[i...]可以自由选择，请返回累加和尽量接近rest，但不能超过rest的情况下，最接近的累加和是多少？
     public static int process(int[] arr, int i, int rest) {
         if (i == arr.length) {
             return 0;
-        } else { // 还有数，arr[i]这个数
-            // 可能性1，不使用arr[i]
-            int p1 = process(arr, i + 1, rest);
-            // 可能性2，要使用arr[i]
-            int p2 = 0;
-            if (arr[i] <= rest) {
-                p2 = arr[i] + process(arr, i + 1, rest - arr[i]);
-            }
-            return Math.max(p1, p2);
         }
+        int p1 = process(arr, i + 1, rest);
+        if (rest - arr[i] >= 0) {
+            p1 = Math.max(process(arr, i + 1, rest - arr[i]) + arr[i], p1);
+        }
+        return p1;
     }
 
-    public static int dp(int[] arr) {
+    public static int splitSumClosed2(int[] arr) {
         if (arr == null || arr.length < 2) {
             return 0;
         }
@@ -36,22 +34,19 @@ public class Code_0083_SplitSumClosed {
         for (int num : arr) {
             sum += num;
         }
-        sum /= 2;
-        int N = arr.length;
-        int[][] dp = new int[N + 1][sum + 1];
-        for (int i = N - 1; i >= 0; i--) {
-            for (int rest = 0; rest <= sum; rest++) {
-                // 可能性1，不使用arr[i]
-                int p1 = dp[i + 1][rest];
-                // 可能性2，要使用arr[i]
-                int p2 = 0;
-                if (arr[i] <= rest) {
-                    p2 = arr[i] + dp[i + 1][rest - arr[i]];
+        int aim = sum / 2;
+        int[][] dp = new int[arr.length + 1][aim + 1];
+        // last row == 0
+        for (int i = arr.length - 1; i >= 0; i--) {
+            for (int j = 0; j < aim + 1; j++) {
+                int p1 = dp[i + 1][j];
+                if (j - arr[i] >= 0) {
+                    p1 = Math.max(dp[i + 1][j - arr[i]] + arr[i], p1);
                 }
-                dp[i][rest] = Math.max(p1, p2);
+                dp[i][j] = p1;
             }
         }
-        return dp[0][sum];
+        return dp[0][aim];
     }
 
     public static int[] randomArray(int len, int value) {
@@ -77,8 +72,8 @@ public class Code_0083_SplitSumClosed {
         for (int i = 0; i < testTime; i++) {
             int len = (int) (Math.random() * maxLen);
             int[] arr = randomArray(len, maxValue);
-            int ans1 = right(arr);
-            int ans2 = dp(arr);
+            int ans1 = splitSumClosed(arr);
+            int ans2 = splitSumClosed2(arr);
             if (ans1 != ans2) {
                 printArray(arr);
                 System.out.println(ans1);
