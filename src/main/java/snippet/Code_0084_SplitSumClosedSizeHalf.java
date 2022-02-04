@@ -50,43 +50,42 @@ public class Code_0084_SplitSumClosedSizeHalf {
         for (int num : arr) {
             sum += num;
         }
-        sum /= 2;
-        int N = arr.length;
-        int M = (N + 1) / 2;
-        int[][][] dp = new int[N + 1][M + 1][sum + 1];
-        for (int i = 0; i <= N; i++) {
-            for (int j = 0; j <= M; j++) {
-                for (int k = 0; k <= sum; k++) {
-                    dp[i][j][k] = -1;
+        int[][][] dp = new int[arr.length + 1][arr.length / 2 + 1 + 1][sum / 2 + 1];
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[0].length; j++) {
+                for (int k = 0; k < dp[0][0].length; k++) {
+                    if (i == arr.length && j != 0) {
+                        dp[i][j][k] = -1;
+                    }
                 }
             }
         }
-        for (int rest = 0; rest <= sum; rest++) {
-            dp[N][0][rest] = 0;
-        }
-        for (int i = N - 1; i >= 0; i--) {
-            for (int picks = 0; picks <= M; picks++) {
-                for (int rest = 0; rest <= sum; rest++) {
-                    int p1 = dp[i + 1][picks][rest];
-                    // 就是要使用arr[i]这个数
+        for (int i = dp.length - 2; i >= 0; i--) {
+            for (int j = 1; j < dp[0].length; j++) {
+                for (int k = 0; k < dp[0][0].length; k++) {
+                    int p1 = dp[i + 1][j][k];
+                    // 选当前这个
                     int p2 = -1;
                     int next = -1;
-                    if (picks - 1 >= 0 && arr[i] <= rest) {
-                        next = dp[i + 1][picks - 1][rest - arr[i]];
+                    if (k >= arr[i]) {
+                        next = dp[i + 1][j - 1][k - arr[i]];
                     }
                     if (next != -1) {
-                        p2 = arr[i] + next;
+                        p2 = next + arr[i];
                     }
-                    dp[i][picks][rest] = Math.max(p1, p2);
+                    dp[i][j][k] = Math.max(p1, p2);
                 }
             }
         }
+
+
         if ((arr.length & 1) == 0) {
-            return dp[0][arr.length / 2][sum];
+            return dp[0][arr.length / 2][sum / 2];
         } else {
-            return Math.max(dp[0][arr.length / 2][sum], dp[0][(arr.length / 2) + 1][sum]);
+            return Math.max(dp[0][arr.length / 2][sum / 2], dp[0][(arr.length / 2) + 1][sum / 2]);
         }
     }
+
 
     public static int dp2(int[] arr) {
         if (arr == null || arr.length < 2) {
