@@ -23,32 +23,24 @@ public class Code_0084_SplitSumClosedSizeHalf {
         }
     }
 
+    // 一定要选picks个
     public static int process(int[] arr, int i, int picks, int rest) {
         if (i == arr.length) {
             return picks == 0 ? 0 : -1;
         }
-        // TODO
-        return -1;
-
+        // 不选当前这个
+        int p1 = process(arr, i + 1, picks, rest);
+        // 选当前这个
+        int p2 = -1;
+        int next = -1;
+        if (rest >= arr[i]) {
+            next = process(arr, i + 1, picks - 1, rest - arr[i]);
+        }
+        if (next != -1) {
+            p2 = next + arr[i];
+        }
+        return Math.max(p1, p2);
     }
-    // arr[i....]自由选择，挑选的个数一定要是picks个，累加和<=rest, 离rest最近的返回
-//    public static int process(int[] arr, int i, int picks, int rest) {
-//        if (i == arr.length) {
-//            return picks == 0 ? 0 : -1;
-//        } else {
-//            int p1 = process(arr, i + 1, picks, rest);
-//            // 就是要使用arr[i]这个数
-//            int p2 = -1;
-//            int next = -1;
-//            if (arr[i] <= rest) {
-//                next = process(arr, i + 1, picks - 1, rest - arr[i]);
-//            }
-//            if (next != -1) {
-//                p2 = arr[i] + next;
-//            }
-//            return Math.max(p1, p2);
-//        }
-//    }
 
     public static int dp(int[] arr) {
         if (arr == null || arr.length < 2) {
