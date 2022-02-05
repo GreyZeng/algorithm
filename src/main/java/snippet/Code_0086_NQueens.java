@@ -1,27 +1,20 @@
-//链接：https://www.nowcoder.com/questionTerminal/c76408782512486d91eea181107293b6
-//来源：牛客网
-//
-//N皇后问题是指在N*N的棋盘上要摆N个皇后，要求任何两个皇后不同行，不同列也不再同一条斜线上，求给一个整数n，返回n皇后的摆法。
-//示例1
-//输入
-//1
-//输出
-//1
-//示例2
-//输入
-//8
-//输出
-//92
-//
-//备注:
-//1≤n≤14
 package snippet;
 
+// N皇后问题
+// 在N*N的棋盘上要摆N个皇后， 要求任何两个皇后不同行、不同列， 也不在同一条斜线上 给定一个整数n，返回n皇后的摆法有多少种。
+// n=1，返回1 n=2或3，2皇后和3皇后问题无论怎么摆都不行，返回0 n=8，返回92
+// tip:
+//两个点：[x,y]和[甲,乙]
+//是否有冲突，只需要判断两个条件
+//(y == 乙) || (|甲-x|==|乙-y|)
+// https://www.nowcoder.com/questionTerminal/c76408782512486d91eea181107293b6
 public class Code_0086_NQueens {
     public static int num1(int n) {
         if (n < 1) {
             return 0;
         }
+        // 编号i从0开始，一直到n-1
+        // record[i] = j 表示：i号皇后放在了第j列上
         int[] record = new int[n];
         return process1(0, record, n);
     }
@@ -33,6 +26,7 @@ public class Code_0086_NQueens {
     // 返回：不关心i以上发生了什么，i.... 后续有多少合法的方法数
     public static int process1(int i, int[] record, int n) {
         if (i == n) {
+            // 居然可以顺利填到最后，返回一种方法数
             return 1;
         }
         int res = 0;
@@ -79,30 +73,27 @@ public class Code_0086_NQueens {
         }
         // pos中所有是1的位置，是你可以去尝试皇后的位置
         int pos = limit & (~(colLim | leftDiaLim | rightDiaLim));
-        int mostRightOne = 0;
+        int mostRightOne;
         int res = 0;
         while (pos != 0) {
             mostRightOne = pos & (~pos + 1);
             pos = pos - mostRightOne;
-            res += process2(limit, colLim | mostRightOne, (leftDiaLim | mostRightOne) << 1,
-                    (rightDiaLim | mostRightOne) >>> 1);
+            res += process2(limit, colLim | mostRightOne, (leftDiaLim | mostRightOne) << 1, (rightDiaLim | mostRightOne) >>> 1);
         }
         return res;
     }
 
     public static void main(String[] args) {
-        int n = 15;
-
-        long start = System.currentTimeMillis();
-        System.out.println(num2(n));
-        long end = System.currentTimeMillis();
-        System.out.println("cost time: " + (end - start) + "ms");
-
-        start = System.currentTimeMillis();
-        System.out.println(num1(n));
-        end = System.currentTimeMillis();
-        System.out.println("cost time: " + (end - start) + "ms");
-
+        System.out.println("start");
+        int times = 16;
+        for (int n = 0; n < times; n++) {
+            int ans1 = num1(n);
+            int ans2 = num2(n);
+            if (ans1 != ans2) {
+                System.out.println("Oops!");
+                break;
+            }
+        }
+        System.out.println("end");
     }
-
 }
