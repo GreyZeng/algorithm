@@ -32,6 +32,8 @@
 
 [滑动窗口和双指针](docs/滑动窗口和双指针.md)
 
+[单调栈](docs/单调栈.md)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)
