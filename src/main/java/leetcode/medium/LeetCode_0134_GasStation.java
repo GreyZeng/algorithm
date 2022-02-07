@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 import java.util.LinkedList;
 
@@ -45,6 +45,7 @@ import java.util.LinkedList;
 //        You cannot travel back to station 2, as it requires 4 unit of gas but you only have 3.
 //        Therefore, you can't travel around the circuit once no matter where you start.
 // https://www.cnblogs.com/greyzeng/p/14466197.html
+// https://www.lintcode.com/problem/187/
 public class LeetCode_0134_GasStation {
 
     // 滑动窗口内的最大值和，最小值（双端队列，存下标，不要存值）
