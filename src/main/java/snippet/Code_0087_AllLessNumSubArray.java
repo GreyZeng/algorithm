@@ -39,23 +39,24 @@ import java.util.LinkedList;
 
 // arr[L..R]达标，则arr中内部的任何一个子数组都达标
 // arr[L..R]不达标，则arr扩充后肯定也不达标
-// L...R 范围如果达标，其子数组个数为：
+// L...R 范围如果达标，其子数组个数为：R - L
 public class Code_0087_AllLessNumSubArray {
+    // 必须以l位置作为左边界的情况下，有多少达标的数组
     public static int getNum(int[] arr, int num) {
         LinkedList<Integer> qMax = new LinkedList<>();
         LinkedList<Integer> qMin = new LinkedList<>();
+        int ans = 0;
         int l = 0;
         int r = 0;
-        int count = 0;
-        int len = arr.length;
-        while (l < len) {
-            while (r < len) {
+        while (l < arr.length) {
+            while (r < arr.length) {
                 while (!qMax.isEmpty() && arr[qMax.peekLast()] <= arr[r]) {
                     qMax.pollLast();
                 }
                 qMax.addLast(r);
                 while (!qMin.isEmpty() && arr[qMin.peekLast()] >= arr[r]) {
                     qMin.pollLast();
+
                 }
                 qMin.addLast(r);
                 if (arr[qMax.peekFirst()] - arr[qMin.peekFirst()] > num) {
@@ -63,19 +64,21 @@ public class Code_0087_AllLessNumSubArray {
                 }
                 r++;
             }
-            // l是满足条件的位置，r是不满足条件的第一个位置
-            // 必须以l开头的满足条件的子数组个数为： r - 1 - (l - 1) = r - l
-            count += (r - l);
-            if (qMax.peekFirst() == l) {
+            // r是以l作为左边界，第一个不满足条件的位置
+            ans += (r - l);
+            // 弹出过期位置
+            if (!qMax.isEmpty() && qMax.peekFirst() == l) {
                 qMax.pollFirst();
             }
-            if (qMin.peekFirst() == l) {
+            // 弹出过期位置
+            if (!qMin.isEmpty() && qMin.peekFirst() == l) {
                 qMin.pollFirst();
             }
             l++;
         }
-        return count;
+        return ans;
     }
+
 
     // 暴力的对数器方法
     public static int right(int[] arr, int sum) {
