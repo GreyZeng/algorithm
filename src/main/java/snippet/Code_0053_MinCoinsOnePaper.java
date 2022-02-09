@@ -3,6 +3,7 @@ package snippet;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.LinkedList;
+
 // arr是货币数组，其中的值都是正数。再给定一个正数aim。每个值都认为是一张货币，返回组成aim的最少货币数
 //注意：
 //		因为是求最少货币数，所以每一张货币认为是相同或者不同就不重要了
@@ -10,25 +11,31 @@ import java.util.LinkedList;
 //		O(M*aim) M面值类型
 // 动态规划+滑动窗口
 public class Code_0053_MinCoinsOnePaper {
-
     public static int minCoins(int[] arr, int aim) {
-        return process(arr, 0, aim);
+        return p(arr, 0, aim);
     }
-
-    public static int process(int[] arr, int index, int rest) {
-        if (rest < 0) {
+    
+    // 从i位置一直到最后，组成rest的最少货币数
+    public static int p(int[] arr, int i, int rest) {
+        if (rest == 0) {
+            return 0;
+        }
+        // 没有货币了，rest又不为0
+        if (i == arr.length) {
             return Integer.MAX_VALUE;
         }
-        if (index == arr.length) {
-            return rest == 0 ? 0 : Integer.MAX_VALUE;
-        } else {
-            int p1 = process(arr, index + 1, rest);
-            int p2 = process(arr, index + 1, rest - arr[index]);
+        // 有货币，rest也不为0
+        // 不选i位置
+        int p1 = p(arr, i + 1, rest);
+        // 选i位置，有条件
+        if (rest - arr[i] >= 0) {
+            int p2 = p(arr, i + 1, rest - arr[i]);
             if (p2 != Integer.MAX_VALUE) {
                 p2++;
             }
             return Math.min(p1, p2);
         }
+        return p1;
     }
 
     // dp1时间复杂度为：O(arr长度 * aim)
@@ -105,8 +112,7 @@ public class Code_0053_MinCoinsOnePaper {
             for (int rest = 0; rest <= aim; rest++) {
                 dp[index][rest] = dp[index + 1][rest];
                 for (int zhang = 1; zhang * coins[index] <= aim && zhang <= zhangs[index]; zhang++) {
-                    if (rest - zhang * coins[index] >= 0
-                            && dp[index + 1][rest - zhang * coins[index]] != Integer.MAX_VALUE) {
+                    if (rest - zhang * coins[index] >= 0 && dp[index + 1][rest - zhang * coins[index]] != Integer.MAX_VALUE) {
                         dp[index][rest] = Math.min(dp[index][rest], zhang + dp[index + 1][rest - zhang * coins[index]]);
                     }
                 }
@@ -141,8 +147,7 @@ public class Code_0053_MinCoinsOnePaper {
                 w.add(mod);
                 dp[i][mod] = dp[i + 1][mod];
                 for (int r = mod + c[i]; r <= aim; r += c[i]) {
-                    while (!w.isEmpty() && (dp[i + 1][w.peekLast()] == Integer.MAX_VALUE
-                            || dp[i + 1][w.peekLast()] + compensate(w.peekLast(), r, c[i]) >= dp[i + 1][r])) {
+                    while (!w.isEmpty() && (dp[i + 1][w.peekLast()] == Integer.MAX_VALUE || dp[i + 1][w.peekLast()] + compensate(w.peekLast(), r, c[i]) >= dp[i + 1][r])) {
                         w.pollLast();
                     }
                     w.addLast(r);
@@ -246,7 +251,19 @@ public class Code_0053_MinCoinsOnePaper {
         System.out.println("大数据量测试dp3结束");
 
         System.out.println("===========");
+        System.out.println("货币大量重复出现情况下，");
+        System.out.println("大数据量测试dp2开始");
+        maxLen = 20000000;
+        aim = 10000;
+        maxValue = 10000;
+        arr = randomArray(maxLen, maxValue);
+        start = System.currentTimeMillis();
+        ans3 = dp2(arr, aim);
+        end = System.currentTimeMillis();
+        System.out.println("dp2运行时间 : " + (end - start) + " ms");
+        System.out.println("大数据量测试dp2结束");
 
+        System.out.println("===========");
         System.out.println("当货币很少出现重复，dp2比dp3有常数时间优势");
         System.out.println("当货币大量出现重复，dp3时间复杂度明显优于dp2");
         System.out.println("dp3的优化用到了窗口内最小值的更新结构");
