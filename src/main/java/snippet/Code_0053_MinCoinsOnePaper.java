@@ -14,7 +14,7 @@ public class Code_0053_MinCoinsOnePaper {
     public static int minCoins(int[] arr, int aim) {
         return p(arr, 0, aim);
     }
-    
+
     // 从i位置一直到最后，组成rest的最少货币数
     public static int p(int[] arr, int i, int rest) {
         if (rest == 0) {
@@ -40,23 +40,20 @@ public class Code_0053_MinCoinsOnePaper {
 
     // dp1时间复杂度为：O(arr长度 * aim)
     public static int dp1(int[] arr, int aim) {
-        if (aim == 0) {
-            return 0;
+        int[][] dp = new int[arr.length + 1][aim + 1];
+        for (int j = 1; j < aim + 1; j++) {
+            dp[arr.length][j] = Integer.MAX_VALUE;
         }
-        int N = arr.length;
-        int[][] dp = new int[N + 1][aim + 1];
-        dp[N][0] = 0;
-        for (int j = 1; j <= aim; j++) {
-            dp[N][j] = Integer.MAX_VALUE;
-        }
-        for (int index = N - 1; index >= 0; index--) {
-            for (int rest = 0; rest <= aim; rest++) {
-                int p1 = dp[index + 1][rest];
-                int p2 = rest - arr[index] >= 0 ? dp[index + 1][rest - arr[index]] : Integer.MAX_VALUE;
-                if (p2 != Integer.MAX_VALUE) {
-                    p2++;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            for (int j = 0; j < aim + 1; j++) {
+                dp[i][j] = dp[i + 1][j];
+                if (j - arr[i] >= 0) {
+                    int p2 = dp[i + 1][j - arr[i]];
+                    if (p2 != Integer.MAX_VALUE) {
+                        p2++;
+                    }
+                    dp[i][j] = Math.min(dp[i][j], p2);
                 }
-                dp[index][rest] = Math.min(p1, p2);
             }
         }
         return dp[0][aim];
