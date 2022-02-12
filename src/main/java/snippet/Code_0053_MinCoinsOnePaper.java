@@ -121,8 +121,8 @@ public class Code_0053_MinCoinsOnePaper {
         for (int i = coins.length - 1; i >= 0; i--) {
             for (int j = 0; j < aim + 1; j++) {
                 dp[i][j] = dp[i + 1][j];
-                for (int zhang = 1; zhang <= zhangs[i] && zhang * coins[i] <= aim; zhang++) {
-                    if (j - zhang * coins[i] >= 0 && dp[i + 1][j - zhang * coins[i]] != Integer.MAX_VALUE) {
+                for (int zhang = 1; zhang <= zhangs[i] && zhang * coins[i] <= j; zhang++) {
+                    if (dp[i + 1][j - zhang * coins[i]] != Integer.MAX_VALUE) {
                         dp[i][j] = Math.min(dp[i][j], zhang + dp[i + 1][j - zhang * coins[i]]);
                     }
                 }
@@ -130,9 +130,9 @@ public class Code_0053_MinCoinsOnePaper {
         }
         return dp[0][aim];
     }
-    
+
     // dp3时间复杂度为：O(arr长度) + O(货币种数 * aim)
-    // 优化需要用到窗口内最小值的更新结构
+    // TODO 优化需要用到窗口内最小值的更新结构
     public static int dp3(int[] arr, int aim) {
         if (aim == 0) {
             return 0;
