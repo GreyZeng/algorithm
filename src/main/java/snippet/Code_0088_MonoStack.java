@@ -2,8 +2,7 @@ package snippet;
 
 
 import java.util.*;
-// https://www.nowcoder.com/questionTerminal/e3d18ffab9c543da8704ede8da578b55
-// https://www.nowcoder.com/questionTerminal/2a2c00e7a88a498693568cef63a4b7bb
+
 /**
  * 单调栈
  * 左边右边离它最近比它小的数 O（N）
@@ -12,26 +11,27 @@ import java.util.*;
  * 栈底到栈顶从小到大
  * 弹出的时候，假设弹出的值是A，那么让它弹出的值就是它右边离它最近的最小值
  * 原先A压的是谁，那么谁就是A左边离它最近的最小值
+ * https://www.nowcoder.com/questionTerminal/2a2c00e7a88a498693568cef63a4b7bb
+ * https://www.nowcoder.com/questionTerminal/e3d18ffab9c543da8704ede8da578b55
  */
 public class Code_0088_MonoStack {
     public static int[][] getNearLessNoRepeat(int[] arr) {
         int[][] res = new int[arr.length][2];
-        // 只存位置！
+        // 栈底到栈顶从小到大
         Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < arr.length; i++) { // 当遍历到i位置的数，arr[i]
+        int index;
+        for (int i = 0; i < arr.length; i++) {
             while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
-                int j = stack.pop();
-                int leftLessIndex = stack.isEmpty() ? -1 : stack.peek();
-                res[j][0] = leftLessIndex;
-                res[j][1] = i;
+                index = stack.pop();
+                res[index][0] = stack.isEmpty() ? -1 : stack.peek();
+                res[index][1] = i;
             }
             stack.push(i);
         }
         while (!stack.isEmpty()) {
-            int j = stack.pop();
-            int leftLessIndex = stack.isEmpty() ? -1 : stack.peek();
-            res[j][0] = leftLessIndex;
-            res[j][1] = -1;
+            index = stack.pop();
+            res[index][1] = -1;
+            res[index][0] = stack.isEmpty() ? -1 : stack.peek();
         }
         return res;
     }
@@ -49,7 +49,7 @@ public class Code_0088_MonoStack {
                 }
             }
             if (!stack.isEmpty() && arr[stack.peek().get(0)] == arr[i]) {
-                stack.peek().add(Integer.valueOf(i));
+                stack.peek().add(i);
             } else {
                 ArrayList<Integer> list = new ArrayList<>();
                 list.add(i);
