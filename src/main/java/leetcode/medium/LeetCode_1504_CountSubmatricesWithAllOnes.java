@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //tips: 必须以每一行做底的子矩阵是多少，求和即可
 //        N为长的矩形一共包含的子矩阵有 (N*(N+1)) / 2
