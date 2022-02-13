@@ -18,7 +18,7 @@ import java.util.Stack;
 // 找出只包含1的最大矩形的面积
 // https://leetcode-cn.com/problems/maximal-rectangle/
 // https://www.lintcode.com/problem/510/
-// 暴力解，N * N 的矩阵，内部有N^4次方
+// 暴力解，N * N 的矩阵，内部有N^4次方个矩形
 // 最优解 O(N^2)
 public class LeetCode_0085_MaximalRectangle {
 
