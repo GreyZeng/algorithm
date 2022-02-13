@@ -19,17 +19,16 @@ public class Code_0088_MonoStack {
         int[][] res = new int[arr.length][2];
         // 栈底到栈顶从小到大
         Stack<Integer> stack = new Stack<>();
-        int index;
         for (int i = 0; i < arr.length; i++) {
             while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
-                index = stack.pop();
+                int index = stack.pop();
                 res[index][0] = stack.isEmpty() ? -1 : stack.peek();
                 res[index][1] = i;
             }
             stack.push(i);
         }
         while (!stack.isEmpty()) {
-            index = stack.pop();
+            int index = stack.pop();
             res[index][1] = -1;
             res[index][0] = stack.isEmpty() ? -1 : stack.peek();
         }
@@ -37,34 +36,32 @@ public class Code_0088_MonoStack {
     }
 
     public static int[][] getNearLess(int[] arr) {
-        int[][] res = new int[arr.length][2];
+        int[][] result = new int[arr.length][2];
         Stack<List<Integer>> stack = new Stack<>();
-        for (int i = 0; i < arr.length; i++) { // i -> arr[i] 进栈
+        for (int i = 0; i < arr.length; i++) {
             while (!stack.isEmpty() && arr[stack.peek().get(0)] > arr[i]) {
-                List<Integer> popIs = stack.pop();
-                int leftLessIndex = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
-                for (Integer popi : popIs) {
-                    res[popi][0] = leftLessIndex;
-                    res[popi][1] = i;
+                List<Integer> selected = stack.pop();
+                for (int popIndex : selected) {
+                    result[popIndex][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
+                    result[popIndex][1] = i;
                 }
             }
             if (!stack.isEmpty() && arr[stack.peek().get(0)] == arr[i]) {
                 stack.peek().add(i);
             } else {
-                ArrayList<Integer> list = new ArrayList<>();
+                List<Integer> list = new ArrayList<>();
                 list.add(i);
-                stack.push(list);
+                stack.add(list);
             }
         }
         while (!stack.isEmpty()) {
-            List<Integer> popIs = stack.pop();
-            int leftLessIndex = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
-            for (Integer popi : popIs) {
-                res[popi][0] = leftLessIndex;
-                res[popi][1] = -1;
+            List<Integer> list = stack.pop();
+            for (int popIndex : list) {
+                result[popIndex][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
+                result[popIndex][1] = -1;
             }
         }
-        return res;
+        return result;
     }
 
     // for test
