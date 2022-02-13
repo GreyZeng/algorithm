@@ -93,6 +93,4 @@ public class LeetCode_0509_FibonacciNumber {
         result[1][1] = A[1][0] * B[0][1] + A[1][1] * B[1][1];
         return result;
     }
-
-
 }
