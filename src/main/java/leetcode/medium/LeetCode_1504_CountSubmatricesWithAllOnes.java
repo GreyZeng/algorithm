@@ -8,11 +8,6 @@ package leetcode.medium;
 // i位置左右两边离他最近的比他小的位置是b,a，b位置上的数是Y，C位置上的数是Z
 // 则i位置弹出的时候，一共要算：（X - max(Y,Z)) * ((L + 1) * L / 2)
 public class LeetCode_1504_CountSubmatricesWithAllOnes {
-    public static void main(String[] args) {
-        int[][] mat = {{1, 0, 1}, {1, 1, 0}, {1, 1, 0}};
-        int i = new LeetCode_1504_CountSubmatricesWithAllOnes().numSubmat(mat);
-        System.out.println(i);
-    }
 
     public int numSubmat(int[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
