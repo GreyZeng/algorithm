@@ -1,10 +1,12 @@
 package snippet;
+
 //给定一个数N，想象只由0和1两种字符，组成的所有长度为N的字符串
 //
 //        如果某个字符串,任何0字符的左边都有1紧挨着,认为这个字符串达标
 //
 //        返回有多少达标的字符串
 //        fi=fi-2 + fi-1
+// https://www.cnblogs.com/greyzeng/p/15388178.html
 public class Code_0057_ZeroLeftOneStringNumber {
 
     public static int getNum1(int n) {
@@ -14,6 +16,7 @@ public class Code_0057_ZeroLeftOneStringNumber {
         return process(1, n);
     }
 
+    // 第一个位置必须为1，后续的方法数量
     public static int process(int i, int n) {
         if (i == n - 1) {
             return 2;
@@ -33,7 +36,7 @@ public class Code_0057_ZeroLeftOneStringNumber {
         }
         int pre = 1;
         int cur = 1;
-        int tmp = 0;
+        int tmp;
         for (int i = 2; i < n + 1; i++) {
             tmp = cur;
             cur += pre;
@@ -52,20 +55,6 @@ public class Code_0057_ZeroLeftOneStringNumber {
         int[][] base = {{1, 1}, {1, 0}};
         int[][] res = matrixPower(base, n - 2);
         return 2 * res[0][0] + res[1][0];
-    }
-
-
-    public static int fi(int n) {
-        if (n < 1) {
-            return 0;
-        }
-        if (n == 1 || n == 2) {
-            return 1;
-        }
-        int[][] base = {{1, 1},
-                {1, 0}};
-        int[][] res = matrixPower(base, n - 2);
-        return res[0][0] + res[1][0];
     }
 
 
