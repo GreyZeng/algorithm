@@ -36,6 +36,8 @@
 
 [斐波那契数列问题和扩展](https://www.cnblogs.com/greyzeng/p/15388178.html)
 
+[KMP算法](https://www.cnblogs.com/greyzeng/p/15317466.html)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)
