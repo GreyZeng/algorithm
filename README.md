@@ -38,6 +38,8 @@
 
 [KMP算法](https://www.cnblogs.com/greyzeng/p/15317466.html)
 
+[Manacher算法](https://www.cnblogs.com/greyzeng/p/15314213.html)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)

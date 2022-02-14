@@ -72,7 +72,7 @@ public class LeetCode_0005_LongestPalindromicSubstring {
         return sb.toString();
     }
 
-    // 暴力解法
+    // 暴力解法 O(N^2)
     public static String longestPalindrome1(String s) {
         if (s.length() == 1) {
             return s;
