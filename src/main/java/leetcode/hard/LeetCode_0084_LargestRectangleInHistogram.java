@@ -42,4 +42,29 @@ public class LeetCode_0084_LargestRectangleInHistogram {
         }
         return max;
     }
+
+    // 用数组来模拟Stack，加速常数时间
+    public static int largestRectangleArea2(int[] arr) {
+        if (arr == null || arr.length < 1) {
+            return 0;
+        }
+        if (arr.length == 1) {
+            return arr[0];
+        }
+        int max = arr[0];
+        int[] stack = new int[arr.length];
+        int index = -1;
+        for (int i = 0; i < arr.length; i++) {
+            while (index != -1 && arr[stack[index]] >= arr[i]) {
+                int popIndex = stack[index--];
+                max = Math.max(max, arr[popIndex] * (i - (index == -1 ? -1 : stack[index]) - 1));
+            }
+            stack[++index] = i;
+        }
+        while (index != -1) {
+            int popIndex = stack[index--];
+            max = Math.max(max, arr[popIndex] * (arr.length - (index == -1 ? -1 : stack[index]) - 1));
+        }
+        return max;
+    }
 }
