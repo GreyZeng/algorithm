@@ -31,8 +31,7 @@ public class LeetCode_0084_LargestRectangleInHistogram {
                 int popIndex = stack.pop();
                 // 结算
                 int left = stack.isEmpty() ? -1 : stack.peek();
-                int right = i;
-                ans = Math.max(ans, arr[popIndex] * (right - left - 1));
+                ans = Math.max(ans, arr[popIndex] * (i - left - 1));
             }
             stack.push(i);
         }
