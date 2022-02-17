@@ -16,8 +16,10 @@ import java.util.Stack;
 // https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
 // https://www.lintcode.com/problem/122/
 public class LeetCode_0084_LargestRectangleInHistogram {
-    // 必须以arr[i]位置为左边界的最大矩形能到多少
-    // 找arr[i]右边比arr[i]小的离arr[i]最近的数是多少
+    // 单调栈
+    // 找arr[i]左右两边比arr[i]小的离arr[i]最近的数是多少，假设为i，j，则
+    // 必须以arr[i]位置为左边界的最大矩形为：arr[i]*(i - j - 1)
+    // 左边越界则为-1，右边越界则为arr.length
     public static int largestRectangleArea(int[] arr) {
         if (arr == null || arr.length < 1) {
             return 0;
@@ -25,25 +27,19 @@ public class LeetCode_0084_LargestRectangleInHistogram {
         if (arr.length == 1) {
             return arr[0];
         }
-        // 可以用数组替代Stack
+        int max = arr[0];
         Stack<Integer> stack = new Stack<>();
-        int ans = arr[0];
         for (int i = 0; i < arr.length; i++) {
             while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
                 int popIndex = stack.pop();
-                // 结算
-                int left = stack.isEmpty() ? -1 : stack.peek();
-                ans = Math.max(ans, arr[popIndex] * (i - left - 1));
+                max = Math.max(max, arr[popIndex] * (i - (stack.isEmpty() ? -1 : stack.peek()) - 1));
             }
             stack.push(i);
         }
         while (!stack.isEmpty()) {
             int popIndex = stack.pop();
-            // 结算
-            int right = arr.length;
-            int left = stack.isEmpty() ? -1 : stack.peek();
-            ans = Math.max(ans, arr[popIndex] * (right - left - 1));
+            max = Math.max(max, arr[popIndex] * (arr.length - (stack.isEmpty() ? -1 : stack.peek()) - 1));
         }
-        return ans;
+        return max;
     }
 }
