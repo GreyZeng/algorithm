@@ -16,6 +16,8 @@ import java.util.Stack;
 // https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
 // https://www.lintcode.com/problem/122/
 public class LeetCode_0084_LargestRectangleInHistogram {
+    // 必须以arr[i]位置为左边界的最大矩形能到多少
+    // 找arr[i]右边比arr[i]小的离arr[i]最近的数是多少
     public static int largestRectangleArea(int[] arr) {
         if (arr == null || arr.length < 1) {
             return 0;
