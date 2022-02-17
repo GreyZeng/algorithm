@@ -1,16 +1,3 @@
-// 给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
-
-// 示例:
-
-// 输入:
-// [
-//   ["1","0","1","0","0"],
-//   ["1","0","1","1","1"],
-//   ["1","1","1","1","1"],
-//   ["1","0","0","1","0"]
-// ]
-// 输出: 6
-
 package leetcode.hard;
 
 import java.util.Stack;
@@ -21,41 +8,42 @@ import java.util.Stack;
 // 暴力解，N * N 的矩阵，内部有N^4次方个矩形
 // 最优解 O(N^2)
 public class LeetCode_0085_MaximalRectangle {
-
-    public static int maximalRectangle(char[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return 0;
-        }
-        int[] help = new int[matrix[0].length];
+    public static int maximalRectangle(char[][] m) {
+        int[] help = new int[m[0].length];
         int max = 0;
-        for (char[] chars : matrix) {
-            merge(help, chars);
-            max = Math.max(max, getMax(help));
+        for (int i = 0; i < m.length; i++) {
+            merge(help, m[i]);
+            max = Math.max(max, largestRectangleArea(help));
         }
         return max;
     }
 
-    private static void merge(int[] help, char[] m2) {
+    public static void merge(int[] help, char[] m) {
         for (int i = 0; i < help.length; i++) {
-            help[i] = m2[i] == '0' ? 0 : (help[i] + 1);
+            help[i] = m[i] == '0' ? 0 : help[i] + 1;
         }
     }
 
-    private static int getMax(int[] arr) {
-        Stack<Integer> stack = new Stack<>();
-        int max = 0;
-        for (int i = 0; i < arr.length; i++) {
-            while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
-                int m = stack.pop();
-                int r = stack.isEmpty() ? -1 : stack.peek();
-                max = Math.max(arr[m] * (i - r - 1), max);
-            }
-            stack.push(i);
+    public static int largestRectangleArea(int[] arr) {
+        if (arr == null || arr.length < 1) {
+            return 0;
         }
-        while (!stack.isEmpty()) {
-            int m = stack.pop();
-            int r = stack.isEmpty() ? -1 : stack.peek();
-            max = Math.max(arr[m] * (arr.length - 1 - r), max);
+        if (arr.length == 1) {
+            return arr[0];
+        }
+        int max = arr[0];
+        int[] stack = new int[arr.length];
+        int index = -1;
+        for (int i = 0; i < arr.length; i++) {
+            while (index != -1 && arr[stack[index]] >= arr[i]) {
+                int popIndex = stack[index--];
+                max = Math.max(max, arr[popIndex] * (i - (index == -1 ? -1 : stack[index]) - 1));
+            }
+            stack[++index] = i;
+        }
+        while (index != -1) {
+            int popIndex = stack[index--];
+            max = Math.max(max, arr[popIndex] * (arr.length - (index == -1 ? -1 : stack[index]) - 1));
         }
         return max;
     }
