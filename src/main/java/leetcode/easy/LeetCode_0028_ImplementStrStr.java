@@ -13,11 +13,10 @@ public class LeetCode_0028_ImplementStrStr {
         }
         char[] s = str.toCharArray();
         char[] m = match.toCharArray();
-        int l = m.length;
-        int[] next = getNextArr(m, l);
+        int[] next = getNextArr(m);
         int x = 0;
         int y = 0;
-        while (y < s.length && x < l) {
+        while (y < s.length && x < m.length) {
             if (s[y] == m[x]) {
                 y++;
                 x++;
@@ -27,15 +26,15 @@ public class LeetCode_0028_ImplementStrStr {
                 y++;
             }
         }
-        return x == l ? y - x : -1;
+        return x == m.length ? y - x : -1;
     }
 
     // 求解next数组逻辑
-    private static int[] getNextArr(char[] str, int l) {
-        if (l == 1) {
+    private static int[] getNextArr(char[] str) {
+        if (str.length == 1) {
             return new int[]{-1};
         }
-        int[] next = new int[l];
+        int[] next = new int[str.length];
         next[0] = -1;
         next[1] = 0;
         int i = 2; // 目前在哪个位置上求next数组值
