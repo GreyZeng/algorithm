@@ -1,13 +1,9 @@
 package leetcode.medium;
+
 // manacher算法
-
 // 最长回文子串
-// 
 // LeetCode_0005_LongestPalindromicSubstring.java
-// LintCode_0200_LongestPalindromicSubstring.java
-
 // LeetCode_0647_PalindromicSubstrings.java
-
 // LeetCode_0214_ShortestPalindrome.java
 // 约束
 //1 <= s.length <= 1000
