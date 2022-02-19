@@ -3,9 +3,8 @@ package leetcode.easy;
 // KMP算法
 // https://www.cnblogs.com/greyzeng/p/15317466.html
 public class LeetCode_0028_ImplementStrStr {
-
     public static int strStr(String str, String match) {
-        if (str == null || match == null || match.length() > str.length()) {
+        if (str == null || match == null || str.length() < match.length()) {
             return -1;
         }
         if (match.length() < 1) {
@@ -13,34 +12,33 @@ public class LeetCode_0028_ImplementStrStr {
         }
         char[] s = str.toCharArray();
         char[] m = match.toCharArray();
-        int[] next = getNextArr(m);
-        int x = 0;
-        int y = 0;
-        while (y < s.length && x < m.length) {
-            if (s[y] == m[x]) {
-                y++;
-                x++;
-            } else if (x != 0) {
-                x = next[x];
+        int[] next = getNext(m);
+        int i = 0;
+        int j = 0;
+        while (i < s.length && j < m.length) {
+            if (s[i] == m[j]) {
+                i++;
+                j++;
+            } else if (j != 0) {
+                j = next[j];
             } else {
-                y++;
+                i++;
             }
         }
-        return x == m.length ? y - x : -1;
+        return j == m.length ? (i - j) : -1;
     }
 
-    // 求解next数组逻辑
-    private static int[] getNextArr(char[] str) {
-        if (str.length == 1) {
+    private static int[] getNext(char[] m) {
+        if (m.length == 1) {
             return new int[]{-1};
         }
-        int[] next = new int[str.length];
+        int[] next = new int[m.length];
         next[0] = -1;
         next[1] = 0;
-        int i = 2; // 目前在哪个位置上求next数组值
-        int cn = 0; // 前后缀最长字符的长度，也表示下一个要比的信息位置
+        int i = 2;
+        int cn = 0;
         while (i < next.length) {
-            if (str[i - 1] == str[cn]) {
+            if (m[i - 1] == m[cn]) {
                 next[i++] = ++cn;
             } else if (cn > 0) {
                 cn = next[cn];
