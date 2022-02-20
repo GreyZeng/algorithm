@@ -108,6 +108,9 @@ public class Code_0047_Morris {
         System.out.println();
     }
 
+    // 处理时机放在能回到自己两次的点，且第二次回到自己的时刻
+    // 第二次回到他自己的时候，不打印他自己，而是逆序打印他左树的右边界
+    // 整个遍历结束后，单独逆序打印整棵树的右边界
     public static void morrisPos(Node head) {
         if (head == null) {
             return;
