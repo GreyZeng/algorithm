@@ -42,8 +42,6 @@
 
 [bfprt算法1](https://www.cnblogs.com/greyzeng/p/15320118.html)
 
-[bfprt算法2](docs/bfprt.md)
-
 [蓄水池算法](https://www.cnblogs.com/greyzeng/p/15311295.html)
 
 [morris遍历](docs/Morris遍历.md)
