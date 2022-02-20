@@ -40,7 +40,11 @@
 
 [Manacher算法](https://www.cnblogs.com/greyzeng/p/15314213.html)
 
-[bfprt算法](https://www.cnblogs.com/greyzeng/p/15320118.html)
+[bfprt算法1](https://www.cnblogs.com/greyzeng/p/15320118.html)
+
+[bfprt算法2](docs/bfprt.md)
+
+[蓄水池算法](https://www.cnblogs.com/greyzeng/p/15311295.html)
 
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
