@@ -1,6 +1,9 @@
 package leetcode.medium;
 
+import leetcode.easy.LeetCode_0094_BinaryTreeInorderTraversal;
+
 import java.util.ArrayList;
+import java.util.List;
 
 //Given a binary tree, determine if it is a valid binary search tree (BST).
 //
@@ -31,8 +34,9 @@ import java.util.ArrayList;
 //		Output: false
 //		Explanation: The root node's value is 5 but its right child's value is 4.
 // 是否为二叉搜索树
-// 1. 中序遍历严格递增（递归或者Morris遍历实现中序遍历）
+// 1. 中序遍历严格递增
 // 2. 二叉树递归套路
+// 3. Morris遍历
 // https://leetcode-cn.com/problems/validate-binary-search-tree/
 public class LeetCode_0098_ValidateBinarySearchTree {
 
@@ -44,6 +48,43 @@ public class LeetCode_0098_ValidateBinarySearchTree {
         public TreeNode(int data) {
             this.val = data;
         }
+    }
+
+    // Morris遍历，O(1)空间复杂度
+    public static boolean isValidBST3(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        boolean ans = true;
+        TreeNode pre = null;
+        TreeNode mostRight;
+        TreeNode cur = root;
+        while (cur != null) {
+            mostRight = cur.left;
+            if (mostRight != null) {
+                while (mostRight.right != null && mostRight.right != cur) {
+                    mostRight = mostRight.right;
+                }
+                if (mostRight.right == null) {
+                    mostRight.right = cur;
+                    cur = cur.left;
+                    continue;
+                } else {
+                    if (pre != null && pre.val >= cur.val) {
+                        ans = false;
+                    }
+                    pre = cur;
+                    mostRight.right = null;
+                }
+            } else {
+                if (pre != null && pre.val >= cur.val) {
+                    ans = false;
+                }
+                pre = cur;
+            }
+            cur = cur.right;
+        }
+        return ans;
     }
 
     public static boolean isValidBST2(TreeNode head) {
@@ -88,23 +129,14 @@ public class LeetCode_0098_ValidateBinarySearchTree {
 
         if (left == null) {
             // right != null
-            return new Info(
-                    Math.max(head.val,right.max), 
-                    Math.min(head.val,right.min), 
-                    right.isBST && head.val < right.min);
+            return new Info(Math.max(head.val, right.max), Math.min(head.val, right.min), right.isBST && head.val < right.min);
         }
         if (right == null) {
             // left != null
-            return new Info(
-                    Math.max(head.val,left.max), 
-                    Math.min(head.val,left.min), 
-                    left.isBST && head.val > left.max);
+            return new Info(Math.max(head.val, left.max), Math.min(head.val, left.min), left.isBST && head.val > left.max);
         }
-        return new Info(
-                Math.max(head.val, Math.max(left.max, right.max)), 
-                Math.min(head.val, Math.min(left.min, right.min)), 
-                left.isBST && right.isBST && head.val < right.min && head.val > left.max);
-        
+        return new Info(Math.max(head.val, Math.max(left.max, right.max)), Math.min(head.val, Math.min(left.min, right.min)), left.isBST && right.isBST && head.val < right.min && head.val > left.max);
+
     }
 
     public static class Info {
@@ -119,7 +151,6 @@ public class LeetCode_0098_ValidateBinarySearchTree {
         private boolean isBST;
 
     }
-
 
 
     // for test

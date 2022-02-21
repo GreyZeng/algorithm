@@ -41,6 +41,8 @@ Code_0047_Morris.java
 
 中序遍历一下，如果数一直递增，说明是搜索二叉树，第二次回到自己的时候，恢复指针后，看下是否是叶子节点
 
+LeetCode_0098_ValidateBinarySearchTree.java
+
 ### 最小高度（以叶子节点来算）
 
 LeetCode_0111_MinimumDepthOfBinaryTree
