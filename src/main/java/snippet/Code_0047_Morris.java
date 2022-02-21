@@ -234,6 +234,22 @@ public class Code_0047_Morris {
         morrisPre(head);
         morrisPos(head);
         printTree(head);
+    }
 
+    static Node buildTree() {
+        Node N4 = new Node(4);
+        Node N7 = new Node(7);
+        Node N6 = new Node(6);
+        Node N5 = new Node(5);
+        N5.right = N7;
+        Node N2 = new Node(2);
+        N2.left = N4;
+        N2.right = N5;
+        Node N3 = new Node(3);
+        N3.right = N6;
+        Node N1 = new Node(1);
+        N1.left = N2;
+        N1.right = N3;
+        return N1;
     }
 }
