@@ -3,7 +3,7 @@
 //2. cur有左树,找到左树最右节点mostRight
 //	a. mostRight的右指针指向null, mostRight.right = cur, cur = cur.right
 //	b. mostRight的右指针指向当前节点cur，mostRight.right = null, cur = cur.right
-// 3. cur = null 停
+//3. cur = null 停
 package snippet;
 
 // morris遍历
