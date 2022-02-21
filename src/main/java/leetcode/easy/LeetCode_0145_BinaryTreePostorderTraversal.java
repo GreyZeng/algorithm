@@ -1,5 +1,7 @@
 package leetcode.easy;
 
+import sun.reflect.generics.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,22 +14,56 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
         int val;
         TreeNode left;
         TreeNode right;
+    }
 
-        TreeNode() {
-        }
+    // 递归方法
+    public static List<Integer> postorderTraversal3(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        p(root, ans);
+        return ans;
+    }
 
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
+    public static void p(TreeNode root, List<Integer> ans) {
+        if (root != null) {
+            p(root.left, ans);
+            p(root.right, ans);
+            ans.add(root.val);
         }
     }
 
+    // 非递归 双栈方法
+    // 先序遍历是，头，左，右
+    // 改造一下，变成：头，右，左
+    // 然后：逆序一下，就变成了后序遍历
+    // 所以用两个栈即可实现
+    public static List<Integer> postorderTraversal2(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        Stack<TreeNode> helper = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode pop = stack.pop();
+            helper.push(pop);
+            if (pop.left != null) {
+                stack.push(pop.left);
+            }
+            if (pop.right != null) {
+                stack.push(pop.right);
+            }
+        }
+        while (!helper.isEmpty()) {
+            ans.add(helper.pop().val);
+        }
+        return ans;
+    }
+
+
     // morris遍历实现后续遍历
+    // 处理时机放在能回到自己两次的点，且第二次回到自己的时刻,第二次回到他自己的时候，
+    // 不打印他自己，而是逆序打印他左树的右边界, 整个遍历结束后，单独逆序打印整棵树的右边界
     public static List<Integer> postorderTraversal(TreeNode head) {
         List<Integer> ans = new ArrayList<>();
         if (null == head) {
@@ -48,17 +84,18 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
                 } else {
                     // 有左树的点第二次到达自己的时候
                     mostRight.right = null;
-                    collectEdge(cur.left, ans);
+                    collectLeftTreeRightEdge(cur.left, ans);
                 }
             }
             cur = cur.right;
         }
-        collectEdge(head, ans);
+        collectLeftTreeRightEdge(head, ans);
         return ans;
     }
 
-    public static void collectEdge(TreeNode node, List<Integer> ans) {
-        TreeNode tail = reverse(node);
+    // 逆序收集左树的右边界
+    private static void collectLeftTreeRightEdge(TreeNode head, List<Integer> ans) {
+        TreeNode tail = reverse(head);
         TreeNode c = tail;
         while (c != null) {
             ans.add(c.val);
@@ -67,14 +104,14 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
         reverse(tail);
     }
 
-    private static TreeNode reverse(TreeNode n) {
+    public static TreeNode reverse(TreeNode node) {
         TreeNode pre = null;
-        TreeNode c = n;
-        while (c != null) {
-            TreeNode t = c.right;
-            c.right = pre;
-            pre = c;
-            c = t;
+        TreeNode cur = node;
+        while (cur != null) {
+            TreeNode t = cur.right;
+            cur.right = pre;
+            pre = cur;
+            cur = t;
         }
         return pre;
     }
@@ -102,54 +139,5 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
             }
         }
         return ans;
-
-    }
-
-    // 【非递归】【双栈】后序遍历
-    // 先序遍历是，头，左，右
-    // 改造一下，变成：头，右，左
-    // 然后：逆序一下，就变成了后序遍历
-    // 所以用两个栈即可实现
-    public static List<Integer> postorderTraversal2(TreeNode head) {
-        if (head == null) {
-            return new LinkedList<>();
-        }
-        Stack<TreeNode> s1 = new Stack<>();
-        Stack<TreeNode> s2 = new Stack<>();
-        List<Integer> ans = new LinkedList<>();
-        s1.add(head);
-        while (!s1.isEmpty()) {
-            TreeNode node = s1.pop();
-            s2.push(node);
-            if (node.left != null) {
-                s1.push(node.left);
-            }
-            if (node.right != null) {
-                s1.push(node.right);
-            }
-        } 
-        while (!s2.isEmpty() ) {
-            ans.add(s2.pop().val);
-        }
-        return ans;
-    }
-
-    // 递归方式
-    public static List<Integer> postorderTraversal3(TreeNode root) {
-        List<Integer> ans = new LinkedList<>();
-        if (root == null) {
-            return ans;
-        }
-        post(root, ans);
-        return ans;
-    }
-
-    private static void post(TreeNode root, List<Integer> ans) {
-        if (root == null) {
-            return;
-        }
-        post(root.left, ans);
-        post(root.right, ans);
-        ans.add(root.val);
     }
 }
