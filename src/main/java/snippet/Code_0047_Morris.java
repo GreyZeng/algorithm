@@ -34,7 +34,9 @@ public class Code_0047_Morris {
         if (head == null) {
             return;
         }
+        System.out.println("....morris order....");
         Node cur = head;
+        System.out.println(cur.value);
         Node mostRight = null;
         while (cur != null) {
             mostRight = cur.left;
@@ -45,12 +47,14 @@ public class Code_0047_Morris {
                 if (mostRight.right == null) {
                     mostRight.right = cur;
                     cur = cur.left;
+                    System.out.println(cur.value);
                     continue;
                 } else {
                     mostRight.right = null;
                 }
             }
             cur = cur.right;
+            System.out.println(cur != null ? cur.value : "end");
         }
     }
 
@@ -229,27 +233,11 @@ public class Code_0047_Morris {
         head.left.right = new Node(3);
         head.right.left = new Node(5);
         head.right.right = new Node(7);
+        morris(head);
         printTree(head);
         morrisIn(head);
         morrisPre(head);
         morrisPos(head);
         printTree(head);
-    }
-
-    static Node buildTree() {
-        Node N4 = new Node(4);
-        Node N7 = new Node(7);
-        Node N6 = new Node(6);
-        Node N5 = new Node(5);
-        N5.right = N7;
-        Node N2 = new Node(2);
-        N2.left = N4;
-        N2.right = N5;
-        Node N3 = new Node(3);
-        N3.right = N6;
-        Node N1 = new Node(1);
-        N1.left = N2;
-        N1.right = N3;
-        return N1;
     }
 }
