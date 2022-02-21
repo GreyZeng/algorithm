@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
+// 线段树解法：https://www.cnblogs.com/greyzeng/p/15328120.html
 public class LeetCode_0699_FallingSquares {
     public static class SegmentTree {
         public int MAXN;
@@ -155,14 +156,5 @@ public class LeetCode_0699_FallingSquares {
             tree.update(L, R, height, 1, N, 1);
         }
         return ans;
-    }
-
-    public static void main(String[] args) {
-        LeetCode_0699_FallingSquares fq = new LeetCode_0699_FallingSquares();
-        int[][] positions = { { 0, 1 }, { 1, 1 } };
-        List<Integer> size = fq.fallingSquares(positions);
-        for (int i : size) {
-            System.out.println(i);
-        }
     }
 }

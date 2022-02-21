@@ -5,9 +5,9 @@
 
 ## 流程
 
-第一步, 当前遍历的节点是cur 
+第一步：当前遍历的节点是cur
 
-第二步：cur无左树,cur = cur.right 
+第二步：cur无左树,cur = cur.right
 
 第三步：cur有左树,找到左树最右节点mostRight，如果mostRight的右指针指向null, mostRight.right = cur, cur = cur.right，如果mostRight的右指针指向当前节点cur，mostRight.right = null, cur = cur.right 
 

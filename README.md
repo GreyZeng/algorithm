@@ -46,6 +46,10 @@
 
 [morris遍历](docs/Morris遍历.md)
 
+[线段树](https://www.cnblogs.com/greyzeng/p/15328120.html)
+
+[树状数组](https://www.cnblogs.com/greyzeng/p/15343780.html)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)
