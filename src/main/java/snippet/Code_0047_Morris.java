@@ -36,7 +36,7 @@ public class Code_0047_Morris {
         }
         System.out.println("....morris order....");
         Node cur = head;
-        System.out.println(cur.value);
+        System.out.println("a" + cur.value);
         Node mostRight = null;
         while (cur != null) {
             mostRight = cur.left;
@@ -47,14 +47,14 @@ public class Code_0047_Morris {
                 if (mostRight.right == null) {
                     mostRight.right = cur;
                     cur = cur.left;
-                    System.out.println(cur.value);
+                    System.out.println("b" + cur.value);
                     continue;
                 } else {
                     mostRight.right = null;
                 }
             }
             cur = cur.right;
-            System.out.println(cur != null ? cur.value : "end");
+            System.out.println(cur != null ? "c" + cur.value : "end");
         }
     }
 
