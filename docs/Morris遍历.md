@@ -45,7 +45,7 @@ LeetCode_0098_ValidateBinarySearchTree.java
 
 ### 最小高度（以叶子节点来算）
 
-LeetCode_0111_MinimumDepthOfBinaryTree
+LeetCode_0111_MinimumDepthOfBinaryTree.java
 
 tips：
 
