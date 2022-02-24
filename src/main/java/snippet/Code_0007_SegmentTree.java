@@ -9,7 +9,6 @@ public class Code_0007_SegmentTree {
         // lazy[]为累加和懒惰标记
         // change[]为更新的值
         // update[]为更新慵懒标记
-        private int MAXN;
         private int[] arr;
         private int[] sum;
         private int[] lazy;
@@ -17,16 +16,16 @@ public class Code_0007_SegmentTree {
         private boolean[] update;
 
         public SegmentTree(int[] origin) {
-            MAXN = origin.length + 1;
-            arr = new int[MAXN];
+            final int n = origin.length + 1;
+            arr = new int[n];
             // 0位置不用 从1位置开始使用
-            for (int i = 1; i < MAXN; i++) {
+            for (int i = 1; i < n; i++) {
                 arr[i] = origin[i - 1];
             }
-            sum = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围的累加和信息
-            lazy = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围沒有往下传递的累加任务
-            change = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围更新任务，更新成了什么
-            update = new boolean[MAXN << 2]; // 用来支持脑补概念中，某一个范围有没有更新操作的任务
+            sum = new int[n << 2]; // 用来支持脑补概念中，某一个范围的累加和信息
+            lazy = new int[n << 2]; // 用来支持脑补概念中，某一个范围沒有往下传递的累加任务
+            change = new int[n << 2]; // 用来支持脑补概念中，某一个范围更新任务，更新成了什么
+            update = new boolean[n << 2]; // 用来支持脑补概念中，某一个范围有没有更新操作的任务
         }
 
         private void pushUp(int rt) {
