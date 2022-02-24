@@ -1,5 +1,5 @@
 package snippet;
-
+// https://www.cnblogs.com/greyzeng/p/15343780.html
 public class Code_0068_IndexTree {
 
 	// 下标从1开始！
