@@ -27,9 +27,7 @@ public class Code_0007_SegmentTree {
             update = new boolean[range]; // 用来支持脑补概念中，某一个范围有没有更新操作的任务
         }
 
-        // 在初始化阶段，先把sum数组，填好
-        // 在arr[l~r]范围上，去build，1~N，
-        // rt : 这个范围在sum中的下标
+        // 在初始化阶段调用 O(N)
         public void build(int l, int r, int rt) {
             if (l == r) {
                 sum[rt] = arr[l];
