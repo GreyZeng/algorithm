@@ -21,10 +21,10 @@ public class Code_0007_SegmentTree {
             // 0位置不用 从1位置开始使用
             System.arraycopy(origin, 0, arr, 1, n - 1);
             final int range = n << 2;
-            sum = new int[range]; // 用来支持脑补概念中，某一个范围的累加和信息
-            lazy = new int[range]; // 用来支持脑补概念中，某一个范围沒有往下传递的累加任务
-            change = new int[range]; // 用来支持脑补概念中，某一个范围更新任务，更新成了什么
-            update = new boolean[range]; // 用来支持脑补概念中，某一个范围有没有更新操作的任务
+            sum = new int[range];
+            lazy = new int[range];
+            change = new int[range];
+            update = new boolean[range];
         }
 
         // 在初始化阶段调用 O(N)
