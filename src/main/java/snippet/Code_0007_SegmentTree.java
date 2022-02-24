@@ -1,31 +1,44 @@
 package snippet;
 
-// 线段树解法：https://www.cnblogs.com/greyzeng/p/15328120.html
+// 线段树：https://www.cnblogs.com/greyzeng/p/15328120.html
 public class Code_0007_SegmentTree {
 
     public static class SegmentTree {
-        // arr[]为原序列的信息从0开始，但在arr里是从1开始的
-        // sum[]模拟线段树维护区间和
-        // lazy[]为累加和懒惰标记
-        // change[]为更新的值
-        // update[]为更新慵懒标记
+        // 原序列的信息从0开始，但在arr里是从1开始的
         private int[] arr;
+        // 维护区间和
         private int[] sum;
+        // lazy[]为累加和懒惰标记
         private int[] lazy;
+        // change[]为更新的值
         private int[] change;
+        // update[]为更新慵懒标记
         private boolean[] update;
 
         public SegmentTree(int[] origin) {
             final int n = origin.length + 1;
             arr = new int[n];
             // 0位置不用 从1位置开始使用
-            for (int i = 1; i < n; i++) {
-                arr[i] = origin[i - 1];
+            System.arraycopy(origin, 0, arr, 1, n - 1);
+            final int range = n << 2;
+            sum = new int[range]; // 用来支持脑补概念中，某一个范围的累加和信息
+            lazy = new int[range]; // 用来支持脑补概念中，某一个范围沒有往下传递的累加任务
+            change = new int[range]; // 用来支持脑补概念中，某一个范围更新任务，更新成了什么
+            update = new boolean[range]; // 用来支持脑补概念中，某一个范围有没有更新操作的任务
+        }
+
+        // 在初始化阶段，先把sum数组，填好
+        // 在arr[l~r]范围上，去build，1~N，
+        // rt : 这个范围在sum中的下标
+        public void build(int l, int r, int rt) {
+            if (l == r) {
+                sum[rt] = arr[l];
+                return;
             }
-            sum = new int[n << 2]; // 用来支持脑补概念中，某一个范围的累加和信息
-            lazy = new int[n << 2]; // 用来支持脑补概念中，某一个范围沒有往下传递的累加任务
-            change = new int[n << 2]; // 用来支持脑补概念中，某一个范围更新任务，更新成了什么
-            update = new boolean[n << 2]; // 用来支持脑补概念中，某一个范围有没有更新操作的任务
+            int mid = (l + r) >> 1;
+            build(l, mid, rt << 1);
+            build(mid + 1, r, rt << 1 | 1);
+            pushUp(rt);
         }
 
         private void pushUp(int rt) {
@@ -56,23 +69,8 @@ public class Code_0007_SegmentTree {
             }
         }
 
-        // 在初始化阶段，先把sum数组，填好
-        // 在arr[l~r]范围上，去build，1~N，
-        // rt : 这个范围在sum中的下标
-        public void build(int l, int r, int rt) {
-            if (l == r) {
-                sum[rt] = arr[l];
-                return;
-            }
-            int mid = (l + r) >> 1;
-            build(l, mid, rt << 1);
-            build(mid + 1, r, rt << 1 | 1);
-            pushUp(rt);
-        }
-
 
         // L~R  所有的值变成C
-        // l~r  rt
         public void update(int L, int R, int C, int l, int r, int rt) {
             if (L <= l && r <= R) {
                 update[rt] = true;
@@ -81,7 +79,6 @@ public class Code_0007_SegmentTree {
                 lazy[rt] = 0;
                 return;
             }
-            // 当前任务躲不掉，无法懒更新，要往下发
             int mid = (l + r) >> 1;
             pushDown(rt, mid - l + 1, r - mid);
             if (L <= mid) {
@@ -93,20 +90,15 @@ public class Code_0007_SegmentTree {
             pushUp(rt);
         }
 
-        // L~R, C 任务！
-        // rt，l~r
+        // L...R是任务区间，在这个区间范围内都加C
         public void add(int L, int R, int C, int l, int r, int rt) {
-            // 任务如果把此时的范围全包了！
             if (L <= l && r <= R) {
                 sum[rt] += C * (r - l + 1);
                 lazy[rt] += C;
                 return;
             }
-            // 任务没有把你全包！
-            // l  r  mid = (l+r)/2
             int mid = (l + r) >> 1;
             pushDown(rt, mid - l + 1, r - mid);
-            // L~R
             if (L <= mid) {
                 add(L, R, C, l, mid, rt << 1);
             }
@@ -132,7 +124,6 @@ public class Code_0007_SegmentTree {
             }
             return ans;
         }
-
     }
 
     public static class Right {
@@ -140,9 +131,7 @@ public class Code_0007_SegmentTree {
 
         public Right(int[] origin) {
             arr = new int[origin.length + 1];
-            for (int i = 0; i < origin.length; i++) {
-                arr[i + 1] = origin[i];
-            }
+            System.arraycopy(origin, 0, arr, 1, origin.length);
         }
 
         public void update(int L, int R, int C) {
