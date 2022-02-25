@@ -1,11 +1,9 @@
 package snippet;
 
-import com.sun.javafx.collections.MappingChange;
-
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.LinkedList;
 
 // arr是货币数组，其中的值都是正数。再给定一个正数aim。每个值都认为是一张货币，返回组成aim的最少货币数
 //注意：
