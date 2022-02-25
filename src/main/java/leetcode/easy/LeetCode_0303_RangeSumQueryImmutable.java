@@ -27,61 +27,28 @@
 //        -10^5 <= nums[i] <= 10^5
 //        0 <= i <= j < nums.length
 //        At most 10^4 calls will be made to sumRange.
-package leetcode;
+package leetcode.easy;
 
-// 线段树解法
+// https://leetcode-cn.com/problems/range-sum-query-immutable/
 public class LeetCode_0303_RangeSumQueryImmutable {
 
+    // 使用前缀和数组加速求区间和
     class NumArray {
-        int N;
-        int[] sum;
-        int[] arr;
+        int[] preSum;
 
         public NumArray(int[] nums) {
-            N = nums.length + 1;
-            arr = new int[N];
-            System.arraycopy(nums, 0, arr, 1, N - 1);
-            int v = N << 2;
-            sum = new int[v];
-            build(1, N - 1, 1);
-        }
-
-        private void build(int l, int r, int rt) {
-            if (l > r) {
-                return;
+            preSum = new int[nums.length];
+            preSum[0] = nums[0];
+            for (int i = 1; i < nums.length; i++) {
+                preSum[i] = preSum[i - 1] + nums[i];
             }
-            if (l == r) {
-                sum[rt] = arr[l];
-                return;
-            }
-            int mid = (l + r) >> 1;
-            build(l, mid, rt << 1);
-            build(mid + 1, r, (rt << 1) | 1);
-            pushUp(rt);
-        }
-
-        private void pushUp(int rt) {
-            sum[rt] = sum[rt << 1] + sum[(rt << 1) | 1];
         }
 
         public int sumRange(int l, int r) {
-            return query(l + 1, r + 1, 1, N - 1, 1);
-        }
-
-        public int query(int L, int R, int l, int r, int rt) {
-            if (L <= l && R >= r) {
-                return sum[rt];
+            if (l == 0) {
+                return preSum[r];
             }
-            int mid = (l + r) >> 1;
-            int ans = 0;
-            if (L <= mid) {
-                ans += query(L, R, l, mid, rt << 1);
-            }
-            if (R > mid) {
-                ans += query(L, R, mid + 1, r, (rt << 1) | 1);
-            }
-            return ans;
+            return preSum[r] - preSum[l - 1];
         }
     }
-
 }
