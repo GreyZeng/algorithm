@@ -166,7 +166,7 @@ public class Code_0007_SegmentTree {
     public static boolean test() {
         int len = 100;
         int max = 1000;
-        int testTimes = 5000;
+        int testTimes = 50000;
         int addOrUpdateTimes = 1000;
         int queryTimes = 500;
         for (int i = 0; i < testTimes; i++) {
