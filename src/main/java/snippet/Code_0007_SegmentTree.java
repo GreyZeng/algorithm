@@ -19,7 +19,7 @@ public class Code_0007_SegmentTree {
             final int n = origin.length + 1;
             arr = new int[n];
             // 0位置不用 从1位置开始使用
-            System.arraycopy(origin, 0, arr, 1, n - 1);
+            System.arraycopy(origin, 0, arr, 1, origin.length);
             final int range = n << 2;
             sum = new int[range];
             lazy = new int[range];
