@@ -116,20 +116,51 @@ public class LeetCode_0307_RangeSumQueryMutable {
 
         }
     }
-    
+
     // index tree解法
     class NumArray2 {
+        private int[] tree;
+        private int N;
+        private int[] arr;
 
         public NumArray2(int[] nums) {
+            arr = new int[nums.length];
+            System.arraycopy(nums, 0, arr, 0, nums.length);
+            N = nums.length;
+            tree = new int[N + 1];
+            for (int i = 1; i < tree.length; i++) {
+                add(i, nums[i - 1]);
+            }
+        }
 
+        public void add(int index, int d) {
+            while (index <= N) {
+                tree[index] += d;
+                index += (index & (-index));
+            }
+        }
+
+        public int sum(int index) {
+            int ret = 0;
+            while (index > 0) {
+                ret += tree[index];
+                index -= (index & (-index));
+            }
+            return ret;
         }
 
         public void update(int index, int val) {
-
+            add(index + 1, val - arr[index]);
+            arr[index] = val;
         }
 
         public int sumRange(int left, int right) {
-            return -1;
+            left += 1;
+            right += 1;
+            if (left == 1) {
+                return sum(right);
+            }
+            return sum(right) - sum(left - 1);
         }
     }
 }
