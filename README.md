@@ -54,6 +54,8 @@
 
 [哈希表,布隆过滤器和一致性哈希](docs/哈希表,布隆过滤器和一致性哈希.md)
 
+[资源限制类问题的常用解决方法](https://www.cnblogs.com/greyzeng/p/15371414.html)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)
