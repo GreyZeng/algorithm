@@ -56,6 +56,10 @@
 
 [资源限制类问题的常用解决方法](https://www.cnblogs.com/greyzeng/p/15371414.html)
 
+[有序表和搜索二叉树](https://www.cnblogs.com/greyzeng/p/15409105.html)
+
+[跳表的设计和实现](https://www.cnblogs.com/greyzeng/p/14429103.html)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)
