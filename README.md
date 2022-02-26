@@ -60,6 +60,8 @@
 
 [跳表的设计和实现](https://www.cnblogs.com/greyzeng/p/14429103.html)
 
+[打表法找规律](docs/打表法找规律.md)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)
