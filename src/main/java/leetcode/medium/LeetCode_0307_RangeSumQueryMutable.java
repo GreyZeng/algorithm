@@ -124,36 +124,22 @@ public class LeetCode_0307_RangeSumQueryMutable {
         private int[] arr;
 
         public NumArray2(int[] nums) {
-            arr = new int[nums.length];
-            System.arraycopy(nums, 0, arr, 0, nums.length);
+            arr = new int[nums.length + 1];
+            System.arraycopy(nums, 0, arr, 1, nums.length);
             N = nums.length;
             tree = new int[N + 1];
             for (int i = 1; i < tree.length; i++) {
-                add(i, nums[i - 1]);
+                add(i, arr[i]);
             }
         }
 
-        public void add(int index, int d) {
-            while (index <= N) {
-                tree[index] += d;
-                index += (index & (-index));
-            }
-        }
-
-        public int sum(int index) {
-            int ret = 0;
-            while (index > 0) {
-                ret += tree[index];
-                index -= (index & (-index));
-            }
-            return ret;
-        }
-
+        // leetcode中index是从0开始计算
         public void update(int index, int val) {
-            add(index + 1, val - arr[index]);
-            arr[index] = val;
+            add(index + 1, val - arr[index + 1]);
+            arr[index + 1] = val;
         }
 
+        //leetcode中left和right都是从0开始计算
         public int sumRange(int left, int right) {
             left += 1;
             right += 1;
@@ -161,6 +147,24 @@ public class LeetCode_0307_RangeSumQueryMutable {
                 return sum(right);
             }
             return sum(right) - sum(left - 1);
+        }
+
+        // index tree方法，从1开始计算
+        public void add(int index, int d) {
+            while (index <= N) {
+                tree[index] += d;
+                index += (index & (-index));
+            }
+        }
+
+        // index tree方法，从1开始算
+        public int sum(int index) {
+            int ret = 0;
+            while (index > 0) {
+                ret += tree[index];
+                index -= (index & (-index));
+            }
+            return ret;
         }
     }
 }
