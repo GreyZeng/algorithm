@@ -9,35 +9,69 @@ package snippet;
 // morris遍历
 public class Code_0047_Morris {
 
-    public static class Node {
-        public int value;
-        Node left;
-        Node right;
+    public static class TreeNode {
+        public int val;
+        TreeNode left;
+        TreeNode right;
 
-        public Node(int data) {
-            this.value = data;
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
         }
     }
 
-    public static void process(Node root) {
-        if (root == null) {
-            return;
-        }
-        // 1
-        process(root.left);
-        // 2
-        process(root.right);
-        // 3
+    public static TreeNode buildTree() {
+        TreeNode N1 = new TreeNode(1);
+        TreeNode N2 = new TreeNode(2);
+        TreeNode N3 = new TreeNode(3);
+        TreeNode N4 = new TreeNode(4);
+        TreeNode N5 = new TreeNode(5);
+        TreeNode N6 = new TreeNode(6);
+        TreeNode N7 = new TreeNode(7);
+        TreeNode N8 = new TreeNode(8);
+        TreeNode N9 = new TreeNode(9);
+        TreeNode N10 = new TreeNode(10);
+        TreeNode N11 = new TreeNode(11);
+        TreeNode N12 = new TreeNode(12);
+        TreeNode N13 = new TreeNode(13);
+        N1.left = N2;
+        N1.right = N3;
+        N2.right = N4;
+        N3.left = N5;
+        N3.right = N6;
+        N4.left = N7;
+        N4.right = N8;
+        N6.left = N9;
+        N6.right = N10;
+        N7.left = N11;
+        N8.left = N12;
+        N9.right = N13;
+        return N1;
     }
 
-    public static void morris(Node head) {
+
+    public static void main(String[] args) {
+        TreeNode root = buildTree();
+        morris(root);
+
+    }
+
+    public static void morris(TreeNode head) {
         if (head == null) {
             return;
         }
         System.out.println("....morris order....");
-        Node cur = head;
-        System.out.println("a" + cur.value);
-        Node mostRight = null;
+        TreeNode cur = head;
+        System.out.print(cur.val + "-->");
+        TreeNode mostRight;
         while (cur != null) {
             mostRight = cur.left;
             if (mostRight != null) {
@@ -47,23 +81,25 @@ public class Code_0047_Morris {
                 if (mostRight.right == null) {
                     mostRight.right = cur;
                     cur = cur.left;
-                    System.out.println("b" + cur.value);
+                    System.out.print(cur.val + "-->");
                     continue;
                 } else {
                     mostRight.right = null;
                 }
             }
             cur = cur.right;
-            System.out.println(cur != null ? "c" + cur.value : "end");
+            if (cur != null) {
+                System.out.print(cur.val + "-->");
+            }
         }
     }
 
-    public static void morrisPre(Node head) {
+    public static void morrisPre(TreeNode head) {
         if (head == null) {
             return;
         }
-        Node cur = head;
-        Node mostRight = null;
+        TreeNode cur = head;
+        TreeNode mostRight = null;
         while (cur != null) {
             mostRight = cur.left;
             if (mostRight != null) {
@@ -71,7 +107,7 @@ public class Code_0047_Morris {
                     mostRight = mostRight.right;
                 }
                 if (mostRight.right == null) {
-                    System.out.print(cur.value + " ");
+                    System.out.print(cur.val + " ");
                     mostRight.right = cur;
                     cur = cur.left;
                     continue;
@@ -79,19 +115,19 @@ public class Code_0047_Morris {
                     mostRight.right = null;
                 }
             } else {
-                System.out.print(cur.value + " ");
+                System.out.print(cur.val + " ");
             }
             cur = cur.right;
         }
         System.out.println();
     }
 
-    public static void morrisIn(Node head) {
+    public static void morrisIn(TreeNode head) {
         if (head == null) {
             return;
         }
-        Node cur = head;
-        Node mostRight = null;
+        TreeNode cur = head;
+        TreeNode mostRight = null;
         while (cur != null) {
             mostRight = cur.left;
             if (mostRight != null) {
@@ -106,7 +142,7 @@ public class Code_0047_Morris {
                     mostRight.right = null;
                 }
             }
-            System.out.print(cur.value + " ");
+            System.out.print(cur.val + " ");
             cur = cur.right;
         }
         System.out.println();
@@ -115,12 +151,12 @@ public class Code_0047_Morris {
     // 处理时机放在能回到自己两次的点，且第二次回到自己的时刻
     // 第二次回到他自己的时候，不打印他自己，而是逆序打印他左树的右边界
     // 整个遍历结束后，单独逆序打印整棵树的右边界
-    public static void morrisPos(Node head) {
+    public static void morrisPos(TreeNode head) {
         if (head == null) {
             return;
         }
-        Node cur = head;
-        Node mostRight = null;
+        TreeNode cur = head;
+        TreeNode mostRight = null;
         while (cur != null) {
             mostRight = cur.left;
             if (mostRight != null) {
@@ -142,19 +178,19 @@ public class Code_0047_Morris {
         System.out.println();
     }
 
-    public static void printEdge(Node head) {
-        Node tail = reverseEdge(head);
-        Node cur = tail;
+    public static void printEdge(TreeNode head) {
+        TreeNode tail = reverseEdge(head);
+        TreeNode cur = tail;
         while (cur != null) {
-            System.out.print(cur.value + " ");
+            System.out.print(cur.val + " ");
             cur = cur.right;
         }
         reverseEdge(tail);
     }
 
-    public static Node reverseEdge(Node from) {
-        Node pre = null;
-        Node next = null;
+    public static TreeNode reverseEdge(TreeNode from) {
+        TreeNode pre = null;
+        TreeNode next = null;
         while (from != null) {
             next = from.right;
             from.right = pre;
@@ -165,18 +201,18 @@ public class Code_0047_Morris {
     }
 
     // for test -- print tree
-    public static void printTree(Node head) {
+    public static void printTree(TreeNode head) {
         System.out.println("Binary Tree:");
         printInOrder(head, 0, "H", 17);
         System.out.println();
     }
 
-    public static void printInOrder(Node head, int height, String to, int len) {
+    public static void printInOrder(TreeNode head, int height, String to, int len) {
         if (head == null) {
             return;
         }
         printInOrder(head.right, height + 1, "v", len);
-        String val = to + head.value + to;
+        String val = to + head.val + to;
         int lenM = val.length();
         int lenL = (len - lenM) / 2;
         int lenR = len - lenM - lenL;
@@ -194,12 +230,12 @@ public class Code_0047_Morris {
         return buf.toString();
     }
 
-    public static boolean isBST(Node head) {
+    public static boolean isBST(TreeNode head) {
         if (head == null) {
             return true;
         }
-        Node cur = head;
-        Node mostRight = null;
+        TreeNode cur = head;
+        TreeNode mostRight = null;
         Integer pre = null;
         boolean ans = true;
         while (cur != null) {
@@ -216,28 +252,28 @@ public class Code_0047_Morris {
                     mostRight.right = null;
                 }
             }
-            if (pre != null && pre >= cur.value) {
+            if (pre != null && pre >= cur.val) {
                 ans = false;
             }
-            pre = cur.value;
+            pre = cur.val;
             cur = cur.right;
         }
         return ans;
     }
 
-    public static void main(String[] args) {
-        Node head = new Node(4);
-        head.left = new Node(2);
-        head.right = new Node(6);
-        head.left.left = new Node(1);
-        head.left.right = new Node(3);
-        head.right.left = new Node(5);
-        head.right.right = new Node(7);
-        morris(head);
-        printTree(head);
-        morrisIn(head);
-        morrisPre(head);
-        morrisPos(head);
-        printTree(head);
-    }
+//    public static void main(String[] args) {
+//        TreeNode head = new TreeNode(4);
+//        head.left = new TreeNode(2);
+//        head.right = new TreeNode(6);
+//        head.left.left = new TreeNode(1);
+//        head.left.right = new TreeNode(3);
+//        head.right.left = new TreeNode(5);
+//        head.right.right = new TreeNode(7);
+//        morris(head);
+//        printTree(head);
+//        morrisIn(head);
+//        morrisPre(head);
+//        morrisPos(head);
+//        printTree(head);
+//    }
 }

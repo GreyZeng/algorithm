@@ -1,35 +1,6 @@
 # Morris遍历
 
-> Morris遍历实现前中后序遍历, 可以做到空间复杂度`O(1)`,时间复杂度`O(N)` 
-> 而递归和非递归的方式实现，时间复杂度`O(N)`，但是空间复杂度`O(h)`
-
-## 流程
-
-第一步：当前遍历的节点是cur
-
-第二步：cur无左树,cur = cur.right
-
-第三步：cur有左树,找到左树最右节点mostRight，如果mostRight的右指针指向null, mostRight.right = cur, cur = cur.right，如果mostRight的右指针指向当前节点cur，mostRight.right = null, cur = cur.right 
-
-第四步：cur = null 停
-
-## Morris实现先序遍历
-
-LeetCode_0144_BinaryTreePreorderTraversal.java
-
-> 第一次来到，则打印
-
-## Morris实现中序遍历
-
-LeetCode_0094_BinaryTreeInorderTraversal.java
-
-> 打印两次的，第二次到达则打印
-
-## Morris实现后序遍历
-
-LeetCode_0145_BinaryTreePostorderTraversal.java
-
-> 处理时机放在能回到自己两次的点，且第二次回到自己的时刻,第二次回到他自己的时候，不打印他自己，而是逆序打印他左树的右边界, 整个遍历结束后，单独逆序打印整棵树的右边界
+笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
 
 ## 代码
 
