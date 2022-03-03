@@ -1,6 +1,6 @@
 # Morris遍历
 
-笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
+[笔记](https://www.cnblogs.com/greyzeng/articles/15941957.html)
 
 ## 代码
 
@@ -31,7 +31,7 @@ morris发现叶节点？
 ### 什么时候用二叉树的递归套路，什么时候用Morris遍历
 
 如果你需要你的左树给你一些信息，右树给你一些信息，然后整合，这个时候就用二叉树的递归套路
-如果你用完左数信息后，可以不用再管左树的信息了，那么就可以用Morris遍历
+如果你用完左树信息后，可以不用再管左树的信息了，那么就可以用Morris遍历
 
 如果需要用Hash表，且题目中固定了数据的范围，这个时候可以用数组来替代Hash表
 
