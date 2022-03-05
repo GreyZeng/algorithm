@@ -38,7 +38,7 @@ public class Code_0003_SizeBalancedTreeMap {
     }
 
     public static void main(String[] args) {
-        SizeBalancedTreeMap<String, Integer> sbt = new SizeBalancedTreeMap<String, Integer>();
+        SizeBalancedTreeMap<String, Integer> sbt = new SizeBalancedTreeMap<>();
         sbt.put("d", 4);
         sbt.put("c", 3);
         sbt.put("a", 1);
