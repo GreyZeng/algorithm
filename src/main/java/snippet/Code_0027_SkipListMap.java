@@ -3,6 +3,53 @@ package snippet;
 import java.util.ArrayList;
 
 public class Code_0027_SkipListMap {
+	// for test
+	public static void printAll(SkipListMap<String, String> obj) {
+		for (int i = obj.maxLevel; i >= 0; i--) {
+			System.out.print("Level " + i + " : ");
+			SkipListNode<String, String> cur = obj.head;
+			while (cur.nextNodes.get(i) != null) {
+				SkipListNode<String, String> next = cur.nextNodes.get(i);
+				System.out.print("(" + next.key + " , " + next.val + ") ");
+				cur = next;
+			}
+			System.out.println();
+		}
+	}
+
+	public static void main(String[] args) {
+		SkipListMap<String, String> test = new SkipListMap<>();
+		printAll(test);
+		System.out.println("======================");
+		test.put("A", "10");
+		printAll(test);
+		System.out.println("======================");
+		test.remove("A");
+		printAll(test);
+		System.out.println("======================");
+		test.put("E", "E");
+		test.put("B", "B");
+		test.put("A", "A");
+		test.put("F", "F");
+		test.put("C", "C");
+		test.put("D", "D");
+		printAll(test);
+		System.out.println("======================");
+		System.out.println(test.containsKey("B"));
+		System.out.println(test.containsKey("Z"));
+		System.out.println(test.firstKey());
+		System.out.println(test.lastKey());
+		System.out.println(test.floorKey("D"));
+		System.out.println(test.ceilingKey("D"));
+		System.out.println("======================");
+		test.remove("D");
+		printAll(test);
+		System.out.println("======================");
+		System.out.println(test.floorKey("D"));
+		System.out.println(test.ceilingKey("D"));
+
+
+	}
 
 	// 跳表的节点定义
 	public static class SkipListNode<K extends Comparable<K>, V> {
@@ -21,7 +68,7 @@ public class Code_0027_SkipListMap {
 		// node  -> 头，node(null, "")  node.isKeyLess(!null)  true
 		// node里面的key是否比otherKey小，true，不是false
 		public boolean isKeyLess(K otherKey) {
-			//  otherKey == null -> false 
+			//  otherKey == null -> false
 			return otherKey != null && (key == null || key.compareTo(otherKey) < 0);
 		}
 
@@ -34,7 +81,7 @@ public class Code_0027_SkipListMap {
 
 	public static class SkipListMap<K extends Comparable<K>, V> {
 		private static final double PROBABILITY = 0.5; // < 0.5 继续做，>=0.5 停
-		private SkipListNode<K, V> head;
+		private final SkipListNode<K, V> head;
 		private int size;
 		private int maxLevel;
 
@@ -62,9 +109,9 @@ public class Code_0027_SkipListMap {
 
 		// 在level层里，如何往右移动
 		// 现在来到的节点是cur，来到了cur的level层，在level层上，找到<key最后一个节点并返回
-		private SkipListNode<K, V> mostRightLessNodeInLevel(K key, 
-				SkipListNode<K, V> cur, 
-				int level) {
+		private SkipListNode<K, V> mostRightLessNodeInLevel(K key,
+															SkipListNode<K, V> cur,
+															int level) {
 			SkipListNode<K, V> next = cur.nextNodes.get(level);
 			while (next != null && next.isKeyLess(key)) {
 				cur = next;
@@ -196,53 +243,4 @@ public class Code_0027_SkipListMap {
 		}
 
 	}
-
-	// for test
-	public static void printAll(SkipListMap<String, String> obj) {
-		for (int i = obj.maxLevel; i >= 0; i--) {
-			System.out.print("Level " + i + " : ");
-			SkipListNode<String, String> cur = obj.head;
-			while (cur.nextNodes.get(i) != null) {
-				SkipListNode<String, String> next = cur.nextNodes.get(i);
-				System.out.print("(" + next.key + " , " + next.val + ") ");
-				cur = next;
-			}
-			System.out.println();
-		}
-	}
-
-	public static void main(String[] args) {
-		SkipListMap<String, String> test = new SkipListMap<>();
-		printAll(test);
-		System.out.println("======================");
-		test.put("A", "10");
-		printAll(test);
-		System.out.println("======================");
-		test.remove("A");
-		printAll(test);
-		System.out.println("======================");
-		test.put("E", "E");
-		test.put("B", "B");
-		test.put("A", "A");
-		test.put("F", "F");
-		test.put("C", "C");
-		test.put("D", "D");
-		printAll(test);
-		System.out.println("======================");
-		System.out.println(test.containsKey("B"));
-		System.out.println(test.containsKey("Z"));
-		System.out.println(test.firstKey());
-		System.out.println(test.lastKey());
-		System.out.println(test.floorKey("D"));
-		System.out.println(test.ceilingKey("D"));
-		System.out.println("======================");
-		test.remove("D");
-		printAll(test);
-		System.out.println("======================");
-		System.out.println(test.floorKey("D"));
-		System.out.println(test.ceilingKey("D"));
-		
-
-	}
-
 }
