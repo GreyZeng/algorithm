@@ -34,6 +34,10 @@ public class Code_0009_NToSumM {
         return false;
     }
 
+    // 如何判断一个数是不是2的某次方？只需要判断这个数的二进制是否只有一个1.
+    // num == (num & (-num))
+    // num == (num & (~num + 1))
+    // num & (num - 1) != 0
     public static boolean isMSum2(int num) {
         if (num == 1 || num == 2) {
             return false;
