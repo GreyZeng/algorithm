@@ -1,7 +1,4 @@
-
 package nowcoder;
-
-import java.util.Scanner;
 
 // https://www.nowcoder.com/questionTerminal/736e12861f9746ab8ae064d4aae2d5a9
 //int[] hp，hp[i]：i号怪兽的能力
