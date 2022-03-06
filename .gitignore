@@ -32,3 +32,8 @@ build/
 /.gradle/
 /bin/
 /out/
+!/.vscode/
+!/.settings/
+!/.idea/
+!/.classpath
+!/.project
