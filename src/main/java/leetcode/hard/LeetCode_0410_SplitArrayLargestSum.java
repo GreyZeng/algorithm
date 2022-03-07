@@ -35,6 +35,7 @@ package leetcode.hard;
 //       满足 min(max(s1,s2...sk))
 //        但是四边形不等式不是最优解
 // 用对数器准确，leetcode和lintcode用例不准确
+// https://www.cnblogs.com/greyzeng/p/15690136.html
 // leetcode ： https://leetcode.com/problems/split-array-largest-sum
 // lintcode: 
 public class LeetCode_0410_SplitArrayLargestSum {

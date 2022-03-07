@@ -2,7 +2,7 @@
 
 [简单排序（冒泡排序，插入排序，选择排序）](https://www.cnblogs.com/greyzeng/p/15186769.html)
 
-[使用二分法来解决的问题](docs/使用二分法来解决的问题.md)
+[使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)
 
 [异或运算相关问题：找到数组中出现特定次数数字的问题](https://www.cnblogs.com/greyzeng/p/15385402.html)
 

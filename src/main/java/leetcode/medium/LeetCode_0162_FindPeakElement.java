@@ -1,6 +1,7 @@
 package leetcode.medium;
 
 // https://leetcode-cn.com/problems/find-peak-element/
+// https://www.cnblogs.com/greyzeng/p/15690136.html
 // 返回局部高点的位置，如果有多个，返回一个峰值位置即可
 // 对于所有有效的 i 都有 nums[i] != nums[i + 1]
 // 二分
