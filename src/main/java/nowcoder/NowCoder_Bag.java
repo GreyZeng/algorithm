@@ -49,6 +49,7 @@ public class NowCoder_Bag {
     }
 
     // TODO 分治方式 待理解
+    // 零食数量不大的情况下，适合
     public static long ways(int[] arr, int bag) {
         if (arr == null || arr.length == 0) {
             return 0;
