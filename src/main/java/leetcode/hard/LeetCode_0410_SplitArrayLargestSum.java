@@ -163,7 +163,6 @@ public class LeetCode_0410_SplitArrayLargestSum {
                 all += nums[i];
             }
         }
-
         return part;
     }
 
