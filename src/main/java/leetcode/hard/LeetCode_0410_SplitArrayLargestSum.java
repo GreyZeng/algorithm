@@ -124,6 +124,7 @@ public class LeetCode_0410_SplitArrayLargestSum {
     }
 
     // 最优解
+    // O(N)
     public static int splitArray3(int[] nums, int m) {
         int sum = 0;
         for (int num : nums) {
