@@ -62,6 +62,12 @@
 
 [打表法找规律以及根据数据量猜解法](docs/打表法找规律以及根据数据量猜解法.md)
 
+[卡特兰数](docs/卡特兰数.md)
+
+[数组三连](docs/数组三连.md)
+
+[矩阵处理技巧](docs/矩阵处理技巧.md)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)

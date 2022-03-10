@@ -29,7 +29,8 @@ package nowcoder;
 
 
 import java.util.*;
-
+// minSum  必须以i开头的子数组获得的最小累加和是多少
+// minSumEnd 必须以i开头的子数组获得最小累加和的时候，扩到的右边界是多少。
 public class NowCoder_LessKMaxSubArray {
     public static int maxSubArray(int[] nums, int k) {
         int n = nums.length;
