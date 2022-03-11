@@ -8,30 +8,29 @@ package snippet;
  * @since 1.8
  */
 public class Code_0062_LongestSumSubArrayLengthInPositiveArray {
+    // 必须以i作为开头的情况下，得到数组之和等于k的最大长度是多少
+    // 范围和答案有单调性-->双指针
     public static int getMaxLength(int[] arr, int K) {
-        if (arr == null || arr.length == 0 || K <= 0) {
+        if (null == arr) {
             return 0;
         }
-        int left = 0;
-        int right = 0;
-        int sum = arr[0];
-        int len = 0;
-        while (right < arr.length) {
+        int l = 0, r = 0, sum = 0, ans = 0;
+        while (r < arr.length) {
+            sum += arr[r];
             if (sum == K) {
-                len = Math.max(len, right - left + 1);
-                sum -= arr[left++];
+                ans = Math.max(ans, r - l + 1);
+                sum -= arr[l++];
+                r++;
             } else if (sum < K) {
-                right++;
-                if (right == arr.length) {
-                    break;
-                }
-                sum += arr[right];
+                r++;
             } else {
-                sum -= arr[left++];
+                sum -= arr[l++];
+                sum -= arr[r];
             }
         }
-        return len;
+        return ans;
     }
+
 
     // for test
     public static int right(int[] arr, int K) {
@@ -73,6 +72,9 @@ public class Code_0062_LongestSumSubArrayLengthInPositiveArray {
     }
 
     public static void main(String[] args) {
+//        int[] arr = {100, 97,81};
+//        int K = 97;
+//        System.out.println(getMaxLength(arr, K));
         int len = 50;
         int value = 100;
         int testTime = 500000;
