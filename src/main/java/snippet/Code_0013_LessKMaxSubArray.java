@@ -5,43 +5,40 @@ package snippet;
 // minSum  必须以i开头的子数组获得的最小累加和是多少
 // minSumEnd 必须以i开头的子数组获得最小累加和的时候，扩到的右边界是多少。
 public class Code_0013_LessKMaxSubArray {
-    public static int maxSubArray(int[] nums, int k) {
-        int n = nums.length;
-        // i位置向右边最多能扩到多少累加和最小
-        int[] minSumEnds = new int[n];
-        // i位置向右边最多能扩到的最小累加和
-        int[] minSumEndsValue = new int[n];
-        initMinSumEnd(nums, minSumEnds, minSumEndsValue, n);
+    public static int maxSubArray(int[] arr, int k) {
+        int n = arr.length;
+        int[] minSum = new int[n];
+        int[] minSumEnd = new int[n];
+        minSum[n - 1] = arr[n - 1];
+        minSumEnd[n - 1] = n - 1;
+        for (int i = n - 2; i >= 0; i--) {
+            minSum[i] = arr[i];
+            minSumEnd[i] = i;
+            if (minSum[i + 1] <= 0) {
+                // 有利可图
+                minSum[i] += minSum[i + 1];
+                minSumEnd[i] = minSumEnd[i + 1];
+            }
+        }
+        int ans = 0;
         int end = 0;
         int sum = 0;
-        int res = 0;
         for (int i = 0; i < n; i++) {
-            while (end < n && sum + minSumEndsValue[end] <= k) {
-                sum += minSumEndsValue[end];
-                end = minSumEnds[end] + 1;
+            while (end < n && sum + minSum[end] <= k) {
+                sum += minSum[end];
+                end = minSumEnd[end] + 1;
             }
-            res = Math.max(res, end - i);
+            // 到这里，说明end位置是不满足条件的第一个位置
+            ans = Math.max(ans, end - i);
             if (end > i) {
-                sum -= nums[i];
+                // 模拟出窗口
+                sum -= arr[i];
             } else {
                 end = i + 1;
             }
         }
 
-        return res;
-    }
-
-    private static void initMinSumEnd(int[] nums, int[] minSumEnds, int[] minSumEndsValue, int N) {
-        minSumEnds[N - 1] = N - 1;
-        minSumEndsValue[N - 1] = nums[N - 1];
-        for (int i = N - 2; i >= 0; i--) {
-            minSumEndsValue[i] = nums[i];
-            minSumEnds[i] = i;
-            if (minSumEndsValue[i + 1] <= 0) {
-                minSumEndsValue[i] += minSumEndsValue[i + 1];
-                minSumEnds[i] = minSumEnds[i + 1];
-            }
-        }
+        return ans;
     }
 
     public static int maxLength(int[] arr, int k) {
@@ -54,8 +51,8 @@ public class Code_0013_LessKMaxSubArray {
         }
         sum = 0;
         int res = 0;
-        int pre = 0;
-        int len = 0;
+        int pre;
+        int len;
         for (int i = 0; i != arr.length; i++) {
             sum += arr[i];
             pre = getLessIndex(h, sum - k);
@@ -68,7 +65,7 @@ public class Code_0013_LessKMaxSubArray {
     public static int getLessIndex(int[] arr, int num) {
         int low = 0;
         int high = arr.length - 1;
-        int mid = 0;
+        int mid;
         int res = -1;
         while (low <= high) {
             mid = (low + high) / 2;
@@ -96,7 +93,9 @@ public class Code_0013_LessKMaxSubArray {
         for (int i = 0; i < 10000000; i++) {
             int[] arr = generateRandomArray(10, 20);
             int k = (int) (Math.random() * 20) - 5;
-            if (maxSubArray(arr, k) != maxLength(arr, k)) {
+            int ans1 = maxSubArray(arr, k);
+            int ans2 = maxLength(arr, k);
+            if (ans1 != ans2) {
                 System.out.println("Oops!");
             }
         }
