@@ -10,7 +10,7 @@
 //
 //        输入:[[ 6,4,1 ], [ 7,8,9 ]]
 //        输出: [6,4,1,9,8,7]
-package lintcode;
+package lintcode.medium;
 
 
 import java.util.ArrayList;

@@ -1,5 +1,7 @@
 package leetcode.medium;
-
+// 给定一个正方形矩阵matrix，原地调整成顺时针90度转动的样子
+// https://leetcode-cn.com/problems/rotate-image/
+// https://www.lintcode.com/problem/rotate-image/description
 public class LeetCode_0048_RotateImage {
 
     // 先处理外围的圈 然后同理依次处理每个内圈
