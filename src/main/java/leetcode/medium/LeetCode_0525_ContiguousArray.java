@@ -1,14 +1,3 @@
-//Given a binary array, find the maximum length of a contiguous subarray with equal number of 0 and 1.
-//
-//        Example 1:
-//        Input: [0,1]
-//        Output: 2
-//        Explanation: [0, 1] is the longest contiguous subarray with equal number of 0 and 1.
-//        Example 2:
-//        Input: [0,1,0]
-//        Output: 2
-//        Explanation: [0, 1] (or [1, 0]) is a longest contiguous subarray with equal number of 0 and 1.
-//        Note: The length of the given binary array will not exceed 50,000.
 package leetcode.medium;
 
 import java.util.HashMap;
@@ -16,32 +5,28 @@ import java.util.Map;
 
 // 预处理一下原数组，遇到0变为-1，遇到1保持1，遇到其他变为0
 // 求子数组之和为0的最大子数组长度
+// https://leetcode.com/problems/contiguous-array/
 public class LeetCode_0525_ContiguousArray {
-    public static int findMaxLength(int[] nums) {
-        int N = nums.length;
-        int cur = 0;
-        for (; cur < N; cur++) {
-            if (nums[cur] == 0) {
-                nums[cur] = -1;
+    public static int findMaxLength(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
+                arr[i] = -1;
             }
         }
-        // 累加和为0的最长数组长度
-        Map<Integer, Integer> map = new HashMap<>(N);
+        // 转换为累加和等于K的最长子数组长度
+        Map<Integer, Integer> map = new HashMap<>(arr.length);
         map.put(0, -1);
+        int ans = 0;
         int sum = 0;
-        int max = 0;
-        for (cur = 0; cur < N; cur++) {
-            sum += nums[cur];
-            if (!map.containsKey(sum)) {
-                map.put(sum, cur);
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            if (map.containsKey(sum)) {
+                ans = Math.max(ans, i - map.get(sum));
             }
-            max = Math.max(max, cur - map.get(sum));
+            if (!map.containsKey(sum)) {
+                map.put(sum, i);
+            }
         }
-        return max;
-    }
-
-    public static void main(String[] args) {
-        int[] nums = {0, 1, 0, 1, 0, 1, 0};
-        System.out.println(findMaxLength(nums));
+        return ans;
     }
 }
