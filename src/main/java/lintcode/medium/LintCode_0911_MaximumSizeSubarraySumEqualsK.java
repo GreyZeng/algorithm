@@ -6,33 +6,32 @@ import java.util.Map;
 // https://www.lintcode.com/problem/911/
 public class LintCode_0911_MaximumSizeSubarraySumEqualsK {
     public static int maxSubArrayLen(int[] arr, int k) {
-        if (arr == null || arr.length == 0) {
+        if (arr == null) {
             return 0;
         }
-        // key:前缀和
-        // value : 0~value这个前缀和是最早出现key这个值的
         Map<Integer, Integer> map = new HashMap<>();
         map.put(0, -1);
-        int len = 0;
+        int ans = 0;
         int sum = 0;
         for (int i = 0; i < arr.length; i++) {
             sum += arr[i];
+            // 期待map里面有sum - k的记录
             if (map.containsKey(sum - k)) {
-                len = Math.max(i - map.get(sum - k), len);
+                ans = Math.max(ans, i - map.get(sum - k));
             }
             if (!map.containsKey(sum)) {
                 map.put(sum, i);
             }
         }
-        return len;
+        return ans;
     }
 
     // for test
-    public static int right(int[] arr, int K) {
+    public static int right(int[] arr, int k) {
         int max = 0;
         for (int i = 0; i < arr.length; i++) {
             for (int j = i; j < arr.length; j++) {
-                if (valid(arr, i, j, K)) {
+                if (valid(arr, i, j, k)) {
                     max = Math.max(max, j - i + 1);
                 }
             }
