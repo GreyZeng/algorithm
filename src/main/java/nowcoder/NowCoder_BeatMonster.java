@@ -15,7 +15,6 @@ public class NowCoder_BeatMonster {
     // int[] p p[i]：i号怪兽要求的钱
     // ability 当前你所具有的能力
     // index 来到了第index个怪兽的面前
-
     // 目前，你的能力是ability，你来到了index号怪兽的面前，如果要通过后续所有的怪兽，
     // 请返回需要花的最少钱数
     public static long process1(int[] d, int[] p, int ability, int index) {
@@ -25,11 +24,7 @@ public class NowCoder_BeatMonster {
         if (ability < d[index]) {
             return p[index] + process1(d, p, ability + d[index], index + 1);
         } else { // ability >= d[index] 可以贿赂，也可以不贿赂
-            return Math.min(
-
-                    p[index] + process1(d, p, ability + d[index], index + 1),
-
-                    0 + process1(d, p, ability, index + 1));
+            return Math.min(p[index] + process1(d, p, ability + d[index], index + 1), process1(d, p, ability, index + 1));
         }
     }
 
