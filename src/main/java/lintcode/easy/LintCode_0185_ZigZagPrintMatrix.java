@@ -22,48 +22,52 @@ package lintcode.easy;
 // https://www.lintcode.com/problem/matrix-zigzag-traversal/description
 public class LintCode_0185_ZigZagPrintMatrix {
     public static int[] printZMatrix(int[][] matrix) {
-        int M = matrix.length;
-        int N = matrix[0].length;
-        boolean dir = true; // false 和 true 分别控制从上往下还是从下往上
-        int[] result = new int[M * N]; // 记录轨迹
-        // A(fromI, fromJ) 往右边和下边走
-        // B(toI, toJ) 往下边和右边走
-        int fromI = 0;
-        int fromJ = 0;
-        int toI = 0;
-        int toJ = 0;
-        int pos = 0;
-        while (fromI != M) {
-            if (dir) {
-                // 从下往上收集
-                // B(toI, toJ) -> A(fromI, fromJ)
-                int tmpI = toI;
-                for (int tmpJ = toJ; tmpJ <= fromJ; tmpJ++) {
-                    result[pos++] = matrix[tmpI--][tmpJ];
+        if (null == matrix || matrix.length == 0 || matrix[0].length == 0) {
+            return null;
+        }
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[] ans = new int[m * n];
+        ans[0] = matrix[0][0];
+        // 右边-->下边
+        int a = 0, b = 0;
+        // 下边-->右边
+        int c = 0, d = 0;
+        int index = 1;
+        boolean topToDown = true;
+        for (int k = 0; k < m + n; k++) {
+            if (b < n - 1) {
+                b++;
+            } else if (b == n - 1) {
+                a++;
+            }
+            if (c < m - 1) {
+                c++;
+            } else if (c == m - 1) {
+                d++;
+            }
+            if (topToDown) {
+                int j = b;
+                for (int i = a; i <= c; i++) {
+                    ans[index++] = matrix[i][j--];
                 }
             } else {
-                // 从上往下收集
-                // A(fromI, fromJ)  ->  B(toI, toJ)
-                int tmpI = fromI;
-                for (int tmpJ = fromJ; tmpJ >= toJ; tmpJ--) {
-                    result[pos++] = matrix[tmpI++][tmpJ];
+                int j = d;
+                for (int i = c; i >= a; i--) {
+                    ans[index++] = matrix[i][j++];
                 }
             }
-            dir = !dir;
-            // 不能调换顺序
-            fromI = fromJ == N - 1 ? fromI + 1 : fromI;
-            fromJ = fromJ == N - 1 ? fromJ : fromJ + 1;
-            toJ = toI == M - 1 ? toJ + 1 : toJ;
-            toI = toI == M - 1 ? toI : toI + 1;
+            topToDown = !topToDown;
         }
-        return result;
+        return ans;
     }
 
     public static void main(String[] args) {
+        // 期待输出:  [1, 2, 5, 9, 6, 3, 4, 7, 10, 11, 8, 12]
         int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
         int[] result = printZMatrix(matrix);
         for (int i : result) {
-            System.out.println(i + " ");
+            System.out.print(i + " ");
         }
     }
 }
