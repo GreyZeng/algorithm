@@ -4,8 +4,6 @@
 //        2）能装下8个苹果的袋子
 //        小虎可以自由使用两种袋子来装苹果，但是小虎有强迫症，他要求自己使用的袋子数量必须最少，且使用的每个袋子必须装满。
 //        给定一个正整数N，返回至少使用多少袋子。如果N无法让使用的每个袋子必须装满，返回-1
-package snippet;
-
 // 假设100个苹果
 
 // 1. 最多需要100/8 = 12个 8号袋，剩下需要几个六号袋子，如果不满足，则2
@@ -13,11 +11,10 @@ package snippet;
 
 // 奇数返回-1
 // 剩余大于等于24，就不需要试的
-/**
- * @author: Grey
- * @date: 2020/12/17
- **/
-public class Code_0060_AppleMinBags {
+package nowcoder;
+
+// https://www.nowcoder.com/questionTerminal/61cfbb2e62104bc8aa3da5d44d38a6ef
+public class NowCoder_AppleMinBags {
     public static int minBags(int apple) {
         if (apple < 6) {
             return -1;
@@ -51,7 +48,6 @@ public class Code_0060_AppleMinBags {
 
     // 打表方式优化
     public static int minBags2(int apple) {
-
         if ((apple & 1) == 1) {
             return -1;
         }
@@ -71,7 +67,7 @@ public class Code_0060_AppleMinBags {
     }
 
     public static void main(String[] args) {
-        for (int i = 1; i < 100; i++) {
+        for (int i = 1; i < 10000; i++) {
             int ans1 = minBags(i);
             int ans2 = minBags2(i);
             if (ans1 != ans2) {
