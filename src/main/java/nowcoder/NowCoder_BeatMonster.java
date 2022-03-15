@@ -11,28 +11,23 @@ package nowcoder;
 //        方法1： 如果怪兽能力值不大的情况，二维表 能力 + index 达到的最小钱数
 //        方法2： 如果怪兽能力值比较大的情况，二维表  钱数 + index 达到的最大能力  严格花某个钱
 public class NowCoder_BeatMonster {
-
     public static long func1(int[] hp, int[] money) {
-        return process1(hp, money, 0, 0);
+        return p(hp, money, 0, 0);
     }
 
-    // int[] hp hp[i]：i号怪兽的武力
-    // int[] money money[i]：i号怪兽要求的钱
-    // ability 当前你所具有的能力
-    // index 来到了第index个怪兽的面前
-    // 目前，你的能力是ability，你来到了index号怪兽的面前，如果要通过后续所有的怪兽，
-    // 请返回需要花的最少钱数
-    public static long process1(int[] hp, int[] money, int ability, int index) {
-        if (index == hp.length) {
+    // i到最后通过所有怪兽的最少钱数是多少？
+    public static long p(int[] hp, int[] money, int i, int ability) {
+        if (i == hp.length) {
             return 0;
         }
-        if (ability < hp[index]) {
-            return money[index] + process1(hp, money, ability + hp[index], index + 1);
-        } else { // ability >= d[index] 可以贿赂，也可以不贿赂
-            return Math.min(money[index] + process1(hp, money, ability + hp[index], index + 1), process1(hp, money, ability, index + 1));
+        // 选择贿赂
+        long p = money[i] + p(hp, money, i + 1, ability + hp[i]);
+        // 不选贿赂，有条件
+        if (ability >= hp[i]) {
+            return Math.min(p, p(hp, money, i + 1, ability));
         }
+        return p;
     }
-
 
     // 从0....index号怪兽，花的钱，必须严格==money
     // 如果通过不了，返回-1
