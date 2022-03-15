@@ -11,11 +11,12 @@ package nowcoder;
 //        方法1： 如果怪兽能力值不大的情况，二维表 能力 + index 达到的最小钱数
 //        方法2： 如果怪兽能力值比较大的情况，二维表  钱数 + index 达到的最大能力  严格花某个钱
 public class NowCoder_BeatMonster {
+    // i到最后通过所有怪兽的最少钱数是多少？
+    // 适合怪兽能力不大的情况
     public static long func1(int[] hp, int[] money) {
         return p(hp, money, 0, 0);
     }
 
-    // i到最后通过所有怪兽的最少钱数是多少？
     public static long p(int[] hp, int[] money, int i, int ability) {
         if (i == hp.length) {
             return 0;
@@ -29,44 +30,55 @@ public class NowCoder_BeatMonster {
         return p;
     }
 
-    // 从0....index号怪兽，花的钱，必须严格==money
-    // 如果通过不了，返回-1
-    // 如果可以通过，返回能通过情况下的最大能力值
-    public static long process2(int[] d, int[] p, int index, int money) {
-        if (index == -1) { // 一个怪兽也没遇到呢
-            return money == 0 ? 0 : -1;
+    public static long func1dp(int[] hp, int[] money) {
+        int sumAbility = 0;
+        for (int ability : hp) {
+            sumAbility += ability;
         }
-        // index >= 0
-        // 1) 不贿赂当前index号怪兽
-        long preMaxAbility = process2(d, p, index - 1, money);
-        long p1 = -1;
-        if (preMaxAbility != -1 && preMaxAbility >= d[index]) {
-            p1 = preMaxAbility;
-        }
-        // 2) 贿赂当前的怪兽 当前的钱 p[index]
-        long preMaxAbility2 = process2(d, p, index - 1, money - p[index]);
-        long p2 = -1;
-        if (preMaxAbility2 != -1) {
-            p2 = d[index] + preMaxAbility2;
-        }
-        return Math.max(p1, p2);
+        int[][] dp = new int[hp.length + 1][sumAbility + 1];
+        // TODO
+        return dp[0][0];
     }
 
-    public static int minMoney2(int[] d, int[] p) {
+    public static int func2(int[] hp, int[] money) {
         int allMoney = 0;
-        for (int i = 0; i < p.length; i++) {
-            allMoney += p[i];
+        for (int i = 0; i < money.length; i++) {
+            allMoney += money[i];
         }
-        int N = d.length;
-        for (int money = 0; money < allMoney; money++) {
-            if (process2(d, p, N - 1, money) != -1) {
-                return money;
+        int N = hp.length;
+        for (int m = 0; m < allMoney; m++) {
+            if (process2(hp, money, N - 1, m) != -1) {
+                return m;
             }
         }
         return allMoney;
     }
 
-    public static long func2(int[] d, int[] p) {
+    // 从0....index号怪兽，花的钱，必须严格==money
+    // 如果通过不了，返回-1
+    // 如果可以通过，返回能通过情况下的最大能力值
+    public static long process2(int[] hp, int[] money, int index, int m) {
+        if (index == -1) { // 一个怪兽也没遇到呢
+            return m == 0 ? 0 : -1;
+        }
+        // index >= 0
+        // 1) 不贿赂当前index号怪兽
+        long preMaxAbility = process2(hp, money, index - 1, m);
+        long p1 = -1;
+        if (preMaxAbility != -1 && preMaxAbility >= hp[index]) {
+            p1 = preMaxAbility;
+        }
+        // 2) 贿赂当前的怪兽 当前的钱 p[index]
+        long preMaxAbility2 = process2(hp, money, index - 1, m - money[index]);
+        long p2 = -1;
+        if (preMaxAbility2 != -1) {
+            p2 = hp[index] + preMaxAbility2;
+        }
+        return Math.max(p1, p2);
+    }
+
+
+    public static long func3(int[] d, int[] p) {
         int sum = 0;
         for (int num : d) {
             sum += num;
@@ -92,7 +104,7 @@ public class NowCoder_BeatMonster {
         return dp[0][0];
     }
 
-    public static long func3(int[] d, int[] p) {
+    public static long func4(int[] d, int[] p) {
         int sum = 0;
         for (int num : p) {
             sum += num;
@@ -149,7 +161,7 @@ public class NowCoder_BeatMonster {
     }
 
     public static void main(String[] args) {
-        int len = 10;
+        int len = 12;
         int value = 20;
         int testTimes = 10000;
         for (int i = 0; i < testTimes; i++) {
@@ -157,9 +169,9 @@ public class NowCoder_BeatMonster {
             int[] d = arrs[0];
             int[] p = arrs[1];
             long ans1 = func1(d, p);
-            long ans2 = func2(d, p);
-            long ans3 = func3(d, p);
-            long ans4 = minMoney2(d, p);
+            long ans2 = func3(d, p);
+            long ans3 = func4(d, p);
+            long ans4 = func2(d, p);
             if (ans1 != ans2 || ans2 != ans3 || ans1 != ans4) {
                 System.out.println("oops!");
             }
