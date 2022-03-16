@@ -68,6 +68,10 @@
 
 [矩阵处理技巧](docs/矩阵处理技巧.md)
 
+[矩阵处理技巧](docs/四边形不等式优化技巧.md)
+
+[状态压缩的动态规划问题](docs/状态压缩的动态规划问题.md)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)
