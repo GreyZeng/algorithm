@@ -52,38 +52,33 @@ public class NowCoder_BeatMonster {
         for (int a : money) {
             sum += a;
         }
+        int N = hp.length;
         for (int i = 0; i < sum; i++) {
-            long p = p2(hp, money, hp.length - 1, i);
-            if (p != -1) {
+            if (p2(hp, money, N - 1, i) != -1) {
                 return i;
             }
-
         }
         return sum;
     }
 
-    // TODO
-    // 从0....index号怪兽，花的钱，必须严格==money
+    // 从0....index 怪兽，花的钱，必须严格==m
     // 如果通过不了，返回-1
     // 如果可以通过，返回能通过情况下的最大能力值
     public static long p2(int[] hp, int[] money, int index, int m) {
-        if (index == -1) { // 一个怪兽也没遇到呢
-            return m == 0 ? 0 : -1;
+        if (index == -1) {
+            return m == 0 ? 0L : -1L;
         }
-        // index >= 0
-        // 1) 不贿赂当前index号怪兽
-        long preMaxAbility = p2(hp, money, index - 1, m);
-        long p1 = -1;
-        if (preMaxAbility != -1 && preMaxAbility >= hp[index]) {
-            p1 = preMaxAbility;
+        // 贿赂当前怪兽
+        long p1 = p2(hp, money, index - 1, m);
+        long ans = -1;
+        if (p1 != -1 && p1 >= hp[index]) {
+            ans = p1;
         }
-        // 2) 贿赂当前的怪兽 当前的钱 p[index]
-        long preMaxAbility2 = p2(hp, money, index - 1, m - money[index]);
-        long p2 = -1;
-        if (preMaxAbility2 != -1) {
-            p2 = hp[index] + preMaxAbility2;
+        long p2 = p2(hp, money, index - 1, m - money[index]);
+        if (p2 != -1) {
+            ans = Math.max(ans, p2 + hp[index]);
         }
-        return Math.max(p1, p2);
+        return ans;
     }
 
 
