@@ -4,28 +4,20 @@ import java.util.HashSet;
 import java.util.TreeSet;
 
 //给定一个非负数组arr，和一个正数m
-//        返回arr的所有子序列中累加和%m之后的最大值。
-//        tips:
-//        方法1：
-//        二维表(n*sum)
-//        方法2：
-//        二维表（n*m）：列是数组下标，行0...m-1
-//        0到i上随意组合，在i%m后能否组成j
-//        方法3（分治）：
-//        二维表(n*m（真实的余数）):如果n很小，可以分解两半，暴力求每一半的所有可能子数组的累加和，放入一个List中，List加工出每个值模m后的List‘
-//        左边部分的数量 + 右边部分的数量 + 左边和右边整合的List
-public class Code_0045_SubsquenceMaxModM {
-
+//返回arr的所有子序列中累加和%m之后的最大值。
+public class Code_0045_SubSequenceMaxModM {
+    // 暴力解法
     public static int max1(int[] arr, int m) {
         HashSet<Integer> set = new HashSet<>();
         process(arr, 0, 0, set);
-        int max = 0;
+        int max = arr[0] % m;
         for (Integer sum : set) {
             max = Math.max(max, sum % m);
         }
         return max;
     }
 
+    // 枚举所有子序列的和
     public static void process(int[] arr, int index, int sum, HashSet<Integer> set) {
         if (index == arr.length) {
             set.add(sum);
@@ -35,11 +27,12 @@ public class Code_0045_SubsquenceMaxModM {
         }
     }
 
+    // 二维表 O(N*sum)
     public static int max2(int[] arr, int m) {
         int sum = 0;
         int N = arr.length;
-        for (int i = 0; i < N; i++) {
-            sum += arr[i];
+        for (int k : arr) {
+            sum += k;
         }
         boolean[][] dp = new boolean[N][sum + 1];
         for (int i = 0; i < N; i++) {
@@ -63,6 +56,8 @@ public class Code_0045_SubsquenceMaxModM {
         return ans;
     }
 
+    // 二维表（n*m）：列是数组下标，行0...m-1
+    // 0到i上随意组合，在i%m后能否组成j
     public static int max3(int[] arr, int m) {
         int N = arr.length;
         // 0...m-1
@@ -94,6 +89,9 @@ public class Code_0045_SubsquenceMaxModM {
 
     // 如果arr的累加和很大，m也很大
     // 但是arr的长度相对不大
+    //        方法3（分治）：
+//        二维表(n*m（真实的余数）):如果n很小，可以分解两半，暴力求每一半的所有可能子数组的累加和，放入一个List中，List加工出每个值模m后的List‘
+//        左边部分的数量 + 右边部分的数量 + 左边和右边整合的List
     public static int max4(int[] arr, int m) {
         if (arr.length == 1) {
             return arr[0] % m;
