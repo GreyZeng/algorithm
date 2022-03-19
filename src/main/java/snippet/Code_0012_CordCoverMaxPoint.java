@@ -36,13 +36,14 @@ public class Code_0012_CordCoverMaxPoint {
         return index;
     }
 
-    public static int maxPoint2(int[] arr, int L) {
+    // 最优解 滑动窗口
+    public static int maxPoint2(int[] arr, int K) {
         int left = 0;
         int right = 0;
-        int N = arr.length;
-        int max = 0;
-        while (left < N) {
-            while (right < N && arr[right] - arr[left] <= L) {
+        int n = arr.length;
+        int max = 1;
+        while (left < n) {
+            while (right < n && arr[right] - arr[left] <= K) {
                 right++;
             }
             max = Math.max(max, right - (left++));
@@ -89,6 +90,7 @@ public class Code_0012_CordCoverMaxPoint {
                 break;
             }
         }
+        System.out.println("测试结束");
 
     }
 
