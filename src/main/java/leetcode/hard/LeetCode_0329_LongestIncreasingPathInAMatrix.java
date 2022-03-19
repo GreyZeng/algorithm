@@ -22,9 +22,9 @@
         ]
         Output: 4
         Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.*/
-package leetcode;
+package leetcode.hard;
 
-
+// https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/
 public class LeetCode_0329_LongestIncreasingPathInAMatrix {
 
     public static int longestIncreasingPath(int[][] matrix) {
@@ -63,6 +63,5 @@ public class LeetCode_0329_LongestIncreasingPathInAMatrix {
         dp[i][j] = next + 1;
         return dp[i][j];
     }
-
 
 }
