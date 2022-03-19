@@ -25,6 +25,8 @@ For each integer, you should choose one from + and - as its new symbol.
 		Your output answer is guaranteed to be fitted in a 32-bit integer.*/
 package leetcode.medium;
 
+import java.util.HashMap;
+
 // 0. 数组处理成非负数不会影响结果
 // 1. target > sum 返回0
 // 2. sum和target奇偶性不一样，返回0
