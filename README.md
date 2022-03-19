@@ -72,6 +72,8 @@
 
 [状态压缩的动态规划问题](docs/状态压缩的动态规划问题.md)
 
+[DC3算法](docs/DC3算法.md)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)
