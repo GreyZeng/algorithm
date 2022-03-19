@@ -1,6 +1,8 @@
 package snippet;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Code_0060_CountFiles {
@@ -13,17 +15,17 @@ public class Code_0060_CountFiles {
         if (root.isFile()) {
             return 1;
         }
-        Stack<File> stack = new Stack<>();
+        Queue<File> stack = new LinkedList<>();
         stack.add(root);
         int files = 0;
         while (!stack.isEmpty()) {
-            File folder = stack.pop();
+            File folder = stack.poll();
             for (File next : folder.listFiles()) {
                 if (next.isFile()) {
                     files++;
                 }
                 if (next.isDirectory()) {
-                    stack.push(next);
+                    stack.offer(next);
                 }
             }
         }
