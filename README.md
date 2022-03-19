@@ -74,6 +74,8 @@
 
 [DC3算法](docs/DC3算法.md)
 
+[动态规划猜法中和外部信息简化的相关问题](docs/动态规划猜法中和外部信息简化的相关问题.md)
+
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)

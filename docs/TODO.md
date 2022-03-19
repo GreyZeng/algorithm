@@ -386,11 +386,7 @@ key：节点  value: 列表，哪些节点和key节点有关系
 
 代表节点打上tag即可
 
-[TODO]
-https://leetcode.com/problems/remove-boxes
-tips:
-int f(arr, L,R,K)
-arr L..R 消消乐 L前面跟着K个[L]位置上的数，都消掉要多少？
+
 
 [TODO]
 https://leetcode.com/problems/strange-printer/
