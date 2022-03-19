@@ -23,8 +23,13 @@ For each integer, you should choose one from + and - as its new symbol.
 		The length of the given array is positive and will not exceed 20.
 		The sum of elements in the given array will not exceed 1000.
 		Your output answer is guaranteed to be fitted in a 32-bit integer.*/
-package leetcode;
+package leetcode.medium;
 
+// 0. 数组处理成非负数不会影响结果
+// 1. target > sum 返回0
+// 2. sum和target奇偶性不一样，返回0
+// 4.P 是正数集合，N是负数集合，P - N= target ---> 2P = target + N + P --> P = (target + sum) / 2，如果某个累加和等于P，则得到一种情况
+// 5. 空间压缩技巧
 public class LeetCode_0494_TargetSum {
     public static int findTargetSumWays(int[] arr, int sum) {
         int max = 0;
