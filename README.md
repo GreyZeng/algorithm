@@ -74,7 +74,11 @@
 
 [DC3算法](docs/DC3算法.md)
 
+[哈夫曼树](docs/哈夫曼树.md)
+
 [动态规划猜法中和外部信息简化的相关问题](docs/动态规划猜法中和外部信息简化的相关问题.md)
+
+[dinic算法](docs/dinic算法.md)
 
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
