@@ -46,7 +46,7 @@
 
 [morris遍历](docs/Morris遍历.md)
 
-[线段树](https://www.cnblogs.com/greyzeng/p/15328120.html)
+[线段树](docs/线段树.md)
 
 [树状数组](https://www.cnblogs.com/greyzeng/p/15343780.html)
 
