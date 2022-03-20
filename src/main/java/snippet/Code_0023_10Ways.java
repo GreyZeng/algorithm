@@ -82,7 +82,7 @@ public class Code_0023_10Ways {
 
     public static void main(String[] args) {
         System.out.println("test begin");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 12; i++) {
             long ans1 = ways1(i);
             long ans2 = ways2(i);
             if (ans1 != ans2) {
