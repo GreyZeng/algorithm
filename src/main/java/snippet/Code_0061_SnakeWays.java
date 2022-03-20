@@ -127,33 +127,19 @@ public class Code_0061_SnakeWays {
     }
 
     public static long ways1(int[] arr, int w) {
-        // arr[0...]
         return process(arr, 0, w);
     }
 
-    // 从左往右的经典模型
-    // 还剩的容量是rest，arr[index...]自由选择，
-    // 返回选择方案
-    // index ： 0～N
-    // rest : 0~w
+
     public static long process(int[] arr, int index, int rest) {
-        if (rest < 0) { // 没有容量了
-            // -1 无方案的意思
-            return -1;
-        }
-        // rest>=0,
-        if (index == arr.length) { // 无零食可选
+        if (index == arr.length) {
             return 1;
         }
-        // rest >=0
-        // 有零食index
-        // index号零食，要 or 不要
-        // index, rest
-        // (index+1, rest)
-        // (index+1, rest-arr[i])
-        long next1 = process(arr, index + 1, rest); // 不要
-        long next2 = process(arr, index + 1, rest - arr[index]); // 要
-        return next1 + (next2 == -1 ? 0 : next2);
+        long next1 = process(arr, index + 1, rest);
+        if (rest - arr[index] >= 0) {
+            return next1 + process(arr, index + 1, rest - arr[index]);
+        }
+        return next1;
     }
 
     public static long ways2(int[] arr, int w) {
