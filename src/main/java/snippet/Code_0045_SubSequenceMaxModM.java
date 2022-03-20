@@ -109,6 +109,7 @@ public class Code_0045_SubSequenceMaxModM {
         process4(arr, mid + 1, 0, arr.length - 1, m, sortSet2);
         int ans = 0;
         for (Integer leftMod : sortSet1) {
+            // 左边的余数是leftMode，期待右边有一个余数 两个余数之和最接近 m -1即为答案
             ans = Math.max(ans, leftMod + sortSet2.floor(m - 1 - leftMod));
         }
         return ans;
