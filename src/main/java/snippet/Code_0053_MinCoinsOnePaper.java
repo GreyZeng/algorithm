@@ -130,7 +130,7 @@ public class Code_0053_MinCoinsOnePaper {
     }
 
     // dp3时间复杂度为：O(arr长度) + O(货币种数 * aim)
-    // TODO 优化需要用到窗口内最小值的更新结构
+    // 优化需要用到窗口内最小值的更新结构
     public static int dp3(int[] arr, int aim) {
         if (aim == 0) {
             return 0;
