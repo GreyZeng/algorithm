@@ -1,6 +1,7 @@
 package snippet;
 
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 // 牛客测评链接
@@ -28,7 +29,24 @@ public class Code_0061_SnakeWays {
         System.out.println();
     }
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws Exception {
+//        Scanner in = new Scanner(System.in);
+//        int n = in.nextInt();
+//        int w = in.nextInt();
+//        int[] v = new int[n];
+//        long sum = 0;
+//        for (int i = 0; i < n; i++) {
+//            v[i] = in.nextInt();
+//            sum += v[i];
+//        }
+//        if (sum <= w) {
+//            System.out.println((long) Math.pow(2, n));
+//        } else {
+//            System.out.println(ways0(v, w));
+//        }
+//
+//        in.close();
         int maxLen = 10;
         int maxValue = 30;
         int testTime = 1000000;
@@ -56,7 +74,6 @@ public class Code_0061_SnakeWays {
 
     // 分治方式
     public static long ways0(int[] arr, int bag) {
-
         if (arr == null || arr.length == 0) {
             return 0;
         }
