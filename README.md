@@ -56,9 +56,7 @@
 
 [资源限制类问题的常用解决方法](https://www.cnblogs.com/greyzeng/p/15371414.html)
 
-[有序表和搜索二叉树](https://www.cnblogs.com/greyzeng/p/15409105.html)
-
-[跳表的设计和实现](https://www.cnblogs.com/greyzeng/p/14429103.html)
+[有序表和跳表](docs/有序表和跳表.md)
 
 [打表法找规律以及根据数据量猜解法](docs/打表法找规律以及根据数据量猜解法.md)
 
