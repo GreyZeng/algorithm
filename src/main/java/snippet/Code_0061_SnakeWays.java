@@ -6,17 +6,57 @@ import java.util.TreeMap;
 // 牛客测评链接
 // https://www.nowcoder.com/questionTerminal/d94bb2fa461d42bcb4c0f2b94f5d4281
 public class Code_0061_SnakeWays {
-    public static void main(String[] args) throws Exception {
-        int[] arr = {4, 3, 2, 9, 7, 2, 1};
-        int w = 10;
-        System.out.println(ways0(arr, w));
-        System.out.println(ways1(arr, w));
-        System.out.println(ways2(arr, w));
-        System.out.println(ways3(arr, w));
+    // 为了测试
+    public static int[] randomArray(int maxLen, int maxValue) {
+        int N = (int) (Math.random() * maxLen) + 1;
+        int[] arr = new int[N];
+        boolean[] has = new boolean[maxValue + 1];
+        for (int i = 0; i < N; i++) {
+            do {
+                arr[i] = (int) (Math.random() * maxValue) + 1;
+            } while (has[arr[i]]);
+            has[arr[i]] = true;
+        }
+        return arr;
+    }
+
+    // 为了测试
+    public static void printArray(int[] arr) {
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        int maxLen = 10;
+        int maxValue = 30;
+        int testTime = 1000000;
+        System.out.println("测试开始");
+        for (int i = 0; i < testTime; i++) {
+            int[] arr = randomArray(maxLen, maxValue);
+            int aim = (int) (Math.random() * maxValue);
+            long ans1 = ways0(arr, aim);
+            long ans2 = ways1(arr, aim);
+            long ans3 = ways3(arr, aim);
+            long ans4 = ways2(arr, aim);
+            if (ans1 != ans2 || ans1 != ans3 || ans1 != ans4) {
+                System.out.println("Oops!");
+                printArray(arr);
+                System.out.println(aim);
+                System.out.println(ans1);
+                System.out.println(ans2);
+                System.out.println(ans3);
+                System.out.println(ans4);
+                break;
+            }
+        }
+        System.out.println("测试结束");
     }
 
     // 分治方式
     public static long ways0(int[] arr, int bag) {
+
         if (arr == null || arr.length == 0) {
             return 0;
         }
