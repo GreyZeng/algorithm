@@ -1,0 +1,136 @@
+package snippet;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+// 牛客测评链接
+// https://www.nowcoder.com/questionTerminal/d94bb2fa461d42bcb4c0f2b94f5d4281
+public class Code_0061_SnakeWays {
+    public static void main(String[] args) throws Exception {
+        int[] arr = {4, 3, 2, 9, 7, 2, 1};
+        int w = 10;
+        System.out.println(ways0(arr, w));
+        System.out.println(ways1(arr, w));
+        System.out.println(ways2(arr, w));
+        System.out.println(ways3(arr, w));
+    }
+
+    // 分治方式
+    public static long ways0(int[] arr, int bag) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        if (arr.length == 1) {
+            return arr[0] <= bag ? 2 : 1;
+        }
+        int mid = (arr.length - 1) >> 1;
+        TreeMap<Long, Long> lmap = new TreeMap<>();
+        long ways = process0(arr, 0, 0, mid, bag, lmap);
+        TreeMap<Long, Long> rmap = new TreeMap<>();
+        ways += process0(arr, mid + 1, 0, arr.length - 1, bag, rmap);
+        TreeMap<Long, Long> rpre = new TreeMap<>();
+        long pre = 0;
+        for (Map.Entry<Long, Long> entry : rmap.entrySet()) {
+            pre += entry.getValue();
+            rpre.put(entry.getKey(), pre);
+        }
+        for (Map.Entry<Long, Long> entry : lmap.entrySet()) {
+            long lweight = entry.getKey();
+            long lways = entry.getValue();
+            Long floor = rpre.floorKey(bag - lweight);
+            if (floor != null) {
+                long rways = rpre.get(floor);
+                ways += lways * rways;
+            }
+        }
+        return ways + 1;
+    }
+
+
+    public static long process0(int[] arr, int index, long w, int end, int bag, TreeMap<Long, Long> map) {
+        if (w > bag) {
+            return 0;
+        }
+        if (index > end) {
+            if (w != 0) {
+                if (!map.containsKey(w)) {
+                    map.put(w, 1L);
+                } else {
+                    map.put(w, map.get(w) + 1);
+                }
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            long ways = process0(arr, index + 1, w, end, bag, map);
+            ways += process0(arr, index + 1, w + arr[index], end, bag, map);
+            return ways;
+        }
+    }
+
+    public static long ways1(int[] arr, int w) {
+        // arr[0...]
+        return process(arr, 0, w);
+    }
+
+    // 从左往右的经典模型
+    // 还剩的容量是rest，arr[index...]自由选择，
+    // 返回选择方案
+    // index ： 0～N
+    // rest : 0~w
+    public static long process(int[] arr, int index, int rest) {
+        if (rest < 0) { // 没有容量了
+            // -1 无方案的意思
+            return -1;
+        }
+        // rest>=0,
+        if (index == arr.length) { // 无零食可选
+            return 1;
+        }
+        // rest >=0
+        // 有零食index
+        // index号零食，要 or 不要
+        // index, rest
+        // (index+1, rest)
+        // (index+1, rest-arr[i])
+        long next1 = process(arr, index + 1, rest); // 不要
+        long next2 = process(arr, index + 1, rest - arr[index]); // 要
+        return next1 + (next2 == -1 ? 0 : next2);
+    }
+
+    public static long ways2(int[] arr, int w) {
+        int N = arr.length;
+        long[][] dp = new long[N + 1][w + 1];
+        for (int j = 0; j <= w; j++) {
+            dp[N][j] = 1;
+        }
+        for (int i = N - 1; i >= 0; i--) {
+            for (int j = 0; j <= w; j++) {
+                dp[i][j] = dp[i + 1][j] + ((j - arr[i] >= 0) ? dp[i + 1][j - arr[i]] : 0);
+            }
+        }
+        return dp[0][w];
+    }
+
+    public static long ways3(int[] arr, int w) {
+        int N = arr.length;
+        long[][] dp = new long[N][w + 1];
+        for (int i = 0; i < N; i++) {
+            dp[i][0] = 1;
+        }
+        if (arr[0] <= w) {
+            dp[0][arr[0]] = 1;
+        }
+        for (int i = 1; i < N; i++) {
+            for (int j = 1; j <= w; j++) {
+                dp[i][j] = dp[i - 1][j] + ((j - arr[i]) >= 0 ? dp[i - 1][j - arr[i]] : 0);
+            }
+        }
+        long ans = 0;
+        for (int j = 0; j <= w; j++) {
+            ans += dp[N - 1][j];
+        }
+        return ans;
+    }
+}
