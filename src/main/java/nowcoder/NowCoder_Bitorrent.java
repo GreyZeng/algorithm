@@ -51,7 +51,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-//tips: hashmap head表 和 tail表 和链表配合
+//tips:
+// hashmap head表 和 tail表 和链表配合
 public class NowCoder_Bitorrent {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -113,6 +114,4 @@ public class NowCoder_Bitorrent {
             tail.remove(wait - 1);
         }
     }
-
-
 }
