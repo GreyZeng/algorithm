@@ -68,6 +68,7 @@ public class Code_0105_Drive {
 		Arrays.sort(arr);
 		int M = N >> 1;
 		for (int i = N - 1; i >= M; i--) {
+			// arr[i] = income[i][1] - income[i][0]
 			sum += arr[i];
 		}
 		return sum;
