@@ -1,5 +1,4 @@
-
-package leetcode;
+package leetcode.medium;
 
 //给定一个N*N的矩阵matrix，只有0和1两种值，返回边框全是1的最大正方形的边长长度。
 //        例如:
@@ -71,13 +70,6 @@ public class LeetCode_1139_Largest1BorderedSquare {
                 }
             }
         }
-
         return max * max;
     }
-
-    public static void main(String[] args) {
-        int[][] grid = {{0, 1, 1, 1, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 1, 1, 1, 0, 1, 1}, {1, 1, 1, 1, 0, 1, 1, 1}, {1, 0, 1, 0, 0, 1, 1, 1}, {0, 1, 1, 1, 1, 0, 1, 1}};
-        System.out.println(largest1BorderedSquare(grid));
-    }
-
 }
