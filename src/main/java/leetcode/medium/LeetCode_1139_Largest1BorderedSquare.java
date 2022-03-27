@@ -19,57 +19,62 @@ package leetcode.medium;
 //        d[i][j] 下方有多少个连续的1
 //https://leetcode.com/problems/largest-1-bordered-square/
 public class LeetCode_1139_Largest1BorderedSquare {
-    public static int largest1BorderedSquare(int[][] grid) {
-        int M = grid.length;
-        int N = grid[0].length;
-        // i位置包括自己右边有几个连续的1
-        int[][] rightOneTimes = new int[M][N];
-        // i位置包括自己下面有几个连续的1
-        int[][] downOneTimes = new int[M][N];
-        int max = 0;
-        for (int i = 0; i < M; i++) {
-            for (int j = N - 1; j >= 0; j--) {
-                if (grid[i][j] == 0) {
-                    rightOneTimes[i][j] = 0;
-                } else {
-                    rightOneTimes[i][j] = 1;
-                    if (j != N - 1) {
-                        rightOneTimes[i][j] = rightOneTimes[i][j] + rightOneTimes[i][j + 1];
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < N; i++) {
-            for (int j = M - 1; j >= 0; j--) {
-                if (grid[j][i] == 0) {
-                    downOneTimes[j][i] = 0;
-                } else {
-                    downOneTimes[j][i] = 1;
-                    if (j != M - 1) {
-                        downOneTimes[j][i] = downOneTimes[j][i] + downOneTimes[j + 1][i];
-                    }
-                }
-            }
-        }
+	public static int largest1BorderedSquare(int[][] matrix) {
+		int m = matrix.length;
+		int n = matrix[0].length;
+		int[][] r = initRight(matrix, m, n);
+		int[][] d = initDown(matrix, m, n);
+		int ans = 0;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (matrix[i][j] != 0) {
+					int len = Math.min(r[i][j], d[i][j]);
+					while (len > 0) {
+						int x = i + len - 1;
+						int y = j + len - 1;
+						if (r[x][j] >= len && d[i][y] >= len) {
+							ans = Math.max(len * len, ans);
+							break;
+						}
+						len--;
+					}
+				}
+			}
+		}
+		return ans;
+	}
 
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-                if (rightOneTimes[i][j] != 0 && downOneTimes[i][j] != 0) {
-                    int len = Math.min(rightOneTimes[i][j], downOneTimes[i][j]);
-                    while (len > 0) {
-                        int rightNextX = i;
-                        int rightNextY = j + len - 1;
-                        int downNextX = i + len - 1;
-                        int downNextY = j;
-                        if (downOneTimes[rightNextX][rightNextY] >= len && rightOneTimes[downNextX][downNextY] >= len) {
-                            max = Math.max(len, max);
-                            break;
-                        }
-                        len--;
-                    }
-                }
-            }
-        }
-        return max * max;
-    }
+	private static int[][] initDown(int[][] matrix, int m, int n) {
+		int[][] d = new int[m][n];
+		for (int j = n - 1; j >= 0; j--) {
+			d[m - 1][j] = matrix[m - 1][j];
+		}
+		for (int i = m - 2; i >= 0; i--) {
+			for (int j = n - 1; j >= 0; j--) {
+				if (matrix[i][j] == 0) {
+					d[i][j] = 0;
+				} else {
+					d[i][j] = d[i + 1][j] + 1;
+				}
+			}
+		}
+		return d;
+	}
+
+	private static int[][] initRight(int[][] matrix, int m, int n) {
+		int[][] r = new int[m][n];
+		for (int i = m - 1; i >= 0; i--) {
+			r[i][n - 1] = matrix[i][n - 1];
+		}
+		for (int j = n - 2; j >= 0; j--) {
+			for (int i = m - 1; i >= 0; i--) {
+				if (matrix[i][j] == 0) {
+					r[i][j] = 0;
+				} else {
+					r[i][j] = r[i][j + 1] + 1;
+				}
+			}
+		}
+		return r;
+	}
 }
