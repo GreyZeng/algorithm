@@ -4,7 +4,7 @@ public class LeetCode_0062_UniquePaths {
     // 动态规划解法
     public static int uniquePaths1(int m, int n) {
         if (m == 1 || n == 1) return 1;
-        int res = 0, i, j;
+        int i, j;
         int[][] dp = new int[m][n];
         // 将单边界的情况赋值为1
         for (i = 0; i < m; i++) {

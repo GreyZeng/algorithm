@@ -1,7 +1,5 @@
 package leetcode.hard;
 
-import java.util.Stack;
-
 // 找出只包含1的最大矩形的面积
 // https://leetcode-cn.com/problems/maximal-rectangle/
 // https://www.lintcode.com/problem/510/

@@ -2,7 +2,6 @@ package leetcode.medium;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Stack;
 
 //Evaluate the value of an arithmetic expression in Reverse Polish Notation.
 //

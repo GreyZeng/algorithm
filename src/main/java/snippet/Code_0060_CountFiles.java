@@ -3,7 +3,6 @@ package snippet;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 public class Code_0060_CountFiles {
 

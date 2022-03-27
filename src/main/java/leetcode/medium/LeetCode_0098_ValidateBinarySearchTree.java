@@ -1,9 +1,6 @@
 package leetcode.medium;
 
-import leetcode.easy.LeetCode_0094_BinaryTreeInorderTraversal;
-
 import java.util.ArrayList;
-import java.util.List;
 
 //Given a binary tree, determine if it is a valid binary search tree (BST).
 //

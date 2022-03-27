@@ -13,8 +13,6 @@
 // 剩余大于等于24，就不需要试的
 package nowcoder;
 
-import java.util.Scanner;
-
 // https://www.nowcoder.com/questionTerminal/61cfbb2e62104bc8aa3da5d44d38a6ef
 public class NowCoder_AppleMinBags {
     public static int minBags(int n) {

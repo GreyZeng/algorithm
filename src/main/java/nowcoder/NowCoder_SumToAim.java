@@ -28,7 +28,6 @@ package nowcoder;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 // TODO
 public class NowCoder_SumToAim {

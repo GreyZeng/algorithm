@@ -1,23 +1,24 @@
-// Given a 2D grid of 0s and 1s, return the number of elements in the largest square subgrid that has all 1s on its border, or 0 if such a subgrid doesn't exist in the grid.
 
-
-// Example 1:
-
-// Input: grid = [[1,1,1],[1,0,1],[1,1,1]]
-// Output: 9
-// Example 2:
-
-// Input: grid = [[1,1,0,0]]
-// Output: 1
-
-
-// Constraints:
-
-// 1 <= grid.length <= 100
-// 1 <= grid[0].length <= 100
-// grid[i][j] is 0 or 1
 package leetcode;
 
+//给定一个N*N的矩阵matrix，只有0和1两种值，返回边框全是1的最大正方形的边长长度。
+//        例如:
+//        01111
+//        01001
+//        01001
+//        01111
+//        01011
+//        其中边框全是1的最大正方形的大小为4*4，所以返回4
+//        tips:
+//        N*N 正方形
+//        有N^4长方形 随便点一个点O(N^2), 随便点另外一个点O(N^2) 所以是O(N^4)
+//        有N^3正方形 随便点一个点O(N^2), 边长的范围[0,N]，所以是O(N^3)
+//        长方形需要两个点确定
+//        正方形一个点+边长确定
+// 准备两个矩阵：r矩阵和d矩阵，其中
+//        r[i][j] 右侧有多少个连续的1
+//        d[i][j] 下方有多少个连续的1
+//https://leetcode.com/problems/largest-1-bordered-square/
 public class LeetCode_1139_Largest1BorderedSquare {
     public static int largest1BorderedSquare(int[][] grid) {
         int M = grid.length;

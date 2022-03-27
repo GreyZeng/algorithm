@@ -1,7 +1,6 @@
 package snippet;
 
 import java.util.Map;
-import java.util.Scanner;
 import java.util.TreeMap;
 
 // 牛客测评链接
