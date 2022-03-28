@@ -1,6 +1,5 @@
 package leetcode.medium;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,56 +25,78 @@ public class LeetCode_0863_AllNodesDistanceKinBinaryTree {
             val = v;
         }
     }
-
-    public static List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
-        Map<TreeNode, TreeNode> parents = new HashMap<>(1000);
+    // TODO
+    // 生成每个节点的父节点的映射表
+    // 宽度优先遍历，一次处理一批
+    public static List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        Map<TreeNode, TreeNode> parents = new HashMap<>();
         parents.put(root, null);
-        createParentMap(root, parents);
-        Queue<TreeNode> queue = new LinkedList<>();
+        parents(root, parents);
         Set<TreeNode> visited = new HashSet<>();
-        queue.offer(target);
+        Queue<TreeNode> queue = new LinkedList<>();
         visited.add(target);
-        int curLevel = 0;
+        queue.offer(target);
         List<Integer> ans = new ArrayList<>();
         while (!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
             int size = queue.size();
-            while (size-- > 0) {
-                TreeNode cur = queue.poll();
-                if (curLevel == K) {
-                    ans.add(cur.val);
-                }
-                if (cur.left != null && !visited.contains(cur.left)) {
-                    visited.add(cur.left);
-                    queue.offer(cur.left);
-                }
-                if (cur.right != null && !visited.contains(cur.right)) {
-                    visited.add(cur.right);
-                    queue.offer(cur.right);
-                }
-                if (parents.get(cur) != null && !visited.contains(parents.get(cur))) {
-                    visited.add(parents.get(cur));
-                    queue.offer(parents.get(cur));
-                }
-            }
-            curLevel++;
-            if (curLevel > K) {
-                break;
+            while (size > 0) {
+
             }
         }
         return ans;
     }
 
-    public static void createParentMap(TreeNode cur, Map<TreeNode, TreeNode> parents) {
-        if (cur == null) {
+    private static void parents(TreeNode root, Map<TreeNode, TreeNode> parents) {
+        if (root == null) {
             return;
         }
-        if (cur.left != null) {
-            parents.put(cur.left, cur);
-            createParentMap(cur.left, parents);
+        if (root.left != null) {
+            parents.put(root.left, root);
+            parents(root.left, parents);
         }
-        if (cur.right != null) {
-            parents.put(cur.right, cur);
-            createParentMap(cur.right, parents);
+        if (root.right != null) {
+            parents.put(root.right, root);
+            parents(root.right, parents);
         }
     }
+
+//    public static List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
+//        Map<TreeNode, TreeNode> parents = new HashMap<>(1000);
+//        parents.put(root, null);
+//        createParentMap(root, parents);
+//        Queue<TreeNode> queue = new LinkedList<>();
+//        Set<TreeNode> visited = new HashSet<>();
+//        queue.offer(target);
+//        visited.add(target);
+//        int curLevel = 0;
+//        List<Integer> ans = new ArrayList<>();
+//        while (!queue.isEmpty()) {
+//            int size = queue.size();
+//            while (size-- > 0) {
+//                TreeNode cur = queue.poll();
+//                if (curLevel == K) {
+//                    ans.add(cur.val);
+//                }
+//                if (cur.left != null && !visited.contains(cur.left)) {
+//                    visited.add(cur.left);
+//                    queue.offer(cur.left);
+//                }
+//                if (cur.right != null && !visited.contains(cur.right)) {
+//                    visited.add(cur.right);
+//                    queue.offer(cur.right);
+//                }
+//                if (parents.get(cur) != null && !visited.contains(parents.get(cur))) {
+//                    visited.add(parents.get(cur));
+//                    queue.offer(parents.get(cur));
+//                }
+//            }
+//            curLevel++;
+//            if (curLevel > K) {
+//                break;
+//            }
+//        }
+//        return ans;
+//    }
+
 }
