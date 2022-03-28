@@ -16,6 +16,9 @@ import java.util.*;
 //		第一个有序表 记录次数
 //		第二个有序表 记录轮廓
 //		为了防止纸片大楼，在排序的时候，把+放在-之前
+// https://leetcode.com/problems/the-skyline-problem/
+// lintcode上的用例存在纸片大楼，输出结果的要求有点差别
+// https://www.lintcode.com/problem/131/
 public class LeetCode_0218_TheSkylineProblem {
     public static class Node {
         public int x;
@@ -76,11 +79,5 @@ public class LeetCode_0218_TheSkylineProblem {
         }
         list.sort(Comparator.comparingInt((Node o) -> o.x));
         return list;
-    }
-
-    public static void main(String[] args) {
-        int[][] building = {{1, 3, 3}, {2, 4, 4}, {5, 6, 1}};
-        List<List<Integer>> list = getSkyline(building);
-        System.out.println(list);
     }
 }
