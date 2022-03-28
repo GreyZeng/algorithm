@@ -1,0 +1,81 @@
+package leetcode.medium;
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+
+// 给定三个参数：
+//二叉树的头节点head，树上某个节点target，正数K
+//从target开始，可以向上走或者向下走
+//返回与target的距离是K的所有节点
+// https://leetcode-cn.com/problems/all-nodes-distance-k-in-binary-tree/
+public class LeetCode_0863_AllNodesDistanceKinBinaryTree {
+
+    public static class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+
+        public TreeNode(int v) {
+            val = v;
+        }
+    }
+
+    public static List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
+        Map<TreeNode, TreeNode> parents = new HashMap<>(1000);
+        parents.put(root, null);
+        createParentMap(root, parents);
+        Queue<TreeNode> queue = new LinkedList<>();
+        Set<TreeNode> visited = new HashSet<>();
+        queue.offer(target);
+        visited.add(target);
+        int curLevel = 0;
+        List<Integer> ans = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size-- > 0) {
+                TreeNode cur = queue.poll();
+                if (curLevel == K) {
+                    ans.add(cur.val);
+                }
+                if (cur.left != null && !visited.contains(cur.left)) {
+                    visited.add(cur.left);
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null && !visited.contains(cur.right)) {
+                    visited.add(cur.right);
+                    queue.offer(cur.right);
+                }
+                if (parents.get(cur) != null && !visited.contains(parents.get(cur))) {
+                    visited.add(parents.get(cur));
+                    queue.offer(parents.get(cur));
+                }
+            }
+            curLevel++;
+            if (curLevel > K) {
+                break;
+            }
+        }
+        return ans;
+    }
+
+    public static void createParentMap(TreeNode cur, Map<TreeNode, TreeNode> parents) {
+        if (cur == null) {
+            return;
+        }
+        if (cur.left != null) {
+            parents.put(cur.left, cur);
+            createParentMap(cur.left, parents);
+        }
+        if (cur.right != null) {
+            parents.put(cur.right, cur);
+            createParentMap(cur.right, parents);
+        }
+    }
+}
