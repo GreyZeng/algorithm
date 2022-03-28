@@ -16,87 +16,68 @@ import java.util.Set;
 // https://leetcode-cn.com/problems/all-nodes-distance-k-in-binary-tree/
 public class LeetCode_0863_AllNodesDistanceKinBinaryTree {
 
-    public static class TreeNode {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
+	public static class TreeNode {
+		public int val;
+		public TreeNode left;
+		public TreeNode right;
 
-        public TreeNode(int v) {
-            val = v;
-        }
-    }
-    // TODO
-    // 生成每个节点的父节点的映射表
-    // 宽度优先遍历，一次处理一批
-    public static List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        Map<TreeNode, TreeNode> parents = new HashMap<>();
-        parents.put(root, null);
-        parents(root, parents);
-        Set<TreeNode> visited = new HashSet<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        visited.add(target);
-        queue.offer(target);
-        List<Integer> ans = new ArrayList<>();
-        while (!queue.isEmpty()) {
-            TreeNode cur = queue.poll();
-            int size = queue.size();
-            while (size > 0) {
+		public TreeNode(int v) {
+			val = v;
+		}
+	}
 
-            }
-        }
-        return ans;
-    }
+	// 生成每个节点的父节点的映射表
+	// 宽度优先遍历，一次处理一批
+	public static List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+		Map<TreeNode, TreeNode> parents = new HashMap<>();
+		parents.put(root, null);
+		parents(root, parents);
+		Set<TreeNode> visited = new HashSet<>();
+		Queue<TreeNode> queue = new LinkedList<>();
+		visited.add(target);
+		queue.offer(target);
+		List<Integer> ans = new ArrayList<>();
+		int curLevel = 0;
+		while (!queue.isEmpty()) {
+			int size = queue.size();
+			while (size > 0) {
+				TreeNode cur = queue.poll();
+				if (curLevel == k) {
+					ans.add(cur.val);
+				}
+				if (cur.left != null && !visited.contains(cur.left)) {
+					queue.offer(cur.left);
+					visited.add(cur.left);
+				}
+				if (cur.right != null && !visited.contains(cur.right)) {
+					queue.offer(cur.right);
+					visited.add(cur.right);
+				}
+				if (parents.get(cur) != null && !visited.contains(parents.get(cur))) {
+					queue.offer(parents.get(cur));
+					visited.add(parents.get(cur));
+				}
+				size--;
+			}
+			curLevel++;
+			if (curLevel > k) {
+				break;
+			}
+		}
+		return ans;
+	}
 
-    private static void parents(TreeNode root, Map<TreeNode, TreeNode> parents) {
-        if (root == null) {
-            return;
-        }
-        if (root.left != null) {
-            parents.put(root.left, root);
-            parents(root.left, parents);
-        }
-        if (root.right != null) {
-            parents.put(root.right, root);
-            parents(root.right, parents);
-        }
-    }
-
-//    public static List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
-//        Map<TreeNode, TreeNode> parents = new HashMap<>(1000);
-//        parents.put(root, null);
-//        createParentMap(root, parents);
-//        Queue<TreeNode> queue = new LinkedList<>();
-//        Set<TreeNode> visited = new HashSet<>();
-//        queue.offer(target);
-//        visited.add(target);
-//        int curLevel = 0;
-//        List<Integer> ans = new ArrayList<>();
-//        while (!queue.isEmpty()) {
-//            int size = queue.size();
-//            while (size-- > 0) {
-//                TreeNode cur = queue.poll();
-//                if (curLevel == K) {
-//                    ans.add(cur.val);
-//                }
-//                if (cur.left != null && !visited.contains(cur.left)) {
-//                    visited.add(cur.left);
-//                    queue.offer(cur.left);
-//                }
-//                if (cur.right != null && !visited.contains(cur.right)) {
-//                    visited.add(cur.right);
-//                    queue.offer(cur.right);
-//                }
-//                if (parents.get(cur) != null && !visited.contains(parents.get(cur))) {
-//                    visited.add(parents.get(cur));
-//                    queue.offer(parents.get(cur));
-//                }
-//            }
-//            curLevel++;
-//            if (curLevel > K) {
-//                break;
-//            }
-//        }
-//        return ans;
-//    }
-
+	private static void parents(TreeNode root, Map<TreeNode, TreeNode> parents) {
+		if (root == null) {
+			return;
+		}
+		if (root.left != null) {
+			parents.put(root.left, root);
+			parents(root.left, parents);
+		}
+		if (root.right != null) {
+			parents.put(root.right, root);
+			parents(root.right, parents);
+		}
+	}
 }
