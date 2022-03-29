@@ -1,34 +1,81 @@
 package leetcode.medium;
 
-//对于某些固定的 N，如果数组 A 是整数 1, 2, ..., N 组成的排列，使得：
+//生成长度为size的达标数组，什么叫达标？
+//        达标：对于任意的 i<k<j，满足 [i] + [j] != [k] * 2
+//        给定一个正数size，返回长度为size的达标数组
+//        返回构造出的arr
+//        tips:
+//        长度为1，满足
+//        假设 a + b != 2*c
+//        -> 2 * a - 1 + 2 * b - 1 != 2 * c - 1
+//        2 * a + 2 * b != 2 * c
 //
-//        对于每个 i < j，都不存在 k 满足 i < k < j 使得 A[k] * 2 = A[i] + A[j]。
+//        [a,b,c]
+//        ->[2 * a - 1, 2 * b - 1, 2 * c - 1, 2 * a, 2 * b, 2 * c]
 //
-//        那么数组 A 是漂亮数组。
+//        [1,5,3]
+//        ->[1,9,5,2,10,6]
 //
-//         
+//        长度为M，只需要一个(M + 1)/2长度的种子
 //
-//        给定 N，返回任意漂亮数组 A（保证存在一个）。
+//        复杂度估计
+//        T(N) = T(N/2) + O(N)
 //
-//         
-//
-//        示例 1：
-//
-//        输入：4
-//        输出：[2,1,4,3]
-//        示例 2：
-//
-//        输入：5
-//        输出：[3,1,2,5,4]
-//         
-//
-//        提示：
-//
-//        1 <= N <= 1000
-//
-//        来源：力扣（LeetCode）
-//        链接：https://leetcode-cn.com/problems/beautiful-array
-//        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+//        空间复杂度可以做到O(1)
+// LeetCode 这题有点差别，限制数字一定要是[1...N]
+// https://leetcode-cn.com/problems/beautiful-array
 public class LeetCode_0932_BeautifulArray {
-    // TODO
+    public static int[] beautifulArray(int size) {
+        return null;
+    }
+
+    // 没有leetcode上的限制解法
+    public static int[] randomArray(int M) {
+        if (M == 1) {
+            return new int[]{1};
+        }
+        int half = (M + 1) / 2;
+        int[] base = randomArray(half);
+        int[] result = new int[M];
+        int index = 0;
+        for (; index < half; index++) {
+            result[index] = base[index] * 2 - 1;
+        }
+        for (int i = 0; index < M; i++, index++) {
+            result[index] = base[i] * 2;
+        }
+        return result;
+    }
+
+    // 检验函数
+    public static boolean isValid(int[] arr) {
+        int N = arr.length;
+        for (int i = 0; i < N; i++) {
+            for (int k = i + 1; k < N; k++) {
+                for (int j = k + 1; j < N; j++) {
+                    if (arr[i] + arr[j] == 2 * arr[k]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("test begin");
+        for (int N = 1; N < 1000; N++) {
+            int[] arr = randomArray(N);
+            if (!isValid(arr)) {
+                System.out.println("Oops!");
+            }
+        }
+        System.out.println("test end");
+
+        System.out.println(isValid(randomArray(1042)));
+        System.out.println(isValid(randomArray(2981)));
+
+
+    }
+
 }
