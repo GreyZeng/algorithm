@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.hard;
 
 import java.util.*;
 
@@ -29,7 +29,7 @@ public class LeetCode_0218_TheSkylineProblem {
             this.height = height;
         }
     }
-    
+
     // 轮廓线只出现在最大高度变化的位置
     // 所以需要记录某个大楼从哪个位置开始增加了一个高度
     // 从哪个位置减少了一个高度
