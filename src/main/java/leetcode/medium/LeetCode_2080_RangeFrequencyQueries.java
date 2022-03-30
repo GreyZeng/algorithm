@@ -18,46 +18,40 @@ import java.util.Map;
 //大于某个数最左和最右
 // https://leetcode-cn.com/problems/range-frequency-queries/
 public class LeetCode_2080_RangeFrequencyQueries {
-
     class RangeFreqQuery {
-
-        private Map<Integer, ArrayList<Integer>> map;
+        Map<Integer, ArrayList<Integer>> pos;
 
         public RangeFreqQuery(int[] arr) {
-            map = new HashMap<>();
+            pos = new HashMap<>(arr.length);
             for (int i = 0; i < arr.length; i++) {
-                if (!map.containsKey(arr[i])) {
-                    map.put(arr[i], new ArrayList<>());
+                if (!pos.containsKey(arr[i])) {
+                    pos.put(arr[i], new ArrayList<>());
                 }
-                map.get(arr[i]).add(i);
+                pos.get(arr[i]).add(i);
             }
         }
 
-        public int query(int L, int R, int value) {
-            if (!map.containsKey(value)) {
+        public int query(int l, int r, int value) {
+            if (!pos.containsKey(value)) {
                 return 0;
             }
-            ArrayList<Integer> indexArr = map.get(value);
-            // 查询 < L 的下标有几个
-            int a = countLess(indexArr, L);
-            // 查询 < R+1 的下标有几个
-            int b = countLess(indexArr, R + 1);
+            ArrayList<Integer> list = pos.get(value);
+            int a = lessCount(list, l);
+            int b = lessCount(list, r + 1);
             return b - a;
         }
 
-        // 在有序数组arr中，用二分的方法数出<limit的数有几个
-        // 也就是用二分法，找到<limit的数中最右的位置
-        private int countLess(ArrayList<Integer> arr, int limit) {
-            int L = 0;
-            int R = arr.size() - 1;
+        private int lessCount(ArrayList<Integer> list, int value) {
+            int s = 0;
+            int e = list.size() - 1;
             int mostRight = -1;
-            while (L <= R) {
-                int mid = L + ((R - L) >> 1);
-                if (arr.get(mid) < limit) {
+            while (s <= e) {
+                int mid = s + ((e - s) >> 1);
+                if (list.get(mid) < value) {
                     mostRight = mid;
-                    L = mid + 1;
+                    s = mid + 1;
                 } else {
-                    R = mid - 1;
+                    e = mid - 1;
                 }
             }
             return mostRight + 1;
