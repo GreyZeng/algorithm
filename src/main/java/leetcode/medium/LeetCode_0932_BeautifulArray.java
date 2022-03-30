@@ -28,10 +28,9 @@ import java.util.Map;
 // LeetCode 这题有点差别，限制数字一定要是[1...N]
 // https://leetcode-cn.com/problems/beautiful-array
 public class LeetCode_0932_BeautifulArray {
-
-
+    
     public static int[] beautifulArray(int N) {
-        Map<Integer, int[]> memo = new HashMap();
+        Map<Integer, int[]> memo = new HashMap<>(N);
         return f(N, memo);
     }
 
