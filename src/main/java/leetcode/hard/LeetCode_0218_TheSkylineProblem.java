@@ -1,6 +1,10 @@
 package leetcode.hard;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 // 有序表的使用
 //tips:
@@ -34,47 +38,50 @@ public class LeetCode_0218_TheSkylineProblem {
     // 所以需要记录某个大楼从哪个位置开始增加了一个高度
     // 从哪个位置减少了一个高度
     public static List<List<Integer>> getSkyline(int[][] buildings) {
-        List<Node> nodes = buildNodes(buildings);
-        TreeMap<Integer, Integer> heightTimesMap = new TreeMap<>();
+        List<Node> sortedNodes = init(buildings);
+        TreeMap<Integer, Integer> heights = new TreeMap<>();
         TreeMap<Integer, Integer> result = new TreeMap<>();
-        for (Node node : nodes) {
-            int height = node.height;
-            if (height > 0) {
-                if (heightTimesMap.containsKey(height)) {
-                    heightTimesMap.put(height, heightTimesMap.get(height) + 1);
+        for (Node node : sortedNodes) {
+            if (node.height > 0) {
+                if (heights.containsKey(node.height)) {
+                    heights.put(node.height, heights.get(node.height) + 1);
                 } else {
-                    heightTimesMap.put(height, 1);
+                    heights.put(node.height, 1);
                 }
             } else {
-                if (heightTimesMap.get(-height) == 1) {
-                    heightTimesMap.remove(-height);
-                } else {
-                    heightTimesMap.put(-height, heightTimesMap.get(-height) - 1);
+                if (heights.containsKey(-node.height)) {
+                    if (heights.get(-node.height) == 1) {
+                        heights.remove(-node.height);
+                    } else {
+                        heights.put(-node.height, heights.get(-node.height) - 1);
+                    }
                 }
             }
-            if (heightTimesMap.isEmpty()) {
+            if (heights.isEmpty()) {
                 result.put(node.x, 0);
             } else {
-                result.put(node.x, heightTimesMap.lastKey());
+                // 取最高的那个
+                result.put(node.x, heights.lastKey());
             }
         }
         List<List<Integer>> ans = new ArrayList<>();
         for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
-            int key = entry.getKey();
-            int value = entry.getValue();
-            if (ans.isEmpty() || ans.get(ans.size() - 1).get(1) != value) {
-                ans.add(new ArrayList<>(Arrays.asList(key, value)));
+            int x = entry.getKey();
+            int height = entry.getValue();
+            if (ans.isEmpty() || ans.get(ans.size() - 1).get(1) != height) {
+                List<Integer> item = new ArrayList<>();
+                item.add(x);
+                item.add(height);
+                ans.add(item);
             }
         }
         return ans;
     }
 
-    private static List<Node> buildNodes(int[][] buildings) {
+    private static List<Node> init(int[][] buildings) {
         List<Node> list = new ArrayList<>();
         for (int[] building : buildings) {
-            // 在某个位置增加了一个高度
             list.add(new Node(building[0], building[2]));
-            // 在某个位置减少了一个高度
             list.add(new Node(building[1], -building[2]));
         }
         list.sort(Comparator.comparingInt((Node o) -> o.x));
