@@ -2,6 +2,7 @@ package leetcode.medium;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 //数组为
 //{3, 2, 2, 3, 1}，查询为(0, 3, 2)
@@ -20,7 +21,7 @@ public class LeetCode_2080_RangeFrequencyQueries {
 
     class RangeFreqQuery {
 
-        private HashMap<Integer, ArrayList<Integer>> map;
+        private Map<Integer, ArrayList<Integer>> map;
 
         public RangeFreqQuery(int[] arr) {
             map = new HashMap<>();
