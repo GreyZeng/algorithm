@@ -1,8 +1,6 @@
 package snippet;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 
 // 题目：
@@ -19,70 +17,33 @@ public class Code_0018_MinDeleteCost {
     // 因为题目原本的样本数据中，有特别说明s2的长度很小。所以这么做也没有太大问题，也几乎不会超时。
     // 但是如果某一次考试给定的s2长度远大于s1，这么做就不合适了。
     public static int minCost1(String s1, String s2) {
-        List<String> s2Subs = new ArrayList<>();
-        process(s2.toCharArray(), 0, "", s2Subs);
-        s2Subs.sort(new LenComp());
-        for (String str : s2Subs) {
-            if (s1.indexOf(str) != -1) { // indexOf底层和KMP算法代价几乎一样，也可以用KMP代替
-                return s2.length() - str.length();
+        // s2已经是s1的子串了，不需要删除任何字符
+        if (s1.contains(s2)) {
+            return 0;
+        }
+        List<String> s2subs = new ArrayList<>();
+        p(0, s2.toCharArray(), s2subs, "");
+        s2subs.sort((o1, o2) -> o2.length() - o1.length());
+        for (String s2sub : s2subs) {
+            if (s1.contains(s2sub)) {
+                return s2.length() - s2sub.length();
             }
         }
         return s2.length();
     }
 
-    public static void process(char[] str2, int index, String path, List<String> list) {
-        if (index == str2.length) {
-            list.add(path);
-            return;
+    private static void p(int i, char[] str, List<String> subs, String s) {
+        if (i == str.length) {
+            subs.add(s);
+        } else {
+            p(i + 1, str, subs, s);
+            p(i + 1, str, subs, s + str[i]);
         }
-        process(str2, index + 1, path, list);
-        process(str2, index + 1, path + str2[index], list);
     }
 
-    // x字符串只通过删除的方式，变到y字符串
-    // 返回至少要删几个字符
-    // 如果变不成，返回Integer.Max
-    public static int onlyDelete(char[] x, char[] y) {
-        if (x.length < y.length) {
-            return Integer.MAX_VALUE;
-        }
-        int N = x.length;
-        int M = y.length;
-        int[][] dp = new int[N + 1][M + 1];
-        for (int i = 0; i <= N; i++) {
-            for (int j = 0; j <= M; j++) {
-                dp[i][j] = Integer.MAX_VALUE;
-            }
-        }
-        dp[0][0] = 0;
-        // dp[i][j]表示前缀长度
-        for (int i = 1; i <= N; i++) {
-            dp[i][0] = i;
-        }
-        for (int xlen = 1; xlen <= N; xlen++) {
-            for (int ylen = 1; ylen <= Math.min(M, xlen); ylen++) {
-                if (dp[xlen - 1][ylen] != Integer.MAX_VALUE) {
-                    dp[xlen][ylen] = dp[xlen - 1][ylen] + 1;
-                }
-                if (x[xlen - 1] == y[ylen - 1] && dp[xlen - 1][ylen - 1] != Integer.MAX_VALUE) {
-                    dp[xlen][ylen] = Math.min(dp[xlen][ylen], dp[xlen - 1][ylen - 1]);
-                }
-            }
-        }
-        return dp[N][M];
-    }
-
-    public static class LenComp implements Comparator<String> {
-
-        @Override
-        public int compare(String o1, String o2) {
-            return o2.length() - o1.length();
-        }
-
-    }
 
     // 解法二
-    // 如果s1和s2都很长，那么就生成s1的所有字串，然后和s2求编辑距离（只有删除行为，增加和代替的代价无穷大）O(N^2*M)
+    // 如果s1和s2都很长，那么就生成s1的所有子串，然后和s2求编辑距离（只有删除行为，增加和代替的代价无穷大）O(N^2*M)
     public static int minCost2(String s1, String s2) {
         if (s1.length() == 0 || s2.length() == 0) {
             return s2.length();
@@ -91,8 +52,6 @@ public class Code_0018_MinDeleteCost {
         char[] str2 = s2.toCharArray();
         for (int start = 0; start < s1.length(); start++) {
             for (int end = start + 1; end <= s1.length(); end++) {
-                // str1[start....end]
-                // substring -> [ 0,1 )
                 ans = Math.min(ans, distance(str2, s1.substring(start, end).toCharArray()));
             }
         }
@@ -175,40 +134,6 @@ public class Code_0018_MinDeleteCost {
         return ans;
     }
 
-    // 来自学生的做法，时间复杂度O(N * M平方)
-    // 复杂度和方法三一样，但是思路截然不同
-    public static int minCost4(String s1, String s2) {
-        char[] str1 = s1.toCharArray();
-        char[] str2 = s2.toCharArray();
-        HashMap<Character, ArrayList<Integer>> map1 = new HashMap<>();
-        for (int i = 0; i < str1.length; i++) {
-            ArrayList<Integer> list = map1.getOrDefault(str1[i], new ArrayList<Integer>());
-            list.add(i);
-            map1.put(str1[i], list);
-        }
-        int ans = 0;
-        // 假设删除后的str2必以i位置开头
-        // 那么查找i位置在str1上一共有几个，并对str1上的每个位置开始遍历
-        // 再次遍历str2一次，看存在对应str1中i后续连续子串可容纳的最长长度
-        for (int i = 0; i < str2.length; i++) {
-            if (map1.containsKey(str2[i])) {
-                ArrayList<Integer> keyList = map1.get(str2[i]);
-                for (int j = 0; j < keyList.size(); j++) {
-                    int cur1 = keyList.get(j) + 1;
-                    int cur2 = i + 1;
-                    int count = 1;
-                    for (int k = cur2; k < str2.length && cur1 < str1.length; k++) {
-                        if (str2[k] == str1[cur1]) {
-                            cur1++;
-                            count++;
-                        }
-                    }
-                    ans = Math.max(ans, count);
-                }
-            }
-        }
-        return s2.length() - ans;
-    }
 
     public static String generateRandomString(int l, int v) {
         int len = (int) (Math.random() * l);
@@ -221,10 +146,6 @@ public class Code_0018_MinDeleteCost {
 
     public static void main(String[] args) {
 
-        char[] x = {'a', 'b', 'c', 'd'};
-        char[] y = {'a', 'd'};
-
-        System.out.println(onlyDelete(x, y));
 
         int str1Len = 20;
         int str2Len = 10;
@@ -238,15 +159,13 @@ public class Code_0018_MinDeleteCost {
             int ans1 = minCost1(str1, str2);
             int ans2 = minCost2(str1, str2);
             int ans3 = minCost3(str1, str2);
-            int ans4 = minCost4(str1, str2);
-            if (ans1 != ans2 || ans3 != ans4 || ans1 != ans3) {
+            if (ans1 != ans2 || ans1 != ans3) {
                 pass = false;
                 System.out.println(str1);
                 System.out.println(str2);
                 System.out.println(ans1);
                 System.out.println(ans2);
                 System.out.println(ans3);
-                System.out.println(ans4);
                 break;
             }
         }
