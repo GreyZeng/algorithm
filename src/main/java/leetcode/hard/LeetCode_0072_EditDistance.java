@@ -1,77 +1,43 @@
-/*给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。
-
-        你可以对一个单词进行如下三种操作：
-
-        插入一个字符
-        删除一个字符
-        替换一个字符
-         
-
-        示例 1：
-
-        输入：word1 = "horse", word2 = "ros"
-        输出：3
-        解释：
-        horse -> rorse (将 'h' 替换为 'r')
-        rorse -> rose (删除 'r')
-        rose -> ros (删除 'e')
-        示例 2：
-
-        输入：word1 = "intention", word2 = "execution"
-        输出：5
-        解释：
-        intention -> inention (删除 't')
-        inention -> enention (将 'i' 替换为 'e')
-        enention -> exention (将 'n' 替换为 'x')
-        exention -> exection (将 'n' 替换为 'c')
-        exection -> execution (插入 'u')
-         
-
-        提示：
-
-        0 <= word1.length, word2.length <= 500
-        word1 和 word2 由小写英文字母组成
-
-        来源：力扣（LeetCode）
-        链接：https://leetcode-cn.com/problems/edit-distance
-        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。*/
 package leetcode.hard;
 
-// ref : NowCoder_EditDistance.java
+// 编辑距离问题
+// 不带权重
+// https://leetcode-cn.com/problems/edit-distance/
+// https://www.lintcode.com/problem/119/
+// 带权重
+// https://www.nowcoder.com/questionTerminal/05fed41805ae4394ab6607d0d745c8e4
 public class LeetCode_0072_EditDistance {
-
-    public int minDistance(String word1, String word2) {
-        return minEditCost(word1, word2, 1, 1, 1);
+    public static void main(String[] args) {
+        System.out.println(minDistance("a", "ab"));
     }
 
-    public static int minEditCost(String str1, String str2, int ic, int dc, int rc) {
-        if (ic + dc < rc) {
-            // 如果“插入+删除”的代价小于“替换”代价，则用“插入+删除”代价替换“替换”代价
-            rc = ic + dc;
-        }
-        char[] w1 = str1.toCharArray();
-        char[] w2 = str2.toCharArray();
-        // words1 前i个 搞定 words2 前j个需要的最小编辑代价是多少？
-        int m = w1.length + 1;
-        int n = w2.length + 1;
-        int[][] dp = new int[m][n];
-        for (int i = 1; i < m; i++) {
-            dp[i][0] = i * dc;
-        }
-        for (int i = 1; i < n; i++) {
+    public static int minDistance(String word1, String word2) {
+        return minEditCost(word1.toCharArray(), word2.toCharArray(), 1, 1, 1);
+    }
+
+    public static int minEditCost(char[] str1, char[] str2, int ic, int dc, int rc) {
+        // 插入和删除的代价如果小于替换代价，所有的替换行为都可以改成插入和删除的代价
+        rc = Math.min(ic + dc, rc);
+        // dp[i][j] : str1前i个字符,通过最短的编辑代价，实现str2的前j个字符
+        int[][] dp = new int[str1.length + 1][str2.length + 1];
+        // 第0行
+        for (int i = 0; i < str2.length + 1; i++) {
+            // 第0行
             dp[0][i] = i * ic;
         }
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                if (w1[i - 1] != w2[j - 1]) {
-                    dp[i][j] = rc + dp[i - 1][j - 1];
-                } else {
-                    dp[i][j] = dp[i - 1][j - 1];
-                }
-                dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + ic);
-                dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + dc);
+        // 第0列
+        for (int i = 0; i < str1.length + 1; i++) {
+            dp[i][0] = i * dc;
+        }
+        // 普遍位置
+        for (int i = 1; i < str1.length + 1; i++) {
+            for (int j = 1; j < str2.length + 1; j++) {
+                int p1 = dp[i - 1][j] + dc;
+                int p2 = dp[i - 1][j - 1] + (str1[i - 1] == str2[j - 1] ? 0 : rc);
+                int p3 = dp[i][j - 1] + ic;
+                dp[i][j] = Math.min(p1, Math.min(p2, p3));
             }
         }
-        return dp[m - 1][n - 1];
+        return dp[str1.length][str2.length];
     }
 }
