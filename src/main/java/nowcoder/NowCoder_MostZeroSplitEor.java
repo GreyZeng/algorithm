@@ -21,7 +21,15 @@ package nowcoder;
 
 import java.util.HashMap;
 import java.util.Scanner;
-
+//类似题目：
+//        NowCoder_MostZeroSplitEor.java
+//        数组划分的部分进行异或和生成的0最多
+//        [321 | 0 | 4 | 321 | 0 | 0 | 312 | 0 | 213]
+//        tips:
+//        假设答案法（子数组的最大累加和也用到了这个方法），
+//        假设[0..i]异或和为sum
+//        sum上次出现的位置j，
+//        dp[i] = max{dp[i-1] , dp[j] + 1}
 // https://www.nowcoder.com/practice/77e9828bbe3c4d4a9e0d49cc7537bb6d
 public class NowCoder_MostZeroSplitEor {
     public static void main(String[] args) {
