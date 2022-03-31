@@ -12,7 +12,6 @@ import java.util.List;
 public class Code_0018_MinDeleteCost {
 
     // 如果s2很短，那么生成s2的所有子序列(2^M)，如果是s1的子串（kmp），直接删除s1 - s2 个字符就可以了 O(N*2^M)
-
     // 解法一
     // 求出str2所有的子序列，然后按照长度排序，长度大的排在前面。
     // 然后考察哪个子序列字符串和s1的某个子串相等(KMP)，答案就出来了。
@@ -83,9 +82,7 @@ public class Code_0018_MinDeleteCost {
     }
 
     // 解法二
-    // 生成所有s1的子串
-    // 然后考察每个子串和s2的编辑距离(假设编辑距离只有删除动作且删除一个字符的代价为1)
-    // 如果s1的长度较小，s2长度较大，这个方法比较合适
+    // 如果s1和s2都很长，那么就生成s1的所有字串，然后和s2求编辑距离（只有删除行为，增加和代替的代价无穷大）O(N^2*M)
     public static int minCost2(String s1, String s2) {
         if (s1.length() == 0 || s2.length() == 0) {
             return s2.length();

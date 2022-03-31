@@ -6,10 +6,8 @@ package leetcode.hard;
 // https://www.lintcode.com/problem/119/
 // 带权重
 // https://www.nowcoder.com/questionTerminal/05fed41805ae4394ab6607d0d745c8e4
+// 进阶：Code_0018_MinDeleteCost
 public class LeetCode_0072_EditDistance {
-    public static void main(String[] args) {
-        System.out.println(minDistance("a", "ab"));
-    }
 
     public static int minDistance(String word1, String word2) {
         return minEditCost(word1.toCharArray(), word2.toCharArray(), 1, 1, 1);
