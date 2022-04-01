@@ -16,11 +16,11 @@ public class NowCoder_MaxXorSubArray {
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
-        
+
         System.out.println(maxEor(arr, n));
         in.close();
     }
-    // FIXME
+
     // 最优解，前缀树加速O(N)
     public static int maxEor(int[] arr, int n) {
         int[] eor = new int[arr.length];
@@ -49,7 +49,7 @@ public class NowCoder_MaxXorSubArray {
 
         public void add(int num) {
             Node cur = head;
-            for (int bit = 31; bit > 0; bit--) {
+            for (int bit = 31; bit >= 0; bit--) {
                 int i = ((num >>> bit) & 1);
                 if (cur.next[i] == null) {
                     cur.next[i] = new Node();
@@ -61,7 +61,7 @@ public class NowCoder_MaxXorSubArray {
         public int get(int eor) {
             int expect = 0;
             Node cur = head;
-            for (int bit = 31; bit > 0; bit--) {
+            for (int bit = 31; bit >= 0; bit--) {
                 // 符号位期待一样的
                 // 非符号位期待相反的
                 int expectBit = bit == 31 ? ((eor >>> bit) & 1) : ((((eor >>> bit) & 1)) ^ 1);
@@ -98,64 +98,4 @@ public class NowCoder_MaxXorSubArray {
         }
         return max;
     }
-
-//    // O(N) 最优解
-//    public static int maxEor(int[] arr, int n) {
-//        if (arr == null || n == 0) {
-//            return 0;
-//        }
-//        int[] eor = new int[n];
-//        eor[0] = arr[0];
-//        for (int i = 1; i < n; i++) {
-//            eor[i] = eor[i - 1] ^ arr[i];
-//        }
-//        int max = Math.max(0, eor[0]);
-//        Trie trie = new Trie();
-//        trie.add(eor[0]);
-//        for (int i = 0; i < n; i++) {
-//            max = Math.max(max, trie.maxEor(eor[i]));
-//            trie.add(eor[i]);
-//        }
-//        return max;
-//    }
-//
-//    public static class Node {
-//        Node[] next = new Node[2];
-//    }
-//
-//    public static class Trie {
-//        public Node head = new Node();
-//
-//        // 符号位, 保持一致
-//        // 除符号位，从高到底依次期待和自己相反的那个数
-//        // 给我一个num，我可以拿到这个num对应最大的异或和返回
-//        public int maxEor(int num) {
-//            Node cur = head;
-//            int res = 0;
-//            for (int i = 31; i >= 0; i--) {
-//                int bit = (num >>> i) & 1;
-//                // 最高位期待一样，其余位置期待相反
-//                int except = (i == 31) ? bit : (bit ^ 1);
-//                except = cur.next[except] != null ? except : (except ^ 1);
-//                // ((bit ^ except) << i)  --> i位置异或好的结果
-//                // 每次和res做或运算，走完32轮，res就把所有位置的异或结果收集到了
-//                res |= ((bit ^ except) << i);
-//                cur = cur.next[except];
-//            }
-//            return res;
-//        }
-//
-//        // 将一个数加入前缀树
-//        public void add(int num) {
-//            // 需要从高到低获取每一个数的状态位
-//            // int -> 32位
-//            Node cur = head;
-//            for (int i = 31; i >= 0; i--) {
-//                // 带符号右移，可以识别到符号位
-//                int bit = (num >>> i) & 1;
-//                cur.next[bit] = cur.next[bit] == null ? new Node() : cur.next[bit];
-//                cur = cur.next[bit];
-//            }
-//        }
-//    }
 }
