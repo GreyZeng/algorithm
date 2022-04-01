@@ -30,7 +30,8 @@ public class NowCoder_MaxXorSubArray {
             eor[i] = eor[i - 1] ^ arr[i];
         }
         Trie trie = new Trie(eor);
-        for (int i = 0; i < n; i++) {
+        trie.add(eor[0]);
+        for (int i = 1; i < n; i++) {
             max = Math.max(max, trie.get(eor[i]));
         }
         return max;
@@ -65,7 +66,7 @@ public class NowCoder_MaxXorSubArray {
                 // 非符号位期待相反的
                 int expectBit = bit == 31 ? ((eor >>> bit) & 1) : ((((eor >>> bit) & 1)) ^ 1);
                 if (cur.next[expectBit] != null) {
-                    expect = (expectBit << bit) | expect;
+                    expect = ((expectBit << bit) | expect);
                     cur = cur.next[expectBit];
                 } else {
                     expectBit = (expectBit ^ 1);
