@@ -16,20 +16,21 @@ public class NowCoder_MaxXorSubArray {
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
+        
         System.out.println(maxEor(arr, n));
         in.close();
     }
-
+    // FIXME
     // 最优解，前缀树加速O(N)
     public static int maxEor(int[] arr, int n) {
         int[] eor = new int[arr.length];
-        int max = arr[0];
+        int max = 0;
         eor[0] = arr[0];
         for (int i = 1; i < n; i++) {
             eor[i] = eor[i - 1] ^ arr[i];
         }
         Trie trie = new Trie(eor);
-        for (int i = 1; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             max = Math.max(max, trie.get(eor[i]));
         }
         return max;
@@ -47,7 +48,7 @@ public class NowCoder_MaxXorSubArray {
 
         public void add(int num) {
             Node cur = head;
-            for (int bit = 0; bit < 32; bit++) {
+            for (int bit = 31; bit > 0; bit--) {
                 int i = ((num >>> bit) & 1);
                 if (cur.next[i] == null) {
                     cur.next[i] = new Node();
@@ -59,17 +60,17 @@ public class NowCoder_MaxXorSubArray {
         public int get(int eor) {
             int expect = 0;
             Node cur = head;
-            for (int bit = 0; bit < 32; bit++) {
+            for (int bit = 31; bit > 0; bit--) {
                 // 符号位期待一样的
                 // 非符号位期待相反的
-                //FIXME
-                int expectBit = bit == 31 ? ~((eor >>> bit) & 1) : ((eor >>> bit) & 1);
+                int expectBit = bit == 31 ? ((eor >>> bit) & 1) : ((((eor >>> bit) & 1)) ^ 1);
                 if (cur.next[expectBit] != null) {
+                    expect = (expectBit << bit) | expect;
+                    cur = cur.next[expectBit];
+                } else {
+                    expectBit = (expectBit ^ 1);
                     cur = cur.next[expectBit];
                     expect = ((expectBit << bit) | expect);
-                } else {
-                    cur = cur.next[~expectBit];
-                    expect = ((~expectBit << bit) | expect);
                 }
             }
             return expect ^ eor;
@@ -96,7 +97,7 @@ public class NowCoder_MaxXorSubArray {
         }
         return max;
     }
- 
+
 //    // O(N) 最优解
 //    public static int maxEor(int[] arr, int n) {
 //        if (arr == null || n == 0) {
