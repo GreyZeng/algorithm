@@ -1,11 +1,10 @@
-/*
-给定一个整型数组arr，其中可能有正、有负，有零，求其中子数组的最大异或和。
-备注:
-时间复杂度O(nlog2n)，额外空间复杂度O(nlog2n)。*/
 package nowcoder;
 
 import java.util.Scanner;
 
+//给定一个整型数组arr，其中可能有正、有负，有零，求其中子数组的最大异或和。
+//        备注:
+//        时间复杂度O(nlog2n)，额外空间复杂度O(nlog2n)。
 // https://www.nowcoder.com/questionTerminal/43f62c52fbac47feaeabe40ac1ab9091
 public class NowCoder_MaxXorSubArray {
 
