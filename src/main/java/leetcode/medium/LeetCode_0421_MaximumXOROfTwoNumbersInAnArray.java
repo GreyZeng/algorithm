@@ -5,8 +5,9 @@ package leetcode.medium;
 // 代码：NowCoder_MaxXorSubArray
 public class LeetCode_0421_MaximumXOROfTwoNumbersInAnArray {
     public static int findMaximumXOR(int[] nums) {
-        return maxEor(nums,nums.length);
+        return maxEor(nums, nums.length);
     }
+
     public static int maxEor(int[] eor, int n) {
         int max = 0;
         Trie trie = new Trie(eor);
