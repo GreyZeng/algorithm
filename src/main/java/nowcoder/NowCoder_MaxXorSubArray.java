@@ -15,7 +15,6 @@ public class NowCoder_MaxXorSubArray {
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
-
         System.out.println(maxEor(arr, n));
         in.close();
     }
