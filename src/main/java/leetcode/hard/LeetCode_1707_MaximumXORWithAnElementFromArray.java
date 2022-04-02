@@ -26,14 +26,14 @@ public class LeetCode_1707_MaximumXORWithAnElementFromArray {
         }
 
         public int get(int v, int limit) {
+            if (head.min > limit) {
+                return -1;
+            }
             Node cur = head;
             int expect = 0;
             for (int i = 31; i >= 0; i--) {
-                if (cur.min > limit) {
-                    return -1;
-                }
                 int oneOrZero = i == 31 ? (v >>> i) & 1 : ((v >>> i) & 1) ^ 1;
-                oneOrZero = cur.next[oneOrZero] != null ? oneOrZero : oneOrZero ^ 1;
+                oneOrZero = cur.next[oneOrZero] != null && cur.next[oneOrZero].min <= v ? oneOrZero : oneOrZero ^ 1;
                 expect |= (oneOrZero << i);
                 cur = cur.next[oneOrZero];
             }
@@ -42,16 +42,16 @@ public class LeetCode_1707_MaximumXORWithAnElementFromArray {
 
         public void add(int v) {
             Node cur = head;
+            cur.min = Math.min(v, cur.min);
             for (int i = 31; i >= 0; i--) {
                 int oneOrZero = (v >>> i) & 1;
-                if (cur.next[oneOrZero] != null) {
-                    cur.min = Math.min(v, cur.min);
-                } else {
+                if (cur.next[oneOrZero] == null) {
                     Node node = new Node();
                     node.min = v;
                     cur.next[oneOrZero] = node;
                 }
                 cur = cur.next[oneOrZero];
+                cur.min = Math.min(v, cur.min);
             }
         }
     }
