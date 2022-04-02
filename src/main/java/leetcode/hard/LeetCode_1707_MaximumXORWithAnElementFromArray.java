@@ -4,10 +4,7 @@ package leetcode.hard;
 public class LeetCode_1707_MaximumXORWithAnElementFromArray {
     public int[] maximizeXor(int[] nums, int[][] queries) {
         int[] res = new int[queries.length];
-        Trie trie = new Trie();
-        for (int n : nums) {
-            trie.add(n);
-        }
+        Trie trie = new Trie(nums);
         for (int i = 0; i < queries.length; i++) {
             int v = queries[i][0];
             int limit = queries[i][1];
@@ -18,8 +15,14 @@ public class LeetCode_1707_MaximumXORWithAnElementFromArray {
 
 
     public class Trie {
-        Node head = new Node();
+        Node head;
 
+        public Trie(int[] nums) {
+            head = new Node();
+            for (int n : nums) {
+                add(n);
+            }
+        }
 
         public int get(int v, int limit) {
             if (head.min > limit) {
@@ -28,13 +31,12 @@ public class LeetCode_1707_MaximumXORWithAnElementFromArray {
             Node cur = head;
             int expect = 0;
             for (int i = 30; i >= 0; i--) {
-                int path = ((v >> i) & 1);
-                int oneOrZero = path ^ 1;
-                oneOrZero ^= (cur.next[oneOrZero] == null || cur.next[oneOrZero].min > limit) ? 1 : 0;
-                expect |= ((path ^ oneOrZero) << i);
+                int oneOrZero = ((v >> i) & 1) ^ 1;
+                oneOrZero = (cur.next[oneOrZero] != null && cur.next[oneOrZero].min <= limit) ? oneOrZero : oneOrZero ^ 1;
+                expect |= (oneOrZero << i);
                 cur = cur.next[oneOrZero];
             }
-            return expect;
+            return expect ^ v;
         }
 
         public void add(int v) {
