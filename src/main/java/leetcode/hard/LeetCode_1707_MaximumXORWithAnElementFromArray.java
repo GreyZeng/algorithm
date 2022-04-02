@@ -2,10 +2,12 @@ package leetcode.hard;
 
 // https://leetcode-cn.com/problems/maximum-xor-with-an-element-from-array/
 public class LeetCode_1707_MaximumXORWithAnElementFromArray {
-    // FIXME
     public int[] maximizeXor(int[] nums, int[][] queries) {
         int[] res = new int[queries.length];
-        Trie trie = new Trie(nums);
+        Trie trie = new Trie();
+        for (int n : nums) {
+            trie.add(n);
+        }
         for (int i = 0; i < queries.length; i++) {
             int v = queries[i][0];
             int limit = queries[i][1];
@@ -16,14 +18,8 @@ public class LeetCode_1707_MaximumXORWithAnElementFromArray {
 
 
     public class Trie {
-        Node head;
+        Node head = new Node();
 
-        public Trie(int[] arr) {
-            head = new Node();
-            for (int v : arr) {
-                add(v);
-            }
-        }
 
         public int get(int v, int limit) {
             if (head.min > limit) {
@@ -31,23 +27,24 @@ public class LeetCode_1707_MaximumXORWithAnElementFromArray {
             }
             Node cur = head;
             int expect = 0;
-            for (int i = 31; i >= 0; i--) {
-                int oneOrZero = i == 31 ? (v >>> i) & 1 : ((v >>> i) & 1) ^ 1;
-                oneOrZero = cur.next[oneOrZero] != null && cur.next[oneOrZero].min <= v ? oneOrZero : oneOrZero ^ 1;
-                expect |= (oneOrZero << i);
+            for (int i = 30; i >= 0; i--) {
+                int path = ((v >> i) & 1);
+                int oneOrZero = path ^ 1;
+                oneOrZero ^= (cur.next[oneOrZero] == null || cur.next[oneOrZero].min > limit) ? 1 : 0;
+                expect |= ((path ^ oneOrZero) << i);
                 cur = cur.next[oneOrZero];
             }
-            return expect ^ v;
+            return expect;
         }
 
         public void add(int v) {
+
             Node cur = head;
-            cur.min = Math.min(v, cur.min);
-            for (int i = 31; i >= 0; i--) {
-                int oneOrZero = (v >>> i) & 1;
+            head.min = Math.min(v, head.min);
+            for (int i = 30; i >= 0; i--) {
+                int oneOrZero = (v >> i) & 1;
                 if (cur.next[oneOrZero] == null) {
                     Node node = new Node();
-                    node.min = v;
                     cur.next[oneOrZero] = node;
                 }
                 cur = cur.next[oneOrZero];
@@ -57,8 +54,13 @@ public class LeetCode_1707_MaximumXORWithAnElementFromArray {
     }
 
     public class Node {
-        public Node[] next = new Node[2];
+        public Node[] next;
         public int min;
+
+        public Node() {
+            min = Integer.MAX_VALUE;
+            next = new Node[2];
+        }
     }
 
 }
