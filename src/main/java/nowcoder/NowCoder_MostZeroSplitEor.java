@@ -1,7 +1,8 @@
-package snippet;
+package nowcoder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 //类似题目：
 //        NowCoder_MostZeroSplitEor.java
@@ -13,7 +14,7 @@ import java.util.HashMap;
 //        sum上次出现的位置j，
 //        dp[i] = max{dp[i-1] , dp[j] + 1}
 // 测评链接：https://www.nowcoder.com/practice/77e9828bbe3c4d4a9e0d49cc7537bb6d
-public class Code_0102_MostZeroSplitEor {
+public class NowCoder_MostZeroSplitEor {
     // 暴力方法
     public static int comparator(int[] arr) {
         if (arr == null || arr.length == 0) {
@@ -64,28 +65,32 @@ public class Code_0102_MostZeroSplitEor {
         if (arr == null || arr.length == 0) {
             return 0;
         }
-        int N = arr.length;
-        int[] dp = new int[N];
-
-        // key 某一个前缀异或和
-        // value 这个前缀异或和上次出现的位置(最晚！)
+        int n = arr.length;
+        // dp[i] 表示：0...i号可以划分出最多异或和的部分是多少
+        int[] dp = new int[n];
+        // 枚举最后一个部分
+        // 如果最后一个部分不为0，则dp[i] = dp[i-1]
+        // 如果最后一个部分为0，假设最后一个部分是[m...n], xor[m...n] = 0, 那么对于任何的k属于[m..n], 不会存在xor[m..k]=0, xor[k+1...n]=0
+        // 假设xor[0...n] = x, 那么可以找到一个让最后部分为0的最晚位置w，使得xor[0...w] = x，xor[w...n] = 0,
+        // dp[i] = dp[w] + 1
         HashMap<Integer, Integer> map = new HashMap<>();
         map.put(0, -1);
-        // 0~i整体的异或和
         int xor = 0;
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < arr.length; i++) {
             xor ^= arr[i];
-            if (map.containsKey(xor)) { // 可能性2
-                int pre = map.get(xor);
-                dp[i] = pre == -1 ? 1 : (dp[pre] + 1);
+            if (map.containsKey(xor)) {
+                int key = map.get(xor);
+                dp[i] = key == -1 ? 1 : dp[key] + 1;
             }
-            if (i > 0) {
+            if (i - 1 >= 0) {
                 dp[i] = Math.max(dp[i - 1], dp[i]);
             }
+            // 更新xor出现的最晚位置
             map.put(xor, i);
         }
-        return dp[N - 1];
+        return dp[n - 1];
     }
+
 
     // for test
     public static int[] generateRandomArray(int maxSize, int maxValue) {
@@ -109,6 +114,14 @@ public class Code_0102_MostZeroSplitEor {
 
     // for test
     public static void main(String[] args) {
+//        Scanner in = new Scanner(System.in);
+//        int n = in.nextInt();
+//        int[] arr = new int[n];
+//        for (int i = 0; i < n; i++) {
+//            arr[i] = in.nextInt();
+//        }
+//        System.out.println(mostXor(arr));
+//        in.close();
         int testTime = 150000;
         int maxSize = 12;
         int maxValue = 5;

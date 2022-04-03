@@ -46,6 +46,7 @@ public class Luogu_P2197_Nim {
         in.close();
     }
 
+    // 先手是否必胜
     public static String preWin(int[] arr) {
         int eor = 0;
         for (int num : arr) {
