@@ -17,12 +17,13 @@
 
         You may assume all elements in the array are non-negative integers and fit in the 32-bit signed integer range.
         Try to solve it in linear time/space.*/
-package leetcode;
+package leetcode.hard;
 
 //求最大值和最小值，然后把数分为N+1份，每个桶只装可以进这个桶的最小值和最大值
 //        遍历时，把每个数分到每个桶里面，其中肯定有个桶是空的
 //        桶之间的数取最大差值即可
 //        设置空桶的目的是杀死桶内数据的差值
+// https://leetcode-cn.com/problems/maximum-gap/
 public class LeetCode_0164_MaximumGap {
     public static void main(String[] args) {
         int[] num = {3, 6, 9, 1};
@@ -64,6 +65,7 @@ public class LeetCode_0164_MaximumGap {
         }
         return ans;
     }
+
     public static int getIndex(long num, long len, long min, long max) {
         return (int) ((num - min) * len / (max - min));
     }
