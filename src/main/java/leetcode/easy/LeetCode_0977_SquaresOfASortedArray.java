@@ -12,15 +12,41 @@ package leetcode.easy;
 //        输入：nums = [-7,-3,2,3,11]
 //        输出：[4,9,9,49,121]
 //        提示：
-//        1 <= nums.length <= 104
-//        -104 <= nums[i] <= 104
+//        1 <= nums.length <= 10^4
+//        -104 <= nums[i] <= 10^4
 //        nums 已按 非递减顺序 排序
 //
 //        来源：力扣（LeetCode）
 //        链接：https://leetcode-cn.com/problems/squares-of-a-sorted-array
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0977_SquaresOfASortedArray {
-    public int[] sortedSquares(int[] nums) {
-        return null;
+    // 平方有多少，绝对值就有多少
+    // 因为有0，所以可以从最大值开始填
+    public static int[] sortedSquares(int[] nums) {
+        int[] ans = new int[nums.length];
+        int index = nums.length;
+        int i = 0;
+        int j = nums.length - 1;
+        while (i <= j) {
+            int left = nums[i] * nums[i];
+            int right = nums[j] * nums[j];
+            if (left > right) {
+                ans[--index] = left;
+                i++;
+            } else {
+                ans[--index] = right;
+                j--;
+            }
+        }
+        return ans;
     }
+
+    public static void main(String[] args) {
+        int[] arr = {-4, -1, 0, 1, 10};
+        int[] result = sortedSquares(arr);
+        for (int n : result) {
+            System.out.print(n + ", ");
+        }
+    }
+
 }
