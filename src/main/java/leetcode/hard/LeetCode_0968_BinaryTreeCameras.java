@@ -53,9 +53,12 @@ public class LeetCode_0968_BinaryTreeCameras {
         }
         Info left = p(root.left);
         Info right = p(root.right);
+        // if1
         if (left.status == Status.UNCOVER || right.status == Status.UNCOVER) {
             return new Info(Status.COVER_WITH_CAMERA, left.camera + right.camera + 1);
         }
+        // if2
+        // if1和if2的顺序不能调换！
         if (left.status == Status.COVER_WITH_CAMERA || right.status == Status.COVER_WITH_CAMERA) {
             return new Info(Status.COVER_NO_CAMERA, left.camera + right.camera);
         }
