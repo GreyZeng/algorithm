@@ -1,6 +1,6 @@
 package leetcode.hard;
 
-//给定一棵二叉树的头节点head，如果在某一个节点x上放置相机，那么x的父节点、x的所 有子节点以及x都可以被覆盖。返回如果要把所有数都覆盖，至少需要多少个相机。
+//给定一棵二叉树的头节点head，如果在某一个节点x上放置相机，那么x的父节点、x的所有子节点以及x都可以被覆盖。返回如果要把所有数都覆盖，至少需要多少个相机。
 //        tips:
 //        二叉树递归套路
 //        1. x位置有相机
@@ -28,19 +28,37 @@ public class LeetCode_0968_BinaryTreeCameras {
         }
     }
 
-    public static class Info {
-        public int coverNoLight;
-        public int coverWithLight;
-        public int uncoverNoLight;
+    public enum Status {
+        UNCOVER, COVER_WITH_CAMERA, COVER_NO_CAMERA
+    }
 
-        public Info(int c, int u, int un) {
-            coverNoLight = c;
-            coverWithLight = u;
-            uncoverNoLight = un;
+    public static class Info {
+        public Status status;
+        public int camera;
+
+        public Info(Status s, int c) {
+            status = s;
+            camera = c;
         }
     }
 
     public static int minCameraCover(TreeNode root) {
-        return -1;
+        Info info = p(root);
+        return info.status == Status.UNCOVER ? 1 + info.camera : info.camera;
+    }
+
+    public static Info p(TreeNode root) {
+        if (root == null) {
+            return new Info(Status.COVER_NO_CAMERA, 0);
+        }
+        Info left = p(root.left);
+        Info right = p(root.right);
+        if (left.status == Status.UNCOVER || right.status == Status.UNCOVER) {
+            return new Info(Status.COVER_WITH_CAMERA, left.camera + right.camera + 1);
+        }
+        if (left.status == Status.COVER_WITH_CAMERA || right.status == Status.COVER_WITH_CAMERA) {
+            return new Info(Status.COVER_NO_CAMERA, left.camera + right.camera);
+        }
+        return new Info(Status.UNCOVER, left.camera + right.camera);
     }
 }
