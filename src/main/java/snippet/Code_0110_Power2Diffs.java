@@ -26,30 +26,29 @@ public class Code_0110_Power2Diffs {
 
     // 时间复杂度O(N)，额外空间复杂度O(1)
     public static int diff2(int[] arr) {
-        int N = arr.length;
-        int L = 0;
-        int R = N - 1;
+        int i = 0;
+        int j = arr.length - 1;
         int count = 0;
-        int leftAbs = 0;
-        int rightAbs = 0;
-        while (L <= R) {
+        while (i <= j) {
             count++;
-            leftAbs = Math.abs(arr[L]);
-            rightAbs = Math.abs(arr[R]);
-            if (leftAbs < rightAbs) {
-                while (R >= 0 && Math.abs(arr[R]) == rightAbs) {
-                    R--;
+            int v1 = Math.abs(arr[i]);
+            int v2 = Math.abs(arr[j]);
+            if (v1 < v2) {
+                // j一直左移
+                while (j >= i && v2 == Math.abs(arr[j])) {
+                    j--;
                 }
-            } else if (leftAbs > rightAbs) {
-                while (L < N && Math.abs(arr[L]) == leftAbs) {
-                    L++;
+            } else if (v1 > v2) {
+                while (j >= i && v1 == Math.abs(arr[i])) {
+                    i++;
                 }
             } else {
-                while (L < N && Math.abs(arr[L]) == leftAbs) {
-                    L++;
+                // i和j同时移动
+                while (j >= i && v1 == Math.abs(arr[i])) {
+                    i++;
                 }
-                while (R >= 0 && Math.abs(arr[R]) == rightAbs) {
-                    R--;
+                while (j >= i && v2 == Math.abs(arr[j])) {
+                    j--;
                 }
             }
         }
