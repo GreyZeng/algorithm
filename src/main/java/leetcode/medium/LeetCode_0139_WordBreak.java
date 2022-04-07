@@ -1,6 +1,9 @@
 package leetcode.medium;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //假设所有字符都是小写字母
 //        大字符串是str
@@ -13,6 +16,39 @@ import java.util.List;
 // s.length <= 1e5
 // dict.size <= 1e5
 public class LeetCode_0139_WordBreak {
+    // 暴力递归
+    public static boolean wordBreak(String s, List<String> dict) {
+        return p(s, 0, new HashSet<>(dict)) != 0;
+    }
+
+    public static int p(String s, int index, Set<String> dict) {
+        if (index == s.length()) {
+            return 1;
+        }
+        int result = 0;
+        for (int i = index; i < s.length(); i++) {
+            if (dict.contains(s.substring(index, i + 1))) {
+                result += p(s, i + 1, dict);
+            }
+        }
+        return result;
+    }
+
+    // 动态规划
+    public static boolean wordBreak2(String s, List<String> dict) {
+        HashSet<String> wordDict = new HashSet<>(dict);
+        int length = s.length();
+        int[] dp = new int[length + 1];
+        dp[length] = 1;
+        for (int index = length - 1; index >= 0; index--) {
+            for (int i = index; i < s.length(); i++) {
+                if (wordDict.contains(s.substring(index, i + 1))) {
+                    dp[index] += dp[i + 1];
+                }
+            }
+        }
+        return dp[0] != 0;
+    }
 
     public static class Node {
         public boolean end;
@@ -24,53 +60,9 @@ public class LeetCode_0139_WordBreak {
         }
     }
 
-    public static boolean wordBreak1(String s, List<String> wordDict) {
-        Node root = new Node();
-        for (String str : wordDict) {
-            char[] chs = str.toCharArray();
-            Node node = root;
-            int index;
-            for (char ch : chs) {
-                index = ch - 'a';
-                if (node.nexts[index] == null) {
-                    node.nexts[index] = new Node();
-                }
-                node = node.nexts[index];
-            }
-            node.end = true;
-        }
-        char[] str = s.toCharArray();
-        int N = str.length;
-        boolean[] dp = new boolean[N + 1];
-        dp[N] = true; // dp[i] word[i.....] 能不能被分解
-        // dp[N] word[N...] -> "" 能不能够被分解
-        // dp[i] ... dp[i+1....]
-        for (int i = N - 1; i >= 0; i--) {
-            // i
-            // word[i....] 能不能够被分解
-            // i..i i+1....
-            // i..i+1 i+2...
-            Node cur = root;
-            for (int end = i; end < N; end++) {
-                cur = cur.nexts[str[end] - 'a'];
-                if (cur == null) {
-                    break;
-                }
-                // 有路！
-                if (cur.end) {
-                    // i...end 真的是一个有效的前缀串 end+1.... 能不能被分解
-                    dp[i] |= dp[end + 1];
-                }
-                if (dp[i]) {
-                    break;
-                }
-            }
-        }
-        return dp[0];
-    }
 
-    // 返回所有的方法数
-    public static int wordBreak2(String s, List<String> wordDict) {
+    // 前缀树优化
+    public static boolean wordBreak4(String s, List<String> wordDict) {
         Node root = new Node();
         for (String str : wordDict) {
             char[] chs = str.toCharArray();
@@ -86,22 +78,22 @@ public class LeetCode_0139_WordBreak {
             node.end = true;
         }
         char[] str = s.toCharArray();
-        int N = str.length;
-        int[] dp = new int[N + 1];
-        dp[N] = 1;
-        for (int i = N - 1; i >= 0; i--) {
+        int length = str.length;
+        int[] dp = new int[length + 1];
+        dp[length] = 1;
+        for (int index = length - 1; index >= 0; index--) {
             Node cur = root;
-            for (int end = i; end < N; end++) {
-                cur = cur.nexts[str[end] - 'a'];
+            for (int i = index; i < length; i++) {
+                cur = cur.nexts[str[i] - 'a'];
                 if (cur == null) {
                     break;
                 }
                 if (cur.end) {
-                    dp[i] += dp[end + 1];
+                    dp[index] += dp[i + 1];
                 }
             }
         }
-        return dp[0];
+        return dp[0] != 0;
     }
 
 }
