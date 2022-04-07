@@ -2,27 +2,16 @@ package leetcode.medium;
 
 import java.util.List;
 
-//Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
-//
-//		Note:
-//
-//		The same word in the dictionary may be reused multiple times in the segmentation.
-//		You may assume the dictionary does not contain duplicate words.
-//		Example 1:
-//
-//		Input: s = "leetcode", wordDict = ["leet", "code"]
-//		Output: true
-//		Explanation: Return true because "leetcode" can be segmented as "leet code".
-//		Example 2:
-//
-//		Input: s = "applepenapple", wordDict = ["apple", "pen"]
-//		Output: true
-//		Explanation: Return true because "applepenapple" can be segmented as "apple pen apple".
-//		Note that you are allowed to reuse a dictionary word.
-//		Example 3:
-//
-//		Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
-//		Output: false
+//假设所有字符都是小写字母
+//        大字符串是str
+//        arr是去重的单词表, 每个单词都不是空字符串且可以使用任意次.
+//        使用arr中的单词有多少种拼接str的方式. 返回方法数.
+// https://leetcode-cn.com/problems/word-break/
+// lintcode有同样的题目
+// https://www.lintcode.com/problem/107/
+// 因为使用了更强大的数据，所以普通的DFS方法无法解决此题。
+// s.length <= 1e5
+// dict.size <= 1e5
 public class LeetCode_0139_WordBreak {
 
     public static class Node {
