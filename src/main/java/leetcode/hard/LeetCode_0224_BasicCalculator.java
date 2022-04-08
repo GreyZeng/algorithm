@@ -1,6 +1,6 @@
 package leetcode.hard;
 
-import java.util.Stack;
+import java.util.LinkedList;
 
 //1 <= s.length <= 3 * 10^5
 //s 由数字、'+'、'-'、'('、')'、和 ' ' 组成
@@ -13,70 +13,68 @@ import java.util.Stack;
 //链接：https://leetcode-cn.com/problems/basic-calculator
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0224_BasicCalculator {
-    public static int calculate(String s) {
-        return process(s.toCharArray(), 0)[0];
+    public static int calculate(String str) {
+        return f(str.toCharArray(), 0)[0];
     }
 
-    // i...算出的结果，遇到右括号或者结尾才结算
-    // 返回值 int[] 表示两位
-    // 第0位，计算的结果
-    // 第1位，计算到了什么位置
-    private static int[] process(char[] str, int i) {
-        Stack<String> stack = new Stack<>();
-        int result = 0;
+    // 请从str[i...]往下算，遇到字符串终止位置或者右括号，就停止
+    // 返回两个值，长度为2的数组
+    // 0) 负责的这一段的结果是多少
+    // 1) 负责的这一段计算到了哪个位置
+    public static int[] f(char[] str, int i) {
+        LinkedList<String> que = new LinkedList<>();
+        int cur = 0;
+        int[] bra;
+        // 从i出发，开始撸串
         while (i < str.length && str[i] != ')') {
             if (str[i] == ' ') {
                 i++;
             } else if (str[i] >= '0' && str[i] <= '9') {
-                result = result * 10 + (str[i++] - '0');
-            } else if (str[i] == '(') {
-                int[] b = process(str, i + 1);
-                i = b[1] + 1;
-                result = b[0];
-            } else {
-                // i是运算符，本题中，运算符只有+,-
-                // 先把result放入stack里面，与stack现有的内容结算出一个结果
-                cal(stack, result);
-                // i位置的操作符入栈
-                stack.push(String.valueOf(str[i++]));
-                result = 0;
+                cur = cur * 10 + str[i++] - '0';
+            } else if (str[i] != '(') { // 遇到的是运算符号
+                addNum(que, cur);
+                que.addLast(String.valueOf(str[i++]));
+                cur = 0;
+            } else { // 遇到左括号了
+                bra = f(str, i + 1);
+                cur = bra[0];
+                i = bra[1] + 1;
             }
         }
-        cal(stack, result);
-        return new int[]{cal(stack), i};
+        addNum(que, cur);
+        return new int[]{getNum(que), i};
     }
 
-    // stack里面就是单纯的不带括号的表达式了
-    private static int cal(Stack<String> stack) {
-        int result = 0;
-        boolean isAdd = true;
-        while (!stack.isEmpty()) {
-            String c = stack.pop();
-            if ("+".equals(c)) {
-                isAdd = true;
-            } else if ("-".equals(c)) {
-                isAdd = false;
+    public static void addNum(LinkedList<String> que, int num) {
+        if (!que.isEmpty()) {
+            int cur = 0;
+            String top = que.pollLast();
+            if (top.equals("+") || top.equals("-")) {
+                que.addLast(top);
             } else {
-                // c是数字
-                int num = Integer.parseInt(c);
-                result += isAdd ? num : (-num);
+                cur = Integer.valueOf(que.pollLast());
+                num = top.equals("*") ? (cur * num) : (cur / num);
             }
         }
-        return result;
+        que.addLast(String.valueOf(num));
     }
 
-    private static void cal(Stack<String> stack, int result) {
-        if (!stack.isEmpty()) {
-            String c = stack.pop();
-            if ("+".equals(c)) {
-                result += Integer.parseInt(stack.pop());
-            } else if ("-".equals(c)) {
-                result = Integer.parseInt(stack.pop()) - result;
+    public static int getNum(LinkedList<String> que) {
+        int res = 0;
+        boolean add = true;
+        String cur;
+        int num;
+        while (!que.isEmpty()) {
+            cur = que.pollFirst();
+            if (cur.equals("+")) {
+                add = true;
+            } else if (cur.equals("-")) {
+                add = false;
             } else {
-                stack.push(c);
+                num = Integer.valueOf(cur);
+                res += add ? num : (-num);
             }
         }
-        stack.push(String.valueOf(result));
+        return res;
     }
-
 }
