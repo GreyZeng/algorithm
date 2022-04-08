@@ -13,6 +13,12 @@ import java.util.Stack;
 //链接：https://leetcode-cn.com/problems/basic-calculator
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0224_BasicCalculator {
+    public static void main(String[] args) {
+        String str = "1-1+1";
+        int calculate = calculate(str);
+        System.out.println(calculate);
+    }
+
     public static int calculate(String str) {
         return process(str.toCharArray(), 0)[0];
     }
