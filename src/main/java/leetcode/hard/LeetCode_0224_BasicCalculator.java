@@ -22,56 +22,58 @@ public class LeetCode_0224_BasicCalculator {
     // 0) 负责的这一段的结果是多少
     // 1) 负责的这一段计算到了哪个位置
     public static int[] f(char[] str, int i) {
-        LinkedList<String> que = new LinkedList<>();
-        int cur = 0;
+        LinkedList<String> queue = new LinkedList<>();
+        int curNum = 0;
         int[] bra;
-        // 从i出发，开始撸串
         while (i < str.length && str[i] != ')') {
             if (str[i] == ' ') {
                 i++;
             } else if (str[i] >= '0' && str[i] <= '9') {
-                cur = cur * 10 + str[i++] - '0';
-            } else if (str[i] != '(') { // 遇到的是运算符号
-                addNum(que, cur);
-                que.addLast(String.valueOf(str[i++]));
-                cur = 0;
+                curNum = curNum * 10 + (str[i++] - '0');
+            } else if (str[i] != '(') {
+                // 遇到的是运算符号
+                addNum(queue, curNum);
+                queue.addLast(String.valueOf(str[i++]));
+                curNum = 0;
             } else { // 遇到左括号了
                 bra = f(str, i + 1);
-                cur = bra[0];
+                curNum = bra[0];
                 i = bra[1] + 1;
             }
         }
-        addNum(que, cur);
-        return new int[]{getNum(que), i};
+        addNum(queue, curNum);
+        return new int[]{getNum(queue), i};
     }
 
-    public static void addNum(LinkedList<String> que, int num) {
-        if (!que.isEmpty()) {
-            int cur = 0;
-            String top = que.pollLast();
+    public static void addNum(LinkedList<String> queue, int num) {
+        if (!queue.isEmpty()) {
+            int cur;
+            String top = queue.pollLast();
+            // 先结算
             if (top.equals("+") || top.equals("-")) {
-                que.addLast(top);
+                queue.addLast(top);
             } else {
-                cur = Integer.valueOf(que.pollLast());
+                // 到这里了，就只可能是*和/号
+                cur = Integer.parseInt(queue.pollLast());
                 num = top.equals("*") ? (cur * num) : (cur / num);
             }
         }
-        que.addLast(String.valueOf(num));
+        queue.addLast(String.valueOf(num));
     }
 
-    public static int getNum(LinkedList<String> que) {
+    public static int getNum(LinkedList<String> queue) {
         int res = 0;
         boolean add = true;
         String cur;
         int num;
-        while (!que.isEmpty()) {
-            cur = que.pollFirst();
+        while (!queue.isEmpty()) {
+            cur = queue.pollFirst();
             if (cur.equals("+")) {
                 add = true;
             } else if (cur.equals("-")) {
                 add = false;
             } else {
-                num = Integer.valueOf(cur);
+                num = Integer.parseInt(cur);
                 res += add ? num : (-num);
             }
         }
