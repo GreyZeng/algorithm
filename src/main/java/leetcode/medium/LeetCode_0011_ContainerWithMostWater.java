@@ -1,39 +1,22 @@
 package leetcode.medium;
 
-//Example 2:
-//
-//        Input: height = [1,1]
-//        Output: 1
-//        Example 3:
-//
-//        Input: height = [4,3,2,1,4]
-//        Output: 16
-//        Example 4:
-//
-//        Input: height = [1,2,1]
-//        Output: 2
-//Constraints:
-//
-//        n == height.length
-//        2 <= n <= 10^5
-//        0 <= height[i] <= 10^4
+
 // https://leetcode.com/problems/container-with-most-water/
 // https://www.cnblogs.com/greyzeng/p/5918205.html
+// lintcode：https://www.lintcode.com/problem/383/
 public class LeetCode_0011_ContainerWithMostWater {
-    public static int maxArea(int[] height) {
-        if (height == null || height.length <= 1) {
+    public int maxArea(int[] arr) {
+        if (arr == null || arr.length <= 1) {
             return 0;
         }
-        int l = 0;
-        int r = height.length - 1;
-        int max = Math.min(height[l], height[r]) * r;
-        while (l < r) {
-            if (height[l] < height[r]) {
-                max = Math.max(max, height[l] * (r - l));
-                l++;
+        int i = 0;
+        int j = arr.length - 1;
+        int max = 0;
+        while (i < j) {
+            if (arr[i] > arr[j]) {
+                max = Math.max(max, arr[j--] * (j - i));
             } else {
-                max = Math.max(max, height[r] * (r - l));
-                r--;
+                max = Math.max(max, arr[i++] * (j - i));
             }
         }
         return max;
