@@ -31,9 +31,10 @@ import java.util.List;
 //1. 如何判断一个字符串是否有效，count不出现小于0的情况，左括号++，右括号--
 //2. f(i,j), 检查位置从i开始，删除位置从j开始
 public class LeetCode_0301_RemoveInvalidParentheses {
+    // https://leetcode.com/problems/remove-invalid-parentheses/discuss/75027/Easy-Short-Concise-and-Fast-Java-DFS-3-ms-solution
     public List<String> removeInvalidParentheses(String s) {
         List<String> ans = new ArrayList<>();
-        remove(s, ans, 0, 0, new char[] { '(', ')' });
+        remove(s, ans, 0, 0, new char[]{'(', ')'});
         return ans;
     }
 
@@ -79,7 +80,7 @@ public class LeetCode_0301_RemoveInvalidParentheses {
         }
         String reversed = new StringBuilder(s).reverse().toString();
         if (par[0] == '(') {
-            remove(reversed, ans, 0, 0, new char[] { ')', '(' });
+            remove(reversed, ans, 0, 0, new char[]{')', '('});
         } else {
             ans.add(reversed);
         }
