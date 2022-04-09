@@ -1,5 +1,6 @@
 package snippet;
 
+
 import java.util.Arrays;
 
 //给定一个二维数组matrix，每个单元都是一个整数，有正有负。
@@ -15,7 +16,7 @@ public class Code_0109_SnakeGame {
         if (m == null || m.length < 1 || m[0].length < 1) {
             return 0;
         }
-        int max = 0;
+        int max = Math.max(m[0][0], -m[0][0]);
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[0].length; j++) {
                 Info info = process(m, i, j);
@@ -65,41 +66,41 @@ public class Code_0109_SnakeGame {
         }
     }
 
-    public static int walk2(int[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+    public static int walk2(int[][] m) {
+        if (m == null || m.length == 0 || m[0].length == 0) {
             return 0;
         }
-        int max = Integer.MIN_VALUE;
-        int[][][] dp = new int[matrix.length][matrix[0].length][2];
-        for (int i = 0; i < dp.length; i++) {
-            dp[i][0][0] = matrix[i][0];
-            dp[i][0][1] = -matrix[i][0];
+        int max = Math.max(-m[0][0], m[0][0]);
+        int[][][] dp = new int[m.length][m[0].length][2];
+        for (int i = 0; i < m.length; i++) {
+            dp[i][0][0] = Math.max(-1, -m[i][0]);
+            dp[i][0][1] = Math.max(-1, m[i][0]);
             max = Math.max(max, Math.max(dp[i][0][0], dp[i][0][1]));
         }
-        for (int j = 1; j < matrix[0].length; j++) {
-            for (int i = 0; i < matrix.length; i++) {
-                int preUnuse = dp[i][j - 1][0];
-                int preUse = dp[i][j - 1][1];
+        for (int j = 1; j < m[0].length; j++) {
+            for (int i = 0; i < m.length; i++) {
+                int preYes = -1;
+                int preNo = -1;
+                preNo = Math.max(preNo, dp[i][j - 1][1]);
+                preYes = Math.max(preYes, dp[i][j - 1][0]);
                 if (i - 1 >= 0) {
-                    preUnuse = Math.max(preUnuse, dp[i - 1][j - 1][0]);
-                    preUse = Math.max(preUse, dp[i - 1][j - 1][1]);
+                    preNo = Math.max(dp[i - 1][j - 1][1], preNo);
+                    preYes = Math.max(dp[i - 1][j - 1][0], preYes);
                 }
-                if (i + 1 < matrix.length) {
-                    preUnuse = Math.max(preUnuse, dp[i + 1][j - 1][0]);
-                    preUse = Math.max(preUse, dp[i + 1][j - 1][1]);
+                if (i + 1 < m.length) {
+                    preNo = Math.max(dp[i + 1][j - 1][1], preNo);
+                    preYes = Math.max(dp[i + 1][j - 1][0], preYes);
                 }
-                dp[i][j][0] = -1;
-                dp[i][j][1] = -1;
-                if (preUnuse >= 0) {
-                    dp[i][j][0] = matrix[i][j] + preUnuse;
-                    dp[i][j][1] = -matrix[i][j] + preUnuse;
-                }
-                if (preUse >= 0) {
-                    dp[i][j][1] = Math.max(dp[i][j][1], matrix[i][j] + preUse);
-                }
+                int no = preNo == -1 ? -1 : (Math.max(-1, preNo + m[i][j]));
+                int p1 = preYes == -1 ? -1 : (Math.max(-1, preYes + m[i][j]));
+                int p2 = preNo == -1 ? -1 : (Math.max(-1, preNo - m[i][j]));
+                int yes = Math.max(p1, p2);
+                dp[i][j][0] = yes;
+                dp[i][j][1] = no;
                 max = Math.max(max, Math.max(dp[i][j][0], dp[i][j][1]));
             }
         }
+
         return max;
     }
 
