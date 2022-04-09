@@ -10,6 +10,7 @@ import java.util.HashMap;
 //		y--->乙
 //		如果x大于y，则甲一定大于乙
 //		求中点，然后验证
+// https://www.cnblogs.com/greyzeng/p/15690136.html
 public class Code_0111_IsStepSum {
     public static boolean isStepSum(int stepSum) {
         int i = 0;
