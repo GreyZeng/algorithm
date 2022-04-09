@@ -14,9 +14,11 @@ public class LeetCode_0011_ContainerWithMostWater {
         int max = 0;
         while (i < j) {
             if (arr[i] > arr[j]) {
-                max = Math.max(max, arr[j--] * (j - i));
+                max = Math.max(max, arr[j] * (j - i));
+                j--;
             } else {
-                max = Math.max(max, arr[i++] * (j - i));
+                max = Math.max(max, arr[i] * (j - i));
+                i++;
             }
         }
         return max;
