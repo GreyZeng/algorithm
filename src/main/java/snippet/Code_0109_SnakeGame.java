@@ -10,54 +10,59 @@ import java.util.Arrays;
 // 小Q是个天才，他拥有一个超能力， 可以在游戏开始的时候把地图中的某一个节点的值变为其相反数(注:最多只能改变一个节点).
 // 问在小Q游戏过程中，他的蛇最长长度可以到多少?
 public class Code_0109_SnakeGame {
-    public static int walk1(int[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+
+    public static int walk1(int[][] m) {
+        if (m == null || m.length < 1 || m[0].length < 1) {
             return 0;
         }
-        int res = Integer.MIN_VALUE;
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                int[] ans = process(matrix, i, j);
-                res = Math.max(res, Math.max(ans[0], ans[1]));
+        int max = 0;
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[0].length; j++) {
+                Info info = process(m, i, j);
+                max = Math.max(max, Math.max(info.no, info.yes));
             }
         }
-        return res;
+        return max;
     }
 
-    // 从假想的最优左侧到达(i,j)的旅程中
-    // 0) 在没有使用过能力的情况下，返回路径最大和，没有可能到达的话，返回负
-    // 1) 在使用过能力的情况下，返回路径最大和，没有可能到达的话，返回负
-    public static int[] process(int[][] m, int i, int j) {
-        if (j == 0) { // (i,j)就是最左侧的位置
-            return new int[]{m[i][j], -m[i][j]};
+    // 从最左侧任意位置到(i,j)位置可以获取的最大长度是多少
+    // 有两种方法：1. 使用一次能力 2. 不使用能力
+    // 如果是-1，则表示无法到达
+    public static Info process(int[][] m, int i, int j) {
+        // 已经到左侧了
+        if (j == 0) {
+            return new Info(Math.max(-1, -m[i][0]), Math.max(-1, m[i][0]));
         }
-        int[] preAns = process(m, i, j - 1);
-        // 所有的路中，完全不使用能力的情况下，能够到达的最好长度是多大
-        int preUnuse = preAns[0];
-        // 所有的路中，使用过一次能力的情况下，能够到达的最好长度是多大
-        int preUse = preAns[1];
+        int preYes = -1;
+        int preNo = -1;
+        Info pre = process(m, i, j - 1);
+        preNo = Math.max(preNo, pre.no);
+        preYes = Math.max(preYes, pre.yes);
         if (i - 1 >= 0) {
-            preAns = process(m, i - 1, j - 1);
-            preUnuse = Math.max(preUnuse, preAns[0]);
-            preUse = Math.max(preUse, preAns[1]);
+            pre = process(m, i - 1, j - 1);
+            preNo = Math.max(pre.no, preNo);
+            preYes = Math.max(pre.yes, preYes);
         }
         if (i + 1 < m.length) {
-            preAns = process(m, i + 1, j - 1);
-            preUnuse = Math.max(preUnuse, preAns[0]);
-            preUse = Math.max(preUse, preAns[1]);
+            pre = process(m, i + 1, j - 1);
+            preNo = Math.max(pre.no, preNo);
+            preYes = Math.max(pre.yes, preYes);
         }
-        // preUnuse 之前旅程，没用过能力
-        // preUse 之前旅程，已经使用过能力了
-        int no = -1; // 之前没使用过能力，当前位置也不使用能力，的最优解
-        int yes = -1; // 不管是之前使用能力，还是当前使用了能力，请保证能力只使用一次，最优解
-        if (preUnuse >= 0) {
-            no = m[i][j] + preUnuse;
-            yes = -m[i][j] + preUnuse;
+        int no = preNo == -1 ? -1 : (Math.max(-1, preNo + m[i][j]));
+        int p1 = preYes == -1 ? -1 : (Math.max(-1, preYes + m[i][j]));
+        int p2 = preNo == -1 ? -1 : (Math.max(-1, preNo - m[i][j]));
+        int yes = Math.max(p1, p2);
+        return new Info(yes, no);
+    }
+
+    public static class Info {
+        public int yes;
+        public int no;
+
+        public Info(int y, int n) {
+            yes = y;
+            no = n;
         }
-        if (preUse >= 0) {
-            yes = Math.max(yes, m[i][j] + preUse);
-        }
-        return new int[]{no, yes};
     }
 
     public static int walk2(int[][] matrix) {
