@@ -23,9 +23,9 @@
 
         1 <= s.length <= 2000
         s consists of lower-case English letters only.*/
-package leetcode;
+package leetcode.hard;
 
-// TODO
+// https://leetcode-cn.com/problems/palindrome-partitioning-ii/
 public class LeetCode_0132_PalindromePartitioningII {
     public static int minCut(String s) {
         if (s == null || s.length() == 0) {
@@ -61,7 +61,7 @@ public class LeetCode_0132_PalindromePartitioningII {
                 }
             }
         }
-        return dp[0]-1;
+        return dp[0] - 1;
     }
 
 }
