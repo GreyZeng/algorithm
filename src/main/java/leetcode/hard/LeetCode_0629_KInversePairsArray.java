@@ -25,11 +25,7 @@
         The integer n is in the range [1, 1000] and k is in the range [0, 1000].*/
 package leetcode.hard;
 
-/**
- * @author Young
- * @version 1.0
- * @date 2021/2/10 20:00
- */
+// https://leetcode-cn.com/problems/k-inverse-pairs-array/
 public class LeetCode_0629_KInversePairsArray {
     static int MOD = 1000000007;
 
@@ -79,7 +75,10 @@ public class LeetCode_0629_KInversePairsArray {
                 // 情况2 ： j>=i 下发生
                 dp[i][j] = (dp[i - 1][j] + dp[i][j - 1]) % MOD;
                 if (j >= i) {
-                    dp[i][j] = (dp[i][j] - dp[i - 1][j - i] + MOD) % MOD;
+                    // dp[i][j] 和 dp[i-1][j-1]有可能是mod完毕的结果，所以仅仅看
+                    // dp[i][j] 和 dp[i-1][j-1]不知道原始值大小，所以让dp[i][j] + MOD后再去减dp[i - 1][j - i]
+                    // 这样不至于到负数！！！
+                    dp[i][j] = (dp[i][j] + MOD - dp[i - 1][j - i]) % MOD;
                 }
             }
         }

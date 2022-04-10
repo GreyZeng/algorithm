@@ -41,6 +41,7 @@ import java.util.TreeSet;
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
 // 笔记：https://www.cnblogs.com/greyzeng/p/16125150.html
 public class LintCode_0550_TopKFrequentWordsII {
+    // 该方法是正式方法，使用加强堆
     public static class TopK {
         private TreeSet<Word> topK;
         private Heap heap;
@@ -49,8 +50,14 @@ public class LintCode_0550_TopKFrequentWordsII {
 
         public TopK(int k) {
             this.k = k;
-            topK = new TreeSet<>(new TopKComparator());
-            heap = new Heap(k, new ThresholdComparator());
+            topK = new TreeSet<>((o1, o2) -> {
+                // 次数大的排前面，次数一样字典序在小的排前面
+                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
+            });
+            heap = new Heap(k, (o1, o2) -> {
+                // 设置堆门槛，堆顶元素最先被淘汰
+                return o1.times == o2.times ? o2.value.compareTo(o1.value) : (o1.times - o2.times);
+            });
             map = new HashMap<>();
         }
 
@@ -113,22 +120,6 @@ public class LintCode_0550_TopKFrequentWordsII {
             }
         }
 
-        private class TopKComparator implements Comparator<Word> {
-            @Override
-            public int compare(Word o1, Word o2) {
-                // 次数大的排前面，次数一样字典序在小的排前面
-                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
-            }
-        }
-
-        private class ThresholdComparator implements Comparator<Word> {
-
-            @Override
-            public int compare(Word o1, Word o2) {
-                // 设置堆门槛，堆顶元素最先被淘汰
-                return o1.times == o2.times ? o2.value.compareTo(o1.value) : (o1.times - o2.times);
-            }
-        }
 
         private class Heap {
             private Word[] words;
@@ -169,11 +160,7 @@ public class LintCode_0550_TopKFrequentWordsII {
                 int size = indexMap.size();
                 int leftChildIndex = 2 * i + 1;
                 while (leftChildIndex < size) {
-                    Word weakest = leftChildIndex + 1 < size
-                            ? (comparator.compare(words[leftChildIndex], words[leftChildIndex + 1]) < 0
-                            ? words[leftChildIndex]
-                            : words[leftChildIndex + 1])
-                            : words[leftChildIndex];
+                    Word weakest = leftChildIndex + 1 < size ? (comparator.compare(words[leftChildIndex], words[leftChildIndex + 1]) < 0 ? words[leftChildIndex] : words[leftChildIndex + 1]) : words[leftChildIndex];
                     if (comparator.compare(words[i], weakest) < 0) {
                         break;
                     }
@@ -227,17 +214,13 @@ public class LintCode_0550_TopKFrequentWordsII {
         private Map<String, Word> indexMap;
         private int k;
 
-        private class TopKComparator implements Comparator<Word> {
-            @Override
-            public int compare(Word o1, Word o2) {
-                // 次数大的排前面，次数一样字典序在小的排前面
-                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
-            }
-        }
 
         public TopK2(int k) {
             this.k = k;
-            topK = new TreeSet<>(new TopKComparator());
+            topK = new TreeSet<>((o1, o2) -> {
+                // 次数大的排前面，次数一样字典序在小的排前面
+                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
+            });
             indexMap = new HashMap<>();
         }
 
