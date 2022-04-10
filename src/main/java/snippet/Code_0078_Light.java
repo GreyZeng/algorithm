@@ -2,6 +2,14 @@ package snippet;
 
 import java.util.HashSet;
 
+/**
+ * 给定一个字符串str，只由‘X’和‘.’两种字符构成。 ‘X’表示墙，不能放灯，也不需要点亮 ‘.’表示居民点，可以放灯，需要点亮
+ * 如果灯放在i位置，可以让i-1，i和i+1三个位置被点亮 返回如果点亮str中所有需要点亮的位置，至少需要几盏灯
+ * <p>
+ * 暴力方法 可以放灯的点，有放灯不放灯两种情况，在这两种情况下，摘出照亮所有点的情况， 然后再在这些情况中选出灯最少的方案
+ */
+
+// https://www.nowcoder.com/questionTerminal/45d20d0e59d94e7d8879f19a5755c177
 public class Code_0078_Light {
     public static int minLight1(String road) {
         if (road == null || road.length() == 0) {
