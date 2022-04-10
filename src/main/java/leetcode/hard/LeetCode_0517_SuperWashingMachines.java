@@ -1,11 +1,12 @@
-package snippet;
+package leetcode.hard;
 
 /**
  * @author Young
  * @version 1.0
  * @date 2021/1/22 21:18
  */
-public class Code_0014_PartionPackage {
+// https://leetcode-cn.com/problems/super-washing-machines/
+public class LeetCode_0517_SuperWashingMachines {
     public static int packageMachine(int[] arr) {
         if (null == arr || 0 == arr.length) {
             return 0;
