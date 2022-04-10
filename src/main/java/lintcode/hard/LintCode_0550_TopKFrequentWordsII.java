@@ -29,7 +29,7 @@
         "aa" 和 "ab" 出现 , 但是aa的字典序小于ab。
         注意事项
         如果两个单词有相同的使用频率, 按字典序排名.*/
-package lintcode;
+package lintcode.hard;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.TreeSet;
 
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
+// 笔记：https://www.cnblogs.com/greyzeng/p/16125150.html
 public class LintCode_0550_TopKFrequentWordsII {
     public static class TopK {
         private TreeSet<Word> topK;
