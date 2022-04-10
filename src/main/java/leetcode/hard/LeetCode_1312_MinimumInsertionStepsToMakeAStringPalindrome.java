@@ -35,12 +35,12 @@
 
         1 <= s.length <= 500
         All characters of s are lower case English letters.*/
-package leetcode;
+package leetcode.hard;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// 测评链接： https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
+// 测评链接： https://leetcode-cn.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
 public class LeetCode_1312_MinimumInsertionStepsToMakeAStringPalindrome {
     public static int minInsertions(String s) {
         if (s == null || s.length() < 2) {
