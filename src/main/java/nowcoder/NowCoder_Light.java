@@ -1,6 +1,7 @@
-package snippet;
+package nowcoder;
 
 import java.util.HashSet;
+import java.util.Scanner;
 
 /**
  * 给定一个字符串str，只由‘X’和‘.’两种字符构成。 ‘X’表示墙，不能放灯，也不需要点亮 ‘.’表示居民点，可以放灯，需要点亮
@@ -10,7 +11,7 @@ import java.util.HashSet;
  */
 
 // https://www.nowcoder.com/questionTerminal/45d20d0e59d94e7d8879f19a5755c177
-public class Code_0078_Light {
+public class NowCoder_Light {
     public static int minLight1(String road) {
         if (road == null || road.length() == 0) {
             return 0;
@@ -79,16 +80,21 @@ public class Code_0078_Light {
     }
 
     public static void main(String[] args) {
-        int len = 20;
-        int testTime = 100000;
-        for (int i = 0; i < testTime; i++) {
-            String test = randomString(len);
-            int ans1 = minLight1(test);
-            int ans2 = minLight2(test);
-            if (ans1 != ans2) {
-                System.out.println("oops!");
-            }
-        }
-        System.out.println("finish!");
+//        int len = 20;
+//        int testTime = 100000;
+//        for (int i = 0; i < testTime; i++) {
+//            String test = randomString(len);
+//            int ans1 = minLight1(test);
+//            int ans2 = minLight2(test);
+//            if (ans1 != ans2) {
+//                System.out.println("oops!");
+//            }
+//        }
+//        System.out.println("finish!");
+        Scanner in = new Scanner(System.in);
+        int len = in.nextInt();
+        String str = in.next();
+        System.out.println(minLight2(String.valueOf(str)));
+        in.close();
     }
 }
