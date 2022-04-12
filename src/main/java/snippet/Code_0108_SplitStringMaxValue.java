@@ -1,72 +1,74 @@
 package snippet;
 
 import java.util.HashMap;
+import java.util.Map;
 
-//String str, int K, String[] parts, int[] record
-//        str一定要分割成k个部分，分割出来的每部分在parts里必须得有
-//        那一部分的得分在record里
-//        请问，str切成k个部分，最大得分是多少？
+// String str, int k, String[] parts, int[] record
+// str一定要分割成k个部分，分割出来的每部分在parts里必须得有
+// 那一部分的得分在record里
+// 请问，str切成k个部分，最大得分是多少？
+// 如果无法做到，则返回-1
 // 参考：LeetCode_0139_WordBreak.java
 public class Code_0108_SplitStringMaxValue {
 
     // 暴力解
-    public static int maxRecord1(String str, int K, String[] parts, int[] record) {
+    public static int maxRecord1(String str, int k, String[] parts, int[] record) {
         if (str == null || str.length() == 0) {
             return 0;
         }
-        HashMap<String, Integer> records = new HashMap<>();
+        Map<String, Integer> records = new HashMap<>(parts.length);
         for (int i = 0; i < parts.length; i++) {
             records.put(parts[i], record[i]);
         }
-        return process(str, 0, K, records);
+        return p(str, 0, k, records);
     }
 
-    public static int process(String str, int index, int rest, HashMap<String, Integer> records) {
-        if (rest < 0) {
+    // str中i及其往后所有，分解为part部分，最大得分是多少
+    public static int p(String str, int i, int part, Map<String, Integer> r) {
+        if (part < 0) {
             return -1;
         }
-        if (index == str.length()) {
-            return rest == 0 ? 0 : -1;
+        if (i == str.length()) {
+            return part == 0 ? 0 : -1;
         }
         int ans = -1;
-        for (int end = index; end < str.length(); end++) {
-            String first = str.substring(index, end + 1);
-            int next = records.containsKey(first) ? process(str, end + 1, rest - 1, records) : -1;
+        for (int e = i; e < str.length(); e++) {
+            String f = str.substring(i, e + 1);
+            int next = r.containsKey(f) ? p(str, e + 1, part - 1, r) : -1;
             if (next != -1) {
-                ans = Math.max(ans, records.get(first) + next);
+                ans = Math.max(ans, next + r.get(f));
             }
         }
         return ans;
     }
 
     // 动态规划解
-    public static int maxRecord2(String str, int K, String[] parts, int[] record) {
+    public static int maxRecord2(String str, int k, String[] parts, int[] record) {
         if (str == null || str.length() == 0) {
             return 0;
         }
-        HashMap<String, Integer> records = new HashMap<>();
+        Map<String, Integer> r = new HashMap<>(parts.length);
         for (int i = 0; i < parts.length; i++) {
-            records.put(parts[i], record[i]);
+            r.put(parts[i], record[i]);
         }
-        int N = str.length();
-        int[][] dp = new int[N + 1][K + 1];
-        for (int rest = 1; rest <= K; rest++) {
-            dp[N][rest] = -1;
+        int[][] dp = new int[str.length() + 1][k + 1];
+        for (int i = 1; i < k + 1; i++) {
+            dp[str.length()][i] = -1;
         }
-        for (int index = N - 1; index >= 0; index--) {
-            for (int rest = 0; rest <= K; rest++) {
+        for (int i = str.length() - 1; i >= 0; i--) {
+            for (int j = 0; j <= k; j++) {
                 int ans = -1;
-                for (int end = index; end < N; end++) {
-                    String first = str.substring(index, end + 1);
-                    int next = rest > 0 && records.containsKey(first) ? dp[end + 1][rest - 1] : -1;
+                for (int e = i; e < str.length(); e++) {
+                    String f = str.substring(i, e + 1);
+                    int next = r.containsKey(f) && j - 1 >= 0 ? dp[e + 1][j - 1] : -1;
                     if (next != -1) {
-                        ans = Math.max(ans, records.get(first) + next);
+                        ans = Math.max(ans, next + r.get(f));
                     }
                 }
-                dp[index][rest] = ans;
+                dp[i][j] = ans;
             }
         }
-        return dp[0][K];
+        return dp[0][k];
     }
 
     // 动态规划解 + 前缀树优化
@@ -117,8 +119,8 @@ public class Code_0108_SplitStringMaxValue {
         for (int i = 0; i < parts.length; i++) {
             char[] str = parts[i].toCharArray();
             TrieNode cur = root;
-            for (int j = 0; j < str.length; j++) {
-                int path = str[j] - 'a';
+            for (char c : str) {
+                int path = c - 'a';
                 if (cur.nexts[path] == null) {
                     cur.nexts[path] = new TrieNode();
                 }
@@ -133,7 +135,7 @@ public class Code_0108_SplitStringMaxValue {
         String str = "abcdefg";
         int K = 3;
         String[] parts = {"abc", "def", "g", "ab", "cd", "efg", "defg"};
-        int[] record = {1, 1, 1, 3, 3, 3, 2};
+        int[] record = {1, 2, 2, 1, 3, 1, 2};
         System.out.println(maxRecord1(str, K, parts, record));
         System.out.println(maxRecord2(str, K, parts, record));
         System.out.println(maxRecord3(str, K, parts, record));
