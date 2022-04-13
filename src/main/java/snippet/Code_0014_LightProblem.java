@@ -62,8 +62,8 @@ public class Code_0014_LightProblem {
     }
 
     public static boolean valid(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 0) {
+        for (int n : arr) {
+            if (n == 0) {
                 return false;
             }
         }
@@ -336,7 +336,16 @@ public class Code_0014_LightProblem {
         }
         return arr;
     }
-
+    public static int[] copyArray(int[] arr) {
+        if (arr == null) {
+            return null;
+        }
+        int[] res = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            res[i] = arr[i];
+        }
+        return res;
+    }
     public static void main(String[] args) {
         System.out.println("如果没有任何Oops打印，说明所有方法都正确");
         System.out.println("test begin");
@@ -345,9 +354,12 @@ public class Code_0014_LightProblem {
         for (int i = 0; i < testTime; i++) {
             int len = (int) (Math.random() * lenMax);
             int[] arr = randomArray(len);
-            int ans1 = noLoopRight(arr);
-            int ans2 = noLoopMinStep1(arr);
-            int ans3 = noLoopMinStep2(arr);
+            int[] arr1 = copyArray(arr);
+            int[] arr2 = copyArray(arr);
+            int[] arr3 = copyArray(arr);
+            int ans1 = noLoopRight(arr1);
+            int ans2 = noLoopMinStep1(arr2);
+            int ans3 = noLoopMinStep2(arr3);
             if (ans1 != ans2 || ans1 != ans3) {
                 System.out.println("1 Oops!");
             }
@@ -355,9 +367,12 @@ public class Code_0014_LightProblem {
         for (int i = 0; i < testTime; i++) {
             int len = (int) (Math.random() * lenMax);
             int[] arr = randomArray(len);
-            int ans1 = loopRight(arr);
-            int ans2 = loopMinStep1(arr);
-            int ans3 = loopMinStep2(arr);
+            int[] arr1 = copyArray(arr);
+            int[] arr2 = copyArray(arr);
+            int[] arr3 = copyArray(arr);
+            int ans1 = loopRight(arr1);
+            int ans2 = loopMinStep1(arr2);
+            int ans3 = loopMinStep2(arr3);
             if (ans1 != ans2 || ans1 != ans3) {
                 System.out.println("2 Oops!");
             }
@@ -368,15 +383,17 @@ public class Code_0014_LightProblem {
         System.out.println("性能测试");
         System.out.println("数组大小：" + len);
         int[] arr = randomArray(len);
+        int[] arr1 = copyArray(arr);
+        int[] arr2 = copyArray(arr);
         long start = 0;
         long end = 0;
         start = System.currentTimeMillis();
-        noLoopMinStep2(arr);
+        noLoopMinStep2(arr1);
         end = System.currentTimeMillis();
         System.out.println("noLoopMinStep2 run time: " + (end - start) + "(ms)");
 
         start = System.currentTimeMillis();
-        loopMinStep2(arr);
+        loopMinStep2(arr2);
         end = System.currentTimeMillis();
         System.out.println("loopMinStep2 run time: " + (end - start) + "(ms)");
     }
