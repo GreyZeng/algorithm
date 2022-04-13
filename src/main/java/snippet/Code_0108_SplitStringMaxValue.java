@@ -71,73 +71,69 @@ public class Code_0108_SplitStringMaxValue {
         return dp[0][k];
     }
 
+
     // 动态规划解 + 前缀树优化
-    public static int maxRecord3(String s, int K, String[] parts, int[] record) {
+    public static int maxRecord3(String s, int k, String[] parts, int[] record) {
         if (s == null || s.length() == 0) {
             return 0;
         }
-        TrieNode root = rootNode(parts, record);
         char[] str = s.toCharArray();
-        int N = str.length;
-        int[][] dp = new int[N + 1][K + 1];
-        for (int rest = 1; rest <= K; rest++) {
-            dp[N][rest] = -1;
+        Trie r = buildTrie(parts, record);
+        int[][] dp = new int[s.length() + 1][k + 1];
+        for (int i = 1; i < k + 1; i++) {
+            dp[s.length()][i] = -1;
         }
-        for (int index = N - 1; index >= 0; index--) {
-            for (int rest = 0; rest <= K; rest++) {
+        for (int i = s.length() - 1; i >= 0; i--) {
+            for (int j = 0; j <= k; j++) {
                 int ans = -1;
-                TrieNode cur = root;
-                for (int end = index; end < N; end++) {
-                    int path = str[end] - 'a';
-                    // 没有走向path的路，直接杀死可能性
-                    if (cur.nexts[path] == null) {
+                Trie cur = r;
+                for (int e = i; e < s.length(); e++) {
+                    if (cur.nexts[str[e] - 'a'] == null) {
                         break;
                     }
-                    cur = cur.nexts[path];
-                    int next = rest > 0 && cur.value != -1 ? dp[end + 1][rest - 1] : -1;
+                    cur = cur.nexts[str[e] - 'a'];
+                    int next = cur.value != -1 && j - 1 >= 0 ? dp[e + 1][j - 1] : -1;
                     if (next != -1) {
-                        ans = Math.max(ans, cur.value + next);
+                        ans = Math.max(ans, next + cur.value);
                     }
                 }
-                dp[index][rest] = ans;
+                dp[i][j] = ans;
             }
         }
-        return dp[0][K];
+        return dp[0][k];
     }
 
-    public static class TrieNode {
-        public TrieNode[] nexts;
-        public int value;
+    public static class Trie {
+        Trie[] nexts;
+        int value;
 
-        public TrieNode() {
-            nexts = new TrieNode[26];
+        public Trie() {
+            nexts = new Trie[26];
             value = -1;
         }
     }
 
-    public static TrieNode rootNode(String[] parts, int[] record) {
-        TrieNode root = new TrieNode();
+    public static Trie buildTrie(String[] parts, int[] records) {
+        Trie trie = new Trie();
         for (int i = 0; i < parts.length; i++) {
-            char[] str = parts[i].toCharArray();
-            TrieNode cur = root;
-            for (char c : str) {
-                int path = c - 'a';
-                if (cur.nexts[path] == null) {
-                    cur.nexts[path] = new TrieNode();
+            Trie cur = trie;
+            for (char c : parts[i].toCharArray()) {
+                if (cur.nexts[c - 'a'] == null) {
+                    cur.nexts[c - 'a'] = new Trie();
                 }
-                cur = cur.nexts[path];
+                cur = cur.nexts[c - 'a'];
             }
-            // 结尾节点把得分记录下
-            cur.value = record[i];
+            cur.value = records[i];
         }
-        return root;
+        return trie;
     }
+
 
     public static void main(String[] args) {
         String str = "abcdefg";
         int K = 3;
         String[] parts = {"abc", "def", "g", "ab", "cd", "efg", "defg"};
-        int[] record = {1, 2, 2, 1, 3, 1, 2};
+        int[] record = {1, 2, 2, 7, 5, 1, 2};
         System.out.println(maxRecord1(str, K, parts, record));
         System.out.println(maxRecord2(str, K, parts, record));
         System.out.println(maxRecord3(str, K, parts, record));
