@@ -216,16 +216,6 @@ public class Code_0014_LightProblem {
         return Math.min(Math.min(p1, p2), Math.min(p3, p4));
     }
 
-    private static int[] build(int[] arr) {
-        int[] copy = new int[arr.length - 3];
-        int index = 0;
-        for (int i = 2; i < arr.length - 2; i++) {
-            copy[index++] = arr[i];
-        }
-        return copy;
-    }
-
-
     // 下一个位置是，nextIndex
     // 当前位置是，nextIndex - 1 -> curIndex
     // 上一个位置是, nextIndex - 2 -> preIndex   preStatus
