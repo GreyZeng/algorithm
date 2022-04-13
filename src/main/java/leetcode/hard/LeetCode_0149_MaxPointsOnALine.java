@@ -1,35 +1,16 @@
-package leetcode;
+package leetcode.hard;
 
 import java.util.HashMap;
 
-//Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
-//
-//        Example 1:
-//
-//        Input: [[1,1],[2,2],[3,3]]
-//        Output: 3
-//        Explanation:
-//        ^
-//        |
-//        |        o
-//        |     o
-//        |  o
-//        +------------->
-//        0  1  2  3  4
-//        Example 2:
-//
-//        Input: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
-//        Output: 4
-//        Explanation:
-//        ^
-//        |
-//        |  o
-//        |     o        o
-//        |        o
-//        |  o        o
-//        +------------------->
-//        0  1  2  3  4  5  6
-//        NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
+//给定两个数组arrx和arry，长度都为N。代表二维平面上有N个点，第i个点的x 坐标和y坐标分别为arrx[i]和arry[i]，返回求一条直线最多能穿过多少个点?
+//        tips:
+//        必须穿过某个点的直线
+//        假设某个点是a
+//        1. a 和 x 重合
+//        2. a 和 x 共y
+//        3. a 和 x 共x
+//        4. a 和 x 有斜率 如何表示斜率？ 最大公约数以后用字符串拼接
+// https://leetcode-cn.com/problems/max-points-on-a-line/
 public class LeetCode_0149_MaxPointsOnALine {
 
     // 共位置
