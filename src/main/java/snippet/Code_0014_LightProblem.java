@@ -95,6 +95,7 @@ public class Code_0014_LightProblem {
     // cur - 1 preStatus
     // cur  curStatus
     // 0....cur-2  全亮的！
+    // O(N)时间复杂度 ，因为递归只会走一侧
     public static int process1(int[] arr, int nextIndex, int preStatus, int curStatus) {
         if (nextIndex == arr.length) { // 当前来到最后一个开关的位置
             return preStatus != curStatus ? (Integer.MAX_VALUE) : (curStatus ^ 1);
@@ -185,6 +186,7 @@ public class Code_0014_LightProblem {
     }
 
     // 有环改灯问题的递归版本
+    // 在无环的版本中增加两个状态：zeroStatus，endStatus
     public static int loopMinStep1(int[] arr) {
         if (arr == null || arr.length == 0) {
             return 0;
@@ -198,13 +200,15 @@ public class Code_0014_LightProblem {
         if (arr.length == 3) {
             return (arr[0] != arr[1] || arr[0] != arr[2]) ? Integer.MAX_VALUE : (arr[0] ^ 1);
         }
-        // 0不变，1不变
+//        // 当前来到的位置(nextIndex - 1)，一定不能是1！至少从2开始，因为1位置比较特殊，因为1位置前一个0位置可亮可不亮
+//        // 所以直接调用下述四个分支，跳过第一个位置
+//        // 0不变，1不变
         int p1 = process2(arr, 3, arr[1], arr[2], arr[arr.length - 1], arr[0]);
-        // 0改变，1不变
+//        // 0改变，1不变
         int p2 = process2(arr, 3, arr[1] ^ 1, arr[2], arr[arr.length - 1] ^ 1, arr[0] ^ 1);
-        // 0不变，1改变
+//        // 0不变，1改变
         int p3 = process2(arr, 3, arr[1] ^ 1, arr[2] ^ 1, arr[arr.length - 1], arr[0] ^ 1);
-        // 0改变，1改变
+//        // 0改变，1改变
         int p4 = process2(arr, 3, arr[1], arr[2] ^ 1, arr[arr.length - 1] ^ 1, arr[0]);
         p2 = p2 != Integer.MAX_VALUE ? (p2 + 1) : p2;
         p3 = p3 != Integer.MAX_VALUE ? (p3 + 1) : p3;
@@ -212,16 +216,25 @@ public class Code_0014_LightProblem {
         return Math.min(Math.min(p1, p2), Math.min(p3, p4));
     }
 
+    private static int[] build(int[] arr) {
+        int[] copy = new int[arr.length - 3];
+        int index = 0;
+        for (int i = 2; i < arr.length - 2; i++) {
+            copy[index++] = arr[i];
+        }
+        return copy;
+    }
+
 
     // 下一个位置是，nextIndex
     // 当前位置是，nextIndex - 1 -> curIndex
     // 上一个位置是, nextIndex - 2 -> preIndex   preStatus
     // 当前位置是，nextIndex - 1, curStatus
-    // endStatus, N-1位置的状态
+    // endStatus, N-1位置的状态，一直可以copy，直到N-2号做决策的时候，会影响
     // firstStatus, 0位置的状态
     // 返回，让所有灯都亮，至少按下几次按钮
 
-    // 当前来到的位置(nextIndex - 1)，一定不能是1！至少从2开始
+    // 当前来到的位置(nextIndex - 1)，一定不能是1！至少从2开始，因为1位置比较特殊，因为1位置前一个0位置可亮可不亮
     // nextIndex >= 3
     public static int process2(int[] arr, int nextIndex, int preStatus, int curStatus, int endStatus, int firstStatus) {
 
@@ -253,6 +266,7 @@ public class Code_0014_LightProblem {
             noEndStatus = endStatus;
             yesEndStatus = endStatus ^ 1;
         }
+
         if (preStatus == 0) {
             int next = process2(arr, nextIndex + 1, yesNextPreStatus, yesNextCurStatus, nextIndex == arr.length - 1 ? yesEndStatus : endStatus, firstStatus);
             return next == Integer.MAX_VALUE ? next : (next + 1);
