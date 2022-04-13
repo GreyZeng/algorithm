@@ -89,6 +89,7 @@ public class Code_0108_SplitStringMaxValue {
                 TrieNode cur = root;
                 for (int end = index; end < N; end++) {
                     int path = str[end] - 'a';
+                    // 没有走向path的路，直接杀死可能性
                     if (cur.nexts[path] == null) {
                         break;
                     }
@@ -126,6 +127,7 @@ public class Code_0108_SplitStringMaxValue {
                 }
                 cur = cur.nexts[path];
             }
+            // 结尾节点把得分记录下
             cur.value = record[i];
         }
         return root;
