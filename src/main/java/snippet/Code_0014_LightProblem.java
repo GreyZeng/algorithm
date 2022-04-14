@@ -70,7 +70,6 @@ public class Code_0014_LightProblem {
         return true;
     }
 
-    // 无环改灯问题的递归版本
     public static int noLoopMinStep1(int[] arr) {
         if (arr == null || arr.length == 0) {
             return 0;
@@ -81,34 +80,35 @@ public class Code_0014_LightProblem {
         if (arr.length == 2) {
             return arr[0] != arr[1] ? Integer.MAX_VALUE : (arr[0] ^ 1);
         }
-        // 不变0位置的状态
-        int p1 = process1(arr, 2, arr[0], arr[1]);
-        // 改变0位置的状态
-        int p2 = process1(arr, 2, arr[0] ^ 1, arr[1] ^ 1);
-        if (p2 != Integer.MAX_VALUE) {
-            p2++;
+        // 0位置点灯
+        int p1 = p(2, arr[1] ^ 1, arr[0] ^ 1, arr);
+        if (p1 != Integer.MAX_VALUE) {
+            p1 += 1;
         }
+        // 0位置不点灯
+        int p2 = p(2, arr[1], arr[0], arr);
         return Math.min(p1, p2);
     }
 
-    // 当前在哪个位置上，做选择，nextIndex - 1 = cur ，当前！
-    // cur - 1 preStatus
-    // cur  curStatus
-    // 0....cur-2  全亮的！
-    // O(N)时间复杂度 ，因为递归只会走一侧
-    public static int process1(int[] arr, int nextIndex, int preStatus, int curStatus) {
-        if (nextIndex == arr.length) { // 当前来到最后一个开关的位置
-            return preStatus != curStatus ? (Integer.MAX_VALUE) : (curStatus ^ 1);
+    // 当前位置是：cur,可以省略这个变量
+    // cur的下一个位置是next
+    // cur位置的状态是curStatus
+    // cur前一个位置的状态是preStatus
+    // preStatus之前的灯全部是亮的状态
+    // 返回最少的点灯数量
+    public static int p(int next, int curStatus, int preStatus, int[] arr) {
+        if (next == arr.length) {
+            // cur 来到结尾位置
+            // 处理结尾两位的状态，同时是1就按下0次开关，同时是0就按下一次开关，否则，怎么都做不到
+            return curStatus == preStatus ? curStatus ^ 1 : Integer.MAX_VALUE;
         }
-        // 没到最后一个按钮呢！
-        // i < arr.length
-        if (preStatus == 0) { // 一定要改变
-            curStatus ^= 1;
-            int cur = arr[nextIndex] ^ 1;
-            int next = process1(arr, nextIndex + 1, curStatus, cur);
-            return next == Integer.MAX_VALUE ? next : (next + 1);
-        } else { // 一定不能改变
-            return process1(arr, nextIndex + 1, curStatus, arr[nextIndex]);
+        if (preStatus == 0) {
+            // cur位置必须按下开关，否则就永远不可能让preStatus亮起来
+            int p1 = p(next + 1, arr[next] ^ 1, curStatus ^ 1, arr);
+            return p1 == Integer.MAX_VALUE ? p1 : p1 + 1;
+        } else {
+            // cur位置一定不能按下开关
+            return p(next + 1, arr[next], curStatus, arr);
         }
     }
 
@@ -336,6 +336,7 @@ public class Code_0014_LightProblem {
         }
         return arr;
     }
+
     public static int[] copyArray(int[] arr) {
         if (arr == null) {
             return null;
@@ -346,6 +347,7 @@ public class Code_0014_LightProblem {
         }
         return res;
     }
+
     public static void main(String[] args) {
         System.out.println("如果没有任何Oops打印，说明所有方法都正确");
         System.out.println("test begin");
