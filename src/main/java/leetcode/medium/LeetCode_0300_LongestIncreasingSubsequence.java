@@ -4,6 +4,8 @@ package leetcode.medium;
 // https://leetcode-cn.com/problems/longest-increasing-subsequence/
 public class LeetCode_0300_LongestIncreasingSubsequence {
     // O(N*logN)
+    // ends数组，ends[i]找到的所有长度为i+1的递增子序列中最小结尾是什么
+    // dp[i]数组, 必须以i结尾的，最长递增子序列有多长
     public static int lengthOfLIS(int[] arr) {
         if (null == arr || arr.length == 0) {
             return 0;
@@ -57,8 +59,6 @@ public class LeetCode_0300_LongestIncreasingSubsequence {
     }
 
     // O(N*logN)解法
-    // ends数组，ends[i] 找到的所有长度为i+1的递增子序列中最小结尾是什么
-    // dp[i]数组, 必须以i结尾的，最长递增子序列有多长
     public static int[] lis(int[] arr) {
         if (null == arr || arr.length == 0) {
             return null;
