@@ -192,29 +192,76 @@ public class Code_0014_LightProblem {
             return 0;
         }
         if (arr.length == 1) {
-            return arr[0] == 1 ? 0 : 1;
+            return arr[0] ^ 1;
         }
         if (arr.length == 2) {
-            return arr[0] != arr[1] ? Integer.MAX_VALUE : (arr[0] ^ 1);
+            return arr[0] != arr[1] ? Integer.MAX_VALUE : arr[0] ^ 1;
         }
         if (arr.length == 3) {
-            return (arr[0] != arr[1] || arr[0] != arr[2]) ? Integer.MAX_VALUE : (arr[0] ^ 1);
+            return (arr[0] == arr[1] && arr[0] == arr[2]) ? (arr[0] ^ 1) : Integer.MAX_VALUE;
         }
-//        // 当前来到的位置(nextIndex - 1)，一定不能是1！至少从2开始，因为1位置比较特殊，因为1位置前一个0位置可亮可不亮
-//        // 所以直接调用下述四个分支，跳过第一个位置
-//        // 0不变，1不变
-        int p1 = process2(arr, 3, arr[1], arr[2], arr[arr.length - 1], arr[0]);
-//        // 0改变，1不变
-        int p2 = process2(arr, 3, arr[1] ^ 1, arr[2], arr[arr.length - 1] ^ 1, arr[0] ^ 1);
-//        // 0不变，1改变
-        int p3 = process2(arr, 3, arr[1] ^ 1, arr[2] ^ 1, arr[arr.length - 1], arr[0] ^ 1);
-//        // 0改变，1改变
-        int p4 = process2(arr, 3, arr[1], arr[2] ^ 1, arr[arr.length - 1] ^ 1, arr[0]);
-        p2 = p2 != Integer.MAX_VALUE ? (p2 + 1) : p2;
-        p3 = p3 != Integer.MAX_VALUE ? (p3 + 1) : p3;
-        p4 = p4 != Integer.MAX_VALUE ? (p4 + 2) : p4;
+        // 从2开始，因为0，1位置很特殊，亮和不亮都可以在最后一个位置决策的时候进行调整
+        // 0开，1不开
+        // TODO
+        int p1 = 0;
+        if (p1 != Integer.MAX_VALUE) {
+            p1++;
+        }
+        // 0开，1开
+        int p2 = 0;
+        if (p2 != Integer.MAX_VALUE) {
+            p2++;
+        }
+        // 0不开，1开
+        int p3 = 0;
+        if (p3 != Integer.MAX_VALUE) {
+            p3++;
+        }
+        // 0不开，1不开
+        int p4 = 0;
+        if (p4 != Integer.MAX_VALUE) {
+            p4++;
+        }
         return Math.min(Math.min(p1, p2), Math.min(p3, p4));
     }
+
+    // firstStatus: 第一个位置的状态
+    // endStatus：最后一个位置的状态
+    // next ：当前做决策的位置是cur，next等于cur+1
+    // curStatus：当前做决策位置的状态
+    // preStatus: cur-2位置的状态
+    public static int p(int firstStatus, int endStatus, int next, int curStatus, int preStatus, int[] arr) {
+        // TODO
+        return -1;
+    }
+//    public static int loopMinStep1(int[] arr) {
+//        if (arr == null || arr.length == 0) {
+//            return 0;
+//        }
+//        if (arr.length == 1) {
+//            return arr[0] == 1 ? 0 : 1;
+//        }
+//        if (arr.length == 2) {
+//            return arr[0] != arr[1] ? Integer.MAX_VALUE : (arr[0] ^ 1);
+//        }
+//        if (arr.length == 3) {
+//            return (arr[0] != arr[1] || arr[0] != arr[2]) ? Integer.MAX_VALUE : (arr[0] ^ 1);
+//        }
+////        // 当前来到的位置(nextIndex - 1)，一定不能是1！至少从2开始，因为1位置比较特殊，因为1位置前一个0位置可亮可不亮
+////        // 所以直接调用下述四个分支，跳过第一个位置
+////        // 0不变，1不变
+//        int p1 = process2(arr, 3, arr[1], arr[2], arr[arr.length - 1], arr[0]);
+////        // 0改变，1不变
+//        int p2 = process2(arr, 3, arr[1] ^ 1, arr[2], arr[arr.length - 1] ^ 1, arr[0] ^ 1);
+////        // 0不变，1改变
+//        int p3 = process2(arr, 3, arr[1] ^ 1, arr[2] ^ 1, arr[arr.length - 1], arr[0] ^ 1);
+////        // 0改变，1改变
+//        int p4 = process2(arr, 3, arr[1], arr[2] ^ 1, arr[arr.length - 1] ^ 1, arr[0]);
+//        p2 = p2 != Integer.MAX_VALUE ? (p2 + 1) : p2;
+//        p3 = p3 != Integer.MAX_VALUE ? (p3 + 1) : p3;
+//        p4 = p4 != Integer.MAX_VALUE ? (p4 + 2) : p4;
+//        return Math.min(Math.min(p1, p2), Math.min(p3, p4));
+//    }
 
     // 下一个位置是，nextIndex
     // 当前位置是，nextIndex - 1 -> curIndex
