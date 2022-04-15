@@ -222,40 +222,16 @@ public class Code_0014_LightProblem {
     // curStatus：当前做决策位置的状态
     // preStatus: cur-2位置的状态
     public static int p(int firstStatus, int endStatus, int next, int curStatus, int preStatus, int[] arr) {
-
         if (next == arr.length) { // 最后一按钮！
             return (endStatus != firstStatus || endStatus != preStatus) ? Integer.MAX_VALUE : (endStatus ^ 1);
         }
-        int noNextPreStatus = 0;
-        int yesNextPreStatus = 0;
-        int noNextCurStatus = 0;
-        int yesNextCurStatus = 0;
-        int noEndStatus = 0;
-        int yesEndStatus = 0;
-        if (next < arr.length - 1) {// 当前没来到N-2位置
-            noNextPreStatus = curStatus;
-            yesNextPreStatus = curStatus ^ 1;
-            noNextCurStatus = arr[next];
-            yesNextCurStatus = arr[next] ^ 1;
-        } else if (next == arr.length - 1) {// 当前来到的就是N-2位置
-            noNextPreStatus = curStatus;
-            yesNextPreStatus = curStatus ^ 1;
-            noNextCurStatus = endStatus;
-            yesNextCurStatus = endStatus ^ 1;
-            noEndStatus = endStatus;
-            yesEndStatus = endStatus ^ 1;
-        }
-
         if (preStatus == 0) {
-            // 一定要按下
-            int p1 = p(firstStatus, next == arr.length - 1 ? yesEndStatus : endStatus, next + 1, yesNextCurStatus,
-                    yesNextPreStatus, arr);
+            // 一定要按下, 因为如果不按下，就永远没有机会变亮了
+            int p1 = p(firstStatus, next == arr.length - 1 ? endStatus ^ 1 : endStatus, next + 1, arr[next] ^ 1, curStatus ^ 1, arr);
             return p1 == Integer.MAX_VALUE ? p1 : (p1 + 1);
         } else {
-            // 一定不能按下
-            return p(firstStatus, next == arr.length - 1 ? noEndStatus : endStatus, next + 1, noNextCurStatus,
-                    noNextPreStatus, arr);
-
+            // 一定不能按下，因为按下后，preStatus会变成0，后续也永远无法补救了
+            return p(firstStatus, endStatus, next + 1, arr[next], curStatus, arr);
         }
 
     }
