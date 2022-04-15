@@ -202,23 +202,22 @@ public class Code_0014_LightProblem {
         }
         // 从2开始，因为0，1位置很特殊，亮和不亮都可以在最后一个位置决策的时候进行调整
         // 0开，1不开
-        // TODO
-        int p1 = 0;
+        int p1 = p(arr[0] ^ 1, arr[arr.length - 1] ^ 1, 3, arr[2], arr[1] ^ 1, arr);
         if (p1 != Integer.MAX_VALUE) {
             p1++;
         }
         // 0开，1开
-        int p2 = 0;
+        int p2 = p(arr[0], arr[arr.length - 1] ^ 1, 3, arr[2] ^ 1, arr[1], arr);
         if (p2 != Integer.MAX_VALUE) {
             p2++;
         }
         // 0不开，1开
-        int p3 = 0;
+        int p3 = p(arr[0] ^ 1, arr[arr.length - 1], 3, arr[2] ^ 1, arr[1] ^ 1, arr);
         if (p3 != Integer.MAX_VALUE) {
             p3++;
         }
         // 0不开，1不开
-        int p4 = 0;
+        int p4 = p(arr[0], arr[arr.length - 1], 3, arr[2], arr[1], arr);
         if (p4 != Integer.MAX_VALUE) {
             p4++;
         }
