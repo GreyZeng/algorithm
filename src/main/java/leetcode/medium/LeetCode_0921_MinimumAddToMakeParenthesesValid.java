@@ -33,6 +33,7 @@ S.length <= 1000
 S only consists of '(' and ')' characters.*/
 package leetcode.medium;
 
+// https://leetcode-cn.com/problems/minimum-add-to-make-parentheses-valid/
 // ref : https://www.lintcode.com/problem/minimum-add-to-make-parentheses-valid/description
 public class LeetCode_0921_MinimumAddToMakeParenthesesValid {
 
@@ -52,6 +53,8 @@ public class LeetCode_0921_MinimumAddToMakeParenthesesValid {
                 count++;
             }
         }
+        // 多余的左括号
+        // 多余的右括号
         return count + need;
     }
 
