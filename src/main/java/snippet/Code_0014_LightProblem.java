@@ -201,27 +201,19 @@ public class Code_0014_LightProblem {
             return (arr[0] == arr[1] && arr[0] == arr[2]) ? (arr[0] ^ 1) : Integer.MAX_VALUE;
         }
         // 从2开始，因为0，1位置很特殊，亮和不亮都可以在最后一个位置决策的时候进行调整
-        // 0开，1不开
-        int p1 = p(arr[0] ^ 1, arr[arr.length - 1] ^ 1, 3, arr[2], arr[1] ^ 1, arr);
-        if (p1 != Integer.MAX_VALUE) {
-            p1++;
-        }
-        // 0开，1开
-        int p2 = p(arr[0], arr[arr.length - 1] ^ 1, 3, arr[2] ^ 1, arr[1], arr);
-        if (p2 != Integer.MAX_VALUE) {
-            p2++;
-        }
-        // 0不开，1开
+        // 0不变，1不变
+        int p1 = p(arr[0], arr[arr.length - 1], 3, arr[2], arr[1], arr);
+        // 0改变，1不变
+        int p2 = p(arr[0] ^ 1, arr[arr.length - 1] ^ 1, 3, arr[2], arr[1] ^ 1, arr);
+        // 0不变，1改变
         int p3 = p(arr[0] ^ 1, arr[arr.length - 1], 3, arr[2] ^ 1, arr[1] ^ 1, arr);
-        if (p3 != Integer.MAX_VALUE) {
-            p3++;
-        }
-        // 0不开，1不开
-        int p4 = p(arr[0], arr[arr.length - 1], 3, arr[2], arr[1], arr);
-        if (p4 != Integer.MAX_VALUE) {
-            p4++;
-        }
+        // 0改变，1改变
+        int p4 = p(arr[0], arr[arr.length - 1] ^ 1, 3, arr[2] ^ 1, arr[1], arr);
+        p2 = p2 != Integer.MAX_VALUE ? (p2 + 1) : p2;
+        p3 = p3 != Integer.MAX_VALUE ? (p3 + 1) : p3;
+        p4 = p4 != Integer.MAX_VALUE ? (p4 + 2) : p4;
         return Math.min(Math.min(p1, p2), Math.min(p3, p4));
+
     }
 
     // firstStatus: 第一个位置的状态
@@ -230,71 +222,22 @@ public class Code_0014_LightProblem {
     // curStatus：当前做决策位置的状态
     // preStatus: cur-2位置的状态
     public static int p(int firstStatus, int endStatus, int next, int curStatus, int preStatus, int[] arr) {
-        // TODO
-        return -1;
-    }
-//    public static int loopMinStep1(int[] arr) {
-//        if (arr == null || arr.length == 0) {
-//            return 0;
-//        }
-//        if (arr.length == 1) {
-//            return arr[0] == 1 ? 0 : 1;
-//        }
-//        if (arr.length == 2) {
-//            return arr[0] != arr[1] ? Integer.MAX_VALUE : (arr[0] ^ 1);
-//        }
-//        if (arr.length == 3) {
-//            return (arr[0] != arr[1] || arr[0] != arr[2]) ? Integer.MAX_VALUE : (arr[0] ^ 1);
-//        }
-////        // 当前来到的位置(nextIndex - 1)，一定不能是1！至少从2开始，因为1位置比较特殊，因为1位置前一个0位置可亮可不亮
-////        // 所以直接调用下述四个分支，跳过第一个位置
-////        // 0不变，1不变
-//        int p1 = process2(arr, 3, arr[1], arr[2], arr[arr.length - 1], arr[0]);
-////        // 0改变，1不变
-//        int p2 = process2(arr, 3, arr[1] ^ 1, arr[2], arr[arr.length - 1] ^ 1, arr[0] ^ 1);
-////        // 0不变，1改变
-//        int p3 = process2(arr, 3, arr[1] ^ 1, arr[2] ^ 1, arr[arr.length - 1], arr[0] ^ 1);
-////        // 0改变，1改变
-//        int p4 = process2(arr, 3, arr[1], arr[2] ^ 1, arr[arr.length - 1] ^ 1, arr[0]);
-//        p2 = p2 != Integer.MAX_VALUE ? (p2 + 1) : p2;
-//        p3 = p3 != Integer.MAX_VALUE ? (p3 + 1) : p3;
-//        p4 = p4 != Integer.MAX_VALUE ? (p4 + 2) : p4;
-//        return Math.min(Math.min(p1, p2), Math.min(p3, p4));
-//    }
 
-    // 下一个位置是，nextIndex
-    // 当前位置是，nextIndex - 1 -> curIndex
-    // 上一个位置是, nextIndex - 2 -> preIndex   preStatus
-    // 当前位置是，nextIndex - 1, curStatus
-    // endStatus, N-1位置的状态，一直可以copy，直到N-2号做决策的时候，会影响
-    // firstStatus, 0位置的状态
-    // 返回，让所有灯都亮，至少按下几次按钮
-
-    // 当前来到的位置(nextIndex - 1)，一定不能是1！至少从2开始，因为1位置比较特殊，因为1位置前一个0位置可亮可不亮
-    // nextIndex >= 3
-    public static int process2(int[] arr, int nextIndex, int preStatus, int curStatus, int endStatus, int firstStatus) {
-
-        if (nextIndex == arr.length) { // 最后一按钮！
+        if (next == arr.length) { // 最后一按钮！
             return (endStatus != firstStatus || endStatus != preStatus) ? Integer.MAX_VALUE : (endStatus ^ 1);
         }
-        // 当前位置，nextIndex - 1
-        // 当前的状态，叫curStatus
-        // 如果不按下按钮，下一步的preStatus, curStatus
-        // 如果按下按钮，下一步的preStatus, curStatus ^ 1
-        // 如果不按下按钮，下一步的curStatus, arr[nextIndex]
-        // 如果按下按钮，下一步的curStatus, arr[nextIndex] ^ 1
         int noNextPreStatus = 0;
         int yesNextPreStatus = 0;
         int noNextCurStatus = 0;
         int yesNextCurStatus = 0;
         int noEndStatus = 0;
         int yesEndStatus = 0;
-        if (nextIndex < arr.length - 1) {// 当前没来到N-2位置
+        if (next < arr.length - 1) {// 当前没来到N-2位置
             noNextPreStatus = curStatus;
             yesNextPreStatus = curStatus ^ 1;
-            noNextCurStatus = arr[nextIndex];
-            yesNextCurStatus = arr[nextIndex] ^ 1;
-        } else if (nextIndex == arr.length - 1) {// 当前来到的就是N-2位置
+            noNextCurStatus = arr[next];
+            yesNextCurStatus = arr[next] ^ 1;
+        } else if (next == arr.length - 1) {// 当前来到的就是N-2位置
             noNextPreStatus = curStatus;
             yesNextPreStatus = curStatus ^ 1;
             noNextCurStatus = endStatus;
@@ -304,21 +247,17 @@ public class Code_0014_LightProblem {
         }
 
         if (preStatus == 0) {
-            int next = process2(arr, nextIndex + 1, yesNextPreStatus, yesNextCurStatus, nextIndex == arr.length - 1 ? yesEndStatus : endStatus, firstStatus);
-            return next == Integer.MAX_VALUE ? next : (next + 1);
+            // 一定要按下
+            int p1 = p(firstStatus, next == arr.length - 1 ? yesEndStatus : endStatus, next + 1, yesNextCurStatus,
+                    yesNextPreStatus, arr);
+            return p1 == Integer.MAX_VALUE ? p1 : (p1 + 1);
         } else {
-            return process2(arr, nextIndex + 1, noNextPreStatus, noNextCurStatus, nextIndex == arr.length - 1 ? noEndStatus : endStatus, firstStatus);
+            // 一定不能按下
+            return p(firstStatus, next == arr.length - 1 ? noEndStatus : endStatus, next + 1, noNextCurStatus,
+                    noNextPreStatus, arr);
 
         }
-//		int curStay = (nextIndex == arr.length - 1) ? endStatus : arr[nextIndex];
-//		int curChange = (nextIndex == arr.length - 1) ? (endStatus ^ 1) : (arr[nextIndex] ^ 1);
-//		int endChange = (nextIndex == arr.length - 1) ? curChange : endStatus;
-//		if (preStatus == 0) {
-//			int next = process2(arr, nextIndex + 1, curStatus ^ 1, curChange, endChange, firstStatus);
-//			return next == Integer.MAX_VALUE ? next : (next + 1);
-//		} else {
-//			return process2(arr, nextIndex + 1, curStatus, curStay, endStatus, firstStatus);
-//		}
+
     }
 
     // 有环改灯问题的迭代版本
