@@ -32,7 +32,7 @@ import java.util.List;
 //2. f(i,j), 检查位置从i开始，删除位置从j开始
 public class LeetCode_0301_RemoveInvalidParentheses {
     // https://leetcode.com/problems/remove-invalid-parentheses/discuss/75027/Easy-Short-Concise-and-Fast-Java-DFS-3-ms-solution
-    public List<String> removeInvalidParentheses(String s) {
+    public static List<String> removeInvalidParentheses(String s) {
         List<String> ans = new ArrayList<>();
         remove(s, ans, 0, 0, new char[]{'(', ')'});
         return ans;
@@ -57,7 +57,7 @@ public class LeetCode_0301_RemoveInvalidParentheses {
     // checkIndex = 6 ，modifyIndex = 4
     // 也就是说，
     // checkIndex和modifyIndex，分别表示查的开始 和 调的开始，之前的都不用管了  par  (  )
-    public static void remove(String s, List<String> ans, int checkIndex, int deleteIndex, char[] par) {
+    public static void remove(String s, List<String> ans, int checkIndex, int modifyIndex, char[] par) {
         for (int count = 0, i = checkIndex; i < s.length(); i++) {
             if (s.charAt(i) == par[0]) {
                 count++;
@@ -67,12 +67,10 @@ public class LeetCode_0301_RemoveInvalidParentheses {
             }
             // i check计数<0的第一个位置
             if (count < 0) {
-                for (int j = deleteIndex; j <= i; ++j) {
+                for (int j = modifyIndex; j <= i; ++j) {
                     // 比如
-                    if (s.charAt(j) == par[1] && (j == deleteIndex || s.charAt(j - 1) != par[1])) {
-                        remove(
-                                s.substring(0, j) + s.substring(j + 1, s.length()),
-                                ans, i, j, par);
+                    if (s.charAt(j) == par[1] && (j == modifyIndex || s.charAt(j - 1) != par[1])) {
+                        remove(s.substring(0, j) + s.substring(j + 1), ans, i, j, par);
                     }
                 }
                 return;
