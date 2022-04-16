@@ -1,7 +1,6 @@
 package leetcode.hard;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 //嵌套信封问题
 // 原型就是最长递增子序列
