@@ -2,6 +2,7 @@ package leetcode.medium;
 
 // 最长递增子序列(严格递增）
 // https://leetcode-cn.com/problems/longest-increasing-subsequence/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16151833.html
 public class LeetCode_0300_LongestIncreasingSubsequence {
     // O(N*logN)
     // ends数组，ends[i]找到的所有长度为i+1的递增子序列中最小结尾是什么
@@ -10,33 +11,40 @@ public class LeetCode_0300_LongestIncreasingSubsequence {
         if (null == arr || arr.length == 0) {
             return 0;
         }
-        int N = arr.length;
-        int[] dp = new int[N];
-        int[] ends = new int[N];
+        if (arr.length == 1) {
+            return 1;
+        }
+        int[] dp = new int[arr.length];
+        int[] ends = new int[arr.length];
         dp[0] = 1;
         ends[0] = arr[0];
-        int l;
-        int r;
-        int right = 0;
-        int max = 1;
-        for (int i = 0; i < N; i++) {
+        int ans = 1;
+        int right = 0; // ends数组目前到了哪个位置
+        int l = 0;
+        int r = 0;
+        for (int i = 1; i < arr.length; i++) {
             l = 0;
             r = right;
+            // 在ends数组中找到大于等于arr[i]的最左位置
             while (l <= r) {
-                int m = (l + r) / 2;
-                if (arr[i] > ends[m]) {
-                    l = m + 1;
+                int mid = l + ((r - l) >> 1);
+                if (ends[mid] > arr[i]) {
+                    r = mid - 1;
+                } else if (ends[mid] < arr[i]) {
+                    l = mid + 1;
                 } else {
-                    r = m - 1;
+                    // ends[mid] == arr[i]
+                    r = mid - 1;
                 }
             }
-            right = Math.max(right, l);
+            right = Math.max(l, right);
             dp[i] = l + 1;
             ends[l] = arr[i];
-            max = Math.max(max, dp[i]);
+            ans = Math.max(dp[i], ans);
         }
-        return max;
+        return ans;
     }
+
 
     // 暴力解(O(N^2))
     public static int lengthOfLIS2(int[] arr) {
