@@ -11,17 +11,13 @@ package leetcode.medium;
 // https://leetcode-cn.com/problems/jump-game-ii/
 public class LeetCode_0045_JumpGameII {
     public static int jump(int[] arr) {
-        if (null == arr) {
-            return 0;
-        }
-        int N = arr.length;
-        if (N == 0 || N == 1) {
+        if (arr.length == 0 || arr.length == 1) {
             return 0;
         }
         int step = 0; // 当前最少步数跳到i
         int cur = 0; // 跳的步数不超过step，最右位置
         int next = arr[0]; // 跳的步数不超过step+1，最右位置
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < arr.length; i++) {
             // 当前步数不超过step，最右的位置不足到i
             if (cur < i) {
                 // 更新step的步数
@@ -31,7 +27,7 @@ public class LeetCode_0045_JumpGameII {
             }
             // 更新next到下一步能走到的最右位置
             next = Math.max(next, arr[i] + i);
-            if (next >= N - 1) {
+            if (next >= arr.length - 1) {
                 return step + 1;
             }
         }
@@ -61,6 +57,4 @@ public class LeetCode_0045_JumpGameII {
         }
         return dp[0];
     }
-
-
 }
