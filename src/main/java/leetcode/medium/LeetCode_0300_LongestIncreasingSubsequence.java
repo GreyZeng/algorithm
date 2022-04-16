@@ -40,18 +40,19 @@ public class LeetCode_0300_LongestIncreasingSubsequence {
 
     // 暴力解(O(N^2))
     public static int lengthOfLIS2(int[] arr) {
-        if (null == arr || arr.length == 0) {
+        if (arr == null || arr.length == 0) {
             return 0;
         }
-        int N = arr.length;
-        int[] dp = new int[N];
+        if (arr.length == 1) {
+            return 1;
+        }
         int max = 1;
-        for (int i = 0; i < N; i++) {
+        int[] dp = new int[arr.length];
+        dp[0] = 1;
+        for (int i = 1; i < arr.length; i++) {
             dp[i] = 1;
-            for (int j = 0; j < N; j++) {
-                if (arr[j] < arr[i]) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
-                }
+            for (int j = 0; j < i; j++) {
+                dp[i] = Math.max(dp[i], arr[j] < arr[i] ? dp[j] + 1 : 1);
             }
             max = Math.max(dp[i], max);
         }
