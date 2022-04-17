@@ -55,7 +55,7 @@ public class LeetCode_0045_JumpGameII {
         dp[arr.length - 2] = arr[arr.length - 2] >= 1 ? 1 : Integer.MAX_VALUE;
         for (int i = arr.length - 3; i >= 0; i--) {
             int steps = arr[i];
-            dp[i] = (dp[i + 1] == Integer.MAX_VALUE) ? Integer.MAX_VALUE : (dp[i + 1] + 1);
+            dp[i] = (steps == 0 || dp[i + 1] == Integer.MAX_VALUE) ? Integer.MAX_VALUE : (dp[i + 1] + 1);
             for (int step = Math.min(steps, arr.length - i - 1); step > 0; step--) {
                 dp[i] = Math.min((dp[i + step] == Integer.MAX_VALUE) ? Integer.MAX_VALUE : (dp[i + step] + 1), dp[i]);
             }
