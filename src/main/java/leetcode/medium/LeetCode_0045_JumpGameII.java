@@ -10,7 +10,10 @@ package leetcode.medium;
 // 从左往右的尝试模型
 // https://leetcode-cn.com/problems/jump-game-ii/
 public class LeetCode_0045_JumpGameII {
-    public static int jump(int[] arr) {
+    // 最优解
+    // O(N)，时间复杂度
+    // O(1)，空间复杂度
+    public static int jump1(int[] arr) {
         if (arr.length == 0 || arr.length == 1) {
             return 0;
         }
@@ -45,8 +48,10 @@ public class LeetCode_0045_JumpGameII {
         if (arr.length == 2) {
             return arr[0] == 0 ? Integer.MAX_VALUE : 1;
         }
+        // dp[i]表示：从i开始，跳到最后，最少步数是什么
         int[] dp = new int[arr.length];
-        // dp[arr.length-1] = 0;
+        // dp[arr.length-1] = 0; // 最后一个位置，跳0步就可以，数组不赋值默认就是0
+        // 倒数第二个位置，如果arr[arr.length-2]=0，则永远无法跳到最后一个位置，如果arr[arr.length-2]>=1，则只需要一步就可以跳到最后
         dp[arr.length - 2] = arr[arr.length - 2] >= 1 ? 1 : Integer.MAX_VALUE;
         for (int i = arr.length - 3; i >= 0; i--) {
             int steps = arr[i];
