@@ -1,36 +1,20 @@
-/*Given two integers n and k, find how many different arrays consist of numbers from 1 to n such that there are exactly k inverse pairs.
-
-        We define an inverse pair as following: For ith and jth element in the array, if i < j and a[i] > a[j] then it's an inverse pair; Otherwise, it's not.
-
-        Since the answer may be very large, the answer should be modulo 109 + 7.
-
-        Example 1:
-
-        Input: n = 3, k = 0
-        Output: 1
-        Explanation:
-        Only the array [1,2,3] which consists of numbers from 1 to 3 has exactly 0 inverse pair.
-
-
-        Example 2:
-
-        Input: n = 3, k = 1
-        Output: 2
-        Explanation:
-        The array [1,3,2] and [2,1,3] have exactly 1 inverse pair.
-
-
-        Note:
-
-        The integer n is in the range [1, 1000] and k is in the range [0, 1000].*/
 package leetcode.hard;
 
-// https://leetcode-cn.com/problems/k-inverse-pairs-array/
+//给出两个整数n和k，找出所有包含从1到n的数字，且恰好拥有k个逆序对的不同的数组的个数。
+//
+//        逆序对的定义如下：对于数组的第i个和第j个元素，如果满i<j且a[i]>a[j]，则其为一个逆序对；否则不是。
+//
+//        由于答案可能很大，只需要返回 答案 mod 10^9+ 7 的值。
+//
+//        来源：力扣（LeetCode）
+//        链接：https://leetcode-cn.com/problems/k-inverse-pairs-array
+//        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// 笔记：https://www.cnblogs.com/greyzeng/p/14417917.html
 public class LeetCode_0629_KInversePairsArray {
-    static int MOD = 1000000007;
 
     // 优化版本
     public static int kInversePairs(int n, int k) {
+        final int MOD = 1000000007;
         // dp[i][j] : 1 ...i 范围内，形成j个逆序对有多少种方式
         // dp[0][...] 弃而不用，因为没有意义
         int[][] dp = new int[n + 1][k + 1];
@@ -87,6 +71,7 @@ public class LeetCode_0629_KInversePairsArray {
 
     // 超时，可以优化
     public static int kInversePairs2(int n, int k) {
+        final int MOD = 1000000007;
         // dp[i][j] : 1 ...i 范围内，形成j个逆序对有多少种方式
         // dp[0][...] 弃而不用，因为没有意义
         int[][] dp = new int[n + 1][k + 1];
@@ -120,6 +105,4 @@ public class LeetCode_0629_KInversePairsArray {
         }
         return dp[n][k];
     }
-
-
 }
