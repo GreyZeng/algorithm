@@ -37,7 +37,8 @@ public class LeetCode_0045_JumpGameII {
         return step;
     }
 
-    // 暴力解法
+
+    // 从左往右的尝试模型
     public static int jump2(int[] arr) {
         if (arr.length == 0) {
             return 0;
@@ -56,6 +57,7 @@ public class LeetCode_0045_JumpGameII {
         for (int i = arr.length - 3; i >= 0; i--) {
             int steps = arr[i];
             dp[i] = (steps == 0 || dp[i + 1] == Integer.MAX_VALUE) ? Integer.MAX_VALUE : (dp[i + 1] + 1);
+            // 以下枚举有枚举行为，如何优化？？？？
             for (int step = Math.min(steps, arr.length - i - 1); step > 0; step--) {
                 dp[i] = Math.min((dp[i + step] == Integer.MAX_VALUE) ? Integer.MAX_VALUE : (dp[i + step] + 1), dp[i]);
             }
