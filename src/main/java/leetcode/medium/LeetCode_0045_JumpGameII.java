@@ -13,32 +13,22 @@ public class LeetCode_0045_JumpGameII {
     // 最优解
     // O(N)，时间复杂度
     // O(1)，空间复杂度
-    public static int jump1(int[] arr) {
-        if (arr.length == 0 || arr.length == 1) {
-            return 0;
-        }
-        int step = 0; // 当前最少步数跳到i
-        int cur = 0; // 跳的步数不超过step，最右位置
-        int next = arr[0]; // 跳的步数不超过step+1，最右位置
-        for (int i = 0; i < arr.length; i++) {
-            // 当前步数不超过step，最右的位置不足到i
-            if (cur < i) {
-                // 更新step的步数
+    public int jump(int[] arr) {
+        int maxPos = 0;
+        int step = 0;
+        int endIndex = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            maxPos = Math.max(arr[i] + i, maxPos);
+            if (endIndex == i) {
+                endIndex = maxPos;
                 step++;
-                // cur到step+1能走到的最右位置
-                cur = next;
-            }
-            // 更新next到下一步能走到的最右位置
-            next = Math.max(next, arr[i] + i);
-            if (next >= arr.length - 1) {
-                return step + 1;
             }
         }
         return step;
     }
 
-
     // 从左往右的尝试模型
+    // O(N^2)时间复杂度
     public static int jump2(int[] arr) {
         if (arr.length == 0) {
             return 0;
@@ -57,7 +47,7 @@ public class LeetCode_0045_JumpGameII {
         for (int i = arr.length - 3; i >= 0; i--) {
             int steps = arr[i];
             dp[i] = (steps == 0 || dp[i + 1] == Integer.MAX_VALUE) ? Integer.MAX_VALUE : (dp[i + 1] + 1);
-            // 以下枚举有枚举行为，如何优化？？？？
+            // 以下的枚举行为，如何优化？？？？
             for (int step = Math.min(steps, arr.length - i - 1); step > 0; step--) {
                 dp[i] = Math.min((dp[i + step] == Integer.MAX_VALUE) ? Integer.MAX_VALUE : (dp[i + step] + 1), dp[i]);
             }
