@@ -1,66 +1,35 @@
-/*Given a string s. In one step you can insert any character at any index of the string.
-
-        Return the minimum number of steps to make s palindrome.
-
-        A Palindrome String is one that reads the same backward as well as forward.
-
-
-
-        Example 1:
-
-        Input: s = "zzazz"
-        Output: 0
-        Explanation: The string "zzazz" is already palindrome we don't need any insertions.
-        Example 2:
-
-        Input: s = "mbadm"
-        Output: 2
-        Explanation: String can be "mbdadbm" or "mdbabdm".
-        Example 3:
-
-        Input: s = "leetcode"
-        Output: 5
-        Explanation: Inserting 5 characters the string becomes "leetcodocteel".
-        Example 4:
-
-        Input: s = "g"
-        Output: 0
-        Example 5:
-
-        Input: s = "no"
-        Output: 1
-
-
-        Constraints:
-
-        1 <= s.length <= 500
-        All characters of s are lower case English letters.*/
 package leetcode.hard;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//问题一：一个字符串至少需要添加多少个字符能整体变成回文串
+//问题二：返回问题一的其中一种添加结果
+//问题三：返回问题一的所有添加结果
 // 测评链接： https://leetcode-cn.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
 public class LeetCode_1312_MinimumInsertionStepsToMakeAStringPalindrome {
+
+    // 至少添加多少字符让整个字符串变成回文串
     public static int minInsertions(String s) {
-        if (s == null || s.length() < 2) {
+        if (s == null || s.length() <= 1) {
             return 0;
         }
         char[] str = s.toCharArray();
-        int N = str.length;
-        int[][] dp = new int[N][N];
-        for (int i = 0; i < N - 1; i++) {
+        // dp[i][j] 表示，[i...j] 最少添加多少字符可以让[i...j]成为回文串
+        int[][] dp = new int[str.length][str.length];
+        for (int i = 0; i < str.length - 1; i++) {
             dp[i][i + 1] = str[i] == str[i + 1] ? 0 : 1;
         }
-        for (int i = N - 3; i >= 0; i--) {
-            for (int j = i + 2; j < N; j++) {
-                dp[i][j] = Math.min(dp[i][j - 1], dp[i + 1][j]) + 1;
+        // 对角线都是0，只需要填对角线右上半区
+        for (int i = str.length - 3; i >= 0; i--) {
+            for (int j = i + 2; j < str.length; j++) {
+                dp[i][j] = Math.min(dp[i + 1][j] + 1, dp[i][j - 1] + 1);
                 if (str[i] == str[j]) {
                     dp[i][j] = Math.min(dp[i][j], dp[i + 1][j - 1]);
                 }
             }
         }
-        return dp[0][N - 1];
+        return dp[0][str.length - 1];
     }
 
     // 本题第二问，返回其中一种结果
