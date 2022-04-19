@@ -2,8 +2,11 @@ import java.util.TreeSet;
 
 public class Test {
     public static void main(String[] args) {
-        String str = "abcdefgbf";
-        System.out.println(minInsertions(str));
+        boolean[] b = new boolean[3];
+        for (int i = 0; i < b.length; i++) {
+            System.out.println(b[i]);
+        }
+        System.out.println(b);
     }
 
     public static int minInsertions(String s) {

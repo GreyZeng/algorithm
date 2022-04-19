@@ -7,6 +7,10 @@ import java.util.*;
 //问题三：返回问题一的所有划分结果 （回溯）
 // https://leetcode-cn.com/problems/palindrome-partitioning-ii/
 public class LeetCode_0132_PalindromePartitioningII {
+    
+    // 问题一
+    // 从左往右的尝试：f(str,i),从i到后面，至少要切几刀能让切出来的子串都是回文串
+    // 范围上的尝试：dp[i][j]是否是回文，其中对角线是TRUE，普遍位置：i==j&&dp[i+1][j-1]
     public static int minCut(String s) {
         if (s == null || s.length() < 2) {
             return 0;
@@ -14,7 +18,7 @@ public class LeetCode_0132_PalindromePartitioningII {
         char[] str = s.toCharArray();
         int N = str.length;
         // hard code 一张表，二维表m，m[L][R] 可以直接得到一个范围内是否是回文
-        boolean[][] checkMap = createCheckMap(str, N);
+        boolean[][] checkMap = check(str);
         int[] dp = new int[N + 1];
         dp[N] = 0;
         for (int i = N - 1; i >= 0; i--) {
@@ -33,19 +37,23 @@ public class LeetCode_0132_PalindromePartitioningII {
         return dp[0] - 1;
     }
 
-    public static boolean[][] createCheckMap(char[] str, int N) {
-        boolean[][] ans = new boolean[N][N];
-        for (int i = 0; i < N - 1; i++) {
-            ans[i][i] = true;
-            ans[i][i + 1] = str[i] == str[i + 1];
+    // [i...j]是否是回文
+    private static boolean[][] check(char[] str) {
+        boolean[][] dp = new boolean[str.length][str.length];
+        // 对角线
+        for (int i = 0; i < str.length; i++) {
+            dp[i][i] = true;
         }
-        ans[N - 1][N - 1] = true;
-        for (int i = N - 3; i >= 0; i--) {
-            for (int j = i + 2; j < N; j++) {
-                ans[i][j] = str[i] == str[j] && ans[i + 1][j - 1];
+        // 对角线上一条线
+        for (int i = 0; i < str.length - 1; i++) {
+            dp[i][i + 1] = (str[i] == str[i + 1]);
+        }
+        for (int i = str.length - 3; i >= 0; i--) {
+            for (int j = i + 2; j < str.length; j++) {
+                dp[i][j] = str[i] == str[j] && dp[i + 1][j - 1];
             }
         }
-        return ans;
+        return dp;
     }
 
     // 本题第二问，返回其中一种结果
@@ -56,7 +64,7 @@ public class LeetCode_0132_PalindromePartitioningII {
         } else {
             char[] str = s.toCharArray();
             int N = str.length;
-            boolean[][] checkMap = createCheckMap(str, N);
+            boolean[][] checkMap = check(str);
             int[] dp = new int[N + 1];
             dp[N] = 0;
             for (int i = N - 1; i >= 0; i--) {
@@ -94,7 +102,7 @@ public class LeetCode_0132_PalindromePartitioningII {
         } else {
             char[] str = s.toCharArray();
             int N = str.length;
-            boolean[][] checkMap = createCheckMap(str, N);
+            boolean[][] checkMap = check(str);
             int[] dp = new int[N + 1];
             dp[N] = 0;
             for (int i = N - 1; i >= 0; i--) {
@@ -117,9 +125,7 @@ public class LeetCode_0132_PalindromePartitioningII {
 
     // s[0....i-1]  存到path里去了
     // s[i..j-1]考察的分出来的第一份
-    public static void process(String s, int i, int j, boolean[][] checkMap, int[] dp,
-                               List<String> path,
-                               List<List<String>> ans) {
+    public static void process(String s, int i, int j, boolean[][] checkMap, int[] dp, List<String> path, List<List<String>> ans) {
         if (j == s.length()) { // s[i...N-1]
             if (checkMap[i][j - 1] && dp[i] == dp[j] + 1) {
                 path.add(s.substring(i, j));
