@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //Say you have an array prices for which the ith element is the price of a given stock on day i.
 //
@@ -31,14 +31,17 @@ package leetcode;
 //1 <= prices.length <= 3 * 10 ^ 4
 //0 <= prices[i] <= 10 ^ 4
 public class LeetCode_0122_BestTimeToBuyAndSellStockII {
-
-	public static int maxProfit(int[] prices) {
-		int max = 0;
-		for (int i = 1; i < prices.length; i++) {
-			// 把所有上坡都给抓到
-			max += Math.max((prices[i] - prices[i - 1]), 0);
-		}
-		return max;
-	}
+    // 无限次交易
+    // 但是只有一股
+    // 卖完才能买
+    // tips：收集所有的上波情况
+    public static int maxProfit(int[] prices) {
+        int max = 0;
+        for (int i = 1; i < prices.length; i++) {
+            // 把所有上坡都给抓到
+            max += Math.max((prices[i] - prices[i - 1]), 0);
+        }
+        return max;
+    }
 
 }

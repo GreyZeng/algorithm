@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.medium;
 
 //Say you have an array for which the ith element is the price of a given stock on day i.
 //
@@ -11,9 +11,9 @@ package leetcode;
 //        Input: [1,2,3,0,2]
 //        Output: 3
 //        Explanation: transactions = [buy, sell, cooldown, buy, sell]
+// https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 public class LeetCode_0309_BestTimeToBuyAndSellStockWithCooldown {
-
-
+    // i位置上交易，怎么获得最好收益，枚举i位置参与/不参与的情况
     public static int maxProfit(int[] prices) {
         if (prices.length < 2) {
             return 0;
@@ -21,6 +21,7 @@ public class LeetCode_0309_BestTimeToBuyAndSellStockWithCooldown {
         int N = prices.length;
         int[] buy = new int[N];
         int[] sell = new int[N];
+        // 可以参考股票问题4
         buy[1] = Math.max(-prices[0], -prices[1]);
         sell[1] = Math.max(0, prices[1] - prices[0]);
         for (int i = 2; i < N; i++) {
@@ -31,7 +32,7 @@ public class LeetCode_0309_BestTimeToBuyAndSellStockWithCooldown {
     }
 
 
-    // TODO 斜率优化版本 
+    // 空间压缩版本
     public static int maxProfit2(int[] prices) {
         if (prices.length < 2) {
             return 0;

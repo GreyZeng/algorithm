@@ -18,10 +18,12 @@ package leetcode;
 //		Output: 7
 //		Explanation: Buy on day 2 (price = 2) and sell on day 3 (price = 6), profit = 6-2 = 4.
 //		Then buy on day 5 (price = 0) and sell on day 6 (price = 3), profit = 3-0 = 3.
+// https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/
 public class LeetCode_0188_BestTimeToBuyAndSellStockIV {
 
     // 暴力方法
     // K> N/2 就等于无限次交易
+    // 因为爬坡的数量不会大于N/2
     // dp[i][j] 0-i范围上，不超过j次交易
     // i位置如果要参与交易，只需要参加最后一次交易
     // i位置只需要最后一次交易的卖出时机
@@ -48,7 +50,9 @@ public class LeetCode_0188_BestTimeToBuyAndSellStockIV {
     }
 
     // 优化方法
+    // 优化枚举
     // K> N/2 就等于无限次交易
+    // 因为爬坡的数量不会大于N/2
     // dp[j][i] 0-i范围上，不超过j次交易
     // i位置如果要参与交易，只需要参加最后一次交易
     // i位置只需要最后一次交易的卖出时机
