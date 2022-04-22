@@ -25,14 +25,14 @@ package leetcode.easy;
 // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/
 public class LeetCode_0121_BestTimeToBuyAndSellStock {
     // 必须在某个时刻卖出的情况下，最大收益是多少？
-    public static int maxProfit(int[] prices) {
-        int min = prices[0];
-        int gap = 0;
-        // 某个位置，前面的最小值
-        for (int i = 1; i < prices.length; i++) {
-            min = Math.min(min, prices[i]);
-            gap = Math.max(gap, prices[i] - min);
+
+    public int maxProfit(int[] arr) {
+        int max = 0;
+        int min = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            min = Math.min(arr[i], min);
+            max = Math.max(arr[i] - min, max);
         }
-        return gap;
+        return max;
     }
 }
