@@ -13,40 +13,48 @@ package leetcode.medium;
 //        Explanation: transactions = [buy, sell, cooldown, buy, sell]
 // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 public class LeetCode_0309_BestTimeToBuyAndSellStockWithCooldown {
-    // i位置上交易，怎么获得最好收益，枚举i位置参与/不参与的情况
-    public static int maxProfit(int[] prices) {
-        if (prices.length < 2) {
+    public static int maxProfit(int[] arr) {
+        if (arr.length < 2) {
             return 0;
         }
-        int N = prices.length;
-        int[] buy = new int[N];
-        int[] sell = new int[N];
-        // 可以参考股票问题4
-        buy[1] = Math.max(-prices[0], -prices[1]);
-        sell[1] = Math.max(0, prices[1] - prices[0]);
-        for (int i = 2; i < N; i++) {
-            buy[i] = Math.max(buy[i - 1], sell[i - 2] - prices[i]);
-            sell[i] = Math.max(sell[i - 1], buy[i - 1] + prices[i]);
+        int N = arr.length;
+        // 处于冷冻期
+        int[] cooldown = new int[N];
+        // 持有股票
+        int[] withStock = new int[N];
+        // 不持有股票，也不处于冷冻期
+        int[] noStock = new int[N];
+        cooldown[0] = 0;
+        withStock[0] = -arr[0];
+        noStock[0] = 0;
+        for (int i = 1; i < arr.length; i++) {
+            withStock[i] = Math.max(withStock[i - 1], noStock[i - 1] - arr[i]);
+            cooldown[i] = withStock[i - 1] + arr[i];
+            noStock[i] = Math.max(noStock[i - 1], cooldown[i - 1]);
         }
-        return sell[N - 1];
+        return Math.max(cooldown[N - 1], Math.max(withStock[N - 1], noStock[N - 1]));
     }
-
 
     // 空间压缩版本
-    public static int maxProfit2(int[] prices) {
-        if (prices.length < 2) {
+    public static int maxProfit2(int[] arr) {
+        if (arr.length < 2) {
             return 0;
         }
-        int buy1 = Math.max(-prices[0], -prices[1]);
-        int sell1 = Math.max(0, prices[1] - prices[0]);
-        int sell2 = 0;
-        for (int i = 2; i < prices.length; i++) {
-            int tmp = sell1;
-            sell1 = Math.max(sell1, buy1 + prices[i]);
-            buy1 = Math.max(buy1, sell2 - prices[i]);
-            sell2 = tmp;
-        }
-        return sell1;
-    }
+        // 处于冷冻期
+        int cooldown = 0;
+        // 持有股票
+        int withStock = -arr[0];
+        // 不持有股票，也不处于冷冻期
+        int noStock = 0;
 
+        for (int i = 1; i < arr.length; i++) {
+            int next1 = Math.max(withStock, noStock - arr[i]);
+            int next2 = withStock + arr[i];
+            int next3 = Math.max(noStock, cooldown);
+            withStock = next1;
+            cooldown = next2;
+            noStock = next3;
+        }
+        return Math.max(cooldown, Math.max(withStock, noStock));
+    }
 }
