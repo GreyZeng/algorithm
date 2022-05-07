@@ -1,6 +1,5 @@
 package leetcode.medium;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,7 +58,6 @@ public class LeetCode_0139_WordBreak {
             nexts = new Node[26];
         }
     }
-
 
     // 前缀树优化
     public static boolean wordBreak4(String s, List<String> wordDict) {
