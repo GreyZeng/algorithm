@@ -37,7 +37,7 @@ Constraints:
 s1.length == s2.length
 1 <= s1.length <= 30
 s1 and s2 consist of lower-case English letters.*/
-package leetcode;
+package leetcode.hard;
 
 public class LeetCode_0087_ScrambleString {
     public static boolean isScramble(String s1, String s2) {
