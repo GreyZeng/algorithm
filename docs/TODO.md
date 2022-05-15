@@ -1,4 +1,6 @@
-## 跳表相关 TODO
+# TODO
+
+## 跳表相关
 
 eg：
 LeetCode 632
@@ -28,7 +30,7 @@ tips:
 每一个项目都有三个数，[a,b,c]表示项目a和b乐队参演，花费为c
 给定很多个项目
 
-```
+```java
 int[][] programs
 ```
 
@@ -62,7 +64,7 @@ Dijkstra算法用自定义堆来优化 ,具体见[图](图.md)
 返回一个长度为N的数组，表示N个项目的结束时间。
 比如:
 
-```
+```java
 int pms = 2;
 int sde = 2;
 int[][] programs = { { 1, 1, 1, 2 }, { 1, 2, 1, 1 }, { 1, 3, 2, 2 }, { 2, 1, 1, 2 }, { 2, 3, 5, 5 } };
@@ -117,7 +119,7 @@ tips:
 长方形中，求出任意矩阵的累加和
 二维前缀和
 
-```
+```java
 help[i][j] = help[i-1][j] + help[i][j-1] - arr[i-1][j-1] + arr[i]][j]
 ```
 
@@ -147,7 +149,6 @@ value：差值较大的那一对中较小的数
 
 map -> map' 按如上规则不断更新
 求最后差值为0的那条记录
-
 
 [TODO]
 矩阵中达标正方形（里面全是1）
@@ -217,9 +218,8 @@ Leetcode 683 K个空花盆
 Leetcode 568 最大休假天数
 
 相关题目
-LeetCode
 
-1546. Maximum Number of Non-Overlapping Subarrays With Sum Equals Target
+LeetCode 1546. Maximum Number of Non-Overlapping Subarrays With Sum Equals Target
 
 LintCode
 406. 和大于S的最小子数组
