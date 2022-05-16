@@ -1,4 +1,3 @@
-// package class19;
 package snippet;
 
 import java.util.LinkedList;
@@ -69,7 +68,7 @@ public class Code_0019_CardsProblem {
         for (int status = 0; status < 27; status++) {
             int n = counts[status];
             if (n > 2) {
-                //  (n * (n - 1) * (n - 2) / 6) --> C(N,3)
+                // (n * (n - 1) * (n - 2) / 6) --> C(N,3)
                 ways += n == 3 ? 1 : (n * (n - 1) * (n - 2) / 6);
             }
         }
@@ -84,10 +83,10 @@ public class Code_0019_CardsProblem {
         return ways;
     }
 
-    // 之前的牌面，拿了一些    ABC  BBB  ...
+    // 之前的牌面，拿了一些 ABC BBB ...
     // pre = BBB
-    // ABC  ...
-    // pre  = ABC
+    // ABC ...
+    // pre = ABC
     // ABC BBB CAB
     // pre = CAB
     // 牌面一定要依次变大，所有形成的有效牌面，把方法数返回
