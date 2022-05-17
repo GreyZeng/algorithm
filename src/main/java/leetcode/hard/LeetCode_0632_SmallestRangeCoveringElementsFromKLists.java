@@ -10,7 +10,10 @@ import java.util.*;
 // 示例 1：
 
 // 输入：nums=[[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]
-// 输出：[20,24]解释：列表 1：[4,10,15,24,26]，24 在区间[20,24]中。列表 2：[0,9,12,20]，20 在区间[20,24]中。列表 3：[5,18,22,30]，22 在区间[20,24]中。示例 2：
+// 输出：[20,24]
+// 解释：列表 1：[4,10,15,24,26]，24 在区间[20,24]中。列表 2：[0,9,12,20]，20 在区间[20,24]中。列表 3：[5,18,22,30]，22 在区间[20,24]中。
+
+//示例 2：
 
 // 输入：nums=[[1,2,3],[1,2,3],[1,2,3]]  
 // 输出：[1,1] 
@@ -27,9 +30,9 @@ import java.util.*;
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0632_SmallestRangeCoveringElementsFromKLists {
     public static class Node {
-        public int value;
-        public int position;
-        public int bucket;
+        public int value;// 值是多少
+        public int position;// 在链表的哪个位置上
+        public int bucket; // 在哪个链表上
 
         public Node(int v, int p, int b) {
             value = v;
@@ -38,13 +41,37 @@ public class LeetCode_0632_SmallestRangeCoveringElementsFromKLists {
         }
     }
 
-    public int[] smallestRange(List<List<Integer>> nums) {
-      
-        // TODO
-        return null;
+
+    public static int[] smallestRange(List<List<Integer>> nums) {
+        if (nums == null) {
+            return null;
+        }
+        if (nums.size() == 1) {
+            if (nums.get(0).size() > 0) {
+                return new int[]{nums.get(0).get(0), nums.get(0).get(0)};
+            } else {
+                return null;
+            }
+        }
+        TreeSet<Node> set = new TreeSet<>((o1, o2) -> o1.value != o2.value ? o1.value - o2.value : o1.bucket - o2.bucket);
+        int i = 0;
+        for (List<Integer> list : nums) {
+            set.add(new Node(list.get(0), 0, i));
+            i++;
+        }
+        Node min = set.pollFirst();
+        Node max = set.last();
+        int[] result = {min.value, max.value};
+        while (min.position + 1 < nums.get(min.bucket).size()) {
+            set.add(new Node(nums.get(min.bucket).get(min.position + 1), min.position + 1, min.bucket));
+            min = set.pollFirst();
+            max = set.last();
+            result = minRange(result, new int[]{min.value, max.value});
+        }
+        return result;
     }
 
-    public int[] minRange(int[] a, int[] b) {
+    public static int[] minRange(int[] a, int[] b) {
         if (a[1] - a[0] > b[1] - b[0]) {
             return b;
         } else if (a[1] - a[0] < b[1] - b[0]) {
