@@ -37,33 +37,36 @@ import java.util.List;
 // 滑动窗口 + 欠账表
 public class LeetCode_0438_FindAllAnagramsInAString {
     public static List<Integer> findAnagrams(String s, String p) {
-        ArrayList<Integer> result = new ArrayList<>();
         if (s == null || p == null) {
-            return result;
+            return null;
         }
-        int left = 0, right = 0, count = p.length();
-
-        int[] map = new int[256];
-        char[] sc = s.toCharArray();
-        // 初始化map
-        for (char c : p.toCharArray()) {
-            map[c]++;
+        char[] str = s.toCharArray();
+        char[] pStr = p.toCharArray();
+        int[] map = new int[26];
+        for (char c : pStr) {
+            map[c - 'a']++;
         }
-        while (right < s.length()) {
-            // 1：扩展窗口，窗口中包含一个T中子元素，count--；
-            if (map[sc[right++]]-- >= 1) {
+        List<Integer> list = new ArrayList<>();
+        int left = 0;
+        int right = 0;
+        int count = pStr.length;
+        while (right < str.length) {
+            if (map[str[right] - 'a'] > 0) {
                 count--;
             }
-            // 2：通过count或其他限定值，得到一个可能解。
+            map[str[right] - 'a']--;
+            right++;
             if (count == 0) {
-                result.add(left);
+                list.add(left);
             }
-            // 3：只要窗口中有可能解，那么缩小窗口直到不包含可能解。
-            if (right - left == p.length() && map[sc[left++]]++ >= 0) {
-                count++;
+            if (right - left == pStr.length) {
+                if (map[(str[left] - 'a')] >= 0) {
+                    count++;
+                }
+                map[(str[left] - 'a')]++;
+                left++;
             }
         }
-        return result;
+        return list;
     }
-
 }
