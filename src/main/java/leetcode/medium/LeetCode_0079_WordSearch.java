@@ -26,13 +26,14 @@ package leetcode.medium;
 //		1 <= board[i].length <= 200
 //		1 <= word.length <= 10^3
 // https://leetcode-cn.com/problems/word-search/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16321675.html
 public class LeetCode_0079_WordSearch {
     // 不能走重复路
     public static boolean exist(char[][] board, String word) {
         char[] str = word.toCharArray();
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (process(board, str, 0, i, j)) {
+                if (p(i, j, 0, str, board)) {
                     return true;
                 }
             }
@@ -40,23 +41,42 @@ public class LeetCode_0079_WordSearch {
         return false;
     }
 
-    // (i,j)开始，能否在board这个矩阵中走出str这个字符串
-    // 不能改动态规划，因为board会变化
-    public static boolean process(char[][] board, char[] str, int s, int i, int j) {
-        if (s == str.length) {
+    public static boolean p(int i, int j, int index, char[] str, char[][] board) {
+        if (index == str.length) {
             return true;
         }
-        if (i == board.length || i == -1 || j == board[0].length || j == -1) {
+        if (i >= board.length || j >= board[0].length || i < 0 || j < 0 ) {
             return false;
         }
-        if (str[s] == board[i][j]) {
-            char tmp = board[i][j];
-            // 根据不同题目要求，这里设置的占位符不一样
-            board[i][j] = '0';
-            boolean f = process(board, str, s + 1, i + 1, j) || process(board, str, s + 1, i - 1, j) || process(board, str, s + 1, i, j + 1) || process(board, str, s + 1, i, j - 1);
-            board[i][j] = tmp;
-            return f;
+        if (board[i][j] == '0') {
+            return false;
         }
+        char c = board[i][j];
+        board[i][j] = '0';
+        if (str[index] == c) {
+            boolean p1 = p(i + 1, j, index + 1, str, board);
+            if (p1) {
+                board[i][j] = c;
+                return true;
+            }
+            boolean p2 = p(i, j + 1, index + 1, str, board);
+            if (p2) {
+                board[i][j] = c;
+                return true;
+            }
+            boolean p3 = p(i - 1, j, index + 1, str, board);
+            if (p3) {
+                board[i][j] = c;
+                return true;
+            }
+            boolean p4 = p(i, j - 1, index + 1, str, board);
+            if (p4) {
+                board[i][j] = c;
+                return true;
+            }
+
+        }
+        board[i][j] = c;
         return false;
     }
 

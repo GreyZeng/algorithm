@@ -32,6 +32,7 @@ import java.util.*;
 //0.把words做成前缀树，加速
 //1.不能重复走，置为0，然后要恢复现场
 //2.深度优先
+// 笔记见：https://www.cnblogs.com/greyzeng/p/16321675.html
 public class LeetCode_0212_WordSearchII {
     public static class Trie {
         public Trie[] next;
