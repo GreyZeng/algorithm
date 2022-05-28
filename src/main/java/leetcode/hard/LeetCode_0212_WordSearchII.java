@@ -38,12 +38,12 @@ public class LeetCode_0212_WordSearchII {
     public static class Trie {
         public Trie[] next;
         public int pass;
-        public int end;
+        public boolean end;
 
         public Trie() {
             next = new Trie[26];
             pass = 0;
-            end = 0;
+            end = false;
         }
     }
 
@@ -61,7 +61,10 @@ public class LeetCode_0212_WordSearchII {
         LinkedList<Character> path = new LinkedList<>();
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                p(board, i, j, path, trie, ans);
+                int size = p(board, i, j, path, trie, ans);
+                if (size == set.size()){
+                    return new ArrayList<>(set);
+                }
             }
         }
         return ans;
@@ -86,16 +89,21 @@ public class LeetCode_0212_WordSearchII {
         path.addLast(c);
         trie = trie.next[index];
         int fix = 0;
-        if (trie.end == 1) {
+        if (trie.end) {
+            // 到这一步说明找到了匹配的单词
             ans.add(buildResult(path));
-            trie.end--;
+            trie.end = false;
             fix++;
         }
         board[i][j] = '0';
         fix += p(board, i - 1, j, path, trie, ans);
+
         fix += p(board, i, j - 1, path, trie, ans);
+
         fix += p(board, i + 1, j, path, trie, ans);
+
         fix += p(board, i, j + 1, path, trie, ans);
+
         board[i][j] = c;
         path.pollLast();
         trie.pass -= fix;
@@ -124,6 +132,6 @@ public class LeetCode_0212_WordSearchII {
             trie = trie.next[index];
             trie.pass++;
         }
-        trie.end++;
+        trie.end = true;
     }
 }
