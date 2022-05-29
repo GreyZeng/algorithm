@@ -8,28 +8,32 @@ import java.util.List;
 //问题三：返回问题一的所有添加结果
 // 测评链接： https://leetcode-cn.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
 public class LeetCode_1312_MinimumInsertionStepsToMakeAStringPalindrome {
-
-    // 至少添加多少字符让整个字符串变成回文串
+    // 至少添加多少字符让整个字符串变成回文串，范围上的尝试模型
     public static int minInsertions(String s) {
-        if (s == null || s.length() <= 1) {
+        if (s == null || s.length() == 0 || s.length() == 1) {
             return 0;
         }
+        if (s.length() == 2) {
+            return s.charAt(0) == s.charAt(1) ? 0 : 1;
+        }
         char[] str = s.toCharArray();
-        // dp[i][j] 表示，[i...j] 最少添加多少字符可以让[i...j]成为回文串
+        // dp[i][j]: 0...i范围内，
         int[][] dp = new int[str.length][str.length];
-        for (int i = 0; i < str.length - 1; i++) {
-            dp[i][i + 1] = str[i] == str[i + 1] ? 0 : 1;
+        // 对角线全是0
+        // 对角线上一行，即【i，i+1】范围，相等则是0，不等则是1
+        for(int i = 0; i < str.length - 1;i++) {
+            dp[i][i+1] = str[i] == str[i+1]?0:1;
         }
-        // 对角线都是0，只需要填对角线右上半区
-        for (int i = str.length - 3; i >= 0; i--) {
-            for (int j = i + 2; j < str.length; j++) {
-                dp[i][j] = Math.min(dp[i + 1][j] + 1, dp[i][j - 1] + 1);
+        // 其余位置
+        for (int i = str.length-3; i >=0 ; i--) {
+            for (int j = i+2; j < str.length;j++) {
+                dp[i][j] = Math.min(dp[i][j-1],dp[i+1][j]) + 1;
                 if (str[i] == str[j]) {
-                    dp[i][j] = Math.min(dp[i][j], dp[i + 1][j - 1]);
+                    dp[i][j] =Math.min(dp[i][j],dp[i+1][j-1]) ;
                 }
-            }
+             }
         }
-        return dp[0][str.length - 1];
+        return dp[0][str.length-1];
     }
 
     // 本题第二问，返回其中一种结果
