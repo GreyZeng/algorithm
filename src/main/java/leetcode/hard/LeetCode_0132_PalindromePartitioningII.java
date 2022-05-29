@@ -7,55 +7,56 @@ import java.util.*;
 //问题三：返回问题一的所有划分结果 （回溯）
 // https://leetcode-cn.com/problems/palindrome-partitioning-ii/
 public class LeetCode_0132_PalindromePartitioningII {
-    
+
     // 问题一
-    // 从左往右的尝试：f(str,i),从i到后面，至少要切几刀能让切出来的子串都是回文串
+    // 从左往右的尝试：f(str,i),从i到后面，可以得到几个回文串，这样的处理比定义切几刀更方便，不过最后的结果需要减一，因为分成n部分要切n-1刀
     // 范围上的尝试：dp[i][j]是否是回文，其中对角线是TRUE，普遍位置：i==j&&dp[i+1][j-1]
     public static int minCut(String s) {
         if (s == null || s.length() < 2) {
             return 0;
         }
         char[] str = s.toCharArray();
-        int N = str.length;
-        // hard code 一张表，二维表m，m[L][R] 可以直接得到一个范围内是否是回文
-        boolean[][] checkMap = check(str);
-        int[] dp = new int[N + 1];
-        dp[N] = 0;
-        for (int i = N - 1; i >= 0; i--) {
-            if (checkMap[i][N - 1]) {
+        // check可以表示一个范围内是否是回文
+        boolean[][] check = check(str);
+        // dp[i] 表示从i到后面，可以分割出几部分回文
+        int[] dp = new int[str.length];
+        dp[dp.length-1] = 1;
+        for(int i = dp.length - 2 ; i >=0; i--) {
+            if (check[i][dp.length - 1]) {
                 dp[i] = 1;
             } else {
-                int next = Integer.MAX_VALUE;
-                for (int j = i; j < N; j++) {
-                    if (checkMap[i][j]) {
-                        next = Math.min(next, dp[j + 1]);
+                // [i....dp.length-1] 不是回文，枚举能分割的回文数量
+                int max = Integer.MAX_VALUE;
+                for (int j = i;j < dp.length;j++) {
+                    if (check[i][j]) {
+                        max = Math.min(max, 1+dp[j+1]);
                     }
                 }
-                dp[i] = 1 + next;
+                dp[i] = max;
             }
         }
+
         return dp[0] - 1;
     }
 
-    // [i...j]是否是回文
-    private static boolean[][] check(char[] str) {
-        boolean[][] dp = new boolean[str.length][str.length];
-        // 对角线
+    public static boolean[][] check(char[] str) {
+        boolean[][] check = new boolean[str.length][str.length];
         for (int i = 0; i < str.length; i++) {
-            dp[i][i] = true;
+            check[i][i] = true;
         }
-        // 对角线上一条线
         for (int i = 0; i < str.length - 1; i++) {
-            dp[i][i + 1] = (str[i] == str[i + 1]);
+            check[i][i + 1] = (str[i] == str[i + 1]);
         }
         for (int i = str.length - 3; i >= 0; i--) {
             for (int j = i + 2; j < str.length; j++) {
-                dp[i][j] = str[i] == str[j] && dp[i + 1][j - 1];
+                check[i][j] = str[i] == str[j] && check[i + 1][j - 1];
             }
         }
-        return dp;
+        return check;
     }
 
+
+    // TODO
     // 本题第二问，返回其中一种结果
     public static List<String> minCutOneWay(String s) {
         List<String> ans = new ArrayList<>();
@@ -92,6 +93,7 @@ public class LeetCode_0132_PalindromePartitioningII {
         return ans;
     }
 
+    // TODO
     // 本题第三问，返回所有结果
     public static List<List<String>> minCutAllWays(String s) {
         List<List<String>> ans = new ArrayList<>();

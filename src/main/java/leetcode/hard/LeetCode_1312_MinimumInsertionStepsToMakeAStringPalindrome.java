@@ -35,7 +35,7 @@ public class LeetCode_1312_MinimumInsertionStepsToMakeAStringPalindrome {
         }
         return dp[0][str.length-1];
     }
-
+    // TODO
     // 本题第二问，返回其中一种结果
     public static String minInsertionsOneWay(String s) {
         if (s == null || s.length() < 2) {
@@ -78,7 +78,7 @@ public class LeetCode_1312_MinimumInsertionStepsToMakeAStringPalindrome {
         }
         return String.valueOf(ans);
     }
-
+    // TODO
     // 本题第三问，返回所有可能的结果
     public static List<String> minInsertionsAllWays(String s) {
         List<String> ans = new ArrayList<>();
