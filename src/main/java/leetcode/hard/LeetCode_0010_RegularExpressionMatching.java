@@ -1,10 +1,10 @@
-// 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+// 给你一个字符串s和一个字符规律p，请你来实现一个支持 '.'和'*'的正则表达式匹配。
 
 // '.' 匹配任意单个字符
 // '*' 匹配零个或多个前面的那一个元素
-// 所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
+// 所谓匹配，是要涵盖整个字符串s的，而不是部分字符串。
 
-//  
+// 
 // 示例 1：
 
 // 输入：s = "aa", p = "a"
@@ -15,20 +15,20 @@
 // 输入：s = "aa", p = "a*"
 // 输出：true
 // 解释：因为 '*' 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 'a'。因此，字符串 "aa" 可被视为 'a' 重复了一次。
-// 示例 3：
+// 示例3：
 
 // 输入：s = "ab", p = ".*"
 // 输出：true
 // 解释：".*" 表示可匹配零个或多个（'*'）任意字符（'.'）。
-//  
+// 
 
 // 提示：
 
-// 1 <= s.length <= 20
-// 1 <= p.length <= 30
-// s 只包含从 a-z 的小写字母。
-// p 只包含从 a-z 的小写字母，以及字符 . 和 *。
-// 保证每次出现字符 * 时，前面都匹配到有效的字符
+// 1 <= s.length<= 20
+// 1 <= p.length<= 30
+// s只包含从a-z的小写字母。
+// p只包含从a-z的小写字母，以及字符.和*。
+// 保证每次出现字符* 时，前面都匹配到有效的字符
 
 // 来源：力扣（LeetCode）
 // 链接：https://leetcode.cn/problems/regular-expression-matching
@@ -94,8 +94,8 @@ public class LeetCode_0010_RegularExpressionMatching {
             return false;
         }
         char[] str = s.toCharArray();
-        char[] exp = p.toCharArray();
-        return isValid(str, exp) && process0(str, exp, 0, 0);
+        char[] pStr = p.toCharArray();
+        return isValid(str, pStr) && process0(str, pStr, 0, 0);
     }
 
     private static boolean process0(char[] s, char[] p, int si, int pi) {
@@ -104,6 +104,7 @@ public class LeetCode_0010_RegularExpressionMatching {
         }
         // pi还没有到头
         if (si == s.length) {
+            // si已经到头了
             if (((p.length - pi) & 1) == 1) {
                 // pi及以后的字符必须首先是偶数个，剩余奇数个数了,后面如何都做不到变成空串了。
                 return false;
@@ -114,21 +115,17 @@ public class LeetCode_0010_RegularExpressionMatching {
             }
             return false;
         }
-
+        // si和pi都没到头
         if (pi == p.length - 1 || p[pi + 1] != '*') {
             return (s[si] == p[pi] || p[pi] == '.') && process0(s, p, si + 1, pi + 1);
         }
         // pi 不是最后一个位置，且 p[pi+1] == '*'
-        // 看p[pi] 和 s[si] 是否相等
-        // if (p[pi] != s[si] && p[pi] != '.') {
-        // return false;
-        // }
-        // p[pi] == '.' 或者 p[pi] == s[si] 且 p[pi + 1] = '*'
-        // p[pi] 和 p[pi+1]至少可以消解为空串，即p[pi]位置不做匹配
+        // p[pi] 和 p[pi+1]至少可以先消解为空串，即p[pi]位置不做匹配
         if (process0(s, p, si, pi + 2)) {
             return true;
         }
-        // p[pi] 匹配 s[si]
+        // 如果走到这步，p[pi]消解为空串这条道路行不通
+        // 所以只能让：p[pi] 匹配 s[si]
         // 然后将p[pi+1]的'*'衍生出:
         // 0个p[pi]
         // 1个p[pi]
@@ -161,7 +158,6 @@ public class LeetCode_0010_RegularExpressionMatching {
         // dp[i][j] == 0 表示没有填过
         // dp[i][j] == 1 表示匹配上
         // dp[i][j] == - 1表示没有匹配上
-
         return dp1(str, exp, 0, 0, dp);
     }
 
