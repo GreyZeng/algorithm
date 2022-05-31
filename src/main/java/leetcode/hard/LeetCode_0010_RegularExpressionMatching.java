@@ -34,45 +34,10 @@
 // 链接：https://leetcode.cn/problems/regular-expression-matching
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 package leetcode.hard;
-
+// 笔记：https://www.cnblogs.com/greyzeng/p/16331923.html
 public class LeetCode_0010_RegularExpressionMatching {
 
-    // 斜率优化版本
-    public static boolean isMatch(String s, String p) {
-        if (s == null || p == null) {
-            return false;
-        }
-        char[] str = s.toCharArray();
-        char[] exp = p.toCharArray();
-        if (!isValid(str, exp)) {
-            return false;
-        }
-        boolean[][] dp = new boolean[str.length + 1][exp.length + 1];
-        // 最后一列除了最后一个位置，都是false
-        dp[str.length][exp.length] = true;
-        for (int i = exp.length - 2; i >= 0; i--) {
-            if (i + 1 < exp.length && exp[i + 1] == '*') {
-                dp[str.length][i] = dp[str.length][i + 2];
-            }
-        }
-        for (int si = str.length - 1; si >= 0; si--) {
-            for (int pi = exp.length - 1; pi >= 0; pi--) {
-                if (pi == exp.length - 1 || exp[pi + 1] != '*') {
-                    dp[si][pi] = (str[si] == exp[pi] || exp[pi] == '.') && dp[si + 1][pi + 1];
-                } else {
-                    if (dp[si][pi + 2]) {
-                        dp[si][pi] = true;
-                    } else {
-                        // dp[si][pi] = dp[si][pi + 2];
-                        dp[si][pi] = (exp[pi] == str[si] || exp[pi] == '.') && (dp[si + 1][pi + 2] || dp[si + 1][pi]);
-                    }
 
-                }
-            }
-        }
-        // p从0开始一直到最后，能否匹配出s从0开始一直到最后的位置
-        return dp[0][0];
-    }
 
     // 动态规划
     // 未优化枚举行为
@@ -118,10 +83,53 @@ public class LeetCode_0010_RegularExpressionMatching {
                                 break;
                             }
                         } else {
-                            dp[i][j] = false;
+                            // dp[i][j] = false;
                             break;
                         }
                     }
+                }
+            }
+        }
+        return dp[0][0];
+    }
+
+    // 斜率优化版本
+    public static boolean isMatch3(String s, String p) {
+        if (s == null || p == null) {
+            return false;
+        }
+        char[] str = s.toCharArray();
+        char[] pStr = p.toCharArray();
+        if (!isValid(str, pStr)) {
+            return false;
+        }
+        boolean[][] dp = new boolean[str.length + 1][pStr.length + 1];
+        // 最后一列，除了 dp[str.length][pStr.length] = true
+        // 其余位置都是false
+        dp[str.length][pStr.length] = true;
+        // 最后一行
+        dp[str.length][pStr.length - 1] = false;
+        for (int i = pStr.length - 2; i >= 0; i--) {
+            if (((pStr.length - i) & 1) == 1) {
+                dp[str.length][i] = false;
+            } else if (i + 1 < pStr.length && pStr[i + 1] == '*') {
+                dp[str.length][i] = dp[str.length][i + 2];
+            } else {
+                dp[str.length][i] = false;
+            }
+        }
+        // 倒数第二列
+        for (int i = str.length - 1; i >= 0; i--) {
+            dp[i][pStr.length - 1] = ((str[i] == pStr[pStr.length - 1] || pStr[pStr.length - 1] == '.') && dp[i + 1][pStr.length]);
+        }
+        for (int i = str.length - 1; i >= 0; i--) {
+            for (int j = pStr.length - 2; j >= 0; j--) {
+                if (pStr[j + 1] != '*') {
+                    dp[i][j] = (str[i] == pStr[j] || pStr[j] == '.') && dp[i + 1][j + 1];
+                } else if (dp[i][j + 2]) {
+                    dp[i][j] = true;
+                } else if ((pStr[j] == str[i] || pStr[j] == '.') && (dp[i + 1][j + 2] || dp[i + 1][j])) {
+                    dp[i][j] = true;
                 }
             }
         }
@@ -144,9 +152,9 @@ public class LeetCode_0010_RegularExpressionMatching {
     }
 
     public static void main(String[] args) {
-        String s = "mississippi";
-        String p = "mis*is*p*.";
-        System.out.println(isMatch2(s, p));
+        String s = "aa";
+        String p = "a*";
+        System.out.println(isMatch3(s, p));
     }
 
     // 暴力递归
