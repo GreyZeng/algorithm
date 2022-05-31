@@ -74,6 +74,61 @@ public class LeetCode_0010_RegularExpressionMatching {
         return dp[0][0];
     }
 
+    // 动态规划
+    // 未优化枚举行为
+    public static boolean isMatch2(String s, String p) {
+        if (s == null || p == null) {
+            return false;
+        }
+        char[] str = s.toCharArray();
+        char[] pStr = p.toCharArray();
+        if (!isValid(str, pStr)) {
+            return false;
+        }
+        boolean[][] dp = new boolean[str.length + 1][pStr.length + 1];
+        // 最后一列，除了 dp[str.length][pStr.length] = true
+        // 其余位置都是false
+        dp[str.length][pStr.length] = true;
+        // 最后一行
+        dp[str.length][pStr.length - 1] = false;
+        for (int i = pStr.length - 2; i >= 0; i--) {
+            if (((pStr.length - i) & 1) == 1) {
+                dp[str.length][i] = false;
+            } else if (i + 1 < pStr.length && pStr[i + 1] == '*') {
+                dp[str.length][i] = dp[str.length][i + 2];
+            } else {
+                dp[str.length][i] = false;
+            }
+        }
+        // 倒数第二列
+        for (int i = str.length - 1; i >= 0; i--) {
+            dp[i][pStr.length - 1] = ((str[i] == pStr[pStr.length - 1] || pStr[pStr.length - 1] == '.') && dp[i + 1][pStr.length]);
+        }
+        for (int i = str.length - 1; i >= 0; i--) {
+            for (int j = pStr.length - 2; j >= 0; j--) {
+                if (pStr[j + 1] != '*') {
+                    dp[i][j] = (str[i] == pStr[j] || pStr[j] == '.') && dp[i + 1][j + 1];
+                } else if (dp[i][j + 2]) {
+                    dp[i][j] = true;
+                } else {
+                    for (int k = i; k < str.length; k++) {
+                        if (pStr[j] == str[k] || pStr[j] == '.') {
+                            if (dp[k + 1][j + 2]) {
+                                dp[i][j] = true;
+                                break;
+                            }
+                        } else {
+                            dp[i][j] = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return dp[0][0];
+    }
+
+    // 首先过滤掉无效字符
     private static boolean isValid(char[] str, char[] exp) {
         for (char c : str) {
             if (c == '.' || c == '*') {
@@ -88,6 +143,12 @@ public class LeetCode_0010_RegularExpressionMatching {
         return true;
     }
 
+    public static void main(String[] args) {
+        String s = "mississippi";
+        String p = "mis*is*p*.";
+        System.out.println(isMatch2(s, p));
+    }
+
     // 暴力递归
     public static boolean isMatch0(String s, String p) {
         if (s == null || p == null) {
@@ -98,11 +159,12 @@ public class LeetCode_0010_RegularExpressionMatching {
         return isValid(str, pStr) && process0(str, pStr, 0, 0);
     }
 
+
     private static boolean process0(char[] s, char[] p, int si, int pi) {
         if (pi == p.length) {
             return si == s.length;
         }
-        // pi还没有到头
+        // 能到这里，说明：pi还没有到头
         if (si == s.length) {
             // si已经到头了
             if (((p.length - pi) & 1) == 1) {
@@ -116,7 +178,10 @@ public class LeetCode_0010_RegularExpressionMatching {
             return false;
         }
         // si和pi都没到头
-        if (pi == p.length - 1 || p[pi + 1] != '*') {
+        if (pi == p.length - 1) {
+            return (s[si] == p[pi] || p[pi] == '.') && process0(s, p, si + 1, pi + 1);
+        }
+        if (p[pi + 1] != '*') {
             return (s[si] == p[pi] || p[pi] == '.') && process0(s, p, si + 1, pi + 1);
         }
         // pi 不是最后一个位置，且 p[pi+1] == '*'
@@ -144,7 +209,9 @@ public class LeetCode_0010_RegularExpressionMatching {
         return false;
     }
 
+
     // 动态规划
+    // 缓存解法
     public static boolean isMatch1(String s, String p) {
         if (s == null || p == null) {
             return false;
