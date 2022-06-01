@@ -40,7 +40,7 @@ public class Code_0055_NCardsABWin {
     // 当累加和>=b时，你将失败
     // 返回获胜的概率，给定的参数为N，a，b
     public static double f2(int N, int a, int b) {
-        if (N < 1 || a >= b || a < 0 || b < 0) {
+        if (N < 1 || a >= b || a < 0) {
             return 0.0;
         }
         if (b - a >= N) {
