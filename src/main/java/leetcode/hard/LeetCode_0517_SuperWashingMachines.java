@@ -17,6 +17,7 @@ package leetcode.hard;
 //        右有，右余
 //        预处理数组，累加和
 // https://leetcode-cn.com/problems/super-washing-machines/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16335452.html
 public class LeetCode_0517_SuperWashingMachines {
     public static int findMinMoves(int[] arr) {
         if (null == arr || 0 == arr.length) {
