@@ -9,8 +9,9 @@ import java.util.Queue;
 // 1）节点往上找代表点的过程，把沿途的链变成扁平的
 // 2）小集合挂在大集合的下面
 // 3）如果方法调用很频繁，那么单次调用的代价为O(1)，两个方法都如此
+// 笔记：https://www.cnblogs.com/greyzeng/p/16340125.html
 public class Code_0049_UnionFind {
-    
+
     public static class UnionFind<V> {
         // 快速找到某个节点是否存在
         private HashMap<V, Node<V>> nodeMap;
@@ -66,7 +67,6 @@ public class Code_0049_UnionFind {
             return findFather(nodeMap.get(v1)) == findFather(nodeMap.get(v2));
         }
 
-
         private static class Node<V> {
             private final V value;
 
@@ -75,5 +75,4 @@ public class Code_0049_UnionFind {
             }
         }
     }
-
 }

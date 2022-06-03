@@ -24,7 +24,7 @@
 
 [贪心](docs/贪心.md)
 
-[并查集](docs/并查集.md)
+[并查集](https://www.cnblogs.com/greyzeng/p/16340125.html)
 
 [图](docs/图.md)
 

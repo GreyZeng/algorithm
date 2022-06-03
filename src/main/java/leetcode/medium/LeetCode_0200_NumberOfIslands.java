@@ -31,6 +31,7 @@ import java.util.Stack;
 // 方法2 并查集 ，LeetCode和牛客上对应的题目都可以通过，不会出现栈溢出的情况
 // lintcode 433
 // https://leetcode-cn.com/problems/number-of-islands/
+// 笔记：https://www.cnblogs.com/greyzeng/p/14118298.html
 public class LeetCode_0200_NumberOfIslands {
     public static int numIslands3(char[][] board) {
         if (null == board || board.length == 0 || board[0].length == 0) {

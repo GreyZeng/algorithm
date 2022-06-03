@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-// https://leetcode.com/problems/number-of-islands-ii/
+// https://leetcode.cn/problems/number-of-islands-ii/
 // LintCode 434
 public class LeetCode_0305_NumberOfIslandsII {
     public static List<Integer> numIslands21(int m, int n, int[][] positions) {
