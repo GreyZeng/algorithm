@@ -166,100 +166,111 @@ public class LeetCode_0200_NumberOfIslands {
 
     // 并查集做法
     public static int numIslands2(char[][] board) {
-        int row = board.length;
-        int col = board[0].length;
-        UnionFind2 uf = new UnionFind2(board);
-        for (int j = 1; j < col; j++) {
-            if (board[0][j - 1] == '1' && board[0][j] == '1') {
-                uf.union(0, j - 1, 0, j);
-            }
+        if (board == null || board.length == 0 || board[0] == null || board[0].length == 0) {
+            return 0;
         }
-        for (int i = 1; i < row; i++) {
-            if (board[i - 1][0] == '1' && board[i][0] == '1') {
+        int m = board.length;
+        int n = board[0].length;
+        UF uf = new UF(board);
+        // 第一列
+        for (int i = 1; i < m; i++) {
+            //
+            if (board[i][0] == '1' && board[i - 1][0] == '1') {
                 uf.union(i - 1, 0, i, 0);
             }
         }
-        for (int i = 1; i < row; i++) {
-            for (int j = 1; j < col; j++) {
+        // 第一行
+        for (int i = 1; i < n; i++) {
+            if (board[0][i] == '1' && board[0][i - 1] == '1') {
+                uf.union(0, i - 1, 0, i);
+            }
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
                 if (board[i][j] == '1') {
-                    if (board[i][j - 1] == '1') {
-                        uf.union(i, j - 1, i, j);
-                    }
                     if (board[i - 1][j] == '1') {
-                        uf.union(i - 1, j, i, j);
+                        uf.union(i, j, i - 1, j);
+                    }
+                    if (board[i][j - 1] == '1') {
+                        uf.union(i, j, i, j - 1);
                     }
                 }
             }
         }
-        return uf.sets();
+        return uf.setSize();
     }
 
-    public static class UnionFind2 {
-        private final int[] parent;
-        private final int[] size;
-        private final int[] help;
-        private final int col;
-        private int sets;
+    public static class UF {
+        public int[] parent;
+        // 替代队列，便于做扁平化优化
+        public int[] help;
+        // 记录大小，便于做小挂大优化
+        public int[] size;
+        public int sets;
+        public int col;
+        public int row;
+        public int len;
 
-        public UnionFind2(char[][] board) {
+        public UF(char[][] board) {
+            row = board.length;
             col = board[0].length;
-            sets = 0;
-            int row = board.length;
-            int len = row * col;
+            len = row * col;
             parent = new int[len];
-            size = new int[len];
             help = new int[len];
-            for (int r = 0; r < row; r++) {
-                for (int c = 0; c < col; c++) {
-                    if (board[r][c] == '1') {
-                        int i = index(r, c);
-                        parent[i] = i;
-                        size[i] = 1;
+            size = new int[len];
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    if (board[i][j] == '1') {
+                        int index = index(i, j);
                         sets++;
+                        size[index] = 1;
+                        parent[index] = index;
                     }
                 }
             }
         }
 
-        // (r,c) -> i
-        private int index(int r, int c) {
-            return r * col + c;
+        public int index(int i, int j) {
+            return j + i * col;
         }
 
-        // 原始位置 -> 下标
-        private int find(int i) {
-            int hi = 0;
-            while (i != parent[i]) {
-                help[hi++] = i;
-                i = parent[i];
-            }
-            for (hi--; hi >= 0; hi--) {
-                parent[help[hi]] = i;
-            }
-            return i;
-        }
-
-        public void union(int r1, int c1, int r2, int c2) {
-            int i1 = index(r1, c1);
-            int i2 = index(r2, c2);
-            int f1 = find(i1);
-            int f2 = find(i2);
-            if (f1 != f2) {
-                if (size[f1] >= size[f2]) {
-                    size[f1] += size[f2];
-                    parent[f2] = f1;
+        public void union(int i, int j, int m, int n) {
+            int index1 = index(i, j);
+            int index2 = index(m, n);
+            int p1 = find(index1);
+            int p2 = find(index2);
+            if (p1 != p2) {
+                int size1 = size[p1];
+                int size2 = size[p2];
+                if (size1 > size2) {
+                    parent[p2] = p1;
+                    size[p1] += size2;
                 } else {
-                    size[f2] += size[f1];
-                    parent[f1] = f2;
+                    // size1 <= size2
+                    parent[p1] = p2;
+                    size[p2] += size1;
                 }
                 sets--;
             }
         }
 
-        public int sets() {
-            return sets;
+        // 找到代表节点，记得扁平化操作
+        public int find(int i) {
+            int p = 0;
+            while (i != parent[i]) {
+                // 只要i不等于其代表节点
+                help[p++] = i;
+                i = parent[i];
+            }
+            for (int index = 0; index < p; index++) {
+                parent[help[index]] = i;
+            }
+            return i;
         }
 
+        public int setSize() {
+            return sets;
+        }
     }
 
     // 为了测试
