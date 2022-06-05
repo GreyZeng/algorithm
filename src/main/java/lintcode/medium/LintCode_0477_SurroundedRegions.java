@@ -1,6 +1,7 @@
 package lintcode.medium;
 
 // https://www.lintcode.com/problem/477/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16343068.html
 public class LintCode_0477_SurroundedRegions {
     public static void surroundedRegions(char[][] board) {
         if (null == board || board.length == 0 || board[0].length == 0) {
