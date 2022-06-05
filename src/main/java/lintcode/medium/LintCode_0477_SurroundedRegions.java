@@ -1,4 +1,4 @@
-package lintcode;
+package lintcode.medium;
 
 // https://www.lintcode.com/problem/477/
 public class LintCode_0477_SurroundedRegions {
@@ -62,13 +62,13 @@ public class LintCode_0477_SurroundedRegions {
         for (int i = 0; i < M; i++) {
             if (board[i][0] == 'O') {
                 if (dump != -1) {
-                    unionFind.union(dump, oneArrIndex(M, N, i, 0));    
+                    unionFind.union(dump, oneArrIndex(M, N, i, 0));
                 } else {
                     dump = oneArrIndex(M, N, i, 0);
                 }
-                
+
             }
-            if (board[i][N - 1] == 'O' ) {
+            if (board[i][N - 1] == 'O') {
                 if (dump != -1) {
                     unionFind.union(dump, oneArrIndex(M, N, i, N - 1));
                 } else {
@@ -83,7 +83,7 @@ public class LintCode_0477_SurroundedRegions {
                 } else {
                     dump = oneArrIndex(M, N, 0, i);
                 }
-                
+
             }
             if (board[M - 1][i] == 'O') {
                 if (dump != -1) {

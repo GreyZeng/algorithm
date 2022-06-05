@@ -7,9 +7,11 @@ import java.util.List;
 
 // https://leetcode.cn/problems/number-of-islands-ii/
 // LintCode 434
+// 笔记：https://www.cnblogs.com/greyzeng/p/16343068.html
 public class LeetCode_0305_NumberOfIslandsII {
+
     public static List<Integer> numIslands21(int m, int n, int[][] positions) {
-        UnionFind1 uf = new UnionFind1(m, n);
+        UF uf = new UF(m, n);
         List<Integer> ans = new ArrayList<>();
         for (int[] position : positions) {
             ans.add(uf.connect(position[0], position[1]));
@@ -17,80 +19,84 @@ public class LeetCode_0305_NumberOfIslandsII {
         return ans;
     }
 
-    public static class UnionFind1 {
-        private final int[] parent;
-        private final int[] size;
-        private final int[] help;
-        private final int row;
-        private final int col;
-        private int sets;
+    public static class UF {
+        int[] help;
+        int[] parent;
+        int[] size;
+        int sets;
+        int row;
+        int col;
 
-        public UnionFind1(int m, int n) {
+        public UF(int m, int n) {
             row = m;
             col = n;
-            sets = 0;
-            int len = row * col;
-            parent = new int[len];
-            size = new int[len];
+            int len = m * n;
             help = new int[len];
+            size = new int[len];
+            parent = new int[len];
         }
 
-        private int index(int r, int c) {
-            return r * col + c;
+
+        private int index(int i, int j) {
+            return i * col + j;
         }
 
-        private int find(int i) {
-            int hi = 0;
-            while (i != parent[i]) {
-                help[hi++] = i;
-                i = parent[i];
-            }
-            for (hi--; hi >= 0; hi--) {
-                parent[help[hi]] = i;
-            }
-            return i;
-        }
-
-        private void union(int r1, int c1, int r2, int c2) {
-            if (r1 < 0 || r1 == row || r2 < 0 || r2 == row || c1 < 0 || c1 == col || c2 < 0 || c2 == col) {
+        private void union(int i1, int j1, int i2, int j2) {
+            if (i1 < 0 || i2 < 0 || i1 >= row || i2 >= row || j1 < 0 || j2 < 0 || j1 >= col || j2 >= col) {
                 return;
             }
-            int i1 = index(r1, c1);
-            int i2 = index(r2, c2);
-            if (size[i1] == 0 || size[i2] == 0) {
+
+            int f1 = index(i1, j1);
+            int f2 = index(i2, j2);
+            if (size[f1] == 0 || size[f2] == 0) {
+                // 重要：如果两个都不是岛屿，则不用合并
                 return;
             }
-            int f1 = find(i1);
-            int f2 = find(i2);
+            f1 = find(f1);
+            f2 = find(f2);
             if (f1 != f2) {
-                if (size[f1] >= size[f2]) {
-                    size[f1] += size[f2];
+                int s1 = size[f1];
+                int s2 = size[f2];
+                if (s1 >= s2) {
+                    size[f1] += s2;
                     parent[f2] = f1;
                 } else {
-                    size[f2] += size[f1];
+                    size[f2] += s1;
                     parent[f1] = f2;
                 }
                 sets--;
             }
         }
 
-        public int connect(int r, int c) {
-            int index = index(r, c);
-            if (size[index] == 0) {
-                parent[index] = index;
-                size[index] = 1;
-                sets++;
-                union(r - 1, c, r, c);
-                union(r + 1, c, r, c);
-                union(r, c - 1, r, c);
-                union(r, c + 1, r, c);
+        public int find(int i) {
+            int hi = 0;
+            while (i != parent[i]) {
+                help[hi++] = i;
+                i = parent[i];
             }
-            return sets;
+            for (int index = 0; index < hi; index++) {
+                parent[help[index]] = i;
+            }
+            return i;
         }
 
+        public int connect(int i, int j) {
+            int index = index(i, j);
+            if (size[index] == 0) {
+                sets++;
+                size[index] = 1;
+                parent[index] = index;
+                // 去四个方向union
+                union(i - 1, j, i, j);
+                union(i, j - 1, i, j);
+                union(i + 1, j, i, j);
+                union(i, j + 1, i, j);
+            }
+            // index上本来就有岛屿，所以不需要处理
+            return sets;
+        }
     }
 
-    // 课上讲的如果m*n比较大，会经历很重的初始化，而k比较小，怎么优化的方法
     public static List<Integer> numIslands22(int m, int n, int[][] positions) {
         UnionFind2 uf = new UnionFind2();
         List<Integer> ans = new ArrayList<>();

@@ -9,6 +9,7 @@ import java.util.List;
 //
 //设定0表示海洋, 1代表岛屿, 并且上下左右相邻的1为同一个岛屿.
 // https://www.lintcode.com/problem/434/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16343068.html
 public class LintCode_0434_NumberOfIslandsII {
     class Point {
         int x;
