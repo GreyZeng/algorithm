@@ -9,6 +9,7 @@ import java.util.*;
 //来源：力扣（LeetCode）
 //链接：https://leetcode-cn.com/problems/largest-component-size-by-common-factor
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// 笔记：https://www.cnblogs.com/greyzeng/p/16343068.html
 public class LeetCode_0952_LargestComponentSizeByCommonFactor {
     public static int largestComponentSize(int[] arr) {
         UnionFind uf = new UnionFind(arr.length);
