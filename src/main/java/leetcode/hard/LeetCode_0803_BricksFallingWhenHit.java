@@ -3,9 +3,9 @@ package leetcode.hard;
 // https://leetcode.cn/problems/bricks-falling-when-hit/
 public class LeetCode_0803_BricksFallingWhenHit {
     public static int[] hitBricks(int[][] grid, int[][] hits) {
-        for (int i = 0; i < hits.length; i++) {
-            if (grid[hits[i][0]][hits[i][1]] == 1) {
-                grid[hits[i][0]][hits[i][1]] = 2;
+        for (int[] hit : hits) {
+            if (grid[hit[0]][hit[1]] == 1) {
+                grid[hit[0]][hit[1]] = 2;
             }
         }
         UnionFind unionFind = new UnionFind(grid);
