@@ -4,6 +4,7 @@ package leetcode.hard;
 // tips: 以i结尾的答案全部收集一遍
 // ref: https://www.lintcode.com/problem/longest-valid-parentheses/description
 // https://leetcode-cn.com/problems/longest-valid-parentheses/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16353363.html
 public class LeetCode_0032_LongestValidParentheses {
     public static int longestValidParentheses(String s) {
         if (s == null || s.length() <= 1) {
@@ -17,23 +18,17 @@ public class LeetCode_0032_LongestValidParentheses {
         int ans = dp[1];
         for (int i = 2; i < str.length; i++) {
             if (str[i] == ')') {
-                // 且右括号结尾才可能是有效括号
-                if (str[i - 1] != '(') {
-                    if ((i - 1) - dp[i - 1] >= 0 && str[(i - 1) - dp[i - 1]] == '(') {
-                        dp[i] = dp[i - 1] + 2 + (((i - 1) - dp[i - 1] - 1) >= 0 ? dp[(i - 1) - dp[i - 1] - 1] : 0);
-                    }
+                // 这才是有效情况
+                if (str[i - 1] == '(') {
+                    dp[i] = dp[i - 2] + 2;
                 } else {
-                    dp[i] = 2 + dp[i - 2];
+                    if ((i - 1) - dp[i - 1] >= 0 && str[(i - 1) - dp[i - 1]] == '(') {
+                        dp[i] = dp[i - 1] + 2 + ((i - 1) - dp[i - 1] > 0 ? dp[(i - 1) - dp[i - 1] - 1] : 0);
+                    }
                 }
             }
             ans = Math.max(ans, dp[i]);
         }
         return ans;
-    }
-
-    public static void main(String[] args) {
-        String s = "()(())";
-        int i = longestValidParentheses(s);
-        System.out.println(i);
     }
 }
