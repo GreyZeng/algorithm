@@ -11,8 +11,8 @@ public class Code_0024_SumLessOrEqualsK {
         int max = Integer.MIN_VALUE;
         int sum = 0;
         // 求子数组必须以i结尾的情况下，求个子数组的累加和，是<=K的，并且是最大的
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i]; // sum -> arr[0..i];
+        for (int j : arr) {
+            sum += j; // sum -> arr[0..i];
             if (set.ceiling(sum - K) != null) {
                 max = Math.max(max, sum - set.ceiling(sum - K));
             }
