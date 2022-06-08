@@ -33,6 +33,7 @@ public class LeetCode_0222_CountCompleteTreeNodes {
         TreeNode right;
     }
 
+    // O((logN)^2)
     public static int countNodes(TreeNode head) {
         if (head == null) {
             return 0;
@@ -60,5 +61,31 @@ public class LeetCode_0222_CountCompleteTreeNodes {
             level++;
         }
         return level - 1;
+    }
+
+    // O(N)解法
+    public static int countNodes1(TreeNode head) {
+        if (head == null) {
+            return 0;
+        }
+        return p(head).all;
+    }
+
+    public static Info p(TreeNode head) {
+        if (head == null) {
+            return new Info(0);
+        }
+        Info leftInfo = p(head.left);
+        Info rightInfo = p(head.right);
+        int all = leftInfo.all + rightInfo.all + 1;
+        return new Info(all);
+    }
+
+    public static class Info {
+        public int all;
+
+        public Info(int a) {
+            all = a;
+        }
     }
 }
