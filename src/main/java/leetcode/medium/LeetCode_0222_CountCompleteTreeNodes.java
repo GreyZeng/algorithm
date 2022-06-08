@@ -17,7 +17,7 @@
 // 4  5 6
 
 // Output: 6
-package leetcode;
+package leetcode.medium;
 
 
 // 完全二叉树节点的个数 ，要求复杂度低于O(N)
@@ -31,19 +31,6 @@ public class LeetCode_0222_CountCompleteTreeNodes {
         int val;
         TreeNode left;
         TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 
     public static int countNodes(TreeNode head) {
@@ -74,6 +61,4 @@ public class LeetCode_0222_CountCompleteTreeNodes {
         }
         return level - 1;
     }
-
-
 }
