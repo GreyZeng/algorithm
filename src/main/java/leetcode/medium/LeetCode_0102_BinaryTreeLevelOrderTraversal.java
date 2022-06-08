@@ -84,35 +84,6 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
         }
         return ans;
     }
-//    public static List<List<Integer>> levelOrder2(TreeNode head) {
-//        if (head == null) {
-//            return new LinkedList<>();
-//        }
-//        List<List<Integer>> ans = new LinkedList<>();
-//        List<Integer> level = new LinkedList<>();
-//        Queue<TreeNode> queue = new LinkedList<>();
-//        TreeNode curEnd = head;
-//        TreeNode nextEnd = null;
-//        queue.offer(curEnd);
-//        while (!queue.isEmpty()) {
-//            TreeNode c = queue.poll();
-//            level.add(c.val);
-//            if (c.left != null) {
-//                queue.offer(c.left);
-//                nextEnd = c.left;
-//            }
-//            if (c.right != null) {
-//                queue.offer(c.right);
-//                nextEnd = c.right;
-//            }
-//            if (c == curEnd) {
-//                ans.add(level);
-//                level = new LinkedList<>();
-//                curEnd = nextEnd;
-//            }
-//        }
-//        return ans;
-//    }
 
     public static class MyNode {
         public TreeNode data;
