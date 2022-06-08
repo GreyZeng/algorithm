@@ -13,69 +13,44 @@ import java.util.Queue;
 //3. 自定义队列
 // https://leetcode-cn.com/problems/binary-tree-level-order-traversal/
 public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
-
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
+    // 哈希表结合Java自带的LinkedList
+    public static List<List<Integer>> levelOrder3(TreeNode head) {
+        if (head == null) {
+            return new ArrayList<>();
         }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
-
-    public static TreeNode buildTree() {
-        TreeNode N1 = new TreeNode(1);
-        TreeNode N2 = new TreeNode(2);
-        TreeNode N3 = new TreeNode(3);
-        TreeNode N4 = new TreeNode(4);
-        TreeNode N5 = new TreeNode(5);
-        TreeNode N6 = new TreeNode(6);
-        TreeNode N7 = new TreeNode(7);
-        TreeNode N8 = new TreeNode(8);
-        TreeNode N9 = new TreeNode(9);
-        TreeNode N10 = new TreeNode(10);
-        TreeNode N11 = new TreeNode(11);
-        TreeNode N12 = new TreeNode(12);
-        TreeNode N13 = new TreeNode(13);
-        N1.left = N2;
-        N1.right = N3;
-        N2.right = N4;
-        N3.left = N5;
-        N3.right = N6;
-        N4.left = N7;
-        N4.right = N8;
-        N6.left = N9;
-        N6.right = N10;
-        N7.left = N11;
-        N8.left = N12;
-        N9.right = N13;
-        return N1;
-    }
-
-    public static void printList(List<List<Integer>> ans) {
-        StringBuilder sb = new StringBuilder();
-        for (List<Integer> n : ans) {
-            for (int i : n) {
-                sb.append(i).append("-->");
+        List<List<Integer>> ans = new ArrayList<>();
+        // 记录某个节点在第几层
+        Map<TreeNode, Integer> map = new HashMap<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        // 当前是第几层
+        int curLevel = 0;
+        TreeNode cur = head;
+        queue.offer(cur);
+        map.put(cur, curLevel);
+        List<Integer> levelRecords = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            TreeNode c = queue.poll();
+            int level = map.get(c);
+            if (c.left != null) {
+                queue.offer(c.left);
+                map.put(c.left, level + 1);
+            }
+            if (c.right != null) {
+                queue.offer(c.right);
+                map.put(c.right, level + 1);
+            }
+            if (curLevel == level) {
+                levelRecords.add(c.val);
+            } else {
+                ans.add(levelRecords);
+                levelRecords = new ArrayList<>();
+                levelRecords.add(c.val);
+                curLevel = level;
             }
         }
-        System.out.println(sb.toString());
-    }
-
-    public static void main(String[] args) {
-        TreeNode root = buildTree();
-        List<List<Integer>> ans = levelOrder2(root);
-        printList(ans);
+        // 记得要存最后一层的数据
+        ans.add(levelRecords);
+        return ans;
     }
 
     // 用LinkedList
@@ -187,41 +162,9 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
         return ans;
     }
 
-    // 用LinkedList和HashMap
-    public static List<List<Integer>> levelOrder3(TreeNode root) {
-        List<List<Integer>> ans = new ArrayList<>();
-        if (root == null) {
-            return ans;
-        }
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        Map<TreeNode, Integer> map = new HashMap<>();
-        map.put(root, 0);
-        int currentLevel = 0;
-        List<Integer> item = new ArrayList<>();
-        while (!queue.isEmpty()) {
-            TreeNode c = queue.poll();
-            int level = map.get(c);
-            if (c.left != null) {
-                queue.offer(c.left);
-                map.put(c.left, level + 1);
-            }
-            if (c.right != null) {
-                queue.offer(c.right);
-                map.put(c.right, level + 1);
-            }
-
-            if (level == currentLevel) {
-                item.add(c.val);
-            } else {
-                ans.add(item);
-                item = new ArrayList<>();
-                item.add(c.val);
-                currentLevel = level;
-            }
-        }
-        ans.add(item);
-        return ans;
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
     }
-
 }
