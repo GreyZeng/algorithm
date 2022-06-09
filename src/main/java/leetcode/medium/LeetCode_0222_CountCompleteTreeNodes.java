@@ -1,22 +1,3 @@
-// Given a complete binary tree, count the number of nodes.
-
-// Note:
-
-// Definition of a complete binary tree from Wikipedia:
-// In a complete binary tree every level, except possibly the last, 
-// is completely filled, and all nodes in the last level are as far left as possible. 
-// It can have between 1 and 2h nodes inclusive at the last level h.
-
-// Example:
-
-// Input: 
-//     1
-//    / \
-//   2   3
-//  / \  /
-// 4  5 6
-
-// Output: 6
 package leetcode.medium;
 
 
@@ -26,6 +7,7 @@ package leetcode.medium;
 // 右树的最左节点可以扎到最深处，则左树一定是满的
 // 右树的最左节点不能扎到最深处，则右树一定是满的 
 // O(h^2) -> O((logN)^2)
+// https://leetcode.cn/problems/count-complete-tree-nodes/
 public class LeetCode_0222_CountCompleteTreeNodes {
     public class TreeNode {
         int val;
@@ -77,6 +59,7 @@ public class LeetCode_0222_CountCompleteTreeNodes {
         }
         Info leftInfo = p(head.left);
         Info rightInfo = p(head.right);
+        // 收集左右子树节点个数加上头节点，就是整棵树的节点个数
         int all = leftInfo.all + rightInfo.all + 1;
         return new Info(all);
     }
