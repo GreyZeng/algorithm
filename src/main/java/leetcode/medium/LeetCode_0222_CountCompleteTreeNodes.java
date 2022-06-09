@@ -8,6 +8,7 @@ package leetcode.medium;
 // 右树的最左节点不能扎到最深处，则右树一定是满的 
 // O(h^2) -> O((logN)^2)
 // https://leetcode.cn/problems/count-complete-tree-nodes/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16360786.html
 public class LeetCode_0222_CountCompleteTreeNodes {
     public class TreeNode {
         int val;
