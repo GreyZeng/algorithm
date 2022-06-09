@@ -18,9 +18,7 @@
 
 [基于桶的排序和排序总结](docs/基于桶的排序和排序总结.md)
 
-[二叉树的基本操作](docs/二叉树的基本操作.md)
-
-[二叉树的递归套路](docs/二叉树递归套路.md)
+[二叉树的基本操作](docs/二叉树.md)
 
 [贪心](docs/贪心.md)
 
@@ -43,8 +41,6 @@
 [bfprt算法](https://www.cnblogs.com/greyzeng/p/15320118.html)
 
 [蓄水池算法](https://www.cnblogs.com/greyzeng/p/15311295.html)
-
-[morris遍历](docs/Morris遍历.md)
 
 [线段树](docs/线段树.md)
 
