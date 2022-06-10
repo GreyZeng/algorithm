@@ -13,6 +13,10 @@
  */
 package leetcode.hard;
 
+//有效区：i位置上一定要保证i上面放着i+1
+//不再需要的数据，进入垃圾区
+//R变量：垃圾区开始，期待返回的值就是R+1
+// https://leetcode.cn/problems/first-missing-positive/
 public class LeetCode_0041_FirstMissingPositive {
     // L 指针和R指针
     public static int firstMissingPositive(int[] arr) {
