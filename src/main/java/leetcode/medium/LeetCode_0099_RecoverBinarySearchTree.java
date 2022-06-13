@@ -5,7 +5,6 @@ package leetcode.medium;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Stack;
 
 // https://leetcode.cn/problems/recover-binary-search-tree/
 public class LeetCode_0099_RecoverBinarySearchTree {
