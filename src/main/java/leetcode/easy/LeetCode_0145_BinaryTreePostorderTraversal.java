@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Stack;
 
 //https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
+// 二叉树的后序遍历
+// 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
 public class LeetCode_0145_BinaryTreePostorderTraversal {
 
     public static class TreeNode {
@@ -25,50 +27,7 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
             this.right = right;
         }
     }
-
-    public static TreeNode buildTree() {
-        TreeNode N1 = new TreeNode(1);
-        TreeNode N2 = new TreeNode(2);
-        TreeNode N3 = new TreeNode(3);
-        TreeNode N4 = new TreeNode(4);
-        TreeNode N5 = new TreeNode(5);
-        TreeNode N6 = new TreeNode(6);
-        TreeNode N7 = new TreeNode(7);
-        TreeNode N8 = new TreeNode(8);
-        TreeNode N9 = new TreeNode(9);
-        TreeNode N10 = new TreeNode(10);
-        TreeNode N11 = new TreeNode(11);
-        TreeNode N12 = new TreeNode(12);
-        TreeNode N13 = new TreeNode(13);
-        N1.left = N2;
-        N1.right = N3;
-        N2.right = N4;
-        N3.left = N5;
-        N3.right = N6;
-        N4.left = N7;
-        N4.right = N8;
-        N6.left = N9;
-        N6.right = N10;
-        N7.left = N11;
-        N8.left = N12;
-        N9.right = N13;
-        return N1;
-    }
-
-    public static void printList(List<Integer> ans) {
-        StringBuilder sb = new StringBuilder();
-        for (int i : ans) {
-            sb.append(i).append("-->");
-        }
-        System.out.println(sb.toString());
-    }
-
-    public static void main(String[] args) {
-        TreeNode root = buildTree();
-        List<Integer> ans = postorderTraversal3(root);
-        printList(ans);
-    }
-
+    
     // 递归方法
     public static List<Integer> postorderTraversal3(TreeNode root) {
         List<Integer> ans = new ArrayList<>();

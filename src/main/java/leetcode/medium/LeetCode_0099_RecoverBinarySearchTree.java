@@ -3,6 +3,8 @@
         Follow up: A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?*/
 package leetcode.medium;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 // https://leetcode.cn/problems/recover-binary-search-tree/
@@ -31,7 +33,7 @@ public class LeetCode_0099_RecoverBinarySearchTree {
     // 中序遍历
     public static TreeNode[] getTwoErrNodes(TreeNode head) {
         TreeNode[] errs = new TreeNode[2];
-        Stack<TreeNode> stack = new Stack<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
         TreeNode pre = null;
         TreeNode cur = head;
         while (!stack.isEmpty() || cur != null) {
