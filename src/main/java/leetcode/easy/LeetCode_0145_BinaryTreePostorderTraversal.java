@@ -1,6 +1,8 @@
 package leetcode.easy;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.Stack;
 
@@ -27,43 +29,52 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
             this.right = right;
         }
     }
-    
+
     // 递归方法
-    public static List<Integer> postorderTraversal3(TreeNode root) {
+    public List<Integer> postorderTraversal3(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
         List<Integer> ans = new ArrayList<>();
-        p(root, ans);
+        post(root, ans);
         return ans;
     }
 
-    public static void p(TreeNode root, List<Integer> ans) {
-        if (root != null) {
-            p(root.left, ans);
-            p(root.right, ans);
-            ans.add(root.val);
+    public void post(TreeNode root, List<Integer> ans) {
+        if (root == null) {
+            return;
         }
+        post(root.left, ans);
+        post(root.right, ans);
+        ans.add(root.val);
     }
 
+
     // 非递归 双栈方法
+    // 改造先序遍历
     // 先序遍历是，头，左，右
     // 改造一下，变成：头，右，左
     // 然后：逆序一下，就变成了后序遍历
     // 所以用两个栈即可实现
-    public static List<Integer> postorderTraversal2(TreeNode root) {
-        List<Integer> ans = new ArrayList<>();
+    public List<Integer> postorderTraversal2(TreeNode root) {
         if (root == null) {
-            return ans;
+            return new ArrayList<>();
         }
-        Stack<TreeNode> stack = new Stack<>();
-        Stack<TreeNode> helper = new Stack<>();
-        stack.push(root);
+        List<Integer> ans = new ArrayList<>();
+        Deque<TreeNode> helper = new ArrayDeque<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode cur = root;
+        stack.push(cur);
         while (!stack.isEmpty()) {
-            TreeNode pop = stack.pop();
-            helper.push(pop);
-            if (pop.left != null) {
-                stack.push(pop.left);
+            TreeNode node = stack.pop();
+            helper.push(node);
+            if (node.left != null) {
+                cur = node.left;
+                stack.push(cur);
             }
-            if (pop.right != null) {
-                stack.push(pop.right);
+            if (node.right != null) {
+                cur = node.right;
+                stack.push(cur);
             }
         }
         while (!helper.isEmpty()) {
