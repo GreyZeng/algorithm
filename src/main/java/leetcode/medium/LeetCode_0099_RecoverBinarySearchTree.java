@@ -4,6 +4,7 @@
 package leetcode.medium;
 
 import java.util.Stack;
+
 // https://leetcode.cn/problems/recover-binary-search-tree/
 public class LeetCode_0099_RecoverBinarySearchTree {
     public class TreeNode {
@@ -12,9 +13,15 @@ public class LeetCode_0099_RecoverBinarySearchTree {
         TreeNode right;
     }
 
+    // Morris遍历，最优解，空间复杂度O(1)
+    public static void recoverTree(TreeNode root) {
+        // TODO
+    }
+
+    // 空间复杂度O(N)，非最优解
     // 中序遍历 第一次降序的头节点，第二次降序的尾节点
     // 这里只需要交换两个节点的val就可以AC，实际上更好的处理方式应该是节点真实的进行交换
-    public static void recoverTree(TreeNode root) {
+    public static void recoverTree2(TreeNode root) {
         TreeNode[] twoErrNodes = getTwoErrNodes(root);
         twoErrNodes[0].val = twoErrNodes[0].val ^ twoErrNodes[1].val;
         twoErrNodes[1].val = twoErrNodes[0].val ^ twoErrNodes[1].val;
@@ -45,4 +52,6 @@ public class LeetCode_0099_RecoverBinarySearchTree {
         }
         return errs;
     }
+
+
 }
