@@ -1,6 +1,3 @@
-/*You are given the root of a binary search tree (BST), where exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.
-
-        Follow up: A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?*/
 package leetcode.medium;
 
 import java.util.ArrayDeque;
@@ -20,8 +17,11 @@ public class LeetCode_0099_RecoverBinarySearchTree {
     }
 
     // 空间复杂度O(N)，非最优解
-    // 中序遍历 第一次降序的头节点，第二次降序的尾节点
-    // 这里只需要交换两个节点的val就可以AC，实际上更好的处理方式应该是节点真实的进行交换
+    // 中序遍历
+    // 第一个错误节点：第一次降序的头节点
+    // 第二个错误节点：第二次降序的尾节点
+    // 这里只需要交换两个节点的val就可以AC，
+    // 实际上更好的处理方式应该是节点真实的进行交换
     public static void recoverTree2(TreeNode root) {
         TreeNode[] twoErrNodes = getTwoErrNodes(root);
         twoErrNodes[0].val = twoErrNodes[0].val ^ twoErrNodes[1].val;
