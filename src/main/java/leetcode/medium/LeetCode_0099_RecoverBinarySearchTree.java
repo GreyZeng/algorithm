@@ -1,7 +1,9 @@
 package leetcode.medium;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 
 // https://leetcode.cn/problems/recover-binary-search-tree/
 public class LeetCode_0099_RecoverBinarySearchTree {
@@ -29,30 +31,41 @@ public class LeetCode_0099_RecoverBinarySearchTree {
         twoErrNodes[0].val = twoErrNodes[0].val ^ twoErrNodes[1].val;
     }
 
-    // 中序遍历
-    public static TreeNode[] getTwoErrNodes(TreeNode head) {
-        TreeNode[] errs = new TreeNode[2];
-        Deque<TreeNode> stack = new ArrayDeque<>();
-        TreeNode pre = null;
-        TreeNode cur = head;
-        while (!stack.isEmpty() || cur != null) {
-            if (cur != null) {
-                stack.push(cur);
-                cur = cur.left;
-            } else {
-                cur = stack.pop();
-                if (pre != null && pre.val > cur.val) {
-                    // 第一次降序的头节点
-                    errs[0] = errs[0] == null ? pre : errs[0];
-                    // 第二次降序的尾节点
-                    errs[1] = cur;
-                }
-                pre = cur;
-                cur = cur.right;
-            }
-        }
-        return errs;
+    private static TreeNode[] getTwoErrNodes(TreeNode root) {
+        // TODO
+        return null;
     }
+//    public static void recoverTree2(TreeNode root) {
+//        TreeNode[] twoErrNodes = getTwoErrNodes(root);
+//        twoErrNodes[0].val = twoErrNodes[0].val ^ twoErrNodes[1].val;
+//        twoErrNodes[1].val = twoErrNodes[0].val ^ twoErrNodes[1].val;
+//        twoErrNodes[0].val = twoErrNodes[0].val ^ twoErrNodes[1].val;
+//    }
+//
+//    // 中序遍历
+//    public static TreeNode[] getTwoErrNodes(TreeNode head) {
+//        TreeNode[] errs = new TreeNode[2];
+//        Deque<TreeNode> stack = new ArrayDeque<>();
+//        TreeNode pre = null;
+//        TreeNode cur = head;
+//        while (!stack.isEmpty() || cur != null) {
+//            if (cur != null) {
+//                stack.push(cur);
+//                cur = cur.left;
+//            } else {
+//                cur = stack.pop();
+//                if (pre != null && pre.val > cur.val) {
+//                    // 第一次降序的头节点
+//                    errs[0] = errs[0] == null ? pre : errs[0];
+//                    // 第二次降序的尾节点
+//                    errs[1] = cur;
+//                }
+//                pre = cur;
+//                cur = cur.right;
+//            }
+//        }
+//        return errs;
+//    }
 
 
 }
