@@ -29,18 +29,22 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
     }
 
     // 递归方式
-    public static List<Integer> inorderTraversal3(TreeNode root) {
+    public List<Integer> inorderTraversal1(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
         List<Integer> ans = new ArrayList<>();
-        p(root, ans);
+        in(root, ans);
         return ans;
     }
 
-    public static void p(TreeNode root, List<Integer> ans) {
-        if (root != null) {
-            p(root.left, ans);
-            ans.add(root.val);
-            p(root.right, ans);
+    private void in(TreeNode root, List<Integer> ans) {
+        if (root == null) {
+            return;
         }
+        in(root.left, ans);
+        ans.add(root.val);
+        in(root.right, ans);
     }
 
     // 【非递归】中序遍历
