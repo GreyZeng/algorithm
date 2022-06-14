@@ -1,70 +1,40 @@
-//当前是cur
-//1. cur无左树,cur = cur.right
-//2. cur有左树,找到左树最右节点mostRight
-//	a. mostRight的右指针指向null, mostRight.right = cur, cur = cur.right
-//	b. mostRight的右指针指向当前节点cur，mostRight.right = null, cur = cur.right
-//3. cur = null 停
+
 package snippet;
 
 // morris遍历
 public class Code_0047_Morris {
 
-    public static class TreeNode {
-        public int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
-
-    public static TreeNode buildTree() {
-        TreeNode N1 = new TreeNode(1);
-        TreeNode N2 = new TreeNode(2);
-        TreeNode N3 = new TreeNode(3);
-        TreeNode N4 = new TreeNode(4);
-        TreeNode N5 = new TreeNode(5);
-        TreeNode N6 = new TreeNode(6);
-        TreeNode N7 = new TreeNode(7);
-        TreeNode N8 = new TreeNode(8);
-        TreeNode N9 = new TreeNode(9);
-        TreeNode N10 = new TreeNode(10);
-        TreeNode N11 = new TreeNode(11);
-        TreeNode N12 = new TreeNode(12);
-        TreeNode N13 = new TreeNode(13);
-        N1.left = N2;
-        N1.right = N3;
-        N2.right = N4;
-        N3.left = N5;
-        N3.right = N6;
-        N4.left = N7;
-        N4.right = N8;
-        N6.left = N9;
-        N6.right = N10;
-        N7.left = N11;
-        N8.left = N12;
-        N9.right = N13;
-        return N1;
-    }
-
-
-    public static void main(String[] args) {
-        TreeNode root = buildTree();
-        morris(root);
-
-    }
-
+    //当前是cur
+    //1. cur无左树,cur = cur.right
+    //2. cur有左树,找到左树最右节点mostRight
+    //	a. mostRight的右指针指向null, mostRight.right = cur, cur = cur.right
+    //	b. mostRight的右指针指向当前节点cur，mostRight.right = null, cur = cur.right
+    //3. cur = null 停
     public static void morris(TreeNode head) {
+        if (head == null) {
+            return;
+        }
+        TreeNode cur = head;
+        TreeNode mostRight;
+        while (cur != null) {
+            mostRight = cur.left;
+            if (mostRight != null) {
+                while (mostRight.right != null && mostRight.right != cur) {
+                    mostRight = mostRight.right;
+                }
+                if (mostRight.right == null) {
+                    mostRight.right = cur;
+                    cur = cur.left;
+                    continue;
+                } else {
+                    mostRight.right = null;
+                }
+            }
+            cur = cur.right;
+        }
+    }
+
+    public static void morrisPrint(TreeNode head) {
         if (head == null) {
             return;
         }
@@ -261,19 +231,57 @@ public class Code_0047_Morris {
         return ans;
     }
 
-//    public static void main(String[] args) {
-//        TreeNode head = new TreeNode(4);
-//        head.left = new TreeNode(2);
-//        head.right = new TreeNode(6);
-//        head.left.left = new TreeNode(1);
-//        head.left.right = new TreeNode(3);
-//        head.right.left = new TreeNode(5);
-//        head.right.right = new TreeNode(7);
-//        morris(head);
-//        printTree(head);
-//        morrisIn(head);
-//        morrisPre(head);
-//        morrisPos(head);
-//        printTree(head);
-//    }
+    public static class TreeNode {
+        public int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    public static TreeNode buildTree() {
+        TreeNode N1 = new TreeNode(1);
+        TreeNode N2 = new TreeNode(2);
+        TreeNode N3 = new TreeNode(3);
+        TreeNode N4 = new TreeNode(4);
+        TreeNode N5 = new TreeNode(5);
+        TreeNode N6 = new TreeNode(6);
+        TreeNode N7 = new TreeNode(7);
+        TreeNode N8 = new TreeNode(8);
+        TreeNode N9 = new TreeNode(9);
+        TreeNode N10 = new TreeNode(10);
+        TreeNode N11 = new TreeNode(11);
+        TreeNode N12 = new TreeNode(12);
+        TreeNode N13 = new TreeNode(13);
+        N1.left = N2;
+        N1.right = N3;
+        N2.right = N4;
+        N3.left = N5;
+        N3.right = N6;
+        N4.left = N7;
+        N4.right = N8;
+        N6.left = N9;
+        N6.right = N10;
+        N7.left = N11;
+        N8.left = N12;
+        N9.right = N13;
+        return N1;
+    }
+
+
+    public static void main(String[] args) {
+        TreeNode root = buildTree();
+        morrisPrint(root);
+    }
 }
