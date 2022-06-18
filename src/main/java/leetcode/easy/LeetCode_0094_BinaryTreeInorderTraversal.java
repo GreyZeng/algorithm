@@ -85,8 +85,8 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
             return new ArrayList<>();
         }
         List<Integer> ans = new ArrayList<>();
-        TreeNode mostRight;
         TreeNode cur = root;
+        TreeNode mostRight;
         while (cur != null) {
             mostRight = cur.left;
             if (mostRight != null) {
@@ -98,12 +98,11 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
                     cur = cur.left;
                     continue;
                 } else {
-                    ans.add(cur.val);
+                    // mostRight.right = cur;
                     mostRight.right = null;
                 }
-            } else {
-                ans.add(cur.val);
             }
+            ans.add(cur.val);
             cur = cur.right;
         }
         return ans;
