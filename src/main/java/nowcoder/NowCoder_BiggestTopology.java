@@ -37,36 +37,36 @@ import java.util.Scanner;
  * @date 2021/2/13 17:09
  */
 public class NowCoder_BiggestTopology {
-    public static class Node {
-        public int value;
-        public Node left;
-        public Node right;
+    public static class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
 
-        public Node(int value) {
-            this.value = value;
+        public TreeNode(int val) {
+            this.val = val;
         }
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int count = in.nextInt();
-        Node root = new Node(in.nextInt());
-        HashMap<Integer, Node> hashMap = new HashMap<>();
-        hashMap.put(root.value, root);
+        TreeNode root = new TreeNode(in.nextInt());
+        HashMap<Integer, TreeNode> hashMap = new HashMap<>();
+        hashMap.put(root.val, root);
         int[][] nodes = new int[count][3];
         for (int i = 0; i < count; i++) {
             for (int j = 0; j < 3; j++) {
                 int num = in.nextInt();
                 if (num != 0) {
                     // 0表示无节点
-                    hashMap.put(num, new Node(num));
+                    hashMap.put(num, new TreeNode(num));
                 }
                 nodes[i][j] = num;
             }
         }
         for (int i = 0; i < count; i++) {
             int[] arr = nodes[i];
-            Node parent = hashMap.get(arr[0]);
+            TreeNode parent = hashMap.get(arr[0]);
             if (arr[1] != 0) {
                 parent.left = hashMap.get(arr[1]);
             }
@@ -74,42 +74,42 @@ public class NowCoder_BiggestTopology {
                 parent.right = hashMap.get(arr[2]);
             }
         }
-        root = hashMap.get(root.value);
+        root = hashMap.get(root.val);
         System.out.println(maxBSTSize(root));
         in.close();
     }
 
-    public static int maxBSTSize(Node head) {
-        if (head == null) {
+    public static int maxBSTSize(TreeNode root) {
+        if (root == null) {
             return 0;
         }
         // 以头为节点的最大BST拓扑结构大小是多少
-        int max = maxTopo(head, head);
+        int max = maxTopo(root, root);
         // 最大拓扑结构来自于左树
-        max = Math.max(maxBSTSize(head.left), max);
+        max = Math.max(maxBSTSize(root.left), max);
         // 最大拓扑结构来自于右树
-        max = Math.max(maxBSTSize(head.right), max);
+        max = Math.max(maxBSTSize(root.right), max);
         return max;
     }
 
-    public static int maxTopo(Node h, Node n) {
+    public static int maxTopo(TreeNode h, TreeNode n) {
         if (n == null || h == null) {
             return 0;
         }
         // 从h出发，到叶子节点，如果不是bst节点，则直接返回0（贡献值为0）
-        if (!isBSTNode(h, n, n.value)) {
+        if (!isBSTNode(h, n, n.val)) {
             return 0;
         }
         return maxTopo(h, n.left) + maxTopo(h, n.right) + 1;
     }
 
-    public static boolean isBSTNode(Node h, Node n, int value) {
+    public static boolean isBSTNode(TreeNode h, TreeNode n, int value) {
         if (h == null) {
             return false;
         }
         if (h == n) {
             return true;
         }
-        return isBSTNode(h.value > value ? h.left : h.right, n, value);
+        return isBSTNode(h.val > value ? h.left : h.right, n, value);
     }
 }

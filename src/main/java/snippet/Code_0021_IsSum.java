@@ -79,8 +79,8 @@ public class Code_0021_IsSum {
         int min = 0;
         int max = 0;
         for (int num : arr) {
-            min += num < 0 ? num : 0;
-            max += num > 0 ? num : 0;
+            min += Math.min(num, 0);
+            max += Math.max(num, 0);
         }
         // min~max
         if (sum < min || sum > max) {
