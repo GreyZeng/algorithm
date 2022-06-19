@@ -97,12 +97,4 @@ public class LeetCode_0330_PatchingArray {
         }
         return patches;
     }
-
-    public static void main(String[] args) {
-        int[] test = {1, 2, 31, 33};
-        int n = 2147483647;
-        System.out.println(minPatches(test, n));
-
-    }
-
 }
