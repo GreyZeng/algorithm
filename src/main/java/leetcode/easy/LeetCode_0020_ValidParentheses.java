@@ -1,6 +1,7 @@
 package leetcode.easy;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 // ()[]{} 三类括号
 // 栈
@@ -10,13 +11,14 @@ import java.util.Stack;
 // 左括号count++,右括号count--，任意时刻，如果count<0,直接不满足
 // https://leetcode-cn.com/problems/valid-parentheses
 // ref : https://www.lintcode.com/problem/valid-parentheses/description
+// 笔记：https://www.cnblogs.com/greyzeng/p/16353363.html
 public class LeetCode_0020_ValidParentheses {
     public boolean isValid(String s) {
         if (s == null || s.length() == 0) {
             return true;
         }
         char[] str = s.toCharArray();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> stack = new ArrayDeque<>();
         for (char c : str) {
             if (isLeft(c)) {
                 stack.push(c);
