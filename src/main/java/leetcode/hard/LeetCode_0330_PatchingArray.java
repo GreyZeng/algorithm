@@ -28,11 +28,10 @@ import java.util.Arrays;
 //        来源：力扣（LeetCode）
 //        链接：https://leetcode.cn/problems/patching-array
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-//
 public class LeetCode_0330_PatchingArray {
     // 时间复杂度：O(m+logn)
-    // 其中 m 是数组 nums 的长度，n是给定的正整数。
-    public int minPatches(int[] arr, int n) {
+    // 其中 m 是数组 arr 的长度，n是给定的正整数。
+    public static int minPatches(int[] arr, int n) {
         int patches = 0;
         long range = 1;
         int i = 0;
