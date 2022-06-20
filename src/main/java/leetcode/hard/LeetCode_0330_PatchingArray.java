@@ -21,79 +21,29 @@ import java.util.Arrays;
 //        输出: 0
 //        提示：
 //        1 <= nums.length <= 1000
-//        1 <= nums[i] <= 104
+//        1 <= nums[i] <= 10^4
 //        nums按 升序排列
-//        1 <= n <= 231- 1
+//        1 <= n <= 2^31- 1
 //
 //        来源：力扣（LeetCode）
 //        链接：https://leetcode.cn/problems/patching-array
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-// TODO
+//
 public class LeetCode_0330_PatchingArray {
-    // arr请保证有序，且正数  1~aim
-    public static int minPatches(int[] arr, int aim) {
-        int patches = 0; // 缺多少个数字
-        long range = 0; // 已经完成了1 ~ range的目标
-        Arrays.sort(arr);
-        for (int i = 0; i != arr.length; i++) {
-            // arr[i]
-            // 要求：1 ~ arr[i]-1 范围被搞定！
-            while (arr[i] - 1 > range) { // arr[i] 1 ~ arr[i]-1
-                range += range + 1; // range + 1 是缺的数字
+    // 时间复杂度：O(m+logn)
+    // 其中 m 是数组 nums 的长度，n是给定的正整数。
+    public int minPatches(int[] arr, int n) {
+        int patches = 0;
+        long range = 1;
+        int i = 0;
+        while (range <= n) {
+            if (i < arr.length && arr[i] <= range) {
+                range += arr[i];
+                i++;
+            } else {
+                range <<= 1;
                 patches++;
-                if (range >= aim) {
-                    return patches;
-                }
             }
-            // 要求被满足了！
-            range += arr[i];
-            if (range >= aim) {
-                return patches;
-            }
-        }
-        while (aim >= range + 1) {
-            range += range + 1;
-            patches++;
-        }
-        return patches;
-    }
-
-    // 嘚瑟
-    public static int minPatches2(int[] arr, int K) {
-        int patches = 0; // 缺多少个数字
-        int range = 0; // 已经完成了1 ~ range的目标
-        for (int i = 0; i != arr.length; i++) {
-            // 1~range
-            // 1 ~ arr[i]-1
-            while (arr[i] > range + 1) { // arr[i] 1 ~ arr[i]-1
-
-                if (range > Integer.MAX_VALUE - range - 1) {
-                    return patches + 1;
-                }
-
-                range += range + 1; // range + 1 是缺的数字
-                patches++;
-                if (range >= K) {
-                    return patches;
-                }
-            }
-            if (range > Integer.MAX_VALUE - arr[i]) {
-                return patches;
-            }
-            range += arr[i];
-            if (range >= K) {
-                return patches;
-            }
-        }
-        while (K >= range + 1) {
-            if (K == range && K == Integer.MAX_VALUE) {
-                return patches;
-            }
-            if (range > Integer.MAX_VALUE - range - 1) {
-                return patches + 1;
-            }
-            range += range + 1;
-            patches++;
         }
         return patches;
     }
