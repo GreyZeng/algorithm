@@ -1,35 +1,21 @@
-/*链接：https://www.nowcoder.com/questionTerminal/6e732a9632bc4d12b442469aed7fe9ce
-        来源：牛客网
-
-        二叉树的前序、中序、后序遍历的定义： 前序遍历：对任一子树，先访问跟，然后遍历其左子树，最后遍历其右子树； 
-        中序遍历：对任一子树，先遍历其左子树，然后访问根，最后遍历其右子树； 
-        后序遍历：对任一子树，先遍历其左子树，然后遍历其右子树，最后访问根。 
-        给定一棵二叉树的前序遍历和中序遍历，求其后序遍历（提示：给定前序遍历与中序遍历能够唯一确定后序遍历）。
-
-        输入描述:
-        两个字符串，其长度n均小于等于26。
-        第一行为前序遍历，第二行为中序遍历。
-        二叉树中的结点名称以大写字母表示：A，B，C....最多26个结点。
-
-
-        输出描述:
-        输入样例可能有多组，对于每组测试样例，
-        输出一行，为后序遍历的字符串。
-        示例1
-        输入
-        ABC
-        BAC
-        FDXEAG
-        XDEFAG
-        输出
-        BCA
-        XEDGAF*/
 package nowcoder;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-// 已知一棵二叉树中没有重复节点，并且给定了这棵树的中序遍历数组和先序遍历 数组，返回后序遍历数组。
+// https://www.nowcoder.com/practice/5ae5174f17674e458028ce12bc8bfe0b
+// 笔记：https://www.cnblogs.com/greyzeng/p/16406847.html
+//描述
+//给出一棵二叉树的先序和中序数组，通过这两个数组直接生成正确的后序数组。
+//输入描述：
+//第一行一个整数 n，表示二叉树的大小。
+//
+//第二行 n 个整数 a_i，表示二叉树的先序遍历数组。
+//
+//第三行 n 个整数 b_i，表示二叉树的中序遍历数组。
+//输出描述：
+//输出一行 n 个整数表示二叉树的后序遍历数组。
 // 比如给定:
 // int[] pre = { 1, 2, 4, 5, 3, 6, 7 };
 // int[] in = { 4, 2, 5, 1, 6, 3, 7 }; 返回:
@@ -41,72 +27,70 @@ import java.util.Scanner;
 // a 一定是 后序数组的最后一个位置
 // a在中序数组的位置是4， 这个位置把中序数组分成两部分，左边就是左树元素，右边就是右树元素
 public class NowCoder_PreAndMidToPos {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        while (in.hasNext()) {
-            char[] pre = in.nextLine().toCharArray();
-            char[] mid = in.nextLine().toCharArray();
-            char[] pos = preAndMidToPos2(pre, mid);
-            for (char c : pos) {
-                System.out.print(c);
-            }
-            System.out.println();
-        }
-        in.close();
-    }
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt();
+		int[] preOrder = new int[n];
+		int[] inOrder = new int[n];
+		for (int i = 0; i < n; i++) {
+			preOrder[i] = in.nextInt();
+		}
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < n; i++) {
+			inOrder[i] = in.nextInt();
+			map.put(inOrder[i], i);
+		}
+		int[] posOrder = new int[n];
+		func(preOrder, 0, n - 1, inOrder, 0, n - 1, posOrder, 0, n - 1, map); 
+		for (int i = 0; i < n; i++) {
+			System.out.print(posOrder[i] + " ");
+		}
+		in.close();
+	}
 
-    public static char[] preAndMidToPos2(char[] pre, char[] mid) {
-        int N = pre.length;
-        char[] pos = new char[N];
-        HashMap<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < N; i++) {
-            map.put(mid[i], i);
-        }
-        p2(pre, 0, N - 1, mid, 0, N - 1, pos, 0, N - 1, map);
-        return pos;
-    }
+	public static void func(int[] pre, int l1, int r1, int[] in, int l2, int r2, int[] pos, int l3, int r3) {
+		if (l1 > r1) {
+			// 避免了无效情况
+			return;
+		}
+		if (l1 == r1) {
+			// 只有一个数的时候
+			pos[l3] = pre[l1];
+		} else {
+			// 不止一个数的时候
+			pos[r3] = pre[l1];
+			// index表示某个头在中序数组中的位置
+			int index;
+			// 可以优化
+			for (index = l2; index <= r2; index++) {
+				if (in[index] == pre[l1]) {
+					break;
+				}
+			}
+			int b = index - l2;
+			func(pre, l1 + 1, l1 + b, in, l2, index - 1, pos, l3, l3 + b - 1);
+			func(pre, l1 + b + 1, r1, in, index + 1, r2, pos, l3 + b, r3 - 1);
+		}
+	}
 
-    public static void p2(char[] pre, int preL, int preR, char[] mid, int midL, int midR, char[] pos, int posL,
-            int posR, HashMap<Character, Integer> map) {
-        if (preL > preR) {
-            return;
-        }
-        if (preL == preR) {
-            pos[posL] = pre[preL];
-            return;
-        }
-        pos[posR] = pre[preL];
-        int index = map.get(pre[preL]);
-        int gap = index - midL;
-        p2(pre, preL + 1, preL + gap, mid, midL, midL + gap - 1, pos, posL, posL + gap - 1, map);
-        p2(pre, preL + gap + 1, preR, mid, midL + gap + 1, midR, pos, posL + gap, posR - 1, map);
-    }
+	public static void func(int[] pre, int l1, int r1, int[] in, int l2, int r2, int[] pos, int l3, int r3,
+			Map<Integer, Integer> map) {
+		if (l1 > r1) {
+			// 避免了无效情况
+			return;
+		}
+		if (l1 == r1) {
+			// 只有一个数的时候
+			pos[l3] = pre[l1];
+		} else {
+			// 不止一个数的时候
+			pos[r3] = pre[l1];
+			// index表示某个头在中序数组中的位置
+			int index = map.get(pre[l1]);
+			int b = index - l2;
+			func(pre, l1 + 1, l1 + b, in, l2, index - 1, pos, l3, l3 + b - 1, map);
+			func(pre, l1 + b + 1, r1, in, index + 1, r2, pos, l3 + b, r3 - 1, map);
+		}
+	}
 
-    public static char[] preAndMidToPos(char[] pre, char[] mid) {
-        int N = pre.length;
-        char[] pos = new char[N];
-        p(pre, 0, N - 1, mid, 0, N - 1, pos, 0, N - 1);
-        return pos;
-    }
-
-    public static void p(char[] pre, int preL, int preR, char[] mid, int midL, int midR, char[] pos, int posL,
-            int posR) {
-        if (preL > preR) {
-            return;
-        }
-        if (preL == preR) {
-            pos[posL] = pre[preL];
-            return;
-        }
-        pos[posR] = pre[preL];
-        int index = midL;
-        for (; index <= midR; index++) {
-            if (mid[index] == pre[preL]) {
-                break;
-            }
-        }
-        int gap = index - midL;
-        p(pre, preL + 1, preL + gap, mid, midL, midL + gap - 1, pos, posL, posL + gap - 1);
-        p(pre, preL + gap + 1, preR, mid, midL + gap + 1, midR, pos, posL + gap, posR - 1);
-    }
 }
