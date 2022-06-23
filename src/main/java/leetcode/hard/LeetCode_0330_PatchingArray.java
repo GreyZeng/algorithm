@@ -1,7 +1,5 @@
 package leetcode.hard;
 
-import java.util.Arrays;
-
 //给定一个已排序的正整数数组 nums，和一个正整数n 。从[1, n]区间内选取任意个数字补充到nums中，使得[1, n]区间内的任何数字都可以用nums中某几个数字的和来表示。
 //        请返回 满足上述要求的最少需要补充的数字个数。
 //        示例1:

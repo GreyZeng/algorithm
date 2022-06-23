@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 // https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
 // 二叉树的中序遍历
