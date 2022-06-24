@@ -3,6 +3,7 @@ package nowcoder;
 import java.util.Scanner;
 
 // 完美洗牌问题
+// 笔记：https://www.cnblogs.com/greyzeng/p/16410631.html
 // https://www.nowcoder.com/practice/90e03089da164172bf193786d242184b
 // 给定一个长度为偶数的数组arr，长度记为2*N。
 // 前N个为左部分，后N个为右部分。 arr就可以表示为{L1,L2,..,Ln,R1,R2,..,Rn}， 
