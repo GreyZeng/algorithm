@@ -46,7 +46,9 @@ public class Code_0017_Shuffle {
     }
 
     // i位置下一个位置应该去哪里
+    // i 从1开始，而不是从0开始!!!
     private static int findNextIndex(int i, int N) {
+        // return (2 * i) % (N + 1);
         if (i <= N / 2) {
             return 2 * i;
         }
