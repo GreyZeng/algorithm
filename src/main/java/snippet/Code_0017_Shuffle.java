@@ -66,7 +66,8 @@ public class Code_0017_Shuffle {
             arr[next + start - 1] = pre;
         }
     }
-// https://leetcode.cn/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/
+
+    // @see LeetCodeCN_0058_LCOF
     // L..M部分和M+1..R部分互换
     public static void rotate(int[] arr, int L, int M, int R) {
         reverse(arr, L, M);
