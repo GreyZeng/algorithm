@@ -18,23 +18,18 @@ package leetcode.easy;
 //		Output: ["h","a","n","n","a","H"]
 public class LeetCode_0344_ReverseString {
 
-    public static void reverseString(char[] s) {
-        int L = 0;
-        int R = s.length - 1;
-        while (L < R) {
-            char t = s[L];
-            s[L++] = s[R];
-            s[R--] = t;
+    public void reverseString(char[] s) {
+        int l = 0;
+        int r = s.length - 1;
+        while (l < r) {
+            swap(s, l++, r--);
         }
     }
 
-    public static void main(String[] args) {
-        String str = "abc";
-        char[] t = str.toCharArray();
-        reverseString(t);
-        for (char i : t) {
-            System.out.println(i);
-        }
+    public void swap(char[] s, int l, int r) {
+        char tmp = s[l];
+        s[l] = s[r];
+        s[r] = tmp;
     }
 
 }
