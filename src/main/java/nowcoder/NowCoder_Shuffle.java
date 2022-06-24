@@ -1,6 +1,9 @@
-package snippet;
+package nowcoder;
+
+import java.util.Scanner;
 
 // 完美洗牌问题
+// https://www.nowcoder.com/practice/90e03089da164172bf193786d242184b
 // 给定一个长度为偶数的数组arr，长度记为2*N。
 // 前N个为左部分，后N个为右部分。 arr就可以表示为{L1,L2,..,Ln,R1,R2,..,Rn}， 
 // 请将数组调整成{R1,L1,R2,L2,..,Rn,Ln}的样子。
@@ -10,8 +13,20 @@ package snippet;
 // 2) 数组长度偶数
 // @see LeetCode_0324_WiggleSortII
 // @see LeetCode_1470_ShuffleTheArray
-public class Code_0017_Shuffle {
-
+public class NowCoder_Shuffle {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
+        }
+        shuffle(arr);
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        in.close();
+    }
     public static void shuffle(int[] arr) {
         if (arr == null || arr.length == 0 || (arr.length & 1) != 0) {
             return;
