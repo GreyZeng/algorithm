@@ -8,8 +8,8 @@ package snippet;
 // 前提：
 // 1) 数组从1开始计算
 // 2) 数组长度偶数
-// leetcode：https://leetcode.cn/problems/shuffle-the-array/
 // @see LeetCode_0324_WiggleSortII
+// @see LeetCode_1470_ShuffleTheArray
 public class Code_0017_Shuffle {
 
     public static void shuffle(int[] arr) {
