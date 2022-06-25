@@ -1,5 +1,7 @@
 package leetcode.hard;
 
+import java.util.Arrays;
+
 //给定一个字符串 s，返回 s中不同的非空「回文子序列」个数 。
 //
 //通过从 s中删除 0 个或多个字符来获得子序列。
@@ -35,21 +37,58 @@ package leetcode.hard;
 //链接：https://leetcode.cn/problems/count-different-palindromic-subsequences
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0730_CountDifferentPalindromicSubsequences {
-    // TODO
     // leetcode要求不能有重复序列
+    // TODO
     public int countPalindromicSubsequences(String s) {
-        if (null == s || s.length() == 0) {
-            return 0;
-        }
         final int MOD = 1000_000_007;
-        char[] str = s.toCharArray();
-        // dp[i][j]表示i...j范围内，可以分出多少个不同的回文串
-        long[][] dp = new long[str.length][str.length];
+        int n = s.length();
+        int[][] dp = new int[n][n];
+        int[][] next = new int[n][4];
+        int[][] pre = new int[n][4];
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = 1;
+        }
+        int[] pos = new int[4];
+        Arrays.fill(pos, -1);
+        for (int i = 0; i < n; i++) {
+            for (int c = 0; c < 4; c++) {
+                pre[i][c] = pos[c];
+            }
+            pos[s.charAt(i) - 'a'] = i;
+        }
+        pos[0] = pos[1] = pos[2] = pos[3] = n;
 
-        return (int) (dp[0][s.length() - 1] % MOD);
+        for (int i = n - 1; i >= 0; i--) {
+            for (int c = 0; c < 4; c++) {
+                next[i][c] = pos[c];
+            }
+            pos[s.charAt(i) - 'a'] = i;
+        }
+
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i + len <= n; i++) {
+                int j = i + len - 1;
+                if (s.charAt(i) == s.charAt(j)) {
+                    int low = next[i][s.charAt(i) - 'a'];
+                    int high = pre[j][s.charAt(i) - 'a'];
+                    if (low > high) {
+                        dp[i][j] = (2 + dp[i + 1][j - 1] * 2) % MOD;
+                    } else if (low == high) {
+                        dp[i][j] = (1 + dp[i + 1][j - 1] * 2) % MOD;
+                    } else {
+                        dp[i][j] = (dp[i + 1][j - 1] * 2 % MOD - dp[low + 1][high - 1] + MOD) % MOD;
+                    }
+                } else {
+                    dp[i][j] = ((dp[i + 1][j] + dp[i][j - 1]) % MOD - dp[i + 1][j - 1] + MOD) % MOD;
+                }
+            }
+        }
+        return dp[0][n - 1];
     }
-
+    // 笔记：https://www.cnblogs.com/greyzeng/p/16412505.html
     // 以下解法是包含重复序列的
+    // 给定一个字符串str，当然可以生成很多子序列，返回有多少个子序列是回文子序列，空序列不算回文
+    // 比如，str = “aba”，回文子序列：{a}、{a}、 {a,a}、 {b}、{a,b,a}，返回5
     public static int ways1(String str) {
         if (str == null || str.length() == 0) {
             return 0;
@@ -73,10 +112,10 @@ public class LeetCode_0730_CountDifferentPalindromicSubsequences {
         if (pi == 0) {
             return false;
         }
-        int L = 0;
-        int R = pi - 1;
-        while (L < R) {
-            if (path[L++] != path[R--]) {
+        int l = 0;
+        int r = pi - 1;
+        while (l < r) {
+            if (path[l++] != path[r--]) {
                 return false;
             }
         }
@@ -104,7 +143,7 @@ public class LeetCode_0730_CountDifferentPalindromicSubsequences {
                 if (str[i] == str[j]) {
                     // 加1表示：str[i]和str[j]单独组成一个回文
                     // 加dp[i+1][j-1]表示：所有(i+1...j-1)区间内的子序列加上首尾两个字符组成的子序列数量
-                    dp[i][j] += dp[i + 1][j - 1] + 1;
+                    dp[i][j] = dp[i + 1][j] + dp[i][j - 1] - dp[i + 1][j - 1] + dp[i + 1][j - 1] + 1;
                 }
             }
         }
