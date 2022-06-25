@@ -1,22 +1,3 @@
-/*输入描述:
-        第一行三个整数N, K分别表示数组arr1, arr2的大小，以及需要询问的数
-        接下来一行N个整数，表示arr1内的元素
-        再接下来一行N个整数，表示arr2内的元素
-        输出描述:
-        输出K个整数表示答案
-        示例1
-        输入
-        5 4
-        1 2 3 4 5
-        3 5 7 9 11
-        输出
-        16 15 14 14
-
-
-        备注:
-        1<=N<=10^5
-        0<=arr1i,arr2i<=10^9
-        保证：1<=K<=2N*/
 package nowcoder;
 
 import java.util.*;
@@ -98,13 +79,13 @@ public class NowCoder_TwoSortedArraySumTopK {
             k--;
             biggestIndexOfArr1 = sum.x;
             biggestIndexOfArr2 = sum.y;
-            if (biggestIndexOfArr1 >= 1 && !isSet.contains((biggestIndexOfArr1 - 1)+"_"+(biggestIndexOfArr2))) {
+            if (biggestIndexOfArr1 >= 1 && !isSet.contains((biggestIndexOfArr1 - 1) + "_" + (biggestIndexOfArr2))) {
                 heap.offer(new Node(biggestIndexOfArr1 - 1, biggestIndexOfArr2, arr1[biggestIndexOfArr1 - 1] + arr2[biggestIndexOfArr2]));
-                isSet.add((biggestIndexOfArr1 - 1)+"_"+(biggestIndexOfArr2));
+                isSet.add((biggestIndexOfArr1 - 1) + "_" + (biggestIndexOfArr2));
             }
-            if (biggestIndexOfArr2 >= 1 && !isSet.contains((biggestIndexOfArr1)+"_"+(biggestIndexOfArr2 - 1))) {
+            if (biggestIndexOfArr2 >= 1 && !isSet.contains((biggestIndexOfArr1) + "_" + (biggestIndexOfArr2 - 1))) {
                 heap.offer(new Node(biggestIndexOfArr1, biggestIndexOfArr2 - 1, arr1[biggestIndexOfArr1] + arr2[biggestIndexOfArr2 - 1]));
-                 isSet.add((biggestIndexOfArr1)+"_"+(biggestIndexOfArr2 - 1));
+                isSet.add((biggestIndexOfArr1) + "_" + (biggestIndexOfArr2 - 1));
             }
         }
         return ans;
