@@ -1,7 +1,8 @@
 package snippet;
 
 // 统计不同的回文子序列的个数，可以包含重复数据
-// leetcode类似题目：https://leetcode.cn/problems/count-different-palindromic-subsequences
+// leetcode类似题目：
+// https://leetcode.cn/problems/count-different-palindromic-subsequences
 // leetcode不能包含重复数据
 public class Code_0112_PalindromeWays {
     public static int ways1(String str) {
