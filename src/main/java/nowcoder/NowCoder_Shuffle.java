@@ -6,7 +6,7 @@ import java.util.Scanner;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16410631.html
 // https://www.nowcoder.com/practice/90e03089da164172bf193786d242184b
 // 给定一个长度为偶数的数组arr，长度记为2*N。
-// 前N个为左部分，后N个为右部分。 arr就可以表示为{L1,L2,..,Ln,R1,R2,..,Rn}， 
+// 前N个为左部分，后N个为右部分。 arr就可以表示为{L1,L2,..,Ln,R1,R2,..,Rn}，
 // 请将数组调整成{R1,L1,R2,L2,..,Rn,Ln}的样子。
 //一个结论：当arr长度S = 3^k - 1 (偶数)的时候，环的出发点1,3,9...3^(k-1)
 // 前提：
@@ -28,6 +28,7 @@ public class NowCoder_Shuffle {
         }
         in.close();
     }
+
     public static void shuffle(int[] arr) {
         if (arr == null || arr.length == 0 || (arr.length & 1) != 0) {
             return;
@@ -35,15 +36,7 @@ public class NowCoder_Shuffle {
         shuffle(arr, 0, arr.length - 1);
     }
 
-    public static void swap(int[] nums, int L, int R) {
-        if (nums == null || nums.length <= 1 || R == L) {
-            return;
-        }
-        nums[L] = nums[L] ^ nums[R];
-        nums[R] = nums[L] ^ nums[R];
-        nums[L] = nums[L] ^ nums[R];
-    }
-
+    // 下标从1开始
     public static void shuffle(int[] arr, int L, int R) {
         while (R - L + 1 > 0) {
             int len = R - L + 1;
@@ -64,11 +57,11 @@ public class NowCoder_Shuffle {
     // i位置下一个位置应该去哪里
     // i 从1开始，而不是从0开始!!!
     private static int findNextIndex(int i, int N) {
-        // return (2 * i) % (N + 1);
-        if (i <= N / 2) {
-            return 2 * i;
-        }
-        return (i - N / 2) * 2 - 1;
+//        if (i <= N / 2) {
+//            return 2 * i;
+//        }
+//        return (i - N / 2) * 2 - 1;
+        return (2 * i) % (N + 1);
     }
 
     private static void toNext(int[] arr, int start, int len, int k) {
@@ -98,6 +91,15 @@ public class NowCoder_Shuffle {
         while (L < R) {
             swap(arr, L++, R--);
         }
+    }
+
+    public static void swap(int[] nums, int L, int R) {
+        if (nums == null || nums.length <= 1 || R == L) {
+            return;
+        }
+        nums[L] = nums[L] ^ nums[R];
+        nums[R] = nums[L] ^ nums[R];
+        nums[L] = nums[L] ^ nums[R];
     }
 
 }
