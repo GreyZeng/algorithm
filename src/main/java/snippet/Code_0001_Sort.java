@@ -2,7 +2,11 @@ package snippet;
 
 import java.util.Arrays;
 
-// https://www.cnblogs.com/greyzeng/p/15186769.html
+// 简单排序
+// 插入排序
+// 冒泡排序
+// 选择排序
+// 笔记：https://www.cnblogs.com/greyzeng/p/15186769.html
 public class Code_0001_Sort {
     // 插入排序
     // 和数据状况有关系
