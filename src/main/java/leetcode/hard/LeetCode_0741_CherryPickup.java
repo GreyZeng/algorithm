@@ -70,10 +70,4 @@ public class LeetCode_0741_CherryPickup {
     private static int getY2(int m, int n, int x1, int y1, int x2) {
         return x1 + y1 - x2;
     }
-
-    public static void main(String[] args) {
-        int[][] grid = {{0, 1, -1}, {1, 0, -1}, {1, 1, 1}};
-        System.out.println(cherryPickup(grid));
-    }
-
 }
