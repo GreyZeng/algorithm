@@ -65,6 +65,7 @@ public class LeetCode_0115_DistinctSubsequences {
         int[] dp = new int[n + 1];
         dp[n] = 1;
         for (int i = m - 1; i >= 0; i--) {
+            // 这里要注意，从左往右
             for (int j = 0; j <= n - 1; j++) {
                 dp[j] += (str[i] == target[j] ? dp[j + 1] : 0);
             }
