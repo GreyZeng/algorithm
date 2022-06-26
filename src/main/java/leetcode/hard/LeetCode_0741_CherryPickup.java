@@ -1,17 +1,12 @@
-/*You are given an n x n grid representing a field of cherries, each cell is one of three possible integers.
-
-        0 means the cell is empty, so you can pass through,
-        1 means the cell contains a cherry that you can pick up and pass through, or
-        -1 means the cell contains a thorn that blocks your way.
-        Return the maximum number of cherries you can collect by following the rules below:
-
-        Starting at the position (0, 0) and reaching (n - 1, n - 1) by moving right or down through valid path cells (cells with value 0 or 1).
-        After reaching (n - 1, n - 1), returning to (0, 0) by moving left or up through valid path cells.
-        When passing through a path cell containing a cherry, you pick it up, and the cell becomes an empty cell 0.
-        If there is no valid path between (0, 0) and (n - 1, n - 1), then no cherries can be collected.*/
-
 package leetcode.hard;
 
+//最大路径和
+//https://leetcode.cn/problems/cherry-pickup
+// 给定一个矩阵matrix，先从左上角开始，每一步只能往右或者往下走，走到右下角。
+//然后从右下角出发，每一步只能往上或者往左走，再回到左上角。任何一个位置的数字，只能获得一遍。返回最大路径和。
+//tips:
+// 三维dp
+// 设置两个小人，走到同一位置的时候，只算一份，路径和，就是来回的最大路径和
 public class LeetCode_0741_CherryPickup {
     public static int cherryPickup(int[][] matrix) {
         int m = matrix.length;
@@ -29,6 +24,7 @@ public class LeetCode_0741_CherryPickup {
 
     // 第一个点：(x1,y1), 第二个点(x2,y2)
     // 重要限制：来到同一个位置时，只获得一份
+    // 本来是四个可变参数，可以变为三个，因为: x1+y1=x2+y2
     public static int p(int[][] matrix, int m, int n, int x1, int y1, int x2, int[][][] dp) {
         if (dp[x1][y1][x2] != Integer.MIN_VALUE) {
             return dp[x1][y1][x2];
