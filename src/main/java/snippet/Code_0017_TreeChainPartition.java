@@ -66,9 +66,7 @@ public class Code_0017_TreeChainPartition {
             dfn = new int[n];
             tnw = new int[n--];
             int[] cnum = new int[n];
-            for (int i = 0; i < n; i++) {
-                val[i + 1] = values[i];
-            }
+            System.arraycopy(values, 0, val, 1, n);
             for (int i = 0; i < n; i++) {
                 if (father[i] == i) {
                     h = i + 1;
@@ -86,6 +84,7 @@ public class Code_0017_TreeChainPartition {
                 }
             }
         }
+
         // 收集重儿子数量
         // u 当前节点
         // f u的父节点
@@ -103,6 +102,7 @@ public class Code_0017_TreeChainPartition {
                 }
             }
         }
+
         // 给每个重链的头节点标号，根据重儿子大小
         // u当前节点
         // t是u所在重链的头部
@@ -138,6 +138,8 @@ public class Code_0017_TreeChainPartition {
             a++;
             b++;
             while (top[a] != top[b]) {
+                // a和b不在同一条重链上
+                // 谁的头部在更深，谁先跳，防止跳过
                 if (dep[top[a]] > dep[top[b]]) {
                     seg.add(dfn[top[a]], dfn[a], v, 1, n, 1);
                     a = fa[top[a]];
@@ -146,7 +148,9 @@ public class Code_0017_TreeChainPartition {
                     b = fa[top[b]];
                 }
             }
+            // 如果a和b在同一条重链上
             if (dep[a] > dep[b]) {
+                // 谁是DFS里面的小编号，谁放前
                 seg.add(dfn[b], dfn[a], v, 1, n, 1);
             } else {
                 seg.add(dfn[a], dfn[b], v, 1, n, 1);
