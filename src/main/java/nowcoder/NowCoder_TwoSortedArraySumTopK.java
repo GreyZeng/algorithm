@@ -10,7 +10,7 @@ import java.util.*;
 //右下角最大，先进大根堆，然后弹出，左边和上面的依次加入
 //不要重复加入
 //O(K*logK)
-// TODO 内存优化
+// 需要做内存优化才能AC，因为这个题目会卡空间
 public class NowCoder_TwoSortedArraySumTopK {
     public static class Node {
         public int x;
@@ -32,28 +32,15 @@ public class NowCoder_TwoSortedArraySumTopK {
         int[] arr2 = new int[n];
         for (int i = 0; i < n; i++) {
             arr1[i] = in.nextInt();
-
         }
         for (int i = 0; i < n; i++) {
             arr2[i] = in.nextInt();
         }
         int[] res = topK(arr1, arr2, n, k);
         for (int i : res) {
-            if (i != k - 1) {
-                System.out.print(i + " ");
-            } else {
-                System.out.print(i);
-            }
+            System.out.print(i + " ");
         }
         in.close();
-
-    }
-
-    public static class MyComparator implements Comparator<Node> {
-        @Override
-        public int compare(Node o1, Node o2) {
-            return o2.value - o1.value;
-        }
     }
 
     public static int[] topK(int[] arr1, int[] arr2, int n, int k) {
@@ -61,12 +48,11 @@ public class NowCoder_TwoSortedArraySumTopK {
             return null;
         }
         //k = Math.min(k, n * n);
-        PriorityQueue<Node> heap = new PriorityQueue<>(new MyComparator());
+        PriorityQueue<Node> heap = new PriorityQueue<>((o1, o2) -> o2.value - o1.value);
         int biggestIndexOfArr1 = n - 1;
         int biggestIndexOfArr2 = n - 1;
         int biggestSum = arr1[biggestIndexOfArr1] + arr2[biggestIndexOfArr2];
         int[] ans = new int[k];
-
         // boolean[][] isSet = new boolean[n][n];
         // isSet[n - 1][n - 1] = true;
         HashSet<String> isSet = new HashSet<>();
@@ -90,5 +76,4 @@ public class NowCoder_TwoSortedArraySumTopK {
         }
         return ans;
     }
-
 }
