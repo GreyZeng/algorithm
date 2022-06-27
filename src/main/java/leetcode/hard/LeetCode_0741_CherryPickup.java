@@ -7,6 +7,7 @@ package leetcode.hard;
 //tips:
 // 三维dp
 // 设置两个小人，走到同一位置的时候，只算一份，路径和，就是来回的最大路径和
+// 笔记：https://www.cnblogs.com/greyzeng/p/16415455.html
 public class LeetCode_0741_CherryPickup {
     // 动态规划
     // 三维表
