@@ -6,6 +6,7 @@ package leetcode.hard;
 // 0 <= n <= 3 * 10^4
 // 0 <= height[i] <= 10^5
 // https://leetcode.cn/problems/trapping-rain-water/
+// https://www.lintcode.com/problem/363/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16418808.html
 public class LeetCode_0042_TrappingRainWater {
     // 双指针

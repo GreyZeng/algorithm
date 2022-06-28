@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 // 1 <= m, n <= 110
 // 0 <= heightMap[i][j] <= 20000
 // https://leetcode.cn/problems/trapping-rain-water-ii/
+// https://www.lintcode.com/problem/364/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16418808.html
 public class LeetCode_0407_TrappingRainWaterII {
     public static int trapRainWater(int[][] heightMap) {
