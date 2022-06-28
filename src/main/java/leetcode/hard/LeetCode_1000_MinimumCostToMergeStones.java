@@ -39,6 +39,7 @@ Note:
 1 <= stones[i] <= 100*/
 package leetcode.hard;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/14428072.html
 public class LeetCode_1000_MinimumCostToMergeStones {
     public static int mergeStones(int[] stones, int K) {
         // k和数组长度先做一次过滤

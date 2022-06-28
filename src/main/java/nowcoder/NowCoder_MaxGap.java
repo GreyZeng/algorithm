@@ -8,6 +8,6 @@ public class NowCoder_MaxGap {
 		for (int i = 1; i < len; i++) {
 			max = Math.max(A[i], max);
 		}
-		return max - (A[0] > A[len - 1] ? A[len - 1] : A[0]);
+		return max - (Math.min(A[0], A[len - 1]));
 	}
 }
