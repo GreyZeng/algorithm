@@ -1,3 +1,7 @@
+# 镜像仓库
+
+[GitCode-Algorithm](https://gitcode.net/hotonyhui/algorithm)
+
 # 算法与数据结构学习笔记
 
 [简单排序（冒泡排序，插入排序，选择排序）](https://www.cnblogs.com/greyzeng/p/15186769.html)
