@@ -16,50 +16,82 @@
         5*/
 package nowcoder;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
-/**
- *
- * @author Young
- * @version 1.0
- * @date 2021/1/30 17:08
- */
 // https://www.nowcoder.com/practice/677a21987e5d46f1a62cded9509a94f2
 public class NowCoder_MaxUnionArray {
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		int n = in.nextInt();
-		int[] arr = new int[n];
-		for (int i = 0; i < n; i++) {
-			arr[i] = Integer.parseInt(in.next());
-		}
-		System.out.println(maxUnionArrayLen(arr));
-		in.close();
-	}
-    public static int maxUnionArrayLen(int[] arr) {
-    	if (arr == null || arr.length == 0) {
-    		return 0;
-    	}
-    	int len = 0;
-    	Set<Integer> set = new HashSet<>();
-    	for (int L = 0; L < arr.length; L++) {
-    		set.clear();
-    		int max = Integer.MIN_VALUE;
-    		int min = Integer.MAX_VALUE;
-    		for (int R = L ; R < arr.length; R++) {
-    			if (set.contains(arr[R])) {
-    				L = R;
-    				break;
-    			}
-    			max = Math.max(max, arr[R]);
-    			min = Math.max(min, arr[R]);
-    			if (max - min == R - L) {
-    				len = Math.max(len, R - L + 1);
-    			}
-    		}
-    	}
-    	return len; 
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(in.next());
+        }
+        System.out.println(getLIL2(arr));
+        in.close();
+    }
+
+    // 暴力方法，超时
+    public static int getLIL1(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        int len = 0;
+        // O(N^3 * log N)
+        for (int start = 0; start < arr.length; start++) { // 子数组所有可能的开头
+            for (int end = start; end < arr.length; end++) { // 开头为start的情况下，所有可能的结尾
+                // arr[s ... e]
+                // O(N * logN)
+                if (isIntegrated(arr, start, end)) {
+                    len = Math.max(len, end - start + 1);
+                }
+            }
+        }
+        return len;
+    }
+
+    public static boolean isIntegrated(int[] arr, int left, int right) {
+        int[] newArr = Arrays.copyOfRange(arr, left, right + 1); // O(N)
+        Arrays.sort(newArr); // O(N*logN)
+        for (int i = 1; i < newArr.length; i++) {
+            if (newArr[i - 1] != newArr[i] - 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int getLIL2(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        int len = 0;
+        int max = 0;
+        int min = 0;
+        HashSet<Integer> set = new HashSet<Integer>();
+        for (int L = 0; L < arr.length; L++) { // L 左边界
+            // L .......
+            set.clear();
+            max = Integer.MIN_VALUE;
+            min = Integer.MAX_VALUE;
+            for (int R = L; R < arr.length; R++) { // R 右边界
+                // arr[L..R]这个子数组在验证 l...R L...r+1 l...r+2
+                if (set.contains(arr[R])) {
+                    // arr[L..R]上开始 出现重复值了，arr[L..R往后]不需要验证了，
+                    // 一定不是可整合的
+                    break;
+                }
+                // arr[L..R]上无重复值
+                set.add(arr[R]);
+                max = Math.max(max, arr[R]);
+                min = Math.min(min, arr[R]);
+                if (max - min == R - L) { // L..R 是可整合的
+                    len = Math.max(len, R - L + 1);
+                }
+            }
+        }
+        return len;
     }
 }
