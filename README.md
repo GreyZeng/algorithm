@@ -1,3 +1,7 @@
+# 原仓库
+
+[Github-Algorithm](https://github.com/GreyZeng/algorithm)
+
 # 镜像仓库
 
 [GitCode-Algorithm](https://gitcode.net/hotonyhui/algorithm)
