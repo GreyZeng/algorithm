@@ -10,51 +10,64 @@ import java.util.Map;
 // n = 3 https://leetcode-cn.com/problems/majority-element-ii/
 // n = k https://www.nowcoder.com/questionTerminal/4d448650c0324df08c40c614226026ad
 public class LeetCode_0229_MajorityElementII {
-    public List<Integer> majorityElement(int[] nums) {
-        List<Integer> res = new ArrayList<>();
-        if (nums == null || nums.length == 0) {
-            return res;
+
+    public static List<Integer> majorityElement(int[] arr) {
+        List<Integer> ans = new ArrayList<>();
+        // 处理边界
+        if (arr == null || arr.length == 0) {
+            return ans;
         }
-        int cand1 = nums[0], count1 = 0;
-        int cand2 = nums[0], count2 = 0;
-        for (int num : nums) {
-            if (cand1 == num) {
-                count1++;
-                continue;
-            }
-            if (cand2 == num) {
-                count2++;
-                continue;
-            }
-            if (count1 == 0) {
-                cand1 = num;
-                count1++;
-                continue;
-            }
-            if (count2 == 0) {
-                cand2 = num;
-                count2++;
-                continue;
-            }
-            count1--;
-            count2--;
+        // 处理边界
+        if (arr.length == 1) {
+            ans.add(arr[0]);
+            return ans;
         }
-        count1 = 0;
-        count2 = 0;
-        for (int num : nums) {
-            if (cand1 == num) {
-                count1++;
-            } else if (cand2 == num) {
-                count2++;
+        // 处理边界
+        if (arr.length == 2) {
+            ans.add(arr[0]);
+            if (arr[0] != arr[1]) {
+                ans.add(arr[1]);
+            }
+            return ans;
+        }
+        int n = arr.length;
+        int hp1 = 0;
+        int hp2 = 0;
+        int v1 = arr[0];
+        int v2 = arr[0];
+        for (int e : arr) {
+            if (e == v1) {
+                hp1++;
+            } else if (e == v2) {
+                hp2++;
+            } else if (hp1 == 0) {
+                v1 = e;
+                hp1 = 1;
+            } else if (hp2 == 0) {
+                v2 = e;
+                hp2 = 1;
+            } else {
+                hp1--;
+                hp2--;
             }
         }
-        if (count1 > nums.length / 3) {
-            res.add(cand1);
+        // 最后验证一下
+        int n1 = 0;
+        int n2 = 0;
+        for (int e : arr) {
+            if (e == v1) {
+                n1++;
+            } else if (e == v2) {
+                n2++;
+            }
         }
-        if (count2 > nums.length / 3) {
-            res.add(cand2);
+        if (n1 > n / 3) {
+            ans.add(v1);
         }
-        return res;
+        if (n2 > n / 3) {
+            ans.add(v2);
+        }
+        return ans;
     }
 
     // 推广到k

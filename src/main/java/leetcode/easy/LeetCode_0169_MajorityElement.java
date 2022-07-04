@@ -1,8 +1,5 @@
 package leetcode.easy;
 
-
-import java.util.ArrayList;
-
 // 水王数问题
 // 1. 找到数组中，严格大于一半的数
 // 扩展
@@ -17,9 +14,12 @@ public class LeetCode_0169_MajorityElement {
         int n = arr.length;
         int ans = arr[0];
         int hp = 1;
-        for (int i = 1; i < arr.length; i++) {
+        for (int i = 1; i < n; i++) {
             if (arr[i] == ans) {
                 hp++;
+                if (hp > n / 2) {
+                    return arr[i];
+                }
             } else {
                 hp--;
                 if (hp == 0) {
@@ -37,6 +37,8 @@ public class LeetCode_0169_MajorityElement {
         if (count > n / 2) {
             return ans;
         }
+        // 根据题目设定来配置，LeetCode是不会走到这步
         return -1;
     }
+   
 }
