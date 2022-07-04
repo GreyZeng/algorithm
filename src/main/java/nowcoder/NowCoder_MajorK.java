@@ -18,7 +18,7 @@ public class NowCoder_MajorK {
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
-        List<Integer> ans = major2(arr, k);
+        List<Integer> ans = major(arr, k);
         if (ans.isEmpty()) {
             System.out.println(-1);
         } else {
@@ -31,7 +31,7 @@ public class NowCoder_MajorK {
 
     // 空间复杂度：O(K)
     // 推广到k
-    public static List<Integer> major2(int[] arr, int k) {
+    public static List<Integer> major(int[] arr, int k) {
         List<Integer> ans = new ArrayList<>();
         if (k < 2) {
             return ans;
