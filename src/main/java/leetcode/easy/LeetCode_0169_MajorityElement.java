@@ -1,6 +1,8 @@
 package leetcode.easy;
 
 
+import java.util.ArrayList;
+
 // 水王数问题
 // 1. 找到数组中，严格大于一半的数
 // 扩展
