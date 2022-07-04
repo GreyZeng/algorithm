@@ -5,7 +5,7 @@ package leetcode.easy;
 // 扩展
 // 2. 找到数组中，严格大于1/3的数
 // 3. 找到数组中，严格大于1/K的数
-// https://www.cnblogs.com/greyzeng/p/14410280.html
+// 笔记： https://www.cnblogs.com/greyzeng/p/14410280.html
 public class LeetCode_0169_MajorityElement {
     // tips:每次删除两个不同的数，这个数肯定会剩下来
     // 但是最后剩下来的数，不一定是水王数，比如:[1,2,3,4,5]
