@@ -3,11 +3,13 @@ package leetcode.medium;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class LeetCode_0017_LetterCombinationsOfAPhoneNumber {
 
     public static final char[][] MAP = {{}, {}, {'a', 'b', 'c'}, {'d', 'e', 'f'}, {'g', 'h', 'i'},
             {'j', 'k', 'l'}, {'m', 'n', 'o'}, {'p', 'q', 'r', 's'}, {'t', 'u', 'v'}, {'w', 'x', 'y', 'z'}};
 
+    // DFS深度优先遍历
     public static List<String> letterCombinations(String digits) {
         if (null == digits) {
             return null;
