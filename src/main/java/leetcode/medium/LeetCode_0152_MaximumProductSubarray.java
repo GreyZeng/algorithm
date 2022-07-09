@@ -15,18 +15,19 @@ package leetcode.medium;
 public class LeetCode_0152_MaximumProductSubarray {
 
     // 最大累积有可能需要前一步的最小累积
-    public static int maxProduct(int[] nums) {
-        int preMax = nums[0];
-        int preMin = nums[0];
-        int max = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            int t1 = nums[i];
-            int t2 = nums[i] * preMax;
-            int t3 = nums[i] * preMin;
-            preMax = Math.max(Math.max(t1, t2), t3);
-            preMin = Math.min(Math.min(t1, t2), t3);
-            max = Math.max(preMax, max);
+    public static int maxProduct(int[] arr) {
+        int ans = arr[0];
+        int max = arr[0];
+        int min = arr[0];
+        int n = arr.length;
+        for (int i = 1; i < n; i++) {
+            int c = arr[i];
+            int p1 = min * c;
+            int p2 = max * c;
+            max = Math.max(c, Math.max(p1, p2));
+            min = Math.min(c, Math.min(p1, p2));
+            ans = Math.max(ans, max);
         }
-        return max;
+        return ans;
     }
 }
