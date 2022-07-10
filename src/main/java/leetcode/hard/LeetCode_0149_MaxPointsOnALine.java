@@ -1,6 +1,7 @@
 package leetcode.hard;
 
 import java.util.HashMap;
+import java.util.Map;
 
 //给定两个数组arrx和arry，长度都为N。代表二维平面上有N个点，第i个点的x 坐标和y坐标分别为arrx[i]和arry[i]，返回求一条直线最多能穿过多少个点?
 //        tips:
@@ -11,68 +12,62 @@ import java.util.HashMap;
 //        3. a 和 x 共x
 //        4. a 和 x 有斜率 如何表示斜率？ 最大公约数以后用字符串拼接
 // https://leetcode-cn.com/problems/max-points-on-a-line/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16464473.html
 public class LeetCode_0149_MaxPointsOnALine {
 
-    // 共位置
-    // 共享斜率
-    // 斜率表 最简分数来表示斜率（拼接成字符串）
-    // 点关系
-    //   1. 共位置
-    //   2. 共斜率
     public static int maxPoints(int[][] points) {
-        if (null == points || points.length == 0) {
+        if (points == null || points.length == 0) {
             return 0;
         }
         if (points.length == 1) {
             return 1;
         }
-        // HashMap<String, HashSet<Integer>> map = new HashMap<>(); // 这样的话效率要低一些
-        int max = 0;
-        HashMap<Integer, HashMap<Integer, Integer>> map = new HashMap<>();
+        int max = 1;
+        // map形如(3,(4,10)) 表示：斜率为3/4的点有10个
+        Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
         for (int i = 0; i < points.length; i++) {
             map.clear();
-            int same = 1;
-            int sameX = 0;
-            int sameY = 0;
-            int line = 0;
+            int sameY = 1;
+            int sameX = 1;
+            int sameSlope = 1;
+            int x1 = points[i][0];
+            int y1 = points[i][1];
             for (int j = i + 1; j < points.length; j++) {
-                int x = points[i][0] - points[j][0];
-                int y = points[i][1] - points[j][1];
-                if (x == 0 && y == 0) {
-                    same++;
-                } else if (x == 0) {
+                int x2 = points[j][0];
+                int y2 = points[j][1];
+                if (x2 == x1) {
                     sameX++;
-                } else if (y == 0) {
+                } else if (y2 == y1) {
                     sameY++;
                 } else {
-                    int z = gcd(x, y);
-                    int m = x / z;
-                    int n = y / z;
-
-                    if (map.containsKey(m)) {
-                        HashMap<Integer, Integer> t = map.get(m);
-                        if (t.containsKey(n)) {
-                            t.put(n, t.get(n) + 1);
+                    int rangeY = y2 - y1;
+                    int rangeX = x2 - x1;
+                    int z = gcd(rangeX, rangeY);
+                    rangeY = rangeY / z;
+                    rangeX = rangeX / z;
+                    if (map.containsKey(rangeY)) {
+                        Map<Integer, Integer> m = map.get(rangeY);
+                        if (m.containsKey(rangeX)) {
+                            m.put(rangeX, m.get(rangeX) + 1);
+                            map.put(rangeY, m);
                         } else {
-                            t.put(n, 1);
+                            m.put(rangeX, 2);
+                            map.put(rangeY, m);
                         }
                     } else {
-                        HashMap<Integer, Integer> t = new HashMap<>();
-                        t.put(n, 1);
-                        map.put(m, t);
+                        Map<Integer, Integer> m = new HashMap<>();
+                        m.put(rangeX, 2);
+                        map.put(rangeY, m);
                     }
-                    line = Math.max(map.get(m).get(n), line);
+                    sameSlope = Math.max(map.get(rangeY).get(rangeX), sameSlope);
                 }
-
+                max = Math.max(max, Math.max(Math.max(sameX, sameY), sameSlope));
             }
-            max = Math.max(Math.max(Math.max(sameX, sameY), line) + same, max);
-
         }
         return max;
     }
 
-    public static int gcd(int m, int n) {
+    private static int gcd(int m, int n) {
         return n == 0 ? m : gcd(n, m % n);
     }
-
 }
