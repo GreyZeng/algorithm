@@ -1,38 +1,13 @@
 package leetcode.medium;
 
-//Given a binary tree, find the length of the longest path where each node in the path has the same value. This path may or may not pass through the root.
+//给定一个二叉树的 root ，返回 最长的路径的长度 ，这个路径中的 每个节点具有相同值 。
+// 这条路径可以经过也可以不经过根节点。
 //
-//        The length of path between two nodes is represented by the number of edges between them.
+// 两个节点之间的路径长度 由它们之间的边数表示。
 //
-//
-//
-//        Example 1:
-//
-//        Input:
-//
-//        5
-//        / \
-//        4   5
-//        / \   \
-//        1   1   5
-//        Output: 2
-//
-//
-//
-//        Example 2:
-//
-//        Input:
-//
-//        1
-//        / \
-//        4   5
-//        / \   \
-//        4   4   5
-//        Output: 2
-//
-//
-//
-//        Note: The given binary tree has not more than 10000 nodes. The height of the tree is not more than 1000.
+//来源：力扣（LeetCode）
+//链接：https://leetcode.cn/problems/longest-univalue-path
+//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0687_LongestUnivaluePath {
     public static class TreeNode {
         int val;
@@ -53,69 +28,66 @@ public class LeetCode_0687_LongestUnivaluePath {
         }
     }
 
-
     public static int longestUnivaluePath(TreeNode root) {
-        return process(root).max;
+        return p(root).max;
     }
 
-    public static class Info {
-        public int max;
-        public int len;
-
-        public Info(int max, int len) {
-            this.max = max;
-            this.len = len;
-        }
-    }
-
-    public static Info process(TreeNode root) {
+    public static Info p(TreeNode root) {
         if (root == null) {
             return new Info(0, 0);
         }
         if (root.left == null && root.right == null) {
             return new Info(0, 0);
         }
-        int max;  // 实际最大
-        int len; // 向一侧扎到最深
-        if (null == root.left) {
-            Info right = process(root.right);
-            if (root.right.val == root.val) {
-                len = right.len + 1;
-                max = Math.max(len, right.max);
-            } else {
-                len = 0;
-                max = right.max;
+        if (root.left == null) {
+            // root.right != null
+            Info right = p(root.right);
+            int len = 0;
+            if (root.val == root.right.val) {
+                len = (right.len + 1);
             }
+            int max = Math.max(right.max, Math.max(len, right.len));
             return new Info(max, len);
         }
+        if (root.right == null) {
+            Info left = p(root.left);
+            int len = 0;
+            if (root.val == root.left.val) {
+                len = (left.len + 1);
+            }
+            int max = Math.max(left.max, Math.max(len, left.len));
+            return new Info(max, len);
+        }
+        Info left = p(root.left);
+        Info right = p(root.right);
 
-        if (null == root.right) {
-            Info left = process(root.left);
-            if (root.left.val == root.val) {
-                len = left.len + 1;
-                max = Math.max(left.max, len);
-            } else {
-                len = 0;
-                max = left.max;
-            }
+        if (root.val == root.left.val && root.val == root.right.val) {
+            int len = Math.max(left.len, right.len) + 1;
+            int max = Math.max(Math.max(left.max, right.max), (left.len + right.len + 2));
             return new Info(max, len);
         }
-        Info left = process(root.left);
-        Info right = process(root.right);
-        if (root.right.val == root.val && root.left.val == root.val) {
-            len = Math.max(right.len, left.len) + 1;
-            max = Math.max(Math.max(right.len + left.len + 2, right.max), left.max);
-        } else if (root.left.val == root.val) {
-            len = left.len + 1;
-            max = Math.max(Math.max(len, right.max), left.max);
-        } else if (root.right.val == root.val) {
-            len = right.len + 1;
-            max = Math.max(Math.max(len, right.max), left.max);
-        } else {
-            len = 0;
-            max = Math.max(right.max, left.max);
+        if (root.val == root.right.val) {
+            int len = right.len + 1;
+            int max = Math.max(len, Math.max(right.max, left.max));
+            return new Info(max, len);
         }
-        return new Info(max, len);
+        if (root.val == root.left.val) {
+            int len = left.len + 1;
+            int max = Math.max(len, Math.max(left.max, right.max));
+            return new Info(max, len);
+        }
+        return new Info(Math.max(Math.max(left.max, right.max), Math.max(left.len, right.len)), 0);
     }
 
+    public static class Info {
+        // 全局最大值
+        public int max;
+        // 头节点左右可以扎到多深
+        public int len;
+
+        public Info(int m, int n) {
+            max = m;
+            len = n;
+        }
+    }
 }
