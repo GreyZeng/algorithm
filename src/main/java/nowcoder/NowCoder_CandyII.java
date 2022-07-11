@@ -5,6 +5,7 @@ import java.util.Scanner;
 // 进阶分糖果问题
 //链接：https://www.nowcoder.com/questionTerminal/de342201576e44548685b6c10734716e
 // 原始问题：https://leetcode-cn.com/problems/candy/
+// 环形分糖果问题 @see Code_0112_CircleCandy
 public class NowCoder_CandyII {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
