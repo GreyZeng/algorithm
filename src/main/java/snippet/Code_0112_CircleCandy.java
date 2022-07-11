@@ -15,13 +15,16 @@ public class Code_0112_CircleCandy {
         int n = arr.length;
         int minIndex = 0;
         for (int i = 0; i < n; i++) {
-            if (arr[i] <= arr[lastIndex(i, n)] && arr[i] <= arr[nextIndex(i, n)]) {
+            // 寻找洼地
+            if (arr[i] <= arr[last(i, n)] && arr[i] <= arr[next(i, n)]) {
                 minIndex = i;
                 break;
             }
         }
+        // 原始数组为[3,4,2,3,2]
+        // nums数组为[2,3,2,3,4,2]
         int[] nums = new int[n + 1];
-        for (int i = 0; i <= n; i++, minIndex = nextIndex(minIndex, n)) {
+        for (int i = 0; i <= n; i++, minIndex = next(minIndex, n)) {
             nums[i] = arr[minIndex];
         }
         int[] left = new int[n + 1];
@@ -34,23 +37,26 @@ public class Code_0112_CircleCandy {
         for (int i = n - 1; i >= 0; i--) {
             right[i] = nums[i] > nums[i + 1] ? (right[i + 1] + 1) : 1;
         }
-        int ans = 0;
+        int sum = 0;
+        // 这里不是到n而是到n-1，因为n是占位的，不需要统计进去
         for (int i = 0; i < n; i++) {
-            ans += Math.max(left[i], right[i]);
+            sum += Math.max(left[i], right[i]);
         }
-        return ans;
+        return sum;
     }
 
-    public static int nextIndex(int i, int n) {
+    // 环形数组的下一个位置
+    private static int next(int i, int n) {
         return i == n - 1 ? 0 : (i + 1);
     }
 
-    public static int lastIndex(int i, int n) {
+    // 环形数组的上一个位置
+    private static int last(int i, int n) {
         return i == 0 ? (n - 1) : (i - 1);
     }
 
     public static void main(String[] args) {
-        int[] arr = { 3, 4, 2, 3, 2 };
+        int[] arr = {3, 4, 2, 3, 2};
         System.out.println(minCandy(arr));
     }
 }
