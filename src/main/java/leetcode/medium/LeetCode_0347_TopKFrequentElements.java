@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-
 // Hash表词频    + 小根堆（拿次数排序，大小是K）
 public class LeetCode_0347_TopKFrequentElements {
 
@@ -53,9 +52,12 @@ public class LeetCode_0347_TopKFrequentElements {
         Set<Integer> keys = freq.keySet();
         for (Integer key : keys) {
             Node t = freq.get(key);
+            // 没形成k个元素，或者达到了门槛要求，进入堆
             if (topK.size() <= k || topK.peek().times < t.times) {
                 topK.add(t);
             }
+            // 已经要超过k了，就每次弹出一个
+            // 确保堆中保留k个元素
             if (topK.size() > k) {
                 topK.poll();
             }
