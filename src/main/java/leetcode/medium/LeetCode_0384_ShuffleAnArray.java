@@ -50,7 +50,7 @@ public class LeetCode_0384_ShuffleAnArray {
             return origin;
         }
 
-
+        // 0...i随机选一个位置的值和i上的值进行交换
         public int[] shuffle() {
             int index = origin.length - 1;
             // 0...i随机选一个位置去和最后一个位置
