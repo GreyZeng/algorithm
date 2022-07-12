@@ -53,7 +53,6 @@ public class LeetCode_0384_ShuffleAnArray {
         // 0...i随机选一个位置的值和i上的值进行交换
         public int[] shuffle() {
             int index = origin.length - 1;
-            // 0...i随机选一个位置去和最后一个位置
             for (int i = origin.length - 1; i >= 1; i--) {
                 swap(helper, (int) (Math.random() * origin.length), index--);
             }
