@@ -1,62 +1,45 @@
 package leetcode.medium;
 
-//Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+//给定一个包含n + 1 个整数的数组nums ，其数字都在[1, n]范围内（包括 1 和 n），可知至少存在一个重复的整数。
+//假设 nums 只有 一个重复的整数 ，返回这个重复的数 。
+//你设计的解决方案必须 不修改 数组 nums 且只用常量级 O(1) 的额外空间。
+//示例 1：
+//输入：nums = [1,3,4,2,2]
+//输出：2
+//示例 2：
+//输入：nums = [3,1,3,4,2]
+//输出：3
+//提示：
+//1 <= n <= 10^5
+//nums.length == n + 1
+//1 <= nums[i] <= n
+//nums 中 只有一个整数 出现 两次或多次 ，其余整数均只出现 一次
+//进阶：
+//如何证明 nums 中至少存在一个重复的数字?
+//你可以设计一个线性级时间复杂度 O(n) 的解决方案吗？
 //
-//        There is only one duplicate number in nums, return this duplicate number.
-//
-//        Follow-ups:
-//
-//        How can we prove that at least one duplicate number must exist in nums?
-//        Can you solve the problem without modifying the array nums?
-//        Can you solve the problem using only constant, O(1) extra space?
-//        Can you solve the problem with runtime complexity less than O(n2)?
-//
-//
-//        Example 1:
-//
-//        Input: nums = [1,3,4,2,2]
-//        Output: 2
-//        Example 2:
-//
-//        Input: nums = [3,1,3,4,2]
-//        Output: 3
-//        Example 3:
-//
-//        Input: nums = [1,1]
-//        Output: 1
-//        Example 4:
-//
-//        Input: nums = [1,1,2]
-//        Output: 1
-//
-//
-//        Constraints:
-//
-//        2 <= n <= 3 * 104
-//        nums.length == n + 1
-//        1 <= nums[i] <= n
-//        All the integers in nums appear only once except for precisely one integer which appears two or more times.
+//来源：力扣（LeetCode）
+//链接：https://leetcode.cn/problems/find-the-duplicate-number
+//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0287_FindTheDuplicateNumber {
     // 单链表入环节点就是重复数字
-    public static int findDuplicate(int[] nums) {
-
-        int s = nums[0];
-        int f = nums[nums[0]];
-
-        while (s != f) {
-            s = nums[s];
-            f = nums[nums[f]];
+    public static int findDuplicate(int[] arr) {
+        int s = arr[0];
+        int f = arr[arr[0]];
+        // 快指针一次走两步
+        // 慢指针一次走一步
+        while (f != s) {
+            s = arr[s];
+            f = arr[arr[f]];
         }
+        // 一定会相遇
+        // 相遇后，快指针回到0位置，然后一次走一步
+        // 慢指针也是一次走一步，一定会在入环节点相遇
         f = 0;
         while (s != f) {
-            s = nums[s];
-            f = nums[f];
+            f = arr[f];
+            s = arr[s];
         }
         return s;
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {3, 1, 3, 4, 2};
-        System.out.println(findDuplicate(arr));
     }
 }
