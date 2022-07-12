@@ -41,6 +41,7 @@ import java.util.Map;
 //        来源：力扣（LeetCode）
 //        链接：https://leetcode-cn.com/problems/insert-delete-getrandom-o1
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// 笔记：https://www.cnblogs.com/greyzeng/p/16469749.html
 public class LeetCode_0380_InsertDeleteGetRandom {
     public static class RandomizedSet {
         // 某个val在哪个位置
