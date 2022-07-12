@@ -37,7 +37,7 @@ package lintcode.medium;
 // lintcode : https://www.lintcode.com/problem/find-the-celebrity/description
 public class LintCode_0645_FindTheCelebrity {
     // 它会告诉你A是否知道B
-    public static boolean knows(int a, int b) {
+    public boolean knows(int a, int b) {
         if (a == 0 && b == 1) {
             return true;
         }
@@ -45,7 +45,7 @@ public class LintCode_0645_FindTheCelebrity {
     }
 
     // tips:明星一开始等于0，如果0认识了i，把i改为明星的候选
-    public static int findCelebrity(int n) {
+    public int findCelebrity(int n) {
         if (n == 0) {
             return -1;
         }
