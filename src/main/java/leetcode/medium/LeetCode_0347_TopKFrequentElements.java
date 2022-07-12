@@ -20,53 +20,56 @@ package leetcode.medium;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Set;
 
-// Hash表词频    + 小根堆（拿次数排序，大小是K）
+// https://leetcode.cn/problems/top-k-frequent-elements/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16469101.html
+// Hash表词频 + 小根堆（拿次数排序，大小是K就开始收集）
 public class LeetCode_0347_TopKFrequentElements {
 
     public static class Node {
-        public int value;
-        public int times;
+        // 值
+        public int v;
+        // 次数
+        public int t;
 
         public Node(int value, int times) {
-            this.value = value;
-            this.times = times;
+            v = value;
+            t = times;
         }
     }
 
-    public int[] topKFrequent(int[] nums, int k) {
-        if (nums == null || nums.length == 0 || nums.length < k) {
+    public static int[] topKFrequent(int[] arr, int k) {
+        if (arr == null || arr.length == 0 || arr.length < k) {
             return null;
         }
-        HashMap<Integer, Node> freq = new HashMap<>();
-        for (int i : nums) {
-            if (!freq.containsKey(i)) {
-                freq.put(i, new Node(i, 1));
+        Map<Integer, Node> freqMap = new HashMap<>();
+        for (int n : arr) {
+            if (freqMap.containsKey(n)) {
+                freqMap.get(n).t++;
             } else {
-                freq.put(i, new Node(i, freq.get(i).times + 1));
+                freqMap.put(n, new Node(n, 1));
             }
         }
-        PriorityQueue<Node> topK = new PriorityQueue<>(Comparator.comparingInt(o -> o.times));
-        Set<Integer> keys = freq.keySet();
-        for (Integer key : keys) {
-            Node t = freq.get(key);
-            // 没形成k个元素，或者达到了门槛要求，进入堆
-            if (topK.size() <= k || topK.peek().times < t.times) {
-                topK.add(t);
+        // 字符种类没有k个，无法得到结果
+        if (freqMap.size() < k) {
+            return null;
+        }
+        int[] ans = new int[k];
+        PriorityQueue<Node> topK = new PriorityQueue<>(k, Comparator.comparingInt(o -> o.t));
+        for (Map.Entry<Integer, Node> entry : freqMap.entrySet()) {
+            if (topK.size() <= k || topK.peek().t < entry.getValue().t) {
+                topK.offer(entry.getValue());
             }
-            // 已经要超过k了，就每次弹出一个
-            // 确保堆中保留k个元素
             if (topK.size() > k) {
                 topK.poll();
             }
         }
-        int[] res = new int[k];
-        for (int i = 0; i < k; i++) {
-            res[i] = topK.poll().value;
+        int i = 0;
+        while (!topK.isEmpty()) {
+            ans[i++] = topK.poll().v;
         }
-        return res;
+        return ans;
     }
-
 }
