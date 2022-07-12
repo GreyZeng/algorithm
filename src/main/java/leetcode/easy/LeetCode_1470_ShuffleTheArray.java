@@ -1,10 +1,10 @@
 package leetcode.easy;
-// 笔记：https://www.cnblogs.com/greyzeng/p/16410631.html
+
 //给你一个数组 nums ，数组中有 2n 个元素，按 [x1,x2,...,xn,y1,y2,...,yn] 的格式排列。
 //
 //请你将数组按 [x1,y1,x2,y2,...,xn,yn] 格式重新排列，返回重排后的数组。
 //
-// 
+//
 //
 //示例 1：
 //
@@ -19,7 +19,7 @@ package leetcode.easy;
 //
 //输入：nums = [1,1,2,2], n = 2
 //输出：[1,2,1,2]
-// 
+//
 //
 //提示：
 //
@@ -30,16 +30,18 @@ package leetcode.easy;
 //来源：力扣（LeetCode）
 //链接：https://leetcode.cn/problems/shuffle-the-array
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-// @see Code_0017_Shuffle
+// 完美洗牌问题
+// @see NowCoder_Shuffle
+// 笔记：https://www.cnblogs.com/greyzeng/p/16410631.html
 public class LeetCode_1470_ShuffleTheArray {
     public int[] shuffle(int[] arr, int n) {
         shuffle(arr);
-        for (int i = 0; i < arr.length; i+=2) {
-            reverse(arr,i,i+1);
+        for (int i = 0; i < arr.length; i += 2) {
+            reverse(arr, i, i + 1);
         }
         return arr;
     }
-    
+
     public static void shuffle(int[] arr) {
         if (arr == null || arr.length == 0 || (arr.length & 1) != 0) {
             return;
