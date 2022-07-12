@@ -20,12 +20,10 @@
         Could you do it without using any loop / recursion?*/
 package leetcode.easy;
 
-
+// https://leetcode.cn/problems/power-of-three/submissions/
 public class LeetCode_0326_PowerOfThree {
     /// 1162261467 = 3^19  整型范围内3的最大次幂值
     public boolean isPowerOfThree(int n) {
         return (n > 0 && 1162261467 % n == 0);
     }
-
-
 }
