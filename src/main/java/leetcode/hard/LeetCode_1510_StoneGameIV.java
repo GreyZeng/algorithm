@@ -47,6 +47,7 @@ import java.util.Arrays;
 //来源：力扣（LeetCode）
 //链接：https://leetcode.cn/problems/stone-game-iv
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// Tips:牛羊吃草  O(N*根号N）
 public class LeetCode_1510_StoneGameIV {
 
     // 暴力解法 LeetCode超时
@@ -109,6 +110,9 @@ public class LeetCode_1510_StoneGameIV {
         for (int i = 1; i * i <= n; i++) {
             // 这种情况，先手绝对赢
             dp[i * i] = 1;
+            if (i * i == n) {
+                return dp[n] == 1;
+            }
         }
         for (int i = 2; i <= n; i++) {
             for (int j = 1; j * j <= i; j++) {
