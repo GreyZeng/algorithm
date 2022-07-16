@@ -18,7 +18,8 @@
 // 9   6 3   1
 package leetcode.easy;
 
-
+// 翻转二叉树
+// https://leetcode.cn/problems/invert-binary-tree/
 public class LeetCode_0226_InvertBinaryTree {
 
     public class TreeNode {
@@ -31,14 +32,9 @@ public class LeetCode_0226_InvertBinaryTree {
         if (root == null) {
             return null;
         }
-        if (root.left == null && root.right == null) {
-            return root;
-        }
-        TreeNode r = root.right;
-        root.right = invertTree(root.left);
-        root.left = invertTree(r);
+        TreeNode left = root.left;
+        root.left = invertTree(root.right);
+        root.right = invertTree(left);
         return root;
     }
-
-
 }
