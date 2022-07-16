@@ -1,60 +1,61 @@
-/*Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
-
-		Find all the elements of [1, n] inclusive that do not appear in this array.
-
-		Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
-
-		Example:
-
-		Input:
-		[4,3,2,7,8,2,3,1]
-
-		Output:
-		[5,6]*/
 package leetcode.easy;
 
 
 import java.util.ArrayList;
 import java.util.List;
-// 下标循环怼
-public class LeetCode_0448_FindAllNumbersDisappearedInAnArray {
 
-    public static List<Integer> findDisappearedNumbers(int[] nums) {
-        List<Integer> list = new ArrayList<>();
-        if (nums == null || nums.length == 0) {
-            return list;
-        }
-        int n = nums.length;
-        for (int i = 0; i < n; i++) {
-            if (nums[i] != i + 1) {
-                cycle(nums, i);
+//给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在 [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。
+//        示例 1：
+//
+//        输入：nums = [4,3,2,7,8,2,3,1]
+//        输出：[5,6]
+//        示例 2：
+//
+//        输入：nums = [1,1]
+//        输出：[2]
+//        提示：
+//        n == nums.length
+//        1 <= n <= 10^5
+//        1 <= nums[i] <= n
+//
+//        来源：力扣（LeetCode）
+//        链接：https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array
+//        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// 下标循环怼
+// https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array/
+public class LeetCode_0448_FindAllNumbersDisappearedInAnArray {
+    // 0号位置必须是1
+    // 1号位置必须是2
+    public List<Integer> findDisappearedNumbers(int[] arr) {
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != i + 1) {
+                cycle(arr, i);
             }
         }
-        for (int i = 0; i < n; i++) {
-            if (nums[i] != i + 1) {
-                list.add(i + 1);
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != i + 1) {
+                ans.add(i + 1);
             }
         }
-        return list;
+        return ans;
     }
 
-    private static void cycle(int[] nums, int i) {
-        while (nums[i] != i + 1) {
-            int t = nums[i];
-            if (nums[t - 1] == t) {
+    private void cycle(int[] arr, int i) {
+        while (arr[i] != i + 1) {
+            int t = arr[i];
+            if (arr[t - 1] == t) {
                 break;
             }
-            int m = nums[t - 1];
-            nums[t - 1] = t;
-            nums[i] = m;
+            swap(arr, i, t - 1);
         }
     }
 
-    public static void main(String[] args) {
-        int[] nums = {4, 3, 2, 7, 8, 2, 3, 1};
-        List<Integer> disappearedNumbers = findDisappearedNumbers(nums);
-        System.out.println(disappearedNumbers);
+    public void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
+        }
     }
-
-
 }
