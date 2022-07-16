@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // 字符串尽可能分割成多个片段，每个字符最多出现在一个片段中
+// 笔记：https://www.cnblogs.com/greyzeng/p/15334109.html
 public class LeetCode_0763_PartitionLabels {
     // 统计每一个字符最后出现的位置
     // 从头遍历字符，如果找到之前字符最大出现位置下标和当前下标相等，则找到了分割点
