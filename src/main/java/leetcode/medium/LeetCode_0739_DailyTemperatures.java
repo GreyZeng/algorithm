@@ -12,10 +12,13 @@ tells you how many days you would have to wait until a warmer temperature. If th
 package leetcode.medium;
 
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Stack;
+import java.util.Deque;
+import java.util.List;
 
 // 单调栈
+// https://leetcode.cn/problems/daily-temperatures/
 public class LeetCode_0739_DailyTemperatures {
 
     public static int[] dailyTemperatures(int[] arr) {
@@ -24,8 +27,8 @@ public class LeetCode_0739_DailyTemperatures {
         }
         int n = arr.length;
         int[] result = new int[n];
-        Stack<ArrayList<Integer>> mono = new Stack<>();
-        ArrayList<Integer> indexes;
+        Deque<List<Integer>> mono = new ArrayDeque<>();
+        List<Integer> indexes;
         for (int i = 0; i < n; i++) {
             while (!mono.isEmpty() && arr[mono.peek().get(0)] < arr[i]) {
                 indexes = mono.pop();
