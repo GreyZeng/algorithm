@@ -22,6 +22,7 @@
 package leetcode.medium;
 
 // 使用manacher算法：https://www.cnblogs.com/greyzeng/p/15314213.html
+// https://leetcode.cn/problems/palindromic-substrings/
 public class LeetCode_0647_PalindromicSubstrings {
 
     public static int countSubstrings(String s) {

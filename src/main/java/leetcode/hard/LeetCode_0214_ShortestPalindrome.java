@@ -19,6 +19,7 @@ s consists of lowercase English letters only.*/
 package leetcode.hard;
 
 // 使用manacher算法：https://www.cnblogs.com/greyzeng/p/15314213.html
+// https://leetcode.cn/problems/shortest-palindrome/
 public class LeetCode_0214_ShortestPalindrome {
     // 必须包含第一个字符的最长回文子串是什么
     // 剩余部分字符串逆序一下，就是需要求的值
