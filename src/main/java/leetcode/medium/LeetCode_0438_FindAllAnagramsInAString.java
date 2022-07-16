@@ -1,6 +1,5 @@
 package leetcode.medium;
 
-import javax.swing.plaf.IconUIResource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +27,7 @@ import java.util.List;
 //        来源：力扣（LeetCode）
 //        链接：https://leetcode-cn.com/problems/find-all-anagrams-in-a-string
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// 笔记：https://www.cnblogs.com/greyzeng/p/16485378.html
 public class LeetCode_0438_FindAllAnagramsInAString {
     // 滑动窗口 + 欠账表
     public List<Integer> findAnagrams(String s, String p) {
