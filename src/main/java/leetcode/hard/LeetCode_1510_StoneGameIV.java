@@ -1,4 +1,4 @@
-
+package leetcode.hard;
 import java.util.Arrays;
 
 //Alice 和 Bob 两个人轮流玩一个游戏，Alice 先手。
@@ -49,6 +49,7 @@ import java.util.Arrays;
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_1510_StoneGameIV {
 
+    // 暴力解法 LeetCode超时
     public static boolean winnerSquareGame(int n) {
         return p(n);
     }
@@ -75,7 +76,6 @@ public class LeetCode_1510_StoneGameIV {
         // 1 表示算过是true
         Arrays.fill(dp, -1);
         return p2(n, dp);
-
     }
 
     public static boolean p2(int n, int[] dp) {
@@ -101,8 +101,23 @@ public class LeetCode_1510_StoneGameIV {
         return ans;
     }
 
-    public static void main(String[] args) {
-        System.out.println(winnerSquareGame(2));
+    // 动态规划
+    public static boolean winnerSquareGame3(int n) {
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+        for (int i = 1; i * i <= n; i++) {
+            // 这种情况，先手绝对赢
+            dp[i * i] = 1;
+        }
+        for (int i = 2; i <= n; i++) {
+            for (int j = 1; j * j <= i; j++) {
+                if (dp[i - j * j] == 0) {
+                    dp[i] = 1;
+                }
+            }
+            dp[i] = dp[i] == -1 ? 0 : dp[i];
+        }
+        return dp[n] == 1;
     }
-
 }
