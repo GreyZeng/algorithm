@@ -28,6 +28,8 @@ package leetcode.medium;
 import java.util.HashMap;
 
 // 先序遍历
+// 类似数组三连的第二问
+// https://leetcode.cn/problems/path-sum-iii/
 public class LeetCode_0437_PathSumIII {
 
     public class TreeNode {
@@ -51,24 +53,24 @@ public class LeetCode_0437_PathSumIII {
     }
 
     public static int pathSum(TreeNode root, int sum) {
-        HashMap<Integer, Integer> preMap = new HashMap<>();
-        preMap.put(0, 1);
+        HashMap<Long, Long> preMap = new HashMap<>();
+        preMap.put(0l, 1l);
         return p(root, sum, 0, preMap);
     }
 
-    public static int p(TreeNode root, int sum, int preAll, HashMap<Integer, Integer> preMap) {
+    public static int p(TreeNode root, long sum, long preAll, HashMap<Long, Long> preMap) {
         if (root == null) {
             return 0;
         }
-        int all = preAll + root.val;
-        int ans = 0;
+        long all = preAll + root.val;
+        long ans = 0;
         if (preMap.containsKey(all - sum)) {
             ans = preMap.get(all - sum);
         }
         if (preMap.containsKey(all)) {
             preMap.put(all, preMap.get(all) + 1);
         } else {
-            preMap.put(all, 1);
+            preMap.put(all, 1l);
         }
         ans += p(root.left, sum, all, preMap);
         ans += p(root.right, sum, all, preMap);
@@ -79,6 +81,6 @@ public class LeetCode_0437_PathSumIII {
                 preMap.put(all, preMap.get(all) - 1);
             }
         }
-        return ans;
+        return (int) ans;
     }
 }
