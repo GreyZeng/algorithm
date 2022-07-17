@@ -53,34 +53,33 @@ public class LeetCode_0437_PathSumIII {
     }
 
     public static int pathSum(TreeNode root, int sum) {
-        HashMap<Long, Long> preMap = new HashMap<>();
-        preMap.put(0l, 1l);
-        return p(root, sum, 0, preMap);
+        HashMap<Long, Integer> preSumMap = new HashMap<>();
+        preSumMap.put(0L, 1);
+        return process(root, sum, 0, preSumMap);
     }
 
-    public static int p(TreeNode root, long sum, long preAll, HashMap<Long, Long> preMap) {
-        if (root == null) {
+    // 返回方法数
+    public static int process(TreeNode x, int sum, long preAll, HashMap<Long, Integer> preSumMap) {
+        if (x == null) {
             return 0;
         }
-        long all = preAll + root.val;
-        long ans = 0;
-        if (preMap.containsKey(all - sum)) {
-            ans = preMap.get(all - sum);
+        long all = preAll + x.val;
+        int ans = 0;
+        if (preSumMap.containsKey(all - sum)) {
+            ans = preSumMap.get(all - sum);
         }
-        if (preMap.containsKey(all)) {
-            preMap.put(all, preMap.get(all) + 1);
+        if (!preSumMap.containsKey(all)) {
+            preSumMap.put(all, 1);
         } else {
-            preMap.put(all, 1l);
+            preSumMap.put(all, preSumMap.get(all) + 1);
         }
-        ans += p(root.left, sum, all, preMap);
-        ans += p(root.right, sum, all, preMap);
-        if (preMap.containsKey(all)) {
-            if (preMap.get(all) == 1) {
-                preMap.remove(all);
-            } else {
-                preMap.put(all, preMap.get(all) - 1);
-            }
+        ans += process(x.left, sum, all, preSumMap);
+        ans += process(x.right, sum, all, preSumMap);
+        if (preSumMap.get(all) == 1) {
+            preSumMap.remove(all);
+        } else {
+            preSumMap.put(all, preSumMap.get(all) - 1);
         }
-        return (int) ans;
+        return ans;
     }
 }
