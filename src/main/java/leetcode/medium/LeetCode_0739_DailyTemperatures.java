@@ -13,38 +13,28 @@ package leetcode.medium;
 
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 
 // 单调栈
 // https://leetcode.cn/problems/daily-temperatures/
 public class LeetCode_0739_DailyTemperatures {
-
+    // 一个数右边离它最近的比它大的数是什么
     public static int[] dailyTemperatures(int[] arr) {
-        if (null == arr || arr.length == 0) {
-            return null;
+        if (arr == null || arr.length == 0) {
+            return new int[]{};
         }
         int n = arr.length;
-        int[] result = new int[n];
-        Deque<List<Integer>> mono = new ArrayDeque<>();
-        List<Integer> indexes;
+        int[] ans = new int[n];
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
-            while (!mono.isEmpty() && arr[mono.peek().get(0)] < arr[i]) {
-                indexes = mono.pop();
-                for (int item : indexes) {
-                    result[item] = i - item;
-                }
+            while (!stack.isEmpty() && arr[stack.peek()] < arr[i]) {
+                int popIndex = stack.pop();
+                ans[popIndex] = i - popIndex;
             }
-            if (!mono.isEmpty() && arr[mono.peek().get(0)] == arr[i]) {
-                mono.peek().add(i);
-            } else {
-                indexes = new ArrayList<>();
-                indexes.add(i);
-                mono.push(indexes);
-            }
+            stack.push(i);
         }
-        return result;
+        // 不需要弹，因为本身初始化就是0，而且栈中的元素本身就没有右边离它最近的比它大的数
+        return ans;
     }
 
 }
