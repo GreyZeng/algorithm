@@ -27,6 +27,7 @@
 package leetcode.medium;
 
 // 递归的嵌套结构 嵌套问题 计算器问题
+// https://leetcode.cn/problems/decode-string/
 public class LeetCode_0394_DecodeString {
 
     public static String decodeString(String s) {
@@ -66,9 +67,4 @@ public class LeetCode_0394_DecodeString {
         return sb.toString();
     }
 
-
-    public static void main(String[] args) {
-        String s = "3[a]2[bc]";
-        System.out.println(decodeString(s));
-    }
 }
