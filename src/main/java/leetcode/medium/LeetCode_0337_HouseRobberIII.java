@@ -32,6 +32,8 @@
 // Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
 package leetcode.medium;
 
+// 类似员工最大快乐值问题
+//https://leetcode.cn/problems/house-robber-iii/
 public class LeetCode_0337_HouseRobberIII {
     public class TreeNode {
         int val;
