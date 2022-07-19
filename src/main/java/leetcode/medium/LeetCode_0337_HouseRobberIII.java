@@ -1,39 +1,18 @@
-// The thief has found himself a new place for his thievery again.
-// There is only one entrance to this area, called the "root." 
-// Besides the root, each house has one and only one parent house. 
-// After a tour, the smart thief realized that "all houses in this place forms a binary tree". 
-// It will automatically contact the police if two directly-linked houses were broken into on the same night.
-
-// Determine the maximum amount of money the thief can rob tonight without alerting the police.
-
-// Example 1:
-
-// Input: [3,2,3,null,3,null,1]
-
-//      3
-//     / \
-//    2   3
-//     \   \ 
-//      3   1
-
-// Output: 7 
-// Explanation: Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
-// Example 2:
-
-// Input: [3,4,5,1,3,null,1]
-
-//      3
-//     / \
-//    4   5
-//   / \   \ 
-//  1   3   1
-
-// Output: 9
-// Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
+//小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为root。
+//
+//        除了root之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，
+//        聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果 两个直接相连的房子在同一天晚上被打劫 ，房屋将自动报警。
+//
+//        给定二叉树的root。返回在不触动警报的情况下，小偷能够盗取的最高金额。
+//
+//        来源：力扣（LeetCode）
+//        链接：https://leetcode.cn/problems/house-robber-iii
+//        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 package leetcode.medium;
 
 // 类似员工最大快乐值问题
 //https://leetcode.cn/problems/house-robber-iii/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16494637.html
 public class LeetCode_0337_HouseRobberIII {
     public class TreeNode {
         int val;
@@ -54,44 +33,31 @@ public class LeetCode_0337_HouseRobberIII {
         }
     }
 
-    public static class Info {
-        public int y;
-        public int n;
+    public int rob(TreeNode root) {
+        Info info = p(root);
+        return Math.max(info.yes, info.no);
+    }
+
+    public class Info {
+        // 选头节点
+        public int yes;
+        // 不选头节点
+        public int no;
 
         public Info(int y, int n) {
-            this.y = y;
-            this.n = n;
+            yes = y;
+            no = n;
         }
     }
 
-    public static int rob(TreeNode root) {
+    public Info p(TreeNode root) {
         if (root == null) {
-            return 0;
+            return new Info(0, 0);
         }
-        Info info = process(root);
-        return Math.max(info.y, info.n);
-    }
-
-    private static Info process(TreeNode root) {
-        if (root.left == null && root.right == null) {
-            return new Info(root.val, 0);
-        }
-        Info left = null;
-        if (root.left != null) {
-            left = process(root.left);
-        }
-        Info right = null;
-        if (root.right != null) {
-            right = process(root.right);
-        }
-        if (left == null) {
-            return new Info(root.val + right.n, Math.max(right.n, right.y));
-        }
-        if (right == null) {
-            return new Info(root.val + left.n, Math.max(left.n, left.y));
-        }
-        int y = root.val + left.n + right.n;
-        int n = Math.max(Math.max(Math.max(left.n + right.n, left.y + right.y), left.n + right.y), (left.y + right.n));
-        return new Info(y, n);
+        Info left = p(root.left);
+        Info right = p(root.right);
+        int yes = root.val + left.no + right.no;
+        int no = Math.max(left.yes, left.no) + Math.max(right.yes, right.no);
+        return new Info(yes, no);
     }
 }

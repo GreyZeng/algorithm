@@ -34,6 +34,7 @@ import java.util.LinkedList;
 //		来源：力扣（LeetCode）
 //		链接：https://leetcode.cn/problems/house-robber-ii
 //		著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// 笔记：https://www.cnblogs.com/greyzeng/p/16494637.html
 public class LeetCode_0213_HouseRobberII {
 
     public static int rob(int[] arr) {

@@ -9,6 +9,7 @@ package leetcode.medium;
 //		链接：https://leetcode-cn.com/problems/house-robber
 //		著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 // 本质：返回一个数组中，选择的数字不能相邻的情况下，最大子序列累加和
+// 笔记：https://www.cnblogs.com/greyzeng/p/16494637.html
 public class LeetCode_0198_HouseRobber {
     // 动态规划
     public static int rob(int[] arr) {
