@@ -1,70 +1,74 @@
 package leetcode.medium;
 
-//You are a professional robber planning to rob houses along a street. 
-// Each house has a certain amount of money stashed. 
-// All houses at this place are arranged in a circle. 
-// That means the first house is the neighbor of the last one. 
-// Meanwhile, adjacent houses have a security system connected, and it will automatically contact the police if two adjacent houses were broken into on the same night.
-//
-//Given a list of non-negative integers nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
-//
-// 
-//
-//Example 1:
-//
-//Input: nums = [2,3,2]
-//Output: 3
-//Explanation: You cannot rob house 1 (money = 2) and then rob house 3 (money = 2), because they are adjacent houses.
-//Example 2:
-//
-//Input: nums = [1,2,3,1]
-//Output: 4
-//Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
-//Total amount you can rob = 1 + 3 = 4.
-//Example 3:
-//
-//Input: nums = [0]
-//Output: 0
-// 
-//
-//Constraints:
-//
-//1 <= nums.length <= 100
-//0 <= nums[i] <= 1000
-public class LeetCode_0213_HouseRobberII {
-	public static int rob(int[] nums) {
-		if (nums == null) {
-			return 0;
-		}
-		int l = nums.length;
-		if (l == 0) {
-			return 0;
-		}
-		if (l == 1) {
-			return nums[0];
-		}
-		if (l == 2) {
-			return Math.max(nums[0], nums[1]);
-		}
-		if (l == 3) {
-			return Math.max(nums[0],Math.max(nums[1],   nums[2]));
-		}
-		int pre = nums[0];
-		int max = Math.max(nums[0], nums[1]);
-		for (int i = 2; i < l - 1; i++) {
-			int cur = Math.max(pre + nums[i], max);
-			pre = max;
-			max = cur;
-		}
-		int maxWithOutLast = max; 
-		pre = nums[1];
-		max = Math.max(nums[1], nums[2]);
-		for (int i = 3; i < l ; i++) {
-			int cur = Math.max(pre + nums[i], max);
-			pre = max;
-			max = cur;
-		}
-		return Math.max(max, maxWithOutLast);
-	}
+import java.io.File;
+import java.util.LinkedList;
 
+//你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。
+//
+//		给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，今晚能够偷窃到的最高金额。
+//
+//
+//
+//		示例1：
+//
+//		输入：nums = [2,3,2]
+//		输出：3
+//		解释：你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。
+//		示例 2：
+//
+//		输入：nums = [1,2,3,1]
+//		输出：4
+//		解释：你可以先偷窃 1 号房屋（金额 = 1），然后偷窃 3 号房屋（金额 = 3）。
+//		    偷窃到的最高金额 = 1 + 3 = 4 。
+//		示例 3：
+//
+//		输入：nums = [1,2,3]
+//		输出：3
+//
+//
+//		提示：
+//
+//		1 <= nums.length <= 100
+//		0 <= nums[i] <= 1000
+//
+//		来源：力扣（LeetCode）
+//		链接：https://leetcode.cn/problems/house-robber-ii
+//		著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+public class LeetCode_0213_HouseRobberII {
+
+    public static int rob(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        if (arr.length == 1) {
+            return arr[0];
+        }
+        if (arr.length == 2) {
+            return Math.max(arr[0], arr[1]);
+        }
+        if (arr.length == 3) {
+            return Math.max(Math.max(arr[0], arr[1]), arr[2]);
+        }
+        final int n = arr.length;
+        // 以下情况是考虑最后一个位置
+        int prePre = arr[1];
+        int pre = Math.max(arr[1], arr[2]);
+        int max = pre;
+        for (int i = 3; i < n; i++) {
+            int cur = Math.max(pre, prePre + arr[i]);
+            prePre = pre;
+            pre = cur;
+            max = Math.max(cur, max);
+        }
+        // 以下情况是不考虑最后一个位置
+        prePre = arr[0];
+        pre = Math.max(arr[0], arr[1]);
+        for (int i = 2; i < n - 1; i++) {
+            int cur = Math.max(pre, prePre + arr[i]);
+            prePre = pre;
+            pre = cur;
+            max = Math.max(cur, max);
+        }
+        return max;
+    }
 }
