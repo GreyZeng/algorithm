@@ -1,10 +1,10 @@
-# 原仓库
+# 源仓库
 
-[Github-Algorithm](https://github.com/GreyZeng/algorithm)
+[Github](https://github.com/GreyZeng/algorithm)
 
 # 镜像仓库
 
-[GitCode-Algorithm](https://gitcode.net/hotonyhui/algorithm)
+[GitCode](https://gitcode.net/hotonyhui/algorithm)
 
 # 算法与数据结构学习笔记
 
