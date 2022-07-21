@@ -1,4 +1,5 @@
 package leetcode.medium;
+
 // TODO
 // tips:
 //https://leetcode.cn/problems/shortest-bridge/
