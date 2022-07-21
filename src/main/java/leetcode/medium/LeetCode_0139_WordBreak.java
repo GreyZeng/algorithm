@@ -14,6 +14,8 @@ import java.util.Set;
 // 因为使用了更强大的数据，所以普通的DFS方法无法解决此题。
 // s.length <= 1e5
 // dict.size <= 1e5
+// 使用arr中的单词有多少种拼接str的方式. 返回方法数.
+//         前缀树 O(M) + O(N^2) 暴力方法O(N^3)
 public class LeetCode_0139_WordBreak {
     // 暴力递归
     public static boolean wordBreak(String s, List<String> dict) {

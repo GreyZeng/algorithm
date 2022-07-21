@@ -19,6 +19,9 @@ package leetcode.easy;
 //        来源：力扣（LeetCode）
 //        链接：https://leetcode-cn.com/problems/squares-of-a-sorted-array
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// 类似的 题目3：给定一个数组arr，先递减然后递增，
+//返回arr中有多少个不同的数字？
+//Code_0110_Power2Diffs
 public class LeetCode_0977_SquaresOfASortedArray {
     // 平方有多少，绝对值就有多少
     // 因为有0，所以可以从最大值开始填
