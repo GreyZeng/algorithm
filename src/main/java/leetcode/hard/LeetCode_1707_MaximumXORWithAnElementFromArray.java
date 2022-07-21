@@ -1,6 +1,7 @@
 package leetcode.hard;
 
 // https://leetcode-cn.com/problems/maximum-xor-with-an-element-from-array/
+// 前缀树的节点，保留最小值即可
 public class LeetCode_1707_MaximumXORWithAnElementFromArray {
     public int[] maximizeXor(int[] nums, int[][] queries) {
         int[] res = new int[queries.length];

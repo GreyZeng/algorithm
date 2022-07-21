@@ -6,6 +6,19 @@ import java.util.Scanner;
 //        备注:
 //        时间复杂度O(nlog2n)，额外空间复杂度O(nlog2n)。
 // https://www.nowcoder.com/questionTerminal/43f62c52fbac47feaeabe40ac1ab9091
+// 方法1：暴力解O(N^3)
+//方法2：O(N^2) 前缀异或和 辅助数组
+//方法3：前缀树
+//[11,1,15,10,13,4]
+//e[-1] = 0000
+//e[0..0] = 11 = 1011
+//e[0..1] = 11^1 = 1010
+//e[0..2] = 0101
+//e[0..3] = 1111
+//e[0..4] = 0010
+//e[0..5] = 0110
+//这些数构造成前缀树
+//最高位（符合位）期待一样，紧着高位要期待不一样的
 public class NowCoder_MaxXorSubArray {
 
     public static void main(String[] args) throws Exception {

@@ -31,6 +31,10 @@ package luogu;
 import java.util.Scanner;
 
 // https://www.luogu.com.cn/problem/P2197
+// tips:
+// 异或和如果是0的话，先手输
+// 不是0的话，先手赢
+// 先手总是可以让选择后的数据异或和为0
 public class Luogu_P2197_Nim {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
