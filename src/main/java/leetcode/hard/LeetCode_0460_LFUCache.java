@@ -48,6 +48,16 @@
         Follow up: Could you do both operations in O(1) time complexity?*/
 package leetcode.hard;
 
+// TODO
+// tips
+//优先看词频，词频一样的，删除最早的纪录
+//        同样词频的数据只会进一个桶
+//        桶内双向链表，桶之间也是双向链表
+//        tips:
+//        Put/Get方法都用O(1)
+//        二维双向链表
+//        map1 : str->node
+//        map2:  node->bucket(频度为n的桶)
 public class LeetCode_0460_LFUCache {
     class LFUCache {
 
