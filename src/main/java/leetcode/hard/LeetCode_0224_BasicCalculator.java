@@ -12,6 +12,20 @@ import java.util.Stack;
 //来源：力扣（LeetCode）
 //链接：https://leetcode-cn.com/problems/basic-calculator
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+//tips:
+//        int[] f(i)
+//        返回两个值：
+//        从i往后获取到的合适的位置（终止位置或者右括号）
+//        计算的结果
+//        补充：如果整个字符串不包括括号，可以直接用栈来计算
+//        双端队列
+//        LeetCode_0224_BasicCalculator.java
+//        LeetCode_0227_BasicCalculatorII.java
+//        LeetCode_0772_BasicCalculatorIII.java
+//        都可以用同一套模板
+//        类似的：
+//        化学符号还原成元素种类
+//        压缩串还原成原始串，比如：3{aab}k ==>aabaabaabk
 public class LeetCode_0224_BasicCalculator {
     public static void main(String[] args) {
         String str = "1-1+1";
