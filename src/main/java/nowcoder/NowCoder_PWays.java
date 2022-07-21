@@ -31,11 +31,13 @@ package nowcoder;
 
 import java.util.Scanner;
 
-/**
- * @author Young
- * @version 1.0
- * @date 2021/2/12 16:28
- */
+//tips:
+//        范围模型LxRxaLvRxbLxRvcLvRvd
+//        ```dp[L][R]```
+//
+//        ```dp[L+1][R]=a+c```
+//        ```dp[L][R-1]=a+b```
+//        加工a+b+cd=a+1(考虑空串，所以要加1)
 public class NowCoder_PWays {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
