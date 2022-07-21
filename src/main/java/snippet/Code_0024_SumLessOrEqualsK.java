@@ -4,6 +4,11 @@ import java.util.TreeSet;
 
 // 给定一个数组arr，再给定一个k值, 返回累加和小于等于k，但是离k最近的子数组累加和
 public class Code_0024_SumLessOrEqualsK {
+    //    tips:
+//    TreeSet
+//    前缀和 加入有序表
+//    某个位置结尾的情况下，收集一下答案
+//    如果数组全是正数，可以用窗口
     public static int sum(int[] arr, int K) {
         TreeSet<Integer> set = new TreeSet<>();
         set.add(0);
