@@ -32,7 +32,10 @@ Note:
 S.length <= 1000
 S only consists of '(' and ')' characters.*/
 package leetcode.medium;
-
+//tips:
+//        用一个count和need变量
+//        如果count==-1，need++，count恢复成0
+//        到最后count==0，返回need，到最后count不等于0，返回need+count
 // https://leetcode-cn.com/problems/minimum-add-to-make-parentheses-valid/
 // ref : https://www.lintcode.com/problem/minimum-add-to-make-parentheses-valid/description
 public class LeetCode_0921_MinimumAddToMakeParenthesesValid {
