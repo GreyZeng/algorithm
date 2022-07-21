@@ -2,8 +2,9 @@ package snippet;
 
 import java.math.BigDecimal;
 
+// TODO
 public class Code_0055_NCardsABWin {
-    // 谷歌面试题
+    // Google面试题
     // 面值为1~10的牌组成一组，
     // 每次你从组里等概率的抽出1~10中的一张
     // 下次抽会换一个新的组，有无限组
