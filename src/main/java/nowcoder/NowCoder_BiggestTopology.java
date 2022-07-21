@@ -31,11 +31,9 @@ package nowcoder;
 import java.util.HashMap;
 import java.util.Scanner;
 
-/**
- * @author Young
- * @version 1.0
- * @date 2021/2/13 17:09
- */
+// tips:
+// 二叉树的递归套路，每个位置的贡献记录，左树的最右节点，右树的最左节点
+// 复杂度 O(N) 因为任何一个节点过左树右边界都是不重复的
 public class NowCoder_BiggestTopology {
     public static class TreeNode {
         public int val;
