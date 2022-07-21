@@ -29,6 +29,7 @@ package leetcode.hard;
 public class LeetCode_0330_PatchingArray {
     // 时间复杂度：O(m+logn)
     // 其中 m 是数组 arr 的长度，n是给定的正整数。
+    // 一个数也没有的时候，用1，2，4，8，16……二进制来搞定1~N是最快的方法
     public static int minPatches(int[] arr, int n) {
         int patches = 0;
         long range = 1;
