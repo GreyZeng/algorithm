@@ -2,7 +2,18 @@ package leetcode.medium;
 
 import java.util.HashMap;
 import java.util.Map;
-
+//tips:
+//        最优解 可以做到O(N)
+//        头map key:值 value：长度
+//        尾map key:值 value：长度
+//        依次看能否合并
+//
+//        还可以优化
+//        只需要一张map
+//        key所在的连续区间，一共有多少长度
+//        key不需要删数据，遇到重复值不处理
+//        不区分开头和结尾
+//        脏数据不用管，也不需要删除，不会影响最后的解，只保证开头和结尾即可
 // https://leetcode.com/problems/longest-consecutive-sequence/
 // 最长连续数组长度
 public class LeetCode_0128_LongestConsecutiveSequence {
