@@ -17,12 +17,23 @@
         0 <= n <= 2 * 10^9*/
 package leetcode.hard;
 
-/**
- * @author Young
- * @version 1.0
- * @date 2021/1/30 13:55
- */
-
+// TODO
+// https://leetcode.cn/problems/number-of-digit-one/
+// tips:
+//打表法不行
+//
+//        数位dp的问题 最高位是1 不是1 最高位开始有几个1 其次高位置上有几个1
+//
+//        f(13625) -> 3626 ~ f(3625)
+//        N = 1到k位 最高位是1 N%10^(k-1) + 1
+//
+//        10^(k-2) * (k - 1)
+//
+//        最高位不是1 10^(k-1) + 10^(k-2) *a* (k - 1)
+//
+//        复杂度 O(log10(N) * log10(N))
+//
+//        数位dp
 public class LeetCode_0233_NumberOfDigitOne {
     // 数位dp
     // 递归方法：
