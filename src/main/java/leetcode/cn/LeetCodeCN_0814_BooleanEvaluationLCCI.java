@@ -26,6 +26,7 @@ package leetcode.cn;
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 // https://leetcode-cn.com/problems/boolean-evaluation-lcci/
 // 范围上的尝试模型
+// 最后去结合某个运算符的情况下，得到目标结果的方法数量
 public class LeetCodeCN_0814_BooleanEvaluationLCCI {
 
     public int countEval(String express, int desired) {
