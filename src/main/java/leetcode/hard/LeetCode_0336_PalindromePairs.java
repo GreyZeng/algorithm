@@ -20,6 +20,7 @@ import java.util.List;
 //        O(N*K^2)
 //
 //        检查回文串这件事，在这个算法中的复杂度可以忽略
+// https://leetcode.cn/problems/palindrome-pairs/
 public class LeetCode_0336_PalindromePairs {
     public static List<List<Integer>> palindromePairs(String[] words) {
         HashMap<String, Integer> wordset = new HashMap<>();
