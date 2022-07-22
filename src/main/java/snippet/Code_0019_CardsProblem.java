@@ -22,6 +22,8 @@ import java.util.LinkedList;
 // 先挑出一样牌面的 每种的个数，假设AAA有100张，那么100张随意挑出三张都达标
 // 牌面的组合有多少种。假设 ABC : 100   BAB：50  CCA：60
 // 超过三种，直接剪枝
+//三进制
+//暴力枚举所有的情况
 public class Code_0019_CardsProblem {
 
     public static int ways1(String[] cards) {

@@ -102,9 +102,11 @@ public class LeetCode_0134_GasStation {
         return -1;
     }
 
-    /*
-     * TODO 这个方法的时间复杂度O(N)，额外空间复杂度O(1）
-     */
+    // TODO
+    //  这个方法的时间复杂度O(N)，额外空间复杂度O(1）
+    //    tips：三个变量：联通区，rest，need
+    //    如果尝试一直都不行，进入联通区了，剩下的点一定不是良好出发点
+    //    找到一个良好出发点，只需要关注rest，只要能接上这个点，都是良好出发点。
     public static boolean[] stations(int[] cost, int[] gas) {
         if (cost == null || gas == null || cost.length < 2 || cost.length != gas.length) {
             return null;
