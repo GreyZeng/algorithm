@@ -2,6 +2,7 @@ package snippet;
 
 import java.util.HashMap;
 import java.util.Map;
+// TODO
 
 /**
  * 给定一个正数数组arr，返回该数组能不能分成4个部分，并且每个部分的累加和相等，切分位置的数不要。
