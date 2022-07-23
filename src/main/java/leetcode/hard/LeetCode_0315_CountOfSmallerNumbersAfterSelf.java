@@ -25,9 +25,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
+// https://leetcode.cn/problems/count-of-smaller-numbers-after-self/
 // 方法1：小和问题 改归并
-// 方法2：TODO  利用只支持单点增加 + 范围查询的动态开点线段树（累加和）
+// TODO
+// 方法2： 利用只支持单点增加 + 范围查询的动态开点线段树（累加和），也可以用index tree来解
+// 方法3：有序表
 public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
     public static class Node {
         public int value;
@@ -87,7 +89,6 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
             nodes[l + i] = help[i];
         }
     }
-
 
     public static class Segment {
         public int sum;
@@ -162,7 +163,7 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
         }
         int[][] arr = new int[n][];
         for (int i = 0; i < n; i++) {
-            arr[i] = new int[]{nums[i], i};
+            arr[i] = new int[] { nums[i], i };
         }
         Arrays.sort(arr, Comparator.comparingInt(a -> a[0]));
         DynamicSegmentTree dst = new DynamicSegmentTree(n);
