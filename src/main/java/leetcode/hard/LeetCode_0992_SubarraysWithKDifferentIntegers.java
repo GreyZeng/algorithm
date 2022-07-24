@@ -9,7 +9,7 @@ import java.util.HashMap;
 //        leetcode题目 : https://leetcode.com/problems/subarrays-with-k-different-integers/
 // tips:
 // 滑动窗口,达到k种的情况一个窗口,达到k+1种的情况再来一个窗口
-public interface LeetCode_0992_SubarraysWithKDifferentIntegers {
+public class LeetCode_0992_SubarraysWithKDifferentIntegers {
     // nums 数组，题目规定，nums中的数字，不会超过nums的长度
     // [ ]长度为5，0~5
     public static int subarraysWithKDistinct1(int[] nums, int k) {
