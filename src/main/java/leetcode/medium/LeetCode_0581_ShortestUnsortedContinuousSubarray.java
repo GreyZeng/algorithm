@@ -21,7 +21,7 @@
 // 1 <= nums.length <= 10^4
 // -10^5 <= nums[i] <= 10^5
 package leetcode.medium;
-
+// 给定一个数组arr，只能对arr中的一个子数组排序，但是想让arr整体都有序，返回满足这一设定的子数组中最短的是多长
 // https://www.nowcoder.com/questionTerminal/fccb5d14b44b4b99b34839bdf20588e9
 //tips:
 //左max 划过部分的最大值，从1开始
@@ -30,12 +30,8 @@ package leetcode.medium;
 //从右边往左遍历，同理，得到最左边画x的位置，假设为y
 //[x,y]就是最小需要排序的数组
 //1,2,6,5,4,3,8,9
+// https://leetcode.cn/problems/shortest-unsorted-continuous-subarray/
 public class LeetCode_0581_ShortestUnsortedContinuousSubarray {
-	public static void main(String[] args) {
-		int[] arr = { 5, 6, 7, 9, 9, 12, 14, 15 };
-		System.out.println(findUnsortedSubarray(arr));
-	}
-
 	public static int findUnsortedSubarray(int[] nums) {
 		if (nums == null || nums.length < 2) {
 			return 0;
