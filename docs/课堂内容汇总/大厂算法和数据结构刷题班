@@ -23,14 +23,6 @@
 
 生成长度为size的达标数组，什么叫达标？对于任意的i<k<j，满足[i]+[j]!=[k]*2。给定一个正数size，返回长度为size的达标数组
 
-给定三个字符串s1、s2、s3，请你帮忙验证s3是否是由s1和s2交错组成的
-Leetcode题目：https://leetcode.com/problems/interleaving-string/
-
-大楼轮廓线问题
-Leetcode题目：https://leetcode.com/problems/the-skyline-problem/
-
-
-
 05 大厂高频算法和数据结构面试题5
 
 题目：
@@ -90,19 +82,19 @@ Parts和records的长度一样长，str一定要分割成k个部分，分割出�
 2，如果是负数，就需要用括号括起来，比如"4*(-3)"但如果负数作为公式的开头或括号部分的开头，则可以没有括号，比如"-3*4"和"(-3*4)"都是合法的
 3，不用考虑计算过程中会发生溢出的情况。
 
-给定n个非负整数a1，a2，...an，每个数代表坐标中的一个点 (i, ai)。在坐标内画n条垂直线
-垂直线i的两个端点分别为(i, ai)和(i, 0)，找出其中的两条线，使得它们与x轴共同构成的容器可以容纳最多的水
+给定n个非负整数a1，a2，...an，每个数代表坐标中的一个点(i,ai)。在坐标内画n条垂直线
+垂直线i的两个端点分别为(i,ai)和(i, 0)，找出其中的两条线，使得它们与x轴共同构成的容器可以容纳最多的水
 Leetcode题目：https://leetcode.com/problems/container-with-most-water/
 
 给定一个char[][] matrix，也就是char类型的二维数组，再给定一个字符串word，
 可以从任何一个某个位置出发，可以走上、下、左、右，能不能找到word？
- char[][] m = {  { 'a', 'b', 'z' }, 
-                 { 'c', 'd', 'o' }, 
+ char[][] m = { { 'a', 'b', 'z' },
+                 { 'c', 'd', 'o' },
                  { 'f', 'e', 'o' } }
 设定1：可以走重复路的情况下，返回能不能找到
 比如，word = "zoooz"，是可以找到的，z -> o -> o -> o -> z，因为允许走一条路径中已经走过的字符
 设定2：不可以走重复路的情况下，返回能不能找到
-比如，word = "zoooz"，是不可以找到的，因为允许走一条路径中已经走过的字符不能重复走 
+比如，word = "zoooz"，是不可以找到的，因为允许走一条路径中已经走过的字符不能重复走
 
 给定一个矩阵matrix，值有正、负、0。蛇可以空降到最左列的任何一个位置，初始增长值是0。蛇每一步可以选择右上、右、右下三个方向的任何一个前进
 沿途的数字累加起来，作为增长值；但是蛇一旦增长值为负数，就会死去。蛇有一种能力，可以使用一次：把某个格子里的数变成相反数
@@ -144,7 +136,7 @@ Leetcode题目：https://leetcode.com/problems/longest-increasing-subsequence
 
 题目：
 
-给你一个非负整数数组 nums ，你最初位于数组的第一个位置。数组中的每个元素代表你在该位置可以跳跃的最大长度。
+给你一个非负整数数组nums ，你最初位于数组的第一个位置。数组中的每个元素代表你在该位置可以跳跃的最大长度。
 你的目标是使用最少的跳跃次数到达数组的最后一个位置。假设你总是可以到达数组的最后一个位置。
 
 Top K Frequent Words II
@@ -155,8 +147,8 @@ topk(). Get the current top k frequent words.
 LintCode题目：https://www.lintcode.com/problem/550/
 
 给出两个整数n和k，找出所有包含从1到n的数字，且恰好拥有k个逆序对的不同的数组的个数
-逆序对的定义如下：对于数组的第i个和第 j个元素，如果满i < j且 a[i] > a[j]，则其为一个逆序对，否则不是
-由于答案可能很大，只需要返回 答案 mod 10^9 + 7 的值
+逆序对的定义如下：对于数组的第i个和第j个元素，如果满i<j且a[i]>a[j]，则其为一个逆序对，否则不是
+由于答案可能很大，只需要返回 答案 mod 10^9+ 7 的值
 Leetcode题目：https://leetcode.com/problems/k-inverse-pairs-array/
 
 给定一棵搜索二叉树头节点，转化成首尾相接的有序双向链表（节点都有两个方向的指针）
@@ -190,9 +182,9 @@ Leetcode题目：https://leetcode-cn.com/problems/boolean-evaluation-lcci/
 给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的中位数
 进阶，在两个都有序的数组中找整体第K小的数，可以做到O(log(Min(M,N)))
 
-给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。请你设计并实现时间复杂度为 O(n) 的算法解决此问题。
+给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。请你设计并实现时间复杂度为O(n) 的算法解决此问题。
 
-给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+给你一个字符串s和一个字符规律p，请你来实现一个支持 '.'和'*'的正则表达式匹配。
 '.' 匹配任意单个字符
 '*' 匹配零个或多个前面的那一个元素
 所谓匹配，是要涵盖整个字符串s的，而不是部分字符串。
@@ -208,8 +200,8 @@ Leetcode题目：https://leetcode-cn.com/problems/boolean-evaluation-lcci/
 当累加和<a时，你将一直抽牌；当累加和>=a且<b时，你将获胜；当累加和>=b时，你将失败
 返回获胜的概率，给定的参数为N，a，b
 
-假设有 n 台超级洗衣机放在同一排上。开始的时候，每台洗衣机内可能有一定量的衣服，也可能是空的
-在每一步操作中，你可以选择任意 m （1 ≤ m ≤ n） 台洗衣机，与此同时将每台洗衣机的一件衣服送到相邻的一台洗衣机
+假设有 n台超级洗衣机放在同一排上。开始的时候，每台洗衣机内可能有一定量的衣服，也可能是空的
+在每一步操作中，你可以选择任意 m（1 ≤ m ≤ n）台洗衣机，与此同时将每台洗衣机的一件衣服送到相邻的一台洗衣机
 给定一个非负整数数组代表从左至右每台洗衣机中的衣物数量，请给出能让所有洗衣机中剩下的衣物的数量相等的最少的操作步数
 如果不能使每台洗衣机中衣物的数量相等，则返回-1
 Leetcode题目：https://leetcode.com/problems/super-washing-machines/
@@ -221,12 +213,12 @@ Leetcode题目：https://leetcode.com/problems/super-washing-machines/
 在一个随机下标处将字符串分割成两个非空的子字符串。即，如果已知字符串 s ，则可以将其分成两个子字符串 x 和 y ，且满足 s = x + y 。
 随机 决定是要「交换两个子字符串」还是要「保持这两个子字符串的顺序不变」。即，在执行这一步骤之后，s 可能是 s = x + y 或者 s = y + x 。
 在 x 和 y 这两个子字符串上继续从步骤 1 开始递归执行此算法。
-给你两个 长度相等 的字符串 s1 和 s2，判断 s2 是否是 s1 的扰乱字符串。如果是，返回 true ；否则，返回 false 。
+给你两个 长度相等 的字符串 s1 和s2，判断s2是否是s1的扰乱字符串。如果是，返回 true ；否则，返回 false 。
 Leetcode题目：https://leetcode.com/problems/scramble-string/
 
 有一个 m x n 的二元网格，其中 1 表示砖块，0 表示空白。砖块 稳定（不会掉落）的前提是：
-一块砖直接连接到网格的顶部，或者至少有一块相邻（4 个方向之一）砖块稳定不会掉落时
-给你一个数组 hits ，这是需要依次消除砖块的位置。每当消除 hits[i] = (rowi, coli) 位置上的砖块时，对应位置的砖块（若存在）会消失
+一块砖直接连接到网格的顶部，或者至少有一块相邻（4个方向之一）砖块稳定不会掉落时
+给你一个数组 hits ，这是需要依次消除砖块的位置。每当消除hits[i] = (rowi, coli) 位置上的砖块时，对应位置的砖块（若存在）会消失
 然后其他的砖块可能因为这一消除操作而掉落。一旦砖块掉落，它会立即从网格中消失（即，它不会落在其他稳定的砖块上）
 返回一个数组 result ，其中 result[i] 表示第 i 次消除操作对应掉落的砖块数目
 注意，消除可能指向是没有砖块的空白位置，如果发生这种情况，则没有砖块掉落。
@@ -287,8 +279,8 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-f
 1）正常怎么做？
 2）如果arr中肯定有1这个值，怎么做？
 
-给定一个已排序的正整数数组 nums，和一个正整数 n 。从 [1, n] 区间内选取任意个数字补充到 nums 中，
-使得 [1, n] 区间内的任何数字都可以用 nums 中某几个数字的和来表示，请输出满足上述要求的最少需要补充的数字个数
+给定一个已排序的正整数数组 nums，和一个正整数n 。从[1, n]区间内选取任意个数字补充到nums中，
+使得[1, n]区间内的任何数字都可以用nums中某几个数字的和来表示，请输出满足上述要求的最少需要补充的数字个数
 
 给定整数power，给定一个数组arr，给定一个数组reverse。含义如下：
 arr的长度一定是2的power次方，reverse中的每个值一定都在0~power范围。
@@ -342,8 +334,8 @@ arr[i] == 3，代表汉诺塔问题中，从上往下第i个圆盘目前在右
 那么arr整体就代表汉诺塔游戏过程中的一个状况，如果这个状况不是汉诺塔最优解运动过程中的状况，返回-1
 如果这个状况是汉诺塔最优解运动过程中的状态，返回它是第几个状态
 
-在给定的二维二进制数组 A 中，存在两座岛。（岛是由四面相连的 1 形成的一个最大组。）现在，我们可以将 0 变为 1，以使两座岛连接起来，变成一座岛。
-返回必须翻转的 0 的最小数目。（可以保证答案至少是1）
+在给定的二维二进制数组A中，存在两座岛。（岛是由四面相连的 1 形成的一个最大组。）现在，我们可以将0变为1，以使两座岛连接起来，变成一座岛。
+返回必须翻转的0 的最小数目。（可以保证答案至少是1）
 Leetcode题目：https://leetcode.com/problems/shortest-bridge/
 
 给定一个矩阵matrix，先从左上角开始，每一步只能往右或者往下走，走到右下角。然后从右下角出发，每一步只能往上或者往左走，再回到左上角。任何一个位置的数字，只能获得一遍。返回最大路径和。
@@ -381,7 +373,7 @@ Leetcode题目：https://leetcode.com/problems/lfu-cache/
 可以数出1这个字符出现了6次，给定一个正数N，如果把1~N都列出来，返回1这个字符出现的多少次
 
 你有k个非递减排列的整数列表。找到一个最小区间，使得k个列表中的每个列表至少有一个数包含在其中
-我们定义如果 b-a < d-c 或者在 b-a == d-c 时 a < c，则区间 [a,b] 比 [c,d] 小。
+我们定义如果b-a < d-c或者在b-a == d-c时a < c，则区间 [a,b] 比 [c,d] 小。
 Leetcode题目：https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
 
 一张扑克有3个属性，每种属性有3种值（A、B、C）
@@ -405,8 +397,8 @@ Leetcode题目：https://leetcode.com/problems/smallest-range-covering-elements-
 
 如果只给定一个二叉树前序遍历数组pre和中序遍历数组in，能否不重建树，而直接生成这个二叉树的后序数组并返回，已知二叉树中没有重复值
 
-给定一个由不同正整数的组成的非空数组 A，考虑下面的图：有 A.length 个节点，按从 A[0] 到 A[A.length - 1] 标记；
-只有当 A[i] 和 A[j] 共用一个大于 1 的公因数时，A[i] 和 A[j] 之间才有一条边。返回图中最大连通集合的大小
+给定一个由不同正整数的组成的非空数组 A，考虑下面的图：有A.length个节点，按从A[0]到A[A.length - 1]标记；
+只有当 A[i] 和 A[j] 共用一个大于 1 的公因数时，A[i]和 A[j] 之间才有一条边。返回图中最大连通集合的大小
 Leetcode题目：https://leetcode.com/problems/largest-component-size-by-common-factor/
 
 完美洗牌问题
@@ -440,7 +432,7 @@ father[i] = j 表示点i的父亲是点j， father表示的树一定是一棵树
 
 题目：
 
-给定数组 nums 由正整数组成，找到三个互不重叠的子数组的最大和。每个子数组的长度为k，我们要使这3*k个项的和最大化。返回每个区间起始索引的列表（索引从 0 开始）。如果有多个结果，返回字典序最小的一个。
+给定数组nums由正整数组成，找到三个互不重叠的子数组的最大和。每个子数组的长度为k，我们要使这3*k个项的和最大化。返回每个区间起始索引的列表（索引从 0 开始）。如果有多个结果，返回字典序最小的一个。
 Leetcode题目：https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays/
 
 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水
@@ -492,7 +484,7 @@ tree和queries里面的所有值，都一定在0~N-1之间
 扩展1：摩尔投票
 扩展2：给定一个正数K，返回所有出现次数>N/K的数
 
-有 N 堆石头排成一排，第 i 堆中有 stones[i] 块石头。每次移动（move）需要将连续的 K 堆石头合并为一堆，而这个移动的成本为这 K 堆石头的总数。
+有 N 堆石头排成一排，第 i 堆中有stones[i]块石头。每次移动（move）需要将连续的K堆石头合并为一堆，而这个移动的成本为这K堆石头的总数。
 找出把所有石头合并成一堆的最低成本。如果不可能，返回 -1 。
 Leetcode题目：https://leetcode.com/problems/minimum-cost-to-merge-stones/
 
@@ -542,7 +534,7 @@ No other IP addresses outside of the range should be covered.
 Return the shortest list of CIDR blocks that covers the range of IP addresses. If there are multiple answers, return any of them.
 Leetcode题目：https://leetcode.com/problems/ip-to-cidr/
 
-给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组
+给你一个包含 n 个整数的数组nums，判断nums中是否存在三个元素 a，b，c ，使得a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组
 注意：答案中不可以包含重复的三元组
 Leetcode题目：https://leetcode.com/problems/3sum/
 
@@ -561,28 +553,28 @@ Leetcode题目：https://leetcode.com/problems/gas-station/
 有三个有序数组，分别在三个数组中挑出3个数，x、y、z。返回 |x-y| + |y-z| + |z-x|最小是多少？
 Leetcode题目：https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
 
-给定一个 m x n 二维字符网格 board 和一个单词（字符串）列表 words，找出所有同时在二维网格和字典中出现的单词
+给定一个m x n 二维字符网格board和一个单词（字符串）列表 words，找出所有同时在二维网格和字典中出现的单词
 单词必须按照字母顺序，通过 相邻的单元格 内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格
 同一个单元格内的字母在一个单词中不允许被重复使用。
 Leetcode题目：https://leetcode.com/problems/word-search-ii/
 
-给定一个仅包含数字 0-9 的字符串和一个目标值，在数字之间添加 二元 运算符（不是一元）+、- 或 * ，返回所有能够得到目标值的表达式。
+给定一个仅包含数字0-9的字符串和一个目标值，在数字之间添加 二元 运算符（不是一元）+、-或*，返回所有能够得到目标值的表达式。
 输入: num = "123", target = 6
 输出: ["1+2+3", "1*2*3"] 
-示例 2:
+示例2:
 输入: num = "232", target = 8
 输出: ["2*3+2", "2+3*2"]
 示例 3:
 输入: num = "105", target = 5
 输出: ["1*0+5","10-5"]
-示例 4:
+示例4:
 输入: num = "00", target = 0
 输出: ["0+0", "0-0", "0*0"]
 Leetcode题目：https://leetcode.com/problems/expression-add-operators/
 
-按字典 wordList 完成从单词 beginWord 到单词 endWord 转化，一个表示此过程的 转换序列 是形式上像 beginWord -> s1 -> s2 -> ... -> sk 这样的单词序列，并满足：
+按字典wordList 完成从单词 beginWord 到单词 endWord 转化，一个表示此过程的 转换序列 是形式上像 beginWord -> s1 -> s2 -> ... -> sk 这样的单词序列，并满足：
 每对相邻的单词之间仅有单个字母不同。
-转换过程中的每个单词 si（1 <= i <= k）必须是字典 wordList 中的单词。注意，beginWord 不必是字典 wordList 中的单词
+转换过程中的每个单词 si（1 <= i <= k）必须是字典wordList 中的单词。注意，beginWord 不必是字典 wordList 中的单词
 给你两个单词 beginWord 和 endWord ，以及一个字典 wordList
 请你找出并返回所有从 beginWord 到 endWord 的 最短转换序列 ，如果不存在这样的转换序列，返回一个空列表
 每个序列都应该以单词列表 [beginWord, s1, s2, ..., sk] 的形式返回
@@ -620,18 +612,18 @@ Leetcode题目：https://leetcode.com/problems/reverse-integer/
 
 题目：
 
-请你来实现一个 myAtoi(string s) 函数，使其能将字符串转换成一个 32 位有符号整数（类似 C/C++ 中的 atoi 函数）
-函数 myAtoi(string s) 的算法如下：
+请你来实现一个myAtoi(string s)函数，使其能将字符串转换成一个 32 位有符号整数（类似 C/C++ 中的 atoi 函数）
+函数myAtoi(string s) 的算法如下：
 读入字符串并丢弃无用的前导空格
 检查下一个字符（假设还未到字符末尾）为正还是负号，读取该字符（如果有）。确定最终结果是负数还是正数。 如果两者都不存在，则假定结果为正。
 读入下一个字符，直到到达下一个非数字字符或到达输入的结尾。字符串的其余部分将被忽略。
 将前面步骤读入的这些数字转换为整数（即，"123" -> 123， "0032" -> 32）。如果没有读入数字，则整数为 0 。必要时更改符号（从步骤 2 开始）。
-如果整数数超过 32 位有符号整数范围 [−231,  231 − 1] ，需要截断这个整数，使其保持在这个范围内。具体来说，小于 −231 的整数应该被固定为 −231 ，大于 231 − 1 的整数应该被固定为231 − 1。
+如果整数数超过 32 位有符号整数范围 [−231, 231− 1] ，需要截断这个整数，使其保持在这个范围内。具体来说，小于 −231 的整数应该被固定为 −231 ，大于 231− 1 的整数应该被固定为231 − 1。
 返回整数作为最终结果。
 注意：本题中的空白字符只包括空格字符 ' ' 。除前导空格或数字后的其余字符串外，请勿忽略 任何其他字符。
 Leetcode题目：https://leetcode.com/problems/string-to-integer-atoi/
 
-罗马数字包含以下七种字符： I， V， X， L，C，D 和 M
+罗马数字包含以下七种字符：I，V，X，L，C，D和M
 字符          数值
 I             1
 V             5
@@ -640,15 +632,15 @@ L             50
 C             100
 D             500
 M             1000
-例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。
-通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：
-I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。
-X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 
-C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
+例如， 罗马数字 2 写做II，即为两个并列的 1。12 写做XII，即为X+II。 27 写做XXVII, 即为XX+V+II。
+通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做IIII，而是IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为IX。这个特殊的规则只适用于以下六种情况：
+I可以放在V(5) 和X(10) 的左边，来表示 4 和 9。
+X可以放在L(50) 和C(100) 的左边，来表示 40 和90。
+C可以放在D(500) 和M(1000) 的左边，来表示400 和900。
 给你一个整数，将其转为罗马数字
 Leetcode题目：https://leetcode.com/problems/integer-to-roman/
 
-罗马数字包含以下七种字符: I， V， X， L，C，D 和 M。
+罗马数字包含以下七种字符:I，V，X，L，C，D和M。
 字符          数值
 I             1
 V             5
@@ -657,19 +649,19 @@ L             50
 C             100
 D             500
 M             1000
-例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。
-通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 
-同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：
-I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。
-X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 
-C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
-给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。
+例如， 罗马数字 2 写做II，即为两个并列的 1。12 写做XII，即为X+II。 27 写做XXVII, 即为XX+V+II。
+通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做IIII，而是IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 
+同样地，数字 9 表示为IX。这个特殊的规则只适用于以下六种情况：
+I可以放在V(5) 和X(10) 的左边，来表示 4 和 9。
+X可以放在L(50) 和C(100) 的左边，来表示 40 和90。
+C可以放在D(500) 和M(1000) 的左边，来表示400 和900。
+给定一个罗马数字，将其转换成整数。输入确保在 1到 3999 的范围内。
 Leetcode题目：https://leetcode.com/problems/roman-to-integer/
 
-编写一个函数来查找字符串数组中的最长公共前缀，如果不存在公共前缀，返回空字符串 ""。
+编写一个函数来查找字符串数组中的最长公共前缀，如果不存在公共前缀，返回空字符串""。
 Leetcode题目：https://leetcode.com/problems/longest-common-prefix/
 
-给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
+给定一个仅包含数字2-9的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
 按键2对应：'a', 'b', 'c'
 按键3对应：'d', 'e', 'f'
@@ -694,13 +686,13 @@ Leetcode题目：https://leetcode.com/problems/letter-combinations-of-a-phone-nu
 进阶：你能尝试使用一趟扫描实现吗？
 Leetcode题目：https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 
-给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
+给定一个只包括 '('，')'，'{'，'}'，'['，']'的字符串 s ，判断字符串是否有效。
 有效字符串需满足：
 左括号必须用相同类型的右括号闭合。
 左括号必须以正确的顺序闭合。
 Leetcode题目：https://leetcode.com/problems/valid-parentheses/
 
-数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且有效的括号组合。
+数字 n代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且有效的括号组合。
 示例 1：
 输入：n = 3
 输出：["((()))","(()())","(())()","()(())","()()()"]
@@ -722,15 +714,15 @@ Leetcode题目：https://leetcode.com/problems/generate-parentheses/
 Leetcode题目：https://leetcode.com/problems/remove-duplicates-from-sorted-array/
 
 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
-如果数组中不存在目标值 target，返回 [-1, -1]。
-要求：设计并实现时间复杂度为 O(log n) 的算法
+如果数组中不存在目标值 target，返回[-1, -1]。
+要求：设计并实现时间复杂度为O(log n)的算法
 Leetcode题目：https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 
-请你判断一个 9x9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。
-数字 1-9 在每一行只能出现一次。
-数字 1-9 在每一列只能出现一次。
-数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。（请参考示例图）
-数独部分空格内已填入了数字，空白格用 '.' 表示。
+请你判断一个9x9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。
+数字1-9在每一行只能出现一次。
+数字1-9在每一列只能出现一次。
+数字1-9在每一个以粗实线分隔的3x3宫内只能出现一次。（请参考示例图）
+数独部分空格内已填入了数字，空白格用'.'表示。
 注意：
 一个有效的数独（部分已被填充）不一定是可解的。
 只需要根据以上规则，验证已经填入的数字是否有效即可。
@@ -738,10 +730,10 @@ Leetcode题目：https://leetcode.com/problems/valid-sudoku/
 
 编写一个程序，通过填充空格来解决数独问题。
 数独的解法需遵循如下规则：
-数字 1-9 在每一行只能出现一次。
-数字 1-9 在每一列只能出现一次。
-数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次
-数独部分空格内已填入了数字，空白格用 '.' 表示。
+数字1-9在每一行只能出现一次。
+数字1-9在每一列只能出现一次。
+数字1-9在每一个以粗实线分隔的3x3宫内只能出现一次
+数独部分空格内已填入了数字，空白格用'.'表示。
 Leetcode题目：https://leetcode.com/problems/sudoku-solver/
 
 给定一个正整数 n ，输出的第 n 项。
@@ -781,8 +773,8 @@ Leetcode题目：https://leetcode.com/problems/group-anagrams/
 整数数组 nums 按升序排列，数组中的值 互不相同 。
 在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转，
 使数组变为 [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数
-例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。
-给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。
+例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为[4,5,6,7,0,1,2] 。
+给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回-1。
 Leetcode题目：https://leetcode.com/problems/search-in-rotated-sorted-array/
 
 实现 pow(x, n) ，即计算 x 的 n 次幂函数
@@ -792,7 +784,7 @@ Leetcode题目：https://leetcode.com/problems/powx-n/
 请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间
 Leetcode题目：https://leetcode.com/problems/merge-intervals/
 
-一个机器人位于一个 m x n 网格的左上角
+一个机器人位于一个 m x n网格的左上角
 机器人每次只能向下或者向右移动一步
 机器人试图达到网格的右下角
 问总共有多少条不同的路径？
@@ -801,11 +793,11 @@ Leetcode题目：https://leetcode.com/problems/unique-paths/
 给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加1
 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字
 你可以假设除了整数 0 之外，这个整数不会以零开头
-示例 1：
+示例1：
 输入：digits = [1,2,3]
 输出：[1,2,4]
 解释：输入数组表示数字 123。
-示例 2：
+示例2：
 输入：digits = [9,9,9]
 输出：[1,0,0,0]
 解释：输入数组表示数字 1000。
@@ -814,8 +806,8 @@ Leetcode题目：https://leetcode.com/problems/unique-paths/
 输出：[1]
 Leetcode题目：https://leetcode.com/problems/plus-one/
 
-实现 int sqrt(int x) 函数。
-计算并返回 x 的平方根，其中 x 是非负整数。
+实现int sqrt(int x)函数。
+计算并返回x的平方根，其中x 是非负整数。
 由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
 示例 1:
 输入: 4
@@ -826,10 +818,10 @@ Leetcode题目：https://leetcode.com/problems/plus-one/
 说明: 8 的平方根是 2.82842...，由于返回类型是整数，小数部分将被舍去。
 Leetcode题目：https://leetcode.com/problems/sqrtx/
 
-给定一个 m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用 原地 算法。
+给定一个m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用 原地 算法。
 进阶：
-一个直观的解决方案是使用 O(m * n) 的额外空间，但这并不是一个好的解决方案。
-一个简单的改进方案是使用 O(m + n) 的额外空间，但这仍然不是最好的解决方案。
+一个直观的解决方案是使用 O(m * n)的额外空间，但这并不是一个好的解决方案。
+一个简单的改进方案是使用 O(m+n) 的额外空间，但这仍然不是最好的解决方案。
 你能想出一个仅使用常量空间的解决方案吗？
 Leetcode题目：https://leetcode.com/problems/set-matrix-zeroes/
 
@@ -839,12 +831,12 @@ Leetcode题目：https://leetcode.com/problems/set-matrix-zeroes/
 
 题目：
 
-给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。
+给定一个m x n 二维字符网格board 和一个字符串单词word 。如果word 存在于网格中，返回 true ；否则，返回 false 。
 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
 Leetcode题目 : https://leetcode.com/problems/word-search/
 
-给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。
-初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。你可以假设 nums1 的空间大小等于 m + n，这样它就有足够的空间保存来自 nums2 的元素。
+给你两个有序整数数组nums1 和 nums2，请你将 nums2 合并到nums1中，使 nums1 成为一个有序数组。
+初始化nums1 和 nums2 的元素数量分别为m 和 n 。你可以假设nums1 的空间大小等于m + n，这样它就有足够的空间保存来自 nums2 的元素。
 示例 1：
 输入：nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
 输出：[1,2,2,3,5,6]
@@ -853,7 +845,7 @@ Leetcode题目 : https://leetcode.com/problems/word-search/
 输出：[1]
 Leetcode题目 : https://leetcode.com/problems/merge-sorted-array/
 
-一条包含字母 A-Z 的消息通过以下映射进行了 编码 ：
+一条包含字母A-Z 的消息通过以下映射进行了 编码 ：
 'A' -> 1
 'B' -> 2
 ...
@@ -861,19 +853,19 @@ Leetcode题目 : https://leetcode.com/problems/merge-sorted-array/
 要 解码 已编码的消息，所有数字必须基于上述映射的方法，反向映射回字母（可能有多种方法）。例如，"11106" 可以映射为：
 "AAJF" ，将消息分组为 (1 1 10 6)
 "KJF" ，将消息分组为 (11 10 6)
-注意，消息不能分组为  (1 11 06) ，因为 "06" 不能映射为 "F" ，这是由于 "6" 和 "06" 在映射中并不等价。
+注意，消息不能分组为 (1 11 06) ，因为 "06" 不能映射为 "F" ，这是由于 "6" 和 "06" 在映射中并不等价。
 给你一个只含数字的 非空 字符串 s ，请计算并返回 解码 方法的 总数 。
 题目数据保证答案肯定是一个 32 位 的整数。
 Leetcode题目 : https://leetcode.com/problems/decode-ways/
 
-一条包含字母 A-Z 的消息通过以下的方式进行了编码：
+一条包含字母A-Z 的消息通过以下的方式进行了编码：
 'A' -> 1
 'B' -> 2
 ...
 'Z' -> 26
 除了上述的条件以外，现在加密字符串可以包含字符 '*'了，字符'*'可以被当做1到9当中的任意一个数字。
 给定一条包含数字和字符'*'的加密信息，请确定解码方法的总数。
-同时，由于结果值可能会相当的大，所以你应当对109 + 7取模。（翻译者标注：此处取模主要是为了防止溢出）
+同时，由于结果值可能会相当的大，所以你应当对109+ 7取模。（翻译者标注：此处取模主要是为了防止溢出）
 示例 1 :
 输入: "*"
 输出: 9
@@ -896,7 +888,7 @@ Leetcode题目 : https://leetcode.com/problems/binary-tree-zigzag-level-order-tr
 高度平衡二叉树是一棵满足每个节点的左右两个子树的高度差的绝对值不超过1的二叉树
 Leetcode题目 : https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
 
-给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
+给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
 struct Node {
   int val;
   Node *left;
@@ -904,7 +896,7 @@ struct Node {
   Node *next;
 }
 填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
-初始状态下，所有 next 指针都被设置为 NULL。
+初始状态下，所有next 指针都被设置为 NULL。
 进阶：
 这棵树如果是普通二叉树，该怎么做。
 你只能使用常量级额外空间。
@@ -955,7 +947,7 @@ Leetcode题目 : https://leetcode.com/problems/word-ladder/
 给你一个 m x n 的矩阵 board ，由若干字符 'X' 和 'O' ，找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。
 Leetcode题目 : https://leetcode.com/problems/surrounded-regions/
 
-给定一个非空字符串 s 和一个包含非空单词的列表 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。
+给定一个非空字符串 s 和一个包含非空单词的列表 wordDict，判定s 是否可以被空格拆分为一个或多个在字典中出现的单词。
 说明：拆分时可以重复使用字典中的单词。你可以假设字典中没有重复的单词。
 Leetcode题目 : https://leetcode.com/problems/word-break/
 Lintcode题目 : https://www.lintcode.com/problem/107/
@@ -968,8 +960,8 @@ s = "catsanddog"
 wordDict = ["cat", "cats", "and", "sand", "dog"]
 输出:
 [
-  "cats and dog",
-  "cat sand dog"
+ "cats and dog",
+ "cat sand dog"
 ]
 示例 2：
 输入:
@@ -977,12 +969,12 @@ s = "pineapplepenapple"
 wordDict = ["apple", "pen", "applepen", "pine", "pineapple"]
 输出:
 [
-  "pine apple pen apple",
-  "pineapple pen apple",
-  "pine applepen apple"
+ "pine apple pen apple",
+ "pineapple pen apple",
+ "pine applepen apple"
 ]
 解释: 注意你可以重复使用字典中的单词。
-示例 3：
+示例3：
 输入:
 s = "catsandog"
 wordDict = ["cats", "dog", "sand", "and", "cat"]
@@ -990,22 +982,22 @@ wordDict = ["cats", "dog", "sand", "and", "cat"]
 []
 Leetcode题目 : https://leetcode.com/problems/word-break-ii/
 
-给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表头节点。
-进阶：你可以在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序吗？
+给你链表的头结点head，请将其按 升序 排列并返回 排序后的链表头节点。
+进阶：你可以在O(nlogn) 时间复杂度和常数级空间复杂度下，对链表进行排序吗？
 Leetcode题目 : https://leetcode.com/problems/sort-list/
 
 根据 逆波兰表示法，求表达式的值。
-有效的算符包括 +、-、*、/ 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。
+有效的算符包括+、-、*、/。每个运算对象可以是整数，也可以是另一个逆波兰表达式。
 说明：整数除法只保留整数部分。给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。
-示例 1：
+示例1：
 输入：tokens = ["2","1","+","3","*"]
 输出：9
 解释：该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9
-示例 2：
+示例2：
 输入：tokens = ["4","13","5","/","+"]
 输出：6
 解释：该算式转化为常见的中缀算术表达式为：(4 + (13 / 5)) = 6
-示例 3：
+示例3：
 输入：tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
 输出：22
 解释：
@@ -1025,7 +1017,7 @@ Leetcode题目 : https://leetcode.com/problems/evaluate-reverse-polish-notation/
 
 题目：
 
-给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+给你一个整数数组 nums，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
 Leetcode题目 : https://leetcode.com/problems/maximum-product-subarray/
 
 给定一个有序无重复的数组nums， 和两个整数lower和upper， 返回[lower,upper]上所有缺失的数字段
@@ -1046,7 +1038,7 @@ nums = [-1], lower = -2, upper = -1
 输出: ["-2"]
 Leetcode题目 : https://leetcode.com/problems/missing-ranges/
 
-给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。
+给定两个整数，分别表示分数的分子numerator 和分母 denominator，以 字符串形式返回小数 。
 如果小数部分为循环小数，则将循环的部分括在括号内。
 如果存在多个答案，只需返回 任意一个 。
 对于所有给定的输入，保证 答案字符串的长度小于 104 。
@@ -1067,7 +1059,7 @@ Leetcode题目 : https://leetcode.com/problems/missing-ranges/
 输出："0.2"
 Leetcode题目 : https://leetcode.com/problems/fraction-to-recurring-decimal/
 
-给你一个字符串 columnTitle ，表示 Excel 表格中的列名称。返回该列名称对应的列序号。
+给你一个字符串columnTitle ，表示 Excel 表格中的列名称。返回该列名称对应的列序号。
 例如，
 
     A -> 1
@@ -1081,10 +1073,10 @@ Leetcode题目 : https://leetcode.com/problems/fraction-to-recurring-decimal/
 示例 1:
 输入: columnTitle = "A"
 输出: 1
-示例 2:
+示例2:
 输入: columnTitle = "AB"
 输出: 28
-示例 3:
+示例3:
 输入: columnTitle = "ZY"
 输出: 701
 示例 4:
@@ -1096,18 +1088,18 @@ Leetcode题目 : https://leetcode.com/problems/excel-sheet-column-number/
 示例 1:
 输入: 3
 输出: 0
-解释: 3! = 6, 尾数中没有零。
-示例 2:
+解释:3! = 6, 尾数中没有零。
+示例2:
 输入: 5
 输出: 1
-解释: 5! = 120, 尾数中有 1 个零.
-说明: 你算法的时间复杂度应为 O(log n) 。
+解释:5! = 120, 尾数中有 1 个零.
+说明: 你算法的时间复杂度应为O(logn)。
 Leetcode题目 : https://leetcode.com/problems/factorial-trailing-zeroes/
 
-给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+给定一个数组，将数组中的元素向右移动k个位置，其中k是非负数。
 进阶：
 尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。
-你可以使用空间复杂度为 O(1) 的 原地 算法解决这个问题吗？
+你可以使用空间复杂度为O(1) 的原地算法解决这个问题吗？
 示例 1:
 输入: nums = [1,2,3,4,5,6,7], k = 3
 输出: [5,6,7,1,2,3,4]
@@ -1115,7 +1107,7 @@ Leetcode题目 : https://leetcode.com/problems/factorial-trailing-zeroes/
 向右旋转 1 步: [7,1,2,3,4,5,6]
 向右旋转 2 步: [6,7,1,2,3,4,5]
 向右旋转 3 步: [5,6,7,1,2,3,4]
-示例 2:
+示例2:
 输入：nums = [-1,-100,3,99], k = 2
 输出：[3,99,-1,-100]
 解释: 
@@ -1135,18 +1127,18 @@ Leetcode题目 : https://leetcode.com/problems/rotate-array/
 输入：n = 11111111111111111111111111111101
 输出：3221225471 (10111111111111111111111111111111)
 解释：输入的二进制串 11111111111111111111111111111101 表示无符号整数 4294967293，
-     因此返回 3221225471 其二进制表示形式为 10111111111111111111111111111111 。
+    因此返回 3221225471 其二进制表示形式为 10111111111111111111111111111111 。
 Leetcode题目 : https://leetcode.com/problems/reverse-bits/
 
 编写一个函数，输入是一个无符号整数（以二进制串的形式），返回其二进制表达式中数字位数为 '1' 的个数（也被称为汉明重量）。
 示例 1：
 输入：00000000000000000000000000001011
 输出：3
-解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 '1'。
+解释：输入的二进制串 00000000000000000000000000001011中，共有三位为 '1'。
 示例 2：
 输入：00000000000000000000000010000000
 输出：1
-解释：输入的二进制串 00000000000000000000000010000000 中，共有一位为 '1'。
+解释：输入的二进制串 00000000000000000000000010000000中，共有一位为 '1'。
 示例 3：
 输入：11111111111111111111111111111101
 输出：31
@@ -1161,7 +1153,7 @@ Leetcode题目 : https://leetcode.com/problems/number-of-1-bits/
 「快乐数」定义为：
 对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。
 然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。
-如果 可以变为  1，那么这个数就是快乐数。
+如果 可以变为 1，那么这个数就是快乐数。
 如果 n 是快乐数就返回 true ；不是，则返回 false 。
 示例 1：
 输入：19
@@ -1203,9 +1195,9 @@ Leetcode题目 : https://leetcode.com/problems/count-primes/
 
 题目：
 
-你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。
-在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。
-例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。
+你这个学期必须选修 numCourses 门课程，记为0到numCourses - 1 。
+在选修某些课程之前需要一些先修课程。 先修课程按数组prerequisites 给出，其中prerequisites[i] = [ai, bi] ，表示如果要学习课程ai 则 必须 先学习课程 bi 。
+例如，先修课程对[0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。
 请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。
 示例 1：
 输入：numCourses = 2, prerequisites = [[1,0]]
@@ -1217,26 +1209,26 @@ Leetcode题目 : https://leetcode.com/problems/count-primes/
 解释：总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。
 Leetcode题目 : https://leetcode.com/problems/course-schedule/
 
-现在你总共有 n 门课需要选，记为 0 到 n-1。
-在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: [0,1]
+现在你总共有 n 门课需要选，记为0到n-1。
+在选修某些课程之前需要一些先修课程。例如，想要学习课程 0 ，你需要先完成课程1 ，我们用一个匹配来表示他们: [0,1]
 给定课程总量以及它们的先决条件，返回你为了学完所有课程所安排的学习顺序。
 可能会有多个正确的顺序，你只要返回一种就可以了。如果不可能完成所有课程，返回一个空数组。
-示例 1:
+示例1:
 输入: 2, [[1,0]] 
 输出: [0,1]
-解释: 总共有 2 门课程。要学习课程 1，你需要先完成课程 0。因此，正确的课程顺序为 [0,1] 。
-示例 2:
+解释:总共有 2 门课程。要学习课程 1，你需要先完成课程 0。因此，正确的课程顺序为 [0,1] 。
+示例2:
 输入: 4, [[1,0],[2,0],[3,1],[3,2]]
 输出: [0,1,2,3] or [0,2,1,3]
-解释: 总共有 4 门课程。要学习课程 3，你应该先完成课程 1 和课程 2。并且课程 1 和课程 2 都应该排在课程 0 之后。
-     因此，一个正确的课程顺序是 [0,1,2,3] 。另一个正确的排序是 [0,2,1,3] 。
+解释:总共有 4 门课程。要学习课程 3，你应该先完成课程 1 和课程 2。并且课程 1 和课程 2 都应该排在课程 0 之后。
+    因此，一个正确的课程顺序是[0,1,2,3] 。另一个正确的排序是[0,2,1,3] 。
 Leetcode题目 : https://leetcode.com/problems/course-schedule-ii/
 
 你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。
 这个地方所有的房屋都 围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。
 同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。
 给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，今晚能够偷窃到的最高金额。
-示例 1：
+示例1：
 输入：nums = [2,3,2]
 输出：3
 解释：你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。
@@ -1244,7 +1236,7 @@ Leetcode题目 : https://leetcode.com/problems/course-schedule-ii/
 输入：nums = [1,2,3,1]
 输出：4
 解释：你可以先偷窃 1 号房屋（金额 = 1），然后偷窃 3 号房屋（金额 = 3）。
-     偷窃到的最高金额 = 1 + 3 = 4 。
+    偷窃到的最高金额 = 1 + 3 = 4 。
 示例 3：
 输入：nums = [0]
 输出：0
@@ -1253,18 +1245,18 @@ Leetcode题目 : https://leetcode.com/problems/house-robber-ii/
 请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为 要被删除的节点 。
 Leetcode题目 : https://leetcode.com/problems/delete-node-in-a-linked-list/
 
-给你一个长度为 n 的整数数组 nums，其中 n > 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。
+给你一个长度为n的整数数组nums，其中n > 1，返回输出数组output，其中 output[i]等于nums中除nums[i]之外其余各元素的乘积。
 示例:
 输入: [1,2,3,4]
 输出: [24,12,8,6]
-说明: 请不要使用除法，且在 O(n) 时间复杂度内完成此题。
+说明: 请不要使用除法，且在O(n) 时间复杂度内完成此题。
 进阶：
 你可以在常数空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输出数组不被视为额外空间。）
 Leetcode题目 : https://leetcode.com/problems/product-of-array-except-self/
 
 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
-注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。
-示例 1:
+注意：若s 和 t中每个字符出现的次数都相同，则称s 和 t互为字母异位词。
+示例1:
 输入: s = "anagram", t = "nagaram"
 输出: true
 示例 2:
@@ -1287,10 +1279,10 @@ Leetcode题目 : https://leetcode.com/problems/alien-dictionary/
 利用know函数，找到明星，返回明星的编号，如果没有明星返回-1。
 Leetcode题目 : https://leetcode.com/problems/find-the-celebrity/
 
-给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
+给定正整数n，找到若干个完全平方数（比如1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
 给你一个整数 n ，返回和为 n 的完全平方数的 最少数量 。
 完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，1、4、9 和 16 都是完全平方数，而 3 和 11 不是。
-示例 1：
+示例1：
 输入：n = 12
 输出：3 
 解释：12 = 4 + 4 + 4
@@ -1315,7 +1307,7 @@ Leetcode题目 : https://leetcode.com/problems/move-zeroes/
 
 题目：
 
-给定一个包含 n + 1 个整数的数组 nums ，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。
+给定一个包含n + 1 个整数的数组nums ，其数字都在 1 到 n之间（包括 1 和 n），可知至少存在一个重复的整数。
 假设 nums 只有 一个重复的整数 ，找出 这个重复的数 。
 你设计的解决方案必须不修改数组 nums 且只用常量级 O(1) 的额外空间。
 Leetcode题目 : https://leetcode.com/problems/find-the-duplicate-number/
@@ -1332,14 +1324,14 @@ Leetcode题目 : https://leetcode.com/problems/game-of-life/
 
 中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。
 例如，
-[2,3,4] 的中位数是 3
+[2,3,4]的中位数是 3
 [2,3] 的中位数是 (2 + 3) / 2 = 2.5
 设计一个支持以下两种操作的数据结构：
 void addNum(int num) - 从数据流中添加一个整数到数据结构中。
 double findMedian() - 返回目前所有元素的中位数。
 Leetcode题目 : https://leetcode.com/problems/find-median-from-data-stream/
 
-给定一个整数数组 nums，按要求返回一个新数组 counts。数组 counts 有该性质： counts[i] 的值是  nums[i] 右侧小于 nums[i] 的元素的数量。
+给定一个整数数组 nums，按要求返回一个新数组counts。数组 counts 有该性质： counts[i] 的值是 nums[i] 右侧小于nums[i] 的元素的数量。
 示例：
 输入：nums = [5,2,6,1]
 输出：[2,1,1,0] 
@@ -1350,7 +1342,7 @@ Leetcode题目 : https://leetcode.com/problems/find-median-from-data-stream/
 1 的右侧有 0 个更小的元素
 Leetcode题目 : https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 
-给你一个整数数组 nums，将它重新排列成 nums[0] < nums[1] > nums[2] < nums[3]... 的顺序。
+给你一个整数数组nums，将它重新排列成nums[0] < nums[1] > nums[2] < nums[3]...的顺序。
 你可以假设所有输入数组都可以得到满足题目要求的结果。
 示例 1：
 输入：nums = [1,5,1,1,6,4]
@@ -1359,10 +1351,10 @@ Leetcode题目 : https://leetcode.com/problems/count-of-smaller-numbers-after-se
 示例 2：
 输入：nums = [1,3,2,2,3,1]
 输出：[2,3,1,3,1,2]
-进阶：你能用 O(n) 时间复杂度和原地 O(1) 额外空间来实现吗？
+进阶：你能用O(n) 时间复杂度和原地 O(1) 额外空间来实现吗？
 Leetcode题目 : https://leetcode.com/problems/wiggle-sort-ii/
 
-给定一个整数，写一个函数来判断它是否是 3 的幂次方。如果是，返回 true ；否则，返回 false 。
+给定一个整数，写一个函数来判断它是否是 3的幂次方。如果是，返回 true ；否则，返回 false 。
 Leetcode题目 : https://leetcode.com/problems/power-of-three/
 
 给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
@@ -1397,11 +1389,11 @@ return res
 示例 1：
 输入：nestedList = [[1,1],2,[1,1]]
 输出：[1,1,2,1,1]
-解释：通过重复调用 next 直到 hasNext 返回 false，next 返回的元素的顺序应该是: [1,1,2,1,1]。
+解释：通过重复调用next 直到hasNext 返回 false，next返回的元素的顺序应该是: [1,1,2,1,1]。
 示例 2：
 输入：nestedList = [1,[4,[6]]]
 输出：[1,4,6]
-解释：通过重复调用 next 直到 hasNext 返回 false，next 返回的元素的顺序应该是: [1,4,6]。
+解释：通过重复调用next直到hasNext 返回 false，next返回的元素的顺序应该是: [1,4,6]。
 Leetcode题目 : https://leetcode.com/problems/flatten-nested-list-iterator/
 
 tic-tac-toe游戏，不知道的同学可以自行搜索。请实现以下类TicTacToe。
@@ -1409,7 +1401,7 @@ tic-tac-toe游戏，不知道的同学可以自行搜索。请实现以下类Tic
 内部方法：int move(int i, int j, int p) : p只可能是1和2，表示玩家1还是玩家2。当前玩家在i行j列上走了一步。返回值只可能是0、1、2，0表示没有玩家赢；1表示玩家1赢了；2表示玩家2赢了。
 Leetcode题目 : https://leetcode.com/problems/design-tic-tac-toe/
 
-设计一个支持在平均 时间复杂度 O(1) 下，执行以下操作的数据结构。
+设计一个支持在平均时间复杂度 O(1)下，执行以下操作的数据结构。
 insert(val)：当元素 val 不存在时，向集合中插入该项。
 remove(val)：元素 val 存在时，从集合中移除该项。
 getRandom：随机返回现有集合中的一项。每个元素应该有相同的概率被返回。
@@ -1437,10 +1429,10 @@ Leetcode题目 : https://leetcode.com/problems/shuffle-an-array/
 1 <= nums.length <= 10^5
 k 的取值范围是 [1, 数组中不相同的元素的个数]
 题目数据保证答案唯一，换句话说，数组中前 k 个高频元素的集合是唯一的
-进阶：你所设计算法的时间复杂度 必须 优于 O(n log n) ，其中 n 是数组大小。
+进阶：你所设计算法的时间复杂度 必须 优于 O(n log n) ，其中 n是数组大小。
 Leetcode题目 : https://leetcode.com/problems/top-k-frequent-elements/
 
-给你一个字符串 s 和一个整数 k ，请你找出 s 中的最长子串， 要求该子串中的每一字符出现次数都不少于 k 。返回这一子串的长度。
+给你一个字符串 s 和一个整数 k ，请你找出 s 中的最长子串，要求该子串中的每一字符出现次数都不少于 k 。返回这一子串的长度。
 示例 1：
 输入：s = "aaabb", k = 3
 输出：3
@@ -1455,9 +1447,9 @@ s 仅由小写英文字母组成
 Leetcode题目 : https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/
 
 写一个程序，输出从 1 到 n 数字的字符串表示。
-1. 如果 n 是3的倍数，输出“Fizz”；
-2. 如果 n 是5的倍数，输出“Buzz”；
-3.如果 n 同时是3和5的倍数，输出 “FizzBuzz”。
+1. 如果n是3的倍数，输出“Fizz”；
+2. 如果n是5的倍数，输出“Buzz”；
+3.如果n同时是3和5的倍数，输出 “FizzBuzz”。
 示例：
 n = 15,
 返回:
@@ -1480,8 +1472,8 @@ n = 15,
 ]
 Leetcode题目 : https://leetcode.com/problems/fizz-buzz/
 
-给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。
-为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -228 到 228 - 1 之间，最终结果不会超过 231 - 1 。
+给定四个包含整数的数组列表A , B , C , D ,计算有多少个元组 (i, j, k, l)，使得A[i] + B[j] + C[k] + D[l] = 0。
+为了使问题简单化，所有的 A, B, C, D 具有相同的长度N，且 0 ≤ N ≤ 500 。所有整数的范围在 -228 到 228 - 1 之间，最终结果不会超过231 - 1 。
 例如:
 输入:
 A = [ 1, 2]
@@ -1505,7 +1497,7 @@ Leetcode题目 : https://leetcode.com/problems/4sum-ii/
 输入: [2,2,2,2,2]
 输出: 5
 解释: 最长递增子序列的长度是1，并且存在5个子序列的长度为1，因此输出5。
-注意: 给定的数组长度不超过 2000 并且结果一定是32位有符号整数。
+注意:给定的数组长度不超过 2000 并且结果一定是32位有符号整数。
 Leetcode题目 : https://leetcode.com/problems/number-of-longest-increasing-subsequence/
 
 给定一个二叉树，找到最长的路径，这个路径中的每个节点具有相同值。 这条路径可以经过也可以不经过根节点。
@@ -1656,9 +1648,9 @@ w[i] = Max {
  
 来自哈喽单车(Leetcode原题)
 Alice 和 Bob 两个人轮流玩一个游戏，Alice 先手。
-一开始，有 n 个石子堆在一起。每个人轮流操作，正在操作的玩家可以从石子堆里拿走 任意 非零 平方数 个石子。
+一开始，有 n个石子堆在一起。每个人轮流操作，正在操作的玩家可以从石子堆里拿走 任意非零 平方数个石子。
 如果石子堆里没有石子了，则无法操作的玩家输掉游戏。
-给你正整数 n ，且已知两个人都采取最优策略。如果 Alice 会赢得比赛，那么返回 True ，否则返回 False 。
+给你正整数n，且已知两个人都采取最优策略。如果 Alice 会赢得比赛，那么返回True，否则返回False。
 leetcode原题 : https://leetcode.com/problems/stone-game-iv/
 
 来自三七互娱(Leetcode原题)
@@ -1687,11 +1679,11 @@ Leetcode题目 : https://leetcode.com/problems/invert-binary-tree/
 给定一个经过编码的字符串，返回它解码后的字符串。
 编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。
 你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。
-此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。
+此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像3a或2[4]的输入。
 Leetcode题目 : https://leetcode.com/problems/decode-string/
 
 假设有打乱顺序的一群人站成一个队列，数组 people 表示队列中一些人的属性（不一定按顺序）。每个 people[i] = [hi, ki] 表示第 i 个人的身高为 hi ，前面 正好 有 ki 个身高大于或等于 hi 的人。
-请你重新构造并返回输入数组 people 所表示的队列。返回的队列应该格式化为数组 queue ，其中 queue[j] = [hj, kj] 是队列中第 j 个人的属性（queue[0] 是排在队列前面的人）。
+请你重新构造并返回输入数组people 所表示的队列。返回的队列应该格式化为数组 queue ，其中 queue[j] = [hj, kj] 是队列中第 j 个人的属性（queue[0] 是排在队列前面的人）。
 输入：people = [[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]]
 输出：[[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
 解释：
@@ -1704,7 +1696,7 @@ Leetcode题目 : https://leetcode.com/problems/decode-string/
 因此 [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]] 是重新构造后的队列。
 Leetcode题目 : https://leetcode.com/problems/queue-reconstruction-by-height/
 
-给定一个二叉树的根节点 root ，和一个整数 targetSum ，求该二叉树里节点值之和等于 targetSum 的 路径 的数目。
+给定一个二叉树的根节点 root，和一个整数 targetSum ，求该二叉树里节点值之和等于 targetSum 的 路径 的数目。
 路径 不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
 Leetcode题目 : https://leetcode.com/problems/path-sum-iii/
 
@@ -1734,9 +1726,9 @@ Leetcode题目 : https://leetcode.com/problems/path-sum-iii/
 
 38 大厂高频算法和数据结构面试题38
 
-给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
+给定两个字符串s和 p，找到s中所有p的异位词的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
 异位词 指字母相同，但排列不同的字符串。
-示例 1:
+示例1:
 输入: s = "cbaebabacd", p = "abc"
 输出: [0,6]
 解释:
@@ -1751,7 +1743,7 @@ Leetcode题目 : https://leetcode.com/problems/path-sum-iii/
 起始索引等于 2 的子串是 "ab", 它是 "ab" 的异位词。
 提示:
 1 <= s.length, p.length <= 3 * 10^4
-s 和 p 仅包含小写字母
+s和p仅包含小写字母
 Leetcode题目 : https://leetcode.com/problems/find-all-anagrams-in-a-string/
 
 给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在 [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。
@@ -1769,10 +1761,10 @@ n == nums.length
 Leetcode题目 : https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
 
 给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
-你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。
+你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为NULL 的节点将直接作为新二叉树的节点。
 Leetcode题目 : https://leetcode.com/problems/merge-two-binary-trees/
 
-给你一个用字符数组 tasks 表示的 CPU 需要执行的任务列表。其中每个字母表示一种不同种类的任务。任务可以以任意顺序执行，并且每个任务都可以在 1 个单位时间内执行完。
+给你一个用字符数组tasks 表示的 CPU 需要执行的任务列表。其中每个字母表示一种不同种类的任务。任务可以以任意顺序执行，并且每个任务都可以在 1 个单位时间内执行完。
 在任何一个单位时间，CPU 可以完成一个任务，或者处于待命状态。
 然而，两个 相同种类 的任务之间必须有长度为整数 n 的冷却时间，因此至少有连续 n 个单位时间内 CPU 在执行不同的任务，或者在待命状态。
 你需要计算完成所有任务所需要的 最短时间 。
@@ -1814,19 +1806,19 @@ Leetcode题目 : https://leetcode.com/problems/task-scheduler/
 s 由小写英文字母组成
 Leetcode题目 : https://leetcode.com/problems/palindromic-substrings/
 
-请根据每日 气温 列表 temperatures ，请计算在每一天需要等几天才会有更高的温度。如果气温在这之后都不会升高，请在该位置用 0 来代替。
+请根据每日 气温 列表 temperatures，请计算在每一天需要等几天才会有更高的温度。如果气温在这之后都不会升高，请在该位置用0 来代替。
 示例 1:
 输入: temperatures = [73,74,75,71,69,72,76,73]
-输出: [1,1,4,2,1,1,0,0]
+输出:[1,1,4,2,1,1,0,0]
 示例 2:
 输入: temperatures = [30,40,50,60]
-输出: [1,1,1,0]
+输出:[1,1,1,0]
 示例 3:
 输入: temperatures = [30,60,90]
 输出: [1,1,0]
 提示：
-1 <= temperatures.length <= 10^5
-30 <= temperatures[i] <= 100
+1 <=temperatures.length <= 10^5
+30 <=temperatures[i]<= 100
 Leetcode题目 : https://leetcode.com/problems/daily-temperatures/
 
 字符串 S 由小写字母组成。我们要把这个字符串划分为尽可能多的片段，同一字母最多出现在一个片段中。返回一个表示每个字符串片段的长度的列表。
@@ -2041,9 +2033,9 @@ leetcode题目 : https://leetcode.com/problems/integer-to-english-words/
 想让所有的1汇聚在一个点上开会，请返回所有1移动的最小距离和
 leetcode题目 : https://leetcode.com/problems/best-meeting-point/
 
-给定一个含有 n 个正数的数组 x。从点 (0,0) 开始，先向北移动 x[0] 米，然后向西移动 x[1] 米，向南移动 x[2] 米，向东移动 x[3] 米，持续移动
+给定一个含有n个正数的数组x。从点(0,0)开始，先向北移动x[0]米，然后向西移动x[1]米，向南移动x[2]米，向东移动x[3]米，持续移动
 也就是说，每次移动后你的方位会发生逆时针变化
-编写一个 O(1) 空间复杂度的一趟扫描算法，判断你所经过的路径是否相交。
+编写一个O(1)空间复杂度的一趟扫描算法，判断你所经过的路径是否相交。
 leetcode题目 : https://leetcode.com/problems/self-crossing/
 
 
@@ -2146,9 +2138,9 @@ arr : 20 20 80 70 70 70 420 5 1 5 1 60 90
 Leetcode题目 : https://leetcode.com/problems/word-pattern-ii/
 
 一只青蛙想要过河。 假定河流被等分为若干个单元格，并且在每一个单元格内都有可能放有一块石子（也有可能没有）。 青蛙可以跳上石子，但是不可以跳入水中
-给你石子的位置列表 stones（用单元格序号 升序 表示）， 请判定青蛙能否成功过河（即能否在最后一步跳至最后一块石子上）
-开始时， 青蛙默认已站在第一块石子上，并可以假定它第一步只能跳跃一个单位（即只能从单元格 1 跳至单元格 2 ）
-如果青蛙上一步跳跃了 k 个单位，那么它接下来的跳跃距离只能选择为 k - 1、k 或 k + 1 个单位。 另请注意，青蛙只能向前方（终点的方向）跳跃
+给你石子的位置列表 stones（用单元格序号 升序 表示），请判定青蛙能否成功过河（即能否在最后一步跳至最后一块石子上）
+开始时，青蛙默认已站在第一块石子上，并可以假定它第一步只能跳跃一个单位（即只能从单元格 1 跳至单元格 2 ）
+如果青蛙上一步跳跃了k个单位，那么它接下来的跳跃距离只能选择为k - 1、k或k + 1 个单位。另请注意，青蛙只能向前方（终点的方向）跳跃
 示例 1：
 输入：stones = [0,1,3,5,6,8,12,17]
 输出：true
@@ -2159,8 +2151,8 @@ Leetcode题目 : https://leetcode.com/problems/word-pattern-ii/
 解释：这是因为第 5 和第 6 个石子之间的间距太大，没有可选的方案供青蛙跳跃过去。
 leetcode题目：https://leetcode.com/problems/frog-jump/
 
-给你一个长度为 2 * n 的整数数组。你需要将 nums 分成 两个 长度为 n 的数组，分别求出两个数组的和，并 最小化 两个数组和之 差的绝对值 。nums 中每个元素都需要放入两个数组之一。
-请你返回 最小 的数组和之差。
+给你一个长度为 2 * n的整数数组。你需要将nums分成两个长度为n的数组，分别求出两个数组的和，并 最小化两个数组和之差的绝对值。nums中每个元素都需要放入两个数组之一。
+请你返回最小的数组和之差。
 数据范围：
 1 <= n <= 15
 nums.length == 2 * n
@@ -2176,7 +2168,7 @@ leetcode题目：https://leetcode.com/problems/partition-array-into-two-arrays-t
 leetcode题目：https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/
 
 我们有 N 个与坐标轴对齐的矩形, 其中 N > 0, 判断它们是否能精确地覆盖一个矩形区域。
-每个矩形用左下角的点和右上角的点的坐标来表示。例如， 一个单位正方形可以表示为 [1,1,2,2]。 ( 左下角的点的坐标为 (1, 1) 以及右上角的点的坐标为 (2, 2) )。
+每个矩形用左下角的点和右上角的点的坐标来表示。例如，一个单位正方形可以表示为 [1,1,2,2]。( 左下角的点的坐标为 (1, 1) 以及右上角的点的坐标为 (2, 2) )。
 示例 1:
 rectangles = [
   [1,1,3,3],
@@ -2186,7 +2178,7 @@ rectangles = [
   [2,3,3,4]
 ]
 返回 true。5个矩形一起可以精确地覆盖一个矩形区域。
-示例 2:
+示例2:
 rectangles = [
   [1,1,2,3],
   [1,3,2,4],
@@ -2266,7 +2258,7 @@ leetcode题目：https://leetcode.com/problems/word-squares/
 
 动态开点线段树详解
 
-给你一个整数数组 nums ，按要求返回一个新数组 counts 。数组 counts 有该性质： counts[i] 的值是  nums[i] 右侧小于 nums[i] 的元素的数量。
+给你一个整数数组 nums ，按要求返回一个新数组counts 。数组 counts 有该性质： counts[i] 的值是 nums[i] 右侧小于nums[i] 的元素的数量。
 输入：nums = [5,2,6,1]
 输出：[2,1,1,0] 
 解释：
@@ -2307,9 +2299,9 @@ leetcode题目：https://leetcode.com/problems/serialize-and-deserialize-n-ary-t
 解释：如上的转账完成后，0号-4元，1号4元，2号0元，所以如果想所有人的钱都是0元，1号需要给0号转账4元。所以最少1比交易。
 leetcode题目：https://leetcode.com/problems/optimal-account-balancing/
 
-冬季已经来临。 你的任务是设计一个有固定加热半径的供暖器向所有房屋供暖。
+冬季已经来临。你的任务是设计一个有固定加热半径的供暖器向所有房屋供暖。
 在加热器的加热半径范围内的每个房屋都可以获得供暖。
-现在，给出位于一条水平线上的房屋 houses 和供暖器 heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。
+现在，给出位于一条水平线上的房屋houses 和供暖器heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。
 说明：所有供暖器都遵循你的半径标准，加热的半径也一样。
 示例 1:
 输入: houses = [1,2,3], heaters = [2]
@@ -2338,7 +2330,7 @@ leetcode题目：https://leetcode.com/problems/heaters/
 arr = { 5, 3, 1, 4 }, k = 4
 返回2
 
-给定一个 不含重复 单词的字符串数组 words ，编写一个程序，返回 words 中的所有 连接词 。
+给定一个 不含重复 单词的字符串数组 words ，编写一个程序，返回words 中的所有 连接词 。
 连接词 的定义为：一个字符串完全是由至少两个给定数组中的单词组成的。
 示例 1：
 输入：words = ["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"]
@@ -2351,7 +2343,7 @@ arr = { 5, 3, 1, 4 }, k = 4
 输出：["catdog"]
 leetcode题目：https://leetcode.com/problems/concatenated-words/
 
-对于给定的整数 n, 如果n的k（k>=2）进制数的所有数位全为1，则称 k（k>=2）是 n 的一个好进制。
+对于给定的整数 n, 如果n的k（k>=2）进制数的所有数位全为1，则称k（k>=2）是 n 的一个好进制。
 以字符串的形式给出 n, 以字符串的形式返回 n 的最小好进制。
 示例 1：
 输入："13"
@@ -2387,7 +2379,7 @@ leetcode题目：https://leetcode.com/problems/the-maze-iii/
 题目数据保证答案符合 32 位整数范围。
 leetcode题目：https://leetcode.com/problems/combination-sum-iv
 
-给定整数 n 和 k，找到 1 到 n 中字典序第 k 小的数字。
+给定整数n和k，找到1到n中字典序第k小的数字。
 注意：1 ≤ k ≤ n ≤ 10^9。
 示例 :
 输入:
@@ -2513,7 +2505,7 @@ void addContentToFile(String filePath, String content)：根据filePath路径找
 String readContentFromFile(String filePath)：根据filePath读出文件内容并返回。
 leetcode题目：https://leetcode.com/problems/design-in-memory-file-system/
 
-给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的1 的个数。
+给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含连续的1的个数。
 示例 1:
 输入: 5
 输出: 5
@@ -2558,7 +2550,7 @@ command由U，R构成，且至少有一个U，至少有一个R
 obstacles[i]不为原点或者终点
 链接：https://leetcode-cn.com/problems/programmable-robot/
 
-这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。
+这里有 n 门不同的在线课程，他们按从 1 到 n编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。
 给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。
 示例：
 输入: [[100, 200], [200, 1300], [1000, 1250], [2000, 3200]]
@@ -2608,23 +2600,23 @@ AutocompleteSystem(String[] sentences, int[] times): 输入句子sentences，及
 List input(char c): 输入字符c可以是26个小写英文字母，也可以是空格，以'#'结尾。返回输入字符前缀对应频率最高的至多3个句子，频率相等时按字典序排列。
 leetcode题目：https://leetcode.com/problems/design-search-autocomplete-system/
 
-珂珂喜欢吃香蕉。这里有 N 堆香蕉，第 i 堆中有 piles[i] 根香蕉。警卫已经离开了，将在 H 小时后回来。
-珂珂可以决定她吃香蕉的速度 K （单位：根/小时）。每个小时，她将会选择一堆香蕉，从中吃掉 K 根。如果这堆香蕉少于 K 根，她将吃掉这堆的所有香蕉，然后这一小时内不会再吃更多的香蕉。  
+珂珂喜欢吃香蕉。这里有N堆香蕉，第 i 堆中有piles[i]根香蕉。警卫已经离开了，将在H小时后回来。
+珂珂可以决定她吃香蕉的速度K（单位：根/小时）。每个小时，她将会选择一堆香蕉，从中吃掉 K 根。如果这堆香蕉少于 K 根，她将吃掉这堆的所有香蕉，然后这一小时内不会再吃更多的香蕉。
 珂珂喜欢慢慢吃，但仍然想在警卫回来前吃掉所有的香蕉。
 返回她可以在 H 小时内吃掉所有香蕉的最小速度 K（K 为整数）。
 示例 1：
 输入: piles = [3,6,7,11], H = 8
 输出: 4
-示例 2：
+示例2：
 输入: piles = [30,11,23,4,20], H = 5
 输出: 30
-示例 3：
+示例3：
 输入: piles = [30,11,23,4,20], H = 6
 输出: 23
 leetcode题目：https://leetcode.com/problems/koko-eating-bananas/
 
 在两条独立的水平线上按给定的顺序写下 nums1 和 nums2 中的整数。
-现在，可以绘制一些连接两个数字 nums1[i] 和 nums2[j] 的直线，这些直线需要同时满足满足：
+现在，可以绘制一些连接两个数字 nums1[i]和 nums2[j]的直线，这些直线需要同时满足满足：
 nums1[i] == nums2[j]
 且绘制的直线不与任何其他连线（非水平线）相交。
 请注意，连线即使在端点也不能相交：每个数字只能属于一条连线。
@@ -2644,15 +2636,15 @@ leetcode题目：https://leetcode.com/problems/coin-path/
 返回最早在哪一天，会出现达标情况，如果不存在达标情况，返回-1
 leetcode题目：https://leetcode.com/problems/k-empty-slots/
 
-你的国家有无数个湖泊，所有湖泊一开始都是空的。当第 n 个湖泊下雨的时候，如果第 n 个湖泊是空的，那么它就会装满水，否则这个湖泊会发生洪水。你的目标是避免任意一个湖泊发生洪水。
-给你一个整数数组 rains ，其中：
-rains[i] > 0 表示第 i 天时，第 rains[i] 个湖泊会下雨。
-rains[i] == 0 表示第 i 天没有湖泊会下雨，你可以选择 一个 湖泊并 抽干 这个湖泊的水。
-请返回一个数组 ans ，满足：
+你的国家有无数个湖泊，所有湖泊一开始都是空的。当第 n个湖泊下雨的时候，如果第 n个湖泊是空的，那么它就会装满水，否则这个湖泊会发生洪水。你的目标是避免任意一个湖泊发生洪水。
+给你一个整数数组rains，其中：
+rains[i] > 0表示第 i天时，第 rains[i]个湖泊会下雨。
+rains[i] == 0表示第 i天没有湖泊会下雨，你可以选择 一个湖泊并 抽干这个湖泊的水。
+请返回一个数组ans，满足：
 ans.length == rains.length
-如果 rains[i] > 0 ，那么ans[i] == -1 。
-如果 rains[i] == 0 ，ans[i] 是你第 i 天选择抽干的湖泊。
-如果有多种可行解，请返回它们中的 任意一个 。如果没办法阻止洪水，请返回一个 空的数组 。
+如果rains[i] > 0 ，那么ans[i] == -1。
+如果rains[i] == 0，ans[i]是你第i天选择抽干的湖泊。
+如果有多种可行解，请返回它们中的 任意一个。如果没办法阻止洪水，请返回一个 空的数组。
 leetcode题目：https://leetcode.com/problems/avoid-flood-in-the-city/
 
 

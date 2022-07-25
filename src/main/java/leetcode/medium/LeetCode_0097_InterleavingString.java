@@ -7,6 +7,7 @@
 // 一个样本做行一个样本做列的模型
 // dp[i][j] str1 拿出前缀i长度，str2 拿出前缀j长度，能否交错组成str[i+j]
 package leetcode.medium;
+// 给定三个字符串s1、s2、s3，请你帮忙验证s3是否是由s1和s2交错组成的
 // Constraints:
 
 // 0 <= s1.length, s2.length <= 100
