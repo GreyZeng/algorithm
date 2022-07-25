@@ -11,7 +11,6 @@ import java.util.TreeSet;
 //		nums.length == 2 * n
 //		-10^7 <= nums[i] <= 10^7
 //		leetcode题目：https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/
-
 public class LeetCode_2035_PartitionArrayIntoTwoArraysToMinimizeSumDifference {
 
 	public static int minimumDifference(int[] arr) {
