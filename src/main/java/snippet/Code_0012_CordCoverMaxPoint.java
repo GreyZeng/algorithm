@@ -10,6 +10,7 @@ import java.util.*;
 // 长度和范围有单调性 -> 滑动窗口，左右指针
 // 在牛客上，[类似题目](https://www.nowcoder.com/questionTerminal/2b2567c9b95743f19c167bb1ec644b43)
 // 和这题有点差别，牛客上的题目是不算边缘压中的情况的
+// tips: 滑动窗口和双指针
 public class Code_0012_CordCoverMaxPoint {
 
     public static int maxPoint1(int[] arr, int L) {
