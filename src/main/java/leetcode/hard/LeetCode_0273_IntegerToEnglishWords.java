@@ -1,6 +1,8 @@
-package todo.offer.class42;
-
-public class Problem_0273_IntegerToEnglishWords {
+package leetcode.hard;
+// TODO
+//给定一个整数num，返回一个字符串str，是num的英文表达
+//		leetcode题目 : https://leetcode.cn/problems/integer-to-english-words/
+public class LeetCode_0273_IntegerToEnglishWords {
 
 	public static String num1To19(int num) {
 		if (num < 1 || num > 19) {
