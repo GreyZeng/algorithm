@@ -35,6 +35,7 @@ import java.util.HashMap;
 // 2. sum和target奇偶性不一样，返回0
 // 4.P 是正数集合，N是负数集合，P - N= target ---> 2P = target + N + P --> P = (target + sum) / 2，如果某个累加和等于P，则得到一种情况
 // 5. 空间压缩技巧
+// https://leetcode.cn/problems/target-sum/
 public class LeetCode_0494_TargetSum {
 
     public static int findTargetSumWays1(int[] arr, int s) {
