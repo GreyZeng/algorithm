@@ -1723,7 +1723,6 @@ Leetcode题目 : https://leetcode.com/problems/path-sum-iii/
 如果小明怎么都无法保证每一轮都赢，返回-1
 
 
-
 38 大厂高频算法和数据结构面试题38
 
 给定两个字符串s和 p，找到s中所有p的异位词的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
@@ -1789,22 +1788,7 @@ Leetcode题目 : https://leetcode.com/problems/merge-two-binary-trees/
 A -> B -> C -> A -> D -> E -> A -> F -> G -> A -> (待命) -> (待命) -> A -> (待命) -> (待命) -> A
 Leetcode题目 : https://leetcode.com/problems/task-scheduler/
 
-给你一个字符串 s ，请你统计并返回这个字符串中 回文子串 的数目。
-回文字符串 是正着读和倒过来读一样的字符串。
-子字符串 是字符串中的由连续字符组成的一个序列。
-具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被视作不同的子串。
-示例 1：
-输入：s = "abc"
-输出：3
-解释：三个回文子串: "a", "b", "c"
-示例 2：
-输入：s = "aaa"
-输出：6
-解释：6个回文子串: "a", "a", "a", "aa", "aa", "aaa"
-提示：
-1 <= s.length <= 1000
-s 由小写英文字母组成
-Leetcode题目 : https://leetcode.com/problems/palindromic-substrings/
+
 
 请根据每日 气温 列表 temperatures，请计算在每一天需要等几天才会有更高的温度。如果气温在这之后都不会升高，请在该位置用0 来代替。
 示例 1:
