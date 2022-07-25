@@ -1,7 +1,6 @@
 package snippet;
 
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 只由小写字母（a~z）组成的一批字符串，都放在字符类型的数组String[] arr中，
@@ -9,6 +8,14 @@ import java.util.Set;
  * 虽然长度不一样，但是所含字符的种类完全一样（a、b、c） 返回arr中有多少类？
  */
 public class Code_0106_HowManyTypes {
+
+	/*
+	 * 只由小写字母（a~z）组成的一批字符串，都放在字符类型的数组String[] arr中，
+	 * 如果其中某两个字符串，所含有的字符种类完全一样，就将两个字符串算作一类 比如：baacba和bac就算作一类
+	 * 虽然长度不一样，但是所含字符的种类完全一样（a、b、c） 返回arr中有多少类？
+	 *
+	 */
+
 	public static int types1(String[] arr) {
 		HashSet<String> types = new HashSet<>();
 		for (String str : arr) {
@@ -29,15 +36,14 @@ public class Code_0106_HowManyTypes {
 	}
 
 	public static int types2(String[] arr) {
-		Set<Integer> types = new HashSet<>();
-		for (String s : arr) {
-			char[] str = s.toCharArray();
-			int type = 0;
-			for (char c : str) {
-				type |= (1 << (c - 'a'));
-
+		HashSet<Integer> types = new HashSet<>();
+		for (String str : arr) {
+			char[] chs = str.toCharArray();
+			int key = 0;
+			for(int i = 0 ; i < chs.length;i++) {
+				key |= (1 << (chs[i] - 'a'));
 			}
-			types.add(type);
+			types.add(key);
 		}
 		return types.size();
 	}
@@ -77,4 +83,5 @@ public class Code_0106_HowManyTypes {
 		System.out.println("test finish");
 
 	}
+
 }

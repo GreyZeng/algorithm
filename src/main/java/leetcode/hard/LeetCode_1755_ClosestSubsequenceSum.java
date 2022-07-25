@@ -1,39 +1,51 @@
 package leetcode.hard;
 
+import java.util.Arrays;
 
-import java.util.TreeSet;
-
+//给定整数数组nums和目标值goal，需要从nums中选出一个子序列，使子序列元素总和最接近goal
+//        也就是说如果子序列元素和为sum ，需要最小化绝对差abs(sum - goal)，返回 abs(sum - goal)可能的最小值
+//        注意数组的子序列是通过移除原始数组中的某些元素（可能全部或无）而形成的数组。
 //最接近sum的子序列累加和问题
-//https://leetcode.com/problems/closest-subsequence-sum/
-//tips: 查看数据量，由于数组长度不大，可以用分治的方法，左边满足条件的数量，右边满足条件的数量，左右结合的数量
+//https://leetcode.cn/problems/closest-subsequence-sum/
+// tips:
+// 本题数据量描述:
+// 1 <= nums.length <= 40
+// -10^7 <= nums[i] <= 10^7
+// -10^9 <= goal <= 10^9
+// 通过这个数据量描述可知，需要用到分治，因为数组长度不大
+// 而值很大，用动态规划的话，表会爆
 public class LeetCode_1755_ClosestSubsequenceSum {
+
+    public static int[] l = new int[1 << 20];
+    public static int[] r = new int[1 << 20];
+
     public static int minAbsDifference(int[] nums, int goal) {
-        TreeSet<Integer> left = new TreeSet<>();
-        TreeSet<Integer> right = new TreeSet<>();
-        process(nums, 0, nums.length >> 1, 0, left);
-        process(nums, nums.length >> 1, nums.length, 0, right);
+        if (nums == null || nums.length == 0) {
+            return goal;
+        }
+        int le = process(nums, 0, nums.length >> 1, 0, 0, l);
+        int re = process(nums, nums.length >> 1, nums.length, 0, 0, r);
+        Arrays.sort(l, 0, le);
+        Arrays.sort(r, 0, re--);
         int ans = Math.abs(goal);
-        for (int e : right) {
-            Integer a = left.floor(goal - e);
-            if (a != null) {
-                ans = Math.min(ans, Math.abs(a + e - goal));
+        for (int i = 0; i < le; i++) {
+            int rest = goal - l[i];
+            while (re > 0 && Math.abs(rest - r[re - 1]) <= Math.abs(rest - r[re])) {
+                re--;
             }
-            a = left.ceiling(goal - e);
-            if (a != null) {
-                ans = Math.min(ans, Math.abs(a + e - goal));
-            }
+            ans = Math.min(ans, Math.abs(rest - r[re]));
         }
         return ans;
     }
 
-    // 枚举所有子序列的累加和
-    public static void process(int[] nums, int s, int e, int sum, TreeSet<Integer> set) {
-        if (s == e) {
-            set.add(sum);
+    public static int process(int[] nums, int index, int end, int sum, int fill, int[] arr) {
+        if (index == end) {
+            arr[fill++] = sum;
         } else {
-            process(nums, s + 1, e, sum + nums[s], set);
-            process(nums, s + 1, e, sum, set);
+            fill = process(nums, index + 1, end, sum, fill, arr);
+            fill = process(nums, index + 1, end, sum + nums[index], fill, arr);
         }
+        return fill;
     }
-
 }
+
