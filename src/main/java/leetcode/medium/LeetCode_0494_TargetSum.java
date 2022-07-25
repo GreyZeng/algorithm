@@ -27,6 +27,9 @@ package leetcode.medium;
 
 import java.util.HashMap;
 
+// 动态规划
+//给定一个数组arr，你可以在每个数字之前决定+或者-但是必须所有数字都参与，再给定一个数target
+//        请问最后算出target的方法数
 // 0. 数组处理成非负数不会影响结果
 // 1. target > sum 返回0
 // 2. sum和target奇偶性不一样，返回0

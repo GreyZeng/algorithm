@@ -25,6 +25,9 @@
 package leetcode.hard;
 
 // https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/
+//最长递增链问题
+//给定一个二维数组matrix，可以从任何位置出发，每一步可以走向上、下、左、右，四个方向。返回最大递增链的长度。
+//本题只需要到记忆化搜索优化技巧即可。
 public class LeetCode_0329_LongestIncreasingPathInAMatrix {
 
     public static int longestIncreasingPath(int[][] matrix) {
