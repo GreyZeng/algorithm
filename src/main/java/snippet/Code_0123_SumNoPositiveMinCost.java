@@ -1,7 +1,7 @@
-package todo.offer.class43;
+package snippet;
 
 import java.util.Arrays;
-
+// TODO
 // 来自微软面试
 // 给定一个正数数组arr长度为n、正数x、正数y
 // 你的目标是让arr整体的累加和<=0
@@ -11,7 +11,7 @@ import java.util.Arrays;
 // 3）可以选择让num变成-num，承担y的代价
 // 返回你达到目标的最小代价
 // 数据规模 : 面试时面试官没有说数据规模
-public class Code01_SumNoPositiveMinCost {
+public class Code_0123_SumNoPositiveMinCost {
 
 	// 动态规划
 	public static int minOpStep1(int[] arr, int x, int y) {
