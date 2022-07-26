@@ -1,8 +1,10 @@
 package leetcode.medium;
 
+//数组中所有数都异或起来的结果，叫做异或和。给定一个数组arr，想知道arr中哪两个数的异或结果最大，返回最大的异或结果
 // https://leetcode-cn.com/problems/maximum-xor-of-two-numbers-in-an-array/
 // 进阶：https://www.nowcoder.com/questionTerminal/43f62c52fbac47feaeabe40ac1ab9091
 // 代码：NowCoder_MaxXorSubArray
+// tips：前缀树优化
 public class LeetCode_0421_MaximumXOROfTwoNumbersInAnArray {
     public static int findMaximumXOR(int[] nums) {
         return maxEor(nums, nums.length);

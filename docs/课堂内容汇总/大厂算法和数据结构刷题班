@@ -41,8 +41,7 @@
 
 数组中所有数都异或起来的结果，叫做异或和。给定一个数组arr，返回arr的最大子数组异或和
 
-数组中所有数都异或起来的结果，叫做异或和。给定一个数组arr，想知道arr中哪两个数的异或结果最大，返回最大的异或结果
-Leetcode题目：https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
+
 
 给定一个非负整数组成的数组nums。另有一个查询数组queries，其中queries[i]=[xi, mi]
 第i个查询的答案是xi和任何nums数组中不超过mi的元素按位异或（XOR）得到的最大值
@@ -82,9 +81,6 @@ Parts和records的长度一样长，str一定要分割成k个部分，分割出�
 2，如果是负数，就需要用括号括起来，比如"4*(-3)"但如果负数作为公式的开头或括号部分的开头，则可以没有括号，比如"-3*4"和"(-3*4)"都是合法的
 3，不用考虑计算过程中会发生溢出的情况。
 
-给定n个非负整数a1，a2，...an，每个数代表坐标中的一个点(i,ai)。在坐标内画n条垂直线
-垂直线i的两个端点分别为(i,ai)和(i, 0)，找出其中的两条线，使得它们与x轴共同构成的容器可以容纳最多的水
-Leetcode题目：https://leetcode.com/problems/container-with-most-water/
 
 给定一个char[][] matrix，也就是char类型的二维数组，再给定一个字符串word，
 可以从任何一个某个位置出发，可以走上、下、左、右，能不能找到word？
