@@ -1,5 +1,5 @@
-package todo.offer.class40;
-
+package snippet;
+// TODO
 // 来自腾讯
 // 比如arr = {3,1,2,4}
 // 下标对应是：0 1 2 3
@@ -22,7 +22,7 @@ package todo.offer.class40;
 // 你的目的是一定要让arr都成为一种数字，注意联动效果会一直生效
 // 返回最小的变化数
 // arr长度 <= 200, arr中的值 <= 10^6
-public class Code05_AllSame {
+public class Code_0127_AllSame {
 
 	public static int allSame1(int[] arr) {
 		int ans = Integer.MAX_VALUE;

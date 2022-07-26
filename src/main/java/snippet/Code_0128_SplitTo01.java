@@ -1,8 +1,8 @@
-package todo.offer.class40;
+package snippet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+// TODO
 // 腾讯
 // 分裂问题
 // 一个数n，可以分裂成一个数组[n/2, n%2, n/2]
@@ -18,7 +18,7 @@ import java.util.HashMap;
 // 我们的课加个码:
 // n是long类型随意多大都行
 // l和r也是long类型随意多大都行，但要保证l<=r
-public class Code01_SplitTo01 {
+public class Code_0128_SplitTo01 {
 
 //	public static long nums3(long n, long l, long r) {
 //		HashMap<Long, Long> lenMap = new HashMap<>();

@@ -1,8 +1,8 @@
-package todo.offer.class40;
+package snippet;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
-
+// TODO
 // 给定int[][] meetings，比如
 // {
 //   {66, 70}   0号会议截止时间66，获得收益70
@@ -12,7 +12,7 @@ import java.util.PriorityQueue;
 // 一开始的时间是0，任何会议都持续10的时间，但是一个会议一定要在该会议截止时间之前开始
 // 只有一个会议室，任何会议不能共用会议室，一旦一个会议被正确安排，将获得这个会议的收益
 // 请返回最大的收益
-public class Code03_MaxMeetingScore {
+public class Code_0130_MaxMeetingScore {
 
 	public static int maxScore1(int[][] meetings) {
 		Arrays.sort(meetings, (a, b) -> a[0] - b[0]);
