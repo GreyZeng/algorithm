@@ -1,5 +1,5 @@
-package todo.offer.class39;
-
+package snippet;
+// TODO
 // 来自百度
 // 给定一个字符串str，和一个正数k
 // str子序列的字符种数必须是k种，返回有多少子序列满足这个条件
@@ -7,7 +7,7 @@ package todo.offer.class39;
 // 原始是取mod
 // 本节在尝试上，最难的
 // 搞出桶来，组合公式
-public class Code03_SequenceKDifferentKinds {
+public class Code_0134_SequenceKDifferentKinds {
 
 	// bu -> {6,7,0,0,6,3}
 	// 0 1 2 3 4 5

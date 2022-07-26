@@ -1,5 +1,5 @@
-package todo.offer.class39;
-
+package snippet;
+// TODO
 // 真实笔试，忘了哪个公司，但是绝对大厂
 // 一个子序列的消除规则如下:
 // 1) 在某一个子序列中，如果'1'的左边有'0'，那么这两个字符->"01"可以消除
@@ -10,7 +10,7 @@ package todo.offer.class39;
 // 一个只由'0'、'1'、'2'、'3'四种字符组成的字符串str，可以生成很多子序列，返回“全消子序列”的最大长度
 // 字符串str长度 <= 200
 // 体系学习班，代码46节，第2题+第3题
-public class Code05_0123Disappear {
+public class Code_0132_0123Disappear {
 
 	// str[L...R]上，都能消掉的子序列，最长是多少？
 	public static int f(char[] str, int L, int R) {
