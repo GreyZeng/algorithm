@@ -113,8 +113,7 @@ i为中间位置时，i号灯的开关能影响i-1、i和i+1
 0号灯的开关能影响N-1、0和1位置的灯
 N-1号灯的开关能影响N-2、N-1和0位置的灯
 
-给你一个由若干括号和字母组成的字符串 s ，删除最小数量的无效括号，使得输入的字符串有效。返回所有可能的结果。答案可以按任意顺序返回
-Leetcode题目：https://leetcode.com/problems/remove-invalid-parentheses/
+
 
 给定一个数组arr，求最长递增子序列长度
 Leetcode题目：https://leetcode.com/problems/longest-increasing-subsequence

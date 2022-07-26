@@ -31,6 +31,8 @@ import java.util.List;
 //1. 如何判断一个字符串是否有效，count不出现小于0的情况，左括号++，右括号--
 //2. f(i,j), 检查位置从i开始，删除位置从j开始
 // TODO
+//给你一个由若干括号和字母组成的字符串 s ，删除最小数量的无效括号，使得输入的字符串有效。返回所有可能的结果。答案可以按任意顺序返回
+//        Leetcode题目：https://leetcode.com/problems/remove-invalid-parentheses/
 public class LeetCode_0301_RemoveInvalidParentheses {
     // https://leetcode.com/problems/remove-invalid-parentheses/discuss/75027/Easy-Short-Concise-and-Fast-Java-DFS-3-ms-solution
     public static List<String> removeInvalidParentheses(String s) {
