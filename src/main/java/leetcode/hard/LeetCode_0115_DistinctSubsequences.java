@@ -5,6 +5,7 @@ package leetcode.hard;
 //返回S的所有子序列中
 //有多少个子序列的字面值等于T
 // https://leetcode.cn/problems/distinct-subsequences/
+// https://leetcode-cn.com/problems/21dk04/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16414324.html
 public class LeetCode_0115_DistinctSubsequences {
     // leetcode超时

@@ -1,8 +1,8 @@
 package leetcode.hard;
 
 // TODO
-// https://leetcode.cn/problems/distinct-subsequences-ii/
-//字面值不同的子序列
+//给定一个字符串str，返回str的所有子序列中有多少不同的字面值
+//        Leetcode题目：https://leetcode.com/problems/distinct-subsequences-ii/
 //        tips：
 //        考虑不重复的情况：
 //        所有不同字面值的子序列中，以
