@@ -1,7 +1,7 @@
-package todo.offer.class36;
+package snippet;
 
 import java.util.HashMap;
-
+// TODO
 // 来自京东
 // 把一个01字符串切成多个部分，要求每一部分的0和1比例一样，同时要求尽可能多的划分
 // 比如 : 01010101
@@ -14,7 +14,7 @@ import java.util.HashMap;
 // 其中ans[i] = str[0...i]这个前缀串，要求每一部分的0和1比例一样，同时要求尽可能多的划分下，部分数是多少
 // 输入: str = "010100001"
 // 输出: ans = [1, 1, 1, 2, 1, 2, 1, 1, 3]
-public class Code02_Ratio01Split {
+public class Code_0141_Ratio01Split {
 
 	// 001010010100...
 	public static int[] split(int[] arr) {

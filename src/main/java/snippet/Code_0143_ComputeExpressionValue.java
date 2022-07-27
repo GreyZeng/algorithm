@@ -1,5 +1,5 @@
-package todo.offer.class36;
-
+package snippet;
+// TODO
 // 来自美团
 // () 分值为2
 // (()) 分值为3
@@ -11,7 +11,7 @@ package todo.offer.class36;
 // (()())()(()) -> (2 * 2 + 1) * 2 * 3 -> 30
 // 给定一个括号字符串str，已知str一定是正确的括号结合，不会有违规嵌套
 // 返回分数
-public class Code04_ComputeExpressionValue {
+public class Code_0143_ComputeExpressionValue {
 
 	public static int sores(String s) {
 		return compute(s.toCharArray(), 0)[0];

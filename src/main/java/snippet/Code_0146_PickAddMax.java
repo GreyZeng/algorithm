@@ -1,7 +1,7 @@
-package todo.offer.class36;
+package snippet;
 
 import java.util.Arrays;
-
+// TODO
 // 来自腾讯
 // 给定一个数组arr，当拿走某个数a的时候，其他所有的数都+a
 // 请返回最终所有数都拿走的最大分数
@@ -10,7 +10,7 @@ import java.util.Arrays;
 // 当拿走5时，获得5分，数组变成[9]
 // 当拿走9时，获得9分，数组变成[]
 // 这是最大的拿取方式，返回总分17
-public class Code07_PickAddMax {
+public class Code_0146_PickAddMax {
 
 	// 最优解
 	public static int pick(int[] arr) {

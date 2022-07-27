@@ -1,7 +1,7 @@
-package todo.offer.class36;
+package snippet;
 
 import java.util.Arrays;
-
+// TODO
 // 来自腾讯
 // 给定一个正数数组arr，代表每个人的体重。给定一个正数limit代表船的载重，所有船都是同样的载重量
 // 每个人的体重都一定不大于船的载重
@@ -10,7 +10,7 @@ import java.util.Arrays;
 // 2, 一艘船如果坐2人，两个人的体重相加需要是偶数，且总体重不能超过船的载重
 // 3, 一艘船最多坐2人
 // 返回如果想所有人同时坐船，船的最小数量
-public class Code08_MinBoatEvenNumbers {
+public class Code_0147_MinBoatEvenNumbers {
 
 	public static int minBoat(int[] arr, int limit) {
 		Arrays.sort(arr);

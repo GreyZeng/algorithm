@@ -1,9 +1,9 @@
-package todo.offer.class36;
-
+package snippet;
+// TODO
 // 来自美团
 // 给定两个字符串s1和s2
 // 返回在s1中有多少个子串等于s2
-public class Code03_MatchCount {
+public class Code_0142_MatchCount {
 
 	public static int sa(String s1, String s2) {
 		if (s1 == null || s2 == null || s1.length() < s2.length()) {
