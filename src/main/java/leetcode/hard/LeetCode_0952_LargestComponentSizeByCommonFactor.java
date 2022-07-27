@@ -2,12 +2,9 @@ package leetcode.hard;
 
 import java.util.*;
 
-//给定一个由不同正整数的组成的非空数组 A，考虑下面的图：
-//有A.length个节点，按从A[0]到A[A.length - 1]标记；
-//只有当 A[i] 和 A[j] 共用一个大于 1 的公因数时，A[i]和 A[j] 之间才有一条边。
-//返回图中最大连通组件的大小。
-//来源：力扣（LeetCode）
-//链接：https://leetcode-cn.com/problems/largest-component-size-by-common-factor
+//给定一个由不同正整数的组成的非空数组 A，考虑下面的图：有A.length个节点，按从A[0]到A[A.length - 1]标记；
+//        只有当 A[i] 和 A[j] 共用一个大于 1 的公因数时，A[i]和 A[j] 之间才有一条边。返回图中最大连通集合的大小
+//        Leetcode题目：https://leetcode.com/problems/largest-component-size-by-common-factor/
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 // 笔记：https://www.cnblogs.com/greyzeng/p/16343068.html
 public class LeetCode_0952_LargestComponentSizeByCommonFactor {
