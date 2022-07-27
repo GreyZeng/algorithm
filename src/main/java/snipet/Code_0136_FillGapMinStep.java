@@ -1,5 +1,5 @@
-package todo.offer.class38;
-
+package snipet;
+// TODO
 // 来自字节
 // 给定两个数a和b
 // 第1轮，把1选择给a或者b
@@ -7,7 +7,7 @@ package todo.offer.class38;
 // ...
 // 第i轮，把i选择给a或者b
 // 想让a和b的值一样大，请问至少需要多少轮？
-public class Code01_FillGapMinStep {
+public class Code_0136_FillGapMinStep {
 
 	// 暴力方法
 	// 不要让a、b过大！
