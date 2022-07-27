@@ -1,5 +1,5 @@
-package todo.offer.class37;
-
+package snippet;
+// TODO
 // 来自字节
 // 扑克牌中的红桃J和梅花Q找不到了，为了利用剩下的牌做游戏，小明设计了新的游戏规则
 // 1) A,2,3,4....10,J,Q,K分别对应1到13这些数字，大小王对应0
@@ -9,7 +9,7 @@ package todo.offer.class37;
 // 5) 每一轮总分大的人获胜
 // 假设小明知道每一轮对手做出选择之后的总分，返回小明在每一轮都赢的情况下，最终的最大分是多少
 // 如果小明怎么都无法保证每一轮都赢，返回-1
-public class Code02_GameForEveryStepWin {
+public class Code_0139_GameForEveryStepWin {
 
 //	public static max(int[] cands, int[] sroces) {
 //		return f(cands, sroces, 0, 0, 0, 0);
