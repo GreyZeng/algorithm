@@ -67,6 +67,7 @@ public class LeetCode_0300_LongestIncreasingSubsequence {
         return max;
     }
 
+    // 求必须以i位置结尾的最长递增子序列的长度
     // O(N*logN)解法
     public static int[] lis(int[] arr) {
         if (null == arr || arr.length == 0) {
@@ -114,11 +115,10 @@ public class LeetCode_0300_LongestIncreasingSubsequence {
                 maxIndex = i;
             }
         }
-
         return res;
-
     }
 
+    // 求必须以i位置结尾的最长递增子序列的长度
     // 暴力解(O(N^2))
     public static int[] lis2(int[] arr) {
         if (null == arr || arr.length == 0) {
