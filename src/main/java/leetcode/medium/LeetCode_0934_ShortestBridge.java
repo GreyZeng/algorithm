@@ -1,8 +1,10 @@
 package leetcode.medium;
 
 // TODO
+//在给定的二维二进制数组A中，存在两座岛。（岛是由四面相连的 1 形成的一个最大组。）现在，我们可以将0变为1，以使两座岛连接起来，变成一座岛。
+//        返回必须翻转的0 的最小数目。（可以保证答案至少是1）
+//        Leetcode题目：https://leetcode.com/problems/shortest-bridge/
 // tips:
-//https://leetcode.cn/problems/shortest-bridge/
 //        逐层广播，层数+1
 //        二维数组转成一维数组
 //        宽度优先遍历
