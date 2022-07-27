@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 // TODO
+//给定一个字符串数组arr，里面都是互不相同的单词，找出所有不同的索引对(i, j)，使得列表中的两个单词，words[i] + words[j]，可拼接成回文串。
+//        Leetcode题目：https://leetcode.com/problems/palindrome-pairs/
 //tips:
 //        暴力方法O(N^2 * K)
 //
@@ -20,7 +22,6 @@ import java.util.List;
 //        O(N*K^2)
 //
 //        检查回文串这件事，在这个算法中的复杂度可以忽略
-// https://leetcode.cn/problems/palindrome-pairs/
 public class LeetCode_0336_PalindromePairs {
     public static List<List<Integer>> palindromePairs(String[] words) {
         HashMap<String, Integer> wordset = new HashMap<>();
