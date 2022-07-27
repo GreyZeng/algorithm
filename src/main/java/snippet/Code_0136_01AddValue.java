@@ -1,5 +1,5 @@
-package todo.offer.class39;
-
+package snippet;
+// TODO
 // 来自腾讯
 // 给定一个只由0和1组成的字符串S，假设下标从1开始，规定i位置的字符价值V[i]计算方式如下 : 
 // 1) i == 1时，V[i] = 1
@@ -7,7 +7,7 @@ package todo.offer.class39;
 // 3) i > 1时，如果S[i] == S[i-1]，V[i] = V[i-1] + 1
 // 你可以随意删除S中的字符，返回整个S的最大价值
 // 字符串长度<=5000
-public class Code01_01AddValue {
+public class Code_0136_01AddValue {
 
 	public static int max1(String s) {
 		if (s == null || s.length() == 0) {
