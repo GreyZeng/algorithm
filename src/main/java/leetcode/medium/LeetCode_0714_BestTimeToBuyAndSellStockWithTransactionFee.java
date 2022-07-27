@@ -2,6 +2,7 @@ package leetcode.medium;
 
 // 参考股票问题5 cooldown问题
 // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16182420.html
 public class LeetCode_0714_BestTimeToBuyAndSellStockWithTransactionFee {
     public static int maxProfit1(int[] arr, int fee) {
         if (arr.length < 2) {

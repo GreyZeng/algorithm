@@ -23,6 +23,7 @@ package leetcode.easy;
 // 1 <= prices.length <= 10^5
 // 0 <= prices[i] <= 10^4
 // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/
+// https://www.cnblogs.com/greyzeng/p/16182420.html
 public class LeetCode_0121_BestTimeToBuyAndSellStock {
     // 必须在某个时刻卖出的情况下，最大收益是多少？
 

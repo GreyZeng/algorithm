@@ -19,6 +19,7 @@ package leetcode.hard;
 //		Explanation: Buy on day 2 (price = 2) and sell on day 3 (price = 6), profit = 6-2 = 4.
 //		Then buy on day 5 (price = 0) and sell on day 6 (price = 3), profit = 3-0 = 3.
 // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16182420.html
 public class LeetCode_0188_BestTimeToBuyAndSellStockIV {
 
     // 暴力方法

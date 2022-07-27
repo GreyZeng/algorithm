@@ -12,6 +12,7 @@ package leetcode.medium;
 //        Output: 3
 //        Explanation: transactions = [buy, sell, cooldown, buy, sell]
 // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16182420.html
 public class LeetCode_0309_BestTimeToBuyAndSellStockWithCooldown {
     public static int maxProfit(int[] arr) {
         if (arr.length < 2) {
