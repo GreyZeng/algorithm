@@ -1,11 +1,11 @@
 package leetcode.hard;
 
-
+//给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水
+//        Leetcode题目：https://leetcode.com/problems/trapping-rain-water/
 //Constraints:
 // n == height.length
 // 0 <= n <= 3 * 10^4
 // 0 <= height[i] <= 10^5
-// https://leetcode.cn/problems/trapping-rain-water/
 // https://www.lintcode.com/problem/363/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16418808.html
 public class LeetCode_0042_TrappingRainWater {
