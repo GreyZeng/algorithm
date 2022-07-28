@@ -1,7 +1,7 @@
 package nowcoder;
 
 import java.util.Scanner;
-
+//数组中所有数都异或起来的结果，叫做异或和。给定一个数组arr，返回arr的最大子数组异或和
 //给定一个整型数组arr，其中可能有正、有负，有零，求其中子数组的最大异或和。
 //        备注:
 //        时间复杂度O(nlog2n)，额外空间复杂度O(nlog2n)。
