@@ -1,6 +1,6 @@
 package leetcode.hard;
 
-// 求最长的有效括号的长度
+// 给定一个只由左括号和右括号的字符串，返回最长的有效括号子串的长度
 // tips: 以i结尾的答案全部收集一遍
 // ref: https://www.lintcode.com/problem/longest-valid-parentheses/description
 // https://leetcode-cn.com/problems/longest-valid-parentheses/

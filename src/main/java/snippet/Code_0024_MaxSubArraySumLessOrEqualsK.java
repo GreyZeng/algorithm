@@ -3,7 +3,8 @@ package snippet;
 import java.util.TreeSet;
 
 // 给定一个数组arr，再给定一个k值, 返回累加和小于等于k，但是离k最近的子数组累加和
-public class Code_0024_SumLessOrEqualsK {
+// arr中求子数组的累加和是<=K的并且是最大的，返回这个最大的累加和
+public class Code_0024_MaxSubArraySumLessOrEqualsK {
     //    tips:
 //    TreeSet
 //    前缀和 加入有序表
