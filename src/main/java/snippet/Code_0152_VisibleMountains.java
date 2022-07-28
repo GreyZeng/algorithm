@@ -1,9 +1,19 @@
-package nowcoder;
+package snippet;
 
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Stack;
 
+//一个不含有负数的数组可以代表一圈环形山，每个位置的值代表山的高度
+//		比如， {3,1,2,4,5}、{4,5,3,1,2}或{1,2,4,5,3}都代表同样结构的环形山
+//		山峰A和山峰B能够相互看见的条件为:
+//		1.如果A和B是同一座山，认为不能相互看见
+//		2.如果A和B是不同的山，并且在环中相邻，认为可以相互看见
+//		3.如果A和B是不同的山，并且在环中不相邻，假设两座山高度的最小值为min
+//		1)如果A通过顺时针方向到B的途中没有高度比min大的山峰，认为A和B可以相互看见
+//		2)如果A通过逆时针方向到B的途中没有高度比min大的山峰，认为A和B可以相互看见
+//		两个方向只要有一个能看见，就算A和B可以相互看见
+//		给定一个不含有负数且没有重复值的数组 arr，请返回有多少对山峰能够相互看见
+//		进阶，给定一个不含有负数但可能含有重复值的数组arr，返回有多少对山峰能够相互看见
 // TODO
 // https://www.nowcoder.com/questionTerminal/80d076bcea594b86ba55b913de4c069d
 // tips
@@ -13,7 +23,8 @@ import java.util.Stack;
 //有重复值
 //用栈，从小到大，顶到底
 //对于重复的值C(m,n)
-public class NowCoder_VisibleMountains {
+public class Code_0152_VisibleMountains {
+
     // 栈中放的记录，
     // value就是指，times是收集的个数
     public static class Record {
@@ -182,28 +193,20 @@ public class NowCoder_VisibleMountains {
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = in.nextInt();
+        int size = 10;
+        int max = 10;
+        int testTimes = 3000000;
+        System.out.println("test begin!");
+        for (int i = 0; i < testTimes; i++) {
+            int[] arr = getRandomArray(size, max);
+            if (rightWay(arr) != getVisibleNum(arr)) {
+                printArray(arr);
+                System.out.println(rightWay(arr));
+                System.out.println(getVisibleNum(arr));
+                break;
+            }
         }
-        System.out.println(getVisibleNum(arr));
-        in.close();
-//        int size = 10;
-//        int max = 10;
-//        int testTimes = 3000000;
-//        System.out.println("test begin!");
-//        for (int i = 0; i < testTimes; i++) {
-//            int[] arr = getRandomArray(size, max);
-//            if (rightWay(arr) != getVisibleNum(arr)) {
-//                printArray(arr);
-//                System.out.println(rightWay(arr));
-//                System.out.println(getVisibleNum(arr));
-//                break;
-//            }
-//        }
-//        System.out.println("test end!");
+        System.out.println("test end!");
     }
 
 }
