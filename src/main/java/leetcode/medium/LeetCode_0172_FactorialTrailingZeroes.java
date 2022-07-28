@@ -1,43 +1,27 @@
 package leetcode.medium;
 
-//Given an integer n, return the number of trailing zeroes in n!.
-//
-//        Follow up: Could you write a solution that works in logarithmic time complexity?
-//
-//
-//
-//        Example 1:
-//
-//        Input: n = 3
-//        Output: 0
-//        Explanation: 3! = 6, no trailing zero.
-//        Example 2:
-//
-//        Input: n = 5
-//        Output: 1
-//        Explanation: 5! = 120, one trailing zero.
-//        Example 3:
-//
-//        Input: n = 0
-//        Output: 0
-//
-//
-//        Constraints:
-//
-//        1 <= n <= 10^4
-// 阶乘后有几个零
-// 测评链接：https://leetcode-cn.com/problems/factorial-trailing-zeroes/
+//给定一个整数 n，返回 n! 结果尾数中零的数量。
+//		示例 1:
+//		输入: 3
+//		输出: 0
+//		解释:3! = 6, 尾数中没有零。
+//		示例2:
+//		输入: 5
+//		输出: 1
+//		解释:5! = 120, 尾数中有 1 个零.
+//		说明: 你算法的时间复杂度应为O(logn)。
+//		Leetcode题目 : https://leetcode.com/problems/factorial-trailing-zeroes/
 public class LeetCode_0172_FactorialTrailingZeroes {
 
     // 5的因子有多少个
     public static int trailingZeroes(int n) {
-		int ans = 0;
-		while (n != 0) {
-			n /= 5;
-			ans += n;
-		}
-		return ans;
-	}
+        int ans = 0;
+        while (n != 0) {
+            n /= 5;
+            ans += n;
+        }
+        return ans;
+    }
 
 
     public static void main(String[] args) {

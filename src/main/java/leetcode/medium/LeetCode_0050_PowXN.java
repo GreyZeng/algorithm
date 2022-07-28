@@ -1,11 +1,12 @@
-package lintcode.medium;
+package leetcode.medium;
 
-public class LintCode_0428_PowXN {
+// https://leetcode.cn/problems/powx-n/
+public class LeetCode_0050_PowXN {
     // N无论正负先转换成正数abs(N)，如果N是系统最小值，那么先算abs(N+1),
     // 类fabanacci问题
     // pow X N   ( N 转成2进制）
     // 复杂度 log（N）
-    public static double myPow(double x, int n) { 
+    public static double myPow(double x, int n) {
         int pow = Math.abs(n == Integer.MIN_VALUE ? n + 1 : n);
         double ans = 1D;
         double t = x;

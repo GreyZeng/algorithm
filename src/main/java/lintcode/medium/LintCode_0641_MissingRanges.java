@@ -1,29 +1,26 @@
-/*描述
-        给定一个排序整数数组，其中元素的取值范围为[lower，upper] (包括边界)，返回其缺少的范围。
 
-
-        样例
-        样例1
-
-        输入：
-        nums = [0, 1, 3, 50, 75], lower = 0 and upper = 99
-        输出：
-        ["2", "4->49", "51->74", "76->99"]
-        解释：
-        在区间[0,99]中，缺失的区间有：[2,2]，[4,49]，[51,74]和[76,99]
-        样例2
-
-        输入：
-        nums = [0, 1, 2, 3, 7], lower = 0 and upper = 7
-        输出：
-        ["4->6"]
-        解释：
-        在区间[0,7]中，缺失的区间有：[4,6]*/
 package lintcode.medium;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//给定一个有序无重复的数组nums， 和两个整数lower和upper， 返回[lower,upper]上所有缺失的数字段
+//        示例1:
+//        nums = [0,1,3,50,75], lower = 0, upper = 99
+//        输出:["2","4->49","51->74","76->99"]
+//        示例2:
+//        nums = [], lower = 1, upper = 1
+//        输出: ["1"]
+//        示例3:
+//        nums = [], lower = -3, upper = -1
+//        输出： ["-3->-1"]
+//        示例4:
+//        nums = [-1], lower = -1, upper = -1
+//        输出: []
+//        示例5:
+//        nums = [-1], lower = -2, upper = -1
+//        输出: ["-2"]
+//        Leetcode题目 : https://leetcode.com/problems/missing-ranges/
 // leetcode   163
 // lintcode 链接：https://www.lintcode.com/problem/missing-ranges/description
 public class LintCode_0641_MissingRanges {

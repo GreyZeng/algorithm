@@ -1,17 +1,7 @@
 package leetcode.medium;
 
-//Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.
-//
-//        Example 1:
-//
-//        Input: [2,3,-2,4]
-//        Output: 6
-//        Explanation: [2,3] has the largest product 6.
-//        Example 2:
-//
-//        Input: [-2,0,-1]
-//        Output: 0
-//        Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+//给你一个整数数组 nums，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+//        Leetcode题目 : https://leetcode.com/problems/maximum-product-subarray/
 public class LeetCode_0152_MaximumProductSubarray {
 
     // 最大累积有可能需要前一步的最小累积
