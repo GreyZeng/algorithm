@@ -1,5 +1,4 @@
 /*386. 最多有k个不同字符的最长子字符串
-中文English
 给定字符串S，找到最多有k个不同字符的最长子串T。
 
 样例
@@ -16,7 +15,8 @@
 挑战
 O(n) 时间复杂度*/
 package lintcode.medium;
-
+//给定一个字符串str，和一个正数k，返回字符种类不超过k种的最长子串长度。
+//		Leetcode题目 : https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
 // leetcode 加锁 340
 // https://www.lintcode.com/problem/longest-substring-with-at-most-k-distinct-characters/description
 public class LintCode_0386_LongestSubstringWithAtMostKDistinctCharacters {
