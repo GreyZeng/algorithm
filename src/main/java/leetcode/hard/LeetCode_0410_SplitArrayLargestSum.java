@@ -1,42 +1,18 @@
 package leetcode.hard;
 
-//给定一个非负整数数组 nums 和一个整数 m ，你需要将这个数组分成 m 个非空的连续子数组。
-//
-//        设计一个算法使得这 m 个子数组各自和的最大值最小。
-//
-//         
-//
-//        示例 1：
-//
-//        输入：nums = [7,2,5,10,8], m = 2
-//        输出：18
-//        解释：
-//        一共有四种方法将 nums 分割为 2 个子数组。 其中最好的方式是将其分为 [7,2,5] 和 [10,8] 。
-//        因为此时这两个子数组各自的和的最大值为18，在所有情况中最小。
-//        示例 2：
-//
-//        输入：nums = [1,2,3,4,5], m = 2
-//        输出：9
-//        示例 3：
-//
-//        输入：nums = [1,4,4], m = 3
-//        输出：4
-//         
-//
+// TODO
+//给定一个非负整数数组 nums 和一个整数 m ，你需要将这个数组分成 m 个非空的连续子数组。设计一个算法使得这 m 个子数组各自和的最大值最小。
 //        提示：
-//
 //        1 <= nums.length <= 1000
-//        0 <= nums[i] <= 106
+//        0 <= nums[i] <= 10^6
 //        1 <= m <= min(50, nums.length)
 //
-//        来源：力扣（LeetCode）
-//        链接：https://leetcode-cn.com/problems/split-array-largest-sum
-//        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-//       满足 min(max(s1,s2...sk))
-//        但是四边形不等式不是最优解
-// 用对数器准确，leetcode和lintcode用例不准确
+// tips:
+// 方法1：四边形不等式(非最优解)
+// 方法2：二分法（最优解）时间复杂度O(N)
+// 用对数器验证:Code_0071_SplitArrayLargestSum，leetcode和lintcode用例不准确
 // https://www.cnblogs.com/greyzeng/p/15690136.html
-// leetcode ： https://leetcode.com/problems/split-array-largest-sum
+// leetcode ： https://leetcode.cn/problems/split-array-largest-sum
 // lintcode: 
 public class LeetCode_0410_SplitArrayLargestSum {
     // 不优化枚举的动态规划方法，O(N^2 * K)
