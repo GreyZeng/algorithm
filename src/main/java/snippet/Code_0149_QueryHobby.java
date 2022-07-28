@@ -1,9 +1,9 @@
-package todo.offer.class04;
+package snippet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Code01_QueryHobby {
+public class Code_0149_QueryHobby {
 
 	/*
 	 * 今日头条原题
