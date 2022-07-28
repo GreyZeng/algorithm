@@ -1,30 +1,26 @@
 package leetcode.medium;
 
-//
-//Given a 2D board and a word, find if the word exists in the grid.
-//
-//		The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
-//
-//		Example:
-//
-//		board =
-//		[
-//		['A','B','C','E'],
-//		['S','F','C','S'],
-//		['A','D','E','E']
-//		]
-//
-//		Given word = "ABCCED", return true.
-//		Given word = "SEE", return true.
-//		Given word = "ABCB", return false.
-//
-//
-//		Constraints:
-//
-//		board and word consists only of lowercase and uppercase English letters.
-//		1 <= board.length <= 200
-//		1 <= board[i].length <= 200
-//		1 <= word.length <= 10^3
+/*
+ * 给定一个char[][] matrix，也就是char类型的二维数组，再给定一个字符串word，
+ * 可以从任何一个某个位置出发，可以走上下左右，能不能找到word？
+ * 比如：
+ * char[][] m = {
+ *     { 'a', 'b', 'z' },
+ *     { 'c', 'd', 'o' },
+ *     { 'f', 'e', 'o' },
+ * };
+ * word = "zooe"
+ * 是可以找到的
+ *
+ * 设定1：可以走重复路的情况下，返回能不能找到
+ * 比如，word = "zoooz"，是可以找到的，z -> o -> o -> o -> z，因为允许走一条路径中已经走过的字符
+ *
+ * 设定2：不可以走重复路的情况下，返回能不能找到
+ * 比如，word = "zoooz"，是不可以找到的，因为允许走一条路径中已经走过的字符不能重复走
+ *
+ * 写出两种设定下的code
+ *
+ * */
 // https://leetcode-cn.com/problems/word-search/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16321675.html
 public class LeetCode_0079_WordSearch {
@@ -45,7 +41,7 @@ public class LeetCode_0079_WordSearch {
         if (index == str.length) {
             return true;
         }
-        if (i >= board.length || j >= board[0].length || i < 0 || j < 0 ) {
+        if (i >= board.length || j >= board[0].length || i < 0 || j < 0) {
             return false;
         }
         if (board[i][j] == '0') {

@@ -9,6 +9,7 @@ import java.util.HashSet;
  * 给定一个数组arr，先递减然后递增，返回arr中有多少个绝对值不同的数字？
  *
  */
+// 类似@LeetCode_0977_SquaresOfASortedArray
 public class Code_0110_Power2Diffs {
 
 
