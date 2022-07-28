@@ -26,7 +26,7 @@ import java.util.Scanner;
 // 后序遍历数组 {}
 // a 一定是 后序数组的最后一个位置
 // a在中序数组的位置是4， 这个位置把中序数组分成两部分，左边就是左树元素，右边就是右树元素
-public class NowCoder_PreAndMidToPos {
+public class NowCoder_PreAndInArrayToPosArray {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
