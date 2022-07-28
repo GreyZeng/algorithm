@@ -22,7 +22,7 @@ import java.util.Scanner;
 
 // https://www.nowcoder.com/practice/677a21987e5d46f1a62cded9509a94f2
 // 笔记：https://www.cnblogs.com/greyzeng/p/16429045.html
-public class NowCoder_MaxUnionArray {
+public class NowCoder_LongestIntegratedLength {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();

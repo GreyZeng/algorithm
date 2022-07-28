@@ -2,7 +2,7 @@ package snippet;
 
 import java.util.HashSet;
 
-// TODO
+//TODO
 //给定数组father大小为N，表示一共有N个节点
 //        father[i] = j 表示点i的父亲是点j， father表示的树一定是一棵树而不是森林
 //        queries是二维数组，大小为M*2，每一个长度为2的数组都表示一条查询
