@@ -1,4 +1,4 @@
-package snipet;
+package snippet;
 // TODO
 // 来自字节
 // 给定两个数a和b
@@ -7,7 +7,7 @@ package snipet;
 // ...
 // 第i轮，把i选择给a或者b
 // 想让a和b的值一样大，请问至少需要多少轮？
-public class Code_0136_FillGapMinStep {
+public class Code_0159_FillGapMinStep {
 
 	// 暴力方法
 	// 不要让a、b过大！
