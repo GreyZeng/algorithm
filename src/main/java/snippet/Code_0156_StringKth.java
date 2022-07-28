@@ -1,8 +1,8 @@
-package todo.offer.class35;
+package snippet;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// TODO
 // 给定一个长度len，表示一共有几位
 // 所有字符都是小写(a~z)，可以生成长度为1，长度为2，
 // 长度为3...长度为len的所有字符串
@@ -11,7 +11,7 @@ import java.util.List;
 // 比如len = 4，字典序的前几个字符串为:
 // a aa aaa aaaa aaab ... aaaz ... azzz b ba baa baaa ... bzzz c ...
 // a是这个序列中的第1个，bzzz是这个序列中的第36558个
-public class Code01_StringKth {
+public class Code_0156_StringKth {
 	// 思路：
 	// cdb，总共长度为7，请问cdb是第几个？
 	// 第一位c :

@@ -1,7 +1,7 @@
-package todo.offer.class35;
+package snippet;
 
 import java.util.Arrays;
-
+// TODO
 // 来自小红书
 // [0,4,7] ： 0表示这里石头没有颜色，如果变红代价是4，如果变蓝代价是7
 // [1,X,X] ： 1表示这里石头已经是红，而且不能改颜色，所以后两个数X无意义
@@ -9,7 +9,7 @@ import java.util.Arrays;
 // 颜色只可能是0、1、2，代价一定>=0
 // 给你一批这样的小数组，要求最后必须所有石头都有颜色，且红色和蓝色一样多，返回最小代价
 // 如果怎么都无法做到所有石头都有颜色、且红色和蓝色一样多，返回-1
-public class Code02_MagicStone {
+public class Code_0157_MagicStone {
 
 	public static int minCost(int[][] stones) {
 		int n = stones.length;

@@ -1,13 +1,13 @@
-package todo.offer.class35;
+package snippet;
 
 import java.util.PriorityQueue;
-
+// TODO
 // 来自网易
 // map[i][j] == 0，代表(i,j)是海洋，渡过的话代价是2
 // map[i][j] == 1，代表(i,j)是陆地，渡过的话代价是1
 // map[i][j] == 2，代表(i,j)是障碍，无法渡过
 // 每一步上、下、左、右都能走，返回从左上角走到右下角最小代价是多少，如果无法到达返回-1
-public class Code04_WalkToEnd {
+public class Code_0158_WalkToEnd {
 
 	public static int minCost(int[][] map) {
 		if (map[0][0] == 2) {
