@@ -1,9 +1,12 @@
 package snippet;
 
 
+import nowcoder.NowCoder_MonotonousStack;
+
 import java.util.*;
 
 /**
+ * @see NowCoder_MonotonousStack
  * 单调栈
  * 左边右边离它最近比它小的数 O（N）
  * 数组中有重复 Stack<List<Integer>>
