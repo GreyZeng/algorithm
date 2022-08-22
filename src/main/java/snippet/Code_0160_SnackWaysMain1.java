@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.io.StreamTokenizer;
 import java.util.TreeMap;
 
-public class Code_0061_SnackWaysMain1 {
+public class Code_0160_SnackWaysMain1 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

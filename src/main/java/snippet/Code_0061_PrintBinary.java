@@ -1,16 +1,29 @@
-package primary.class01;
+package snippet;
 
-public class Code01_PrintBinary {
+// 打印一个数的二进制形式
+public class Code_0061_PrintBinary {
 
-	public static void print(int num) {
-		for (int i = 31; i >= 0; i--) {
-			System.out.print((num & (1 << i)) == 0 ? "0" : "1");
-		}
-		System.out.println();
-	}
+    public static void print(int num) {
+        for (int i = 31; i >= 0; i--) {
+            System.out.print((num & (1 << i)) == 0 ? "0" : "1");
+        }
+        System.out.println();
+    }
 
-	public static void main(String[] args) {
-		// 32位
+    public static void printBinary(int num) {
+        for (int i = 31; i >= 0; i--) {
+            System.out.print((num & (1 << i)) == 0 ? "0" : "1");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        int num = 0b0000_1110_1010;
+        printBinary(num);
+        printBinary(num << 1);
+        printBinary(Integer.MAX_VALUE);
+        printBinary(Integer.MIN_VALUE);
+        // 32位
 //		int num = 4;
 //
 //		print(num);
@@ -60,6 +73,6 @@ public class Code01_PrintBinary {
 //		print(c);
 //		print(d);
 
-	}
+    }
 
 }

@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 import java.io.StreamTokenizer;
 import java.util.Arrays;
 
-public class Code_0061_SnackWaysMain2 {
+public class Code_0161_SnackWaysMain2 {
 
     // 用来收集所有输入的数字
     public static long[] arr = new long[31];
