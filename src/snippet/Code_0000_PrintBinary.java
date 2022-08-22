@@ -1,7 +1,7 @@
 package snippet;
 
-
-public class Code_0061_PrintBinary {
+// 打印二进制
+public class Code_0000_PrintBinary {
     // 打印一个32位整数的二进制形式
     public static void printBinary(int num) {
         for (int i = 31; i >= 0; i--) {
@@ -18,9 +18,9 @@ public class Code_0061_PrintBinary {
         printBinary(~num);
         System.out.println("左移一位：");
         printBinary(num << 1);
-        System.out.println("不带符号右移一位：");
+        System.out.println("有符号右移一位：");
         printBinary(num >> 1);
-        System.out.println("带符号右移动一位：");
+        System.out.println("无符号右移一位：");
         printBinary(num >>> 1);
         System.out.println("系统最大值的二进制：");
         printBinary(Integer.MAX_VALUE);
