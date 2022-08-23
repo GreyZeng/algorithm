@@ -9,7 +9,7 @@
 # 算法与数据结构学习笔记
 
 | 知识点 | 代码 |备注|
-|--|-----|
+|--|--|--|
 | 二进制和位运算 | Code_0000_PrintBinary.java ||
 | [简单排序（冒泡排序，插入排序，选择排序）](https://www.cnblogs.com/greyzeng/p/15186769.html) | Code_0001_Sort.java ||
 |计算`1!+2!+3!+4!+…+N!`的结果|Code_0002_SumOfFactorial.java||
