@@ -1,7 +1,9 @@
 package snippet;
 
+// 不等概率随机函数变成等概率随机函数
 public class Code_0003_EqualProbabilityRandom {
 
+    // 不等概率函数，
     // 内部内容不可见
     public static int f() {
         return Math.random() < 0.8 ? 0 : 1;
