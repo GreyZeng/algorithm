@@ -1,6 +1,6 @@
 package snippet;
 
-// 打印二进制
+// 二进制与位运算
 public class Code_0000_PrintBinary {
     // 打印一个32位整数的二进制形式
     public static void printBinary(int num) {

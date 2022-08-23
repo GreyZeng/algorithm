@@ -8,7 +8,12 @@
 
 # 算法与数据结构学习笔记
 
-[简单排序（冒泡排序，插入排序，选择排序）](https://www.cnblogs.com/greyzeng/p/15186769.html)
+| 知识点 | 代码 |
+|--|-----|
+| 二进制和位运算 | Code_0000_PrintBinary.java |
+| [简单排序（冒泡排序，插入排序，选择排序）](https://www.cnblogs.com/greyzeng/p/15186769.html) | Code_0001_Sort.java |
+|计算1!+2!+3!+4!+…+N!的结果|Code_0002_SumOfFactorial.java|
+|前缀和|LeetCode_0303_RangeSumQueryImmutable.java|
 
 [使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)
 

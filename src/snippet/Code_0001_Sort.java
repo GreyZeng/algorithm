@@ -3,9 +3,7 @@ package snippet;
 import java.util.Arrays;
 
 /**
- * 插入排序
- * 冒泡排序
- * 选择排序
+ * 简单排序：插入排序，冒泡排序，选择排序
  *
  * @author Grey
  * @see <a href="https://www.cnblogs.com/greyzeng/p/15186769.html">笔记：简单排序（冒泡排序，插入排序，选择排序）</a>
