@@ -14,9 +14,10 @@
 | [简单排序（冒泡排序，插入排序，选择排序）](https://www.cnblogs.com/greyzeng/p/15186769.html) | Code_0001_Sort.java |
 |计算`1!+2!+3!+4!+…+N!`的结果|Code_0002_SumOfFactorial.java|
 |前缀和|LeetCode_0303_RangeSumQueryImmutable.java|
-|不等概率随机函数变成等概率随机函数|Code_0003_EqualProbabilityRandom.java|
-|如何用1~5的随机函数加工出1~7的随机函数,如何用a~b的随机函数加工出c~d的随机函数|Code_0004_RandToRand.java|
-|对数器基本使用||
+|0 1 不等概率随机函数变成 0 1 等概率随机函数|Code_0005_EqualProbabilityRandom.java|
+|`[0,x)`的概率调整为`x^2`|Code_0004_RandToPow2.java|
+|如何用1~5的随机函数加工出1~7的随机函数|Code_0005_Rand5ToRand7.java|
+|如何用a~b的随机函数加工出c~d的随机函数|LeetCode_0470_ImplementRand10UsingRand7.java|
 
 [使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)
 
