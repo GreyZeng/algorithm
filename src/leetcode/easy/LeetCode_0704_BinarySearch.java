@@ -11,12 +11,12 @@ public class LeetCode_0704_BinarySearch {
         int r = arr.length - 1;
         while (l <= r) {
             int m = l + ((r - l) >> 1);
-            if (t > arr[m]) {
-                l = m + 1;
-            } else if (t == arr[m]) {
+            if (arr[m] == t) {
                 return m;
-            } else {
+            } else if (arr[m] > t) {
                 r = m - 1;
+            } else {
+                l = m + 1;
             }
         }
         return -1;
