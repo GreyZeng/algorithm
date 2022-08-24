@@ -35,23 +35,18 @@
 
 ## 二分
 
-笔记：[使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)
+[二分法基本思路和实现](https://www.cnblogs.com/greyzeng/p/16622554.html)
 
-| 题目                                        | 代码                                         | 备注 |
-| ------------------------------------------- | -------------------------------------------- | ---- |
-| 0 1 不等概率随机函数变成 0 1 等概率随机函数 | Code_0003_EqualProbabilityRandom.java        |      |
-| `[0,x)`的概率调整为`x^2`                    | Code_0004_RandToPow2.java                    |      |
-| 如何用`1~5`的随机函数加工出`1~7`的随机函数  | Code_0005_Rand5ToRand7.java                  |      |
-| 如何用`a~b`的随机函数加工出`c~d`的随机函数  | LeetCode_0470_ImplementRand10UsingRand7.java |      |
+[使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)
 
-## 题目清单
-
-| 题目 | 代码 |备注|
-|--|--|--|
-|计算`1!+2!+3!+4!+…+N!`的结果|Code_0002_SumOfFactorial.java||
-|前缀和加速求区间和|LeetCode_0303_RangeSumQueryImmutable.java||
-
-
+| 题目                                           | 代码                                                         | 备注                                                         |
+| ---------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 二分查找                                       | LeetCode_0704_BinarySearch.java                              |                                                              |
+| 在一个有序数组中，找大于等于某个数最左侧的位置 | LeetCode_0035_SearchInsertPosition.java                      |                                                              |
+| 在排序数组中查找元素的第一个和最后一个位置     | LeetCode_0034_FindFirstAndLastPositionOfElementInSortedArray.java |                                                              |
+| 局部最大值问题                                 | LeetCode_0162_FindPeakElement.java                           |                                                              |
+| 分割数组的最大值                               | LeetCode_0410_SplitArrayLargestSum.java                      |                                                              |
+| 判断一个数是否是Step Sum                       | Code_0111_IsStepSum.java                                     | 比如680，680 + 68 + 6 = 754，所以680的Step Sum是754，给定一个正数num，判断它是不是某个数的Step Sum。 |
 
 [基础数据结构](docs/基础数据结构.md)
 
@@ -124,3 +119,11 @@
 [已整理笔记](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
 
 [待整理笔记](https://github.com/GreyZeng/algorithm/tree/master/docs)
+
+## 题目清单
+
+| 题目                         | 代码                                      | 备注 |
+| ---------------------------- | ----------------------------------------- | ---- |
+| 计算`1!+2!+3!+4!+…+N!`的结果 | Code_0002_SumOfFactorial.java             |      |
+| 前缀和加速求区间和           | LeetCode_0303_RangeSumQueryImmutable.java |      |
+
