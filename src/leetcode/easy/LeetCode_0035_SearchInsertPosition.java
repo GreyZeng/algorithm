@@ -9,11 +9,11 @@ public class LeetCode_0035_SearchInsertPosition {
         int r = arr.length - 1;
         while (l <= r) {
             int m = l + ((r - l) >> 1);
-            if (arr[m] < t) {
-                l = m + 1;
-            } else {
-                r = m - 1;
+            if (arr[m] >= t) {
                 ans = m;
+                r = m - 1;
+            } else {
+                l = m + 1;
             }
         }
         return ans;
