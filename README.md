@@ -16,8 +16,8 @@
 |前缀和加速求区间和|LeetCode_0303_RangeSumQueryImmutable.java||
 |0 1 不等概率随机函数变成 0 1 等概率随机函数|Code_0003_EqualProbabilityRandom.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
 |`[0,x)`的概率调整为`x^2`|Code_0004_RandToPow2.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
-|如何用1~5的随机函数加工出1~7的随机函数|Code_0005_Rand5ToRand7.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
-|如何用a~b的随机函数加工出c~d的随机函数|LeetCode_0470_ImplementRand10UsingRand7.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
+|如何用`1~5`的随机函数加工出`1~7`的随机函数|Code_0005_Rand5ToRand7.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
+|如何用`a~b`的随机函数加工出`c~d`的随机函数|LeetCode_0470_ImplementRand10UsingRand7.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
 |[使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)|||
 
 [使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)
