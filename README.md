@@ -4,25 +4,54 @@
 
 [镜像仓库：GitCode](https://gitcode.net/hotonyhui/algorithm)
 
-------
+## 二进制、位运算
 
+笔记：[异或运算相关问题：找到数组中出现特定次数数字的问题](https://www.cnblogs.com/greyzeng/p/15385402.html)
 
+| 题目                                                         | 代码                                                         | 备注                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------ |
+| 打印一个32位整数的二进制形式                                 | Code_0000_PrintBinary.java                                   |                                      |
+| 一个数组中有一种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这种数? | NowCoder_EvenOddTimes.java<br/>LeetCode_0136_SingleNumber.java |                                      |
+| 一个数组中有两种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这两种数 | LeetCode_0260_SingleNumberIII                                |                                      |
+| 一个整数的二进制中有几个 1                                   | LeetCode_0191_NumberOfOneBits.java                           | 涉及提取最右侧的 1：`x & ((~x) + 1)` |
+| 一个数组中有一种数出现`k`次，其他数都出现了`m`次，`m > 1, k < m`, 找到出现了`k`次的数 | LeetCode_0137_SingleNumberII.java<br/>NowCoder_FindOneInK.java |                                      |
 
-| 知识点 | 代码 |备注|
+## 简单排序
+
+笔记：[简单排序（冒泡排序，插入排序，选择排序）](https://www.cnblogs.com/greyzeng/p/15186769.html)
+
+代码：  Code_0001_Sort.java
+
+## 随机函数
+
+笔记：  [随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)
+
+| 题目                                        | 代码                                         | 备注 |
+| ------------------------------------------- | -------------------------------------------- | ---- |
+| 0 1 不等概率随机函数变成 0 1 等概率随机函数 | Code_0003_EqualProbabilityRandom.java        |      |
+| `[0,x)`的概率调整为`x^2`                    | Code_0004_RandToPow2.java                    |      |
+| 如何用`1~5`的随机函数加工出`1~7`的随机函数  | Code_0005_Rand5ToRand7.java                  |      |
+| 如何用`a~b`的随机函数加工出`c~d`的随机函数  | LeetCode_0470_ImplementRand10UsingRand7.java |      |
+
+## 二分
+
+笔记：[使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)
+
+| 题目                                        | 代码                                         | 备注 |
+| ------------------------------------------- | -------------------------------------------- | ---- |
+| 0 1 不等概率随机函数变成 0 1 等概率随机函数 | Code_0003_EqualProbabilityRandom.java        |      |
+| `[0,x)`的概率调整为`x^2`                    | Code_0004_RandToPow2.java                    |      |
+| 如何用`1~5`的随机函数加工出`1~7`的随机函数  | Code_0005_Rand5ToRand7.java                  |      |
+| 如何用`a~b`的随机函数加工出`c~d`的随机函数  | LeetCode_0470_ImplementRand10UsingRand7.java |      |
+
+## 题目清单
+
+| 题目 | 代码 |备注|
 |--|--|--|
-| 二进制、位运算 | Code_0000_PrintBinary.java ||
-| [简单排序（冒泡排序，插入排序，选择排序）](https://www.cnblogs.com/greyzeng/p/15186769.html) | Code_0001_Sort.java ||
 |计算`1!+2!+3!+4!+…+N!`的结果|Code_0002_SumOfFactorial.java||
 |前缀和加速求区间和|LeetCode_0303_RangeSumQueryImmutable.java||
-|0 1 不等概率随机函数变成 0 1 等概率随机函数|Code_0003_EqualProbabilityRandom.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
-|`[0,x)`的概率调整为`x^2`|Code_0004_RandToPow2.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
-|如何用`1~5`的随机函数加工出`1~7`的随机函数|Code_0005_Rand5ToRand7.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
-|如何用`a~b`的随机函数加工出`c~d`的随机函数|LeetCode_0470_ImplementRand10UsingRand7.java|[随机函数变换示例](https://www.cnblogs.com/greyzeng/p/16618329.html)|
-|[使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)|||
 
-[使用二分法来解决的问题](https://www.cnblogs.com/greyzeng/p/15690136.html)
 
-[异或运算相关问题：找到数组中出现特定次数数字的问题](https://www.cnblogs.com/greyzeng/p/15385402.html)
 
 [基础数据结构](docs/基础数据结构.md)
 
