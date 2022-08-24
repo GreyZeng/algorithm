@@ -1,6 +1,7 @@
 package snippet;
 
-// TODO 补充测试
+// 如何用1~5的随机函数加工出1~7的随机函数
+// 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
 public class Code_0005_Rand5ToRand7 {
 
     // 此函数只能用，不能修改
@@ -37,5 +38,21 @@ public class Code_0005_Rand5ToRand7 {
         return x() + 1;
     }
 
+    public static void main(String[] args) {
+        final int testTimes = 100000000;
+        // count[0] 存 0 出现的次数
+        // count[1] 存 1 出现的次数
+        // count[2] 存 2 出现的次数
+        // ...
+        // count[6] 存 6 出现的次数
+        // count[7] 存 7 出现的次数
 
+        int[] count = new int[8];
+        for (int i = 0; i < testTimes; i++) {
+            count[g()]++;
+        }
+        for (int i = 0; i < count.length; i++) {
+            System.out.println(i + " 出现的次数是：" + count[i]);
+        }
+    }
 }

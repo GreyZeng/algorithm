@@ -1,5 +1,7 @@
 package leetcode.medium;
 
+// 如何用a~b的随机函数加工出c~d的随机函数
+// 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
 public class LeetCode_0470_ImplementRand10UsingRand7 {
     public int rand10() {
         return rand(10);
