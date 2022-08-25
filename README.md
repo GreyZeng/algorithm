@@ -45,7 +45,7 @@
 | 在一个有序数组中，找大于等于某个数最左侧的位置 | LeetCode_0035_SearchInsertPosition.java                      |                                                              |
 | 在排序数组中查找元素的第一个和最后一个位置     | LeetCode_0034_FindFirstAndLastPositionOfElementInSortedArray.java |                                                              |
 | 局部最大值问题                                 | LeetCode_0162_FindPeakElement.java                           |                                                              |
-| 分割数组的最大值                               | LeetCode_0410_SplitArrayLargestSum.java                      |                                                              |
+| 分割数组的最大值                               | LeetCode_0410_SplitArrayLargestSum.java                      | 给定一个非负整数数组 nums 和一个整数 m ，你需要将这个数组分成 m 个非空的连续子数组。设计一个算法使得这 m 个子数组各自和的最大值最小。 |
 | 判断一个数是否是Step Sum                       | Code_0111_IsStepSum.java                                     | 比如680，680 + 68 + 6 = 754，所以680的Step Sum是754，给定一个正数num，判断它是不是某个数的Step Sum。 |
 
 [基础数据结构](docs/基础数据结构.md)

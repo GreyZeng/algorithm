@@ -15,91 +15,6 @@ package leetcode.hard;
 // leetcode ： https://leetcode.cn/problems/split-array-largest-sum
 // lintcode: 
 public class LeetCode_0410_SplitArrayLargestSum {
-    // 不优化枚举的动态规划方法，O(N^2 * K)
-    public static int splitArray1(int[] nums, int m) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-        int n = nums.length;
-        long[] sum = new long[n + 1];
-        for (int i = 1; i < n + 1; i++) {
-            sum[i] = sum[i - 1] + nums[i - 1];
-        }
-        // dp[i][j] 0....i 由 j个人来处理，最优处理是多少
-        long[][] dp = new long[n][m + 1];
-        dp[0][1] = nums[0];
-        for (int i = 1; i < n; i++) {
-            // 数组分一个部分，就是累加和
-            dp[i][1] = dp[i - 1][1] + nums[i];
-        }
-        for (int i = 2; i < m + 1; i++) {
-            // i个元素分i份, 每个元素一份
-            dp[i - 1][i] = Math.max(nums[i - 1], dp[i - 2][i - 1]);
-        }
-        for (int j = 2; j < m + 1; j++) {
-            for (int i = n - 1; i >= j; i--) {
-                // dp[i][j] 至少可以是这个值。
-                dp[i][j] = Math.max(dp[i - 1][j - 1], nums[i]);
-                for (int k = i - 1; k >= j - 2; k--) {
-                    dp[i][j] = Math.min(dp[i][j], Math.max(dp[k][j - 1], sum(sum, k + 1, i)));
-                }
-            }
-        }
-        return (int) dp[n - 1][m];
-    }
-
-    // 求原数组arr[L...R]的累加和
-    // 其中sum为前缀和数组
-    public static long sum(long[] sum, int L, int R) {
-        return sum[R + 1] - sum[L];
-    }
-
-    // 用了四边形不等式优化，O(N * K)
-    // FIXME
-    public static int splitArray2(int[] nums, int m) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-        int n = nums.length;
-        long[] sum = new long[n + 1];
-        for (int i = 1; i < n + 1; i++) {
-            sum[i] = sum[i - 1] + nums[i - 1];
-        }
-        // dp[i][j] 0....i 由 j个人来处理，最优处理是多少
-        long[][] dp = new long[n][m + 1];
-        int[][] best = new int[n][m + 1];
-        dp[0][1] = nums[0];
-        // best[0][1] = 0;
-        for (int i = 1; i < n; i++) {
-            // 数组分一个部分，就是累加和
-            dp[i][1] = dp[i - 1][1] + nums[i];
-            // best[i][1] = 0
-        }
-        long max = dp[0][1];
-        for (int i = 2; i < m + 1; i++) {
-            // i个元素分i份, 每个元素一份
-            max = Math.max(max, nums[i - 1]);
-            dp[i - 1][i] = max;
-            best[i - 1][i] = i - 1;
-        }
-        for (int j = 2; j < m + 1; j++) {
-            for (int i = j; i < n; i++) {
-                // dp[i][j] 至少可以是这个值。
-                // TODO 上界？
-                dp[i][j] = Math.max(dp[i - 1][j - 1], nums[i]);
-                best[i][j] = i - 1;
-                for (int k = i - 2; k >= Math.max(best[i - 1][j] - 1, 0); k--) {
-                    long next = Math.max(dp[k][j - 1], sum(sum, k + 1, i));
-                    if (next < dp[i][j]) {
-                        dp[i][j] = next;
-                        best[i][j] = k;
-                    }
-                }
-            }
-        }
-        return (int) dp[n - 1][m];
-    }
-
     // 最优解
     // O(N)
     public static int splitArray3(int[] nums, int m) {
@@ -143,6 +58,93 @@ public class LeetCode_0410_SplitArrayLargestSum {
         }
         return part;
     }
+
+    // 不优化枚举的动态规划方法，O(N^2 * K)
+    // 不优化枚举的动态规划方法，O(N^2 * K)
+    public static int splitArray1(int[] nums, int K) {
+        int N = nums.length;
+        int[] sum = new int[N + 1];
+        for (int i = 0; i < N; i++) {
+            sum[i + 1] = sum[i] + nums[i];
+        }
+        int[][] dp = new int[N][K + 1];
+        for (int j = 1; j <= K; j++) {
+            dp[0][j] = nums[0];
+        }
+        for (int i = 1; i < N; i++) {
+            dp[i][1] = sum(sum, 0, i);
+        }
+        // 每一行从上往下
+        // 每一列从左往右
+        // 根本不去凑优化位置对儿！
+        for (int i = 1; i < N; i++) {
+            for (int j = 2; j <= K; j++) {
+                int ans = Integer.MAX_VALUE;
+                // 枚举是完全不优化的！
+                for (int leftEnd = 0; leftEnd <= i; leftEnd++) {
+                    int leftCost = leftEnd == -1 ? 0 : dp[leftEnd][j - 1];
+                    int rightCost = leftEnd == i ? 0 : sum(sum, leftEnd + 1, i);
+                    int cur = Math.max(leftCost, rightCost);
+                    if (cur < ans) {
+                        ans = cur;
+                    }
+                }
+                dp[i][j] = ans;
+            }
+        }
+        return dp[N - 1][K];
+    }
+
+    // 求原数组arr[L...R]的累加和
+    // 其中sum为前缀和数组
+    public static int sum(int[] sum, int L, int R) {
+        return sum[R + 1] - sum[L];
+    }
+
+    // 用了四边形不等式优化，O(N * K)
+    // 课上现场写的方法，用了枚举优化，O(N * K)
+    public static int splitArray2(int[] nums, int K) {
+        int N = nums.length;
+        int[] sum = new int[N + 1];
+        for (int i = 0; i < N; i++) {
+            sum[i + 1] = sum[i] + nums[i];
+        }
+        int[][] dp = new int[N][K + 1];
+        int[][] best = new int[N][K + 1];
+        for (int j = 1; j <= K; j++) {
+            dp[0][j] = nums[0];
+            best[0][j] = -1;
+        }
+        for (int i = 1; i < N; i++) {
+            dp[i][1] = sum(sum, 0, i);
+            best[i][1] = -1;
+        }
+        // 从第2列开始，从左往右
+        // 每一列，从下往上
+        // 为什么这样的顺序？因为要去凑（左，下）优化位置对儿！
+        for (int j = 2; j <= K; j++) {
+            for (int i = N - 1; i >= 1; i--) {
+                int down = best[i][j - 1];
+                // 如果i==N-1，则不优化上限
+                int up = i == N - 1 ? N - 1 : best[i + 1][j];
+                int ans = Integer.MAX_VALUE;
+                int bestChoose = -1;
+                for (int leftEnd = down; leftEnd <= up; leftEnd++) {
+                    int leftCost = leftEnd == -1 ? 0 : dp[leftEnd][j - 1];
+                    int rightCost = leftEnd == i ? 0 : sum(sum, leftEnd + 1, i);
+                    int cur = Math.max(leftCost, rightCost);
+                    if (cur < ans) {
+                        ans = cur;
+                        bestChoose = leftEnd;
+                    }
+                }
+                dp[i][j] = ans;
+                best[i][j] = bestChoose;
+            }
+        }
+        return dp[N - 1][K];
+    }
+
 
     public static int[] randomArray(int len, int maxValue) {
         int[] arr = new int[len];
