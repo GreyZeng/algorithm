@@ -26,14 +26,14 @@ public class LeetCode_0410_SplitArrayLargestSum {
         int r = sum;
         int ans = 0;
         while (l <= r) {
-            int mid = l + ((r - l) >> 1);
-            int parts = getParts(nums, mid);
-            if (parts > m) {
-                // mid越大，parts才会越小
-                l = mid + 1;
+            int max = l + ((r - l) >> 1);
+            int k = getParts(nums, max);
+            if (k > m) {
+                // max 越大，k 才会越小
+                l = max + 1;
             } else {
-                ans = mid;
-                r = mid - 1;
+                ans = max;
+                r = max - 1;
             }
         }
         return ans;
