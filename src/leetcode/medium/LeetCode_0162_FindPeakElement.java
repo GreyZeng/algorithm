@@ -8,37 +8,36 @@ package leetcode.medium;
 // 返回局部高点的位置，如果有多个，返回一个峰值位置即可
 // 即对于所有有效的 i 都有 arr[i] != arr[i + 1]
 // 二分法
-// 笔记：https://www.cnblogs.com/greyzeng/p/15690136.html
+// 笔记：https://www.cnblogs.com/greyzeng/p/16622554.html
 public class LeetCode_0162_FindPeakElement {
     public static int findPeakElement(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return -1;
+        }
         if (arr.length == 1) {
             return 0;
         }
-        if (arr.length == 2) {
-            return arr[0] > arr[1] ? 0 : 1;
+        if (arr[1] < arr[0]) {
+            return 0;
         }
-        int l = 0;
-        int r = arr.length - 1;
-        if (arr[l] > arr[l + 1]) {
-            return l;
+        if (arr[arr.length - 1] > arr[arr.length - 2]) {
+            return arr.length - 1;
         }
-        if (arr[r] > arr[r - 1]) {
-            return r;
-        }
-        l = 1;
-        r = arr.length - 2;
+        int ans = -1;
+        int l = 1;
+        int r = arr.length - 2;
         while (l <= r) {
-            int m = l + ((r - l) >> 1);
-            if (arr[m] > arr[m + 1] && arr[m] > arr[m - 1]) {
-                return m;
-            }
-            if (arr[m] > arr[m + 1]) {
-                // arr[m] < arr[m-1]
-                r = m - 1;
+            int mid = l + ((r - l) >> 1);
+            if (arr[mid] > arr[mid + 1] && arr[mid] > arr[mid - 1]) {
+                return mid;
+            } else if (arr[mid] < arr[mid + 1]) {
+                l = mid + 1;
+            } else if (arr[mid] < arr[mid - 1]) {
+                r = mid - 1;
             } else {
-                l = m + 1;
+                // 题目要求下，不会走到这个分支
             }
         }
-        return -1;
+        return ans;
     }
 }
