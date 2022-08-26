@@ -1,6 +1,6 @@
 package snippet;
 
-// 双向链表实现栈和队列 
+// 双向链表实现栈和队列
 public class Code_0011_DoubleEndsToStackAndQueue {
     private final static class Node<T> {
         public T data;

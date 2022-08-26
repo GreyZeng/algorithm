@@ -1,31 +1,29 @@
-//Remove all elements from a linked list of integers that have value val.
-//
-//Example:
-//
-//Input:  1->2->6->3->4->5->6, val = 6
-//Output: 1->2->3->4->5
+
 package leetcode.easy;
 
+// 删除链表的指定节点
+// https://leetcode.cn/problems/remove-linked-list-elements/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
 public class LeetCode_0203_RemoveLinkedListElements {
-	public static class ListNode {
-		int val;
-		ListNode next;
+    public static class ListNode {
+        int val;
+        ListNode next;
 
-		ListNode() {
-		}
+        ListNode() {
+        }
 
-		ListNode(int val) {
-			this.val = val;
-		}
+        ListNode(int val) {
+            this.val = val;
+        }
 
-		ListNode(int val, ListNode next) {
-			this.val = val;
-			this.next = next;
-		}
-	}
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
 
-	public static ListNode removeElements(ListNode head, int val) {
-		if (null == head) {
+    public static ListNode removeElements(ListNode head, int val) {
+        if (null == head) {
             return null;
         }
         while (head != null && head.val == val) {
@@ -34,17 +32,17 @@ public class LeetCode_0203_RemoveLinkedListElements {
         if (head == null) {
             return null;
         }
-        ListNode c = head;
-        ListNode n = c.next;
-        while (n != null) {
-            if (n.val == val) {
-                c.next = n.next;
-               n = n.next;
+        ListNode pre = head;
+        ListNode cur = pre.next;
+        while (cur != null) {
+            if (cur.val == val) {
+                pre.next = cur.next;
+                cur = cur.next;
             } else {
-                c = n;
-                n = c.next;
+                pre = cur;
+                cur = pre.next;
             }
         }
         return head;
-	}
+    }
 }

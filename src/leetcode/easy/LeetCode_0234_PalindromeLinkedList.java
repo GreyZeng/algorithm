@@ -1,20 +1,11 @@
 package leetcode.easy;
 
-//Given a singly linked list, determine if it is a palindrome.
-//
-//        Example 1:
-//
-//        Input: 1->2
-//        Output: false
-//        Example 2:
-//
-//        Input: 1->2->2->1
-//        Output: true
-//        Follow up:
-//        Could you do it in O(n) time and O(1) space?
 
 import java.util.Stack;
 
+// 判断一个链表是否是回文
+// 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
+// https://leetcode.cn/problems/palindrome-linked-list/
 public class LeetCode_0234_PalindromeLinkedList {
     public static class ListNode {
         int val;
@@ -33,17 +24,6 @@ public class LeetCode_0234_PalindromeLinkedList {
         }
     }
 
-    public static void main(String[] args) {
-        ListNode head = new ListNode(0);
-        head.next = new ListNode(1);
-        head.next.next = new ListNode(2);
-        head.next.next.next = new ListNode(3);
-        head.next.next.next.next = new ListNode(3);
-        head.next.next.next.next.next = new ListNode(2);
-        head.next.next.next.next.next.next = new ListNode(1);
-        head.next.next.next.next.next.next.next = new ListNode(0);
-        System.out.println(isPalindrome(head));
-    }
 
     // 修改原链表，空间O(1)
     public static boolean isPalindrome(ListNode head) {
