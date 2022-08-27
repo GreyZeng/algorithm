@@ -5,33 +5,38 @@ import java.util.Stack;
 // https://leetcode-cn.com/problems/min-stack
 public class LeetCode_0155_MinStack {
     static class MinStack {
-        Stack<Integer> m;
-        Stack<Integer> n;
+        Stack<Integer> stack;
+        Stack<Integer> min;
 
         public MinStack() {
-            m = new Stack<>();
-            n = new Stack<>();
+            stack = new Stack<>();
+            min = new Stack<>();
         }
 
-        public void push(int x) {
-            m.push(m.isEmpty() || m.peek() > x ? x : m.peek());
-            n.push(x);
+        public void push(int val) {
+            stack.push(val);
+            if (min.isEmpty()) {
+                min.push(val);
+            } else {
+                min.push(Math.min(min.peek(), val));
+            }
         }
 
         public void pop() {
-            m.pop();
-            n.pop();
+            stack.pop();
+            min.pop();
         }
 
         public int top() {
-            return n.peek();
+            return stack.peek();
         }
 
         public int getMin() {
-            return m.peek();
+            return min.peek();
         }
     }
 
+    // TODO
     static class MinStackO1 {
         private final long offset;
         private final Stack<Long> stack;

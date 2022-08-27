@@ -1,22 +1,23 @@
 package leetcode.easy;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Stack;
 
+// 使用栈实现队列（先入先出队列）
 // 三个原则
 // 一次性导完
 // 只有pop stack空了才能导数据
 // pop stack不为空不用导数据
 // ["MyQueue","push","push","peek","pop","empty"]
 // [[],[1],[2],[],[],[]]
+// https://leetcode.cn/problems/implement-queue-using-stacks/
 public class LeetCode_0232_ImplementQueueUsingStacks {
-    static class MyQueue {
-        private final Deque<Integer> push;
-        private final Deque<Integer> pop;
+    class MyQueue {
+        private final Stack<Integer> push;
+        private final Stack<Integer> pop;
 
         public MyQueue() {
-            push = new ArrayDeque<>();
-            pop = new ArrayDeque<>();
+            push = new Stack<>();
+            pop = new Stack<>();
         }
 
         public void push(int x) {

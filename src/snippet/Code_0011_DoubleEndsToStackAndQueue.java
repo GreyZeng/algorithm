@@ -1,6 +1,11 @@
 package snippet;
 
-// 双向链表实现栈和队列
+
+/**
+ * 自定义的双向链表实现栈和队列
+ *
+ * @see leetcode.medium.LeetCode_0641_DesignCircularDeque
+ */
 public class Code_0011_DoubleEndsToStackAndQueue {
     private final static class Node<T> {
         public T data;
@@ -43,7 +48,6 @@ public class Code_0011_DoubleEndsToStackAndQueue {
                 return null;
             }
             T data = head.data;
-
             if (head == tail) {
                 head = null;
                 tail = null;
