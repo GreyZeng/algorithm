@@ -10,6 +10,7 @@ import java.util.Stack;
 // ["MyQueue","push","push","peek","pop","empty"]
 // [[],[1],[2],[],[],[]]
 // https://leetcode.cn/problems/implement-queue-using-stacks/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
 public class LeetCode_0232_ImplementQueueUsingStacks {
     class MyQueue {
         private final Stack<Integer> push;

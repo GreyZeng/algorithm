@@ -4,6 +4,7 @@ package snippet;
 /**
  * 自定义的双向链表实现栈和队列
  *
+ * @link <a href="https://www.cnblogs.com/greyzeng/p/16631644.html">笔记</a>
  * @see leetcode.medium.LeetCode_0641_DesignCircularDeque
  */
 public class Code_0011_DoubleEndsToStackAndQueue {

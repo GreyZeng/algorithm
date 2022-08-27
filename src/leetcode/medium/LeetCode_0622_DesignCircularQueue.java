@@ -3,6 +3,7 @@ package leetcode.medium;
 // 数组实现不超过固定大小的队列
 // 设计循环队列
 // https://leetcode.cn/problems/design-circular-queue/
+// https://www.cnblogs.com/greyzeng/p/16631644.html
 public class LeetCode_0622_DesignCircularQueue {
     class MyCircularQueue {
         private final int[] arr;

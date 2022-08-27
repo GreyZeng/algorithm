@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 // 使用队列实现栈
+// 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
 public class LeetCode_0225_ImplementStackUsingQueues {
     class MyStack {
         private Queue<Integer> data;
