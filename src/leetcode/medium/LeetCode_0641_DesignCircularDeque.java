@@ -12,7 +12,7 @@ public class LeetCode_0641_DesignCircularDeque {
 
     class MyCircularDeque {
         // 双向链表
-        static class DoubleNode {
+        class DoubleNode {
             public int val;
             public DoubleNode next;
             public DoubleNode last;
