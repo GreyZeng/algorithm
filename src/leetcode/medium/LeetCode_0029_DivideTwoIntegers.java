@@ -6,11 +6,15 @@ package leetcode.medium;
 // 笔记：
 public class LeetCode_0029_DivideTwoIntegers {
     public static void main(String[] args) {
-        int a = -13;
-        System.out.println(a >>> 1);
-        System.out.println(a >> 1);
-        System.out.println(Integer.MIN_VALUE / (-1));
+//        int a = -13;
+//        System.out.println(a >>> 1);
+//        System.out.println(a >> 1);
+//        System.out.println(Integer.MIN_VALUE / (-1));
+//        System.out.println(Integer.MIN_VALUE);
+        System.out.println(13 ^ 20);
+        System.out.println(-Integer.MIN_VALUE);
         System.out.println(Integer.MIN_VALUE);
+        System.out.println(Integer.toBinaryString(418));
     }
 
     // 原始加法就是：无进位信息（异或）+进位信息
@@ -54,37 +58,41 @@ public class LeetCode_0029_DivideTwoIntegers {
         return n < 0;
     }
 
-    // 全部转成整数来计算
-    public static int div(int a, int b) {
-        int x = isNeg(a) ? negNum(a) : a;
-        int y = isNeg(b) ? negNum(b) : b;
+    // 全部转成正数来计算
+    public static int div(int x, int y) {
+        int a = isNeg(x) ? negNum(x) : x;
+        int b = isNeg(y) ? negNum(y) : y;
         int res = 0;
         for (int i = 31; i > negNum(1); i = minus(i, 1)) {
-            if ((x >> i) >= y) {
-                // 之所以不用 y << , 是因为容易越界。
+            if ((a >> i) >= b) {
                 res |= (1 << i);
-                x = minus(x, y << i);
+                a = minus(a, b << i);
             }
         }
-        return isNeg(a) ^ isNeg(b) ? negNum(res) : res;
+        return isNeg(x) ^ isNeg(y) ? negNum(res) : res;
     }
 
 
-    public static int divide(int dividend, int divisor) {
-        if (divisor == Integer.MIN_VALUE) {
-            return dividend == Integer.MIN_VALUE ? 1 : 0;
+    public static int divide(int a, int b) {
+        if (b == Integer.MIN_VALUE) {
+            return a == Integer.MIN_VALUE ? 1 : 0;
         }
         // 除数不是系统最小
-        if (dividend == Integer.MIN_VALUE) {
-            if (divisor == negNum(1)) {
+        if (a == Integer.MIN_VALUE) {
+            if (b == negNum(1)) {
                 // leetcode的题目要求
                 return Integer.MAX_VALUE;
             }
-            int res = div(add(dividend, 1), divisor);
-            return add(res, div(minus(dividend, multi(res, divisor)), divisor));
+            // 求 a / b
+            // 先算 (a + 1)/b = c
+            // 然后算 a - (b*c) = d
+            // 然后 d / b = e
+            // c + e = (a+1)/b + (a-(b*c))/b = a / b
+            int c = div(add(a, 1), b);
+            return add(c, div(minus(a, multi(c, b)), b));
         }
         // dividend不是系统最小，divisor也不是系统最小
-        return div(dividend, divisor);
+        return div(a, b);
     }
     // div(a,b) a和b都不能是系统最小
 }
