@@ -3,7 +3,7 @@ package leetcode.medium;
 // 记住结论即可
 // 只用位运算实现加减乘除
 // https://leetcode.cn/problems/divide-two-integers
-// 笔记：
+// 笔记：https://www.cnblogs.com/greyzeng/p/16637476.html
 public class LeetCode_0029_DivideTwoIntegers {
     public static void main(String[] args) {
 //        int a = -13;
