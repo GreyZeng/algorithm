@@ -1,12 +1,13 @@
 package snippet;
 
-// TODO
+// 笔记：https://www.cnblogs.com/greyzeng/p/16641111.html
 // 不要用任何比较判断，返回两个数中较大的数
 public class Code_GetMax {
 
     public static int flip(int n) {
         return n ^ 1;
     }
+
 
     public static int sign(int n) {
         return flip((n >> 31) & 1);
@@ -40,6 +41,7 @@ public class Code_GetMax {
         b = -2147480000;
         System.out.println(getMax1(a, b)); // wrong answer because of overflow
         System.out.println(getMax2(a, b));
+
     }
 
 }
