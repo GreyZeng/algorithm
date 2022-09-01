@@ -1,6 +1,6 @@
 package leetcode.medium;
 
-// 笔记：
+// 笔记：https://www.cnblogs.com/greyzeng/p/16647565.html
 // https://leetcode-cn.com/problems/implement-trie-prefix-tree/
 public class LeetCode_0208_Trie {
 
