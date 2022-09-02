@@ -25,20 +25,22 @@
         niu*/
 package nowcoder;
 
-
+// 笔记：https://www.cnblogs.com/greyzeng/p/16651527.html
 public class NowCoder_EatGrass {
     public static String winner(int n) {
-        // 0  1  2  3 4
-        // 后 先 后 先 先
+        // 0 羊
+        // 1 牛
+        // 2 羊
+        // 3 牛
+        // 4 牛
         if (n < 5) { // base case
             return (n == 0 || n == 2) ? "yang" : "niu";
         }
         // n >= 5 时
-        int base = 1; // 当前先手决定吃的草数
-        // 当前是先手在选
+        int base = 1; // 当前先手（牛）决定吃的草数
+        // 当前是先手（牛）在选
         while (base <= n) {
-            // 当前一共n份草，先手吃掉的是base份，n - base 是留给后手的草
-            // 母过程 先手 在子过程里是 后手
+            // 当前一共n份草，先手（牛）吃掉的是base份，n - base 是留给后手（羊）的草
             if (winner(n - base).equals("yang")) {
                 return "niu";
             }
@@ -61,7 +63,7 @@ public class NowCoder_EatGrass {
     public static void main(String[] args) {
         int times = 20000;
         int maxValue = 55;
-        int t = 0;
+        int t;
         for (int i = 0; i < times; i++) {
             t = (int) (Math.random() * maxValue) + 1;
             if (!winner(t).equals(winner2(t))) {

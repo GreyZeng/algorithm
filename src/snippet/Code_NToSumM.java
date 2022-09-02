@@ -7,7 +7,8 @@ package snippet;
 //        1不是这样的数，因为要求数量大于1个、连续正数和
 //        2 = 1 + 1，2也不是，因为等号右边不是连续正数
 //        给定一个参数N，返回是不是可以表示成若干连续正数和的数
-public class Code_0009_NToSumM {
+// 笔记：https://www.cnblogs.com/greyzeng/p/16651527.html
+public class Code_NToSumM {
 
     public static boolean isMSum1(int num) {
         if (num <= 2) {
@@ -55,7 +56,7 @@ public class Code_0009_NToSumM {
                 System.out.println("Oops!");
             }
         }
-        System.out.println("test end");
+
 
     }
 

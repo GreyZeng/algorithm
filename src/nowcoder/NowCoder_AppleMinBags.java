@@ -13,18 +13,26 @@
 // 剩余大于等于24，就不需要试的
 package nowcoder;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16651527.html
 // https://www.nowcoder.com/questionTerminal/61cfbb2e62104bc8aa3da5d44d38a6ef
 public class NowCoder_AppleMinBags {
     public static int minBags(int n) {
+        if ((n & 1) == 1) {
+            return -1;
+        }
+
         if (n % 8 == 0) {
+            // 全部可以被 8 号袋子分解
             return n / 8;
         }
         int use8 = n / 8;
         int rest = n % 8;
         while (rest != 0) {
             if (rest % 6 == 0) {
+                // 分配了 8 号袋子，剩下的分配 6 号袋子，正好分配完。
                 return use8 + (rest / 6);
             } else {
+                // 分配了 8 号袋子，剩下的分配 6 号袋子，无法分配完，则减少一个 8 号袋子
                 if (use8 > 0) {
                     use8--;
                     rest += 8;
@@ -54,13 +62,11 @@ public class NowCoder_AppleMinBags {
             int ans1 = minBags(i);
             int ans2 = minBags2(i);
             if (ans1 != ans2) {
-                System.out.println(i + " ans1 = " + ans1 + " ans2=" + ans2);
                 System.out.println("Oops!");
                 return;
             }
         }
         System.out.println("finish");
-
     }
 
 }
