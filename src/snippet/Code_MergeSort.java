@@ -17,7 +17,8 @@ package snippet;
  * <p>
  * 归并排序的实质是把比较行为变成了有序信息并传递，比O(N^2)的排序快
  */
-public class Code_0067_MergeSort {
+// 笔记：
+public class Code_MergeSort {
 
     // 递归方法实现
     public static void mergeSort1(int[] arr) {

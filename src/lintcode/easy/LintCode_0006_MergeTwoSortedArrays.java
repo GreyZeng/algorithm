@@ -1,7 +1,35 @@
 package lintcode.easy;
 
 // How can you optimize your algorithm if one array is very large and the other is very small?
+// https://www.lintcode.com/problem/6/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
 public class LintCode_0006_MergeTwoSortedArrays {
+    // 常规解法
+    public static int[] mergeSortedArray1(int[] A, int[] B) {
+        int m = A.length;
+        int n = B.length;
+        int[] res = new int[m + n];
+        int i = 0;
+        int j = 0;
+        int index = 0;
+        while (i < m && j < n) {
+            if (A[i] > B[j]) {
+                res[index++] = B[j++];
+            } else {
+                res[index++] = A[i++];
+            }
+        }
+        while (i < m) {
+            res[index++] = A[i++];
+        }
+
+        while (j < n) {
+            res[index++] = B[j++];
+        }
+        return res;
+    }
+
+    // 如果一个数组很大，另一个数组很小优化算法
     public static int[] mergeSortedArray(int[] A, int[] B) {
         int m = A.length;
         int n = B.length;
@@ -44,20 +72,6 @@ public class LintCode_0006_MergeTwoSortedArrays {
             }
         }
         return smallerThanMe + offset;
-    }
-
-    public static void printArr(int[] arr) {
-        for (int n : arr) {
-            System.out.print(n + "  ");
-        }
-        System.out.println();
-    }
-
-    public static void main(String[] args) {
-        int[] A = {1, 5};
-        int[] B = {2, 3};
-        int[] R = mergeSortedArray(A, B);
-        printArr(R);
     }
 
 }

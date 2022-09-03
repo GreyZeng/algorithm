@@ -1,27 +1,9 @@
 package lintcode.medium;
 
-/**
- * 描述 Two numbers in the array, if the previous number is greater than the
- * following number, then the two numbers form a reverse order pair. Give you an
- * array, find out the total number of reverse order pairs in this array.
- * Summary: if a [i] > a [j] and i < j, a [i] and a [j] form a reverse order
- * pair.
- * <p>
- * 样例
- * <p>
- * Example1
- * <p>
- * Input: A = [2, 4, 1, 3, 5] Output: 3 Explanation: (2, 1), (4, 1), (4, 3) are
- * reverse pairs
- * <p>
- * Example2
- * <p>
- * Input: A = [1, 2, 3, 4] Output: 0 Explanation: No reverse pair
- *
- * @author Grey
- * @date 2021年7月22日 下午1:33:22
- * @since
- */
+
+// 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
+//逆序对问题 https://www.lintcode.com/problem/532/
+
 public class LintCode_0532_ReversePairs {
 
 

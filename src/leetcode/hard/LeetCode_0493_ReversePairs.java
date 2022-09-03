@@ -1,20 +1,7 @@
-/*Given an array nums, we call (i, j) an important reverse pair if i < j and nums[i] > 2*nums[j].
 
-You need to return the number of important reverse pairs in the given array.
-
-Example1:
-
-Input: [1,3,2,3,1]
-Output: 2
-Example2:
-
-Input: [2,4,3,5,1]
-Output: 3
-Note:
-The length of the given array will not exceed 50,000.
-All the numbers in the input array are in the range of 32-bit integer.*/
 package leetcode.hard;
-
+// 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
+// https://leetcode.cn/problems/reverse-pairs/
 // 方法1： 归并排序
 // TODO 方法2： 树状数组
 // 小和问题是一个数右边有多少个数比它自己大

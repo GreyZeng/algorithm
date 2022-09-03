@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.List;
 // https://leetcode.cn/problems/count-of-smaller-numbers-after-self/
 // 方法1：小和问题 改归并
+// 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
 // TODO
 // 方法2： 利用只支持单点增加 + 范围查询的动态开点线段树（累加和），也可以用index tree来解
 // 方法3：有序表
