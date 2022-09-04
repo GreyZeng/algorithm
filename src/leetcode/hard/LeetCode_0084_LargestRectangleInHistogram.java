@@ -15,9 +15,10 @@ import java.util.Stack;
 //		0 <= heights[i] <= 104
 // https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
 // https://www.lintcode.com/problem/122/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16326526.html
 public class LeetCode_0084_LargestRectangleInHistogram {
     // 单调栈
-    // 找arr[i]左右两边比arr[i]小的离arr[i]最近的数是多少，假设为i，j，则
+    // 找arr[m]左右两边比arr[m]小的离arr[m]最近的数是多少，假设为i，j，则
     // 必须以arr[i]位置为左边界的最大矩形为：arr[i]*(i - j - 1)
     // 左边越界则为-1，右边越界则为arr.length
     public static int largestRectangleArea(int[] arr) {
@@ -31,8 +32,8 @@ public class LeetCode_0084_LargestRectangleInHistogram {
         Stack<Integer> stack = new Stack<>();
         for (int i = 0; i < arr.length; i++) {
             while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
-                int popIndex = stack.pop();
-                max = Math.max(max, arr[popIndex] * (i - (stack.isEmpty() ? -1 : stack.peek()) - 1));
+                int m = stack.pop();
+                max = Math.max(max, arr[m] * (i - (stack.isEmpty() ? -1 : stack.peek()) - 1));
             }
             stack.push(i);
         }

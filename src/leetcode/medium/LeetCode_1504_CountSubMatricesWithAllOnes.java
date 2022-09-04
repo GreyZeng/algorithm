@@ -1,12 +1,13 @@
 package leetcode.medium;
 
-//tips: 必须以每一行做底的子矩阵是多少，求和即可
-//        N为长的矩形一共包含的子矩阵有 (N*(N+1)) / 2
-//        相等的时候不算
+//tips:
+// 必须以每一行做底的全为 1 的子矩阵是多少，然后求和即可
+// N 为长的矩形一共包含的子矩阵有`(N*(N+1)) / 2`
 
 //https://leetcode-cn.com/problems/count-submatrices-with-all-ones/
 // i位置左右两边离他最近的比他小的位置是b,a，b位置上的数是Y，C位置上的数是Z
 // 则i位置弹出的时候，一共要算：（X - max(Y,Z)) * ((L + 1) * L / 2)
+// 笔记：https://www.cnblogs.com/greyzeng/p/16326526.html
 public class LeetCode_1504_CountSubMatricesWithAllOnes {
 
     public int numSubmat(int[][] matrix) {
@@ -47,7 +48,6 @@ public class LeetCode_1504_CountSubMatricesWithAllOnes {
                     int down = Math.max(left == -1 ? 0 : height[left], height[i]);
                     nums += (height[cur] - down) * num(n);
                 }
-
             }
             // 入栈
             stack[++si] = i;

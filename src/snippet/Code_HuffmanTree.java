@@ -2,10 +2,11 @@ package snippet;
 
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.PriorityQueue;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
 
-public class Code_0100_HuffmanTree {
+// 哈夫曼树
+public class Code_HuffmanTree {
 
     // 根据文章str, 生成词频统计表
     public static HashMap<Character, Integer> countMap(String str) {
@@ -31,14 +32,6 @@ public class Code_0100_HuffmanTree {
         }
     }
 
-    public static class NodeComp implements Comparator<Node> {
-
-        @Override
-        public int compare(Node o1, Node o2) {
-            return o1.count - o2.count;
-        }
-
-    }
 
     // 根据由文章生成词频表countMap，生成哈夫曼编码表
     // key : 字符
@@ -60,7 +53,7 @@ public class Code_0100_HuffmanTree {
             return ans;
         }
         HashMap<Node, Character> nodes = new HashMap<>();
-        PriorityQueue<Node> heap = new PriorityQueue<>(new NodeComp());
+        PriorityQueue<Node> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.count));
         for (Entry<Character, Integer> entry : countMap.entrySet()) {
             Node cur = new Node(entry.getValue());
             char cha = entry.getKey();

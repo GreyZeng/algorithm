@@ -32,6 +32,7 @@ package leetcode.medium;
 import java.util.Stack;
 
 // 单调栈
+// 笔记：https://www.cnblogs.com/greyzeng/p/16326526.html
 public class LeetCode_0907_SumOfSubarrayMinimums {
     static int MOD = (int) 1e9 + 7;
 

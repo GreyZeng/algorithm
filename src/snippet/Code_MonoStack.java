@@ -6,6 +6,7 @@ import nowcoder.NowCoder_MonotonousStack;
 import java.util.*;
 
 /**
+ * 笔记见：https://www.cnblogs.com/greyzeng/p/16326526.html
  * @see NowCoder_MonotonousStack
  * 单调栈
  * 左边右边离它最近比它小的数 O（N）
@@ -17,7 +18,7 @@ import java.util.*;
  * https://www.nowcoder.com/questionTerminal/2a2c00e7a88a498693568cef63a4b7bb
  * https://www.nowcoder.com/questionTerminal/e3d18ffab9c543da8704ede8da578b55
  */
-public class Code_0088_MonoStack {
+public class Code_MonoStack {
     public static int[][] getNearLessNoRepeat(int[] arr) {
         int[][] res = new int[arr.length][2];
         // 栈底到栈顶从小到大
@@ -40,10 +41,12 @@ public class Code_0088_MonoStack {
 
     public static int[][] getNearLess(int[] arr) {
         int[][] result = new int[arr.length][2];
+        // 重复的元素压入一批
         Stack<List<Integer>> stack = new Stack<>();
         for (int i = 0; i < arr.length; i++) {
             while (!stack.isEmpty() && arr[stack.peek().get(0)] > arr[i]) {
                 List<Integer> selected = stack.pop();
+                // 原先是结算一个，现在是结算一批
                 for (int popIndex : selected) {
                     result[popIndex][0] = stack.isEmpty() ? -1 : stack.peek().get(stack.peek().size() - 1);
                     result[popIndex][1] = i;

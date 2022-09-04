@@ -5,6 +5,7 @@ package leetcode.hard;
 // https://www.lintcode.com/problem/510/
 // 暴力解，N * N 的矩阵，内部有N^4次方个矩形
 // 最优解 O(N^2)
+// 笔记：https://www.cnblogs.com/greyzeng/p/16326526.html
 public class LeetCode_0085_MaximalRectangle {
     public static int maximalRectangle(char[][] m) {
         int[] help = new int[m[0].length];

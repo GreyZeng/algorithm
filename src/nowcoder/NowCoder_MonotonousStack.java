@@ -5,7 +5,7 @@ package nowcoder;
 // 这是输入输出处理效率很高的写法
 // 提交如下的代码，并把主类名改成"Main"
 // 可以直接通过
-
+// 笔记见：https://www.cnblogs.com/greyzeng/p/16326526.html
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

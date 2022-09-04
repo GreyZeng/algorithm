@@ -2,12 +2,14 @@ package snippet;
 
 import java.util.Stack;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16326526.html
 //链接：https://www.nowcoder.com/questionTerminal/e6e57ef2771541dfa2f1720e50bebc9a
 // 区间中的最小数 * 区间所有数的和的最大值
-public class Code_0089_AllTimesMinToMax {
+public class Code_AllTimesMinToMax {
     public static int max2(int[] arr) {
         int[] sum = new int[arr.length];
         sum[0] = arr[0];
+        // 前缀和数组优化
         for (int i = 1; i < arr.length; i++) {
             sum[i] = sum[i - 1] + arr[i];
         }
