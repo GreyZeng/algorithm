@@ -6,6 +6,7 @@ import java.util.Map;
 // 预处理一下原数组，遇到0变为-1，遇到1保持1，遇到其他变为0
 // 求子数组之和为0的最大子数组长度
 // https://leetcode.com/problems/contiguous-array/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16701589.html
 public class LeetCode_0525_ContiguousArray {
     public static int findMaxLength(int[] arr) {
         for (int i = 0; i < arr.length; i++) {

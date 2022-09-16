@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // https://www.lintcode.com/problem/911/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16701589.html
 public class LintCode_0911_MaximumSizeSubarraySumEqualsK {
     public static int maxSubArrayLen(int[] arr, int k) {
         if (arr == null) {
