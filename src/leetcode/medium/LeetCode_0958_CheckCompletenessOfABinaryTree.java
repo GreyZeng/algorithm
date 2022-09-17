@@ -2,6 +2,7 @@ package leetcode.medium;
 
 import java.util.LinkedList;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16703346.html
 // 什么是完全二叉树：每一层都是满的，或者即便不满，也是从左到右依次变满的
 // https://leetcode-cn.com/problems/check-completeness-of-a-binary-tree/
 public class LeetCode_0958_CheckCompletenessOfABinaryTree {

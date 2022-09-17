@@ -4,6 +4,8 @@ package leetcode.easy;
 // 平衡二叉树要么是一棵空树. 
 // 要么保证左右子树的高度之差不大于 1. 
 // 子树也必须是一颗平衡二叉树
+// https://leetcode.cn/problems/balanced-binary-tree/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16703346.html
 public class LeetCode_0110_BalancedBinaryTree {
 
     public static class TreeNode {
