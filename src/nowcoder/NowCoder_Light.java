@@ -12,6 +12,7 @@ import java.util.Set;
 
 // https://www.nowcoder.com/questionTerminal/45d20d0e59d94e7d8879f19a5755c177
 // 贪心解法
+// 笔记：https://www.cnblogs.com/greyzeng/p/16704842.html
 public class NowCoder_Light {
     public static int minLight1(String str) {
         if (str == null || str.length() < 1) {

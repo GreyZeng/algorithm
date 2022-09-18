@@ -13,7 +13,8 @@ import java.util.List;
  * 你来安排宣讲的日程，要求会议室进行的宣讲的场次最多。
  * 返回最多的宣讲场次。
  */
-public class Code_0048_BestArrange {
+// 笔记：https://www.cnblogs.com/greyzeng/p/16704842.html
+public class Code_BestArrange {
     public static class Program {
         public int start;
         public int end;
@@ -161,11 +162,6 @@ public class Code_0048_BestArrange {
         System.out.println("finish!");
     }
 
-    public static void printArr(Program[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
-        System.out.println();
-    }
+
 
 }

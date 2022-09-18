@@ -1,4 +1,4 @@
-package snippet;
+package nowcoder;
 
 import java.util.PriorityQueue;
 
@@ -8,11 +8,13 @@ import java.util.PriorityQueue;
  * 如果先把长度60的金条分成10和50，花费60; 再把长度50的金条分成20和30，花费50; 一共花费110铜板。
  * 但如果先把长度60的金条分成30和30，花费60;再把长度30金条分成10和20， 花费30; 一共花费90铜板。 输入一个数组，返回分割的最小代价。
  * <p>
+ * <p>
  * 注：堆和排序是解决贪心问题的最常用的两种方案
  */
 // https://www.nowcoder.com/questionTerminal/418d2fcdf7f24d6f8f4202e23951c0da
 // https://www.lintcode.com/problem/minimum-cost-to-connect-sticks/description
-public class Code_0077_SplitGolden {
+// 笔记：https://www.cnblogs.com/greyzeng/p/16704842.html
+public class NowCoder_SplitGolden {
     public static long lessMoney(long[] arr) {
         if (arr == null || arr.length <= 1) {
             return 0;

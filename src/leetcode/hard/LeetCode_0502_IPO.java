@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 // https://www.lintcode.com/problem/1202/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16704842.html
 public class LeetCode_0502_IPO {
     public static class Project {
         public int profit;
