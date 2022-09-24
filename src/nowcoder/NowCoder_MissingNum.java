@@ -15,7 +15,7 @@ package nowcoder;
 
 import java.util.Arrays;
 import java.util.Scanner;
-
+// 笔记：https://www.cnblogs.com/greyzeng/p/16725698.html
 /**
  * @author Young
  * @version 1.0
