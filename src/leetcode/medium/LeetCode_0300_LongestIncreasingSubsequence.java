@@ -3,6 +3,7 @@ package leetcode.medium;
 // 最长递增子序列(严格递增）
 // https://leetcode-cn.com/problems/longest-increasing-subsequence/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16151833.html
+// 类似: https://leetcode.cn/problems/increasing-triplet-subsequence/
 public class LeetCode_0300_LongestIncreasingSubsequence {
     // O(N*logN)
     // ends数组，ends[i]找到的所有长度为i+1的递增子序列中最小结尾是什么
