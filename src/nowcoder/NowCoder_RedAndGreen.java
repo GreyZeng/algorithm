@@ -19,9 +19,11 @@
 package nowcoder;
 
 import java.util.Scanner;
+
+// 笔记：https://www.cnblogs.com/greyzeng/p/16728462.html
 // R都在左边，G都在右边，或者全G，全R
 public class NowCoder_RedAndGreen {
-    
+
     // 两个预处理数组
     // TODO 空间方面可以优化
     public static int minColors(String str) {
@@ -61,7 +63,7 @@ public class NowCoder_RedAndGreen {
         }
 
         // 全R或者全G的情况
-        if (rightR[0] == N - 1 || leftG[N - 1] == N - 1) {
+        if (rightR[0] == N || leftG[N - 1] == N) {
             return 0;
         }
 
@@ -79,5 +81,4 @@ public class NowCoder_RedAndGreen {
         System.out.println(minColors(colors));
         in.close();
     }
-
 }
