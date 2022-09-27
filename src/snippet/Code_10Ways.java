@@ -1,11 +1,11 @@
 package snippet;
 
 import java.util.*;
-
+// 笔记：https://www.cnblogs.com/greyzeng/p/16735679.html
 //假设给你N个0，和N个1，你必须用全部数字拼序列
 // 返回有多少个序列满足：任何前缀串，1的数量都不少于0的数量
 // 卡特兰数
-public class Code_0023_10Ways {
+public class Code_10Ways {
 
     public static long ways1(int N) {
         int zero = N;

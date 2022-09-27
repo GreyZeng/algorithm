@@ -1,7 +1,7 @@
 package lintcode.medium;
 
 import java.math.BigInteger;
-
+// 笔记：https://www.cnblogs.com/greyzeng/p/16735679.html
 // N个节点有多少种形态的二叉树
 //https://www.lintcode.com/problem/163/
 public class LintCode_0163_UniqueBinarySearchTrees {
@@ -11,7 +11,7 @@ public class LintCode_0163_UniqueBinarySearchTrees {
     // 1个节点 -> 1
     // 2个节点-> 2
     // 3 个节点 左边0 ，右边2，左边1，右边1，左边2，右边1   -> f(3) = f(0) * f(2) + f(1) * f(1) + f(2) * f(0)
-    private static int numTrees(int n) {
+    public static int numTrees(int n) {
         if (n < 0) {
             return BigInteger.ZERO.intValue();
         }
