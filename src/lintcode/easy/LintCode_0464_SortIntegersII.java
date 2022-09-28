@@ -3,6 +3,7 @@ package lintcode.easy;
 import java.util.Stack;
 
 /**
+ * 笔记：https://www.cnblogs.com/greyzeng/p/16739515.html
  * 快速排序
  * <p>
  * partition过程
