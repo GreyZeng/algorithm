@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-/**
+/** 笔记：https://www.cnblogs.com/greyzeng/p/16742656.html
  * 宽度优先遍历 宽度优先遍历
  * <p>
  * 1，利用队列实现
@@ -19,7 +19,7 @@ import java.util.Queue;
  * <p>
  * 4，直到队列变空
  */
-public class Code_0050_BFS {
+public class Code_BFS {
 
     public static List<Node> bfs(Node node) {
         if (null == node) {

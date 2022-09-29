@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * 笔记：https://www.cnblogs.com/greyzeng/p/16742656.html
  * 深度优先遍历
  * <p>
  * 1，利用栈实现
@@ -21,7 +22,7 @@ import java.util.Set;
  * 4，直到栈变空
  * <p>
  */
-public class Code_0051_DFS {
+public class Code_DFS {
     // 迭代版本
     public static List<Node> dfs(Node node) {
         if (node == null) {

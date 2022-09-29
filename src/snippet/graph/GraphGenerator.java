@@ -1,6 +1,6 @@
 package snippet.graph;
 
-
+// 笔记：https://www.cnblogs.com/greyzeng/p/16742656.html
 public class GraphGenerator {
     public static Graph createGraph(Integer[][] matrix) {
         Graph graph = new Graph();
