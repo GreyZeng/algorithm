@@ -1,9 +1,10 @@
-package snippet;
+package nowcoder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 笔记：https://www.cnblogs.com/greyzeng/p/16748043.html
  * 派对的最大快乐值
  * <p>
  * 员工信息的定义如下:
@@ -33,14 +34,14 @@ import java.util.List;
  * 3.你的目标是让派对的整体快乐值尽量大 给定一棵多叉树的头节点boss，请返回派对的最大快乐值。
  */
 // https://ac.nowcoder.com/acm/problem/51178
-public class Code_0080_MaxHappy {
+public class NowCoder_MaxHappy {
     public static class Employee {
         public int happy;
-        public List<Employee> nexts;
+        public List<Employee> subordinates;
 
         public Employee(int h) {
             happy = h;
-            nexts = new ArrayList<>();
+            subordinates = new ArrayList<>();
         }
     }
 
@@ -59,14 +60,14 @@ public class Code_0080_MaxHappy {
     public static int process1(Employee cur, boolean up) {
         if (up) { // 如果cur的上级来的话，cur没得选，只能不来
             int ans = 0;
-            for (Employee next : cur.nexts) {
+            for (Employee next : cur.subordinates) {
                 ans += process1(next, false);
             }
             return ans;
         } else { // 如果cur的上级不来的话，cur可以选，可以来也可以不来
             int p1 = cur.happy;
             int p2 = 0;
-            for (Employee next : cur.nexts) {
+            for (Employee next : cur.subordinates) {
                 p1 += process1(next, true);
                 p2 += process1(next, false);
             }
@@ -88,7 +89,7 @@ public class Code_0080_MaxHappy {
         }
         int yes = head.happy;
         int no = 0;
-        for (Employee n : head.nexts) {
+        for (Employee n : head.subordinates) {
             Info next = p(n);
             no += Math.max(next.no, next.yes);
             yes += next.no;
@@ -104,8 +105,6 @@ public class Code_0080_MaxHappy {
             this.yes = yes;
             this.no = no;
         }
-
-
     }
 
 
@@ -127,7 +126,7 @@ public class Code_0080_MaxHappy {
         int nextsSize = (int) (Math.random() * (maxNexts + 1));
         for (int i = 0; i < nextsSize; i++) {
             Employee next = new Employee((int) (Math.random() * (maxHappy + 1)));
-            e.nexts.add(next);
+            e.subordinates.add(next);
             genarateNexts(next, level + 1, maxLevel, maxNexts, maxHappy);
         }
     }
@@ -145,6 +144,4 @@ public class Code_0080_MaxHappy {
         }
         System.out.println("finish!");
     }
-
-
 }
