@@ -1,66 +1,45 @@
 package leetcode.medium;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-//Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
-//
-//
-//
-//		Example 1:
-//
-//		Input: nums = [1,2,3]
-//		Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
-//		Example 2:
-//
-//		Input: nums = [0,1]
-//		Output: [[0,1],[1,0]]
-//		Example 3:
-//
-//		Input: nums = [1]
-//		Output: [[1]]
-//
-//
-//		Constraints:
-//
-//		1 <= nums.length <= 6
-//		-10 <= nums[i] <= 10
-//		All the integers of nums are unique
+// 笔记：
+// 打印数组的全部排列(无重复)
 // https://leetcode-cn.com/problems/permutations/
 // LintCode要求使用递归和非递归两种方式实现
 public class LeetCode_0046_Permutations {
-    public static List<List<Integer>> permute(int[] nums) {
-        if (nums == null || nums.length < 1) {
-            return new ArrayList<>();
+    public static List<List<Integer>> permute(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return Collections.emptyList();
         }
-        List<List<Integer>> ans = new ArrayList<>();
-        process(0, nums, ans);
-        return ans;
+        List<List<Integer>> result = new LinkedList<>();
+        p(arr, 0, result);
+        return result;
     }
 
-    private static void process(int i, int[] nums, List<List<Integer>> ans) {
-        if (i == nums.length - 1) {
-            List<Integer> path = new ArrayList<>();
-            for (int n : nums) {
-                path.add(n);
-            }
-            ans.add(path);
-        } else {
-            for (int index = i; index < nums.length; index++) {
-                swap(index, i, nums);
-                process(i + 1, nums, ans);
-                swap(index, i, nums);
-            }
-        }
-    }
-
-    private static void swap(int index, int i, int[] nums) {
-        if (index == i) {
+    private static void p(int[] arr, int i, List<List<Integer>> result) {
+        if (i == arr.length - 1) {
+            // 来到最后一个位置，收集答案
+            result.add(Arrays.stream(arr).boxed().collect(Collectors.toList()));
             return;
         }
-        nums[i] = nums[i] ^ nums[index];
-        nums[index] = nums[i] ^ nums[index];
-        nums[i] = nums[i] ^ nums[index];
+        for (int j = i; j < arr.length; j++) {
+            swap(arr, i, j);
+            p(arr, i + 1, result);
+            swap(arr, i, j);
+        }
+    }
+
+    public static void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
+        }
     }
 
     // 非递归方法
