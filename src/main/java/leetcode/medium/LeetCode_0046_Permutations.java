@@ -7,14 +7,25 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// 笔记：
-// 打印数组的全部排列(无重复)
-// https://leetcode-cn.com/problems/permutations/
-// LintCode要求使用递归和非递归两种方式实现
+/**
+ * 打印数组的全部排列(无重复)
+ * <a href="https://leetcode-cn.com/problems/permutations/">打印数组的全部排列(无重复）</a>
+ * 笔记见：https://www.cnblogs.com/greyzeng/p/16749313.html
+ * LintCode要求使用递归和非递归两种方式实现
+ *
+ * @author <a href="mailto:410486047@qq.com">Grey</a>
+ * @date 2022/9/21
+ * @since 1.8
+ */
 public class LeetCode_0046_Permutations {
     public static List<List<Integer>> permute(int[] arr) {
-        if (arr == null || arr.length == 0) {
+        if (arr == null) {
             return Collections.emptyList();
+        }
+        if (arr.length == 0) {
+            List<List<Integer>> ans = new ArrayList<>();
+            ans.add(new ArrayList<>());
+            return ans;
         }
         List<List<Integer>> result = new LinkedList<>();
         p(arr, 0, result);
@@ -42,7 +53,7 @@ public class LeetCode_0046_Permutations {
         }
     }
 
-    // 非递归方法
+    // TODO 非递归方法
     public List<List<Integer>> permute2(int[] nums) {
         //先判断数组的特殊情况
         ArrayList<List<Integer>> res = new ArrayList<>();
