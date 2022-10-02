@@ -5,12 +5,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16748973.html
 //给你一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的子集（幂集）。
-//
 //        解集 不能 包含重复的子集。返回的解集中，子集可以按 任意顺序 排列。
-//
-//         
-//
 //        示例 1：
 //
 //        输入：nums = [1,2,2]
@@ -19,7 +16,6 @@ import java.util.List;
 //
 //        输入：nums = [0]
 //        输出：[[],[0]]
-//         
 //
 //        提示：
 //
@@ -37,22 +33,15 @@ public class LeetCode_0090_SubsetsII {
         return lists;
     }
 
-    public static void p(int[] nums, int start, LinkedList<Integer> list, List<List<Integer>> result) {
-        result.add(new ArrayList<>(list));
-        for (int i = start; i < nums.length; i++) {
-            if (i > start && nums[i] == nums[i - 1]) {
+    public static void p(int[] nums, int i, LinkedList<Integer> pre, List<List<Integer>> result) {
+        result.add(new ArrayList<>(pre));
+        for (int s = i; s < nums.length; s++) {
+            if (s > i && nums[s] == nums[s - 1]) {
                 continue;
             }
-            list.add(nums[i]);
-            p(nums, i + 1, list, result);
-            list.remove(list.size() - 1);
-
+            pre.add(nums[s]);
+            p(nums, s + 1, pre, result);
+            pre.remove(pre.size() - 1);
         }
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 2};
-        List<List<Integer>> lists = subsetsWithDup(arr);
-        System.out.println(lists);
     }
 }
