@@ -1,5 +1,8 @@
 package leetcode.medium;
 
+// 复制带随机指针的链表
+// https://leetcode.cn/problems/copy-list-with-random-pointer
+// 笔记：
 public class LeetCode_0138_CopyListWithRandomPointer {
 
     public static class Node {
