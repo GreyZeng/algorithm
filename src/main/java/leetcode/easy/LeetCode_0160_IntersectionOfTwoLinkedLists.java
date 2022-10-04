@@ -1,5 +1,8 @@
 package leetcode.easy;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16753140.html
+// https://leetcode.cn/problems/intersection-of-two-linked-lists/
+// 找到两个链表相交的起始节点
 // tips：最后一个节点是否相等，不相等则一定不相交
 // 如果一个长度是100，另外一个长度是80， 则让100的节点先走20个节点，然后开始两个链表开始走。
 public class LeetCode_0160_IntersectionOfTwoLinkedLists {
@@ -10,23 +13,17 @@ public class LeetCode_0160_IntersectionOfTwoLinkedLists {
     }
 
     public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        if (null == headA && null == headB) {
-            return null;
-        }
-        if (null == headA) {
-            return null;
-        }
-        if (null == headB) {
+        if (null == headA || null == headB) {
             return null;
         }
         if (headA.next == null && headB.next == null) {
             return headA == headB ? headA : null;
         }
-        int lenOfA = getLen(headA);
-        int lenOfB = getLen(headB);
-        ListNode bigger = lenOfA > lenOfB ? headA : headB;
+        int len1 = getLen(headA);
+        int len2 = getLen(headB);
+        ListNode bigger = len1 > len2 ? headA : headB;
         ListNode smaller = bigger == headA ? headB : headA;
-        int gap = Math.abs(lenOfA - lenOfB);
+        int gap = Math.abs(len1 - len2);
         while (gap != 0) {
             bigger = bigger.next;
             gap--;
@@ -42,12 +39,12 @@ public class LeetCode_0160_IntersectionOfTwoLinkedLists {
     }
 
     public static int getLen(ListNode head) {
-        int N = 0;
+        int len = 0;
         while (head != null) {
-            N++;
+            len++;
             head = head.next;
         }
-        return N;
+        return len;
     }
 
 }

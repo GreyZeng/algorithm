@@ -1,10 +1,18 @@
 package leetcode.easy;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16753140.html
+// https://leetcode.cn/problems/linked-list-cycle/
+// 判断链表是否有环
 public class LeetCode_0141_LinkedListCycle {
 
-    public static class ListNode {
+    private static class ListNode {
         int val;
         ListNode next;
+
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
     }
 
     public static boolean hasCycle(ListNode head) {
@@ -28,6 +36,4 @@ public class LeetCode_0141_LinkedListCycle {
         }
         return true;
     }
-
-
 }
