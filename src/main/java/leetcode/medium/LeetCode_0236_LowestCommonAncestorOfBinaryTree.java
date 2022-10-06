@@ -1,5 +1,8 @@
 package leetcode.medium;
 
+// 二叉树中，寻找两个节点的最低公共祖先
+// https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree
+// 笔记：https://www.cnblogs.com/greyzeng/p/16757504.html
 public class LeetCode_0236_LowestCommonAncestorOfBinaryTree {
     public class TreeNode {
         int val;
@@ -11,25 +14,25 @@ public class LeetCode_0236_LowestCommonAncestorOfBinaryTree {
         }
     }
 
-    public static TreeNode lowestCommonAncestor(TreeNode head, TreeNode o1, TreeNode o2) {
-        if (o1 == null) {
-            return o2;
+    public static TreeNode lowestCommonAncestor(TreeNode head, TreeNode a, TreeNode b) {
+        if (a == null) {
+            return b;
         }
-        if (o2 == null) {
-            return o1;
+        if (b == null) {
+            return a;
         }
         // o1和o2都不为null
-        return p(head, o1, o2).ancestor;
+        return p(head, a, b).ancestor;
     }
 
-    public static Info p(TreeNode head, TreeNode o1, TreeNode o2) {
+    public static Info p(TreeNode head, TreeNode a, TreeNode b) {
         if (head == null) {
             return new Info(false, false, null);
         }
-        Info leftInfo = p(head.left, o1, o2);
-        Info rightInfo = p(head.right, o1, o2);
-        boolean findA = leftInfo.findA || rightInfo.findA || head == o1;
-        boolean findB = leftInfo.findB || rightInfo.findB || head == o2;
+        Info leftInfo = p(head.left, a, b);
+        Info rightInfo = p(head.right, a, b);
+        boolean findA = leftInfo.findA || rightInfo.findA || head == a;
+        boolean findB = leftInfo.findB || rightInfo.findB || head == b;
         if (findA && findB) {
             if (leftInfo.findA && leftInfo.findB) {
                 return new Info(true, true, leftInfo.ancestor);
