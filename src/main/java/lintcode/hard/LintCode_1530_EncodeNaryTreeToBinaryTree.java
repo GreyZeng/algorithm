@@ -3,6 +3,7 @@ package lintcode.hard;
 import java.util.ArrayList;
 import java.util.List;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16758370.html
 // leetcode 431
 // https://www.lintcode.com/problem/1530/
 public class LintCode_1530_EncodeNaryTreeToBinaryTree {
