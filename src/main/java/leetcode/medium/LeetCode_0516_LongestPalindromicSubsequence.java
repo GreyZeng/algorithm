@@ -1,9 +1,36 @@
 package leetcode.medium;
 
-// 最长回文子序列
-//https://www.lintcode.com/problem/667/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16760224.html
+// 最长回文子序列问题
+// 方式1：一个串和它的逆序串的最大公共子序列就是这个串的最长回文子序列
+// 方式2：范围尝试
+// https://www.lintcode.com/problem/667/
+// https://leetcode.cn/problems/longest-palindromic-subsequence/
 public class LeetCode_0516_LongestPalindromicSubsequence {
-    
+    // 暴力解
+    public static int longestPalindromeSubseq2(String s) {
+        if (s == null || s.length() < 1) {
+            return 0;
+        }
+        char[] str = s.toCharArray();
+        return process(0, str.length - 1, str);
+    }
+
+    // i...j的最长回文子序列是多少
+    public static int process(int i, int j, char[] str) {
+        if (i == j) {
+            return 1;
+        }
+        if (i == j - 1) {
+            return str[i] == str[j] ? 2 : 1;
+        }
+        int p1 = process(i + 1, j, str);
+        int p2 = process(i, j - 1, str);
+        int p3 = (str[i] == str[j] ? 2 : 0) + process(i + 1, j - 1, str);
+        return Math.max(p1, Math.max(p2, p3));
+    }
+
+    // 动态规划，范围上的尝试
     public static int longestPalindromeSubseq(String s) {
         if (s == null || s.length() < 1) {
             return 0;
@@ -33,27 +60,6 @@ public class LeetCode_0516_LongestPalindromicSubsequence {
         return dp[0][s.length() - 1];
     }
 
-    public static int longestPalindromeSubseq2(String s) {
-        if (s == null || s.length() < 1) {
-            return 0;
-        }
-        char[] str = s.toCharArray();
-        return process(0, str.length - 1, str);
-    }
-
-    // i...j的最长回文子序列是多少
-    public static int process(int i, int j, char[] str) {
-        if (i == j) {
-            return 1;
-        }
-        if (i == j - 1) {
-            return str[i] == str[j] ? 2 : 1;
-        }
-        int p1 = process(i + 1, j, str);
-        int p2 = process(i, j - 1, str);
-        int p3 = (str[i] == str[j] ? 2 : 0) + process(i + 1, j - 1, str);
-        return Math.max(p1, Math.max(p2, p3));
-    }
 
     // 方法1： 一个串和它的逆序串的最长公共子序列长度就是这个串的最大回文子序列的长度
     public int longestPalindromeSubseq3(String s) {

@@ -1,6 +1,7 @@
 package leetcode.easy;
 
-
+// 和 leetcode 236 一样解法
+// 笔记：https://www.cnblogs.com/greyzeng/p/16757504.html
 public class LeetCode_0235_LowestCommonAncestorOfABinarySearchTree {
     public class TreeNode {
         int val;
