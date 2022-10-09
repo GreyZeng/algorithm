@@ -21,28 +21,31 @@
         输出
         3
         */
-package snippet;
+package nowcoder;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-// https://www.nowcoder.com/questionTerminal/380d49d7f99242709ab4b91c36bf2acc
-public class Code_0079_MaxSubBSTSize {
+// 笔记：https://www.cnblogs.com/greyzeng/p/16773721.html
+public class NowCoder_MaxSubBSTSize {
 
-    public static class Node {
+    public static class TreeNode {
         public int value;
-        public Node left;
-        public Node right;
+        public TreeNode left;
+        public TreeNode right;
 
-        public Node(int data) {
+        public TreeNode(int data) {
             this.value = data;
         }
     }
 
-    public static int getBSTSize(Node head) {
+    public static int getBSTSize(TreeNode head) {
         if (head == null) {
             return 0;
         }
-        ArrayList<Node> arr = new ArrayList<>();
+        ArrayList<TreeNode> arr = new ArrayList<>();
         in(head, arr);
         for (int i = 1; i < arr.size(); i++) {
             if (arr.get(i).value <= arr.get(i - 1).value) {
@@ -52,7 +55,7 @@ public class Code_0079_MaxSubBSTSize {
         return arr.size();
     }
 
-    public static void in(Node head, ArrayList<Node> arr) {
+    public static void in(TreeNode head, ArrayList<TreeNode> arr) {
         if (head == null) {
             return;
         }
@@ -61,7 +64,7 @@ public class Code_0079_MaxSubBSTSize {
         in(head.right, arr);
     }
 
-    public static int maxSubBSTSize1(Node head) {
+    public static int maxSubBSTSize1(TreeNode head) {
         if (head == null) {
             return 0;
         }
@@ -72,14 +75,14 @@ public class Code_0079_MaxSubBSTSize {
         return Math.max(maxSubBSTSize1(head.left), maxSubBSTSize1(head.right));
     }
 
-    public static int maxSubBSTSize2(Node head) {
+    public static int maxSubBSTSize2(TreeNode head) {
         if (head == null) {
             return 0;
         }
         return p(head).maxSubBSTSize;
     }
 
-    public static Info p(Node head) {
+    public static Info p(TreeNode head) {
         if (head == null) {
             return null;
         }
@@ -102,9 +105,7 @@ public class Code_0079_MaxSubBSTSize {
             maxSize = Math.max(maxSize, right.maxSubBSTSize);
         }
         if (isBST) {
-            maxSize = Math.max(
-                    (left != null ? left.maxSubBSTSize : 0) + (right != null ? right.maxSubBSTSize : 0) + 1,
-                    maxSize);
+            maxSize = Math.max((left != null ? left.maxSubBSTSize : 0) + (right != null ? right.maxSubBSTSize : 0) + 1, maxSize);
         }
         return new Info(maxSize, max, min, isBST);
     }
@@ -126,32 +127,60 @@ public class Code_0079_MaxSubBSTSize {
 
 
     // for test
-    public static Node generateRandomBST(int maxLevel, int maxValue) {
+    public static TreeNode generateRandomBST(int maxLevel, int maxValue) {
         return generate(1, maxLevel, maxValue);
     }
 
     // for test
-    public static Node generate(int level, int maxLevel, int maxValue) {
+    public static TreeNode generate(int level, int maxLevel, int maxValue) {
         if (level > maxLevel || Math.random() < 0.5) {
             return null;
         }
-        Node head = new Node((int) (Math.random() * maxValue));
+        TreeNode head = new TreeNode((int) (Math.random() * maxValue));
         head.left = generate(level + 1, maxLevel, maxValue);
         head.right = generate(level + 1, maxLevel, maxValue);
         return head;
     }
 
-    public static void main(String[] args) {
-        int maxLevel = 4;
-        int maxValue = 100;
-        int testTimes = 1000000;
-        for (int i = 0; i < testTimes; i++) {
-            Node head = generateRandomBST(maxLevel, maxValue);
-            if (maxSubBSTSize1(head) != maxSubBSTSize2(head)) {
-                System.out.println("Oops!");
+    public static void main(String[] args) throws Exception {
+        // 对数器
+//        int maxLevel = 4;
+//        int maxValue = 100;
+//        int testTimes = 1000000;
+//        for (int i = 0; i < testTimes; i++) {
+//            Node head = generateRandomBST(maxLevel, maxValue);
+//            if (maxSubBSTSize1(head) != maxSubBSTSize2(head)) {
+//                System.out.println("Oops!");
+//            }
+//        }
+//        System.out.println("finish!");
+        // 牛客输入
+
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        HashMap<Integer, TreeNode> map = new HashMap<>();
+        String[] params = br.readLine().split(" ");
+        int n = Integer.parseInt(params[0]);
+        int rootVal = Integer.parseInt(params[1]);
+        // 构建二叉树
+        TreeNode root = new TreeNode(rootVal);
+        map.put(rootVal, root);
+        for (int i = 0; i < n; i++) {
+            params = br.readLine().split(" ");
+            int nodeVal = Integer.parseInt(params[0]);
+            int leftVal = Integer.parseInt(params[1]);
+            int rightVal = Integer.parseInt(params[2]);
+            TreeNode node = map.get(nodeVal);
+            if (leftVal != 0) {
+                node.left = new TreeNode(leftVal);
+                map.put(leftVal, node.left);
+            }
+            if (rightVal != 0) {
+                node.right = new TreeNode(rightVal);
+                map.put(rightVal, node.right);
             }
         }
-        System.out.println("finish!");
+        System.out.println(maxSubBSTSize1(root));
     }
 
 }
