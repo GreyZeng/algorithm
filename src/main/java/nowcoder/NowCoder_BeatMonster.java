@@ -1,5 +1,6 @@
 package nowcoder;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16777406.html
 // https://www.nowcoder.com/questionTerminal/736e12861f9746ab8ae064d4aae2d5a9
 //int[] hp，hp[i]：i号怪兽的能力
 //        int[] money，money[i]：i号怪兽要求的钱
@@ -8,6 +9,7 @@ package nowcoder;
 //        如果你当前的能力，大于等于i号怪兽的能力，你可以选择直接通过，你的能力并不会下降，你也可以选择贿赂这个怪兽，然后怪兽就会加入你，他的能力直接累加到你的能力上。
 //        返回通过所有的怪兽，需要花的最小钱数。
 //tips:
+// 根据数据量猜解法
 //        方法1： 如果怪兽能力值不大的情况，二维表 能力 + index 达到的最小钱数
 //        方法2： 如果怪兽能力值比较大的情况，二维表  钱数 + index 达到的最大能力  严格花某个钱
 public class NowCoder_BeatMonster {
