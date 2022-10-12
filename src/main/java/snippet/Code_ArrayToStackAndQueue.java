@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * 数组实现栈和队列
  */ 
-public class Code_0006_ArrayToStackAndQueue {
+public class Code_ArrayToStackAndQueue {
 
     public final static class MyStack<T> {
         private ArrayList<T> queue;

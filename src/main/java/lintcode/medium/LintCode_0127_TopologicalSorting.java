@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16785660.html
 // https://www.lintcode.com/problem/topological-sorting/description
 // DFS方式和BFS方式
 // DFS中，有如下两种评价标准
@@ -34,7 +35,7 @@ public class LintCode_0127_TopologicalSorting {
         }
         Map<DirectedGraphNode, Info> map = new HashMap<>();
         for (DirectedGraphNode node : graph) {
-            p(node, map);
+            f(node, map);
         }
         List<Info> list = new ArrayList<>(map.values());
         list.sort((o1, o2) -> {
@@ -53,15 +54,15 @@ public class LintCode_0127_TopologicalSorting {
     }
 
     // 当前遍历的节点是node，之前遍历的节点和出度关系存map中
-    public static Info p(DirectedGraphNode node, Map<DirectedGraphNode, Info> map) {
+    public static Info f(DirectedGraphNode node, Map<DirectedGraphNode, Info> map) {
         if (map.containsKey(node)) {
             return map.get(node);
         }
-        long size = 0;
+        long numOfNodes = 0;
         for (DirectedGraphNode neighbor : node.neighbors) {
-            size += p(neighbor, map).out;
+            numOfNodes += f(neighbor, map).out;
         }
-        Info info = new Info(node, size + 1);
+        Info info = new Info(node, numOfNodes + 1);
         map.put(node, info);
         return info;
     }
@@ -98,8 +99,10 @@ public class LintCode_0127_TopologicalSorting {
         }
         int follow = 0;
         for (DirectedGraphNode next : cur.neighbors) {
+            // 所有邻居的最大深度的最大值
             follow = Math.max(follow, f2(next, order).deep);
         }
+        // 当前节点的最大深度是所有邻居节点的最大深度的最大值+1
         Record ans = new Record(cur, follow + 1);
         order.put(cur, ans);
         return ans;
