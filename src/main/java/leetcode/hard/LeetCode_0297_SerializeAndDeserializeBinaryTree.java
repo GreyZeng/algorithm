@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16789819.html
 // 序列化和反序列化二叉树
 // 中序遍历无法序列化 比如：
 //		1
@@ -27,15 +28,7 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
         }
     }
 
-    public static void main(String[] args) {
 
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-        root.left.right = new TreeNode(4);
-        System.out.println(serialize2(root));
-       System.out.println(serialize2(deserialize2(serialize2(root))));
-    }
 
     // 按层序列化
     // 空节点补充为#
@@ -181,6 +174,5 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
         node.right = preDesrial(queue);
         return node;
     }
-    
 
 }
