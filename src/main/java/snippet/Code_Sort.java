@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author Grey
  * @see <a href="https://www.cnblogs.com/greyzeng/p/15186769.html">笔记：简单排序（冒泡排序，插入排序，选择排序）</a>
  */
-public class Code_0001_Sort {
+public class Code_Sort {
 
     /**
      * <b>插入排序</b>流程
