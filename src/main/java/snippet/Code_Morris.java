@@ -1,7 +1,8 @@
 package snippet;
 
 // morris遍历
-public class Code_0047_Morris {
+// 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
+public class Code_Morris {
 
     //当前是cur
     //1. cur无左树,cur = cur.right
