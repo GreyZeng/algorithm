@@ -4,40 +4,9 @@ import java.util.Arrays;
 
 /**
  * @author Grey
- * @see <a href="https://www.cnblogs.com/greyzeng/p/15186769.html">简单排序（冒泡排序，插入排序，选择排序）</a>
+ * @see <a href="https://www.cnblogs.com/greyzeng/p/15186769.html">笔记</a>
  */
 public class Code_Sort {
-
-    // 插入排序
-    public static void insertionSort(int[] arr) {
-        if (arr == null || arr.length < 2) {
-            return;
-        }
-        for (int i = 1; i < arr.length; i++) {
-            // 不断向前看
-            for (int j = i - 1; j >= 0; j--) {
-                if (arr[j] > arr[j + 1]) {
-                    swap(arr, j + 1, j);
-                }
-            }
-        }
-    }
-
-    // 选择排序
-    public static void selectionSort(int[] arr) {
-        if (arr == null || arr.length < 2) {
-            return;
-        }
-        for (int i = 0; i < arr.length - 1; i++) {
-            int min = i;
-            // 选出最小的位置
-            for (int j = i + 1; j < arr.length; j++) {
-                min = arr[j] < arr[min] ? j : min;
-            }
-            swap(arr, i, min);
-        }
-    }
-
     // 冒泡排序
     public static void bubbleSort(int[] arr) {
         if (arr == null || arr.length < 2) {
@@ -49,6 +18,34 @@ public class Code_Sort {
                     swap(arr, j, j + 1);
                 }
             }
+        }
+    }
+
+    // 插入排序
+    public static void insertionSort(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        for (int i = 1; i < arr.length; i++) {
+            // 比前一个小才需要交换
+            for (int j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
+                swap(arr, j, j + 1);
+            }
+        }
+    }
+
+
+    // 选择排序
+    public static void selectionSort(int[] arr) {
+        if (null == arr || arr.length < 2) {
+            return;
+        }
+        for (int i = 0; i < arr.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                min = arr[j] > arr[min] ? min : j;
+            }
+            swap(arr, i, min);
         }
     }
 
