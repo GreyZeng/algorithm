@@ -11,7 +11,7 @@ public class Code_RandToPow2 {
     // 测试用例
     public static void main(String[] args) {
         int count = 0;
-        int testTimes = 20000000;
+        int testTimes = 30000000;
         double x = 0.17;
         for (int i = 0; i < testTimes; i++) {
             if (randToPow2() < x) {

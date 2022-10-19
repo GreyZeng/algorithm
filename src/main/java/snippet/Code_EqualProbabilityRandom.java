@@ -2,7 +2,7 @@ package snippet;
 
 // 不等概率随机函数变成等概率随机函数
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
-public class Code_0003_EqualProbabilityRandom {
+public class Code_EqualProbabilityRandom {
 
     // 不等概率函数，
     // 内部内容不可见

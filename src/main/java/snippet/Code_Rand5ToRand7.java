@@ -2,7 +2,7 @@ package snippet;
 
 // 如何用1~5的随机函数加工出1~7的随机函数
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
-public class Code_0005_Rand5ToRand7 {
+public class Code_Rand5ToRand7 {
 
     // 此函数只能用，不能修改
     // 等概率返回1~5
