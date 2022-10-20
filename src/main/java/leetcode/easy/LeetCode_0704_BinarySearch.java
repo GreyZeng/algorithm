@@ -1,5 +1,5 @@
 package leetcode.easy;
-// 笔记：https://www.cnblogs.com/greyzeng/p/16622554.html)
+// 笔记：https://www.cnblogs.com/greyzeng/p/16622554.html
 // 二分查找：在一个有序数组中，找某个数是否存在
 // https://leetcode.cn/problems/binary-search/
 public class LeetCode_0704_BinarySearch {
