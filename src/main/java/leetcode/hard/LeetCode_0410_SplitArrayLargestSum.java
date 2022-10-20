@@ -11,7 +11,7 @@ package leetcode.hard;
 // 方法1：四边形不等式(非最优解)
 // 方法2：二分法（最优解）时间复杂度O(N)
 // 用对数器验证:Code_0071_SplitArrayLargestSum，leetcode和lintcode用例不准确
-// https://www.cnblogs.com/greyzeng/p/15690136.html
+// https://www.cnblogs.com/greyzeng/p/16810872.html
 // leetcode ： https://leetcode.cn/problems/split-array-largest-sum
 // lintcode: 
 public class LeetCode_0410_SplitArrayLargestSum {
