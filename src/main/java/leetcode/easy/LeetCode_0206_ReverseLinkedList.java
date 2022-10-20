@@ -1,6 +1,7 @@
 package leetcode.easy;
 
 // 单链表反转
+// 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
 // https://leetcode-cn.com/problems/reverse-linked-list/
 public class LeetCode_0206_ReverseLinkedList {
     public static class ListNode {
