@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 //链接：https://www.nowcoder.com/questionTerminal/c23eab7bb39748b6b224a8a3afbe396b
 //来源：牛客网
-//
+// 笔记：https://www.cnblogs.com/greyzeng/p/16814543.html
 //输入第一行，两个整数n,m;
 //接下来m行，每行三个整数a,b,c，表示有路连接编号为a和b的人家，修路要花费的代价为c。
 //数据保证能将每户人家都连接起来。
