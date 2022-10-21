@@ -43,8 +43,7 @@ public class NowCoder_MaxDistance {
 
         Info info = process(root);
         System.out.println(info.max);
-
-
+        sc.close();
     }
 
     public static Info process(TreeNode head) {
