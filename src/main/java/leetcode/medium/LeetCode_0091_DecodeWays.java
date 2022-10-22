@@ -16,7 +16,7 @@ package leetcode.medium;
 //
 //        题目数据保证答案肯定是一个 32 位 的整数。
 //
-//         
+//
 //
 //        示例 1：
 //
@@ -44,6 +44,7 @@ package leetcode.medium;
 //        来源：力扣（LeetCode）
 //        链接：https://leetcode-cn.com/problems/decode-ways
 //        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// 笔记：https://www.cnblogs.com/greyzeng/p/16817155.html
 public class LeetCode_0091_DecodeWays {
     public static int numDecodings(String s) {
         if (null == s || s.length() < 1) {
@@ -102,20 +103,6 @@ public class LeetCode_0091_DecodeWays {
             return p1;
         }
         return process(i + 1, str);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(numDecodings("12"));
-        System.out.println(numDecodings2("12"));
-        System.out.println("---");
-        System.out.println(numDecodings("1"));
-        System.out.println(numDecodings2("1"));
-        System.out.println("---");
-        System.out.println(numDecodings("26"));
-        System.out.println(numDecodings2("26"));
-        System.out.println("---");
-        System.out.println(numDecodings("2611055971756562"));
-        System.out.println(numDecodings2("2611055971756562"));
     }
 
 }
