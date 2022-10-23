@@ -55,5 +55,4 @@ public class LeetCode_0225_ImplementStackUsingQueues {
             return data.isEmpty();
         }
     }
-
 }

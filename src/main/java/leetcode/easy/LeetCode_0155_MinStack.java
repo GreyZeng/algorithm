@@ -2,6 +2,8 @@ package leetcode.easy;
 
 import java.util.Stack;
 
+// 最小栈
+// 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
 // https://leetcode-cn.com/problems/min-stack
 public class LeetCode_0155_MinStack {
     static class MinStack {

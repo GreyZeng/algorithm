@@ -7,7 +7,7 @@ package snippet;
  * @link <a href="https://www.cnblogs.com/greyzeng/p/16631644.html">笔记</a>
  * @see leetcode.medium.LeetCode_0641_DesignCircularDeque
  */
-public class Code_0011_DoubleEndsToStackAndQueue {
+public class Code_DoubleEndsToStackAndQueue {
     private final static class Node<T> {
         public T data;
         public Node<T> next;

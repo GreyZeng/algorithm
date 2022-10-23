@@ -2,7 +2,7 @@ package leetcode.easy;
 
 import java.util.Stack;
 
-// 使用栈实现队列（先入先出队列）
+// 使用栈实现队列
 // 三个原则
 // 一次性导完
 // 只有pop stack空了才能导数据
