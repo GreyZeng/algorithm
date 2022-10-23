@@ -1,27 +1,10 @@
-/*Given an array of integers nums and an integer k, 
-return the total number of continuous subarrays whose sum equals to k.
 
- 
-
-Example 1:
-
-Input: nums = [1,1,1], k = 2
-Output: 2
-Example 2:
-
-Input: nums = [1,2,3], k = 3
-Output: 2
- 
-
-Constraints:
-
-1 <= nums.length <= 2 * 10^4
--1000 <= nums[i] <= 1000
--10^7 <= k <= 10^7*/
 package leetcode.medium;
 
 import java.util.HashMap;
 
+//数组全为正数
+//累加和为K的子数组个数
 // arr[L...R] = sum -> arr[0..R] - arr[0...L-1] = sum
 // 子数组一定要以i结尾
 // Map前缀和（key: 前缀和， value: 前缀和出现的最小位置）
