@@ -3,7 +3,7 @@ package snippet;
 import java.util.PriorityQueue;
 
 /**
- * 笔记：https://www.cnblogs.com/greyzeng/p/16825983.html
+ * 笔记：https://www.cnblogs.com/greyzeng/p/16826549.html
  * arr中记录咖啡机制造一杯咖啡的时间，假设有m个人，都在0号时间点开始排队，返回一个数组
  * 最后一个得到咖啡的人的时间尽可能短
  * tips:
