@@ -33,3 +33,4 @@ build/
 /.gradle/
 /bin/
 /out/
+/nb-configuration.xml
