@@ -1,11 +1,10 @@
 package snippet;
-
 import java.util.HashSet;
 import java.util.Set;
 
-
+// 位图的实现
 // 笔记：https://www.cnblogs.com/greyzeng/p/16634282.html
-public class Code_0009_BitMap {
+public class Code_BitMap {
 
     // 位图
     public static class BitMap {

@@ -2,6 +2,7 @@ package leetcode.medium;
 
 // 最长公共子序列
 // 子序列是可以不连续的
+// 笔记：https://www.cnblogs.com/greyzeng/p/16829972.html
 // https://leetcode-cn.com/problems/longest-common-subsequence/
 public class LeetCode_1143_LongestCommonSubsequence {
 
