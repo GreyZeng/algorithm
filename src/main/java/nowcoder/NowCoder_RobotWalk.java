@@ -38,6 +38,7 @@ package nowcoder;
 
 import java.util.Scanner;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16837512.html
 public class NowCoder_RobotWalk {
     public static int MOD = (int) 1e9 + 7;
 
@@ -47,24 +48,10 @@ public class NowCoder_RobotWalk {
         int start = in.nextInt() - 1;
         int step = in.nextInt();
         int end = in.nextInt() - 1;
-//        System.out.println(ways(len, start, step, end) % MOD);
-//        System.out.println(ways2(len, start, step, end) % MOD);
-//        System.out.println(ways3(len, start, step, end) % MOD);
         System.out.println(ways4(len, start, step, end) % MOD);
         in.close();
-        //test();
     }
 
-    public static void test() {
-        int len = 5;
-        int start = 1;
-        int step = 3;
-        int end = 2;
-        System.out.println(ways(len, start, step, end) % MOD);
-        System.out.println(ways2(len, start, step, end) % MOD);
-        System.out.println(ways3(len, start, step, end) % MOD);
-        System.out.println(ways4(len, start, step, end) % MOD);
-    }
 
     // 暴力递归
     public static long ways(int len, int start, int step, int end) {
