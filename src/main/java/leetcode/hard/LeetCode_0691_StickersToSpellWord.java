@@ -3,6 +3,8 @@ package leetcode.hard;
 import java.util.HashMap;
 import java.util.Map;
 
+// 贴纸拼词问题
+// 笔记：https://www.cnblogs.com/greyzeng/p/16845652.html
 // 我们给出了 N 种不同类型的贴纸。每个贴纸上都有一个小写的英文单词。
 // 你希望从自己的贴纸集合中裁剪单个字母并重新排列它们，从而拼写出给定的目标字符串 target。
 // 如果你愿意的话，你可以不止一次地使用每一张贴纸，而且每一张贴纸的数量都是无限的。
@@ -182,10 +184,8 @@ public class LeetCode_0691_StickersToSpellWord {
 
     public static void main(String[] args) {
         String target = "thehat";
-        String[] stickers = {"with", "example", "science"};
-        System.out.println(minStickers(stickers, target));
-        System.out.println(minStickers2(stickers, target));
-        System.out.println(minStickers3(stickers, target));
+        String first = "with";
+        System.out.println(minus(first, target));
     }
 
 }
