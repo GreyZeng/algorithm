@@ -1,6 +1,6 @@
 package lintcode.medium;
 
-// 笔记：
+// 笔记：https://blog.csdn.net/hotonyhui/article/details/127656554
 // 背包问题
 //描述
 //        有 n 个物品和一个大小为 m 的背包. 给定数组 A 表示每个物品的大小和数组 V 表示每个物品的价值.

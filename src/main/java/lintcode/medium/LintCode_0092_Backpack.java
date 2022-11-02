@@ -1,6 +1,6 @@
 package lintcode.medium;
 
-// 笔记：
+// 笔记：https://blog.csdn.net/hotonyhui/article/details/127656554
 // 背包问题
 // 在 n 个物品中挑选若干物品装入背包，最多能装多满？假设背包的大小为m，每个物品的大小为Ai (每个物品只能选择一次且物品大小均为正整数)
 // https://www.lintcode.com/problem/92/
