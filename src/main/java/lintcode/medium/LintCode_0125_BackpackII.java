@@ -143,15 +143,4 @@ public class LintCode_0125_BackpackII {
         }
         return dp[m];
     }
-
-
-    public static void main(String[] args) {
-        int[] w = {2, 3, 5, 7};
-        int[] v = {1, 5, 2, 4};
-        System.out.println(backPackII(10, w, v));
-        System.out.println(backPackII2(10, w, v));
-        System.out.println(backPackII3(10, w, v));
-        System.out.println(backPackII4(10, w, v));
-    }
-
 }

@@ -2,13 +2,7 @@ package lintcode.medium;
 
 // 笔记：
 // 背包问题
-//描述
-//        在n个物品中挑选若干物品装入背包，最多能装多满？假设背包的大小为m，每个物品的大小为A_{i}A
-//        i
-//        ​
-//
-//
-//        你不可以将物品进行切割。
+// 在 n 个物品中挑选若干物品装入背包，最多能装多满？假设背包的大小为m，每个物品的大小为Ai (每个物品只能选择一次且物品大小均为正整数)
 // https://www.lintcode.com/problem/92/
 public class LintCode_0092_Backpack {
     // 暴力递归
@@ -19,16 +13,16 @@ public class LintCode_0092_Backpack {
         return p(m, 0, arr);
     }
 
-    // 还剩rest容量,得到的最大容量是多少
-    // 从i开始到最后，得到的最大容量是多少
-    public static int p(int rest, int i, int[] arr) {
-        if (i == arr.length) {
+    // 还剩rest容量，从i开始到最后，得到的最大容量是多少
+    public static int p(int i, int j, int[] arr) {
+        if (j == arr.length) {
             return 0;
         }
-        int p1 = p(rest, i + 1, arr);
-        return rest >= arr[i] ? Math.max(arr[i] + p(rest - arr[i], i + 1, arr), p1) : p1;
+        int p1 = p(i, j + 1, arr);
+        return i >= arr[j] ? Math.max(arr[j] + p(i - arr[j], j + 1, arr), p1) : p1;
     }
 
+    // 动态规划，使用缓存
     public static int backPack2(int m, int[] arr) {
         if (arr == null || arr.length < 1) {
             return 0;
@@ -90,13 +84,4 @@ public class LintCode_0092_Backpack {
         return dp[m];
     }
 
-
-    public static void main(String[] args) {
-        int m = 10;
-        int[] A = {3, 4, 8, 5};
-        System.out.println(backPack(m, A));
-        System.out.println(backPack2(m, A));
-        System.out.println(backPack3(m, A));
-        System.out.println(backPack4(m, A));
-    }
 }
