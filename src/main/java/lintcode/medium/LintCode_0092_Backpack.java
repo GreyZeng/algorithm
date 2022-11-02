@@ -1,5 +1,7 @@
 package lintcode.medium;
 
+// 笔记：
+// 背包问题
 //描述
 //        在n个物品中挑选若干物品装入背包，最多能装多满？假设背包的大小为m，每个物品的大小为A_{i}A
 //        i
@@ -88,7 +90,7 @@ public class LintCode_0092_Backpack {
         return dp[m];
     }
 
- 
+
     public static void main(String[] args) {
         int m = 10;
         int[] A = {3, 4, 8, 5};
