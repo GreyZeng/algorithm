@@ -1,32 +1,10 @@
-/*链接：https://www.nowcoder.com/questionTerminal/93bcd2190da34099b98dfc9a9fb77984
-        来源：牛客网
-
-        现有n1+n2种面值的硬币，其中前n1种为普通币，可以取任意枚，后n2种为纪念币， 每种最多只能取一枚，每种硬币有一个面值，问能用多少种方法拼出m的面值?
-
-
-        输入描述:
-        第一行输入三个整数n1,n2,m        n1,n2<=1000 m<=100000
-        第二行输入n1个整数表示普通币的面值
-        第三行输入n2个整数表示纪念币的面值
-        不同的硬币面值可能相同
-
-
-        输出描述:
-        使用编号不同但面值相同的硬币算不同的拼法
-        输出用多少种方法拼出m的面值，由于答案过大，对1e9 + 7取模
-        示例1
-        输入
-        5 5 100
-        87 76 15 79 53
-        1 94 59 30 5
-        输出
-        2
-        说明
-        1+94+5
-        79+15+5+1*/
 package nowcoder;
 
 import java.util.Scanner;
+// 拼凑硬币
+// 现有 n1 + n2 种面值的硬币，其中前 n1 种为普通币，可以取任意枚，后 n2 种为纪念币， 每种最多只能取一枚（可能有重复值），每种硬币有一个面值，问能用多少种方法拼出 m 的面值?
+// https://www.nowcoder.com/questionTerminal/93bcd2190da34099b98dfc9a9fb77984
+// 笔记：https://www.cnblogs.com/greyzeng/p/16854050.html
 
 public class NowCoder_CoinWays {
     static int MOD = (int) 1e9 + 7;
@@ -85,6 +63,7 @@ public class NowCoder_CoinWays {
         for (int i = 1; i < arr.length; i++) {
             for (int j = 1; j <= money; j++) {
                 dp[i][j] = dp[i - 1][j];
+                // TODO ??? 不需要枚举 多个 i 位置的值么？
                 dp[i][j] += j - arr[i] >= 0 ? dp[i][j - arr[i]] : 0;
                 dp[i][j] %= MOD;
             }
