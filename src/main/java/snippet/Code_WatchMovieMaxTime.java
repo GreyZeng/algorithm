@@ -2,6 +2,7 @@ package snippet;
 
 import java.util.Arrays;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16859143.html
 // 来自小红书
 // 一场电影开始和结束时间可以用一个小数组来表示["07:30","12:00"]
 // 已知有2000场电影开始和结束都在同一天，这一天从00:00开始到23:59结束
