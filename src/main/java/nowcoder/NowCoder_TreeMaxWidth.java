@@ -1,14 +1,13 @@
-package snippet;
+package nowcoder;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * 求二叉树最宽的层有多少个节点 发现每一层的开始或者每一层的结束位置 可以用map实现，也可以不用map实现
- */
+// 求二叉树最宽的层有多少个节点 发现每一层的开始或者每一层的结束位置 可以用map实现，也可以不用map实现
 // https://www.nowcoder.com/questionTerminal/e276c75bb92e4ac8b058b75157f09ba7
-public class Code_0039_TreeMaxWidth {
+// 笔记：https://www.cnblogs.com/greyzeng/p/16860946.html
+public class NowCoder_TreeMaxWidth {
     public static class TreeNode {
         public int value;
         public TreeNode left;
