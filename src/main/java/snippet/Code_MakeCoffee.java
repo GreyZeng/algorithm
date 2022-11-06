@@ -17,7 +17,7 @@ import java.util.PriorityQueue;
 // 思路：
 // 第一步：先想办法得到一个数组，获取每个人喝咖啡的最少时间数组（小根堆  能用时间+多久制作的时间）
 // 第二步：process(i,free) 从i号咖啡杯开始，一直到最后，最短时间是？其中free是咖啡杯可用的时间
-public class Code_0085_Coffee {
+public class Code_MakeCoffee {
 
 
     public static int minTime0(int[] arr, int n, int wash, int air) {
