@@ -1,4 +1,4 @@
-package snippet;
+package nowcoder;
 
 // N皇后问题
 // 在N*N的棋盘上要摆N个皇后， 要求任何两个皇后不同行、不同列， 也不在同一条斜线上 给定一个整数n，返回n皇后的摆法有多少种。
@@ -8,7 +8,7 @@ package snippet;
 //是否有冲突，只需要判断两个条件
 //(y == 乙) || (|甲-x|==|乙-y|)
 // https://www.nowcoder.com/questionTerminal/c76408782512486d91eea181107293b6
-public class Code_0086_NQueens {
+public class NowCoder_NQueens {
     public static int num1(int n) {
         if (n < 1) {
             return 0;

@@ -12,6 +12,8 @@ public class Code_PrintBinary {
 
     public static void main(String[] args) {
         int num = 0b10001010_11101010_10001000_11101010;
+        System.out.println("要处理的数据是：");
+        System.out.println("10001010111010101000100011101010");
         System.out.println("原始串：");
         printBinary(num);
         System.out.println("取反：");
