@@ -10,11 +10,11 @@ package nowcoder;
 // https://www.nowcoder.com/questionTerminal/c76408782512486d91eea181107293b6
 public class NowCoder_NQueens {
     public static int num1(int n) {
-        if (n < 1) {
+        if (n < 1 || n == 2 || n == 3) {
             return 0;
         }
-        if (n == 2 || n == 3) {
-            return 0;
+        if (n == 1) {
+            return 1;
         }
         int[] records = new int[n];
         return process1(0, records, n);
@@ -43,7 +43,6 @@ public class NowCoder_NQueens {
         return true;
     }
 
-    // TODO
     //  请不要超过32皇后问题
     public static int num2(int n) {
         if (n < 1 || n > 32) {

@@ -10,7 +10,32 @@ public class Code_PrintBinary {
         System.out.println();
     }
 
+    public static int leftMostOne(int num) {
+        return num & (-num);
+    }
+
+    public static int leftMostOne2(int num) {
+        return num & (~num + 1);
+    }
+
     public static void main(String[] args) {
+        printBinary(22);
+        printBinary(leftMostOne(22));
+        System.out.println(leftMostOne(22));
+        boolean right = true;
+        int times = Integer.MAX_VALUE;
+        for (int i = 0; i < times; i++) {
+            if (leftMostOne(i) != leftMostOne2(i)) {
+                right = false;
+                break;
+            }
+        }
+        if (!right) {
+            System.out.println("oops");
+        } else {
+            System.out.println("right");
+        }
+
         int num = 0b10001010_11101010_10001000_11101010;
         System.out.println("要处理的数据是：");
         System.out.println("10001010111010101000100011101010");
