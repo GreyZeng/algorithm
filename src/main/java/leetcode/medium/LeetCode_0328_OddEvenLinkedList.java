@@ -1,4 +1,5 @@
 package leetcode.medium;
+
 //给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
 //        请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。
 //        示例 1:
@@ -10,7 +11,8 @@ package leetcode.medium;
 //        说明:
 //        应当保持奇数节点和偶数节点的相对顺序。
 //        链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。
-//        Leetcode题目 : https://leetcode.com/problems/odd-even-linked-list/
+//        Leetcode题目 : https://leetcode.cn/problems/odd-even-linked-list/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16916683.html
 public class LeetCode_0328_OddEvenLinkedList {
 
     public static class ListNode {
@@ -55,7 +57,6 @@ public class LeetCode_0328_OddEvenLinkedList {
         }
         oddEnd.next = evenStart;
         return oddStart;
-
     }
 
 }
