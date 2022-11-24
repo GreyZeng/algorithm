@@ -1,13 +1,9 @@
-//Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
-//
-//You should preserve the original relative order of the nodes in each of the two partitions.
-//
-//Example:
-//
-//Input: head = 1->4->3->2->5->2, x = 3
-//Output: 1->2->2->4->3->5
+
 package leetcode.medium;
 
+// 链表上实现 Partition（注：要保持相对顺序）
+// https://leetcode.cn/problems/partition-list/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16923068.html
 public class LeetCode_0086_PartitionList {
 
     public static class ListNode {
@@ -30,42 +26,42 @@ public class LeetCode_0086_PartitionList {
 
     // 仅做Partition
     public static ListNode partition(ListNode head, int x) {
-        ListNode lessStart = null;
-        ListNode lessEnd = null;
-        ListNode biggerStart = null;
-        ListNode biggerEnd = null;
+        ListNode sH = null;
+        ListNode sT = null;
+        ListNode mH = null;
+        ListNode mT = null;
         ListNode cur = head;
         while (cur != null) {
             if (cur.val < x) {
-                if (lessStart == null) {
-                    lessStart = cur;
+                if (sH == null) {
+                    sH = cur;
                 } else {
-                    lessEnd.next = cur;
+                    sT.next = cur;
                 }
-                lessEnd = cur;
+                sT = cur;
             } else {
                 // cur.val >= x
                 // 都放到大于等于区域
-                if (biggerStart == null) {
-                    biggerStart = cur;
+                if (mH == null) {
+                    mH = cur;
                 } else {
-                    biggerEnd.next = cur;
+                    mT.next = cur;
                 }
-                biggerEnd = cur;
+                mT = cur;
             }
             cur = cur.next;
         }
-        if (biggerEnd != null) {
-            biggerEnd.next = null;
+        if (mT != null) {
+            mT.next = null;
         }
-        if (lessEnd != null) {
-            lessEnd.next = null;
+        if (sT != null) {
+            sT.next = null;
         }
-        if (lessStart == null) {
-            return biggerStart;
+        if (sH == null) {
+            return mH;
         }
-        lessEnd.next = biggerStart;
-        return lessStart;
+        sT.next = mH;
+        return sH;
     }
 
     public static void printList(ListNode head) {
