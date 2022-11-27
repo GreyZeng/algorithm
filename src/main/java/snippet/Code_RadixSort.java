@@ -43,6 +43,7 @@ public class Code_RadixSort {
       bits++;
       max /= 10;
     }
+    // 存排序后的数组
     int[] help = new int[arr.length];
     for (int bit = 1; bit <= bits; bit++) {
       int[] count = new int[10];
@@ -67,6 +68,7 @@ public class Code_RadixSort {
 
   // 获取某个数在某一位上的值
   // 从1开始，从个位开始
+  // 例如 num = 803，digit = 3，以下方法输出 8，即：803 的第三位（百位）上是8
   public static int digit(int num, int digit) {
     return ((num / (int) Math.pow(10, digit - 1)) % 10);
   }
