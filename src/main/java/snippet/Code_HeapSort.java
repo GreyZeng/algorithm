@@ -3,6 +3,7 @@ package snippet;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
 // 1. 先让整个数组都变成大根堆结构，建立堆的过程:
 //    a. 从上到下的方法，时间复杂度为O(N*logN)
 //    b. 从下到上的方法，时间复杂度为O(N)

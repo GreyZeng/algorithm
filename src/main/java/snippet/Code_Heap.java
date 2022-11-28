@@ -3,7 +3,9 @@ package snippet;
 import java.util.PriorityQueue;
 
 /**
- * 笔记： 什么是完全二叉树 如果一个树是满的，它是完全二叉树，即便不是满的，也是从左到右依次变满的
+ * 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
+ *
+ * <p>什么是完全二叉树 如果一个树是满的，它是完全二叉树，即便不是满的，也是从左到右依次变满的
  *
  * <p>堆结构
  *
@@ -78,10 +80,10 @@ public class Code_Heap {
       return ans;
     }
 
-    private void heapInsert(int[] arr, int index) {
-      while (arr[index] > arr[(index - 1) / 2]) {
-        swap(arr, index, (index - 1) / 2);
-        index = (index - 1) / 2;
+    private void heapInsert(int[] arr, int i) {
+      while (arr[i] > arr[(i - 1) / 2]) {
+        swap(arr, i, (i - 1) / 2);
+        i = (i - 1) / 2;
       }
     }
 
