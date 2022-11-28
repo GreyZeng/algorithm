@@ -14,7 +14,7 @@ import java.util.PriorityQueue;
  * 加k个数进堆，然后再加入一个，弹出一个，最后堆里面剩下的继续弹出即可
  * 时间复杂度：O(N*logK)
  */
-public class Code_0028_DistanceLessK {
+public class Code_DistanceLessK {
     public static void sortedArrDistanceLessK(int[] arr, int k) {
         k = Math.min(arr.length - 1, k);
         PriorityQueue<Integer> heap = new PriorityQueue<>();
