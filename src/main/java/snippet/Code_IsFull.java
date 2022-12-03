@@ -1,8 +1,9 @@
 package snippet;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16948391.html
 // 国内教程定义：一个二叉树，如果每一个层的结点数都达到最大值，则这个二叉树就是满二叉树。也就是说，如果一个二叉树的层数为K，且结点总数是(2^k) -1 ，则它就是满二叉树。
 // 国外(国际)定义:a binary tree T is full if each node is either a leaf or possesses exactly two childnodes.
-public class Code_0046_IsFull {
+public class Code_IsFull {
     public static class Node {
         public int value;
         public Node left;
