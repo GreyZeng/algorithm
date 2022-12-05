@@ -16,44 +16,83 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
+// 笔记：https://www.cnblogs.com/greyzeng/p/16356829.html
+// https://leetcode.cn/problems/average-of-levels-in-binary-tree/description/
+// 按层遍历，然后求每层的平均值
 public class LeetCode_0637_AverageOfLevelsInBinaryTree {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+  public static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+  }
+
+  public static List<Double> averageOfLevels(TreeNode root) {
+    if (null == root) {
+      return new ArrayList<>();
+    }
+    List<Double> result = new ArrayList<>();
+    Queue<TreeNode> queue = new LinkedList<>();
+    TreeNode curEnd = root;
+    TreeNode nextEnd = null;
+    int numOfNodes = 0;
+    Double sumOfNodesVal = 0d;
+    queue.offer(root);
+    while (!queue.isEmpty()) {
+      TreeNode poll = queue.poll();
+      if (null != poll.left) {
+        queue.offer(poll.left);
+        nextEnd = poll.left;
+      }
+      if (null != poll.right) {
+        queue.offer(poll.right);
+        nextEnd = poll.right;
+      }
+      numOfNodes++;
+      sumOfNodesVal += poll.val;
+      if (poll == curEnd) {
+        result.add(sumOfNodesVal / numOfNodes);
+        sumOfNodesVal = 0d;
+        numOfNodes = 0;
+        curEnd = nextEnd;
+      }
     }
 
-    public static List<Double> averageOfLevels(TreeNode root) {
-        List<Double> ans = new ArrayList<>();
-        if (root == null) {
-            return ans;
-        }
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        TreeNode curEnd = root;
-        TreeNode nextEnd = null;
-        int countOfLevel = 0;
-        Double sumOfLevel = 0d;
-        while (!queue.isEmpty()) {
-            TreeNode c = queue.poll();
-            if (c.left != null) {
-                queue.offer(c.left);
-                nextEnd = c.left;
-            }
-            if (c.right != null) {
-                queue.offer(c.right);
-                nextEnd = c.right;
-            }
-            sumOfLevel += Double.valueOf(c.val);
-            countOfLevel++;
-            if (c == curEnd) {
-                ans.add(sumOfLevel / Double.valueOf(countOfLevel));
-                curEnd = nextEnd;
-                sumOfLevel = 0d;
-                countOfLevel = 0;
-            }
-        }
-        return ans;
-    }
+    return result;
+  }
+
+  //  public static List<Double> averageOfLevels(TreeNode root) {
+  //
+  //    List<Double> ans = new ArrayList<>();
+  //    if (root == null) {
+  //      return ans;
+  //    }
+  //    Queue<TreeNode> queue = new LinkedList<>();
+  //    queue.offer(root);
+  //    TreeNode curEnd = root;
+  //    TreeNode nextEnd = null;
+  //    // 每层元素的数量
+  //    int countOfLevel = 0;
+  //    // 每层平均值
+  //    Double sumOfLevel = 0d;
+  //    while (!queue.isEmpty()) {
+  //      TreeNode c = queue.poll();
+  //      if (c.left != null) {
+  //        queue.offer(c.left);
+  //        nextEnd = c.left;
+  //      }
+  //      if (c.right != null) {
+  //        queue.offer(c.right);
+  //        nextEnd = c.right;
+  //      }
+  //      sumOfLevel += Double.valueOf(c.val);
+  //      countOfLevel++;
+  //      if (c == curEnd) {
+  //        ans.add(sumOfLevel / Double.valueOf(countOfLevel));
+  //        curEnd = nextEnd;
+  //        sumOfLevel = 0d;
+  //        countOfLevel = 0;
+  //      }
+  //    }
+  //    return ans;
+  //  }
 }
