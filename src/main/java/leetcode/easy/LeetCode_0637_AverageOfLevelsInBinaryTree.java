@@ -59,40 +59,4 @@ public class LeetCode_0637_AverageOfLevelsInBinaryTree {
 
     return result;
   }
-
-  //  public static List<Double> averageOfLevels(TreeNode root) {
-  //
-  //    List<Double> ans = new ArrayList<>();
-  //    if (root == null) {
-  //      return ans;
-  //    }
-  //    Queue<TreeNode> queue = new LinkedList<>();
-  //    queue.offer(root);
-  //    TreeNode curEnd = root;
-  //    TreeNode nextEnd = null;
-  //    // 每层元素的数量
-  //    int countOfLevel = 0;
-  //    // 每层平均值
-  //    Double sumOfLevel = 0d;
-  //    while (!queue.isEmpty()) {
-  //      TreeNode c = queue.poll();
-  //      if (c.left != null) {
-  //        queue.offer(c.left);
-  //        nextEnd = c.left;
-  //      }
-  //      if (c.right != null) {
-  //        queue.offer(c.right);
-  //        nextEnd = c.right;
-  //      }
-  //      sumOfLevel += Double.valueOf(c.val);
-  //      countOfLevel++;
-  //      if (c == curEnd) {
-  //        ans.add(sumOfLevel / Double.valueOf(countOfLevel));
-  //        curEnd = nextEnd;
-  //        sumOfLevel = 0d;
-  //        countOfLevel = 0;
-  //      }
-  //    }
-  //    return ans;
-  //  }
 }
