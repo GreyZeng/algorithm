@@ -2,7 +2,6 @@ package snippet;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 // TODO
 //给定一个正数数组arr，长度一定大于6（>=7），一定要选3个数字做分割点，从而分出4个部分，并且每部分都有数
