@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.TreeSet;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 // 线段的最大重合问题
 // https://www.nowcoder.com/questionTerminal/f8fa4b67dd054892966d280790c42ba3
 // 连接点算重合部分
@@ -14,6 +17,55 @@ import java.util.TreeSet;
 // https://www.cnblogs.com/greyzeng/p/15058662.html
 // 线段树解法
 public class NowCoder_LineCoverMax {
+  // 暴力解
+  // 1. 首先得到线段的最大值和最小值
+  // 2. 最大值和最小值按单位1等分，看每条线覆盖了多少，抓一下全局max
+  // 复杂度O(n*(max-min))
+  public static int maxCover3(int[][] lines) {
+    int min = lines[0][0];
+    int max = lines[0][1];
+    for (int[] line : lines) {
+      min = Math.min(min, line[0]);
+      max = Math.max(max, line[1]);
+    }
+    int cover = 0;
+    int maxCover = 0;
+    for (int i = min; i <= max; i++) {
+      for (int[] line : lines) {
+        // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，
+        // 则条件为：line[0] <= i && line[1] >= i
+        // 如果不算的话，line[0] <= i+0.5 && line[1] >= i + 0.5
+        if (line[0] <= i && line[1] >= i) {
+          cover++;
+        }
+      }
+      maxCover = Math.max(cover, maxCover);
+      cover = 0;
+    }
+    return maxCover;
+  }
+
+  // lambda 写法，可过对数器，但是超时，待优化 TODO
+  //  public static int maxCover4(int[][] lines) {
+  //    int min = Arrays.stream(lines).min(Comparator.comparingInt(o -> o[0])).get()[0];
+  //    int max = Arrays.stream(lines).max(Comparator.comparingInt(o -> o[1])).get()[1];
+  //    long cover;
+  //    long maxCover = 0;
+  //    for (int i = min; i <= max; i++) {
+  //      int finalI = i;
+  //      cover =
+  //          Arrays.stream(lines).filter(
+  //                  line -> {
+  //                    // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，
+  //                    // 则条件为：line[0] <= i && line[1] >= i
+  //                    // 如果不算的话，line[0] <= i+0.5 && line[1] >= i + 0.5
+  //                    return line[0] <= finalI && line[1] >= finalI;
+  //                  })
+  //              .count();
+  //      maxCover = Math.max(cover, maxCover);
+  //    }
+  //    return (int)maxCover;
+  //  }
 
   // 堆解法
   public static int maxCover(int[][] m) {
@@ -131,33 +183,6 @@ public class NowCoder_LineCoverMax {
       }
       return Math.max(left, right);
     }
-  }
-
-  // 暴力解
-  // 1. 首先得到线段的最大值和最小值
-  // 2. 最大值和最小值按单位1等分，看每条线覆盖了多少，抓一下全局max
-  public static int maxCover3(int[][] lines) {
-    int min = lines[0][0];
-    int max = lines[0][1];
-    for (int[] line : lines) {
-      min = Math.min(min, Math.min(line[0], line[1]));
-      max = Math.max(max, Math.max(line[0], line[1]));
-    }
-    int cover = 0;
-    int maxCover = 0;
-    for (int i = min; i <= max; i++) {
-      for (int[] line : lines) {
-        // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，
-        // 则条件为：line[0] <= i && line[1] >= i
-        // 如果不算的话，line[0] <= i+0.5 && line[1] >= i + 0.5
-        if (line[0] <= i && line[1] >= i) {
-          cover++;
-        }
-      }
-      maxCover = Math.max(cover, maxCover);
-      cover = 0;
-    }
-    return maxCover;
   }
 
   public static class Line {
