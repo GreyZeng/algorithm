@@ -12,7 +12,7 @@ import java.util.TreeSet;
 // 连接点算重合部分
 // 暴力解
 // 堆
-// https://www.cnblogs.com/greyzeng/p/15058662.html
+// 笔记：https://www.cnblogs.com/greyzeng/p/15058662.html
 // 线段树解法
 public class NowCoder_LineCoverMax {
   // 暴力解
@@ -68,19 +68,16 @@ public class NowCoder_LineCoverMax {
   }
 
   // 堆解法
-  public static int maxCover(int[][] m) {
-    Line[] lines = new Line[m.length];
-    for (int i = 0; i < m.length; i++) {
-      lines[i] = new Line(m[i][0], m[i][1]);
-    }
-    Arrays.sort(lines, Comparator.comparingInt(o -> o.start));
-    PriorityQueue<Line> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.end));
+  // O(N*logN)
+  public static int maxCover(int[][] lines) {
+    Arrays.sort(lines, Comparator.comparingInt(o -> o[0]));
+    PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
     int max = 0;
-    for (Line line : lines) {
+    for (int[] line : lines) {
       // 这里要注意
       // 如果[1,2] ,[2, 3] 中2 算一个重合点的话，heap.peek().end < line.start
       // 如果不算的话，heap.peek().end <= line.start
-      while (!heap.isEmpty() && heap.peek().end < line.start) {
+      while (!heap.isEmpty() && heap.peek()[1] < line[0]) {
         heap.poll();
       }
       heap.add(line);
@@ -90,6 +87,7 @@ public class NowCoder_LineCoverMax {
   }
 
   // 线段树解法
+  // 复杂度是：O(N*logN)
   public static int maxCover2(int[][] lines) {
     HashMap<Integer, Integer> map = index(lines);
     int N = map.size();
@@ -182,16 +180,6 @@ public class NowCoder_LineCoverMax {
         right = queryMax(L, R, mid + 1, r, (rt << 1) | 1);
       }
       return Math.max(left, right);
-    }
-  }
-
-  public static class Line {
-    public int start;
-    public int end;
-
-    public Line(int s, int e) {
-      start = s;
-      end = e;
     }
   }
 

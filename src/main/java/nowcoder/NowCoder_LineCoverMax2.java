@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-
+// 笔记：https://www.cnblogs.com/greyzeng/p/15058662.html
 // https://www.nowcoder.com/questionTerminal/1ae8d0b6bb4e4bcdbf64ec491f63fc37
 // 线段的最大重合区域问题
 // 连接点不算重合部分
