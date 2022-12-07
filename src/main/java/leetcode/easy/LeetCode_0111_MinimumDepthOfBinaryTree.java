@@ -1,6 +1,6 @@
 package leetcode.easy;
 
-// 笔记：
+// 笔记：https://www.cnblogs.com/greyzeng/p/16963808.html
 // 给定一个二叉树，找出其最小深度。
 //
 //        最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
