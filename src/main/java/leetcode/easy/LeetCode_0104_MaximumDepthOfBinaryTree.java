@@ -25,27 +25,6 @@ public class LeetCode_0104_MaximumDepthOfBinaryTree {
     return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
   }
 
-  public static int maxDepth1(TreeNode root) {
-    return process(root).max;
-  }
-
-  public static Info process(TreeNode root) {
-    if (root == null) {
-      return new Info(0);
-    }
-    Info left = process(root.left);
-    Info right = process(root.right);
-    return new Info(Math.max(right.max, left.max) + 1);
-  }
-
-  public static class Info {
-    public int max;
-
-    public Info(int m) {
-      max = m;
-    }
-  }
-
   // by morris
   public static int maxDepth2(TreeNode head) {
     if (head == null) {
