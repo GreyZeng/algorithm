@@ -2,7 +2,10 @@ package snippet;
 
 import java.util.LinkedList;
 
-public class Code_0099_MaxSumLengthNoMore {
+// 笔记：
+// 长度不超过M的情况下，最大累加和问题
+// 给定一个数组arr，和一个正数M，返回在arr的子数组在长度不超过M的情况下，最大的累加和
+public class Code_MaxSumLengthNoMore {
 
     // O(N^2)的解法，暴力解，用作对数器
     public static int test(int[] arr, int M) {
@@ -35,32 +38,32 @@ public class Code_0099_MaxSumLengthNoMore {
         for (int i = 1; i < N; i++) {
             sum[i] = sum[i - 1] + arr[i];
         }
-        LinkedList<Integer> qmax = new LinkedList<>();
+        LinkedList<Integer> qMax = new LinkedList<>();
         int i = 0;
         int end = Math.min(N, M);
         for (; i < end; i++) {
-            while (!qmax.isEmpty() && sum[qmax.peekLast()] <= sum[i]) {
-                qmax.pollLast();
+            while (!qMax.isEmpty() && sum[qMax.peekLast()] <= sum[i]) {
+                qMax.pollLast();
             }
-            qmax.add(i);
+            qMax.add(i);
         }
-        int max = sum[qmax.peekFirst()];
+        int max = sum[qMax.peekFirst()];
         int L = 0;
         for (; i < N; L++, i++) {
-            if (qmax.peekFirst() == L) {
-                qmax.pollFirst();
+            if (qMax.peekFirst() == L) {
+                qMax.pollFirst();
             }
-            while (!qmax.isEmpty() && sum[qmax.peekLast()] <= sum[i]) {
-                qmax.pollLast();
+            while (!qMax.isEmpty() && sum[qMax.peekLast()] <= sum[i]) {
+                qMax.pollLast();
             }
-            qmax.add(i);
-            max = Math.max(max, sum[qmax.peekFirst()] - sum[L]);
+            qMax.add(i);
+            max = Math.max(max, sum[qMax.peekFirst()] - sum[L]);
         }
         for (; L < N - 1; L++) {
-            if (qmax.peekFirst() == L) {
-                qmax.pollFirst();
+            if (qMax.peekFirst() == L) {
+                qMax.pollFirst();
             }
-            max = Math.max(max, sum[qmax.peekFirst()] - sum[L]);
+            max = Math.max(max, sum[qMax.peekFirst()] - sum[L]);
         }
         return max;
     }
