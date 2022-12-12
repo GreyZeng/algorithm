@@ -12,12 +12,13 @@
         Output: 4*/
 package leetcode.medium;
 
+// 笔记：https://www.cnblogs.com/greyzeng/p/16976877.html
 // tips 正方形必须以i,j作为右下角情况，哪个正方形内部都是1且最大
 // 依赖 左边一个位置，上面一个位置，左上角位置
 // https://leetcode.cn/problems/maximal-square/
 public class LeetCode_0221_MaximalSquare {
 
-    public static int maximalSquare(char[][] matrix) {
+    public int maximalSquare(char[][] matrix) {
         if (null == matrix || matrix.length == 0 || matrix[0].length == 0) {
             return 0;
         }
