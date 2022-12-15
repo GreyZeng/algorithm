@@ -1,4 +1,4 @@
-package 练习题;
+package 练习题.已废弃;
 
 import java.util.HashMap;
 import java.util.Map;

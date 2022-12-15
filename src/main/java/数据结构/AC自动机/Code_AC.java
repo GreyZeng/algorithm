@@ -1,12 +1,13 @@
-package snippet;
+package 数据结构.AC自动机;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+// AC自动机
 // https://www.cnblogs.com/greyzeng/p/15347534.html
-public class Code_0064_AC {
+public class Code_AC {
 
     public static class Node {
         public String end;

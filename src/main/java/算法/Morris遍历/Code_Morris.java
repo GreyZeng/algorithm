@@ -1,4 +1,4 @@
-package snippet;
+package 算法.Morris遍历;
 
 // morris遍历
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
