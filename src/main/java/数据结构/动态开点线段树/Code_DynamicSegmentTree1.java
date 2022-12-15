@@ -1,9 +1,9 @@
-package snippet;
+package 数据结构.动态开点线段树;
 
 // TODO
 // 只支持单点增加 + 范围查询的动态开点线段树（累加和）
 // tips: 
-public class Code_0120_DynamicSegmentTree {
+public class Code_DynamicSegmentTree1 {
 
 	public static class Node {
 		public int sum;
