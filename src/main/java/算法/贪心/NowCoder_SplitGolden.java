@@ -1,4 +1,4 @@
-package 练习题.nowcoder;
+package 算法.贪心;
 
 import java.util.PriorityQueue;
 

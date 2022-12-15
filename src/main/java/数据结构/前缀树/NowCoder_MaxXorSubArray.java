@@ -1,4 +1,4 @@
-package 练习题.nowcoder;
+package 数据结构.前缀树;
 
 import java.util.Scanner;
 //数组中所有数都异或起来的结果，叫做异或和。给定一个数组arr，返回arr的最大子数组异或和
