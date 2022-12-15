@@ -1,4 +1,4 @@
-package snippet;
+package 算法.贪心;
 
 
 import java.util.ArrayList;

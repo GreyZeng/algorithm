@@ -1,4 +1,4 @@
-package snippet;
+package 数据结构.堆;
 
 import java.util.ArrayList;
 import java.util.Comparator;
