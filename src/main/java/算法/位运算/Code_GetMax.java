@@ -1,4 +1,4 @@
-package snippet;
+package 算法.位运算;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16641111.html
 // 不要用任何比较判断，返回两个数中较大的数

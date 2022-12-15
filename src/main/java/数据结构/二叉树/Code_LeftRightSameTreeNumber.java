@@ -1,4 +1,4 @@
-package snippet;
+package 数据结构.二叉树;
 
 
 import javax.xml.bind.DatatypeConverter;
@@ -8,7 +8,7 @@ import java.security.Security;
 
 // 如果一个节点X，它左树结构和右树结构完全一样，那么我们说以X为头的子树是相等子树
 // 给定一棵二叉树的头节点head，返回head整棵树上有多少棵相等子树
-public class Code_0010_LeftRightSameTreeNumber {
+public class Code_LeftRightSameTreeNumber {
 
     public static class Node {
         public int value;

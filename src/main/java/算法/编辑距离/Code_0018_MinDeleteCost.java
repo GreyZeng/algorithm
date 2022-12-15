@@ -1,4 +1,4 @@
-package snippet;
+package 算法.编辑距离;
 
 import java.util.ArrayList;
 import java.util.List;

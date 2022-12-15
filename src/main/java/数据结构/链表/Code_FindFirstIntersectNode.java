@@ -1,4 +1,4 @@
-package snippet;
+package 数据结构.链表;
 
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16926303.html

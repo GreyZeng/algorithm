@@ -1,4 +1,4 @@
-package snippet;
+package 数据结构.二叉树;
 
 /**
  * 笔记：https://www.cnblogs.com/greyzeng/p/16952813.html
