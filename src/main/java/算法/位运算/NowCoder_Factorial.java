@@ -1,9 +1,9 @@
-package nowcoder;
+package 算法.位运算;
 
 import java.util.Scanner;
 
 // 给定一个参数N
-// 求它的阶乘
+// 求它的阶乘N!
 // https://www.nowcoder.com/questionTerminal/4b8f5815c7cd40ab851c24fc5de70fa4
 public class NowCoder_Factorial {
 
