@@ -1,4 +1,4 @@
-package 练习题.股票问题;
+package 练习题.股票系列问题;
 
 //Say you have an array for which the ith element is the price of a given stock on day i.
 //

@@ -1,4 +1,4 @@
-package 练习题.股票问题;
+package 练习题.股票系列问题;
 
 // 参考股票问题5 cooldown问题
 // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
