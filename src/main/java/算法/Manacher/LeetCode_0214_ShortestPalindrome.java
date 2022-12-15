@@ -16,7 +16,7 @@ Constraints:
 
 0 <= s.length <= 5 * 10^4
 s consists of lowercase English letters only.*/
-package 练习题.leetcode.hard;
+package 算法.Manacher;
 
 // 使用manacher算法：https://www.cnblogs.com/greyzeng/p/15314213.html
 // https://leetcode.cn/problems/shortest-palindrome/
