@@ -1,4 +1,4 @@
-package snippet;
+package 算法.递归;
 
 // 递归求一个数组中的最大值
 public class Code_0016_GetMaxRecursive {
