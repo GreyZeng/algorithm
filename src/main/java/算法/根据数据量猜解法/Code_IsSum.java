@@ -1,4 +1,4 @@
-package snippet;
+package 算法.根据数据量猜解法;
 
 import java.util.*;
 
@@ -7,7 +7,7 @@ import java.util.*;
 //        返回arr的子集是否能累加出k
 //        1）正常怎么做？ 背包问题 （最小值，最大值）---》映射到[0…Sum]
 //        2）如果arr中的数值很大，但是arr的长度不大，怎么做？ 分治 左右两半
-public class Code_0021_IsSum {
+public class Code_IsSum {
 
     // arr中的值可能为正，可能为负，可能为0
     // 自由选择arr中的数字，能不能累加得到sum
