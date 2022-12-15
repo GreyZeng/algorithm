@@ -1,4 +1,4 @@
-package snippet;
+package 算法.排序;
 
 import java.util.Arrays;
 
