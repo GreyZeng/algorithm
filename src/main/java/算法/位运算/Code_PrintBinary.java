@@ -1,4 +1,4 @@
-package snippet;
+package 算法.位运算;
 
 // 二进制与位运算
 public class Code_PrintBinary {
