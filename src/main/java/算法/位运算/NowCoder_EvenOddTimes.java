@@ -24,7 +24,7 @@
 //
 //        备注:
 //        时间复杂度O(n),额外空间复杂度O(1)。
-package 练习题.nowcoder;
+package 算法.位运算;
 
 import java.util.Scanner;
 
