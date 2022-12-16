@@ -1,7 +1,8 @@
-package 练习题.leetcode.hard;
+package 练习题.接雨水系列问题;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
+
 //给你一个 m x n 的矩阵，其中的值均为非负整数，代表二维高度图每个单元的高度，请计算图中形状最多能接多少体积的雨水。
 //        Leetcode题目：https://leetcode.com/problems/trapping-rain-water-ii/
 //Constraints:
