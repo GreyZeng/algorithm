@@ -7,12 +7,15 @@ import java.util.Stack;
 /**
  * 二叉搜索树中查找后继节点
  *
- * <p>https://www.lintcode.com/problem/inorder-successor-in-bst/description
+ * <p>
+ * https://www.lintcode.com/problem/inorder-successor-in-bst/description
  *
- * <p>类似问题
+ * <p>
+ * 类似问题
  *
  * @see snippet.Code_SuccessorNode
- *     <p>笔记：https://www.cnblogs.com/greyzeng/p/16863345.html
+ *      <p>
+ *      笔记：https://www.cnblogs.com/greyzeng/p/16863345.html
  */
 public class LintCode_0448_InorderSuccessorInBST {
   public class TreeNode {
@@ -24,6 +27,7 @@ public class LintCode_0448_InorderSuccessorInBST {
       val = x;
     }
   }
+
   // 最优解，空间复杂度O(1)，时间复杂度O(h)，其中 h 为二叉树的高度。
   public static TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
     if (p == null) {
@@ -52,6 +56,7 @@ public class LintCode_0448_InorderSuccessorInBST {
     }
     return p;
   }
+
   // 暴力解法，中序遍历一遍，当前结点的下一个结点直接返回就可以，空间复杂度O(N)
   public static TreeNode inorderSuccessor2(TreeNode root, TreeNode p) {
     List<TreeNode> ans = new ArrayList<>();
@@ -78,6 +83,7 @@ public class LintCode_0448_InorderSuccessorInBST {
     ans.add(root);
     in2(root.right, ans);
   }
+
   // morris 遍历实现中序遍历，空间复杂度 O(1)
   public TreeNode inorderSuccessor4(TreeNode head, TreeNode p) {
     if (head == null) {

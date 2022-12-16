@@ -53,6 +53,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
     ans.add(levelRecords);
     return ans;
   }
+
   // 用LinkedList
   public static List<List<Integer>> levelOrder2(TreeNode root) {
     if (null == root) {

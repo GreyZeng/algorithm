@@ -3,9 +3,9 @@ package 练习题.leetcode.easy;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16963808.html
 // 给定一个二叉树，找出其最小深度。
 //
-//        最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+// 最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
 //
-//        说明：叶子节点是指没有子节点的节点。
+// 说明：叶子节点是指没有子节点的节点。
 // https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
 // 二叉树递归套路
 // Morris遍历

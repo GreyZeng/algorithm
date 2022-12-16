@@ -24,61 +24,61 @@ import java.util.Scanner;
 // R都在左边，G都在右边，或者全G，全R
 public class NowCoder_RedAndGreen {
 
-    // 两个预处理数组
-    // TODO 空间方面可以优化
-    public static int minColors(String str) {
-        if (str == null || str.length() <= 1) {
-            return 0;
+  // 两个预处理数组
+  // TODO 空间方面可以优化
+  public static int minColors(String str) {
+    if (str == null || str.length() <= 1) {
+      return 0;
+    }
+    char[] strs = str.toCharArray();
+    int N = strs.length;
+    // leftG[i]表示左边包括i在内有几个G
+    int[] leftG = new int[N];
+    int[] rightR = new int[N];
+    for (int i = 0; i < N; i++) {
+      if (strs[i] == 'G') {
+        if (i == 0) {
+          leftG[i]++;
+        } else {
+          leftG[i] = leftG[i - 1] + 1;
         }
-        char[] strs = str.toCharArray();
-        int N = strs.length;
-        // leftG[i]表示左边包括i在内有几个G
-        int[] leftG = new int[N];
-        int[] rightR = new int[N];
-        for (int i = 0; i < N; i++) {
-            if (strs[i] == 'G') {
-                if (i == 0) {
-                    leftG[i]++;
-                } else {
-                    leftG[i] = leftG[i - 1] + 1;
-                }
-            } else {
-                if (i != 0) {
-                    leftG[i] = leftG[i - 1];
-                }
-            }
+      } else {
+        if (i != 0) {
+          leftG[i] = leftG[i - 1];
         }
-        for (int i = N - 1; i >= 0; i--) {
-            if (strs[i] == 'R') {
-                if (i == N - 1) {
-                    rightR[i]++;
-                } else {
-                    rightR[i] = rightR[i + 1] + 1;
-                }
-            } else {
-                if (i != N - 1) {
-                    rightR[i] = rightR[i + 1];
-                }
-            }
+      }
+    }
+    for (int i = N - 1; i >= 0; i--) {
+      if (strs[i] == 'R') {
+        if (i == N - 1) {
+          rightR[i]++;
+        } else {
+          rightR[i] = rightR[i + 1] + 1;
         }
-
-        // 全R或者全G的情况
-        if (rightR[0] == N || leftG[N - 1] == N) {
-            return 0;
+      } else {
+        if (i != N - 1) {
+          rightR[i] = rightR[i + 1];
         }
-
-        int min = N;
-        for (int i = 0; i < N; i++) {
-            // 之所以要-1是因为重复算了i位置的处理情况
-            min = Math.min(leftG[i] + rightR[i] - 1, min);
-        }
-        return min;
+      }
     }
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String colors = in.nextLine();
-        System.out.println(minColors(colors));
-        in.close();
+    // 全R或者全G的情况
+    if (rightR[0] == N || leftG[N - 1] == N) {
+      return 0;
     }
+
+    int min = N;
+    for (int i = 0; i < N; i++) {
+      // 之所以要-1是因为重复算了i位置的处理情况
+      min = Math.min(leftG[i] + rightR[i] - 1, min);
+    }
+    return min;
+  }
+
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    String colors = in.nextLine();
+    System.out.println(minColors(colors));
+    in.close();
+  }
 }

@@ -19,6 +19,7 @@
 // 把一个无序整数数组变成一个堆数组。如果是最小堆，每个元素A[i]，我们将得到A[i * 2 + 1] >= A[i]和A[i * 2 + 2] >= A[i]
 // 返回其中任何一个。
 package 练习题.lintcode.medium;
+
 // 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
 // https://www.lintcode.com/problem/130/
 public class LintCode_0130_Heapify {

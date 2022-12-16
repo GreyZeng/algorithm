@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * 给定一棵二叉树的头节点head， 返回这颗二叉树中最大的二叉搜索子树的头节点
  *
- * <p>笔记：https://www.cnblogs.com/greyzeng/p/16950891.html
+ * <p>
+ * 笔记：https://www.cnblogs.com/greyzeng/p/16950891.html
  */
 public class Code_MaxSubBSTHead {
 
@@ -104,10 +105,8 @@ public class Code_MaxSubBSTHead {
     if ((leftInfo == null || (leftInfo.maxSubBSTHead == X.left && leftInfo.max < X.val))
         && (rightInfo == null || (rightInfo.maxSubBSTHead == X.right && rightInfo.min > X.val))) {
       maxSubBSTHead = X;
-      maxSubBSTSize =
-          (leftInfo == null ? 0 : leftInfo.maxSubBSTSize)
-              + (rightInfo == null ? 0 : rightInfo.maxSubBSTSize)
-              + 1;
+      maxSubBSTSize = (leftInfo == null ? 0 : leftInfo.maxSubBSTSize)
+          + (rightInfo == null ? 0 : rightInfo.maxSubBSTSize) + 1;
     }
     return new Info(maxSubBSTHead, maxSubBSTSize, min, max);
   }

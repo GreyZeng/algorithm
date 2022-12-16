@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 
 // 路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 至多出现一次 。该路径
-//        至少包含一个 节点，且不一定经过根节点。
-//        路径和 是路径中各节点值的总和。
-//        给你一个二叉树的根节点 root ，返回其 最大路径和。
-//        进阶：
-//        如果返回最大路径和上的所有节点，该怎么做？
-//        LeetCode题目 : https://leetcode.com/problems/binary-tree-maximum-path-sum/
+// 至少包含一个 节点，且不一定经过根节点。
+// 路径和 是路径中各节点值的总和。
+// 给你一个二叉树的根节点 root ，返回其 最大路径和。
+// 进阶：
+// 如果返回最大路径和上的所有节点，该怎么做？
+// LeetCode题目 : https://leetcode.com/problems/binary-tree-maximum-path-sum/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16960465.html
 // ref LintCode : https://www.lintcode.com/problem/binary-tree-maximum-path-sum/description
 public class LeetCode_0124_BinaryTreeMaximumPathSum {
@@ -52,12 +52,8 @@ public class LeetCode_0124_BinaryTreeMaximumPathSum {
     Info rightInfo = process(head.right);
     int maxPathSumFromHead =
         head.val + Math.max(Math.max(leftInfo.maxPathSumFromHead, rightInfo.maxPathSumFromHead), 0);
-    int maxPathSum =
-        Math.max(
-            Math.max(leftInfo.maxPathSum, rightInfo.maxPathSum),
-            head.val
-                + Math.max(0, leftInfo.maxPathSumFromHead)
-                + Math.max(0, rightInfo.maxPathSumFromHead));
+    int maxPathSum = Math.max(Math.max(leftInfo.maxPathSum, rightInfo.maxPathSum), head.val
+        + Math.max(0, leftInfo.maxPathSumFromHead) + Math.max(0, rightInfo.maxPathSumFromHead));
     return new Info(maxPathSum, maxPathSumFromHead);
   }
 
@@ -120,10 +116,8 @@ public class LeetCode_0124_BinaryTreeMaximumPathSum {
       from = r.from;
       to = r.to;
     }
-    int p3 =
-        x.val
-            + (l != null && l.maxHeadSum > 0 ? l.maxHeadSum : 0)
-            + (r != null && r.maxHeadSum > 0 ? r.maxHeadSum : 0);
+    int p3 = x.val + (l != null && l.maxHeadSum > 0 ? l.maxHeadSum : 0)
+        + (r != null && r.maxHeadSum > 0 ? r.maxHeadSum : 0);
     if (p3 > maxAllSum) {
       maxAllSum = p3;
       from = (l != null && l.maxHeadSum > 0) ? l.end : x;
@@ -146,8 +140,8 @@ public class LeetCode_0124_BinaryTreeMaximumPathSum {
     }
   }
 
-  public static void fillPath(
-      HashMap<TreeNode, TreeNode> fmap, TreeNode a, TreeNode b, List<TreeNode> ans) {
+  public static void fillPath(HashMap<TreeNode, TreeNode> fmap, TreeNode a, TreeNode b,
+      List<TreeNode> ans) {
     if (a == b) {
       ans.add(a);
     } else {

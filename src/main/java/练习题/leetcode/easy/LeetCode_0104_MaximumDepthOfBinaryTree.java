@@ -1,4 +1,5 @@
 package 练习题.leetcode.easy;
+
 // 二叉树是的最大深度问题
 // 笔记：https://www.cnblogs.com/greyzeng/p/16963808.html
 // https://leetcode.cn/problems/maximum-depth-of-binary-tree/
@@ -7,7 +8,7 @@ public class LeetCode_0104_MaximumDepthOfBinaryTree {
 
   /*
    * 注意最小高度比这个复杂，要额外小心判断空
-   * */
+   */
   public static class TreeNode {
     int val;
     TreeNode left;

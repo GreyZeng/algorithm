@@ -1,6 +1,7 @@
 package 练习题.leetcode.medium;
 
 import java.util.*;
+
 // https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/description/
 // 本质是树的按层遍历
 // 1. hash表+LinkedList
@@ -23,6 +24,7 @@ public class LeetCode_0116_PopulatingNextRightPointersInEachNode {
       val = v;
     }
   }
+
   // 使用LinkedList作为队列,空间O(N)
   public static Node connect(Node root) {
     if (null == root) {

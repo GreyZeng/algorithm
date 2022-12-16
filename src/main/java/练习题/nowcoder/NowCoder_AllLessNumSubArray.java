@@ -1,9 +1,9 @@
 // 链接：https://www.nowcoder.com/questionTerminal/5fe02eb175974e18b9a546812a17428e
-//        来源：牛客网
+// 来源：牛客网
 //
-//        给定数组 arr 和整数 num，共返回有多少个子数组满足如下情况：
-//        max(arr[i...j]) - min(arr[i...j]) <= num
-//        max(arr[i...j])表示子数组arr[i...j]中的最大值，min[arr[i...j])表示子数组arr[i...j]中的最小值。
+// 给定数组 arr 和整数 num，共返回有多少个子数组满足如下情况：
+// max(arr[i...j]) - min(arr[i...j]) <= num
+// max(arr[i...j])表示子数组arr[i...j]中的最大值，min[arr[i...j])表示子数组arr[i...j]中的最小值。
 package 练习题.nowcoder;
 
 import java.util.LinkedList;
@@ -59,7 +59,7 @@ public class NowCoder_AllLessNumSubArray {
     for (int i = 0; i < n; i++) {
       arr[i] = in.nextInt();
     }
-    System.out.println(getNum(arr,m));
+    System.out.println(getNum(arr, m));
     in.close();
   }
 }
