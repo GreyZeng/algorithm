@@ -14,7 +14,7 @@
 // [9,20],
 // [3]
 // ]
-package 练习题.leetcode.medium;
+package 数据结构.二叉树;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
