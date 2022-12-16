@@ -1,4 +1,4 @@
-package 练习题.nowcoder;
+package 练习题.分糖果系列问题;
 
 import java.util.Scanner;
 
