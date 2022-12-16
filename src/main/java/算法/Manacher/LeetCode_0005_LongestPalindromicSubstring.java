@@ -1,4 +1,4 @@
-package 练习题.leetcode.medium;
+package 算法.Manacher;
 
 // manacher算法
 // 最长回文子串
