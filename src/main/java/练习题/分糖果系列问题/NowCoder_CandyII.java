@@ -3,7 +3,7 @@ package 练习题.分糖果系列问题;
 import java.util.Scanner;
 
 // 链接：https://www.nowcoder.com/questionTerminal/de342201576e44548685b6c10734716e
-// 环形分糖果问题 @see Code_0112_CircleCandy
+// 环形分糖果问题 @see Code_CircleCandy
 public class NowCoder_CandyII {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
