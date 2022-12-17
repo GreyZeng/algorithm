@@ -1,4 +1,4 @@
-package 练习题.nowcoder;
+package 算法.位运算;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16909274.html
 // N皇后问题
