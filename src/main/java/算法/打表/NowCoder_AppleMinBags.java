@@ -11,7 +11,7 @@
 
 // 奇数返回-1
 // 剩余大于等于24，就不需要试的
-package 练习题.nowcoder;
+package 算法.打表;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16651527.html
 // https://www.nowcoder.com/questionTerminal/61cfbb2e62104bc8aa3da5d44d38a6ef

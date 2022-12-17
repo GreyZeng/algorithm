@@ -1,4 +1,4 @@
-package 练习题.snippet;
+package 算法.打表;
 
 
 import java.util.ArrayList;
