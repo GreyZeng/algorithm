@@ -41,7 +41,7 @@ public class LintCode_0629_MinimumSpanningTree {
       this.city2 = city2;
       this.cost = cost;
     }
-  }
+  } 
 
   public static void main(String[] args) {
     List<Connection> connections = new ArrayList<>();
