@@ -25,7 +25,7 @@
 // 没有办法连通
 // 注意事项
 // 返回按cost排序的连接方法，如果cost相同就按照city1进行排序，如果city1也相同那么就按照city2进行排序。
-package 练习题.lintcode.hard;
+package 数据结构.图;
 
 import java.util.*;
 

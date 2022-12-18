@@ -10,7 +10,7 @@
  * 输入： TopK(1) add("aa") add("ab") topk() 输出：["aa"] 解释： "aa" 和 "ab" 出现 , 但是aa的字典序小于ab。 注意事项
  * 如果两个单词有相同的使用频率, 按字典序排名.
  */
-package 练习题.lintcode.hard;
+package 数据结构.堆;
 
 import java.util.ArrayList;
 import java.util.Comparator;

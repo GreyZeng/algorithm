@@ -1,4 +1,4 @@
-package 练习题.lintcode.hard;
+package 数据结构.二叉树;
 
 import java.util.ArrayList;
 import java.util.List;
