@@ -1,4 +1,4 @@
-package 练习题.leetcode.easy;
+package 数据结构.二叉树;
 
 // 二叉树是的最大深度问题
 // 笔记：https://www.cnblogs.com/greyzeng/p/16963808.html

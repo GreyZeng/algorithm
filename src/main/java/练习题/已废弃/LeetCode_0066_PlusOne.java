@@ -1,4 +1,4 @@
-package 练习题.leetcode.easy;
+package 练习题.已废弃;
 
 // Given a non-empty array of digits representing a non-negative integer, increment one to the
 // integer.

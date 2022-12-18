@@ -1,4 +1,4 @@
-package 练习题.leetcode.easy;
+package 数据结构.链表;
 
 // 单链表反转
 // 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
