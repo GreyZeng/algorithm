@@ -1,7 +1,8 @@
-package 练习题.leetcode.medium;
+package 数据结构.链表;
 
 // note 数够n+1个，然后依次遍历到尾部
 // https://www.cnblogs.com/greyzeng/p/14675184.html
+// 和 https://www.lintcode.com/problem/174/ 一样
 public class LeetCode_0019_RemoveNthNodeFromEndofList {
 
   public static class ListNode {
