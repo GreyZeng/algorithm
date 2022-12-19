@@ -1,4 +1,4 @@
-package 练习题.lintcode.easy;
+package 算法.排序;
 
 import java.util.Stack;
 

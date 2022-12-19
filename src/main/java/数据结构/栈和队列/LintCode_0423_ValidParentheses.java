@@ -1,4 +1,4 @@
-package 练习题.lintcode.easy;
+package 数据结构.栈和队列;
 
 import java.util.LinkedList;
 

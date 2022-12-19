@@ -1,4 +1,4 @@
-package 练习题.lintcode.easy;
+package 数据结构.链表;
 
 /**
  * https://www.lintcode.com/problem/167/
