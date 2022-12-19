@@ -1,4 +1,4 @@
-package 练习题.lintcode.easy;
+package 算法.二分;
 
 // How can you optimize your algorithm if one array is very large and the other is very small?
 // https://www.lintcode.com/problem/6/
