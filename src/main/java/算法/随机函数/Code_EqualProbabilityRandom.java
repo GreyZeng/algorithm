@@ -4,7 +4,7 @@ package 算法.随机函数;
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
 public class Code_EqualProbabilityRandom {
 
-  // 不等概率函数，
+  // 不等概率函数，80%的概率返回0，20%的概率返回1
   // 内部内容不可见
   public static int f() {
     return Math.random() < 0.8 ? 0 : 1;
