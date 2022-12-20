@@ -1,4 +1,4 @@
-package 算法.位运算;
+package 已废弃;
 
 import java.util.Scanner;
 

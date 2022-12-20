@@ -1,4 +1,4 @@
-package 练习题.leetcode.easy;
+package 数据结构.前缀和;
 
 // 实现前缀和
 // 303. 区域和检索 - 数组不可变

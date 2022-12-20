@@ -16,7 +16,7 @@
  * The array is only modifiable by the update function. You may assume the number of calls to update
  * and sumRange function is distributed evenly. 0 <= i <= j <= nums.length - 1
  */
-package 练习题.leetcode.medium;
+package 数据结构.前缀和;
 
 // https://leetcode-cn.com/problems/range-sum-query-mutable/
 public class LeetCode_0307_RangeSumQueryMutable {
