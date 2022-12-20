@@ -1,5 +1,7 @@
 package 算法.随机函数;
 
+// TODO
+// 加入笔记：https://www.cnblogs.com/greyzeng/p/16618329.html
 // 随机函数构造新随机函数问题
 // random 0-7 生成 random 0-9
 // 生成0，1源，用二进制来构造0和9
