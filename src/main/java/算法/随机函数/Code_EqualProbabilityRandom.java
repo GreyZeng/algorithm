@@ -11,6 +11,8 @@ public class Code_EqualProbabilityRandom {
   }
 
   // 等概率返回0和1
+  // 由于 0 和 1 的概率是不等的
+  // 但是随机两次， 0 1 或者 1 0 出现的概率一定是相等的
   public static int g() {
     int first;
     do {
