@@ -1,4 +1,4 @@
-package 练习题.leetcode.medium;
+package 算法.随机函数;
 
 // 如何用a~b的随机函数加工出c~d的随机函数
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
