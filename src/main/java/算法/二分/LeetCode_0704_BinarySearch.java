@@ -1,4 +1,4 @@
-package 练习题.leetcode.easy;
+package 算法.二分;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16622554.html
 // 二分查找：在一个有序数组中，找某个数是否存在

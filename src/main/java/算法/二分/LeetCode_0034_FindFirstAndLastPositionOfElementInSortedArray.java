@@ -1,4 +1,4 @@
-package 练习题.leetcode.medium;
+package 算法.二分;
 
 // 二分查找
 // 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。
