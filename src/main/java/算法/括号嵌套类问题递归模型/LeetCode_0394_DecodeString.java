@@ -22,7 +22,7 @@
  * 
  * Input: s = "abc3[cd]xyz" Output: "abccdcdcdxyz"
  */
-package 练习题.leetcode.medium;
+package 算法.括号嵌套类问题递归模型;
 
 // 递归的嵌套结构 嵌套问题 计算器问题
 // https://leetcode.cn/problems/decode-string/
