@@ -2,8 +2,7 @@ package 数据结构.LFU;
 
 import java.util.HashMap;
 
-// TODO
-// https://leetcode.com/problems/lfu-cache/
+// https://leetcode.cn/problems/lfu-cache/
 // tips
 // 优先看词频，词频一样的，删除最早的纪录
 // 同样词频的数据只会进一个桶
@@ -13,23 +12,23 @@ import java.util.HashMap;
 // 二维双向链表
 // map1 : str->node
 // map2: node->bucket(频度为n的桶)
-// 笔记：
+// 笔记：https://www.cnblogs.com/greyzeng/p/17009092.html
 public class LeetCode_0460_LFUCache {
   static class LFUCache {
 
-    public LFUCache(int K) {
-      capacity = K;
+    private int capacity; // 缓存的大小限制
+    private int size; // 缓存目前有多少个节点
+    private HashMap<Integer, Node> records; // 表示key(Integer)由哪个节点(Node)代表
+    private HashMap<Node, NodeList> heads; // 表示节点(Node)在哪个桶(NodeList)里
+    private NodeList headList; // 整个结构中位于最左的桶
+
+    public LFUCache(int capacity) {
+      this.capacity = capacity;
       size = 0;
       records = new HashMap<>();
       heads = new HashMap<>();
       headList = null;
     }
-
-    private int capacity; // 缓存的大小限制，即K
-    private int size; // 缓存目前有多少个节点
-    private HashMap<Integer, Node> records; // 表示key(Integer)由哪个节点(Node)代表
-    private HashMap<Node, NodeList> heads; // 表示节点(Node)在哪个桶(NodeList)里
-    private NodeList headList; // 整个结构中位于最左的桶
 
     // 节点的数据结构
     public static class Node {
