@@ -28,15 +28,15 @@ public class Code_SegmentTree {
     }
 
     // 在初始化阶段调用 O(N)
-    public void build(int l, int r, int rt) {
+    public void build(int l, int r, int i) {
       if (l == r) {
-        sum[rt] = arr[l];
+        sum[i] = arr[l];
         return;
       }
       int mid = (l + r) >> 1;
-      build(l, mid, rt << 1);
-      build(mid + 1, r, rt << 1 | 1);
-      pushUp(rt);
+      build(l, mid, i << 1);
+      build(mid + 1, r, i << 1 | 1);
+      pushUp(i);
     }
 
     private void pushUp(int rt) {
@@ -66,7 +66,6 @@ public class Code_SegmentTree {
         lazy[rt] = 0;
       }
     }
-
 
     // L~R 所有的值变成C
     public void update(int L, int R, int C, int l, int r, int rt) {
@@ -151,7 +150,6 @@ public class Code_SegmentTree {
       }
       return ans;
     }
-
   }
 
   public static int[] genarateRandomArray(int len, int max) {
@@ -227,7 +225,5 @@ public class Code_SegmentTree {
 
     System.out.println("对数器测试开始...");
     System.out.println("测试结果 : " + (test() ? "通过" : "未通过"));
-
   }
-
 }
