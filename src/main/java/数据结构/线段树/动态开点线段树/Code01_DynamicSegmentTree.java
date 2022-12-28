@@ -1,9 +1,8 @@
 package 数据结构.线段树.动态开点线段树;
 
-// TODO
+// 笔记：https://blog.csdn.net/hotonyhui/article/details/128474428
 // 只支持单点增加 + 范围查询的动态开点线段树（累加和）
-// tips:
-public class Code_DynamicSegmentTree1 {
+public class Code01_DynamicSegmentTree {
 
   public static class Node {
     public int sum;
@@ -50,7 +49,7 @@ public class Code_DynamicSegmentTree1 {
       }
     }
 
-    // s~e范围的累加和，告诉我！
+    // s~e范围的累加和
     public int query(int s, int e) {
       return query(root, 1, size, s, e);
     }
@@ -62,16 +61,10 @@ public class Code_DynamicSegmentTree1 {
       if (c == null) {
         return 0;
       }
-      if (s <= l && r <= e) { // 3~6 1~100任务
+      if (s <= l && r <= e) {
         return c.sum;
       }
-      // 有影响，但又不是全影响
-      // l ~ r
-      // l~mid mid+1~r
       int mid = (l + r) / 2;
-      // 1~100
-      // 1~50 51 ~ 100
-      // 任务 s~e 53~76
       if (e <= mid) {
         return query(c.left, l, mid, s, e);
       } else if (s > mid) {
@@ -80,7 +73,6 @@ public class Code_DynamicSegmentTree1 {
         return query(c.left, l, mid, s, e) + query(c.right, mid + 1, r, s, e);
       }
     }
-
   }
 
   public static class Right {
@@ -101,7 +93,6 @@ public class Code_DynamicSegmentTree1 {
       }
       return sum;
     }
-
   }
 
   public static void main(String[] args) {
@@ -133,5 +124,4 @@ public class Code_DynamicSegmentTree1 {
     }
     System.out.println("测试结束");
   }
-
 }
