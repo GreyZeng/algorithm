@@ -1,4 +1,4 @@
-package 练习题.snippet;
+package 数据结构.滑动窗口与双指针;
 
 import java.util.Arrays;
 
@@ -95,5 +95,4 @@ public class Code_0147_MinBoatEvenNumbers {
     }
     return ans;
   }
-
 }

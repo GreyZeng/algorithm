@@ -1,4 +1,4 @@
-package 练习题.snippet;
+package 算法.KMP;
 
 // TODO
 // 来自美团
@@ -63,5 +63,4 @@ public class Code_0142_MatchCount {
     }
     return next;
   }
-
 }

@@ -44,7 +44,6 @@ public class NowCoder_LineCoverMax {
   }
 
   // lambda 写法，可过对数器，但是超时，待优化
-  // FIXME
   public static int maxCover4(int[][] lines) {
     int min = Arrays.stream(lines).min(Comparator.comparingInt(o -> o[0])).get()[0];
     int max = Arrays.stream(lines).max(Comparator.comparingInt(o -> o[1])).get()[1];
@@ -52,12 +51,16 @@ public class NowCoder_LineCoverMax {
     long maxCover = 0;
     for (int i = min; i <= max; i++) {
       int finalI = i;
-      cover = Arrays.stream(lines).filter(line -> {
-        // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，
-        // 则条件为：line[0] <= i && line[1] >= i
-        // 如果不算的话，line[0] <= i+0.5 && line[1] >= i + 0.5
-        return line[0] <= finalI && line[1] >= finalI;
-      }).count();
+      cover =
+          Arrays.stream(lines)
+              .filter(
+                  line -> {
+                    // 这里要注意 如果[1,2] ,[2, 3] 中2 算一个重合点的话，
+                    // 则条件为：line[0] <= i && line[1] >= i
+                    // 如果不算的话，line[0] <= i+0.5 && line[1] >= i + 0.5
+                    return line[0] <= finalI && line[1] >= finalI;
+                  })
+              .count();
       maxCover = Math.max(cover, maxCover);
     }
     return (int) maxCover;
