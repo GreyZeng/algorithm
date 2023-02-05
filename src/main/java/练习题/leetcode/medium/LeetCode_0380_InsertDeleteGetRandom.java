@@ -43,44 +43,44 @@ import java.util.Map;
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 // 笔记：https://www.cnblogs.com/greyzeng/p/16469749.html
 public class LeetCode_0380_InsertDeleteGetRandom {
-  public static class RandomizedSet {
-    // 某个val在哪个位置
-    private Map<Integer, Integer> indexMap;
-    // 某个位置上的val是什么
-    private Map<Integer, Integer> valueMap;
-    private int size;
+    public static class RandomizedSet {
+        // 某个val在哪个位置
+        private Map<Integer, Integer> indexMap;
+        // 某个位置上的val是什么
+        private Map<Integer, Integer> valueMap;
+        private int size;
 
-    public RandomizedSet() {
-      size = 0;
-      indexMap = new HashMap<>();
-      valueMap = new HashMap<>();
-    }
+        public RandomizedSet() {
+            size = 0;
+            indexMap = new HashMap<>();
+            valueMap = new HashMap<>();
+        }
 
-    public boolean insert(int val) {
-      if (!indexMap.containsKey(val)) {
-        valueMap.put(size, val);
-        indexMap.put(val, size++);
-        return true;
-      }
-      return false;
-    }
+        public boolean insert(int val) {
+            if (!indexMap.containsKey(val)) {
+                valueMap.put(size, val);
+                indexMap.put(val, size++);
+                return true;
+            }
+            return false;
+        }
 
-    public boolean remove(int val) {
-      if (!indexMap.containsKey(val)) {
-        return false;
-      }
-      size--;
-      int removeIndex = indexMap.get(val);
-      int lastValue = valueMap.get(size);
-      valueMap.put(removeIndex, lastValue);
-      indexMap.put(lastValue, removeIndex);
-      indexMap.remove(val);
-      valueMap.remove(size);
-      return true;
-    }
+        public boolean remove(int val) {
+            if (!indexMap.containsKey(val)) {
+                return false;
+            }
+            size--;
+            int removeIndex = indexMap.get(val);
+            int lastValue = valueMap.get(size);
+            valueMap.put(removeIndex, lastValue);
+            indexMap.put(lastValue, removeIndex);
+            indexMap.remove(val);
+            valueMap.remove(size);
+            return true;
+        }
 
-    public int getRandom() {
-      return valueMap.get((int) (Math.random() * size));
+        public int getRandom() {
+            return valueMap.get((int) (Math.random() * size));
+        }
     }
-  }
 }

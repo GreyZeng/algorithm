@@ -15,48 +15,48 @@ package 练习题.leetcode.medium;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16916683.html
 public class LeetCode_0328_OddEvenLinkedList {
 
-  public static class ListNode {
-    ListNode next;
-  }
+    public static class ListNode {
+        ListNode next;
+    }
 
-  // 奇数节点和偶数节点放在一起
-  // 所有偶数下标的数一定要在奇数下标数之后（注意：是下标而非值）
-  public static ListNode oddEvenList(ListNode head) {
-    if (head == null || head.next == null || head.next.next == null) {
-      return head;
-    }
-    ListNode oddStart = null;
-    ListNode oddEnd = null;
-    ListNode evenStart = null;
-    ListNode evenEnd = null;
-    ListNode cur = head;
-    int count = 1;
-    while (cur != null) {
-      if ((count & 1) == 1) {
-        // 奇数
-        if (oddStart == null) {
-          oddStart = cur;
-        } else {
-          oddEnd.next = cur;
+    // 奇数节点和偶数节点放在一起
+    // 所有偶数下标的数一定要在奇数下标数之后（注意：是下标而非值）
+    public static ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null || head.next.next == null) {
+            return head;
         }
-        oddEnd = cur;
-      } else {
-        // 偶数
-        if (evenStart == null) {
-          evenStart = cur;
-        } else {
-          evenEnd.next = cur;
+        ListNode oddStart = null;
+        ListNode oddEnd = null;
+        ListNode evenStart = null;
+        ListNode evenEnd = null;
+        ListNode cur = head;
+        int count = 1;
+        while (cur != null) {
+            if ((count & 1) == 1) {
+                // 奇数
+                if (oddStart == null) {
+                    oddStart = cur;
+                } else {
+                    oddEnd.next = cur;
+                }
+                oddEnd = cur;
+            } else {
+                // 偶数
+                if (evenStart == null) {
+                    evenStart = cur;
+                } else {
+                    evenEnd.next = cur;
+                }
+                evenEnd = cur;
+            }
+            count++;
+            cur = cur.next;
         }
-        evenEnd = cur;
-      }
-      count++;
-      cur = cur.next;
+        if (evenEnd != null) {
+            evenEnd.next = null;
+        }
+        oddEnd.next = evenStart;
+        return oddStart;
     }
-    if (evenEnd != null) {
-      evenEnd.next = null;
-    }
-    oddEnd.next = evenStart;
-    return oddStart;
-  }
 
 }

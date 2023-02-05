@@ -51,78 +51,78 @@ import java.util.Arrays;
 // Tips:牛羊吃草 O(N*根号N）
 public class LeetCode_1510_StoneGameIV {
 
-  // 暴力解法 LeetCode超时
-  public static boolean winnerSquareGame(int n) {
-    return p(n);
-  }
+    // 暴力解法 LeetCode超时
+    public static boolean winnerSquareGame(int n) {
+        return p(n);
+    }
 
-  // 暴力解法
-  public static boolean p(int n) {
-    if (n == 0) {
-      // 先手遇到0，就是输了
-      return false;
-    }
-    for (int i = 1; i * i <= n; i++) {
-      if (!p(n - i * i)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // 缓存
-  public static boolean winnerSquareGame2(int n) {
-    int[] dp = new int[n + 1];
-    // -1表示没算过
-    // 0 表示算过是false
-    // 1 表示算过是true
-    Arrays.fill(dp, -1);
-    return p2(n, dp);
-  }
-
-  public static boolean p2(int n, int[] dp) {
-    if (dp[n] != -1) {
-      return dp[n] == 1;
-    }
-    if (n == 0) {
-      // 先手遇到0，就是输了
-      dp[n] = 0;
-      return false;
-    }
-    for (int i = 1; i * i <= n; i++) {
-      dp[i * i] = 1;
-    }
-    boolean ans = false;
-    for (int i = 1; i * i <= n; i++) {
-      if (!p2(n - i * i, dp)) {
-        ans = true;
-        break;
-      }
-    }
-    dp[n] = ans ? 1 : 0;
-    return ans;
-  }
-
-  // 动态规划
-  public static boolean winnerSquareGame3(int n) {
-    int[] dp = new int[n + 1];
-    Arrays.fill(dp, -1);
-    dp[0] = 0;
-    for (int i = 1; i * i <= n; i++) {
-      // 这种情况，先手绝对赢
-      dp[i * i] = 1;
-      if (i * i == n) {
-        return dp[n] == 1;
-      }
-    }
-    for (int i = 2; i <= n; i++) {
-      for (int j = 1; j * j <= i; j++) {
-        if (dp[i - j * j] == 0) {
-          dp[i] = 1;
+    // 暴力解法
+    public static boolean p(int n) {
+        if (n == 0) {
+            // 先手遇到0，就是输了
+            return false;
         }
-      }
-      dp[i] = dp[i] == -1 ? 0 : dp[i];
+        for (int i = 1; i * i <= n; i++) {
+            if (!p(n - i * i)) {
+                return true;
+            }
+        }
+        return false;
     }
-    return dp[n] == 1;
-  }
+
+    // 缓存
+    public static boolean winnerSquareGame2(int n) {
+        int[] dp = new int[n + 1];
+        // -1表示没算过
+        // 0 表示算过是false
+        // 1 表示算过是true
+        Arrays.fill(dp, -1);
+        return p2(n, dp);
+    }
+
+    public static boolean p2(int n, int[] dp) {
+        if (dp[n] != -1) {
+            return dp[n] == 1;
+        }
+        if (n == 0) {
+            // 先手遇到0，就是输了
+            dp[n] = 0;
+            return false;
+        }
+        for (int i = 1; i * i <= n; i++) {
+            dp[i * i] = 1;
+        }
+        boolean ans = false;
+        for (int i = 1; i * i <= n; i++) {
+            if (!p2(n - i * i, dp)) {
+                ans = true;
+                break;
+            }
+        }
+        dp[n] = ans ? 1 : 0;
+        return ans;
+    }
+
+    // 动态规划
+    public static boolean winnerSquareGame3(int n) {
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+        for (int i = 1; i * i <= n; i++) {
+            // 这种情况，先手绝对赢
+            dp[i * i] = 1;
+            if (i * i == n) {
+                return dp[n] == 1;
+            }
+        }
+        for (int i = 2; i <= n; i++) {
+            for (int j = 1; j * j <= i; j++) {
+                if (dp[i - j * j] == 0) {
+                    dp[i] = 1;
+                }
+            }
+            dp[i] = dp[i] == -1 ? 0 : dp[i];
+        }
+        return dp[n] == 1;
+    }
 }

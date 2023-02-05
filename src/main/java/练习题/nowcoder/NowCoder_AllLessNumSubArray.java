@@ -14,52 +14,52 @@ import java.util.Scanner;
 // arr[L..R]不达标，则arr扩充后肯定也不达标
 // L...R 范围如果达标，其子数组个数为：R - L
 public class NowCoder_AllLessNumSubArray {
-  // 必须以l位置作为左边界的情况下，有多少达标的数组
-  public static int getNum(int[] arr, int num) {
-    LinkedList<Integer> qMax = new LinkedList<>();
-    LinkedList<Integer> qMin = new LinkedList<>();
-    int ans = 0;
-    int l = 0;
-    int r = 0;
-    while (l < arr.length) {
-      while (r < arr.length) {
-        while (!qMax.isEmpty() && arr[qMax.peekLast()] <= arr[r]) {
-          qMax.pollLast();
+    // 必须以l位置作为左边界的情况下，有多少达标的数组
+    public static int getNum(int[] arr, int num) {
+        LinkedList<Integer> qMax = new LinkedList<>();
+        LinkedList<Integer> qMin = new LinkedList<>();
+        int ans = 0;
+        int l = 0;
+        int r = 0;
+        while (l < arr.length) {
+            while (r < arr.length) {
+                while (!qMax.isEmpty() && arr[qMax.peekLast()] <= arr[r]) {
+                    qMax.pollLast();
+                }
+                qMax.addLast(r);
+                while (!qMin.isEmpty() && arr[qMin.peekLast()] >= arr[r]) {
+                    qMin.pollLast();
+                }
+                qMin.addLast(r);
+                if (arr[qMax.peekFirst()] - arr[qMin.peekFirst()] > num) {
+                    break;
+                }
+                r++;
+            }
+            // r是以l作为左边界，第一个不满足条件的位置
+            ans += (r - l);
+            // 弹出过期位置
+            if (!qMax.isEmpty() && qMax.peekFirst() == l) {
+                qMax.pollFirst();
+            }
+            // 弹出过期位置
+            if (!qMin.isEmpty() && qMin.peekFirst() == l) {
+                qMin.pollFirst();
+            }
+            l++;
         }
-        qMax.addLast(r);
-        while (!qMin.isEmpty() && arr[qMin.peekLast()] >= arr[r]) {
-          qMin.pollLast();
-        }
-        qMin.addLast(r);
-        if (arr[qMax.peekFirst()] - arr[qMin.peekFirst()] > num) {
-          break;
-        }
-        r++;
-      }
-      // r是以l作为左边界，第一个不满足条件的位置
-      ans += (r - l);
-      // 弹出过期位置
-      if (!qMax.isEmpty() && qMax.peekFirst() == l) {
-        qMax.pollFirst();
-      }
-      // 弹出过期位置
-      if (!qMin.isEmpty() && qMin.peekFirst() == l) {
-        qMin.pollFirst();
-      }
-      l++;
+        return ans;
     }
-    return ans;
-  }
 
-  public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
-    int n = in.nextInt();
-    int m = in.nextInt();
-    int[] arr = new int[n];
-    for (int i = 0; i < n; i++) {
-      arr[i] = in.nextInt();
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int m = in.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
+        }
+        System.out.println(getNum(arr, m));
+        in.close();
     }
-    System.out.println(getNum(arr, m));
-    in.close();
-  }
 }

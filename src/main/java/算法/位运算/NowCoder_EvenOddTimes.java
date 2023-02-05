@@ -29,27 +29,27 @@ package 算法.位运算;
 import java.util.Scanner;
 
 public class NowCoder_EvenOddTimes {
-  /**
-   * 题目二
-   * <p>
-   * 一个数组中有一种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这种数
-   */
-  public static int getEvenNum(int[] arr) {
-    int t = arr[0];
-    for (int i = 1; i < arr.length; i++) {
-      t ^= arr[i];
+    /**
+     * 题目二
+     * <p>
+     * 一个数组中有一种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这种数
+     */
+    public static int getEvenNum(int[] arr) {
+        int t = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            t ^= arr[i];
+        }
+        return t;
     }
-    return t;
-  }
 
-  public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
-    int count = in.nextInt();
-    int[] arr = new int[count];
-    for (int i = 0; i < count; i++) {
-      arr[i] = in.nextInt();
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int count = in.nextInt();
+        int[] arr = new int[count];
+        for (int i = 0; i < count; i++) {
+            arr[i] = in.nextInt();
+        }
+        System.out.println(getEvenNum(arr));
+        in.close();
     }
-    System.out.println(getEvenNum(arr));
-    in.close();
-  }
 }

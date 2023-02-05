@@ -21,89 +21,89 @@ package 练习题.snippet;
 // 比如n=4，k=2，表示S4的第2个字符是什么，返回b字符
 public class Code_0140_ReverseInvertString {
 
-  public static int[] lens = null;
+    public static int[] lens = null;
 
-  public static void fillLens() {
-    lens = new int[26];
-    lens[1] = 1;
-    for (int i = 2; i <= 25; i++) {
-      lens[i] = (lens[i - 1] << 1) + 1;
+    public static void fillLens() {
+        lens = new int[26];
+        lens[1] = 1;
+        for (int i = 2; i <= 25; i++) {
+            lens[i] = (lens[i - 1] << 1) + 1;
+        }
     }
-  }
 
-  // 求sn中的第k个字符
-  // O(n), s <= 25 O(1)
-  public static char kth(int n, int k) {
-    if (lens == null) {
-      fillLens();
+    // 求sn中的第k个字符
+    // O(n), s <= 25 O(1)
+    public static char kth(int n, int k) {
+        if (lens == null) {
+            fillLens();
+        }
+        if (n == 1) { // 无视k
+            return 'a';
+        }
+        // sn half
+        int half = lens[n - 1];
+        if (k <= half) {
+            return kth(n - 1, k);
+        } else if (k == half + 1) {
+            return (char) ('a' + n - 1);
+        } else {
+            // sn
+            // 我需要右半区，从左往右的第a个
+            // 需要找到，s(n-1)从右往左的第a个
+            // 当拿到字符之后，invert一下，就可以返回了！
+            return invert(kth(n - 1, ((half + 1) << 1) - k));
+        }
     }
-    if (n == 1) { // 无视k
-      return 'a';
-    }
-    // sn half
-    int half = lens[n - 1];
-    if (k <= half) {
-      return kth(n - 1, k);
-    } else if (k == half + 1) {
-      return (char) ('a' + n - 1);
-    } else {
-      // sn
-      // 我需要右半区，从左往右的第a个
-      // 需要找到，s(n-1)从右往左的第a个
-      // 当拿到字符之后，invert一下，就可以返回了！
-      return invert(kth(n - 1, ((half + 1) << 1) - k));
-    }
-  }
 
-  public static char invert(char c) {
-    return (char) (('a' << 1) + 24 - c);
-  }
-
-  // 为了测试
-  public static String generateString(int n) {
-    String s = "a";
-    for (int i = 2; i <= n; i++) {
-      s = s + (char) ('a' + i - 1) + reverseInvert(s);
+    public static char invert(char c) {
+        return (char) (('a' << 1) + 24 - c);
     }
-    return s;
-  }
 
-  // 为了测试
-  public static String reverseInvert(String s) {
-    char[] invert = invert(s).toCharArray();
-    for (int l = 0, r = invert.length - 1; l < r; l++, r--) {
-      char tmp = invert[l];
-      invert[l] = invert[r];
-      invert[r] = tmp;
+    // 为了测试
+    public static String generateString(int n) {
+        String s = "a";
+        for (int i = 2; i <= n; i++) {
+            s = s + (char) ('a' + i - 1) + reverseInvert(s);
+        }
+        return s;
     }
-    return String.valueOf(invert);
-  }
 
-  // 为了测试
-  public static String invert(String s) {
-    char[] str = s.toCharArray();
-    for (int i = 0; i < str.length; i++) {
-      str[i] = invert(str[i]);
+    // 为了测试
+    public static String reverseInvert(String s) {
+        char[] invert = invert(s).toCharArray();
+        for (int l = 0, r = invert.length - 1; l < r; l++, r--) {
+            char tmp = invert[l];
+            invert[l] = invert[r];
+            invert[r] = tmp;
+        }
+        return String.valueOf(invert);
     }
-    return String.valueOf(str);
-  }
 
-  // 为了测试
-  public static void main(String[] args) {
-    int n = 20;
-    String str = generateString(n);
-    int len = str.length();
-    System.out.println("测试开始");
-    for (int i = 1; i <= len; i++) {
-      if (str.charAt(i - 1) != kth(n, i)) {
-        System.out.println(i);
-        System.out.println(str.charAt(i - 1));
-        System.out.println(kth(n, i));
-        System.out.println("出错了！");
-        break;
-      }
+    // 为了测试
+    public static String invert(String s) {
+        char[] str = s.toCharArray();
+        for (int i = 0; i < str.length; i++) {
+            str[i] = invert(str[i]);
+        }
+        return String.valueOf(str);
     }
-    System.out.println("测试结束");
-  }
+
+    // 为了测试
+    public static void main(String[] args) {
+        int n = 20;
+        String str = generateString(n);
+        int len = str.length();
+        System.out.println("测试开始");
+        for (int i = 1; i <= len; i++) {
+            if (str.charAt(i - 1) != kth(n, i)) {
+                System.out.println(i);
+                System.out.println(str.charAt(i - 1));
+                System.out.println(kth(n, i));
+                System.out.println("出错了！");
+                break;
+            }
+        }
+        System.out.println("测试结束");
+    }
 
 }

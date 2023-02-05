@@ -7,100 +7,100 @@ package 练习题.leetcode.hard;
 
 public class LeetCode_0174_DungeonGame {
 
-  public static int calculateMinimumHP(int[][] dungeon) {
-    return p(dungeon, 0, 0);
-  }
-
-  public static int p(int[][] dungeon, int i, int j) {
-    if (i == dungeon.length - 1 && j == dungeon[0].length - 1) {
-      return dungeon[i][j] < 0 ? -dungeon[i][j] + 1 : 1;
-    }
-    if (i == dungeon.length - 1) {
-      // 只能向右走
-      int rightNeed = p(dungeon, i, j + 1);
-      if (dungeon[i][j] < 0) {
-        return rightNeed + Math.abs(dungeon[i][j]);
-      } else if (dungeon[i][j] >= rightNeed) {
-        return 1;
-      } else {
-        return rightNeed - dungeon[i][j];
-      }
-    }
-    if (j == dungeon[0].length - 1) {
-      // 只能向下走
-      int downNeed = p(dungeon, i + 1, j);
-      if (dungeon[i][j] < 0) {
-        return downNeed + Math.abs(dungeon[i][j]);
-      } else if (dungeon[i][j] >= downNeed) {
-        return 1;
-      } else {
-        return downNeed - dungeon[i][j];
-      }
-    }
-    // 可以向下走，也能向右走
-    int rightNeed = p(dungeon, i, j + 1);
-    int downNeed = p(dungeon, i + 1, j);
-    int minNeed = Math.min(rightNeed, downNeed);
-    if (dungeon[i][j] < 0) {
-      return minNeed + Math.abs(dungeon[i][j]);
-    } else if (dungeon[i][j] >= minNeed) {
-      return 1;
-    } else {
-      return minNeed - dungeon[i][j];
-    }
-  }
-
-  public static int calculateMinimumHP2(int[][] dungeon) {
-    if (null == dungeon || dungeon.length == 0 || null == dungeon[0] || 0 == dungeon[0].length) {
-      return 1;
-    }
-    int m = dungeon.length;
-    int n = dungeon[0].length;
-    int[][] dp = new int[m][n];
-    dp[m - 1][n - 1] = dungeon[m - 1][n - 1] < 0 ? -dungeon[m - 1][n - 1] + 1 : 1;
-
-    for (int i = dungeon[0].length - 2; i >= 0; i--) {
-      int rightNeed = dp[dungeon.length - 1][i + 1];
-      if (dungeon[dungeon.length - 1][i] < 0) {
-        dp[dungeon.length - 1][i] = rightNeed + Math.abs(dungeon[dungeon.length - 1][i]);
-      } else if (dungeon[dungeon.length - 1][i] >= rightNeed) {
-        dp[dungeon.length - 1][i] = 1;
-      } else {
-        dp[dungeon.length - 1][i] = rightNeed - dungeon[dungeon.length - 1][i];
-      }
+    public static int calculateMinimumHP(int[][] dungeon) {
+        return p(dungeon, 0, 0);
     }
 
-    for (int i = dungeon.length - 2; i >= 0; i--) {
-      // 只能向下走
-      int downNeed = dp[i + 1][dungeon[0].length - 1];
-      if (dungeon[i][dungeon[0].length - 1] < 0) {
-        dp[i][dungeon[0].length - 1] = downNeed + Math.abs(dungeon[i][dungeon[0].length - 1]);
-      } else if (dungeon[i][dungeon[0].length - 1] >= downNeed) {
-        dp[i][dungeon[0].length - 1] = 1;
-      } else {
-        dp[i][dungeon[0].length - 1] = downNeed - dungeon[i][dungeon[0].length - 1];
-      }
-    }
-    for (int i = m - 2; i >= 0; i--) {
-      for (int j = n - 2; j >= 0; j--) {
-        int rightNeed = dp[i][j + 1];
-        int downNeed = dp[i + 1][j];
+    public static int p(int[][] dungeon, int i, int j) {
+        if (i == dungeon.length - 1 && j == dungeon[0].length - 1) {
+            return dungeon[i][j] < 0 ? -dungeon[i][j] + 1 : 1;
+        }
+        if (i == dungeon.length - 1) {
+            // 只能向右走
+            int rightNeed = p(dungeon, i, j + 1);
+            if (dungeon[i][j] < 0) {
+                return rightNeed + Math.abs(dungeon[i][j]);
+            } else if (dungeon[i][j] >= rightNeed) {
+                return 1;
+            } else {
+                return rightNeed - dungeon[i][j];
+            }
+        }
+        if (j == dungeon[0].length - 1) {
+            // 只能向下走
+            int downNeed = p(dungeon, i + 1, j);
+            if (dungeon[i][j] < 0) {
+                return downNeed + Math.abs(dungeon[i][j]);
+            } else if (dungeon[i][j] >= downNeed) {
+                return 1;
+            } else {
+                return downNeed - dungeon[i][j];
+            }
+        }
+        // 可以向下走，也能向右走
+        int rightNeed = p(dungeon, i, j + 1);
+        int downNeed = p(dungeon, i + 1, j);
         int minNeed = Math.min(rightNeed, downNeed);
         if (dungeon[i][j] < 0) {
-          dp[i][j] = minNeed + Math.abs(dungeon[i][j]);
+            return minNeed + Math.abs(dungeon[i][j]);
         } else if (dungeon[i][j] >= minNeed) {
-          dp[i][j] = 1;
+            return 1;
         } else {
-          dp[i][j] = minNeed - dungeon[i][j];
+            return minNeed - dungeon[i][j];
         }
-      }
     }
-    return dp[0][0];
-  }
+
+    public static int calculateMinimumHP2(int[][] dungeon) {
+        if (null == dungeon || dungeon.length == 0 || null == dungeon[0] || 0 == dungeon[0].length) {
+            return 1;
+        }
+        int m = dungeon.length;
+        int n = dungeon[0].length;
+        int[][] dp = new int[m][n];
+        dp[m - 1][n - 1] = dungeon[m - 1][n - 1] < 0 ? -dungeon[m - 1][n - 1] + 1 : 1;
+
+        for (int i = dungeon[0].length - 2; i >= 0; i--) {
+            int rightNeed = dp[dungeon.length - 1][i + 1];
+            if (dungeon[dungeon.length - 1][i] < 0) {
+                dp[dungeon.length - 1][i] = rightNeed + Math.abs(dungeon[dungeon.length - 1][i]);
+            } else if (dungeon[dungeon.length - 1][i] >= rightNeed) {
+                dp[dungeon.length - 1][i] = 1;
+            } else {
+                dp[dungeon.length - 1][i] = rightNeed - dungeon[dungeon.length - 1][i];
+            }
+        }
+
+        for (int i = dungeon.length - 2; i >= 0; i--) {
+            // 只能向下走
+            int downNeed = dp[i + 1][dungeon[0].length - 1];
+            if (dungeon[i][dungeon[0].length - 1] < 0) {
+                dp[i][dungeon[0].length - 1] = downNeed + Math.abs(dungeon[i][dungeon[0].length - 1]);
+            } else if (dungeon[i][dungeon[0].length - 1] >= downNeed) {
+                dp[i][dungeon[0].length - 1] = 1;
+            } else {
+                dp[i][dungeon[0].length - 1] = downNeed - dungeon[i][dungeon[0].length - 1];
+            }
+        }
+        for (int i = m - 2; i >= 0; i--) {
+            for (int j = n - 2; j >= 0; j--) {
+                int rightNeed = dp[i][j + 1];
+                int downNeed = dp[i + 1][j];
+                int minNeed = Math.min(rightNeed, downNeed);
+                if (dungeon[i][j] < 0) {
+                    dp[i][j] = minNeed + Math.abs(dungeon[i][j]);
+                } else if (dungeon[i][j] >= minNeed) {
+                    dp[i][j] = 1;
+                } else {
+                    dp[i][j] = minNeed - dungeon[i][j];
+                }
+            }
+        }
+        return dp[0][0];
+    }
 
 
-  public static int calculateMinimumHP3(int[][] dungeon) {
-    // TODO
-    return -1;
-  }
+    public static int calculateMinimumHP3(int[][] dungeon) {
+        // TODO
+        return -1;
+    }
 }

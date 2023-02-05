@@ -25,15 +25,15 @@ package 练习题.leetcode.easy;
 // Input: 701
 // Output: "ZY"
 public class LeetCode_0168_ExcelSheetColumnTitle {
-  public static String convertToTitle(int n) {
-    StringBuilder result = new StringBuilder();
+    public static String convertToTitle(int n) {
+        StringBuilder result = new StringBuilder();
 
-    while (n > 0) {
-      n--;
-      result.insert(0, (char) ('A' + n % 26));
-      n /= 26;
+        while (n > 0) {
+            n--;
+            result.insert(0, (char) ('A' + n % 26));
+            n /= 26;
+        }
+
+        return result.toString();
     }
-
-    return result.toString();
-  }
 }

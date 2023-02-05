@@ -23,44 +23,45 @@
  * Input: s = "abc3[cd]xyz" Output: "abccdcdcdxyz"
  */
 package 算法.括号嵌套类问题递归模型;
+
 // 笔记：https://www.cnblogs.com/greyzeng/p/17001706.html
 // 递归的嵌套结构 嵌套问题 计算器问题
 // https://leetcode.cn/problems/decode-string/
 public class LeetCode_0394_DecodeString {
 
-  public static String decodeString(String s) {
-    char[] str = s.toCharArray();
-    int len = str.length;
-    return p(str, len, 0)[0];
-  }
-
-  private static String[] p(char[] str, int n, int from) {
-    StringBuilder sb = new StringBuilder();
-    int pre = 0;
-    int i = from;
-    while (i != n && str[i] != ']') {
-      if (Character.isLowerCase(str[i]) || Character.isUpperCase(str[i])) {
-        // 字母
-        sb.append(str[i++]);
-      } else if (Character.isDigit(str[i])) {
-        // 数字
-        pre = pre * 10 + Integer.parseInt(String.valueOf(str[i++]));
-      } else if ('[' == str[i]) {
-        // 左括号
-        String[] bra = p(str, n, i + 1);
-        sb.append(build(pre, bra[0]));
-        pre = 0;
-        i = Integer.parseInt(bra[1]) + 1;
-      }
+    public static String decodeString(String s) {
+        char[] str = s.toCharArray();
+        int len = str.length;
+        return p(str, len, 0)[0];
     }
-    return new String[] {sb.toString(), String.valueOf(i)};
-  }
 
-  private static String build(int pre, String s) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < pre; i++) {
-      sb.append(s);
+    private static String[] p(char[] str, int n, int from) {
+        StringBuilder sb = new StringBuilder();
+        int pre = 0;
+        int i = from;
+        while (i != n && str[i] != ']') {
+            if (Character.isLowerCase(str[i]) || Character.isUpperCase(str[i])) {
+                // 字母
+                sb.append(str[i++]);
+            } else if (Character.isDigit(str[i])) {
+                // 数字
+                pre = pre * 10 + Integer.parseInt(String.valueOf(str[i++]));
+            } else if ('[' == str[i]) {
+                // 左括号
+                String[] bra = p(str, n, i + 1);
+                sb.append(build(pre, bra[0]));
+                pre = 0;
+                i = Integer.parseInt(bra[1]) + 1;
+            }
+        }
+        return new String[]{sb.toString(), String.valueOf(i)};
     }
-    return sb.toString();
-  }
+
+    private static String build(int pre, String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < pre; i++) {
+            sb.append(s);
+        }
+        return sb.toString();
+    }
 }

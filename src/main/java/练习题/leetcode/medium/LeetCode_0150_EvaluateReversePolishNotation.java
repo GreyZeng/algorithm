@@ -29,31 +29,31 @@ import java.util.Deque;
 // Leetcode题目 : https://leetcode.com/problems/evaluate-reverse-polish-notation/
 public class LeetCode_0150_EvaluateReversePolishNotation {
 
-  public static int evalRPN(String[] tokens) {
-    Deque<Integer> stack = new ArrayDeque<>();
-    for (String token : tokens) {
-      if ("+".equals(token)) {
+    public static int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (String token : tokens) {
+            if ("+".equals(token)) {
 
-        stack.push(stack.pop() + stack.pop());
-      } else if ("-".equals(token)) {
-        int t = stack.pop();
-        int m = stack.pop();
-        stack.push(m - t);
+                stack.push(stack.pop() + stack.pop());
+            } else if ("-".equals(token)) {
+                int t = stack.pop();
+                int m = stack.pop();
+                stack.push(m - t);
 
-      } else if ("*".equals(token)) {
-        stack.push(stack.pop() * stack.pop());
+            } else if ("*".equals(token)) {
+                stack.push(stack.pop() * stack.pop());
 
-      } else if ("/".equals(token)) {
-        int t = stack.pop();
-        int m = stack.pop();
-        stack.push(m / t);
+            } else if ("/".equals(token)) {
+                int t = stack.pop();
+                int m = stack.pop();
+                stack.push(m / t);
 
-      } else {
-        stack.push(Integer.valueOf(token));
-      }
+            } else {
+                stack.push(Integer.valueOf(token));
+            }
+        }
+        return stack.peek();
     }
-    return stack.peek();
-  }
 
 
 }

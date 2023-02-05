@@ -10,42 +10,42 @@ import java.util.PriorityQueue;
 // https://www.cnblogs.com/greyzeng/p/7551789.html
 public class LeetCode_0023_MergeKSortedLists {
 
-  public static class ListNode {
-    int val;
-    ListNode next;
-  }
+    public static class ListNode {
+        int val;
+        ListNode next;
+    }
 
-  public static ListNode mergeKLists(ListNode[] lists) {
-    if (null == lists || lists.length == 0) {
-      return null;
-    }
-    if (1 == lists.length) {
-      return lists[0];
-    }
-    // 小根堆
-    PriorityQueue<ListNode> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.val));
-    for (ListNode list : lists) {
-      if (null != list) {
-        queue.add(list);
-      }
-    }
-    ListNode res = queue.poll();
-    ListNode head = res;
-    while (!queue.isEmpty()) {
-      if (res != null) {
-        ListNode n = res.next;
-        if (n == null) {
-          res.next = queue.poll();
-          res = res.next;
-        } else if (n.val > queue.peek().val) {
-          res.next = queue.poll();
-          res = res.next;
-          queue.add(n);
-        } else {
-          res = res.next;
+    public static ListNode mergeKLists(ListNode[] lists) {
+        if (null == lists || lists.length == 0) {
+            return null;
         }
-      }
+        if (1 == lists.length) {
+            return lists[0];
+        }
+        // 小根堆
+        PriorityQueue<ListNode> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.val));
+        for (ListNode list : lists) {
+            if (null != list) {
+                queue.add(list);
+            }
+        }
+        ListNode res = queue.poll();
+        ListNode head = res;
+        while (!queue.isEmpty()) {
+            if (res != null) {
+                ListNode n = res.next;
+                if (n == null) {
+                    res.next = queue.poll();
+                    res = res.next;
+                } else if (n.val > queue.peek().val) {
+                    res.next = queue.poll();
+                    res = res.next;
+                    queue.add(n);
+                } else {
+                    res = res.next;
+                }
+            }
+        }
+        return head;
     }
-    return head;
-  }
 }

@@ -33,86 +33,86 @@ import java.util.Stack;
 // 递归实现
 // 非递归实现
 public class LeetCodeCN_0806_HanotaLcci {
-  public static void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {
-    hanoi(A.size(), A, C, B);
-  }
-
-  public static void hanoi(int N, List<Integer> from, List<Integer> to, List<Integer> other) {
-    if (N == 1) {
-      to.add(from.remove(from.size() - 1));
-    } else {
-      hanoi(N - 1, from, other, to);
-      to.add(from.remove(from.size() - 1));
-      hanoi(N - 1, other, to, from);
+    public static void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {
+        hanoi(A.size(), A, C, B);
     }
-  }
 
-  public static void printH(int N, String from, String to, String other) {
-    if (N == 1) {
-      System.out.println("move " + N + " from " + from + " to " + to);
-    } else {
-      printH(N - 1, from, other, to);
-      System.out.println("move " + N + " from " + from + " to " + to);
-      printH(N - 1, other, to, from);
-    }
-  }
-
-  public static class Record {
-    public boolean finish1;
-    public int base;
-    public String from;
-    public String to;
-    public String other;
-
-    public Record(boolean f1, int b, String f, String t, String o) {
-      finish1 = false;
-      base = b;
-      from = f;
-      to = t;
-      other = o;
-    }
-  }
-
-  // 非递归方法 TODO
-  public static void hanoi3(int N) {
-    if (N < 1) {
-      return;
-    }
-    Stack<Record> stack = new Stack<>();
-    stack.add(new Record(false, N, "left", "right", "mid"));
-    while (!stack.isEmpty()) {
-      Record cur = stack.pop();
-      if (cur.base == 1) {
-        System.out.println("Move 1 from " + cur.from + " to " + cur.to);
-        if (!stack.isEmpty()) {
-          stack.peek().finish1 = true;
-        }
-      } else {
-        if (!cur.finish1) {
-          stack.push(cur);
-          stack.push(new Record(false, cur.base - 1, cur.from, cur.other, cur.to));
+    public static void hanoi(int N, List<Integer> from, List<Integer> to, List<Integer> other) {
+        if (N == 1) {
+            to.add(from.remove(from.size() - 1));
         } else {
-          System.out.println("Move " + cur.base + " from " + cur.from + " to " + cur.to);
-          stack.push(new Record(false, cur.base - 1, cur.other, cur.to, cur.from));
+            hanoi(N - 1, from, other, to);
+            to.add(from.remove(from.size() - 1));
+            hanoi(N - 1, other, to, from);
         }
-      }
     }
-  }
+
+    public static void printH(int N, String from, String to, String other) {
+        if (N == 1) {
+            System.out.println("move " + N + " from " + from + " to " + to);
+        } else {
+            printH(N - 1, from, other, to);
+            System.out.println("move " + N + " from " + from + " to " + to);
+            printH(N - 1, other, to, from);
+        }
+    }
+
+    public static class Record {
+        public boolean finish1;
+        public int base;
+        public String from;
+        public String to;
+        public String other;
+
+        public Record(boolean f1, int b, String f, String t, String o) {
+            finish1 = false;
+            base = b;
+            from = f;
+            to = t;
+            other = o;
+        }
+    }
+
+    // 非递归方法 TODO
+    public static void hanoi3(int N) {
+        if (N < 1) {
+            return;
+        }
+        Stack<Record> stack = new Stack<>();
+        stack.add(new Record(false, N, "left", "right", "mid"));
+        while (!stack.isEmpty()) {
+            Record cur = stack.pop();
+            if (cur.base == 1) {
+                System.out.println("Move 1 from " + cur.from + " to " + cur.to);
+                if (!stack.isEmpty()) {
+                    stack.peek().finish1 = true;
+                }
+            } else {
+                if (!cur.finish1) {
+                    stack.push(cur);
+                    stack.push(new Record(false, cur.base - 1, cur.from, cur.other, cur.to));
+                } else {
+                    System.out.println("Move " + cur.base + " from " + cur.from + " to " + cur.to);
+                    stack.push(new Record(false, cur.base - 1, cur.other, cur.to, cur.from));
+                }
+            }
+        }
+    }
 
 
-  public static void main(String[] args) {
-    List<Integer> A = new ArrayList<>();
-    List<Integer> B = new ArrayList<>();
-    List<Integer> C = new ArrayList<>();
-    A.add(3);
-    A.add(2);
-    A.add(1);
-    A.add(0);
-    hanota(A, B, C);
-    System.out.println(A);
-    System.out.println(B);
-    System.out.println(C);
+    public static void main(String[] args) {
+        List<Integer> A = new ArrayList<>();
+        List<Integer> B = new ArrayList<>();
+        List<Integer> C = new ArrayList<>();
+        A.add(3);
+        A.add(2);
+        A.add(1);
+        A.add(0);
+        hanota(A, B, C);
+        System.out.println(A);
+        System.out.println(B);
+        System.out.println(C);
 
-  }
+    }
 
 }

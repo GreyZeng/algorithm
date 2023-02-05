@@ -7,52 +7,52 @@ import java.util.ArrayList;
  */
 public class Code_ArrayToStackAndQueue {
 
-  public final static class MyStack<T> {
-    private ArrayList<T> queue;
+    public final static class MyStack<T> {
+        private ArrayList<T> queue;
 
-    public MyStack() {
-      queue = new ArrayList<>();
-    }
+        public MyStack() {
+            queue = new ArrayList<>();
+        }
 
-    public void push(T value) {
-      queue.add(value);
-    }
+        public void push(T value) {
+            queue.add(value);
+        }
 
-    public T pop() {
-      if (null == queue || isEmpty()) {
-        return null;
-      }
-      return queue.remove(queue.size() - 1);
-    }
+        public T pop() {
+            if (null == queue || isEmpty()) {
+                return null;
+            }
+            return queue.remove(queue.size() - 1);
+        }
 
-    public boolean isEmpty() {
-      return queue.isEmpty();
-    }
-
-  }
-
-  public final static class MyQueue<T> {
-    private ArrayList<T> queue;
-
-    public MyQueue() {
-      queue = new ArrayList<>();
-    }
-
-    public void push(T value) {
-      queue.add(value);
+        public boolean isEmpty() {
+            return queue.isEmpty();
+        }
 
     }
 
-    public T poll() {
-      if (isEmpty()) {
-        return null;
-      }
-      return queue.remove(0);
-    }
+    public final static class MyQueue<T> {
+        private ArrayList<T> queue;
 
-    public boolean isEmpty() {
-      return queue.isEmpty();
-    }
+        public MyQueue() {
+            queue = new ArrayList<>();
+        }
 
-  }
+        public void push(T value) {
+            queue.add(value);
+
+        }
+
+        public T poll() {
+            if (isEmpty()) {
+                return null;
+            }
+            return queue.remove(0);
+        }
+
+        public boolean isEmpty() {
+            return queue.isEmpty();
+        }
+
+    }
 }

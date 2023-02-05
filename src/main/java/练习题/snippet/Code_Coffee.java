@@ -11,45 +11,45 @@ import java.util.PriorityQueue;
  * @date 2021/2/12 16:00
  */
 public class Code_Coffee {
-  public static class CoffeeMachine {
-    @Override
-    public String toString() {
-      return "CoffeeMachine{" + "start=" + start + ", work=" + work + '}';
+    public static class CoffeeMachine {
+        @Override
+        public String toString() {
+            return "CoffeeMachine{" + "start=" + start + ", work=" + work + '}';
+        }
+
+        public int start;
+        public int work;
+
+        public CoffeeMachine(int s, int w) {
+            start = s;
+            work = w;
+        }
+
     }
 
-    public int start;
-    public int work;
-
-    public CoffeeMachine(int s, int w) {
-      start = s;
-      work = w;
+    public static int[] bestChoices(int[] arr, int m) {
+        int[] ans = new int[m];
+        PriorityQueue<CoffeeMachine> heap =
+                new PriorityQueue<>((o1, o2) -> o1.start + o1.work - o2.start - o2.work);
+        for (int coffeeWork : arr) {
+            // 制造咖啡最短时间的咖啡机在堆顶
+            heap.add(new CoffeeMachine(0, coffeeWork));
+        }
+        for (int i = 0; i < m; i++) {
+            CoffeeMachine cur = heap.poll();
+            // 第i号人使用cur这个咖啡机，所以cur这个咖啡机的开始时间变为cur.start + cur.work
+            System.out.println(i + " 号人使用 " + cur + "咖啡机");
+            ans[i] = cur.start + cur.work;
+            System.out.println(i + " 号人在 [" + cur.start + "] 时刻搞定完一杯咖啡");
+            cur.start = ans[i];
+            heap.add(cur);
+        }
+        return ans;
     }
 
-  }
-
-  public static int[] bestChoices(int[] arr, int m) {
-    int[] ans = new int[m];
-    PriorityQueue<CoffeeMachine> heap =
-        new PriorityQueue<>((o1, o2) -> o1.start + o1.work - o2.start - o2.work);
-    for (int coffeeWork : arr) {
-      // 制造咖啡最短时间的咖啡机在堆顶
-      heap.add(new CoffeeMachine(0, coffeeWork));
+    public static void main(String[] args) {
+        int m = 5;
+        int[] arr = {2, 3, 5};
+        bestChoices(arr, m);
     }
-    for (int i = 0; i < m; i++) {
-      CoffeeMachine cur = heap.poll();
-      // 第i号人使用cur这个咖啡机，所以cur这个咖啡机的开始时间变为cur.start + cur.work
-      System.out.println(i + " 号人使用 " + cur + "咖啡机");
-      ans[i] = cur.start + cur.work;
-      System.out.println(i + " 号人在 [" + cur.start + "] 时刻搞定完一杯咖啡");
-      cur.start = ans[i];
-      heap.add(cur);
-    }
-    return ans;
-  }
-
-  public static void main(String[] args) {
-    int m = 5;
-    int[] arr = {2, 3, 5};
-    bestChoices(arr, m);
-  }
 }

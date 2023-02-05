@@ -35,17 +35,17 @@ package 练习题.股票系列问题;
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16182420.html
 public class LeetCode_0122_BestTimeToBuyAndSellStockII {
-  // 无限次交易
-  // 但是只有一股
-  // 卖完才能买
-  // tips：收集所有的上波情况
-  public static int maxProfit(int[] prices) {
-    int max = 0;
-    for (int i = 1; i < prices.length; i++) {
-      // 把所有上坡都给抓到
-      max += Math.max((prices[i] - prices[i - 1]), 0);
+    // 无限次交易
+    // 但是只有一股
+    // 卖完才能买
+    // tips：收集所有的上波情况
+    public static int maxProfit(int[] prices) {
+        int max = 0;
+        for (int i = 1; i < prices.length; i++) {
+            // 把所有上坡都给抓到
+            max += Math.max((prices[i] - prices[i - 1]), 0);
+        }
+        return max;
     }
-    return max;
-  }
 
 }

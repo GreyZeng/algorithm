@@ -19,92 +19,92 @@ import java.util.Stack;
  */
 // 测评：https://www.lintcode.com/problem/464
 public class LintCode_0464_SortIntegersII {
-  public static void main(String[] args) {
-    int[] arr = {1, 2, 3, 5, 4, 3, 1, 2, 3, 6, 5, 4};
-    sortIntegers2(arr);
-    for (int n : arr) {
-      System.out.print(n + " ");
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 5, 4, 3, 1, 2, 3, 6, 5, 4};
+        sortIntegers2(arr);
+        for (int n : arr) {
+            System.out.print(n + " ");
+        }
     }
-  }
 
-  // 递归方法
-  public static void sortIntegers2(int[] arr) {
-    if (null == arr || arr.length < 2) {
-      return;
+    // 递归方法
+    public static void sortIntegers2(int[] arr) {
+        if (null == arr || arr.length < 2) {
+            return;
+        }
+        process(arr, 0, arr.length - 1);
     }
-    process(arr, 0, arr.length - 1);
-  }
 
-  public static void process(int[] arr, int s, int e) {
-    if (s >= e) {
-      return;
+    public static void process(int[] arr, int s, int e) {
+        if (s >= e) {
+            return;
+        }
+        swap(arr, e, s + (int) (Math.random() * (e - s)));
+        int[] range = sortColors(arr, s, e);
+        process(arr, s, range[0] - 1);
+        process(arr, range[1] + 1, e);
     }
-    swap(arr, e, s + (int) (Math.random() * (e - s)));
-    int[] range = sortColors(arr, s, e);
-    process(arr, s, range[0] - 1);
-    process(arr, range[1] + 1, e);
-  }
 
-  public static void swap(int[] arr, int i, int j) {
-    if (i == j) {
-      return;
+    public static void swap(int[] arr, int i, int j) {
+        if (i == j) {
+            return;
+        }
+        arr[i] = arr[i] ^ arr[j];
+        arr[j] = arr[i] ^ arr[j];
+        arr[i] = arr[i] ^ arr[j];
     }
-    arr[i] = arr[i] ^ arr[j];
-    arr[j] = arr[i] ^ arr[j];
-    arr[i] = arr[i] ^ arr[j];
-  }
 
-  public static int[] sortColors(int[] arr, int s, int e) {
-    int l = s - 1;
-    int r = e + 1;
-    int p = arr[e];
-    int i = s;
-    while (i < r) {
-      if (arr[i] > p) {
-        swap(arr, i, --r);
-      } else if (arr[i] < p) {
-        swap(arr, i++, ++l);
-      } else {
-        i++;
-      }
+    public static int[] sortColors(int[] arr, int s, int e) {
+        int l = s - 1;
+        int r = e + 1;
+        int p = arr[e];
+        int i = s;
+        while (i < r) {
+            if (arr[i] > p) {
+                swap(arr, i, --r);
+            } else if (arr[i] < p) {
+                swap(arr, i++, ++l);
+            } else {
+                i++;
+            }
+        }
+        return new int[]{l + 1, r - 1};
     }
-    return new int[] {l + 1, r - 1};
-  }
 
-  // TODO
-  // 快速排序非递归版本
-  public static class Op {
-    public int l;
-    public int r;
+    // TODO
+    // 快速排序非递归版本
+    public static class Op {
+        public int l;
+        public int r;
 
-    public Op(int l, int r) {
-      this.l = l;
-      this.r = r;
+        public Op(int l, int r) {
+            this.l = l;
+            this.r = r;
+        }
     }
-  }
 
-  // 测评时候需要把sortIntegers21改成sortIntegers2
-  public static void sortIntegers21(int[] arr) {
-    if (null == arr || arr.length < 2) {
-      return;
+    // 测评时候需要把sortIntegers21改成sortIntegers2
+    public static void sortIntegers21(int[] arr) {
+        if (null == arr || arr.length < 2) {
+            return;
+        }
+        Stack<Op> stack = new Stack<>();
+        int L = 0;
+        int R = arr.length - 1;
+        int pivot = (int) (Math.random() * (R - L + 1));
+        swap(arr, pivot, R);
+        int[] range = sortColors(arr, L, R);
+        stack.push(new Op(0, range[0] - 1));
+        stack.push(new Op(range[1] + 1, R));
+        while (!stack.isEmpty()) {
+            Op op = stack.pop();
+            if (op.l < op.r) {
+                swap(arr, op.l + (int) (Math.random() * (op.r - op.l + 1)), op.r);
+                range = sortColors(arr, op.l, op.r);
+                stack.push(new Op(op.l, range[0] - 1));
+                stack.push(new Op(range[1] + 1, op.r));
+            }
+        }
     }
-    Stack<Op> stack = new Stack<>();
-    int L = 0;
-    int R = arr.length - 1;
-    int pivot = (int) (Math.random() * (R - L + 1));
-    swap(arr, pivot, R);
-    int[] range = sortColors(arr, L, R);
-    stack.push(new Op(0, range[0] - 1));
-    stack.push(new Op(range[1] + 1, R));
-    while (!stack.isEmpty()) {
-      Op op = stack.pop();
-      if (op.l < op.r) {
-        swap(arr, op.l + (int) (Math.random() * (op.r - op.l + 1)), op.r);
-        range = sortColors(arr, op.l, op.r);
-        stack.push(new Op(op.l, range[0] - 1));
-        stack.push(new Op(range[1] + 1, op.r));
-      }
-    }
-  }
 
 }

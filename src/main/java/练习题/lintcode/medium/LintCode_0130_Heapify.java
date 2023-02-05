@@ -23,33 +23,33 @@ package 练习题.lintcode.medium;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
 // https://www.lintcode.com/problem/130/
 public class LintCode_0130_Heapify {
-  public static void heapify(int[] arr) {
-    if (arr == null || arr.length <= 1) {
-      return;
+    public static void heapify(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            heapify(arr, i, arr.length);
+        }
     }
-    for (int i = arr.length - 1; i >= 0; i--) {
-      heapify(arr, i, arr.length);
-    }
-  }
 
-  private static void heapify(int[] arr, int i, int n) {
-    int left = 2 * i + 1;
-    while (left < n) {
-      int min = left + 1 < n && arr[left + 1] < arr[left] ? left + 1 : left;
-      if (arr[i] <= arr[min]) {
-        break;
-      }
-      swap(arr, i, min);
-      i = min;
-      left = 2 * i + 1;
+    private static void heapify(int[] arr, int i, int n) {
+        int left = 2 * i + 1;
+        while (left < n) {
+            int min = left + 1 < n && arr[left + 1] < arr[left] ? left + 1 : left;
+            if (arr[i] <= arr[min]) {
+                break;
+            }
+            swap(arr, i, min);
+            i = min;
+            left = 2 * i + 1;
+        }
     }
-  }
 
-  private static void swap(int[] arr, int i, int j) {
-    if (i != j) {
-      arr[i] = arr[i] ^ arr[j];
-      arr[j] = arr[i] ^ arr[j];
-      arr[i] = arr[i] ^ arr[j];
+    private static void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
+        }
     }
-  }
 }

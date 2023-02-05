@@ -18,43 +18,43 @@ import java.util.Map;
 // 大于某个数最左和最右
 // https://leetcode-cn.com/problems/range-frequency-queries/
 public class LeetCode_2080_RangeFrequencyQueries {
-  class RangeFreqQuery {
-    Map<Integer, ArrayList<Integer>> pos;
+    class RangeFreqQuery {
+        Map<Integer, ArrayList<Integer>> pos;
 
-    public RangeFreqQuery(int[] arr) {
-      pos = new HashMap<>(arr.length);
-      for (int i = 0; i < arr.length; i++) {
-        if (!pos.containsKey(arr[i])) {
-          pos.put(arr[i], new ArrayList<>());
+        public RangeFreqQuery(int[] arr) {
+            pos = new HashMap<>(arr.length);
+            for (int i = 0; i < arr.length; i++) {
+                if (!pos.containsKey(arr[i])) {
+                    pos.put(arr[i], new ArrayList<>());
+                }
+                pos.get(arr[i]).add(i);
+            }
         }
-        pos.get(arr[i]).add(i);
-      }
-    }
 
-    public int query(int l, int r, int value) {
-      if (!pos.containsKey(value)) {
-        return 0;
-      }
-      ArrayList<Integer> list = pos.get(value);
-      int a = lessCount(list, l);
-      int b = lessCount(list, r + 1);
-      return b - a;
-    }
-
-    private int lessCount(ArrayList<Integer> list, int value) {
-      int s = 0;
-      int e = list.size() - 1;
-      int mostRight = -1;
-      while (s <= e) {
-        int mid = s + ((e - s) >> 1);
-        if (list.get(mid) < value) {
-          mostRight = mid;
-          s = mid + 1;
-        } else {
-          e = mid - 1;
+        public int query(int l, int r, int value) {
+            if (!pos.containsKey(value)) {
+                return 0;
+            }
+            ArrayList<Integer> list = pos.get(value);
+            int a = lessCount(list, l);
+            int b = lessCount(list, r + 1);
+            return b - a;
         }
-      }
-      return mostRight + 1;
+
+        private int lessCount(ArrayList<Integer> list, int value) {
+            int s = 0;
+            int e = list.size() - 1;
+            int mostRight = -1;
+            while (s <= e) {
+                int mid = s + ((e - s) >> 1);
+                if (list.get(mid) < value) {
+                    mostRight = mid;
+                    s = mid + 1;
+                } else {
+                    e = mid - 1;
+                }
+            }
+            return mostRight + 1;
+        }
     }
-  }
 }

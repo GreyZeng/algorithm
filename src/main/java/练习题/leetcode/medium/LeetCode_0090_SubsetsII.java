@@ -26,22 +26,22 @@ import java.util.List;
 // 链接：https://leetcode-cn.com/problems/subsets-ii
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0090_SubsetsII {
-  public static List<List<Integer>> subsetsWithDup(int[] nums) {
-    List<List<Integer>> lists = new ArrayList<>();
-    Arrays.sort(nums);
-    p(nums, 0, new LinkedList<>(), lists);
-    return lists;
-  }
-
-  public static void p(int[] nums, int i, LinkedList<Integer> pre, List<List<Integer>> result) {
-    result.add(new ArrayList<>(pre));
-    for (int s = i; s < nums.length; s++) {
-      if (s > i && nums[s] == nums[s - 1]) {
-        continue;
-      }
-      pre.add(nums[s]);
-      p(nums, s + 1, pre, result);
-      pre.remove(pre.size() - 1);
+    public static List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> lists = new ArrayList<>();
+        Arrays.sort(nums);
+        p(nums, 0, new LinkedList<>(), lists);
+        return lists;
     }
-  }
+
+    public static void p(int[] nums, int i, LinkedList<Integer> pre, List<List<Integer>> result) {
+        result.add(new ArrayList<>(pre));
+        for (int s = i; s < nums.length; s++) {
+            if (s > i && nums[s] == nums[s - 1]) {
+                continue;
+            }
+            pre.add(nums[s]);
+            p(nums, s + 1, pre, result);
+            pre.remove(pre.size() - 1);
+        }
+    }
 }

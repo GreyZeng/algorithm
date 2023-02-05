@@ -14,102 +14,102 @@ import java.util.*;
 // 所以可以采用自定义队列的方式
 // 笔记：https://www.cnblogs.com/greyzeng/p/16356829.html
 public class LeetCode_0116_PopulatingNextRightPointersInEachNode {
-  public static class Node {
-    public int val;
-    public Node left;
-    public Node right;
-    public Node next;
+    public static class Node {
+        public int val;
+        public Node left;
+        public Node right;
+        public Node next;
 
-    public Node(int v) {
-      val = v;
-    }
-  }
-
-  // 使用LinkedList作为队列,空间O(N)
-  public static Node connect(Node root) {
-    if (null == root) {
-      return null;
-    }
-    Node pre = null;
-    int size;
-    Queue<Node> queue = new LinkedList<>();
-    queue.offer(root);
-    while (!queue.isEmpty()) {
-      size = queue.size();
-      // 把每一层用链表串好，pre记录每一层的最后那个位置
-      // 用于和下一层的开头连接
-      for (; size > 0; size--) {
-        Node p = queue.poll();
-        if (pre != null) {
-          pre.next = p;
+        public Node(int v) {
+            val = v;
         }
-        pre = p;
-        if (null != p.left) {
-          queue.offer(p.left);
-        }
-        if (null != p.right) {
-          queue.offer(p.right);
-        }
-      }
-      pre = null;
-    }
-    return root;
-  }
-
-  // 为了省空间，自定义Queue替代LinkedList
-  public static class MyQueue {
-    public Node head;
-    public Node tail;
-    public int size;
-
-    public void offer(Node node) {
-      size++;
-      if (null == head) {
-        head = node;
-      } else {
-        tail.next = node;
-      }
-      tail = node;
     }
 
-    public boolean isEmpty() {
-      return size == 0;
+    // 使用LinkedList作为队列,空间O(N)
+    public static Node connect(Node root) {
+        if (null == root) {
+            return null;
+        }
+        Node pre = null;
+        int size;
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            size = queue.size();
+            // 把每一层用链表串好，pre记录每一层的最后那个位置
+            // 用于和下一层的开头连接
+            for (; size > 0; size--) {
+                Node p = queue.poll();
+                if (pre != null) {
+                    pre.next = p;
+                }
+                pre = p;
+                if (null != p.left) {
+                    queue.offer(p.left);
+                }
+                if (null != p.right) {
+                    queue.offer(p.right);
+                }
+            }
+            pre = null;
+        }
+        return root;
     }
 
-    public Node poll() {
-      size--;
-      Node ans = head;
-      head = head.next;
-      ans.next = null;
-      return ans;
-    }
-  }
+    // 为了省空间，自定义Queue替代LinkedList
+    public static class MyQueue {
+        public Node head;
+        public Node tail;
+        public int size;
 
-  public static Node connect2(Node root) {
-    if (root == null) {
-      return null;
+        public void offer(Node node) {
+            size++;
+            if (null == head) {
+                head = node;
+            } else {
+                tail.next = node;
+            }
+            tail = node;
+        }
+
+        public boolean isEmpty() {
+            return size == 0;
+        }
+
+        public Node poll() {
+            size--;
+            Node ans = head;
+            head = head.next;
+            ans.next = null;
+            return ans;
+        }
     }
-    Node cur = root;
-    MyQueue queue = new MyQueue();
-    queue.offer(cur);
-    int size;
-    while (!queue.isEmpty()) {
-      size = queue.size;
-      Node pre = null;
-      for (; size > 0; size--) {
-        cur = queue.poll();
-        if (cur.left != null) {
-          queue.offer(cur.left);
+
+    public static Node connect2(Node root) {
+        if (root == null) {
+            return null;
         }
-        if (cur.right != null) {
-          queue.offer(cur.right);
+        Node cur = root;
+        MyQueue queue = new MyQueue();
+        queue.offer(cur);
+        int size;
+        while (!queue.isEmpty()) {
+            size = queue.size;
+            Node pre = null;
+            for (; size > 0; size--) {
+                cur = queue.poll();
+                if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
+                if (pre != null) {
+                    pre.next = cur;
+                }
+                pre = cur;
+            }
         }
-        if (pre != null) {
-          pre.next = cur;
-        }
-        pre = cur;
-      }
+        return root;
     }
-    return root;
-  }
 }

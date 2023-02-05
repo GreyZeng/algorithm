@@ -14,88 +14,88 @@ import java.util.Set;
 // 贪心解法
 // 笔记：https://www.cnblogs.com/greyzeng/p/16704842.html
 public class NowCoder_Light {
-  public static int minLight1(String str) {
-    if (str == null || str.length() < 1) {
-      return 0;
-    }
-    return p(str.toCharArray(), 0, new HashSet<>());
-  }
-
-  // i及其往后最少的放灯数
-  // i之前的放灯情况存在set里面
-  public static int p(char[] str, int i, Set<Integer> set) {
-    if (i == str.length) {
-      for (int s = 0; s < str.length; s++) {
-        if (str[s] == '.' && (!set.contains(s - 1) && !set.contains(s) && !set.contains(s + 1))) {
-          return Integer.MAX_VALUE;
+    public static int minLight1(String str) {
+        if (str == null || str.length() < 1) {
+            return 0;
         }
-      }
-      return set.size();
+        return p(str.toCharArray(), 0, new HashSet<>());
     }
-    int no = p(str, i + 1, set);
-    if (str[i] == '.') {
-      set.add(i);
-      int yes = p(str, i + 1, set);
-      set.remove(i);
-      return Math.min(yes, no);
-    }
-    return no;
-  }
 
-  // 贪心解法
-  // i位置有点，且i+1位置也是点，那么i位置一定不需要放灯，等到i+1号位置来放灯
-  public static int minLight2(String s) {
-    if (s == null || s.length() < 1) {
-      return 0;
-    }
-    char[] str = s.toCharArray();
-    int ans = 0;
-    int i = 0;
-    while (i < str.length) {
-      if (str[i] == 'X') {
-        i++;
-      } else {
-        // 无论如何都要
-        ans++;
-        if (i + 1 < str.length) {
-          if (str[i + 1] == '.') {
-            i += 3;
-          } else {
-            // str[i+1] == 'X'
-            i += 2;
-          }
-        } else {
-          // i+1==str.length
-          i++;
+    // i及其往后最少的放灯数
+    // i之前的放灯情况存在set里面
+    public static int p(char[] str, int i, Set<Integer> set) {
+        if (i == str.length) {
+            for (int s = 0; s < str.length; s++) {
+                if (str[s] == '.' && (!set.contains(s - 1) && !set.contains(s) && !set.contains(s + 1))) {
+                    return Integer.MAX_VALUE;
+                }
+            }
+            return set.size();
         }
-
-      }
+        int no = p(str, i + 1, set);
+        if (str[i] == '.') {
+            set.add(i);
+            int yes = p(str, i + 1, set);
+            set.remove(i);
+            return Math.min(yes, no);
+        }
+        return no;
     }
-    return ans;
-  }
 
+    // 贪心解法
+    // i位置有点，且i+1位置也是点，那么i位置一定不需要放灯，等到i+1号位置来放灯
+    public static int minLight2(String s) {
+        if (s == null || s.length() < 1) {
+            return 0;
+        }
+        char[] str = s.toCharArray();
+        int ans = 0;
+        int i = 0;
+        while (i < str.length) {
+            if (str[i] == 'X') {
+                i++;
+            } else {
+                // 无论如何都要
+                ans++;
+                if (i + 1 < str.length) {
+                    if (str[i + 1] == '.') {
+                        i += 3;
+                    } else {
+                        // str[i+1] == 'X'
+                        i += 2;
+                    }
+                } else {
+                    // i+1==str.length
+                    i++;
+                }
 
-  // for test
-  public static String randomString(int len) {
-    char[] res = new char[(int) (Math.random() * len) + 1];
-    for (int i = 0; i < res.length; i++) {
-      res[i] = Math.random() < 0.5 ? 'X' : '.';
+            }
+        }
+        return ans;
     }
-    return String.valueOf(res);
-  }
 
-  public static void main(String[] args) {
-    int len = 20;
-    int testTime = 100000;
-    for (int i = 0; i < testTime; i++) {
-      String test = randomString(len);
-      int ans1 = minLight1(test);
-      int ans2 = minLight2(test);
-      if (ans1 != ans2) {
-        System.out.println("oops!");
-      }
+
+    // for test
+    public static String randomString(int len) {
+        char[] res = new char[(int) (Math.random() * len) + 1];
+        for (int i = 0; i < res.length; i++) {
+            res[i] = Math.random() < 0.5 ? 'X' : '.';
+        }
+        return String.valueOf(res);
     }
-    System.out.println("finish!");
 
-  }
+    public static void main(String[] args) {
+        int len = 20;
+        int testTime = 100000;
+        for (int i = 0; i < testTime; i++) {
+            String test = randomString(len);
+            int ans1 = minLight1(test);
+            int ans2 = minLight2(test);
+            if (ans1 != ans2) {
+                System.out.println("oops!");
+            }
+        }
+        System.out.println("finish!");
+
+    }
 }

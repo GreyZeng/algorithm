@@ -35,71 +35,71 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class NowCoder_SetAll {
-  public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
-    int N = in.nextInt();
-    MyHashMap<Integer, Integer> map = new MyHashMap<>();
-    for (int i = 0; i < N; i++) {
-      int op = in.nextInt();
-      if (op == 1) {
-        int key = in.nextInt();
-        int value = in.nextInt();
-        map.put(key, value);
-      } else if (op == 2) {
-        int key = in.nextInt();
-        Integer value = map.get(key);
-        if (value == null) {
-          System.out.println(-1);
-        } else {
-          System.out.println(value);
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        MyHashMap<Integer, Integer> map = new MyHashMap<>();
+        for (int i = 0; i < N; i++) {
+            int op = in.nextInt();
+            if (op == 1) {
+                int key = in.nextInt();
+                int value = in.nextInt();
+                map.put(key, value);
+            } else if (op == 2) {
+                int key = in.nextInt();
+                Integer value = map.get(key);
+                if (value == null) {
+                    System.out.println(-1);
+                } else {
+                    System.out.println(value);
+                }
+            } else if (op == 3) {
+                int value = in.nextInt();
+                map.setAll(value);
+            }
         }
-      } else if (op == 3) {
-        int value = in.nextInt();
-        map.setAll(value);
-      }
+
+        in.close();
     }
 
-    in.close();
-  }
+    public static class MyValue<V> {
+        public V value;
+        public long time;
 
-  public static class MyValue<V> {
-    public V value;
-    public long time;
-
-    public MyValue(V v, long t) {
-      value = v;
-      time = t;
-    }
-  }
-
-  public static class MyHashMap<K, V> {
-    private HashMap<K, MyValue<V>> map;
-    private long time;
-    private MyValue<V> setAll;
-
-    public MyHashMap() {
-      map = new HashMap<>();
-      time = 0;
-      setAll = new MyValue<V>(null, -1);
+        public MyValue(V v, long t) {
+            value = v;
+            time = t;
+        }
     }
 
-    public void put(K key, V value) {
-      map.put(key, new MyValue<V>(value, time++));
-    }
+    public static class MyHashMap<K, V> {
+        private HashMap<K, MyValue<V>> map;
+        private long time;
+        private MyValue<V> setAll;
 
-    public void setAll(V value) {
-      setAll = new MyValue<V>(value, time++);
-    }
+        public MyHashMap() {
+            map = new HashMap<>();
+            time = 0;
+            setAll = new MyValue<V>(null, -1);
+        }
 
-    public V get(K key) {
-      if (!map.containsKey(key)) {
-        return null;
-      }
-      if (map.get(key).time > setAll.time) {
-        return map.get(key).value;
-      } else {
-        return setAll.value;
-      }
+        public void put(K key, V value) {
+            map.put(key, new MyValue<V>(value, time++));
+        }
+
+        public void setAll(V value) {
+            setAll = new MyValue<V>(value, time++);
+        }
+
+        public V get(K key) {
+            if (!map.containsKey(key)) {
+                return null;
+            }
+            if (map.get(key).time > setAll.time) {
+                return map.get(key).value;
+            } else {
+                return setAll.value;
+            }
+        }
     }
-  }
 }

@@ -29,22 +29,22 @@ package 练习题.leetcode.hard;
 // 链接：https://leetcode.cn/problems/patching-array
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0330_PatchingArray {
-  // 时间复杂度：O(m+logn)
-  // 其中 m 是数组 arr 的长度，n是给定的正整数。
-  // 一个数也没有的时候，用1，2，4，8，16……二进制来搞定1~N是最快的方法
-  public static int minPatches(int[] arr, int n) {
-    int patches = 0;
-    long range = 1;
-    int i = 0;
-    while (range <= n) {
-      if (i < arr.length && arr[i] <= range) {
-        range += arr[i];
-        i++;
-      } else {
-        range <<= 1;
-        patches++;
-      }
+    // 时间复杂度：O(m+logn)
+    // 其中 m 是数组 arr 的长度，n是给定的正整数。
+    // 一个数也没有的时候，用1，2，4，8，16……二进制来搞定1~N是最快的方法
+    public static int minPatches(int[] arr, int n) {
+        int patches = 0;
+        long range = 1;
+        int i = 0;
+        while (range <= n) {
+            if (i < arr.length && arr[i] <= range) {
+                range += arr[i];
+                i++;
+            } else {
+                range <<= 1;
+                patches++;
+            }
+        }
+        return patches;
     }
-    return patches;
-  }
 }

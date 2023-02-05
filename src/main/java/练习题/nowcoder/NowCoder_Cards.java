@@ -12,72 +12,72 @@ package 练习题.nowcoder;
 // [1,2,100,4],4
 // 返回：101
 public class NowCoder_Cards {
-  // 暴力递归
-  public static int cardGame(int[] A, int n) {
-    if (n == 0) {
-      return 0;
+    // 暴力递归
+    public static int cardGame(int[] A, int n) {
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return A[0];
+        }
+        if (n == 2) {
+            return Math.max(A[0], A[1]);
+        }
+        return Math.max(first(A, n, 0, A.length - 1), second(A, n, 0, A.length - 1));
     }
-    if (n == 1) {
-      return A[0];
-    }
-    if (n == 2) {
-      return Math.max(A[0], A[1]);
-    }
-    return Math.max(first(A, n, 0, A.length - 1), second(A, n, 0, A.length - 1));
-  }
 
-  // 范围上的尝试模型
-  // 先手函数
-  public static int first(int[] A, int n, int start, int end) {
-    if (start == end) {
-      return A[start];
+    // 范围上的尝试模型
+    // 先手函数
+    public static int first(int[] A, int n, int start, int end) {
+        if (start == end) {
+            return A[start];
+        }
+        return Math.max(A[start] + second(A, n, start + 1, end), A[end] + second(A, n, start, end - 1));
     }
-    return Math.max(A[start] + second(A, n, start + 1, end), A[end] + second(A, n, start, end - 1));
-  }
 
-  // 后手函数
-  public static int second(int[] A, int n, int start, int end) {
-    if (start == end) {
-      return 0;
+    // 后手函数
+    public static int second(int[] A, int n, int start, int end) {
+        if (start == end) {
+            return 0;
+        }
+        return Math.min(first(A, n, start + 1, end), first(A, n, start, end - 1));
     }
-    return Math.min(first(A, n, start + 1, end), first(A, n, start, end - 1));
-  }
 
-  public static int cardGame2(int[] A, int n) {
-    if (n == 0) {
-      return 0;
+    public static int cardGame2(int[] A, int n) {
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return A[0];
+        }
+        if (n == 2) {
+            return Math.max(A[0], A[1]);
+        }
+        int[][] firstMap = new int[n][n];
+        int[][] secondMap = new int[n][n];
+        // 对角线
+        for (int i = 0; i < n; i++) {
+            firstMap[i][i] = A[i];
+        }
+        // 对角线下班区域不用管
+        // 对角线上半区域
+        for (int i = 1; i < n; i++) {
+            int r = 0;
+            int c = i;
+            while (c < n) {
+                firstMap[r][c] = Math.max(A[r] + secondMap[r + 1][c], A[c] + secondMap[r][c - 1]);
+                secondMap[r][c] = Math.min(firstMap[r + 1][c], firstMap[r][c - 1]);
+                r++;
+                c++;
+            }
+        }
+        return Math.max(firstMap[0][n - 1], secondMap[0][n - 1]);
     }
-    if (n == 1) {
-      return A[0];
-    }
-    if (n == 2) {
-      return Math.max(A[0], A[1]);
-    }
-    int[][] firstMap = new int[n][n];
-    int[][] secondMap = new int[n][n];
-    // 对角线
-    for (int i = 0; i < n; i++) {
-      firstMap[i][i] = A[i];
-    }
-    // 对角线下班区域不用管
-    // 对角线上半区域
-    for (int i = 1; i < n; i++) {
-      int r = 0;
-      int c = i;
-      while (c < n) {
-        firstMap[r][c] = Math.max(A[r] + secondMap[r + 1][c], A[c] + secondMap[r][c - 1]);
-        secondMap[r][c] = Math.min(firstMap[r + 1][c], firstMap[r][c - 1]);
-        r++;
-        c++;
-      }
-    }
-    return Math.max(firstMap[0][n - 1], secondMap[0][n - 1]);
-  }
 
-  public static void main(String[] args) {
-    int[] arr = {5, 7, 4, 5, 8, 1, 6, 0, 3, 4, 6, 1, 7};
-    System.out.println(cardGame(arr, arr.length));
-    System.out.println(cardGame2(arr, arr.length));
+    public static void main(String[] args) {
+        int[] arr = {5, 7, 4, 5, 8, 1, 6, 0, 3, 4, 6, 1, 7};
+        System.out.println(cardGame(arr, arr.length));
+        System.out.println(cardGame2(arr, arr.length));
 
-  }
+    }
 }

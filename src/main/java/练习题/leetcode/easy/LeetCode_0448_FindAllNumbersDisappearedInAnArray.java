@@ -19,38 +19,38 @@ import java.util.List;
 // Leetcode题目 : https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
 // tips: 下标循环怼
 public class LeetCode_0448_FindAllNumbersDisappearedInAnArray {
-  // 0号位置必须是1
-  // 1号位置必须是2
-  public List<Integer> findDisappearedNumbers(int[] arr) {
-    List<Integer> ans = new ArrayList<>();
-    for (int i = 0; i < arr.length; i++) {
-      if (arr[i] != i + 1) {
-        cycle(arr, i);
-      }
+    // 0号位置必须是1
+    // 1号位置必须是2
+    public List<Integer> findDisappearedNumbers(int[] arr) {
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != i + 1) {
+                cycle(arr, i);
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != i + 1) {
+                ans.add(i + 1);
+            }
+        }
+        return ans;
     }
-    for (int i = 0; i < arr.length; i++) {
-      if (arr[i] != i + 1) {
-        ans.add(i + 1);
-      }
-    }
-    return ans;
-  }
 
-  private void cycle(int[] arr, int i) {
-    while (arr[i] != i + 1) {
-      int t = arr[i];
-      if (arr[t - 1] == t) {
-        break;
-      }
-      swap(arr, i, t - 1);
+    private void cycle(int[] arr, int i) {
+        while (arr[i] != i + 1) {
+            int t = arr[i];
+            if (arr[t - 1] == t) {
+                break;
+            }
+            swap(arr, i, t - 1);
+        }
     }
-  }
 
-  public void swap(int[] arr, int i, int j) {
-    if (i != j) {
-      arr[i] = arr[i] ^ arr[j];
-      arr[j] = arr[i] ^ arr[j];
-      arr[i] = arr[i] ^ arr[j];
+    public void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
+        }
     }
-  }
 }

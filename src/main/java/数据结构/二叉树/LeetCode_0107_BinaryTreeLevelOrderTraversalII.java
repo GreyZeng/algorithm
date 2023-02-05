@@ -27,43 +27,43 @@ import java.util.Queue;
 // 按层遍历进阶
 public class LeetCode_0107_BinaryTreeLevelOrderTraversalII {
 
-  public static class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-  }
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+    }
 
-  public List<List<Integer>> levelOrderBottom(TreeNode root) {
-    if (null == root) {
-      return new ArrayList<>();
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        if (null == root) {
+            return new ArrayList<>();
+        }
+        Deque<List<Integer>> stack = new ArrayDeque<>();
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> levelRecords = new ArrayList<>();
+        TreeNode curEnd = root;
+        TreeNode nextEnd = null;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode poll = queue.poll();
+            levelRecords.add(poll.val);
+            if (null != poll.left) {
+                queue.offer(poll.left);
+                nextEnd = poll.left;
+            }
+            if (null != poll.right) {
+                queue.offer(poll.right);
+                nextEnd = poll.right;
+            }
+            if (poll == curEnd) {
+                curEnd = nextEnd;
+                stack.push(levelRecords);
+                levelRecords = new ArrayList<>();
+            }
+        }
+        while (!stack.isEmpty()) {
+            result.add(stack.poll());
+        }
+        return result;
     }
-    Deque<List<Integer>> stack = new ArrayDeque<>();
-    List<List<Integer>> result = new ArrayList<>();
-    List<Integer> levelRecords = new ArrayList<>();
-    TreeNode curEnd = root;
-    TreeNode nextEnd = null;
-    Queue<TreeNode> queue = new LinkedList<>();
-    queue.offer(root);
-    while (!queue.isEmpty()) {
-      TreeNode poll = queue.poll();
-      levelRecords.add(poll.val);
-      if (null != poll.left) {
-        queue.offer(poll.left);
-        nextEnd = poll.left;
-      }
-      if (null != poll.right) {
-        queue.offer(poll.right);
-        nextEnd = poll.right;
-      }
-      if (poll == curEnd) {
-        curEnd = nextEnd;
-        stack.push(levelRecords);
-        levelRecords = new ArrayList<>();
-      }
-    }
-    while (!stack.isEmpty()) {
-      result.add(stack.poll());
-    }
-    return result;
-  }
 }

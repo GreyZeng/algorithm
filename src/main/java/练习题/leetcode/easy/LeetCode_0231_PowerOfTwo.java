@@ -6,8 +6,8 @@ package 练习题.leetcode.easy;
  * @since
  */
 public class LeetCode_0231_PowerOfTwo {
-  // 借鉴 Netty 代码
-  public boolean isPowerOfTwo(int n) {
-    return n > 0 && (n & -n) == n;
-  }
+    // 借鉴 Netty 代码
+    public boolean isPowerOfTwo(int n) {
+        return n > 0 && (n & -n) == n;
+    }
 }

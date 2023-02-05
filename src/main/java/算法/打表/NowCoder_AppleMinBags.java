@@ -16,57 +16,57 @@ package 算法.打表;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16651527.html
 // https://www.nowcoder.com/questionTerminal/61cfbb2e62104bc8aa3da5d44d38a6ef
 public class NowCoder_AppleMinBags {
-  public static int minBags(int n) {
-    if ((n & 1) == 1) {
-      return -1;
-    }
-
-    if (n % 8 == 0) {
-      // 全部可以被 8 号袋子分解
-      return n / 8;
-    }
-    int use8 = n / 8;
-    int rest = n % 8;
-    while (rest != 0) {
-      if (rest % 6 == 0) {
-        // 分配了 8 号袋子，剩下的分配 6 号袋子，正好分配完。
-        return use8 + (rest / 6);
-      } else {
-        // 分配了 8 号袋子，剩下的分配 6 号袋子，无法分配完，则减少一个 8 号袋子
-        if (use8 > 0) {
-          use8--;
-          rest += 8;
-        } else {
-          return -1;
+    public static int minBags(int n) {
+        if ((n & 1) == 1) {
+            return -1;
         }
-      }
-    }
-    return -1;
-  }
 
-  // 打表方式优化
-  public static int minBags2(int n) {
-    if (n <= 5 || n == 10 || (n & 1) == 1) {
-      return -1;
-    }
-    if (n == 6 || n == 8) {
-      return 1;
+        if (n % 8 == 0) {
+            // 全部可以被 8 号袋子分解
+            return n / 8;
+        }
+        int use8 = n / 8;
+        int rest = n % 8;
+        while (rest != 0) {
+            if (rest % 6 == 0) {
+                // 分配了 8 号袋子，剩下的分配 6 号袋子，正好分配完。
+                return use8 + (rest / 6);
+            } else {
+                // 分配了 8 号袋子，剩下的分配 6 号袋子，无法分配完，则减少一个 8 号袋子
+                if (use8 > 0) {
+                    use8--;
+                    rest += 8;
+                } else {
+                    return -1;
+                }
+            }
+        }
+        return -1;
     }
 
-    return n % 8 == 0 ? n / 8 : n / 8 + 1;
-  }
+    // 打表方式优化
+    public static int minBags2(int n) {
+        if (n <= 5 || n == 10 || (n & 1) == 1) {
+            return -1;
+        }
+        if (n == 6 || n == 8) {
+            return 1;
+        }
 
-
-  public static void main(String[] args) {
-    for (int i = 1; i < 340000; i++) {
-      int ans1 = minBags(i);
-      int ans2 = minBags2(i);
-      if (ans1 != ans2) {
-        System.out.println("Oops!");
-        return;
-      }
+        return n % 8 == 0 ? n / 8 : n / 8 + 1;
     }
-    System.out.println("finish");
-  }
+
+
+    public static void main(String[] args) {
+        for (int i = 1; i < 340000; i++) {
+            int ans1 = minBags(i);
+            int ans2 = minBags2(i);
+            if (ans1 != ans2) {
+                System.out.println("Oops!");
+                return;
+            }
+        }
+        System.out.println("finish");
+    }
 
 }

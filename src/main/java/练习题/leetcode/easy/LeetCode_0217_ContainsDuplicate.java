@@ -20,17 +20,17 @@ import java.util.HashSet;
 // Input: [1,1,1,3,3,4,3,2,4,2]
 // Output: true
 public class LeetCode_0217_ContainsDuplicate {
-  public static boolean containsDuplicate(int[] nums) {
-    HashSet<Integer> set = new HashSet<>();
-    for (int i : nums) {
-      if (set.contains(i)) {
-        return true;
-      } else {
-        set.add(i);
-      }
+    public static boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int i : nums) {
+            if (set.contains(i)) {
+                return true;
+            } else {
+                set.add(i);
+            }
+        }
+        return false;
     }
-    return false;
-  }
-  // TODO 利用堆排序，额外复杂度O(1)
+    // TODO 利用堆排序，额外复杂度O(1)
 
 }

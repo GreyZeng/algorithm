@@ -40,30 +40,30 @@ package 练习题.股票系列问题;
 // 测评链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/
 // https://www.cnblogs.com/greyzeng/p/16182420.html
 public class LeetCode_0123_BestTimeToBuyAndSellStockIII {
-  // 股票问题4的特例
-  // tips:一定要在i位置的时候交易做完，并且，最后一次卖出时机是在i位置
-  // 无法用两个最大上坡来做
-  // 到了i位置，需要一个指标：0-i-1 做完一次交易并且减一个买入价格的最优值
-  // [13672135]i
-  public static int maxProfit(int[] prices) {
-    if (null == prices) {
-      return 0;
+    // 股票问题4的特例
+    // tips:一定要在i位置的时候交易做完，并且，最后一次卖出时机是在i位置
+    // 无法用两个最大上坡来做
+    // 到了i位置，需要一个指标：0-i-1 做完一次交易并且减一个买入价格的最优值
+    // [13672135]i
+    public static int maxProfit(int[] prices) {
+        if (null == prices) {
+            return 0;
+        }
+        int L = prices.length;
+        if (L == 1 || L == 0) {
+            return 0;
+        }
+        int ans = 0;
+        int finishPreMinusSecondMax = -prices[0];
+        int min = prices[0];
+        int onceMax = 0;
+        for (int i = 1; i < L; i++) {
+            ans = Math.max(ans, finishPreMinusSecondMax + prices[i]);
+            min = Math.min(min, prices[i]);
+            onceMax = Math.max(onceMax, prices[i] - min);
+            finishPreMinusSecondMax = Math.max(finishPreMinusSecondMax, onceMax - prices[i]);
+        }
+        return ans;
     }
-    int L = prices.length;
-    if (L == 1 || L == 0) {
-      return 0;
-    }
-    int ans = 0;
-    int finishPreMinusSecondMax = -prices[0];
-    int min = prices[0];
-    int onceMax = 0;
-    for (int i = 1; i < L; i++) {
-      ans = Math.max(ans, finishPreMinusSecondMax + prices[i]);
-      min = Math.min(min, prices[i]);
-      onceMax = Math.max(onceMax, prices[i] - min);
-      finishPreMinusSecondMax = Math.max(finishPreMinusSecondMax, onceMax - prices[i]);
-    }
-    return ans;
-  }
 
 }

@@ -16,32 +16,32 @@ import java.util.Arrays;
 // Note: The result may be very large, so you need to return a string instead of an integer.
 public class LeetCode_0179_LargestNumber {
 
-  public static String largestNumber(int[] nums) {
-    int L = nums.length;
-    String[] str = new String[L];
-    for (int i = 0; i < L; i++) {
-      str[i] = String.valueOf(nums[i]);
+    public static String largestNumber(int[] nums) {
+        int L = nums.length;
+        String[] str = new String[L];
+        for (int i = 0; i < L; i++) {
+            str[i] = String.valueOf(nums[i]);
+        }
+        Arrays.sort(str, (o1, o2) -> (o2 + o1).compareTo(o1 + o2));
+        StringBuilder sb = new StringBuilder();
+        for (String i : str) {
+            sb.append(i);
+        }
+        String s = sb.toString();
+        char[] chars = s.toCharArray();
+        int index = -1;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] != '0') {
+                index = i;
+                break;
+            }
+        }
+        return index == -1 ? "0" : s.substring(index);
     }
-    Arrays.sort(str, (o1, o2) -> (o2 + o1).compareTo(o1 + o2));
-    StringBuilder sb = new StringBuilder();
-    for (String i : str) {
-      sb.append(i);
-    }
-    String s = sb.toString();
-    char[] chars = s.toCharArray();
-    int index = -1;
-    for (int i = 0; i < chars.length; i++) {
-      if (chars[i] != '0') {
-        index = i;
-        break;
-      }
-    }
-    return index == -1 ? "0" : s.substring(index);
-  }
 
-  public static void main(String[] args) {
-    int[] ints = {0, 0, 0};
-    System.out.println(largestNumber(ints));
-  }
+    public static void main(String[] args) {
+        int[] ints = {0, 0, 0};
+        System.out.println(largestNumber(ints));
+    }
 
 }

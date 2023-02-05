@@ -11,35 +11,35 @@ package 练习题.leetcode.easy;
 // Leetcode题目 : https://leetcode.com/problems/valid-anagram/
 public class LeetCode_0242_ValidAnagram {
 
-  // 统计词频
-  public static boolean isAnagram(String s, String t) {
-    if (s == null && t != null) {
-      return false;
+    // 统计词频
+    public static boolean isAnagram(String s, String t) {
+        if (s == null && t != null) {
+            return false;
+        }
+        if (s != null && t == null) {
+            return false;
+        }
+        if (s == null) {
+            return true;
+        }
+        char[] str = s.toCharArray();
+        char[] to = t.toCharArray();
+        int L = str.length;
+        int N = to.length;
+        if (L != N) {
+            return false;
+        }
+        int[] c = new int[26];
+        for (char x : str) {
+            c[x - 'a']++;
+        }
+        for (char x : to) {
+            c[x - 'a']--;
+            if (c[x - 'a'] < 0) {
+                return false;
+            }
+        }
+        return true;
     }
-    if (s != null && t == null) {
-      return false;
-    }
-    if (s == null) {
-      return true;
-    }
-    char[] str = s.toCharArray();
-    char[] to = t.toCharArray();
-    int L = str.length;
-    int N = to.length;
-    if (L != N) {
-      return false;
-    }
-    int[] c = new int[26];
-    for (char x : str) {
-      c[x - 'a']++;
-    }
-    for (char x : to) {
-      c[x - 'a']--;
-      if (c[x - 'a'] < 0) {
-        return false;
-      }
-    }
-    return true;
-  }
 
 }

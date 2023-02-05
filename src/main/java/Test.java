@@ -1,6 +1,6 @@
 public class Test {
     public static void main(String[] args) {
-        int[] arr = { 11, 1, 15, 10, 13, 4 };
+        int[] arr = {11, 1, 15, 10, 13, 4};
         printArray(arr);
         int[] eor = new int[arr.length];
         eor[0] = arr[0];
