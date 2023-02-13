@@ -1,4 +1,4 @@
-package 算法.位运算;
+package a位运算;
 
 /**
  * 题目三

@@ -1,4 +1,4 @@
-package 算法.位运算;
+package a位运算;
 
 import java.util.Arrays;
 import java.util.HashSet;

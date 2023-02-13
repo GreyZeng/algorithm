@@ -1,4 +1,4 @@
-package 算法.位运算;
+package a位运算;
 
 // TODO
 public class LeetCode_0190_ReverseBits {
