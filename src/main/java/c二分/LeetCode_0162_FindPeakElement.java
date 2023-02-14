@@ -1,4 +1,4 @@
-package 算法.二分;
+package c二分;
 
 // 数据量
 // 1 <= nums.length <= 1000

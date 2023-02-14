@@ -1,4 +1,4 @@
-package 算法.二分;
+package c二分;
 
 import java.util.HashMap;
 
