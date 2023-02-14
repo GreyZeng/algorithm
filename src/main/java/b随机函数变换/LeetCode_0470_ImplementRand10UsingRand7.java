@@ -1,4 +1,4 @@
-package 算法.随机函数变换;
+package b随机函数变换;
 
 // https://leetcode.cn/problems/implement-rand10-using-rand7/
 // 如何用a~b的随机函数加工出c~d的随机函数

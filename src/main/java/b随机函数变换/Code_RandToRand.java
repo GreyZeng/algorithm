@@ -1,4 +1,4 @@
-package 算法.随机函数变换;
+package b随机函数变换;
 
 // TODO
 // 加入笔记：https://www.cnblogs.com/greyzeng/p/16618329.html
