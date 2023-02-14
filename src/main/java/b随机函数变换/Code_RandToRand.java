@@ -1,8 +1,8 @@
 package b随机函数变换;
 
-// TODO
-// 加入笔记：https://www.cnblogs.com/greyzeng/p/16618329.html
+// 笔记：https://www.cnblogs.com/greyzeng/p/16618329.html
 // 随机函数构造新随机函数问题
+// 如何用a~b的随机函数加工出c~d的随机函数
 // random 0-7 生成 random 0-9
 // 生成0，1源，用二进制来构造0和9
 //
@@ -26,7 +26,7 @@ public class Code_RandToRand {
         while ((1 << num) - 1 < range) { // 求0～range需要几个2进制位
             num++;
         }
-        int ans = 0; // 最终的累加和，首先+0位上是1还是0，1位上是1还是0，2位上是1还是0...
+        int ans; // 最终的累加和，首先+0位上是1还是0，1位上是1还是0，2位上是1还是0...
         do {
             ans = 0;
             for (int i = 0; i < num; i++) {
@@ -43,10 +43,11 @@ public class Code_RandToRand {
         // size = 5
         int size = b - a + 1;
         // odd = true
+        // 是否为奇数
         boolean odd = size % 2 != 0;
         // mid = 2
         int mid = size / 2;
-        int ans = 0;
+        int ans;
         do {
             // 如果是奇数，那么中点位置弃用，< 中点 位置 和 > 中点位置的数字返回概率一样，一个定为0，一个定为1
             // 如果是偶数，那么这里的中点是上中点，< 上中点 位置 和 >= 上中点位置的数字出现的概率一样，一个定为0，一个定为1即可
@@ -101,8 +102,8 @@ public class Code_RandToRand {
         for (int i = 0; i < testTime1; i++) {
             ans[g(a, b, c, d)]++;
         }
-        for (int i = 0; i < ans.length; i++) {
-            System.out.println(ans[i]);
+        for (int an : ans) {
+            System.out.println(an);
         }
 
         int testTime2 = 10000000;
