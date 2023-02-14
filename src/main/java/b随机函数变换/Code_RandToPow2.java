@@ -11,14 +11,14 @@ public class Code_RandToPow2 {
     // 测试用例
     public static void main(String[] args) {
         int count = 0;
-        int testTimes = 30000000;
+        int testTimes = 40000000;
         double x = 0.18;
         for (int i = 0; i < testTimes; i++) {
             if (randToPow2() < x) {
                 count++;
             }
         }
-        // 以下两个数值应该大小一致
+        // 以下两个数值应该大小接近一致
         System.out.println((double) count / (double) testTimes);
         System.out.println(Math.pow(x, 2));
     }
