@@ -5,21 +5,20 @@ package c二分;
 // https://leetcode.cn/problems/binary-search/
 public class LeetCode_0704_BinarySearch {
 
-    public static int search(int[] arr, int target) {
-        if (arr == null || arr.length < 1) {
+    public int search(int[] nums, int target) {
+        if (null == nums || 0 == nums.length) {
             return -1;
         }
-        int l = 0;
-        int r = arr.length - 1;
-        while (l <= r) {
-            int m = l + ((r - l) >> 1);
-            if (arr[m] < target) {
-                l = m + 1;
-            } else if (arr[m] > target) {
-                r = m - 1;
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
             } else {
-                // arr[m] == target
-                return m;
+                left = mid + 1;
             }
         }
         return -1;
