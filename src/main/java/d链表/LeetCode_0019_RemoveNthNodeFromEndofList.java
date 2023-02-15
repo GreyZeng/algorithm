@@ -1,4 +1,4 @@
-package 数据结构.链表;
+package d链表;
 
 // note 数够n+1个，然后依次遍历到尾部
 // https://www.cnblogs.com/greyzeng/p/14675184.html

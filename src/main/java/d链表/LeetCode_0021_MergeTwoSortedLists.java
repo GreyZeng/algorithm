@@ -1,4 +1,4 @@
-package 数据结构.链表;
+package d链表;
 
 // leetcode: https://leetcode.com/problems/merge-two-sorted-lists
 // https://www.cnblogs.com/greyzeng/p/7551789.html

@@ -1,4 +1,4 @@
-package 数据结构.链表;
+package d链表;
 
 /**
  * https://www.lintcode.com/problem/167/

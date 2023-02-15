@@ -1,4 +1,4 @@
-package 数据结构.链表;
+package d链表;
 
 import java.util.ArrayList;
 import java.util.List;

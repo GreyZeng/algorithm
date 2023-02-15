@@ -1,5 +1,5 @@
 
-package 数据结构.链表;
+package d链表;
 
 // 反转单链表一部分
 // https://leetcode.cn/problems/reverse-linked-list-ii/
