@@ -10,7 +10,7 @@ import java.util.ArrayList;
 // 可以使用ArrayList方式
 // 也可以通过双指针的方式
 // 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
-public class Code_0033_LinkedListMid {
+public class Code_LinkedListMid {
     public static class Node {
         public int value;
         public Node next;

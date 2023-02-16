@@ -1,4 +1,4 @@
-package 数据结构.栈和队列;
+package d栈和队列;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
 
 
-package 练习题.leetcode.hard;
+package d链表;
 
 // TODO
 // 测试链接：https://leetcode.com/problems/reverse-nodes-in-k-group/
