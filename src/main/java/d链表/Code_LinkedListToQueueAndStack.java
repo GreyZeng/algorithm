@@ -17,6 +17,8 @@ public class Code_LinkedListToQueueAndStack {
         }
     }
 
+    // 用单链表实现自定义队列
+    // 头部进，尾部出
     public static class MyQueue<V> {
         private Node<V> head;
         private Node<V> tail;
@@ -36,42 +38,50 @@ public class Code_LinkedListToQueueAndStack {
             return size;
         }
 
+        // 头部进
         public void offer(V value) {
-            Node<V> cur = new Node<>(value);
-            if (tail == null) {
-                head = cur;
-            } else {
-                tail.next = cur;
+            Node<V> node = new Node<>(value);
+            if (size == 0) {
+                head = node;
+                tail = node;
+                size = 1;
+                return;
             }
-            tail = cur;
             size++;
+            head.next = node;
+            head = node;
         }
 
+
+        // 尾部出
         // C/C++的同学需要做节点析构的工作
         public V poll() {
-            V ans = null;
-            if (head != null) {
-                ans = head.value;
-                head = head.next;
-                size--;
+            if (isEmpty()) {
+                return null;
             }
-            if (head == null) {
+            Node<V> ans = tail;
+            tail = tail.next;
+            size--;
+            if (size == 0) {
                 tail = null;
+                head = null;
             }
-            return ans;
+            return ans.value;
         }
 
+        // 查看尾部数据
         // C/C++的同学需要做节点析构的工作
         public V peek() {
-            V ans = null;
-            if (head != null) {
-                ans = head.value;
+            if (isEmpty()) {
+                return null;
             }
-            return ans;
+            return tail.value;
         }
 
     }
 
+    // 用单链表实现自定义栈
+    // 头部进，头部出
     public static class MyStack<V> {
         private Node<V> head;
         private int size;
@@ -90,28 +100,31 @@ public class Code_LinkedListToQueueAndStack {
         }
 
         public void push(V value) {
-            Node<V> cur = new Node<>(value);
-            if (head == null) {
-                head = cur;
-            } else {
-                cur.next = head;
-                head = cur;
-            }
             size++;
+            Node<V> node = new Node<>(value);
+            node.next = head;
+            head = node;
         }
 
         public V pop() {
-            V ans = null;
-            if (head != null) {
-                ans = head.value;
-                head = head.next;
-                size--;
+            if (isEmpty()) {
+                return null;
             }
-            return ans;
+            Node<V> ans = head;
+            size--;
+            if (isEmpty()) {
+                head = null;
+            } else {
+                head = head.next;
+            }
+            return ans.value;
         }
 
         public V peek() {
-            return head != null ? head.value : null;
+            if (isEmpty()) {
+                return null;
+            }
+            return head.value;
         }
 
     }
