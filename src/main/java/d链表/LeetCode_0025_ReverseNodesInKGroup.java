@@ -11,28 +11,36 @@ public class LeetCode_0025_ReverseNodesInKGroup {
     public static class ListNode {
         public int val;
         public ListNode next;
+
+        ListNode(int val) {
+            this.val = val;
+        }
     }
 
     public static ListNode reverseKGroup(ListNode head, int k) {
-        ListNode start = head;
-        ListNode end = getKGroupEnd(start, k);
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode cur = head;
+        ListNode end = getKGroupEnd(cur, k);
         if (end == null) {
             return head;
         }
-        // 第一组凑齐了！
+        // 第一组反转后的结尾，就是整个反转链表的头
         head = end;
-        reverse(start, end);
-        // 上一组的结尾节点
-        ListNode lastEnd = start;
-        while (lastEnd.next != null) {
-            start = lastEnd.next;
-            end = getKGroupEnd(start, k);
+        // 第一次反转
+        reverse(cur, end);
+        ListNode newStart = cur;
+        while (newStart.next != null) {
+            // 是否存在下一次反转
+            cur = newStart.next;
+            end = getKGroupEnd(cur, k);
             if (end == null) {
-                return head;
+                break;
             }
-            reverse(start, end);
-            lastEnd.next = end;
-            lastEnd = start;
+            reverse(cur, end);
+            newStart.next = end;
+            newStart = cur;
         }
         return head;
     }
@@ -46,6 +54,9 @@ public class LeetCode_0025_ReverseNodesInKGroup {
     // k = 6
     // 不够6个，所以返回 null
     public static ListNode getKGroupEnd(ListNode start, int k) {
+        if (start == null) {
+            return null;
+        }
         while (--k != 0 && start != null) {
             start = start.next;
         }
@@ -60,12 +71,11 @@ public class LeetCode_0025_ReverseNodesInKGroup {
         end = end.next;
         ListNode pre = null;
         ListNode cur = start;
-        ListNode next;
         while (cur != end) {
-            next = cur.next;
+            ListNode tmp = cur.next;
             cur.next = pre;
             pre = cur;
-            cur = next;
+            cur = tmp;
         }
         start.next = end;
     }
