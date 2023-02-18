@@ -1,14 +1,11 @@
-
-
 package d链表;
 
-// TODO
+// K个节点的组内逆序调整问题
 // 测试链接：https://leetcode.com/problems/reverse-nodes-in-k-group/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
 public class LeetCode_0025_ReverseNodesInKGroup {
 
-    // 不要提交这个类
-    public static class ListNode {
+    public class ListNode {
         public int val;
         public ListNode next;
 
@@ -17,30 +14,27 @@ public class LeetCode_0025_ReverseNodesInKGroup {
         }
     }
 
-    public static ListNode reverseKGroup(ListNode head, int k) {
+    public ListNode reverseKGroup(ListNode head, int k) {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode cur = head;
-        ListNode end = getKGroupEnd(cur, k);
+        ListNode end = getKGroupEnd(head, k);
         if (end == null) {
             return head;
         }
-        // 第一组反转后的结尾，就是整个反转链表的头
+        ListNode cur = head;
         head = end;
-        // 第一次反转
         reverse(cur, end);
-        ListNode newStart = cur;
-        while (newStart.next != null) {
-            // 是否存在下一次反转
-            cur = newStart.next;
+        ListNode lastEnd = cur;
+        while (lastEnd.next != null) {
+            cur = lastEnd.next;
             end = getKGroupEnd(cur, k);
             if (end == null) {
                 break;
             }
             reverse(cur, end);
-            newStart.next = end;
-            newStart = cur;
+            lastEnd.next = end;
+            lastEnd = cur;
         }
         return head;
     }
@@ -53,10 +47,7 @@ public class LeetCode_0025_ReverseNodesInKGroup {
     // start->b->c
     // k = 6
     // 不够6个，所以返回 null
-    public static ListNode getKGroupEnd(ListNode start, int k) {
-        if (start == null) {
-            return null;
-        }
+    public ListNode getKGroupEnd(ListNode start, int k) {
         while (--k != 0 && start != null) {
             start = start.next;
         }
@@ -67,17 +58,20 @@ public class LeetCode_0025_ReverseNodesInKGroup {
     // 假设start = a, end = d
     // 经过如下方法，会变成
     // ...d->c->b->a->e.....
-    public static void reverse(ListNode start, ListNode end) {
+    public void reverse(ListNode start, ListNode end) {
+        if (start == null) {
+            return;
+        }
         end = end.next;
         ListNode pre = null;
         ListNode cur = start;
+        ListNode tmp;
         while (cur != end) {
-            ListNode tmp = cur.next;
+            tmp = cur.next;
             cur.next = pre;
             pre = cur;
             cur = tmp;
         }
         start.next = end;
     }
-
 }
