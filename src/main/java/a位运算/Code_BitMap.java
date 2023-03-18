@@ -12,9 +12,10 @@ public class Code_BitMap {
 
         private long[] bits;
 
+        // 初始化
         public BitMap(int max) {
             // 准备多少个整数？ 0 ~ 63 需要1个整数
-            // >> 6 就是 除以 64
+            // >> 6 就是 除以 64 >> 效率比除法高
             bits = new long[(max + 64) >> 6];
         }
 
