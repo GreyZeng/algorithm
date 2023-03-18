@@ -21,17 +21,17 @@ public class Code_BitMap {
 
         public void add(int num) {
             // bits[num / 64] |= (1L << (num % 64));
-            // num % 64 ---> num & 63
+            // num % 64 ---> num & 63 即：0b111111
             // 只适用于 2 的 n 次方
-            bits[num >> 6] |= (1L << (num & 63));
+            bits[num >> 6] |= (1L << (num & 0b111111));
         }
 
         public void remove(int num) {
-            bits[num >> 6] &= ~(1L << (num & 63));
+            bits[num >> 6] &= ~(1L << (num & 0b111111));
         }
 
         public boolean contains(int num) {
-            return (bits[num >> 6] & (1L << (num & 63))) != 0;
+            return (bits[num >> 6] & (1L << (num & 0b111111))) != 0;
         }
     }
 
