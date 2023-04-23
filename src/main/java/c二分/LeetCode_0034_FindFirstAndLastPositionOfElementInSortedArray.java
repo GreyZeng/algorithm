@@ -7,49 +7,46 @@ package c二分;
 // https://www.cnblogs.com/greyzeng/p/16622554.html
 // https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/
 public class LeetCode_0034_FindFirstAndLastPositionOfElementInSortedArray {
-
-    // O(logN)
     public int[] searchRange(int[] nums, int target) {
-        if (null == nums || 0 == nums.length) {
+        if (nums == null || nums.length == 0) {
             return new int[]{-1, -1};
         }
         return new int[]{left(nums, target), right(nums, target)};
     }
 
-    public int left(int[] nums, int target) {
+    private int left(int[] nums, int target) {
+        int l = 0;
+        int r = nums.length - 1;
         int ans = -1;
-        int left = 0;
-        int right = nums.length - 1;
-        while (left <= right) {
-            int mid = ((right - left) >> 1) + left;
-            if (nums[mid] == target) {
-                ans = mid;
-                right = mid - 1;
-            } else if (nums[mid] > target) {
-                right = mid - 1;
+        while (l <= r) {
+            int m = l + ((r - l) >> 1);
+            if (nums[m] > target) {
+                r = m - 1;
+            } else if (nums[m] < target) {
+                l = m + 1;
             } else {
-                left = mid + 1;
+                ans = m;
+                r = m - 1;
             }
         }
         return ans;
     }
 
-    public int right(int[] nums, int target) {
+    private int right(int[] nums, int target) {
+        int l = 0;
+        int r = nums.length - 1;
         int ans = -1;
-        int left = 0;
-        int right = nums.length - 1;
-        while (left <= right) {
-            int mid = ((right - left) >> 1) + left;
-            if (nums[mid] == target) {
-                ans = mid;
-                left = mid + 1;
-            } else if (nums[mid] > target) {
-                right = mid - 1;
+        while (l <= r) {
+            int m = l + ((r - l) >> 1);
+            if (nums[m] > target) {
+                r = m - 1;
+            } else if (nums[m] < target) {
+                l = m + 1;
             } else {
-                left = mid + 1;
+                ans = m;
+                l = m + 1;
             }
         }
         return ans;
     }
-
 }
