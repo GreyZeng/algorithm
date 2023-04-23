@@ -12,12 +12,13 @@ public class Code_Rand5ToRand7 {
 
     // 通过[0,5]等概率返回的随机函数f()
     // 加工出等概率得到0和1
+    // 思路：
     // 1,2,3,4,5 五个数
     // 得到1，2的时候，返回0
     // 得到4，5的时候，返回1
     // 得到3的时候，弃而不用，再次尝试
     public static int m() {
-        int ans = 0;
+        int ans;
         do {
             ans = f();
         } while (ans == 3);
@@ -25,8 +26,9 @@ public class Code_Rand5ToRand7 {
     }
 
     // 等概率返回0~6
+    // tips：二进制需要多少位，根据题意，只需要三位即可
     public static int x() {
-        int ans = 0;
+        int ans;
         do {
             ans = (m() << 2) + (m() << 1) + m();
         } while (ans == 7);
