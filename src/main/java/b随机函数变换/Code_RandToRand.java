@@ -17,15 +17,41 @@ package b随机函数变换;
 // 00 ---> x
 // 这样就构造了一个0，1源
 public class Code_RandToRand {
+    // 构造一个等概率返回a~b的随机函数
+    public static int f(int a, int b) {
+        // Math.random() -> [0, 1)
+        // [a, b] -> a + [0,b-a] -> a + (int)(Math.random() * (b-a+1))
+        return a + (int) (Math.random() * (b - a + 1));
+    }
+
+    // 底层依赖一个等概率返回a~b的随机函数f，
+    // 如何加工出等概率返回0和1的随机函数
+    public static int rand01(int a, int b) {
+        // a = 4, b = 8
+        // size = 5
+        int size = b - a + 1;
+        // isOdd = true
+        // 是否为奇数
+        boolean isOdd = size % 2 != 0;
+        // mid = 2
+        int mid = size / 2;
+        int ans;
+        do {
+            // 如果是奇数，那么中点位置弃用，< 中点 位置 和 > 中点位置的数字返回概率一样，一个定为0，一个定为1
+            // 如果是偶数，那么这里的中点是上中点，< 上中点 位置 和 >= 上中点位置的数字出现的概率一样，一个定为0，一个定为1即可
+            ans = f(a, b) - a;
+        } while (isOdd && ans == mid);
+        // 来到这步的时候，
+        // 如果是偶数，ans可能会等于mid
+        // 如果是奇数，ans必不等于mid
+        return ans < mid ? 0 : 1;
+    }
+
     // 底层依赖一个等概率返回a~b的随机函数f，
     // 如何加工出等概率返回c~d的随机函数
     public static int g(int a, int b, int c, int d) {
         int range = d - c; // 0～range c~d -> 0 ~ d-c
-        int num = 1;
-
-        while ((1 << num) - 1 < range) { // 求0～range需要几个2进制位
-            num++;
-        }
+        int num = getNeedBits(range);
         int ans; // 最终的累加和，首先+0位上是1还是0，1位上是1还是0，2位上是1还是0...
         do {
             ans = 0;
@@ -36,35 +62,15 @@ public class Code_RandToRand {
         return ans + c;
     }
 
-    // 底层依赖一个等概率返回a~b的随机函数f，
-    // 如何加工出等概率返回0和1的随机函数
-    public static int rand01(int a, int b) {
-        // a = 4, b = 8
-        // size = 5
-        int size = b - a + 1;
-        // odd = true
-        // 是否为奇数
-        boolean odd = size % 2 != 0;
-        // mid = 2
-        int mid = size / 2;
-        int ans;
-        do {
-            // 如果是奇数，那么中点位置弃用，< 中点 位置 和 > 中点位置的数字返回概率一样，一个定为0，一个定为1
-            // 如果是偶数，那么这里的中点是上中点，< 上中点 位置 和 >= 上中点位置的数字出现的概率一样，一个定为0，一个定为1即可
-            ans = f(a, b) - a;
-        } while (odd && ans == mid);
-        // 来到这步的时候，
-        // 如果是偶数，ans可能会等于mid
-        // 如果是奇数，ans必不等于mid
-        return ans < mid ? 0 : 1;
+    // 求0～range需要几个2进制位
+    public static int getNeedBits(int range) {
+        int num = 1;
+        while ((1 << num) - 1 < range) { // 求0～range需要几个2进制位
+            num++;
+        }
+        return num;
     }
 
-    // 构造一个等概率返回a~b的随机函数
-    public static int f(int a, int b) {
-        // Math.random() -> [0, 1)
-        // [a, b] -> a + [0,b-a] -> a + (int)(Math.random() * (b-a+1))
-        return a + (int) (Math.random() * (b - a + 1));
-    }
 
     // 底层依赖一个以p概率返回0，以1-p概率返回1的随机函数rand01p
     // 如何加工出等概率返回0和1的函数
