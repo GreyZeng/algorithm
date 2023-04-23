@@ -3,10 +3,8 @@ package a简单排序;
 import java.util.Arrays;
 
 /**
- * 冒泡，选择，插入排序
- *
  * @author Grey
- * @see <a href="https://www.cnblogs.com/greyzeng/p/15186769.html">简单排序</a>
+ * @see <a href="https://www.cnblogs.com/greyzeng/p/15186769.html">几种简单排序（冒泡排序，插入排序，选择排序）算法介绍</a>
  */
 public class Code_Sort {
     // 冒泡排序
