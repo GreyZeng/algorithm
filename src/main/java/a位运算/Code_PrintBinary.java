@@ -6,13 +6,12 @@ package a位运算;
 // 2. 除去最高位，其他位数取反以后，再加1
 public class Code_PrintBinary {
     // 打印一个32位整数的二进制形式
-    public static void printBinary(int num) {
+    public static void printBinary(int n) {
         for (int i = 31; i >= 0; i--) {
-            System.out.print((num & (1 << i)) == 0 ? "0" : "1");
+            System.out.print((n & (1 << i)) == 0 ? "0" : "1");
         }
         System.out.println();
     }
-
 
     public static void main(String[] args) {
         int num = 0b10001010_11101010_10001000_11101010;
