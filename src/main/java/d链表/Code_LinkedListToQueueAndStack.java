@@ -8,15 +8,20 @@ import java.util.Stack;
 public class Code_LinkedListToQueueAndStack {
     // 单链表的定义
     public static class Node<V> {
-        public V value;
+        public V val;
         public Node<V> next;
 
         public Node(V v) {
-            value = v;
-            next = null;
+            val = v;
         }
     }
 
+    // eg
+    // a,b,c,d
+    // a <- b <- c <- d
+    // 其中
+    // tail 指针指向 d
+    // head 指针指向 a
     // 用单链表实现自定义队列
     // 头部进，尾部出
     public static class MyQueue<V> {
@@ -40,42 +45,38 @@ public class Code_LinkedListToQueueAndStack {
 
         // 头部进
         public void offer(V value) {
-            Node<V> node = new Node<>(value);
-            if (size == 0) {
-                head = node;
-                tail = node;
+            Node<V> newNode = new Node<>(value);
+            if (isEmpty()) {
                 size = 1;
+                head = newNode;
+                tail = newNode;
                 return;
             }
             size++;
-            head.next = node;
-            head = node;
+            head.next = newNode;
+            head = newNode;
         }
 
 
         // 尾部出
-        // C/C++的同学需要做节点析构的工作
         public V poll() {
             if (isEmpty()) {
                 return null;
             }
-            Node<V> ans = tail;
-            tail = tail.next;
             size--;
-            if (size == 0) {
-                tail = null;
+            V val = tail.val;
+            if (head == tail) {
                 head = null;
+                tail = null;
+                return val;
             }
-            return ans.value;
+            tail = tail.next;
+            return val;
         }
 
         // 查看尾部数据
-        // C/C++的同学需要做节点析构的工作
         public V peek() {
-            if (isEmpty()) {
-                return null;
-            }
-            return tail.value;
+            return isEmpty() ? null : tail.val;
         }
 
     }
@@ -117,19 +118,34 @@ public class Code_LinkedListToQueueAndStack {
             } else {
                 head = head.next;
             }
-            return ans.value;
+            return ans.val;
         }
 
         public V peek() {
             if (isEmpty()) {
                 return null;
             }
-            return head.value;
+            return head.val;
         }
 
     }
 
+    public static void testQueue2() {
+        MyQueue<Integer> myQueue = new MyQueue<>();
+        myQueue.offer(1);
+        myQueue.offer(2);
+        myQueue.offer(3);
+        myQueue.offer(4);
+        System.out.println(myQueue.peek());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
+    }
+
     public static void testQueue() {
+
+
         MyQueue<Integer> myQueue = new MyQueue<>();
         Queue<Integer> test = new LinkedList<>();
         int testTime = 5000000;
