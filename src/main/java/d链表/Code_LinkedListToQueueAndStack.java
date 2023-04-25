@@ -100,48 +100,39 @@ public class Code_LinkedListToQueueAndStack {
             return size;
         }
 
-        public void push(V value) {
-            size++;
-            Node<V> node = new Node<>(value);
-            node.next = head;
-            head = node;
+        public void push(V v) {
+            Node<V> newNode = new Node<>(v);
+            if (isEmpty()) {
+                head = newNode;
+                size = 1;
+            } else {
+                newNode.next = head;
+                head = newNode;
+                size++;
+            }
         }
 
         public V pop() {
             if (isEmpty()) {
                 return null;
             }
-            Node<V> ans = head;
             size--;
-            if (isEmpty()) {
+            V v = head.val;
+            // 只有一个节点
+            if (head.next == null) {
                 head = null;
-            } else {
-                head = head.next;
+                return v;
             }
-            return ans.val;
+            head = head.next;
+            return v;
         }
 
         public V peek() {
-            if (isEmpty()) {
-                return null;
-            }
-            return head.val;
+            return isEmpty() ? null : head.val;
         }
 
     }
 
-    public static void testQueue2() {
-        MyQueue<Integer> myQueue = new MyQueue<>();
-        myQueue.offer(1);
-        myQueue.offer(2);
-        myQueue.offer(3);
-        myQueue.offer(4);
-        System.out.println(myQueue.peek());
-        System.out.println(myQueue.poll());
-        System.out.println(myQueue.poll());
-        System.out.println(myQueue.poll());
-        System.out.println(myQueue.poll());
-    }
 
     public static void testQueue() {
 
