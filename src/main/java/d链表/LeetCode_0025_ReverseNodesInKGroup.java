@@ -1,42 +1,33 @@
 package d链表;
 
+// FIXME
+//The number of nodes in the list is n.
+//1 <= k <= n <= 5000
+//0 <= Node.val <= 1000
 // K个节点的组内逆序调整问题
 // 测试链接：https://leetcode.com/problems/reverse-nodes-in-k-group/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
 public class LeetCode_0025_ReverseNodesInKGroup {
 
     public class ListNode {
-        public int val;
-        public ListNode next;
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
 
         ListNode(int val) {
             this.val = val;
         }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
     }
 
     public ListNode reverseKGroup(ListNode head, int k) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        ListNode end = getKGroupEnd(head, k);
-        if (end == null) {
-            return head;
-        }
-        ListNode cur = head;
-        head = end;
-        reverse(cur, end);
-        ListNode lastEnd = cur;
-        while (lastEnd.next != null) {
-            cur = lastEnd.next;
-            end = getKGroupEnd(cur, k);
-            if (end == null) {
-                break;
-            }
-            reverse(cur, end);
-            lastEnd.next = end;
-            lastEnd = cur;
-        }
-        return head;
+
     }
 
     // 从start开始，数够k个，然后返回。
@@ -48,10 +39,12 @@ public class LeetCode_0025_ReverseNodesInKGroup {
     // k = 6
     // 不够6个，所以返回 null
     public ListNode getKGroupEnd(ListNode start, int k) {
-        while (--k != 0 && start != null) {
-            start = start.next;
+        ListNode cur = start;
+        while (cur != null && k != 1) {
+            k--;
+            cur = cur.next;
         }
-        return start;
+        return cur;
     }
 
     // ....->a->b->c->d->e....
@@ -59,19 +52,13 @@ public class LeetCode_0025_ReverseNodesInKGroup {
     // 经过如下方法，会变成
     // ...d->c->b->a->e.....
     public void reverse(ListNode start, ListNode end) {
-        if (start == null) {
-            return;
-        }
-        end = end.next;
-        ListNode pre = null;
+        ListNode pre = end.next;
         ListNode cur = start;
-        ListNode tmp;
-        while (cur != end) {
-            tmp = cur.next;
+        while (cur != end.next) {
+            ListNode t = cur.next;
             cur.next = pre;
             pre = cur;
-            cur = tmp;
+            cur = t;
         }
-        start.next = end;
     }
 }
