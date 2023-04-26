@@ -1,57 +1,15 @@
 package d链表;
 
 // 两个链表相加问题
+//给定两个链表的头节点head1和head2，
+//        认为从左到右是某个数字从低位到高位，返回相加之后的链表
+//        例子     4 -> 3 -> 6        2 -> 5 -> 3
+//        返回     6 -> 8 -> 9
+//        解释     634 + 352 = 986
 // https://www.lintcode.com/problem/167/
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16629407.html
 public class LintCode_0167_AddTwoNumbers {
-    /**
-     * @param l1: the first list
-     * @param l2: the second list
-     * @return: the sum list of l1 and l2
-     */
-    public ListNode addLists(ListNode l1, ListNode l2) {
-        if (l1 == null) {
-            return l2;
-        }
-        if (l2 == null) {
-            return l1;
-        }
-        // l1 和 l2 的长度一定一样
-        int sum = l1.val + l2.val;
-        int val = getValue(sum);
-        int move = getMove(sum);
-        ListNode result = new ListNode(val);
-        ListNode c = result;
-        ListNode t1 = l1.next;
-        ListNode t2 = l2.next;
-        while (t1 != null || t2 != null || move != 0) {
-            sum = valOrDefault(t1) + valOrDefault(t2) + move;
-            c.next = new ListNode(getValue(sum));
-            move = getMove(sum);
-            c = c.next;
-            if (t1 != null) {
-                t1 = t1.next;
-            }
-            if (t2 != null) {
-                t2 = t2.next;
-            }
-        }
-        return result;
-    }
-
-    public static int valOrDefault(ListNode t) {
-        return t == null ? 0 : t.val;
-    }
-
-    public static int getMove(int sum) {
-        return sum / 10;
-    }
-
-    public static int getValue(int sum) {
-        return sum % 10;
-    }
-
-    public static class ListNode {
+    public class ListNode {
         int val;
         ListNode next;
 
@@ -60,4 +18,50 @@ public class LintCode_0167_AddTwoNumbers {
             next = null;
         }
     }
+
+    // FIXME
+    public ListNode addLists(ListNode head1, ListNode head2) {
+        int len1 = listLength(head1);
+        int len2 = listLength(head2);
+        ListNode l = len1 >= len2 ? head1 : head2;
+        ListNode s = l == head1 ? head2 : head1;
+        ListNode curL = l;
+        ListNode curS = s;
+
+//        ListNode last = curL;
+//        int carry = 0;
+//        int curNum;
+//        while (curS != null) {
+//            curNum = curL.val + curS.val + carry;
+//            curL.val = (curNum % 10);
+//            carry = curNum / 10;
+//            last = curL;
+//            curL = curL.next;
+//            curS = curS.next;
+//        }
+//        while (curL != null) {
+//            curNum = curL.val + carry;
+//            curL.val = (curNum % 10);
+//            carry = curNum / 10;
+//            last = curL;
+//            curL = curL.next;
+//        }
+//        if (carry != 0) {
+//            last.next = new ListNode(1);
+//        }
+//        return l;
+        return null;
+    }
+
+    // 求链表长度
+    public int listLength(ListNode head) {
+        int len = 0;
+        while (head != null) {
+            len++;
+            head = head.next;
+        }
+        return len;
+    }
+
+
 }
