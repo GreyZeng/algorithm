@@ -1,6 +1,6 @@
 package d链表;
 
-// FIXME
+// notes: 值得反复练习的问题
 //The number of nodes in the list is n.
 //1 <= k <= n <= 5000
 //0 <= Node.val <= 1000
