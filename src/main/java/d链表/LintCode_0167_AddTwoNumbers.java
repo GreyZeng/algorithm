@@ -19,7 +19,6 @@ public class LintCode_0167_AddTwoNumbers {
         }
     }
 
-    // FIXME
     public ListNode addLists(ListNode head1, ListNode head2) {
         int len1 = listLength(head1);
         int len2 = listLength(head2);
@@ -27,30 +26,28 @@ public class LintCode_0167_AddTwoNumbers {
         ListNode s = l == head1 ? head2 : head1;
         ListNode curL = l;
         ListNode curS = s;
-
-//        ListNode last = curL;
-//        int carry = 0;
-//        int curNum;
-//        while (curS != null) {
-//            curNum = curL.val + curS.val + carry;
-//            curL.val = (curNum % 10);
-//            carry = curNum / 10;
-//            last = curL;
-//            curL = curL.next;
-//            curS = curS.next;
-//        }
-//        while (curL != null) {
-//            curNum = curL.val + carry;
-//            curL.val = (curNum % 10);
-//            carry = curNum / 10;
-//            last = curL;
-//            curL = curL.next;
-//        }
-//        if (carry != 0) {
-//            last.next = new ListNode(1);
-//        }
-//        return l;
-        return null;
+        int carry = 0;
+        ListNode preEnd = l;
+        int sum = 0;
+        while (curS != null) {
+            sum = curL.val + curS.val + carry;
+            carry = sum / 10;
+            curL.val = sum % 10;
+            preEnd = curL;
+            curL = curL.next;
+            curS = curS.next;
+        }
+        while (curL != null) {
+            sum = curL.val + carry;
+            carry = sum / 10;
+            curL.val = sum % 10;
+            preEnd = curL;
+            curL = curL.next;
+        }
+        if (carry != 0) {
+            preEnd.next = new ListNode(carry);
+        }
+        return l;
     }
 
     // 求链表长度
@@ -62,6 +59,5 @@ public class LintCode_0167_AddTwoNumbers {
         }
         return len;
     }
-
 
 }
