@@ -1,12 +1,8 @@
 package d链表;
 
-/**
- * https://www.lintcode.com/problem/167/
- *
- * @author <a href="mailto:410486047@qq.com">Grey</a>
- * @date 2021/4/14
- * @since
- */
+// 两个链表相加问题
+// https://www.lintcode.com/problem/167/
+// 笔记见：https://www.cnblogs.com/greyzeng/p/16629407.html
 public class LintCode_0167_AddTwoNumbers {
     /**
      * @param l1: the first list
