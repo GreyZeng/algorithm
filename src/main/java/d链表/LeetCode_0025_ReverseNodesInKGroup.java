@@ -26,7 +26,29 @@ public class LeetCode_0025_ReverseNodesInKGroup {
         }
     }
 
+    // 不超过k个就保持原样
     public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode start = head;
+        ListNode end = getKGroupEnd(start, k);
+        if (end == null) {
+            return head;
+        }
+        // 第一组已经凑够了，所以直接返回head
+        head = end;
+        reverseBetween(start, end);
+        // 上一组的结尾节点
+        ListNode lastEnd = start;
+        while (lastEnd.next != null) {
+            start = lastEnd.next;
+            end = getKGroupEnd(start, k);
+            if (end == null) {
+                return head;
+            }
+            reverseBetween(start, end);
+            lastEnd.next = end;
+            lastEnd = start;
+        }
+        return head;
 
     }
 
@@ -51,14 +73,16 @@ public class LeetCode_0025_ReverseNodesInKGroup {
     // 假设start = a, end = d
     // 经过如下方法，会变成
     // ...d->c->b->a->e.....
-    public void reverse(ListNode start, ListNode end) {
-        ListNode pre = end.next;
+    public void reverseBetween(ListNode start, ListNode end) {
+        end = end.next;
+        ListNode pre = null;
         ListNode cur = start;
-        while (cur != end.next) {
+        while (cur != end) {
             ListNode t = cur.next;
             cur.next = pre;
             pre = cur;
             cur = t;
         }
+        start.next = end;
     }
 }
