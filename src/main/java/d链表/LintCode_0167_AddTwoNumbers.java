@@ -28,7 +28,7 @@ public class LintCode_0167_AddTwoNumbers {
         ListNode curS = s;
         int carry = 0;
         ListNode preEnd = l;
-        int sum = 0;
+        int sum;
         while (curS != null) {
             sum = curL.val + curS.val + carry;
             carry = sum / 10;
