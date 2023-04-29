@@ -1,4 +1,4 @@
-package a简单排序;
+package sort;
 
 import java.util.Arrays;
 
