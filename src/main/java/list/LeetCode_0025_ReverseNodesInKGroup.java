@@ -1,4 +1,4 @@
-package d链表;
+package list;
 
 // notes: 值得反复练习的问题
 //The number of nodes in the list is n.

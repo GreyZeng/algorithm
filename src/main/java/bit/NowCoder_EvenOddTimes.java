@@ -24,7 +24,7 @@
 //
 // 备注:
 // 时间复杂度O(n),额外空间复杂度O(1)。
-package a位运算;
+package bit;
 
 import java.util.Scanner;
 

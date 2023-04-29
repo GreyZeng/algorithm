@@ -1,4 +1,4 @@
-package d链表;
+package list;
 
 // 两个链表相加问题
 //给定两个链表的头节点head1和head2，

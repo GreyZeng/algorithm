@@ -1,4 +1,4 @@
-package d链表;
+package list;
 
 // merge two sorted lists
 // leetcode: https://leetcode.com/problems/merge-two-sorted-lists

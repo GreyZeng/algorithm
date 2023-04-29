@@ -1,4 +1,4 @@
-package d链表;
+package list;
 
 import java.util.LinkedList;
 import java.util.Queue;

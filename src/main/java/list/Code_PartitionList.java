@@ -1,4 +1,4 @@
-package d链表;
+package list;
 
 // 链表上实现荷兰国旗问题
 // 笔记：https://www.cnblogs.com/greyzeng/p/16923068.html

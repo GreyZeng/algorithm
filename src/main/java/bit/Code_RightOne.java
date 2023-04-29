@@ -1,4 +1,4 @@
-package a位运算;
+package bit;
 
 /**
  * 题目三

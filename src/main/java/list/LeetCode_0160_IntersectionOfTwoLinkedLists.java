@@ -1,4 +1,4 @@
-package d链表;
+package list;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16753140.html
 // https://leetcode.cn/problems/intersection-of-two-linked-lists/

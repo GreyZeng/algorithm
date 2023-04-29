@@ -1,4 +1,4 @@
-package a位运算;
+package bit;
 
 // TODO
 public class LeetCode_0190_ReverseBits {
