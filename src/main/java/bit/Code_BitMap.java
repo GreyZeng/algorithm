@@ -36,7 +36,7 @@ public class Code_BitMap {
     }
 
     public static void main(String[] args) {
-        System.out.println("测试开始！");
+        System.out.println("test begin");
         int max = 70000;
         BitMap bitMap = new BitMap(max);
         Set<Integer> set = new HashSet<>();
@@ -62,7 +62,7 @@ public class Code_BitMap {
                 System.out.println("Oops!");
             }
         }
-        System.out.println("测试结束！");
+        System.out.println("test end");
     }
 
 }
