@@ -1,4 +1,4 @@
-package b随机函数变换;
+package random;
 
 // 将 [0,x) 中的数出现的的概率调整成 x^2 
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html

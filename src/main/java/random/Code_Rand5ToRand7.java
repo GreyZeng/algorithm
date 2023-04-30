@@ -1,4 +1,4 @@
-package b随机函数变换;
+package random;
 
 // 如何用1~5的随机函数加工出1~7的随机函数
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
