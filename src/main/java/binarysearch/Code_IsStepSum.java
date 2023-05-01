@@ -1,4 +1,4 @@
-package c二分;
+package binarysearch;
 
 import java.util.HashMap;
 

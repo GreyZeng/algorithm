@@ -1,4 +1,4 @@
-package c二分;
+package binarysearch;
 
 // How can you optimize your algorithm if one array is very large and the other is very small?
 // https://www.lintcode.com/problem/6/

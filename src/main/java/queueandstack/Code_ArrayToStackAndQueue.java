@@ -1,4 +1,4 @@
-package d栈和队列;
+package queueandstack;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package c二分;
+package binarysearch;
 
 // 数据量
 // 1 <= nums.length <= 1000
