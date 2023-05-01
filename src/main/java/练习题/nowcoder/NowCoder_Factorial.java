@@ -1,4 +1,4 @@
-package 已废弃;
+package 练习题.nowcoder;
 
 import java.util.Scanner;
 
