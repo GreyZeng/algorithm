@@ -1,4 +1,4 @@
-package 练习题.leetcode.easy;
+package tree;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Deque;
 import java.util.List;
 
 
-// https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
+// https://leetcode.com/problems/binary-tree-preorder-traversal/
 // 二叉树的先序遍历
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
 public class LeetCode_0144_BinaryTreePreorderTraversal {
@@ -44,7 +44,7 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
         return ans;
     }
 
-    private void pre(TreeNode root, List<Integer> ans) {
+    public void pre(TreeNode root, List<Integer> ans) {
         if (root == null) {
             return;
         }

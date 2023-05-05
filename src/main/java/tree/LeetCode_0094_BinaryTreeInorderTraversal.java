@@ -1,11 +1,11 @@
-package 数据结构.二叉树;
+package tree;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-// https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
+// https://leetcode.com/problems/binary-tree-inorder-traversal/
 // 二叉树的中序遍历
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
 public class LeetCode_0094_BinaryTreeInorderTraversal {

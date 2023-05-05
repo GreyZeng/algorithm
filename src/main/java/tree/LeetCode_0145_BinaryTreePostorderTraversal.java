@@ -1,4 +1,4 @@
-package 练习题.leetcode.easy;
+package tree;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Stack;
 
-// https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
+// https://leetcode.com/problems/binary-tree-postorder-traversal/
 // 二叉树的后序遍历
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
 public class LeetCode_0145_BinaryTreePostorderTraversal {
@@ -138,58 +138,6 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
         return ans;
     }
 
-
-    // public static List<Integer> postorderTraversal(TreeNode head) {
-    // List<Integer> ans = new ArrayList<>();
-    // if (null == head) {
-    // return ans;
-    // }
-    // TreeNode cur = head;
-    // TreeNode mostRight;
-    // while (cur != null) {
-    // mostRight = cur.left;
-    // if (mostRight != null) {
-    // while (mostRight.right != null && mostRight.right != cur) {
-    // mostRight = mostRight.right;
-    // }
-    // if (mostRight.right == null) {
-    // mostRight.right = cur;
-    // cur = cur.left;
-    // continue;
-    // } else {
-    // // 有左树的点第二次到达自己的时候
-    // mostRight.right = null;
-    // collectLeftTreeRightEdge(cur.left, ans);
-    // }
-    // }
-    // cur = cur.right;
-    // }
-    // collectLeftTreeRightEdge(head, ans);
-    // return ans;
-    // }
-    //
-    // // 逆序收集左树的右边界
-    // private static void collectLeftTreeRightEdge(TreeNode head, List<Integer> ans) {
-    // TreeNode tail = reverse(head);
-    // TreeNode c = tail;
-    // while (c != null) {
-    // ans.add(c.val);
-    // c = c.right;
-    // }
-    // reverse(tail);
-    // }
-    //
-    // public static TreeNode reverse(TreeNode node) {
-    // TreeNode pre = null;
-    // TreeNode cur = node;
-    // while (cur != null) {
-    // TreeNode t = cur.right;
-    // cur.right = pre;
-    // pre = cur;
-    // cur = t;
-    // }
-    // return pre;
-    // }
 
     // 【非递归】【单栈】后序遍历
     public static List<Integer> postorderTraversal1(TreeNode head) {
