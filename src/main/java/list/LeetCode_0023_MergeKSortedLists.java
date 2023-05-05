@@ -2,6 +2,7 @@ package list;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.stream.Stream;
 
 // 把每个链表的头节点加入到小根堆中
 // 然后弹出一个元素X，然后从这个弹出元素的下一个元素开始和堆顶元素比
@@ -42,7 +43,21 @@ public class LeetCode_0023_MergeKSortedLists {
         ListNode head = heap.poll();
         ListNode cur = head;
         while (!heap.isEmpty()) {
-            // FIXME
+            ListNode next = cur.next;
+            if (next == null) {
+                // 某个链表已经完结了
+                next = heap.poll();
+                cur.next = next;
+                cur = cur.next;
+            } else if (next.val > heap.peek().val) {
+                ListNode poll = heap.poll();
+                heap.offer(next);
+                cur.next = poll;
+                cur = cur.next;
+            } else {
+                // 无须入堆，直接连
+                cur = cur.next;
+            }
         }
         return head;
     }
