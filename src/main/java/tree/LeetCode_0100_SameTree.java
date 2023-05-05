@@ -27,11 +27,7 @@ public class LeetCode_0100_SameTree {
         if (p == null || q == null) {
             return p == null && q == null;
         }
-        // p 和 q 都不等于 null
-        if (p.val != q.val) {
-            return false;
-        }
-        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 
 }
