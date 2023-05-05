@@ -43,11 +43,6 @@ public class LeetCode_0101_SymmetricTree {
 		if (lv != rv) {
 			return false;
 		}
-		TreeNode ll = left.left;
-		TreeNode lr = left.right;
-		TreeNode rl = right.left;
-		TreeNode rr = right.right;
-		return isSymmetric(ll, rr) && isSymmetric(lr, rl);
+		return isSymmetric(left.left, right.right) && isSymmetric(left.right, right.left);
 	}
-
 }
