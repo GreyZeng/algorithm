@@ -2,7 +2,6 @@ package list;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.util.stream.Stream;
 
 // 把每个链表的头节点加入到小根堆中
 // 然后弹出一个元素X，然后从这个弹出元素的下一个元素开始和堆顶元素比
