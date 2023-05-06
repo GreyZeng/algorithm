@@ -1,4 +1,4 @@
-package 练习题.leetcode.medium;
+package tree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,10 +12,10 @@ import java.util.Queue;
 // 1. hash表+LinkedList
 // 2. 仅用LinkedList
 // 3. 自定义队列
-// https://leetcode-cn.com/problems/binary-tree-level-order-traversal/
+// https://leetcode.com/problems/binary-tree-level-order-traversal/
 public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
     // 哈希表结合Java自带的LinkedList
-    public static List<List<Integer>> levelOrder3(TreeNode head) {
+    public List<List<Integer>> levelOrder3(TreeNode head) {
         if (head == null) {
             return new ArrayList<>();
         }
@@ -55,37 +55,38 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
     }
 
     // 用LinkedList
-    public static List<List<Integer>> levelOrder2(TreeNode root) {
-        if (null == root) {
-            return new ArrayList<>();
+    public List<List<Integer>> levelOrder2(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
         }
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> levelRecords = new ArrayList<>();
+        TreeNode cur = root;
         TreeNode curEnd = root;
         TreeNode nextEnd = null;
         Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
+        queue.offer(cur);
+        List<Integer> items = new LinkedList<>();
         while (!queue.isEmpty()) {
-            TreeNode poll = queue.poll();
-            levelRecords.add(poll.val);
-            if (null != poll.left) {
-                queue.offer(poll.left);
-                nextEnd = poll.left;
+            cur = queue.poll();
+            if (cur.left != null) {
+                queue.offer(cur.left);
+                nextEnd = cur.left;
             }
-            if (null != poll.right) {
-                queue.offer(poll.right);
-                nextEnd = poll.right;
+            if (cur.right != null) {
+                queue.offer(cur.right);
+                nextEnd = cur.right;
             }
-            if (poll == curEnd) {
+            items.add(cur.val);
+            if (curEnd == cur) {
                 curEnd = nextEnd;
-                result.add(levelRecords);
-                levelRecords = new ArrayList<>();
+                ans.add(items);
+                items = new LinkedList<>();
             }
         }
-        return result;
+        return ans;
     }
 
-    public static class MyNode {
+    public class MyNode {
         public TreeNode data;
         public MyNode next;
 
@@ -94,7 +95,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
         }
     }
 
-    public static class MyQueue {
+    public class MyQueue {
         public MyNode front;
         public MyNode end;
         public int size;
@@ -128,7 +129,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
     }
 
     // 用自定义Queue
-    public static List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
         if (root == null) {
             return ans;
@@ -162,9 +163,22 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
         return ans;
     }
 
-    public static class TreeNode {
+    public class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
 }
