@@ -79,6 +79,8 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
             items.add(cur.val);
             if (curEnd == cur) {
                 curEnd = nextEnd;
+                // 如果要逆序打印层次，见 LeetCode 107
+                // 这里改成： ans.add(0, items);
                 ans.add(items);
                 items = new LinkedList<>();
             }
