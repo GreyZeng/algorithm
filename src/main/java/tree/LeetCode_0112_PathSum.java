@@ -1,11 +1,11 @@
 package tree;
 
-
 //Given the root of a binary tree and an integer targetSum,
 // return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.
 //        A leaf is a node with no children.
 // https://leetcode.com/problems/path-sum
 public class LeetCode_0112_PathSum {
+
     private static int sum = 0;
     private static boolean isSum = false;
 
@@ -35,7 +35,6 @@ public class LeetCode_0112_PathSum {
             process(root.right, preSum);
         }
     }
-
 
     public class TreeNode {
 
