@@ -1,4 +1,4 @@
-package 算法.排序;
+package mergesort;
 
 /**
  * 归并排序
@@ -17,7 +17,7 @@ package 算法.排序;
  * <p>
  * 归并排序的实质是把比较行为变成了有序信息并传递，比O(N^2)的排序快
  */
-// 笔记：
+// 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
 public class Code_MergeSort {
 
     // 递归方法实现
