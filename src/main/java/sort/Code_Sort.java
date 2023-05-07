@@ -52,24 +52,7 @@ public class Code_Sort {
     }
 
 
-    // 选择排序
-//    arr[0...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 0 号位置；
-//    arr[1...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 1 号位置；
-//    arr[2...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 2 号位置；
-//    依此类推……
-//    arr[N-1...N-1] 范围上，找到最小值位置，然后把最小值交换到 N-1 号位置；
-    public static void selectionSort(int[] arr) {
-        if (null == arr || arr.length < 2) {
-            return;
-        }
-        for (int i = 0; i < arr.length - 1; i++) {
-            int min = i;
-            for (int j = i + 1; j < arr.length; j++) {
-                min = arr[j] > arr[min] ? min : j;
-            }
-            swap(arr, i, min);
-        }
-    }
+
 
     private static void swap(int[] arr, int i, int j) {
         if (arr == null || arr.length < 2) {
@@ -83,10 +66,6 @@ public class Code_Sort {
     }
 
     // for test
-    public static void absRight(int[] arr) {
-        Arrays.sort(arr);
-    }
-
     private static int[] generateRandomArray(int maxSize, int maxValue) {
         // Math.random() -> [0,1)
         // Math.random() * N -> [0,N)
@@ -115,14 +94,14 @@ public class Code_Sort {
         boolean succeed = true;
         for (int i = 0; i < times; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
-            int[] arr2 = copyArray(arr1);
+      
             int[] arr3 = copyArray(arr1);
             int[] arr4 = copyArray(arr1);
             bubbleSort(arr1);
-            selectionSort(arr2);
+           
             insertionSort(arr3);
-            absRight(arr4);
-            if (!Arrays.equals(arr1, arr4) || !Arrays.equals(arr2, arr4) || !Arrays.equals(arr3, arr4)) {
+            Arrays.sort(arr4);
+            if (!Arrays.equals(arr1, arr4) || !Arrays.equals(arr3, arr4)) {
                 succeed = false;
                 break;
             }
