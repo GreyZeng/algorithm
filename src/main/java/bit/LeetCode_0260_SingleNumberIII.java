@@ -1,10 +1,6 @@
-package 练习题.leetcode.medium;
+package bit;
 
-/**
- * @author Grey
- * @date 2021年7月18日 下午11:53:15
- * @since 1.8
- */
+// 一个数组中有两种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这两种数
 // https://www.cnblogs.com/greyzeng/p/15385402.html
 public class LeetCode_0260_SingleNumberIII {
     public static int[] singleNumber(int[] arr) {

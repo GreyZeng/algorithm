@@ -1,12 +1,6 @@
-package 练习题.leetcode.medium;
+package bit;
 
-/**
- * 一个数组中有一种数出现K次，其他数都出现了M次，M > 1, K < M, 找到出现了K次的数，要求，额外空间复杂度O(1)，时间复杂度O(N)
- *
- * @author Grey
- * @date 2021年7月18日 下午11:53:52
- * @since 1.8
- */
+// 一个数组中有一种数出现K次，其他数都出现了M次，M > 1, K < M, 找到出现了K次的数，要求，额外空间复杂度O(1)，时间复杂度O(N)
 // https://www.cnblogs.com/greyzeng/p/15385402.html
 public class LeetCode_0137_SingleNumberII {
     public int singleNumber(int[] nums) {
