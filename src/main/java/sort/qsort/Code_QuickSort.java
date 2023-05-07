@@ -1,5 +1,6 @@
 package sort.qsort;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -39,45 +40,8 @@ public class Code_QuickSort {
         }
     }
 
-    public void swap(int[] arr, int i, int j) {
-        if (i != j) {
-            arr[i] = arr[i] ^ arr[j];
-            arr[j] = arr[i] ^ arr[j];
-            arr[i] = arr[i] ^ arr[j];
-        }
-    }
-
-    public int[] sortColors(int[] arr, int l, int r) {
-        int s = l - 1;
-        int e = r + 1;
-        int p = arr[r];
-        int i = l;
-        int[] range = new int[2];
-        while (i < e) {
-            if (arr[i] > p) {
-                swap(arr, i, --e);
-            } else if (arr[i] < p) {
-                swap(arr, i++, ++s);
-            } else {
-                i++;
-            }
-        }
-        return new int[]{s + 1, e - 1};
-    }
-
-    // TODO
     // 快速排序非递归版本
-    public class Op {
-
-        public int l;
-        public int r;
-
-        public Op(int l, int r) {
-            this.l = l;
-            this.r = r;
-        }
-    }
-
+    // 测评：https://www.lintcode.com/problem/464
     // 测评时候需要把sortIntegers21改成sortIntegers2
     public void sortIntegers21(int[] arr) {
         if (null == arr || arr.length < 2) {
@@ -94,7 +58,7 @@ public class Code_QuickSort {
         while (!stack.isEmpty()) {
             Op op = stack.pop();
             if (op.l < op.r) {
-                swap(arr, op.l + (int) (Math.random() * (op.r - op.l + 1)), op.r);
+                swap(arr, op.l + (int) (Math.random() * (op.r - op.l)), op.r);
                 range = sortColors(arr, op.l, op.r);
                 stack.push(new Op(op.l, range[0] - 1));
                 stack.push(new Op(range[1] + 1, op.r));
@@ -102,4 +66,113 @@ public class Code_QuickSort {
         }
     }
 
+    public class Op {
+
+        public int l;
+        public int r;
+
+        public Op(int l, int r) {
+            this.l = l;
+            this.r = r;
+        }
+    }
+
+    public void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
+        }
+    }
+
+    public int[] sortColors(int[] arr, int l, int r) {
+        int s = l - 1;
+        int e = r + 1;
+        int p = arr[r];
+        int i = l;
+        while (i < e) {
+            if (arr[i] > p) {
+                swap(arr, i, --e);
+            } else if (arr[i] < p) {
+                swap(arr, i++, ++s);
+            } else {
+                i++;
+            }
+        }
+        return new int[]{s + 1, e - 1};
+    }
+
+
+    // for test
+    public static int[] generateRandomArray(int maxSize, int maxValue) {
+        int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
+        }
+        return arr;
+    }
+
+    // for test
+    public static int[] copyArray(int[] arr) {
+        if (arr == null) {
+            return null;
+        }
+        int[] res = new int[arr.length];
+        System.arraycopy(arr, 0, res, 0, arr.length);
+        return res;
+    }
+
+    // for test
+    public static boolean isEqual(int[] arr1, int[] arr2) {
+        if ((arr1 == null && arr2 != null) || (arr1 != null && arr2 == null)) {
+            return false;
+        }
+        if (arr1 == null && arr2 == null) {
+            return true;
+        }
+        if (arr1.length != arr2.length) {
+            return false;
+        }
+        for (int i = 0; i < arr1.length; i++) {
+            if (arr1[i] != arr2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // for test
+    public static void printArray(int[] arr) {
+        if (arr == null) {
+            return;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // for test
+    public static void main(String[] args) {
+        int testTime = 500000;
+        int maxSize = 100;
+        int maxValue = 100;
+        System.out.println("test start");
+        for (int i = 0; i < testTime; i++) {
+            int[] arr1 = generateRandomArray(maxSize, maxValue);
+            int[] arr2 = copyArray(arr1);
+            int[] arr3 = copyArray(arr2);
+            new Code_QuickSort().sortIntegers2(arr1);
+            new Code_QuickSort().sortIntegers21(arr2);
+            Arrays.sort(arr3);
+            if (!isEqual(arr1, arr2) || !isEqual(arr1, arr3) || !isEqual(arr2, arr3)) {
+                System.out.println("oops！");
+                printArray(arr1);
+                printArray(arr2);
+                printArray(arr3);
+                break;
+            }
+        }
+        System.out.println("test end");
+    }
 }
