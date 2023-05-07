@@ -3,7 +3,6 @@ package random;
 // 实现前缀和
 // 303. 区域和检索 - 数组不可变
 // https://leetcode.cn/problems/range-sum-query-immutable/
-@Deprecated
 public class LeetCode_0303_RangeSumQueryImmutable {
     // 在数组不可变的情况下，可以使用前缀和数组加速求区间和
     class NumArray {
