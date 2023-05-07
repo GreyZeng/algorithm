@@ -1,5 +1,7 @@
 package mergesort;
 
+import java.util.Arrays;
+
 /**
  * 归并排序
  * <p>
@@ -20,6 +22,7 @@ package mergesort;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
 public class Code_MergeSort {
     // 递归方法实现
+
     public static void mergeSort1(int[] arr) {
         if (arr == null || arr.length <= 1) {
             return;
@@ -54,12 +57,10 @@ public class Code_MergeSort {
         while (rs <= r) {
             help[i++] = arr[rs++];
         }
-        i = 0;
-        for (; i < help.length; i++) {
+        for (i = 0; i < help.length; i++) {
             arr[l++] = help[i];
         }
     }
-
 
     // 非递归方法实现
     public static void mergeSort2(int[] arr) {
@@ -67,30 +68,25 @@ public class Code_MergeSort {
             return;
         }
         int len = arr.length;
-        // 步长，1，2，4，8....
         int step = 1;
         while (step < len) {
-            // 左组的第一个位置
-            int lStart = 0;
-            while (lStart < len) {
-                if (lStart + step >= len) {
-                    // 没有右组
+            int lS = 0;
+            while (lS < len) {
+                if (lS + step >= len) {
                     break;
                 }
-                int mid = lStart + step - 1;
-                // rEnd不能越界
-                int rEnd = mid + Math.min(step, len - mid - 1);
-                // 右组中第一个位置
-                // 中点位置
-                merge(arr, lStart, mid, rEnd);
-                lStart = rEnd + 1;
+                int mid = lS + step - 1;
+                int rE = Math.min(lS + 2 * step - 1, len - 1);
+                merge(arr, lS, mid, rE);
+                lS = rE + 1;
             }
-            // 防止溢出
+
             if (step > (len / 2)) {
                 break;
             }
             step <<= 1;
         }
+
     }
 
     // for test
@@ -151,12 +147,17 @@ public class Code_MergeSort {
         for (int i = 0; i < testTime; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
             int[] arr2 = copyArray(arr1);
+            int[] arr3 = copyArray(arr2);
             mergeSort1(arr1);
             mergeSort2(arr2);
-            if (!isEqual(arr1, arr2)) {
+            // 注：这里一定要用另外一种排序算法验证，
+            // 因为mergesort的递归和非递归都调用了merge方法，可能导致递归和非递归的结果都是错的，但是却可以通过对数器
+            Arrays.sort(arr3);
+            if (!isEqual(arr1, arr2) || !isEqual(arr1, arr3) || !isEqual(arr2, arr3)) {
                 System.out.println("出错了！");
                 printArray(arr1);
                 printArray(arr2);
+                printArray(arr3);
                 break;
             }
         }
