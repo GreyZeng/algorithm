@@ -1,25 +1,24 @@
 package bit;
 
-/**
- * 题目三
- * <p>
- * 怎么把一个int类型的数，提取出最右侧的1来
- */
+// 怎么把一个int类型的数，提取出最右侧的1来
 public class Code_RightOne {
     public static void main(String[] args) {
-        int i = 116;
-        int result = rightOne(i);
-        System.out.println(result);
-        String x = Integer.toBinaryString(i);
-        String y = Integer.toBinaryString(result);
-        // 1110100
-        // 0001011
-        System.out.println(" x = " + x);
-        System.out.println(" y = " + y);
+        int testTimes = 2000000000;
+        for (int i = 0; i < testTimes; i++) {
+            if (rightOne2(i) != rightOne(i)) {
+                System.out.println("oops");
+                return;
+            }
+        }
+        System.out.println("nice!");
     }
 
 
     public static int rightOne(int N) {
         return N & ((~N) + 1);
+    }
+
+    public static int rightOne2(int N) {
+        return N & (-N);
     }
 }
