@@ -17,37 +17,39 @@ import java.util.Stack;
  * <p>
  * 时间复杂度O(N*logN)，额外空间复杂度O(logN)都是这么来的。
  */
-// 测评：https://www.lintcode.com/problem/464
 public class Code_QuickSort {
 
-
+    // 测评：https://www.lintcode.com/problem/464
     // 递归方法
-    public static void sortIntegers2(int[] arr) {
-        if (null == arr || arr.length < 2) {
+    public void sortIntegers2(int[] a) {
+        if (null == a || a.length < 2) {
             return;
         }
-        process(arr, 0, arr.length - 1);
+        quickSort(a, 0, a.length - 1);
     }
 
-    public static void process(int[] arr, int s, int e) {
-        if (s >= e) {
-            return;
+    public void quickSort(int[] arr, int s, int e) {
+        if (s < e) {
+            // Math.random() -> [0,1) 
+            // Math.random() * (e - s) -> [0, e - s)
+            // (int)(Math.random()*(e-s)) -> [0, e - s - 1]
+            // s + (int) (Math.random() * (e - s)) -> [s, e - 1]
+            swap(arr, e, s + (int) (Math.random() * (e - s)));
+            int[] range = sortColors(arr, s, e);
+            quickSort(arr, s, range[0] - 1);
+            quickSort(arr, range[1] + 1, e);
         }
-        swap(arr, e, s + (int) (Math.random() * (e - s)));
-        int[] range = sortColors(arr, s, e);
-        process(arr, s, range[0] - 1);
-        process(arr, range[1] + 1, e);
     }
 
-    public static void swap(int[] arr, int i, int j) {
+    public void swap(int[] arr, int i, int j) {
         if (i != j) {
             arr[i] = arr[i] ^ arr[j];
             arr[j] = arr[i] ^ arr[j];
             arr[i] = arr[i] ^ arr[j];
         }
     }
-
-    public static int[] sortColors(int[] arr, int s, int e) {
+    // 荷兰国旗问题
+    public int[] sortColors(int[] arr, int s, int e) {
         int l = s - 1;
         int r = e + 1;
         int p = arr[e];
@@ -66,7 +68,7 @@ public class Code_QuickSort {
 
     // TODO
     // 快速排序非递归版本
-    public static class Op {
+    public class Op {
         public int l;
         public int r;
 
@@ -77,7 +79,7 @@ public class Code_QuickSort {
     }
 
     // 测评时候需要把sortIntegers21改成sortIntegers2
-    public static void sortIntegers21(int[] arr) {
+    public void sortIntegers21(int[] arr) {
         if (null == arr || arr.length < 2) {
             return;
         }
