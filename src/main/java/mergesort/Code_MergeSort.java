@@ -19,23 +19,21 @@ package mergesort;
  */
 // 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
 public class Code_MergeSort {
-
     // 递归方法实现
     public static void mergeSort1(int[] arr) {
-        if (arr == null || arr.length < 2) {
+        if (arr == null || arr.length <= 1) {
             return;
         }
         process(arr, 0, arr.length - 1);
     }
 
     public static void process(int[] arr, int l, int r) {
-        if (l == r) {
-            return;
+        if (l != r) {
+            int mid = l + ((r - l) >> 1);
+            process(arr, l, mid);
+            process(arr, mid + 1, r);
+            merge(arr, l, mid, r);
         }
-        int mid = l + ((r - l) >> 1);
-        process(arr, l, mid);
-        process(arr, mid + 1, r);
-        merge(arr, l, mid, r);
     }
 
     public static void merge(int[] arr, int l, int mid, int r) {
@@ -44,10 +42,10 @@ public class Code_MergeSort {
         int rs = mid + 1;
         int i = 0;
         while (ls <= mid && rs <= r) {
-            if (arr[ls] < arr[rs]) {
-                help[i++] = arr[ls++];
-            } else {
+            if (arr[ls] > arr[rs]) {
                 help[i++] = arr[rs++];
+            } else {
+                help[i++] = arr[ls++];
             }
         }
         while (ls <= mid) {
@@ -57,10 +55,11 @@ public class Code_MergeSort {
             help[i++] = arr[rs++];
         }
         i = 0;
-        for (int n : help) {
-            arr[l + (i++)] = n;
+        for (; i < help.length; i++) {
+            arr[l++] = help[i];
         }
     }
+
 
     // 非递归方法实现
     public static void mergeSort2(int[] arr) {
