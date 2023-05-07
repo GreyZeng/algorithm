@@ -1,4 +1,4 @@
-package sort;
+package sort.qsort;
 
 import java.util.Stack;
 
