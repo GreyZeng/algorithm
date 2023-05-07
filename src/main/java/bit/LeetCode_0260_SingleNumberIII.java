@@ -2,25 +2,23 @@ package bit;
 
 // 一个数组中有两种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这两种数
 // https://www.cnblogs.com/greyzeng/p/15385402.html
+// https://leetcode.com/problems/single-number-iii/
 public class LeetCode_0260_SingleNumberIII {
-    public static int[] singleNumber(int[] arr) {
-        int eor = 0;
-        for (int n : arr) {
-            eor ^= n;
+    public int[] singleNumber(int[] nums) {
+        int eor = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            eor ^= nums[i];
         }
-        // 最右侧的1
-        int mostRightOne = (eor) & ((~eor) + 1);
-        // eor的结果就是 a^b
-        // 假设a和mostRightOne位置上的1一致
-        // b就肯定和mostRightOne位置上的1不一致
+        // eor = a ^ b
+        int mostRightOne = eor & (-eor);
         int a = 0;
-        for (int n : arr) {
-            if ((n & mostRightOne) != 0) {
-                // a阵营中的数
+        int b = 0;
+        for (int n : nums) {
+            if ((mostRightOne ^ n) == 0) {
                 a ^= n;
             }
         }
-        int b = a ^ eor;
+        b = a ^ eor;
         return new int[]{a, b};
     }
 }
