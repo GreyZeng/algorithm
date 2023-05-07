@@ -1,4 +1,4 @@
-package 算法.排序;
+package sort;
 
 import java.util.Stack;
 
@@ -18,14 +18,8 @@ import java.util.Stack;
  * 时间复杂度O(N*logN)，额外空间复杂度O(logN)都是这么来的。
  */
 // 测评：https://www.lintcode.com/problem/464
-public class LintCode_0464_SortIntegersII {
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 5, 4, 3, 1, 2, 3, 6, 5, 4};
-        sortIntegers2(arr);
-        for (int n : arr) {
-            System.out.print(n + " ");
-        }
-    }
+public class Code_QuickSort {
+
 
     // 递归方法
     public static void sortIntegers2(int[] arr) {
