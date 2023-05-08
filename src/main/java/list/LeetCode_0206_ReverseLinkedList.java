@@ -20,37 +20,36 @@ public class LeetCode_0206_ReverseLinkedList {
 			this.val = val;
 			this.next = next;
 		}
+	}
 
-		// 非递归版本
-		public ListNode reverseList(ListNode head) {
-			if (head == null || head.next == null) {
-				return head;
-			}
-			ListNode pre = null;
-			while (head != null) {
-				ListNode t = head.next;
-				head.next = pre;
-				pre = head;
-				head = t;
-			}
-			return pre;
+	// 非递归版本
+	public ListNode reverseList(ListNode head) {
+		if (head == null || head.next == null) {
+			return head;
 		}
-
-		// 递归版本
-		public ListNode reverseList2(ListNode head) {
-			return reverse(head);
+		ListNode pre = null;
+		while (head != null) {
+			ListNode t = head.next;
+			head.next = pre;
+			pre = head;
+			head = t;
 		}
+		return pre;
+	}
 
-		// 反转head为头的链表，并把反转后的头节点返回
-		public ListNode reverse(ListNode head) {
-			if (head == null || head.next == null) {
-				return head;
-			}
-			ListNode nextHead = reverse(head.next);
-			head.next.next = head;
-			head.next = null;
-			return nextHead;
+	// 递归版本
+	public ListNode reverseList2(ListNode head) {
+		return reverse(head);
+	}
+
+	// 反转head为头的链表，并把反转后的头节点返回
+	public ListNode reverse(ListNode head) {
+		if (head == null || head.next == null) {
+			return head;
 		}
-
+		ListNode nextHead = reverse(head.next);
+		head.next.next = head;
+		head.next = null;
+		return nextHead;
 	}
 }
