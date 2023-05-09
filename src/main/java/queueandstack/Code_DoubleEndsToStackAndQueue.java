@@ -5,12 +5,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-/**
- * 自定义的双向链表实现栈和队列
- *
- * @link <a href="https://www.cnblogs.com/greyzeng/p/16631644.html">笔记</a>
- * @see LeetCode_0641_DesignCircularDeque
- */
+// @see LeetCode_0641_DesignCircularDeque
+// notes: https://www.cnblogs.com/greyzeng/p/16631644.html
+// double linked list to stack and queue
 public class Code_DoubleEndsToStackAndQueue {
     private final static class Node<V> {
         public V data;
