@@ -10,7 +10,7 @@ public class LeetCode_0622_DesignCircularQueue {
         private int popIndex;
         private int pushIndex; // 队列尾部的下一个位置（就是待插入元素的位置）
         private int rear; // 队列尾部指针
-        private int size;
+        private int size; // 非常重要，用于判断队列是否满/空
         private final int limit; // 容量，和arr大小保持一致
 
         public MyCircularQueue(int k) {
