@@ -19,23 +19,25 @@ public class LeetCode_0622_DesignCircularQueue {
         }
 
         public boolean enQueue(int value) {
-            if (isFull()) {
+            if (!isFull()) {
+                arr[pushIndex] = value;
+                rear = pushIndex;
+                pushIndex = next(pushIndex);
+                size++;
+                return true;
+            } else {
                 return false;
             }
-            size++;
-            arr[pushIndex] = value;
-            rear = pushIndex;
-            pushIndex = next(pushIndex);
-            return true;
         }
 
         public boolean deQueue() {
-            if (isEmpty()) {
+            if (!isEmpty()) {
+                popIndex = next(popIndex);
+                size--;
+                return true;
+            } else {
                 return false;
             }
-            size--;
-            popIndex = next(popIndex);
-            return true;
         }
 
         public int Front() {
@@ -54,8 +56,9 @@ public class LeetCode_0622_DesignCircularQueue {
             return size == limit;
         }
 
+        // 最重要的方法：判断下一个位置，模拟环行为
         private int next(int pre) {
-            return pre < limit - 1 ? pre + 1 : 0;
+            return pre + 1 < limit ? pre + 1 : 0;
         }
     }
 }
