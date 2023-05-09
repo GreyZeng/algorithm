@@ -1,42 +1,50 @@
-package 练习题.leetcode.easy;
+package queueandstack;
 
 import java.util.Stack;
 
 // 最小栈
 // 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
-// https://leetcode-cn.com/problems/min-stack
+// https://leetcode.com/problems/min-stack
 public class LeetCode_0155_MinStack {
     static class MinStack {
-        Stack<Integer> stack;
-        Stack<Integer> min;
+        Stack<Integer> minStack;
+        Stack<Integer> valStack;
 
         public MinStack() {
-            stack = new Stack<>();
-            min = new Stack<>();
+            minStack = new Stack<>();
+            valStack = new Stack<>();
         }
 
         public void push(int val) {
-            stack.push(val);
-            if (min.isEmpty()) {
-                min.push(val);
+            valStack.push(val);
+            if (!minStack.isEmpty()) {
+                if (minStack.peek() < val) {
+                    minStack.push(minStack.peek());
+                } else {
+                    minStack.push(val);
+                }
             } else {
-                min.push(Math.min(min.peek(), val));
+                minStack.push(val);
             }
+
         }
 
         public void pop() {
-            stack.pop();
-            min.pop();
+            if (!valStack.isEmpty()) {
+                valStack.pop();
+                minStack.pop();
+            }
         }
 
         public int top() {
-            return stack.peek();
+            return valStack.peek();
         }
 
         public int getMin() {
-            return min.peek();
+            return minStack.peek();
         }
     }
+
 
     // TODO
     static class MinStackO1 {
