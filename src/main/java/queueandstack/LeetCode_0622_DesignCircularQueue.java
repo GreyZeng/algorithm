@@ -1,4 +1,4 @@
-package 练习题.leetcode.medium;
+package queueandstack;
 
 // 数组实现不超过固定大小的队列
 // 设计循环队列
