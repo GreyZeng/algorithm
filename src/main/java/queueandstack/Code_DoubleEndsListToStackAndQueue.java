@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+// 用双链表实现栈和队列
 // @see LeetCode_0641_DesignCircularDeque
 // notes: https://www.cnblogs.com/greyzeng/p/16631644.html
-// double linked list to stack and queue
-public class Code_DoubleEndsToStackAndQueue {
+public class Code_DoubleEndsListToStackAndQueue {
     public static class Node<T> {
         public T value;
         public Node<T> last;
@@ -24,7 +24,7 @@ public class Code_DoubleEndsToStackAndQueue {
         public Node<T> tail;
 
         public void addFromHead(T value) {
-            Node<T> cur = new Node<T>(value);
+            Node<T> cur = new Node<>(value);
             if (head == null) {
                 head = cur;
                 tail = cur;
@@ -36,7 +36,7 @@ public class Code_DoubleEndsToStackAndQueue {
         }
 
         public void addFromBottom(T value) {
-            Node<T> cur = new Node<T>(value);
+            Node<T> cur = new Node<>(value);
             if (head == null) {
                 head = cur;
                 tail = cur;
@@ -89,7 +89,7 @@ public class Code_DoubleEndsToStackAndQueue {
         private DoubleEndsQueue<T> queue;
 
         public MyStack() {
-            queue = new DoubleEndsQueue<T>();
+            queue = new DoubleEndsQueue<>();
         }
 
         public void push(T value) {
@@ -110,7 +110,7 @@ public class Code_DoubleEndsToStackAndQueue {
         private DoubleEndsQueue<T> queue;
 
         public MyQueue() {
-            queue = new DoubleEndsQueue<T>();
+            queue = new DoubleEndsQueue<>();
         }
 
         public void push(T value) {
