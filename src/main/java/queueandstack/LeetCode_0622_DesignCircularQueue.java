@@ -2,16 +2,16 @@ package queueandstack;
 
 // 数组实现不超过固定大小的队列
 // 设计循环队列
-// https://leetcode.cn/problems/design-circular-queue/
+// https://leetcode.com/problems/design-circular-queue/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
 public class LeetCode_0622_DesignCircularQueue {
     class MyCircularQueue {
         private final int[] arr;
         private int popIndex;
-        private int pushIndex;
-        private int rear;
+        private int pushIndex; // 队列尾部的下一个位置（就是待插入元素的位置）
+        private int rear; // 队列尾部指针
         private int size;
-        private final int limit;
+        private final int limit; // 容量，和arr大小保持一致
 
         public MyCircularQueue(int k) {
             limit = k;
