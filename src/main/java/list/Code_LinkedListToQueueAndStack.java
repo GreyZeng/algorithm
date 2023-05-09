@@ -135,8 +135,6 @@ public class Code_LinkedListToQueueAndStack {
 
 
     public static void testQueue() {
-
-
         MyQueue<Integer> myQueue = new MyQueue<>();
         Queue<Integer> test = new LinkedList<>();
         int testTime = 5000000;

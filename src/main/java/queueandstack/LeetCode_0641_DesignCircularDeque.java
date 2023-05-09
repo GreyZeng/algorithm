@@ -1,13 +1,8 @@
 package queueandstack;
 
-
-/**
- * 用双向链表实现双端队列
- *
- * @link <a href="https://www.cnblogs.com/greyzeng/p/16631644.html">笔记</a>
- * @link <a href="https://leetcode-cn.com/problems/design-circular-deque/">双向链表实现双端队列</a>
- * @see Code_DoubleEndsToStackAndQueue
- */
+// 用双向链表实现双端队列
+// notes: https://www.cnblogs.com/greyzeng/p/16631644.html
+// https://leetcode.com/problems/design-circular-deque
 public class LeetCode_0641_DesignCircularDeque {
 
     class MyCircularDeque {

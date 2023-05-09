@@ -9,261 +9,177 @@ import java.util.Stack;
 // notes: https://www.cnblogs.com/greyzeng/p/16631644.html
 // double linked list to stack and queue
 public class Code_DoubleEndsToStackAndQueue {
-    private final static class Node<V> {
-        public V data;
-        public Node<V> next;
-        public Node<V> last;
+    public static class Node<T> {
+        public T value;
+        public Node<T> last;
+        public Node<T> next;
 
-        public Node(V data) {
-            this.data = data;
+        public Node(T data) {
+            value = data;
         }
     }
 
-    public final static class DoubleEndsQueue<T> {
+    public static class DoubleEndsQueue<T> {
         public Node<T> head;
         public Node<T> tail;
 
         public void addFromHead(T value) {
-            Node<T> node = new Node<>(value);
+            Node<T> cur = new Node<T>(value);
             if (head == null) {
-                tail = node;
+                head = cur;
+                tail = cur;
             } else {
-                node.next = head;
-                head.last = node;
+                cur.next = head;
+                head.last = cur;
+                head = cur;
             }
-            head = node;
         }
 
         public void addFromBottom(T value) {
-            Node<T> node = new Node<>(value);
-            if (tail == null) {
-                head = node;
+            Node<T> cur = new Node<T>(value);
+            if (head == null) {
+                head = cur;
+                tail = cur;
             } else {
-                tail.next = node;
-                node.last = tail;
+                cur.last = tail;
+                tail.next = cur;
+                tail = cur;
             }
-            tail = node;
         }
 
         public T popFromHead() {
-            if (null == head || tail == null) {
+            if (head == null) {
                 return null;
             }
-            T data = head.data;
+            Node<T> cur = head;
             if (head == tail) {
                 head = null;
                 tail = null;
-                return data;
+            } else {
+                head = head.next;
+                cur.next = null;
+                head.last = null;
             }
-            head = head.next;
-            head.last = null;
-
-            return data;
-
+            return cur.value;
         }
 
         public T popFromBottom() {
-            if (tail == null || head == null) {
+            if (head == null) {
                 return null;
             }
-            T data = tail.data;
-            if (tail == head) {
-                tail = null;
+            Node<T> cur = tail;
+            if (head == tail) {
                 head = null;
-                return data;
+                tail = null;
+            } else {
+                tail = tail.last;
+                tail.next = null;
+                cur.last = null;
             }
-            tail = tail.last;
-            tail.next = null;
-
-            return data;
+            return cur.value;
         }
 
         public boolean isEmpty() {
-            return head == null || tail == null;
+            return head == null;
         }
 
     }
 
-    public final static class MyStack<T> {
+    public static class MyStack<T> {
         private DoubleEndsQueue<T> queue;
-        private int size;
 
         public MyStack() {
-            size = 0;
-            queue = new DoubleEndsQueue<>();
+            queue = new DoubleEndsQueue<T>();
         }
 
         public void push(T value) {
-            size++;
             queue.addFromHead(value);
         }
 
         public T pop() {
-            if (null == queue || isEmpty()) {
-                return null;
-            }
-            size--;
             return queue.popFromHead();
         }
 
-        public int size() {
-            return size;
-        }
-
         public boolean isEmpty() {
-            return size() == 0;
+            return queue.isEmpty();
         }
 
-        public T peek() {
-            if (isEmpty()) {
-                return null;
-            }
-            return queue.head.data;
-        }
     }
 
-    public final static class MyQueue<T> {
+    public static class MyQueue<T> {
         private DoubleEndsQueue<T> queue;
-        private int size;
 
         public MyQueue() {
-            size = 0;
-            queue = new DoubleEndsQueue<>();
+            queue = new DoubleEndsQueue<T>();
         }
 
-
-        public void offer(T value) {
-            if (null == queue) {
-                return;
-            }
-            size++;
+        public void push(T value) {
             queue.addFromHead(value);
         }
 
         public T poll() {
-            if (isEmpty()) {
-                return null;
-            }
-            size--;
             return queue.popFromBottom();
         }
 
-        public T peek() {
-            if (isEmpty()) {
-                return null;
-            }
-            return queue.tail.data;
-        }
-
-        public int size() {
-            return size;
-        }
-
         public boolean isEmpty() {
-            return size() == 0;
+            return queue.isEmpty();
         }
+
     }
 
-    public static void testQueue() {
-        MyQueue<Integer> myQueue = new MyQueue<>();
-        Queue<Integer> test = new LinkedList<>();
-        int testTime = 5000000;
-        int maxValue = 200000000;
-        System.out.println("测试开始！");
-        for (int i = 0; i < testTime; i++) {
-            if (myQueue.isEmpty() != test.isEmpty()) {
-                System.out.println("Oops!");
-            }
-            if (myQueue.size() != test.size()) {
-                System.out.println("Oops!");
-            }
-            double decide = Math.random();
-            if (decide < 0.33) {
-                int num = (int) (Math.random() * maxValue);
-                myQueue.offer(num);
-                test.offer(num);
-            } else if (decide < 0.66) {
-                if (!myQueue.isEmpty()) {
-                    int num1 = myQueue.poll();
-                    int num2 = test.poll();
-                    if (num1 != num2) {
-                        System.out.println("Oops!");
-                    }
-                }
-            } else {
-                if (!myQueue.isEmpty()) {
-                    int num1 = myQueue.peek();
-                    int num2 = test.peek();
-                    if (num1 != num2) {
-                        System.out.println("Oops!");
-                    }
-                }
-            }
+    public static boolean isEqual(Integer o1, Integer o2) {
+        if (o1 == null && o2 != null) {
+            return false;
         }
-        if (myQueue.size() != test.size()) {
-            System.out.println("Oops!");
+        if (o1 != null && o2 == null) {
+            return false;
         }
-        while (!myQueue.isEmpty()) {
-            int num1 = myQueue.poll();
-            int num2 = test.poll();
-            if (num1 != num2) {
-                System.out.println("Oops!");
-            }
+        if (o1 == null) {
+            return true;
         }
-        System.out.println("测试结束！");
-    }
-
-    public static void testStack() {
-        MyStack<Integer> myStack = new MyStack<>();
-        Stack<Integer> test = new Stack<>();
-        int testTime = 5000000;
-        int maxValue = 200000000;
-        System.out.println("测试开始！");
-        for (int i = 0; i < testTime; i++) {
-            if (myStack.isEmpty() != test.isEmpty()) {
-                System.out.println("Oops!");
-            }
-            if (myStack.size() != test.size()) {
-                System.out.println("Oops!");
-            }
-            double decide = Math.random();
-            if (decide < 0.33) {
-                int num = (int) (Math.random() * maxValue);
-                myStack.push(num);
-                test.push(num);
-            } else if (decide < 0.66) {
-                if (!myStack.isEmpty()) {
-                    int num1 = myStack.pop();
-                    int num2 = test.pop();
-                    if (num1 != num2) {
-                        System.out.println("Oops!");
-                    }
-                }
-            } else {
-                if (!myStack.isEmpty()) {
-                    int num1 = myStack.peek();
-                    int num2 = test.peek();
-                    if (num1 != num2) {
-                        System.out.println("Oops!");
-                    }
-                }
-            }
-        }
-        if (myStack.size() != test.size()) {
-            System.out.println("Oops!");
-        }
-        while (!myStack.isEmpty()) {
-            int num1 = myStack.pop();
-            int num2 = test.pop();
-            if (num1 != num2) {
-                System.out.println("Oops!");
-            }
-        }
-        System.out.println("测试结束！");
+        return o1.equals(o2);
     }
 
     public static void main(String[] args) {
-        testQueue();
-        testStack();
+        int oneTestDataNum = 100;
+        int value = 10000;
+        int testTimes = 100000;
+        for (int i = 0; i < testTimes; i++) {
+            MyStack<Integer> myStack = new MyStack<>();
+            MyQueue<Integer> myQueue = new MyQueue<>();
+            Stack<Integer> stack = new Stack<>();
+            Queue<Integer> queue = new LinkedList<>();
+            for (int j = 0; j < oneTestDataNum; j++) {
+                int nums = (int) (Math.random() * value);
+                if (stack.isEmpty()) {
+                    myStack.push(nums);
+                    stack.push(nums);
+                } else {
+                    if (Math.random() < 0.5) {
+                        myStack.push(nums);
+                        stack.push(nums);
+                    } else {
+                        if (!isEqual(myStack.pop(), stack.pop())) {
+                            System.out.println("oops!");
+                        }
+                    }
+                }
+                int numq = (int) (Math.random() * value);
+                if (queue.isEmpty()) {
+                    myQueue.push(numq);
+                    queue.offer(numq);
+                } else {
+                    if (Math.random() < 0.5) {
+                        myQueue.push(numq);
+                        queue.offer(numq);
+                    } else {
+                        if (!isEqual(myQueue.poll(), queue.poll())) {
+                            System.out.println("oops!");
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("finish!");
     }
 }

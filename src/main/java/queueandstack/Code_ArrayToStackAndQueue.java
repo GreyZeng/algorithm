@@ -2,9 +2,8 @@ package queueandstack;
 
 import java.util.ArrayList;
 
-/**
- * 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html 数组实现栈和队列
- */
+// 数组实现栈和队列
+// 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
 public class Code_ArrayToStackAndQueue {
 
     public final static class MyStack<T> {
