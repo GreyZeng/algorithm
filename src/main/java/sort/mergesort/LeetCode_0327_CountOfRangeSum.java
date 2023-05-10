@@ -35,6 +35,7 @@ public class LeetCode_0327_CountOfRangeSum {
 	public int p(long[] preSum, int l, int r, int lower, int upper) {
 		if (l == r) {
 			if (preSum[l] >= lower && preSum[r] <= upper) {
+				// 0...l/r位置满足条件，找到一种情况
 				return 1;
 			}
 			return 0;
@@ -52,6 +53,7 @@ public class LeetCode_0327_CountOfRangeSum {
 		int S = mid + 1;
 		// 不回退，所以O(logN)
 		while (S <= r) {
+			// 必须以S位置（右组）结尾的有多少中情况
 			long max = preSum[S] - lower;
 			long min = preSum[S] - upper;
 			while (L <= mid && preSum[L] < min) {
