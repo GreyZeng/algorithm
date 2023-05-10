@@ -1,4 +1,4 @@
-package 算法.递归;
+package recursion;
 
 import java.io.File;
 import java.util.LinkedList;
