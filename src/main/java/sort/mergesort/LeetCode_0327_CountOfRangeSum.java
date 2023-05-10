@@ -21,7 +21,7 @@ import java.util.HashSet;
 // 有序表提供add(num) [可以加入重复数字] 和 search(L,R)【L...R中有多少个，其实只需要提供<num的数有多少个这个接口加工而来】 两个接口即可
 // 左滑不处理，右滑累加，每个数据项里面包含节点个数
 public class LeetCode_0327_CountOfRangeSum {
- 
+
 	public int countRangeSum(int[] nums, int lower, int upper) {
 		int len = nums.length;
 		long[] preSum = new long[len];

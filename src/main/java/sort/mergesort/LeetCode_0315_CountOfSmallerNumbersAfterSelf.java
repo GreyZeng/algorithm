@@ -17,7 +17,7 @@
  *
  * 0 <= nums.length <= 10^5 -10^4 <= nums[i] <= 10^4
  */
-package 练习题.leetcode.hard;
+package sort.mergesort;
 
 import java.util.ArrayList;
 import java.util.Arrays;

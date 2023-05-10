@@ -1,5 +1,5 @@
 
-package 练习题.leetcode.hard;
+package sort.mergesort;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
 // https://leetcode.cn/problems/reverse-pairs/
