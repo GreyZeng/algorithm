@@ -41,7 +41,7 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
         }
     }
 
-    // 思路转换为：一个数的右边有多少个数比它小！
+    // 思路转换为：一个数的右边有多少个数比它小！也等价于一个数的左边有多少个数比它大！
     // 改归并排序（从大到小）
     public static List<Integer> countSmaller(int[] nums) {
         List<Integer> result = new ArrayList<>(nums.length);
