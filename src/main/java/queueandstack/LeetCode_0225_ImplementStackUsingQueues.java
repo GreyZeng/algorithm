@@ -1,4 +1,4 @@
-package 练习题.leetcode.easy;
+package queueandstack;
 
 import java.util.LinkedList;
 import java.util.Queue;
