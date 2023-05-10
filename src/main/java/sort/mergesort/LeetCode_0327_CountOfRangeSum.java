@@ -44,8 +44,6 @@ public class LeetCode_0327_CountOfRangeSum {
 		return left + right + merge;
 	}
 
-
-
 	private int merge(long[] preSum, int l, int m, int r, int lower, int upper) {
 		int ans = 0;
 		// 单调性->滑动窗口
