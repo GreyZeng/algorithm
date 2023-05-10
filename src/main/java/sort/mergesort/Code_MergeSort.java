@@ -61,28 +61,26 @@ public class Code_MergeSort {
 
 	// 非递归方法实现
 	public static void mergeSort2(int[] arr) {
-		if (arr == null || arr.length < 2) {
-			return;
-		}
-		int len = arr.length;
-		int step = 1; // 1,2,4...
-		while (step < len) {
-			int lS = 0;
-			while (lS < len) {
-				if (lS + step >= len) {
+		if(null != arr && arr.length > 1) {
+			int group = 1;
+			int len = arr.length;
+			while (group < len) {
+				int ls = 0;
+				while (ls < len) {
+					if (ls + group >= len) {
+						break;
+					}
+					int mid = ls + group - 1;
+					int le = Math.min(mid + group, len - 1);
+					merge(arr, ls, mid, le);
+					ls = le + 1;
+				}
+				if (group * 2 > len) {
 					break;
 				}
-				int mid = lS + step - 1;
-				int rE = Math.min(lS + 2 * step - 1, len - 1);
-				merge(arr, lS, mid, rE);
-				lS = rE + 1;
+				group <<= 1;
 			}
-			if (step > (len / 2)) {
-				break;
-			}
-			step <<= 1;
 		}
-
 	}
 
 	// for test
