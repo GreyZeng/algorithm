@@ -1,58 +1,53 @@
 package queueandstack;
 
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.LinkedList;
 
 // 使用队列实现栈
 // 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
 public class LeetCode_0225_ImplementStackUsingQueues {
-    class MyStack {
-        private Queue<Integer> data;
-        private Queue<Integer> help;
+	class MyStack {
+		// only use poll() and offer()
+		private Queue<Integer> data;
+		private Queue<Integer> helper;
 
-        public MyStack() {
-            data = new LinkedList<>();
-            help = new LinkedList<>();
-        }
+		public MyStack() {
+			data = new LinkedList<>();
+			helper = new LinkedList<>();
+		}
 
-        // 从尾部进
-        public void push(int x) {
-            data.offer(x);
-        }
+		public void push(int x) {
+			data.offer(x);
+		}
 
-        public int pop() {
-            int result = 0;
-            while (!data.isEmpty()) {
-                int x = data.poll();
-                if (data.isEmpty()) {
-                    result = x;
-                } else {
-                    help.offer(x);
-                }
-            }
-            Queue<Integer> t = data;
-            data = help;
-            help = t;
-            return result;
-        }
+		public int pop() {
+			int rv = -1;
+			while (!data.isEmpty()) {
+				rv = data.poll();
+				if (!data.isEmpty()) {
+					helper.offer(rv);
+				}
+			}
+			Queue<Integer> tmp = data;
+			data = helper;
+			helper = tmp;
+			return rv;
+		}
 
-        public int top() {
-            int result = 0;
-            while (!data.isEmpty()) {
-                int x = data.poll();
-                help.offer(x);
-                if (data.isEmpty()) {
-                    result = x;
-                }
-            }
-            Queue<Integer> t = data;
-            data = help;
-            help = t;
-            return result;
-        }
+		public int top() {
+			int rv = -1;
+			while (!data.isEmpty()) {
+				rv = data.poll();
+				helper.offer(rv);
+			}
+			Queue<Integer> tmp = data;
+			data = helper;
+			helper = tmp;
+			return rv;
+		}
 
-        public boolean empty() {
-            return data.isEmpty();
-        }
-    }
+		public boolean empty() {
+			return data.isEmpty();
+		}
+	}
 }
