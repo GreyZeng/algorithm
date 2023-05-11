@@ -1,4 +1,4 @@
-package 数据结构.二叉树;
+package tree;
 
 import java.util.HashMap;
 import java.util.Scanner;

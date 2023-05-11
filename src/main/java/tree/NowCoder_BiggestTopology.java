@@ -14,7 +14,7 @@
  *
  * 备注: 1≤n≤200000 1≤fa,lch,rch,root≤n
  */
-package 数据结构.二叉树;
+package tree;
 
 import java.util.HashMap;
 import java.util.Scanner;
