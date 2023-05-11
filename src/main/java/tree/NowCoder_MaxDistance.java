@@ -10,40 +10,40 @@ import java.util.Scanner;
  */
 public class NowCoder_MaxDistance {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		String firstLine = sc.nextLine();
-		String[] s = firstLine.split(" ");
-		int n = Integer.valueOf(s[0]);
-		int rootVal = Integer.valueOf(s[1]);
-		HashMap<Integer, TreeNode> map = new HashMap<>();
-		TreeNode root = new TreeNode();
-		map.put(rootVal, root);
+		try (Scanner sc = new Scanner(System.in)) {
+			String firstLine = sc.nextLine();
+			String[] s = firstLine.split(" ");
+			int n = Integer.valueOf(s[0]);
+			int rootVal = Integer.valueOf(s[1]);
+			HashMap<Integer, TreeNode> map = new HashMap<>();
+			TreeNode root = new TreeNode();
+			map.put(rootVal, root);
 
-		// 构建二叉树
-		for (int i = 0; i < n; i++) {
-			String line = sc.nextLine();
-			String[] str = line.split(" ");
-			int faVal = Integer.valueOf(str[0]);
-			int lchVal = Integer.valueOf(str[1]);
-			int rchVal = Integer.valueOf(str[2]);
+			// 构建二叉树
+			for (int i = 0; i < n; i++) {
+				String line = sc.nextLine();
+				String[] str = line.split(" ");
+				int faVal = Integer.valueOf(str[0]);
+				int lchVal = Integer.valueOf(str[1]);
+				int rchVal = Integer.valueOf(str[2]);
 
-			TreeNode curNode = map.get(faVal);
+				TreeNode curNode = map.get(faVal);
 
-			if (lchVal != 0) {
-				TreeNode lch = new TreeNode();
-				curNode.left = lch;
-				map.put(lchVal, lch);
+				if (lchVal != 0) {
+					TreeNode lch = new TreeNode();
+					curNode.left = lch;
+					map.put(lchVal, lch);
+				}
+				if (rchVal != 0) {
+					TreeNode rch = new TreeNode();
+					curNode.right = rch;
+					map.put(rchVal, rch);
+				}
 			}
-			if (rchVal != 0) {
-				TreeNode rch = new TreeNode();
-				curNode.right = rch;
-				map.put(rchVal, rch);
-			}
+
+			Info info = process(root);
+			System.out.println(info.max);
 		}
-
-		Info info = process(root);
-		System.out.println(info.max);
-		sc.close();
 	}
 
 	public static Info process(TreeNode head) {
