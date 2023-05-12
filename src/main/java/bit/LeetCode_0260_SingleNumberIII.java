@@ -5,20 +5,19 @@ package bit;
 // https://leetcode.com/problems/single-number-iii/
 public class LeetCode_0260_SingleNumberIII {
     public int[] singleNumber(int[] nums) {
-        int eor = nums[0];
+    	int eor = nums[0];
         for (int i = 1; i < nums.length; i++) {
             eor ^= nums[i];
         }
-        // eor = a ^ b
-        int mostRightOne = eor & (-eor);
+        // eor = a ^ b;
+        int leftOne = eor & (-eor);
         int a = 0;
-        int b = 0;
-        for (int n : nums) {
-            if ((mostRightOne ^ n) == 0) {
-                a ^= n;
+        for (int i = 0; i < nums.length; i++) {
+            if ((nums[i] & leftOne) == 0) {
+                a ^= nums[i];
             }
         }
-        b = a ^ eor;
+        int b = a ^ eor;
         return new int[]{a, b};
     }
 }

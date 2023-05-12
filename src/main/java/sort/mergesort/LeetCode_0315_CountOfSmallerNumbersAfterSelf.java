@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-// https://leetcode.cn/problems/count-of-smaller-numbers-after-self/
+// https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 // 方法1：小和问题 改归并
 // 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
 // TODO
