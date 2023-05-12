@@ -1,4 +1,4 @@
-package 数据结构.DC3;
+package dc3;
 
 public class Code_DC3 {
 

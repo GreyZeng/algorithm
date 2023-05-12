@@ -1,4 +1,4 @@
-package 数据结构.LFU;
+package lfu;
 
 import java.util.HashMap;
 
