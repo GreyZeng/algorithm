@@ -1,4 +1,4 @@
-package 练习题.分糖果系列问题;
+package candy;
 
 import java.util.Scanner;
 

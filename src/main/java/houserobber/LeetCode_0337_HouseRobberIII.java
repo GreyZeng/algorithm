@@ -8,7 +8,7 @@
 // 来源：力扣（LeetCode）
 // 链接：https://leetcode.cn/problems/house-robber-iii
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-package 练习题.打家劫舍系列问题;
+package houserobber;
 
 // 类似员工最大快乐值问题
 // https://leetcode.cn/problems/house-robber-iii/

@@ -1,4 +1,4 @@
-package 练习题.股票系列问题;
+package stock;
 
 // Say you have an array for which the i-th element is the price of a given stock on day i.
 //

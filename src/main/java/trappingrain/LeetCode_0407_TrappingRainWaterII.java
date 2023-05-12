@@ -1,4 +1,4 @@
-package 练习题.接雨水系列问题;
+package trappingrain;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
