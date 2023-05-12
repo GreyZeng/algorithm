@@ -1,6 +1,7 @@
 
 package sort.mergesort;
 
+import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -13,7 +14,6 @@ import java.util.List;
 //
 //0 <= nums.length <= 10^5 
 //-10^4 <= nums[i] <= 10^4
-
 // https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 // 方法1：小和问题 改归并
 // 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
@@ -34,52 +34,49 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
 	// 思路转换为：一个数的右边有多少个数比它小！
 	// 改归并排序（从大到小）
 	public List<Integer> countSmaller(int[] nums) {
-		List<Integer> result = new ArrayList<>(nums.length);
+		List<Integer> ans = new LinkedList<>();
+		int[] result = new int[nums.length];
 		Node[] nodes = new Node[nums.length];
-		int[] collect = new int[nums.length];
 		for (int i = 0; i < nums.length; i++) {
 			nodes[i] = new Node(i, nums[i]);
 		}
-		process(nodes, 0, nums.length - 1, collect);
-		for (int n : collect) {
-			result.add(n);
+		count(nodes, 0, nums.length - 1, result);
+		for (int n : result) {
+			ans.add(n);
 		}
-		return result;
+		return ans;
 	}
 
-	private void process(Node[] nodes, int l, int r, int[] collect) {
-		if (l == r) {
-			return;
+	public void count(Node[] nums, int l, int r, int[] result) {
+		if (l != r) {
+			int m = ((r - l) >> 1) + l;
+			count(nums, l, m, result);
+			count(nums, m + 1, r, result);
+			merge(nums, l, m, r, result);
 		}
-		int m = l + ((r - l) >> 1);
-		process(nodes, l, m, collect);
-		process(nodes, m + 1, r, collect);
-		merge(nodes, l, m, r, collect);
 	}
-
-	private void merge(Node[] nodes, int l, int m, int r, int[] collect) {
+// 54 21 20 19 18 17 
+	public void merge(Node[] nums, int l, int m, int r, int[] result) {
 		Node[] help = new Node[r - l + 1];
-		int s1 = l;
-		int s2 = m + 1;
-		int index = 0;
-		while (s1 <= m && s2 <= r) {
-			if (nodes[s1].value > nodes[s2].value) {
-				collect[nodes[s1].index] = collect[nodes[s1].index] + r - s2 + 1;
-				help[index++] = nodes[s1++];
-			} else if (nodes[s1].value < nodes[s2].value) {
-				help[index++] = nodes[s2++];
+		int i = 0;
+		int ls = l;
+		int rs = m + 1;
+		while (ls <= m && rs <= r) {
+			if (nums[ls].value > nums[rs].value) {
+				result[nums[ls].index] = r - rs + 1 + result[nums[ls].index];
+				help[i++] = nums[ls++];
 			} else {
-				help[index++] = nodes[s2++];
+				help[i++] = nums[rs++];
 			}
 		}
-		while (s1 <= m) {
-			help[index++] = nodes[s1++];
+		while (ls <= m) {
+			help[i++] = nums[ls++];
 		}
-		while (s2 <= r) {
-			help[index++] = nodes[s2++];
+		while (rs <= r) {
+			help[i++] = nums[rs++];
 		}
-		for (int i = 0; i < help.length; i++) {
-			nodes[l + i] = help[i];
+		for (i = 0; i < help.length; i++) {
+			nums[l + i] = help[i];
 		}
 	}
 
