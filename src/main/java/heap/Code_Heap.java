@@ -26,12 +26,12 @@ public class Code_Heap {
 
     public static class MyMaxHeap {
         private int[] heap;
-        private final int limit;
+        // private final int limit;
         private int heapSize;
 
         public MyMaxHeap(int limit) {
             heap = new int[limit];
-            this.limit = limit;
+            //  this.limit = limit;
             heapSize = 0;
         }
 
@@ -40,11 +40,11 @@ public class Code_Heap {
         }
 
         public boolean isFull() {
-            return heapSize == limit;
+            return heapSize == heap.length;
         }
 
         public void push(int value) {
-            if (heapSize == limit) {
+            if (isFull()) {
                 throw new RuntimeException("heap is full");
             }
             heap[heapSize] = value;
