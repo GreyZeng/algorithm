@@ -3,8 +3,9 @@ package sort.qsort;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+// TODO
 // 双向链表的随机快速排序
-public class Code04_DoubleLinkedListQuickSort {
+public class Code_DoubleLinkedListQuickSort {
 
     public static class Node {
         public int value;
