@@ -1,5 +1,5 @@
 
-package sort.mergesort;
+package mergesort;
 
 // 逆序对问题
 //Given an integer array nums, 

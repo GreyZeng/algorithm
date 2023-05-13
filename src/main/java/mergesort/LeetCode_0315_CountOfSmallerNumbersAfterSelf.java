@@ -1,5 +1,5 @@
 
-package sort.mergesort;
+package mergesort;
 
 import java.util.LinkedList;
 import java.util.ArrayList;

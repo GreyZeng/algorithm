@@ -1,4 +1,4 @@
-package sort.mergesort;
+package mergesort;
 
 
 // 逆序对问题

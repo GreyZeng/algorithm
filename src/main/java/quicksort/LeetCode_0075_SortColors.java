@@ -1,4 +1,4 @@
-package sort.qsort;
+package quicksort;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16739515.html
 // 荷兰国旗问题
