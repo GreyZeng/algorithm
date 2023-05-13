@@ -25,7 +25,7 @@ import java.util.PriorityQueue;
 public class Code_Heap {
 
     public static class MyMaxHeap {
-        private int[] heap;
+        private final int[] heap;
         // private final int limit;
         private int heapSize;
 
