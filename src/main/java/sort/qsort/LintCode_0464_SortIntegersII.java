@@ -66,31 +66,7 @@ public class LintCode_0464_SortIntegersII {
     }
 
     // 快速排序非递归版本
-    public void sortIntegers21(int[] arr) {
-        if (null == arr || arr.length < 2) {
-            return;
-        }
-        Stack<Op> stack = new Stack<>();
-        int L = 0;
-        int R = arr.length - 1;
-        int pivot = (int) (Math.random() * (R - L + 1));
-        swap(arr, pivot, R);
-        int[] range = sortColors(arr, L, R);
-        stack.push(new Op(0, range[0] - 1));
-        stack.push(new Op(range[1] + 1, R));
-        while (!stack.isEmpty()) {
-            Op op = stack.pop();
-            if (op.l < op.r) {
-                swap(arr, op.l + (int) (Math.random() * (op.r - op.l)), op.r);
-                range = sortColors(arr, op.l, op.r);
-                stack.push(new Op(op.l, range[0] - 1));
-                stack.push(new Op(range[1] + 1, op.r));
-            }
-        }
-    }
-
     public class Op {
-
         public int l;
         public int r;
 
@@ -100,7 +76,29 @@ public class LintCode_0464_SortIntegersII {
         }
     }
 
-
+    public void sortIntegers21(int[] a) {
+        if (null == a || a.length <= 1) {
+            return;
+        }
+        int l = 0;
+        int r = a.length - 1;
+        int p = l + (int) (Math.random() * (r - l + 1));
+        swap(a, p, r);
+        int[] range = sortColors(a, l, r);
+        Stack<Op> stack = new Stack<>();
+        stack.push(new Op(l, range[0] - 1));
+        stack.push(new Op(range[1] + 1, r));
+        while (!stack.isEmpty()) {
+            Op op = stack.pop();
+            if (op.l < op.r) {
+                swap(a, op.r, op.l + (int) (Math.random() * (op.r - op.l)));
+                range = sortColors(a, op.l, op.r);
+                stack.push(new Op(op.l, range[0] - 1));
+                stack.push(new Op(range[1] + 1, op.r));
+            }
+        }
+    }
+    
     // merge sort
     public void sortIntegers23(int[] a) {
         if (null == a || a.length <= 1) {
