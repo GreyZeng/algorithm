@@ -6,35 +6,29 @@ package sort.qsort;
 // https://leetcode.com/problems/sort-colors/
 public class LeetCode_0075_SortColors {
     public void sortColors(int[] nums) {
-        if (nums.length <= 1) {
+        if (nums == null || nums.length < 2) {
             return;
         }
+        int i = 0;
         int l = -1;
         int r = nums.length;
-        int i = 0;
         while (i < r) {
-            int p = nums[i];
-            if (p == 0) {
-                // 小于区域
+            if (nums[i] == 0) {
                 swap(nums, i++, ++l);
-            }
-            if (p == 1) {
-                // 等于区域，直接i+1
+            } else if (nums[i] == 2) {
+                swap(nums, i, --r);
+            } else {
+                // nums[i] == 2
                 i++;
             }
-            if (p == 2) {
-                // 大于区域
-                swap(nums, i, --r);
-            }
         }
     }
 
-    public void swap(int[] nums, int l, int r) {
-        if (l != r) {
-            nums[l] = nums[l] ^ nums[r];
-            nums[r] = nums[l] ^ nums[r];
-            nums[l] = nums[l] ^ nums[r];
+    public void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
         }
     }
-
 }
