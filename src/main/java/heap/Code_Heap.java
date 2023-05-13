@@ -44,12 +44,11 @@ public class Code_Heap {
         }
 
         public void push(int value) {
-            if (isFull()) {
-                throw new RuntimeException("heap is full");
+            if (!isFull()) {
+                heap[heapSize] = value;
+                // value heapSize
+                heapInsert(heap, heapSize++);
             }
-            heap[heapSize] = value;
-            // value heapSize
-            heapInsert(heap, heapSize++);
         }
 
         public int pop() {
