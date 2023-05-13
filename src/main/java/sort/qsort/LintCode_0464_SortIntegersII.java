@@ -4,6 +4,7 @@ import java.util.Stack;
 
 /**
  * 笔记：https://www.cnblogs.com/greyzeng/p/16739515.html 快速排序
+ * 测评：https://www.lintcode.com/problem/464
  * <p>
  * partition过程 给定一个数组arr，和一个整数num。请把小于num的数放在数组的左边，等于num的数放在中间，大于num的数放在数组的右边。
  * <p>
@@ -19,7 +20,7 @@ import java.util.Stack;
  */
 public class LintCode_0464_SortIntegersII {
 
-    // 测评：https://www.lintcode.com/problem/464
+
     // 递归方法
     public void sortIntegers2(int[] a) {
         if (null == a || a.length <= 1) {
@@ -65,8 +66,6 @@ public class LintCode_0464_SortIntegersII {
     }
 
     // 快速排序非递归版本
-    // 测评：https://www.lintcode.com/problem/464
-    // 测评时候需要把sortIntegers21改成sortIntegers2
     public void sortIntegers21(int[] arr) {
         if (null == arr || arr.length < 2) {
             return;
