@@ -18,7 +18,7 @@
 // 堆是一种数据结构，它通常有三种方法：push， pop 和 top。其中，“push”添加新的元素进入堆，“pop”删除堆中最小/最大元素，“top”返回堆中最小/最大元素。
 // 把一个无序整数数组变成一个堆数组。如果是最小堆，每个元素A[i]，我们将得到A[i * 2 + 1] >= A[i]和A[i * 2 + 2] >= A[i]
 // 返回其中任何一个。
-package lintcode;
+package heap;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
 // https://www.lintcode.com/problem/130/
