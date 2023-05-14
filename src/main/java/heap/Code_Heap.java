@@ -26,7 +26,7 @@ public class Code_Heap {
 
     public static class MyMaxHeap {
         private final int[] heap;
-        // private final int limit;
+        // private final int limit; limit == heap.length
         private int heapSize;
 
         public MyMaxHeap(int limit) {
@@ -35,13 +35,6 @@ public class Code_Heap {
             heapSize = 0;
         }
 
-        public boolean isEmpty() {
-            return heapSize == 0;
-        }
-
-        public boolean isFull() {
-            return heapSize == heap.length;
-        }
 
         public void push(int value) {
             if (!isFull()) {
@@ -78,6 +71,14 @@ public class Code_Heap {
                 index = largest;
                 left = index * 2 + 1;
             }
+        }
+
+        public boolean isEmpty() {
+            return heapSize == 0;
+        }
+
+        public boolean isFull() {
+            return heapSize == heap.length;
         }
 
         private void swap(int[] arr, int i, int j) {
