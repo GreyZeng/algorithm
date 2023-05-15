@@ -8,7 +8,12 @@ import java.util.Arrays;
 // b. 从下到上的方法，时间复杂度为O(N)
 // 2. 把堆的最大值和堆末尾的值交换， 然后减少堆的大小之后，再去调整堆， 一直周而复始，时间复杂度为O(N*logN) 【扩两倍估算复杂度法】
 // 3. 把堆的大小减小成0之后，排序完成
-public class Code_HeapSort { // 堆排序额外空间复杂度O(1)
+// 堆排序额外空间复杂度O(1)
+public class Code_HeapSort {
+    // 测评链接：https://www.lintcode.com/problem/464
+    public void sortIntegers2(int[] a) {
+        heapSort(a);
+    }
 
     public static void heapSort(int[] arr) {
         if (arr == null || arr.length < 2) {
