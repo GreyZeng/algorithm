@@ -10,11 +10,6 @@ import java.util.Arrays;
 // 3. 把堆的大小减小成0之后，排序完成
 // 堆排序额外空间复杂度O(1)
 public class Code_HeapSort {
-    // 测评链接：https://www.lintcode.com/problem/464
-    public void sortIntegers2(int[] a) {
-        heapSort(a);
-    }
-
     public static void heapSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
