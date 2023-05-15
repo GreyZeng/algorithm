@@ -1,7 +1,6 @@
 package heap;
 
 import java.util.Arrays;
-import java.util.PriorityQueue;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
 // 1. 先让整个数组都变成大根堆结构，建立堆的过程:
@@ -119,20 +118,6 @@ public class Code_HeapSort { // 堆排序额外空间复杂度O(1)
 
     // for test
     public static void main(String[] args) {
-
-        // 默认小根堆
-        PriorityQueue<Integer> heap = new PriorityQueue<>();
-        heap.add(6);
-        heap.add(8);
-        heap.add(0);
-        heap.add(2);
-        heap.add(9);
-        heap.add(1);
-
-        while (!heap.isEmpty()) {
-            System.out.println(heap.poll());
-        }
-
         int testTime = 500000;
         int maxSize = 100;
         int maxValue = 100;
@@ -148,10 +133,5 @@ public class Code_HeapSort { // 堆排序额外空间复杂度O(1)
             }
         }
         System.out.println(succeed ? "Nice!" : "Fucking fucked!");
-
-        int[] arr = generateRandomArray(maxSize, maxValue);
-        printArray(arr);
-        heapSort(arr);
-        printArray(arr);
     }
 }
