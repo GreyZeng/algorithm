@@ -132,24 +132,6 @@ public class Code_Heap {
     }
 
     public static void main(String[] args) {
-        // 小根堆
-        PriorityQueue<Integer> heap = new PriorityQueue<>((o1, o2) -> o2 - o1);
-        heap.add(5);
-        heap.add(5);
-        heap.add(5);
-        heap.add(3);
-        // 5 , 3
-        System.out.println(heap.peek());
-        heap.add(7);
-        heap.add(0);
-        heap.add(7);
-        heap.add(0);
-        heap.add(7);
-        heap.add(0);
-        System.out.println(heap.peek());
-        while (!heap.isEmpty()) {
-            System.out.println(heap.poll());
-        }
         int value = 1000;
         int limit = 100;
         int testTimes = 1000000;
