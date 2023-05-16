@@ -22,12 +22,12 @@ package heap;
 // heapify和heapInsert都是logN级别的复杂度，因为N个节点的二叉树高度是logN
 public class Code_Heap {
 
-    public static class MyMaxHeap {
+    public static class MaxHeap {
         private final int[] heap;
         // private final int limit; limit == heap.length
         private int heapSize;
 
-        public MyMaxHeap(int limit) {
+        public MaxHeap(int limit) {
             heap = new int[limit];
             // this.limit = limit;
             heapSize = 0;
@@ -37,39 +37,42 @@ public class Code_Heap {
             if (!isFull()) {
                 heap[heapSize] = value;
                 // value heapSize
-                heapInsert(heap, heapSize++);
+                heapInsert();
+                heapSize++;
             }
         }
 
         public int pop() {
             int ans = heap[0];
             swap(heap, 0, --heapSize);
-            heapify(heap, 0, heapSize);
+            heapify();
             return ans;
 
         }
 
-        private void heapInsert(int[] arr, int i) {
-            while (arr[i] > arr[(i - 1) / 2]) {
-                swap(arr, i, (i - 1) / 2);
+        private void heapInsert() {
+            int i = heapSize;
+            while (heap[i] > heap[(i - 1) / 2]) {
+                swap(heap, i, (i - 1) / 2);
                 i = (i - 1) / 2;
             }
         }
 
-        private void heapify(int[] arr, int index, int heapSize) {
+        private void heapify() {
+            int index = 0;
             int left = index * 2 + 1;
             while (left < heapSize) {
                 int largest // bigger index
                         = left + 1 < heapSize // right child exist
                                 &&
-                                arr[left + 1] > arr[left] // compare left child and right child
+                                heap[left + 1] > heap[left] // compare left child and right child
                                         ? left + 1
                                         : left;
-                largest = arr[largest] > arr[index] ? largest : index;
+                largest = heap[largest] > heap[index] ? largest : index;
                 if (largest == index) {
                     break;
                 }
-                swap(arr, largest, index);
+                swap(heap, largest, index);
                 index = largest;
                 left = index * 2 + 1;
             }
@@ -135,7 +138,7 @@ public class Code_Heap {
         int testTimes = 1000000;
         for (int i = 0; i < testTimes; i++) {
             int curLimit = (int) (Math.random() * limit) + 1;
-            MyMaxHeap my = new MyMaxHeap(curLimit);
+            MaxHeap my = new MaxHeap(curLimit);
             RightMaxHeap test = new RightMaxHeap(curLimit);
             int curOpTimes = (int) (Math.random() * limit);
             for (int j = 0; j < curOpTimes; j++) {
