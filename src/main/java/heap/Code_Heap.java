@@ -1,7 +1,5 @@
 package heap;
 
-import java.util.PriorityQueue;
-
 // 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
 // 什么是完全二叉树 如果一个树是满的，它是完全二叉树，即便不是满的，也是从左到右依次变满的
 // 堆结构
@@ -31,10 +29,9 @@ public class Code_Heap {
 
         public MyMaxHeap(int limit) {
             heap = new int[limit];
-            //  this.limit = limit;
+            // this.limit = limit;
             heapSize = 0;
         }
-
 
         public void push(int value) {
             if (!isFull()) {
@@ -64,9 +61,10 @@ public class Code_Heap {
             while (left < heapSize) {
                 int largest // bigger index
                         = left + 1 < heapSize // right child exist
-                        &&
-                        arr[left + 1] > arr[left] // compare left child and right child
-                        ? left + 1 : left;
+                                &&
+                                arr[left + 1] > arr[left] // compare left child and right child
+                                        ? left + 1
+                                        : left;
                 largest = arr[largest] > arr[index] ? largest : index;
                 if (largest == index) {
                     break;
