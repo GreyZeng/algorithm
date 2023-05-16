@@ -1,26 +1,8 @@
-// 描述
-// 给出 n 个节点，标号分别从 0 到 n - 1 并且给出一个 无向 边的列表 (给出每条边的两个顶点), 写一个函数去判断这张｀无向｀图是否是一棵树
-//
-// 你可以假设我们不会给出重复的边在边的列表当中. 无向边 [0, 1] 和 [1, 0] 是同一条边， 因此他们不会同时出现在我们给你的边的列表当中。
-//
-//
-// 样例
-// 样例 1:
-//
-// 输入: n = 5 edges = [[0, 1], [0, 2], [0, 3], [1, 4]]
-// 输出: true.
-// 样例 2:
-//
-// 输入: n = 5 edges = [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]]
-// 输出: false.
-package lintcode;
+package leetcode;
 
-import leetcode.LeetCode_0261_GraphValidTree;
-
-// https://www.lintcode.com/problem/178/
+// https://leetcode.cn/problems/graph-valid-tree/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16343068.html
-public class LintCode_0178_GraphValidTree {
-
+public class LeetCode_0261_GraphValidTree {
     public static boolean validTree(int n, int[][] edges) {
         if (n == 0) {
             return true;
@@ -28,7 +10,7 @@ public class LintCode_0178_GraphValidTree {
         if (n - 1 != edges.length) {
             return false;
         }
-        LeetCode_0261_GraphValidTree.UnionFind uf = new LeetCode_0261_GraphValidTree.UnionFind(n);
+        UnionFind uf = new UnionFind(n);
         for (int[] edge : edges) {
             uf.union(edge[0], edge[1]);
         }
@@ -87,5 +69,4 @@ public class LintCode_0178_GraphValidTree {
             return sets;
         }
     }
-
 }
