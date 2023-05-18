@@ -9,6 +9,7 @@ import java.util.Arrays;
 // 2. 把堆的最大值和堆末尾的值交换， 然后减少堆的大小之后，再去调整堆， 一直周而复始，时间复杂度为O(N*logN) 【扩两倍估算复杂度法】
 // 3. 把堆的大小减小成0之后，排序完成
 // 堆排序额外空间复杂度O(1)
+// 测评：https://www.lintcode.com/problem/464
 public class Code_HeapSort {
     public static void heapSort(int[] arr) {
         if (arr == null || arr.length < 2) {
@@ -39,6 +40,7 @@ public class Code_HeapSort {
         }
     }
 
+    // 构造大根堆
     // arr[index]位置的数，能否往下移动
     public static void heapify(int[] arr, int index, int heapSize) {
         int left = index * 2 + 1;

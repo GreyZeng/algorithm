@@ -141,51 +141,34 @@ public class LintCode_0464_SortIntegersII {
     }
 
     // heap sort
-    public void sortIntegers24(int[] a) {
-        heapSort(a);
-    }
-
-    public static void heapSort(int[] arr) {
-        if (arr == null || arr.length < 2) {
+    public void sortIntegers24(int[] arr) {
+        if (null == arr || arr.length < 2) {
             return;
         }
-        // O(N*logN)
-        // for (int i = 0; i < arr.length; i++) { // O(N)
-        // heapInsert(arr, i); // O(logN)
-        // }
-        // O(N)
+
         for (int i = arr.length - 1; i >= 0; i--) {
             heapify(arr, i, arr.length);
         }
         int heapSize = arr.length;
+        // smallest to the arr.length - 1;
         swap(arr, 0, --heapSize);
-        // O(N*logN)
-        while (heapSize > 0) { // O(N)
-            heapify(arr, 0, heapSize); // O(logN)
-            swap(arr, 0, --heapSize); // O(1)
+        while (heapSize > 0) {
+            heapify(arr, 0, heapSize);
+            swap(arr, 0, --heapSize);
         }
     }
 
-    // arr[index]刚来的数，往上
-    public static void heapInsert(int[] arr, int index) {
-        while (arr[index] > arr[(index - 1) / 2]) {
-            swap(arr, index, (index - 1) / 2);
-            index = (index - 1) / 2;
-        }
-    }
-
-    // arr[index]位置的数，能否往下移动
-    public static void heapify(int[] arr, int index, int heapSize) {
-        int left = index * 2 + 1;
-        while (left < heapSize) {
-            int largest = left + 1 < heapSize && arr[left + 1] > arr[left] ? left + 1 : left;
-            largest = arr[largest] > arr[index] ? largest : index;
-            if (largest == index) {
+    public void heapify(int[] arr, int i, int size) {
+        int leftChildIndex = 2 * i + 1;
+        while (leftChildIndex < size) {
+            int largest = leftChildIndex + 1 < size && arr[leftChildIndex + 1] >= arr[leftChildIndex] ? leftChildIndex + 1 : leftChildIndex;
+            largest = arr[i] > arr[largest] ? i : largest;
+            if (largest == i) {
                 break;
             }
-            swap(arr, largest, index);
-            index = largest;
-            left = index * 2 + 1;
+            swap(arr, largest, i);
+            i = largest;
+            leftChildIndex = 2 * i + 1;
         }
     }
 }
