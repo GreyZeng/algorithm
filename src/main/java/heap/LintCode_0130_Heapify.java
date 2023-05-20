@@ -17,15 +17,14 @@ public class LintCode_0130_Heapify {
     public void heapify(int[] arr, int i, int len) {
         int leftChildIndex = 2 * i + 1;
         while (leftChildIndex < len) {
-            int minIndex = leftChildIndex + 1 < len && arr[leftChildIndex + 1] < arr[leftChildIndex]
-                    ? leftChildIndex + 1
-                    : leftChildIndex;
-            if (arr[minIndex] >= arr[i]) {
+            int min = leftChildIndex + 1 < len && arr[leftChildIndex + 1] < arr[leftChildIndex] ? leftChildIndex + 1 : leftChildIndex;
+            min = arr[min] > arr[i] ? i : min;
+            if (min == i) {
                 break;
             }
-            swap(arr, minIndex, i);
-            i = minIndex;
-            leftChildIndex = 2 * minIndex + 1;
+            swap(arr, min, i);
+            i = min;
+            leftChildIndex = 2 * min + 1;
         }
     }
 
