@@ -46,6 +46,7 @@ public class NowCoder_LineCoverMax {
     // 堆解法
     // O(N*logN)
     public static int maxCover(int[][] lines) {
+        // O(N*logN)
         Arrays.sort(lines, Comparator.comparingInt(o -> o[0]));
         PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
         int max = 0;
