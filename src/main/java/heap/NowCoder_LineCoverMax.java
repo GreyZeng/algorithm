@@ -19,7 +19,7 @@ public class NowCoder_LineCoverMax {
     // 1. 首先得到线段的最大值和最小值
     // 2. 最大值和最小值按单位1等分，看每条线覆盖了多少，抓一下全局max
     // 复杂度O(n*(max-min))
-    public static int maxCover3(int[][] lines) {
+    public static int maxCover(int[][] lines) {
         int min = lines[0][0];
         int max = lines[0][1];
         for (int[] line : lines) {
@@ -45,7 +45,7 @@ public class NowCoder_LineCoverMax {
 
     // 堆解法
     // O(N*logN)
-    public static int maxCover(int[][] lines) {
+    public static int maxCover1(int[][] lines) {
         // O(N*logN)
         Arrays.sort(lines, Comparator.comparingInt(o -> o[0]));
         PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
@@ -161,20 +161,17 @@ public class NowCoder_LineCoverMax {
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int N = in.nextInt();
-        int[][] lines = new int[N][2];
-        for (int i = 0; i < N; i++) {
-            lines[i][0] = in.nextInt();
-            lines[i][1] = in.nextInt();
-        }
-        if (Math.random() < 0.3d) {
-            System.out.println(maxCover(lines));
-        } else if (Math.random() < 0.7d) {
+        try (Scanner in = new Scanner(System.in)) {
+            int N = in.nextInt();
+            int[][] lines = new int[N][2];
+            for (int i = 0; i < N; i++) {
+                lines[i][0] = in.nextInt();
+                lines[i][1] = in.nextInt();
+            }
+            // System.out.println(maxCover(lines));
+            // System.out.println(maxCover1(lines));
             System.out.println(maxCover2(lines));
-        } else {
-            System.out.println(maxCover3(lines));
+            in.close();
         }
-        in.close();
     }
 }
