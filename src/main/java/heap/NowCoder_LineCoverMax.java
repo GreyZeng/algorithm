@@ -1,11 +1,6 @@
 package heap;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.PriorityQueue;
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.*;
 
 // 线段的最大重合问题
 // https://www.nowcoder.com/questionTerminal/f8fa4b67dd054892966d280790c42ba3
@@ -161,17 +156,47 @@ public class NowCoder_LineCoverMax {
     }
 
     public static void main(String[] args) {
-        try (Scanner in = new Scanner(System.in)) {
-            int N = in.nextInt();
-            int[][] lines = new int[N][2];
-            for (int i = 0; i < N; i++) {
-                lines[i][0] = in.nextInt();
-                lines[i][1] = in.nextInt();
+//        try (Scanner in = new Scanner(System.in)) {
+//            int N = in.nextInt();
+//            int[][] lines = new int[N][2];
+//            for (int i = 0; i < N; i++) {
+//                lines[i][0] = in.nextInt();
+//                lines[i][1] = in.nextInt();
+//            }
+//            // System.out.println(maxCover(lines));
+//            // System.out.println(maxCover1(lines));
+//            System.out.println(maxCover2(lines));
+//            in.close();
+//        }
+        System.out.println("test begin");
+        int N = 100;
+        int L = 0;
+        int R = 200;
+        int testTimes = 200000;
+        for (int i = 0; i < testTimes; i++) {
+            int[][] lines = generateLines(N, L, R);
+            int ans1 = maxCover(lines);
+            int ans2 = maxCover1(lines);
+            int ans3 = maxCover2(lines);
+            if (ans1 != ans2 || ans1 != ans3) {
+                System.out.println("Oops!");
             }
-            // System.out.println(maxCover(lines));
-            // System.out.println(maxCover1(lines));
-            System.out.println(maxCover2(lines));
-            in.close();
         }
+        System.out.println("test end");
+    }
+
+    public static int[][] generateLines(int N, int L, int R) {
+        int size = (int) (Math.random() * N) + 1;
+        int[][] ans = new int[size][2];
+        for (int i = 0; i < size; i++) {
+            int a = L + (int) (Math.random() * (R - L + 1));
+            int b = L + (int) (Math.random() * (R - L + 1));
+            if (a == b) {
+                b = a + 1;
+            }
+            ans[i][0] = Math.min(a, b);
+            ans[i][1] = Math.max(a, b);
+        }
+        return ans;
     }
 }
