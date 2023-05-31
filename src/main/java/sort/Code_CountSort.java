@@ -16,27 +16,29 @@ import java.util.Arrays;
  * 3)应用范围有限，需要样本的数据状况满足桶的划分
  */
 public class Code_CountSort {
+
     // 非负数
-    public static void countSort(int[] arr) {
-        if (null == arr || arr.length <= 1) {
+    public static void sort(int[] arr) {
+        if (null == arr || arr.length == 0) {
             return;
         }
         int max = arr[0];
         for (int i = 1; i < arr.length; i++) {
-            max = Math.max(arr[i], max);
+            max = Math.max(max, arr[i]);
         }
         int[] help = new int[max + 1];
-        for (int j : arr) {
-            help[j]++;
+        for (int n : arr) {
+            help[n]++;
         }
-        int t = 0;
+        int index = 0;
         for (int i = 0; i < help.length; i++) {
             while (help[i] != 0) {
-                arr[t++] = i;
                 help[i]--;
+                arr[index++] = i;
             }
         }
     }
+
 
     // for test
     public static void comparator(int[] arr) {
@@ -58,9 +60,7 @@ public class Code_CountSort {
             return null;
         }
         int[] res = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            res[i] = arr[i];
-        }
+        System.arraycopy(arr, 0, res, 0, arr.length);
         return res;
     }
 
@@ -88,8 +88,8 @@ public class Code_CountSort {
         if (arr == null) {
             return;
         }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        for (int j : arr) {
+            System.out.print(j + " ");
         }
         System.out.println();
     }
@@ -103,7 +103,7 @@ public class Code_CountSort {
         for (int i = 0; i < testTime; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
             int[] arr2 = copyArray(arr1);
-            countSort(arr1);
+            sort(arr1);
             comparator(arr2);
             if (!isEqual(arr1, arr2)) {
                 succeed = false;
@@ -113,10 +113,5 @@ public class Code_CountSort {
             }
         }
         System.out.println(succeed ? "Nice!" : "Fucking fucked!");
-
-        int[] arr = generateRandomArray(maxSize, maxValue);
-        printArray(arr);
-        countSort(arr);
-        printArray(arr);
     }
 }
