@@ -39,14 +39,14 @@ public class Code_0076_EveryStepShowBoss {
 
     public static class WhosYourDaddy {
         private HashMap<Integer, Customer> customers;
-        private Code_CustomHeap.HeapGreater<Customer> candHeap;
-        private Code_CustomHeap.HeapGreater<Customer> daddyHeap;
+        private Code_Heap.HeapGreater<Customer> candHeap;
+        private Code_Heap.HeapGreater<Customer> daddyHeap;
         private final int daddyLimit;
 
         public WhosYourDaddy(int limit) {
             customers = new HashMap<Integer, Customer>();
-            candHeap = new Code_CustomHeap.HeapGreater<>(new CandidateComparator());
-            daddyHeap = new Code_CustomHeap.HeapGreater<>(new DaddyComparator());
+            candHeap = new Code_Heap.HeapGreater<>(new CandidateComparator());
+            daddyHeap = new Code_Heap.HeapGreater<>(new DaddyComparator());
             daddyLimit = limit;
         }
 
