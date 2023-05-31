@@ -115,7 +115,7 @@ public class Code_RadixSort {
         if ((arr1 == null && arr2 != null) || (arr1 != null && arr2 == null)) {
             return false;
         }
-        if (arr1 == null && arr2 == null) {
+        if (arr1 == null) {
             return true;
         }
         if (arr1.length != arr2.length) {
@@ -134,8 +134,8 @@ public class Code_RadixSort {
         if (arr == null) {
             return;
         }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        for (int j : arr) {
+            System.out.print(j + " ");
         }
         System.out.println();
     }
@@ -159,11 +159,5 @@ public class Code_RadixSort {
             }
         }
         System.out.println(succeed ? "Nice!" : "Fucking fucked!");
-
-        // int[] arr = generateRandomArray(maxSize, maxValue);
-        // printArray(arr);
-        // radixSort(arr);
-        // printArray(arr);
-
     }
 }
