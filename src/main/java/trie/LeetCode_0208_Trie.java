@@ -15,7 +15,7 @@ public class LeetCode_0208_Trie {
 	    }
 	    
 	    public void insert(String word) {
-	        if (null == word || word.length() <= 0) {
+	        if (null == word || word.length() == 0) {
 	        	return;
 	        }
 	        char[] strs = word.toCharArray();
@@ -31,7 +31,7 @@ public class LeetCode_0208_Trie {
 	    }
 	    
 	    public boolean search(String word) {
-	        if (null == word || word.length() <= 0 || !startsWith(word)) {
+	        if (null == word || word.length() == 0 || !startsWith(word)) {
 	        	return false;
 	        }
 	        char[] strs = word.toCharArray();
