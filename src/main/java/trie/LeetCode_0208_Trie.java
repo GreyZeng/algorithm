@@ -1,11 +1,11 @@
-package leetcode;
+package trie;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16647565.html
-// https://leetcode-cn.com/problems/implement-trie-prefix-tree/
+// https://leetcode.com/problems/implement-trie-prefix-tree/
 public class LeetCode_0208_Trie {
 
     class Trie {
-        class Node {
+        private class Node {
             int p;
             int e;
             Node[] nodes = new Node[26];

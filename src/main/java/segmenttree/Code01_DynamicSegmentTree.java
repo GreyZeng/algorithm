@@ -1,4 +1,4 @@
-package segmenttree.动态开点线段树;
+package segmenttree;
 
 // 笔记：https://blog.csdn.net/hotonyhui/article/details/128474428
 // 只支持单点增加 + 范围查询的动态开点线段树（累加和）

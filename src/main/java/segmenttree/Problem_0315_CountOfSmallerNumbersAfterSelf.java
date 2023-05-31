@@ -1,4 +1,4 @@
-package segmenttree.动态开点线段树;
+package segmenttree;
 
 import java.util.ArrayList;
 import java.util.Arrays;
