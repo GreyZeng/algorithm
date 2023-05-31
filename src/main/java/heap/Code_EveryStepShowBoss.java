@@ -5,8 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-// TODO
-public class Code_0076_EveryStepShowBoss {
+public class Code_EveryStepShowBoss {
 
     public static class Customer {
         public int id;
@@ -26,6 +25,7 @@ public class Code_0076_EveryStepShowBoss {
         public int compare(Customer o1, Customer o2) {
             return o1.buy != o2.buy ? (o2.buy - o1.buy) : (o1.enterTime - o2.enterTime);
         }
+
     }
 
     public static class DaddyComparator implements Comparator<Customer> {
@@ -44,13 +44,13 @@ public class Code_0076_EveryStepShowBoss {
         private final int daddyLimit;
 
         public WhosYourDaddy(int limit) {
-            customers = new HashMap<Integer, Customer>();
+            customers = new HashMap<>();
             candHeap = new Code_Heap.HeapGreater<>(new CandidateComparator());
             daddyHeap = new Code_Heap.HeapGreater<>(new DaddyComparator());
             daddyLimit = limit;
         }
 
-        // 当前处理i号事件，arr[i] -> id, buyOrRefund
+        // 当前处理i号事件，arr[i] -> id,  buyOrRefund
         public void operate(int time, int id, boolean buyOrRefund) {
             if (!buyOrRefund && !customers.containsKey(id)) {
                 return;
@@ -299,4 +299,5 @@ public class Code_0076_EveryStepShowBoss {
         }
         System.out.println("测试结束");
     }
+
 }
