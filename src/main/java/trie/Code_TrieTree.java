@@ -1,6 +1,7 @@
 package trie;
 
 import java.util.HashMap;
+// 前缀树
 // 笔记：https://www.cnblogs.com/greyzeng/p/16647565.html
 // p: 某个字符经过几次
 // e: 以某个字符结尾有几次
@@ -8,7 +9,6 @@ import java.util.HashMap;
 //
 // - 所有字符串有多少以某几个字符作为前缀
 // - 某个字符串是否包含在其中
-
 //
 // 两种实现，如果字符固定， 可以用数组，如果字符不固定Hash表实现
 //
