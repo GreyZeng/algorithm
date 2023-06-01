@@ -90,99 +90,90 @@ public class LeetCode_0234_PalindromeLinkedList {
         return slow;
     }
 
-    public static void main(String[] args) {
-        ListNode head = new ListNode(1);
-        head.next = new ListNode(2);
-        head.next.next = new ListNode(2);
-        head.next.next.next = new ListNode(1);
-        boolean palindrome2 = new LeetCode_0234_PalindromeLinkedList().isPalindrome2(head);
-        System.out.println(palindrome2);
-    }
-
-    // 修改原链表，空间O(1)
-    public boolean isPalindrome3(ListNode head) {
-        // 0个节点
-        // 1个节点 都是回文
-        if (head == null || head.next == null) {
-            return true;
-        }
-        // 判断两个节点
-        if (head.next.next == null) {
-            return head.val == head.next.val;
-        }
-        // 判断三个节点
-        if (head.next.next.next == null) {
-            return head.val == head.next.next.val;
-        }
-
-        // 到这一步，至少有四个节点
-
-        // 使用快慢指针
-        // 奇数来到中点前一个位置(假设为a)和中点后一个位置(假设为b)
-        // 偶数来到上中点位置(假设为a)和下中点位置(假设为b)
-        // head ... a 这个链表，链表反转一下 a...head
-        // 设置两个指针，一个指向a，一个指向b，每个位置对比，结果记录在result中
-        // 恢复整个链表
-        ListNode slow = head;
-        ListNode fast = head.next.next;
+    
+    // 最优解
+    // 空间O(1)
+    // 时间O(N)
+    public boolean isPalindrome(ListNode head) {
+    	// 0 ~ 1 节点
+    	if (null == head || head.next == null) {
+    		return true;
+    	}
+    	// 2 个节点
+    	if (head.next.next == null) {
+    		return head.val == head.next.val;
+    	}
+    	// 3 个节点
+    	if (head.next.next.next == null) {
+    		return head.val == head.next.next.val;
+    	}
+    	int len = lenOfList(head);
+    	// 到这里就是4个节点了
+    	ListNode pre = null;
+    	ListNode slow = head;
+    	ListNode cur = slow;
+        ListNode fast = head;
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
+            pre = slow;
             slow = slow.next;
+            cur = slow;
         }
-        ListNode a = slow;
-        ListNode b;
-        ListNode mid = null;
-        if (fast != null) {
-            // 链表个数为奇数
-            mid = a.next;
-            b = a.next.next;
-        } else {
-            b = a.next;
-            // 链表个数为偶数
-        }
-        // 断开链表
-        a.next = null;
-
-        // 反转前半部分链表
-        ListNode c = reverse(head);
-
+        // 从 pre 和 cur 之间断开链接，所以需要先保存好 cur 的位置，便于恢复链表
+        ListNode backupNode = cur;
+        // 断开
+        pre.next = null;
+        // 从 head 到 pre 开始反转链表
+        ListNode newHead = reverse(head);
+        ListNode newHeadBackup = newHead;
+        if ((len & 1)!=0) {
+        	// 奇数
+        	cur = cur.next;
+        } 
         boolean result = true;
-        ListNode leftStart = c;
-        ListNode rightStart = b;
-        while (leftStart.next != null) {
-            if (leftStart.val != rightStart.val) {
-                result = false;
-            }
-            leftStart = leftStart.next;
-            rightStart = rightStart.next;
+        while (cur != null) {
+        	if (cur.val != newHead.val) {
+        		result = false;
+        	}
+        	cur = cur.next;
+        	newHead = newHead.next;
         }
-        if (leftStart.val != rightStart.val) {
-            result = false;
+        
+        ListNode preHeadBackup = reverse(newHeadBackup);
+        while (preHeadBackup.next != null) {
+        	preHeadBackup = preHeadBackup.next;
         }
-        // leftStart来到开始节点
-        // rightStart来到末尾节点
-        ListNode cur = reverse(leftStart);
-        while (cur.next != null) {
-            cur = cur.next;
-        }
-        if (mid == null) {
-            cur.next = b;
-        } else {
-            cur.next = mid;
-            mid.next = b;
-        }
+        preHeadBackup.next = backupNode;
         return result;
     }
-
-    private ListNode reverse(ListNode head) {
-        ListNode pre = null;
-        ListNode cur = head;
-        while (cur != null) {
-            ListNode tmp = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = tmp;
-        }
-        return pre;
+    public ListNode reverse(ListNode head) {
+    	ListNode pre = null;
+    	ListNode cur = head;
+    	while (cur != null) {
+    		ListNode tmp = cur.next;
+    		cur.next = pre;
+    		pre = cur;
+    		cur = tmp;
+    	}
+    	return pre;
     }
+    public int lenOfList(ListNode head) {
+    	int len = 0;
+    	while (head != null) {
+    		head = head.next;
+    		len++;
+    	}
+    	return len;
+    }
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(0);
+        head.next.next = new ListNode(1);
+        head.next.next.next = new ListNode(1);
+        head.next.next.next.next = new ListNode(0);
+        head.next.next.next.next.next = new ListNode(1);
+        boolean palindrome2 = new LeetCode_0234_PalindromeLinkedList().isPalindrome(head);
+        System.out.println(palindrome2);
+    }
+    
 }
