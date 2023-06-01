@@ -55,39 +55,5 @@ public class LeetCode_0160_IntersectionOfTwoLinkedLists {
         }
         return len;
     }
-//    public  ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-//        if (null == headA || null == headB) {
-//            return null;
-//        }
-//        if (headA.next == null && headB.next == null) {
-//            return headA == headB ? headA : null;
-//        }
-//        int len1 = getLen(headA);
-//        int len2 = getLen(headB);
-//        ListNode bigger = len1 > len2 ? headA : headB;
-//        ListNode smaller = bigger == headA ? headB : headA;
-//        int gap = Math.abs(len1 - len2);
-//        while (gap != 0) {
-//            bigger = bigger.next;
-//            gap--;
-//        }
-//        while (bigger != null && smaller != null) {
-//            if (bigger == smaller) {
-//                return bigger;
-//            }
-//            bigger = bigger.next;
-//            smaller = smaller.next;
-//        }
-//        return null;
-//    }
-//
-//    public  int getLen(ListNode head) {
-//        int len = 0;
-//        while (head != null) {
-//            len++;
-//            head = head.next;
-//        }
-//        return len;
-//    }
 
 }
