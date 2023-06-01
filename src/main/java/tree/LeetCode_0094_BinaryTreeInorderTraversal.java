@@ -31,7 +31,7 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
 
     // 递归方式
     public List<Integer> inorderTraversal1(TreeNode root) {
-        if (root == null) {
+        if (null == root) {
             return new ArrayList<>();
         }
         List<Integer> ans = new ArrayList<>();
@@ -39,7 +39,7 @@ public class LeetCode_0094_BinaryTreeInorderTraversal {
         return ans;
     }
 
-    private void in(TreeNode root, List<Integer> ans) {
+    public void in(TreeNode root, List<Integer> ans) {
         if (root == null) {
             return;
         }

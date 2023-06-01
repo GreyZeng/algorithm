@@ -35,15 +35,14 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
      *
      * @param root 二叉树头节点
      */
-    public List<Integer> preorderTraversal(TreeNode root) {
-        if (root == null) {
+    public List<Integer> preorderTraversal1(TreeNode root) {
+        if(root == null) {
             return new ArrayList<>();
         }
         List<Integer> ans = new ArrayList<>();
         pre(root, ans);
         return ans;
     }
-
     public void pre(TreeNode root, List<Integer> ans) {
         if (root == null) {
             return;
