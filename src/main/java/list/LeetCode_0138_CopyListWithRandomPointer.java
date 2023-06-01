@@ -44,11 +44,10 @@ public class LeetCode_0138_CopyListWithRandomPointer {
         Node copyCur = newHead;
         while (cur != null) {
             cur.next = cur.next.next;
-            copyCur.next = copyCur.next == null ? null:copyCur.next.next;
+            copyCur.next = copyCur.next == null ? null : copyCur.next.next;
             cur = cur.next;
             copyCur = copyCur.next;
         }
         return newHead;
     }
-
 }
