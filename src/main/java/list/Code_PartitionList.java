@@ -5,6 +5,7 @@ package list;
 public class Code_PartitionList {
 
     public static class ListNode {
+
         public int val;
         public ListNode next;
 
