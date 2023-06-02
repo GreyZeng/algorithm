@@ -14,6 +14,7 @@ import java.util.Queue;
 // 3. 自定义队列
 // https://leetcode.com/problems/binary-tree-level-order-traversal/
 public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
+
     // 哈希表结合Java自带的LinkedList
     public List<List<Integer>> levelOrder3(TreeNode head) {
         if (head == null) {
@@ -54,7 +55,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
         return ans;
     }
 
-    // 用LinkedList
+    // 不用Hash表，只用LinkedList和若干个变量
     public List<List<Integer>> levelOrder2(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
         if (root == null) {
@@ -63,6 +64,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
         TreeNode cur = root;
         TreeNode curEnd = root;
         TreeNode nextEnd = null;
+        // 宽度优先遍历用队列
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(cur);
         List<Integer> items = new LinkedList<>();
@@ -89,6 +91,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
     }
 
     public class MyNode {
+
         public TreeNode data;
         public MyNode next;
 
@@ -98,6 +101,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
     }
 
     public class MyQueue {
+
         public MyNode front;
         public MyNode end;
         public int size;
@@ -166,6 +170,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
     }
 
     public class TreeNode {
+
         int val;
         TreeNode left;
         TreeNode right;
