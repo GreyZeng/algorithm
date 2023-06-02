@@ -9,7 +9,7 @@ import java.util.Stack;
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
 public class LeetCode_0144_BinaryTreePreorderTraversal {
 
-    public static class TreeNode {
+    public class TreeNode {
 
         int val;
         TreeNode left;

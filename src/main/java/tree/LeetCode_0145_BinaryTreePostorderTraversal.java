@@ -11,7 +11,7 @@ import java.util.Stack;
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
 public class LeetCode_0145_BinaryTreePostorderTraversal {
 
-    public static class TreeNode {
+    public class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
