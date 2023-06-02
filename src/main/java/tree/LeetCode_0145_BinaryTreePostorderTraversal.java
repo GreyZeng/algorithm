@@ -12,6 +12,7 @@ import java.util.Stack;
 public class LeetCode_0145_BinaryTreePostorderTraversal {
 
     public class TreeNode {
+
         int val;
         TreeNode left;
         TreeNode right;
@@ -84,7 +85,6 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
         return pre;
     }
 
-
     // 递归方法
     public List<Integer> postorderTraversal3(TreeNode root) {
         if (root == null) {
@@ -104,41 +104,41 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
         ans.add(root.val);
     }
 
-
-    // 非递归 双栈方法
+    // 非递归 双栈或者一栈+一链表方式
     // 改造先序遍历
     // 先序遍历是，头，左，右
     // 改造一下，变成：头，右，左
     // 然后：逆序一下，就变成了后序遍历
     // 所以用两个栈即可实现
     public List<Integer> postorderTraversal2(TreeNode root) {
-        if (root == null) {
+        if(null == root) {
             return new ArrayList<>();
         }
-        List<Integer> ans = new ArrayList<>();
-        Deque<TreeNode> helper = new ArrayDeque<>();
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        List<TreeNode> ans = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
         TreeNode cur = root;
         stack.push(cur);
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
-            helper.push(node);
+            ans.add(node);
             if (node.left != null) {
-                cur = node.left;
-                stack.push(cur);
+                stack.push(node.left);
             }
             if (node.right != null) {
-                cur = node.right;
-                stack.push(cur);
+                stack.push(node.right);
             }
         }
-        while (!helper.isEmpty()) {
-            ans.add(helper.pop().val);
+        for (TreeNode node : ans) {
+            stack.push(node);
         }
-        return ans;
+        List<Integer> result = new ArrayList<>();
+        while (!stack.isEmpty()) {
+            result.add(stack.pop().val);
+        }
+        return result;
     }
 
-
+    // TODO
     // 【非递归】【单栈】后序遍历
     public static List<Integer> postorderTraversal1(TreeNode head) {
         List<Integer> ans = new ArrayList<>();
