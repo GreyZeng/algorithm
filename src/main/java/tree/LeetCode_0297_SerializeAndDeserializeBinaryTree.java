@@ -7,7 +7,7 @@ import java.util.Stack;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16789819.html
 // 序列化和反序列化二叉树
 /*
- * 二叉树可以通过先序、后序或者按层遍历的方式序列化和反序列化， 
+ * 二叉树可以通过先序、后序或者按层遍历的方式序列化和反序列化，
  * 但是，二叉树无法通过中序遍历的方式实现序列化和反序列化
  * 因为不同的两棵树，可能得到同样的中序序列，即便补了空位置也可能一样。
  * 比如如下两棵树
@@ -19,12 +19,13 @@ import java.util.Stack;
  *          \
  *           2
  * 补足空位置的中序遍历结果都是{ null, 1, null, 2, null}
- *       
+ *
  * */
 // https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
 
 	public class TreeNode {
+
 		int val;
 		TreeNode left;
 		TreeNode right;
@@ -34,44 +35,50 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
 		}
 	}
 
+	private static final String NULL = "#";
+	private static final String SPLIT = ",";
+	private static final String EMPTY = "[]";
+	private static final String LEFT = "[";
+	private static final String RIGHT = "]";
+
 	// 按层序列化
 	// 空节点补充为#
 	public String serialize(TreeNode head) {
-		if (head == null) {
-			return "[]";
+		if (null == head) {
+			return EMPTY;
 		}
-		StringBuilder sb = new StringBuilder("[");
+		StringBuilder sb = new StringBuilder(LEFT);
 		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(head);
 		while (!queue.isEmpty()) {
 			TreeNode node = queue.poll();
-			sb.append(node == null ? "#" : String.valueOf(node.val)).append(",");
+			sb.append(node == null ? NULL : String.valueOf(node.val)).append(SPLIT);
 			if (node != null) {
 				queue.offer(node.left);
 				queue.offer(node.right);
 			}
 		}
-		sb.append("]");
+		sb.append(RIGHT);
 		return sb.toString();
 	}
 
 	// 按层反序列化
 	public TreeNode deserialize(String data) {
-		if ("[]".equals(data)) {
+		if (EMPTY.equals(data)) {
 			return null;
 		}
 		data = data.substring(1, data.length() - 2);
-		String[] values = data.split(",");
-		TreeNode head = new TreeNode(Integer.valueOf(values[0]));
+		String[] values = data.split(SPLIT);
+		TreeNode head = new TreeNode(Integer.parseInt(values[0]));
 		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(head);
 		int size = 1;
 		while (!queue.isEmpty() && size < values.length) {
 			TreeNode c = queue.poll();
-			c.left = "#".equals(values[size]) ? null : new TreeNode(Integer.valueOf(values[size]));
+			c.left = NULL.equals(values[size]) ? null : new TreeNode(Integer.parseInt(values[size]));
 			size++;
 			if (size < values.length) {
-				c.right = "#".equals(values[size]) ? null : new TreeNode(Integer.valueOf(values[size]));
+				c.right = NULL.equals(values[size]) ? null : new TreeNode(Integer.parseInt(values[size]));
 				size++;
 			}
 			if (c.left != null) {
@@ -82,12 +89,6 @@ public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
 			}
 		}
 		return head;
-	}
-	public static void main(String[] args) {
-		String str = "a,b,";
-		String str2 = "a,b";
-		System.out.println(str.split(",").length); // 2
-		System.out.println(str2.split(",").length); // 2
 	}
 
 	// 后序方式序列化 迭代方法
