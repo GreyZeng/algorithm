@@ -58,18 +58,18 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
     // 不用Hash表，只用LinkedList和若干个变量
     public List<List<Integer>> levelOrder2(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
-        if (root == null) {
+        if (null == root) {
             return ans;
         }
-        TreeNode cur = root;
-        TreeNode curEnd = root;
-        TreeNode nextEnd = null;
-        // 宽度优先遍历用队列
+        List<Integer> level = new ArrayList<>();
         Queue<TreeNode> queue = new LinkedList<>();
+        TreeNode cur = root;
         queue.offer(cur);
-        List<Integer> items = new LinkedList<>();
+        TreeNode nextEnd = null;
+        TreeNode curEnd = cur;
         while (!queue.isEmpty()) {
             cur = queue.poll();
+            level.add(cur.val);
             if (cur.left != null) {
                 queue.offer(cur.left);
                 nextEnd = cur.left;
@@ -78,13 +78,12 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
                 queue.offer(cur.right);
                 nextEnd = cur.right;
             }
-            items.add(cur.val);
-            if (curEnd == cur) {
+            if (cur == curEnd) {
                 curEnd = nextEnd;
                 // 如果要逆序打印层次，见 LeetCode 107
-                // 这里改成： ans.add(0, items);
-                ans.add(items);
-                items = new LinkedList<>();
+                // 这里改成： ans.add(0, level);
+                ans.add(level);
+                level = new ArrayList<>();
             }
         }
         return ans;
