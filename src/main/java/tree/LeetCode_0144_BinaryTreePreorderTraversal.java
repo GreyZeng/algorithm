@@ -1,10 +1,8 @@
 package tree;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
+ 
+import java.util.ArrayList; 
 import java.util.List;
-
+import java.util.Stack;
 
 // https://leetcode.com/problems/binary-tree-preorder-traversal/
 // 二叉树的先序遍历
@@ -12,6 +10,7 @@ import java.util.List;
 public class LeetCode_0144_BinaryTreePreorderTraversal {
 
     public static class TreeNode {
+
         int val;
         TreeNode left;
         TreeNode right;
@@ -30,19 +29,16 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
         }
     }
 
-    /**
-     * 递归方法实现二叉树的先序遍历
-     *
-     * @param root 二叉树头节点
-     */
+    // 递归方法
     public List<Integer> preorderTraversal1(TreeNode root) {
-        if(root == null) {
+        if (root == null) {
             return new ArrayList<>();
         }
         List<Integer> ans = new ArrayList<>();
         pre(root, ans);
         return ans;
     }
+
     public void pre(TreeNode root, List<Integer> ans) {
         if (root == null) {
             return;
@@ -59,11 +55,11 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
     // 第四步，第二步中弹出的节点，如果左孩子不为空，则左孩子入栈。
     // 第五步，循环执行第二步到第四步，直到栈为空。
     public List<Integer> preorderTraversal2(TreeNode root) {
-        if (null == root) {
-            return new ArrayList<>();
-        }
         List<Integer> ans = new ArrayList<>();
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        if (null == root) {
+            return ans;
+        }
+        Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
