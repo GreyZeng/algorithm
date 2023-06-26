@@ -1,6 +1,6 @@
 package tree;
- 
-import java.util.ArrayList; 
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -30,10 +30,7 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
     }
 
     // 递归方法
-    public List<Integer> preorderTraversal1(TreeNode root) {
-        if (root == null) {
-            return new ArrayList<>();
-        }
+    public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
         pre(root, ans);
         return ans;
@@ -47,6 +44,7 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
         pre(root.left, ans);
         pre(root.right, ans);
     }
+
 
     // 【非递归】先序遍历
     // 第一步，申请一个栈，并把头节点压入。
