@@ -69,8 +69,8 @@ public class Code_AC {
             }
         }
 
-        public List<String> containWords(String content) {
-            char[] str = content.toCharArray();
+        public List<String> containWords(String msg) {
+            char[] str = msg.toCharArray();
             Node cur = root;
             Node follow;
             int path;
