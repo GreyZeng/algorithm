@@ -1,6 +1,9 @@
 package tree;
 
+import com.sun.source.tree.Tree;
+
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -24,166 +27,178 @@ import java.util.Stack;
 // https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 public class LeetCode_0297_SerializeAndDeserializeBinaryTree {
 
-	public class TreeNode {
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
-		int val;
-		TreeNode left;
-		TreeNode right;
+        TreeNode(int x) {
+            val = x;
+        }
+    }
 
-		TreeNode(int x) {
-			val = x;
-		}
-	}
+    public static class Codec {
 
-	private static final String NULL = "#";
-	private static final String SPLIT = ",";
-	private static final String EMPTY = "[]";
-	private static final String LEFT = "[";
-	private static final String RIGHT = "]";
+        // 按层序列化
+        // 空节点补充为#
+        // 两侧用[]符号框住
+        public String serialize(TreeNode head) {
+            if (head == null) {
+                return "[]";
+            }
+            Queue<TreeNode> queue = new LinkedList<>();
+            StringBuffer sb = new StringBuffer("[");
+            queue.offer(head);
+            while (!queue.isEmpty()) {
+                TreeNode node = queue.poll();
+                sb.append(node == null ? "#" : node.val);
+                if (node != null) {
+                    queue.offer(node.left);
+                    queue.offer(node.right);
+                }
+                sb.append(",");
+            }
+            sb.append("]");
+            return sb.toString();
+        }
 
-	// 按层序列化
-	// 空节点补充为#
-	public String serialize(TreeNode head) {
-		if (null == head) {
-			return EMPTY;
-		}
-		StringBuilder sb = new StringBuilder(LEFT);
-		Queue<TreeNode> queue = new LinkedList<>();
-		queue.offer(head);
-		while (!queue.isEmpty()) {
-			TreeNode node = queue.poll();
-			sb.append(node == null ? NULL : String.valueOf(node.val)).append(SPLIT);
-			if (node != null) {
-				queue.offer(node.left);
-				queue.offer(node.right);
-			}
-		}
-		sb.append(RIGHT);
-		return sb.toString();
-	}
+        // 按层反序列化
+        public TreeNode deserialize(String data) {
+            if (Objects.equals(data, "[]")) {
+                return null;
+            }
+            // 范围只取 1 ~ strs.length - 2;
+            // 因为要过滤掉开头的[, 末尾的,和]
+            String[] strs = data.substring(1, data.length() - 1).split(",");
+            // 0 号位置一定是头节点（无需判空）
+            TreeNode head = new TreeNode(Integer.parseInt(strs[0]));
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.offer(head);
+            int i = 1; // 遍历 strs 用
+            while (i <= strs.length - 1) {
+                TreeNode node = queue.poll();
+//                if (node != null) {
+//                    TreeNode left = Objects.equals(strs[i], "#") ? null : new TreeNode(Integer.parseInt(strs[i]));
+//                    node.left = left;
+//                    queue.offer(left);
+//                    i++;
+//                    if (i <= strs.length - 1) {
+//                        TreeNode right = Objects.equals(strs[i], "#") ? null : new TreeNode(Integer.parseInt(strs[i]));
+//                        node.right = right;
+//                        queue.offer(right);
+//                    }
+//                    i++;
+//                }
+                if (node != null) {
+                    // 可以代替上述注释部分，因为在序列化的时候，每个非空节点已经补齐了两个儿子节点，所以一旦遇到非空节点，其必有两个儿子节点。
+                    TreeNode left = Objects.equals(strs[i], "#") ? null : new TreeNode(Integer.parseInt(strs[i]));
+                    node.left = left;
+                    queue.offer(left);
+                    i++;
+                    TreeNode right = Objects.equals(strs[i], "#") ? null : new TreeNode(Integer.parseInt(strs[i]));
+                    node.right = right;
+                    queue.offer(right);
+                    i++;
+                }
+            }
+            return head;
+        }
 
-	// 按层反序列化
-	public TreeNode deserialize(String data) {
-		if (EMPTY.equals(data)) {
-			return null;
-		}
-		data = data.substring(1, data.length() - 2);
-		String[] values = data.split(SPLIT);
-		TreeNode head = new TreeNode(Integer.parseInt(values[0]));
-		Queue<TreeNode> queue = new LinkedList<>();
-		queue.offer(head);
-		int size = 1;
-		while (!queue.isEmpty() && size < values.length) {
-			TreeNode c = queue.poll();
-			c.left = NULL.equals(values[size]) ? null : new TreeNode(Integer.parseInt(values[size]));
-			size++;
-			if (size < values.length) {
-				c.right = NULL.equals(values[size]) ? null : new TreeNode(Integer.parseInt(values[size]));
-				size++;
-			}
-			if (c.left != null) {
-				queue.offer(c.left);
-			}
-			if (c.right != null) {
-				queue.offer(c.right);
-			}
-		}
-		return head;
-	}
+        // 后序方式序列化 迭代方法
+        public String serialize3(TreeNode head) {
+            if (head == null) {
+                return "[]";
+            }
+            // 后序遍历的结果加入栈（可以用递归也可以用迭代）
+            Stack<TreeNode> stack1 = new Stack<>();
+            Stack<TreeNode> stack2 = new Stack<>();
+            stack1.push(head);
+            while (!stack1.isEmpty()) {
+                TreeNode c = stack1.pop();
+                stack2.push(c);
+                if (c != null) {
+                    stack1.push(c.left);
+                    stack1.push(c.right);
+                }
+            }
+            // 栈->字符串
+            StringBuilder sb = new StringBuilder("[");
+            while (!stack2.isEmpty()) {
+                TreeNode node = stack2.pop();
+                sb.append(node == null ? "#" : node.val).append(",");
+            }
+            sb.append("]");
+            return sb.toString();
+        }
 
-	// 后序方式序列化 迭代方法
-	public String serialize3(TreeNode head) {
-		if (head == null) {
-			return "[]";
-		}
-		// 后序遍历的结果加入栈（可以用递归也可以用迭代）
-		Stack<TreeNode> stack1 = new Stack<>();
-		Stack<TreeNode> stack2 = new Stack<>();
-		stack1.push(head);
-		while (!stack1.isEmpty()) {
-			TreeNode c = stack1.pop();
-			stack2.push(c);
-			if (c != null) {
-				stack1.push(c.left);
-				stack1.push(c.right);
-			}
-		}
-		// 栈->字符串
-		StringBuilder sb = new StringBuilder("[");
-		while (!stack2.isEmpty()) {
-			TreeNode node = stack2.pop();
-			sb.append(node == null ? "#" : node.val).append(",");
-		}
-		sb.append("]");
-		return sb.toString();
-	}
+        // 后序方式反序列化 迭代方式
+        public TreeNode deserialize3(String data) {
+            if ("[]".equals(data)) {
+                return null;
+            }
+            String[] values = data.substring(1, data.length() - 2).split(",");
+            Stack<String> stack = new Stack<>();
+            for (String value : values) {
+                stack.push(value);
+            }
+            return posDerial(stack);
+        }
 
-	// 后序方式反序列化 迭代方式
-	public TreeNode deserialize3(String data) {
-		if ("[]".equals(data)) {
-			return null;
-		}
-		String[] values = data.substring(1, data.length() - 2).split(",");
-		Stack<String> stack = new Stack<>();
-		for (String value : values) {
-			stack.push(value);
-		}
-		return posDerial(stack);
-	}
+        private TreeNode posDerial(Stack<String> stack) {
+            String s = stack.pop();
+            if ("#".equals(s)) {
+                return null;
+            }
+            TreeNode root = new TreeNode(Integer.valueOf(s));
+            root.right = posDerial(stack);
+            root.left = posDerial(stack);
+            return root;
+        }
 
-	private TreeNode posDerial(Stack<String> stack) {
-		String s = stack.pop();
-		if ("#".equals(s)) {
-			return null;
-		}
-		TreeNode root = new TreeNode(Integer.valueOf(s));
-		root.right = posDerial(stack);
-		root.left = posDerial(stack);
-		return root;
-	}
+        // 先序方式序列化 迭代做法
+        // 头 左 右
+        public String serialize2(TreeNode head) {
+            if (head == null) {
+                return "[]";
+            }
+            StringBuilder sb = new StringBuilder("[");
+            Stack<TreeNode> queue = new Stack<>();
+            queue.push(head);
+            while (!queue.isEmpty()) {
+                TreeNode c = queue.pop();
+                sb.append(c == null ? "#" : c.val).append(",");
+                if (c != null) {
+                    queue.push(c.right);
+                    queue.push(c.left);
+                }
+            }
+            sb.append("]");
+            return sb.toString();
+        }
 
-	// 先序方式序列化 迭代做法
-	// 头 左 右
-	public String serialize2(TreeNode head) {
-		if (head == null) {
-			return "[]";
-		}
-		StringBuilder sb = new StringBuilder("[");
-		Stack<TreeNode> queue = new Stack<>();
-		queue.push(head);
-		while (!queue.isEmpty()) {
-			TreeNode c = queue.pop();
-			sb.append(c == null ? "#" : c.val).append(",");
-			if (c != null) {
-				queue.push(c.right);
-				queue.push(c.left);
-			}
-		}
-		sb.append("]");
-		return sb.toString();
-	}
+        // 先序反序列化
+        public TreeNode deserialize2(String data) {
+            if ("[]".equals(data)) {
+                return null;
+            }
+            String[] values = data.substring(1, data.length() - 2).split(",");
+            Queue<TreeNode> queue = new LinkedList<>();
+            for (String value : values) {
+                queue.offer("#".equals(value) ? null : new TreeNode(Integer.valueOf(value)));
+            }
+            return preDesrial(queue);
+        }
 
-	// 先序反序列化
-	public TreeNode deserialize2(String data) {
-		if ("[]".equals(data)) {
-			return null;
-		}
-		String[] values = data.substring(1, data.length() - 2).split(",");
-		Queue<TreeNode> queue = new LinkedList<>();
-		for (String value : values) {
-			queue.offer("#".equals(value) ? null : new TreeNode(Integer.valueOf(value)));
-		}
-		return preDesrial(queue);
-	}
+        private TreeNode preDesrial(Queue<TreeNode> queue) {
+            TreeNode node = queue.poll();
+            if (node == null) {
+                return null;
+            }
+            node.left = preDesrial(queue);
+            node.right = preDesrial(queue);
+            return node;
+        }
 
-	private TreeNode preDesrial(Queue<TreeNode> queue) {
-		TreeNode node = queue.poll();
-		if (node == null) {
-			return null;
-		}
-		node.left = preDesrial(queue);
-		node.right = preDesrial(queue);
-		return node;
-	}
+    }
 
 }
