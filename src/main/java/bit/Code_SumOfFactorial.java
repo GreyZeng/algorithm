@@ -4,25 +4,26 @@ package bit;
 public class Code_SumOfFactorial {
 
     public static void main(String[] args) {
-        int N = 10;
+        int N = 11;
         System.out.println(f1(N));
         System.out.println(f2(N));
     }
 
-    public static long f1(int N) {
-        long ans = 0;
-        for (int i = 1; i <= N; i++) {
-            ans += factorial(i);
+    public static long f1(int n) {
+        long result = 0L;
+        for (int i = 1; i <= n; i++) {
+            result += factorial(i);
         }
-        return ans;
+        return result;
     }
 
-    public static long factorial(int N) {
-        long ans = 1;
-        for (int i = 1; i <= N; i++) {
-            ans *= i;
+    // 得到n!
+    public static long factorial(int n) {
+        long f = 1L;
+        for (int i = 1; i <= n; i++) {
+            f *= i;
         }
-        return ans;
+        return f;
     }
 
     public static long f2(int N) {
