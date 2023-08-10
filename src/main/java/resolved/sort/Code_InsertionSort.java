@@ -1,4 +1,4 @@
-package sort;
+package resolved.sort;
 
 import java.util.Arrays;
 
@@ -19,6 +19,7 @@ public class Code_InsertionSort {
             return;
         }
         for (int i = 1; i < arr.length; i++) {
+            // 经过下述循环[0...i]是有序的
             for (int j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
                 swap(arr, j, j + 1);
             }

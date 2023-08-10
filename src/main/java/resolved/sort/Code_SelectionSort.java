@@ -1,6 +1,7 @@
-package sort;
+package resolved.sort;
 
 import java.util.Arrays;
+
 // 笔记：https://www.cnblogs.com/greyzeng/p/15186769.html
 // 选择排序
 //    arr[0...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 0 号位置；
@@ -15,6 +16,7 @@ public class Code_SelectionSort {
             return;
         }
         for (int i = 0; i < arr.length; i++) {
+            // min 记录位置
             int min = i;
             for (int j = i + 1; j < arr.length; j++) {
                 min = arr[j] < arr[min] ? j : min;

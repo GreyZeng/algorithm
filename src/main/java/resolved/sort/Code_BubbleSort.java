@@ -1,4 +1,4 @@
-package sort;
+package resolved.sort;
 
 import java.util.Arrays;
 
@@ -20,6 +20,7 @@ public class Code_BubbleSort {
             return;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
+            // 每次经过下述循环，就会安排好i位置的元素
             for (int j = 0; j < i; j++) {
                 if (arr[j] > arr[j + 1]) {
                     swap(arr, j, j + 1);

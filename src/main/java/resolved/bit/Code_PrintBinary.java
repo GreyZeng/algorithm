@@ -1,4 +1,4 @@
-package bit;
+package resolved.bit;
 
 // 二进制与位运算
 // 负数的二进制如何理解
