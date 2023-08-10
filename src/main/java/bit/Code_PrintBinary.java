@@ -11,9 +11,10 @@ public class Code_PrintBinary {
         for (int i = 31; i >= 0; i--) {
             sb.append((n & (1 << i)) == 0 ? "0" : "1");
         }
-        System.out.println(sb);
+        // System.out.println(sb);
         return sb.toString();
     }
+
 
     public static void main(String[] args) {
         int num = 0b10001010_11101010_10001000_11101010;
@@ -21,6 +22,7 @@ public class Code_PrintBinary {
         System.out.println("10001010111010101000100011101010");
         System.out.println("打印原始数的二进制：");
         String printNum = printBinary(num);
+        System.out.println(printBinary(num));
         System.out.println("原始内容和打印内容是否一致（如果一致则正确）" + printNum.equals(Integer.toBinaryString(num)));
         System.out.println("左移一位：");
         printBinary(num << 1);
