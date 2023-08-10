@@ -1,4 +1,4 @@
-package random;
+package resolved.random;
 
 // 如何用1~5的随机函数加工出1~7的随机函数
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
@@ -10,7 +10,7 @@ public class Code_Rand5ToRand7 {
         return (int) (Math.random() * 5) + 1;
     }
 
-    // 通过[0,5]等概率返回的随机函数f()
+    // 通过[1,5]等概率返回的随机函数f()
     // 加工出等概率得到0和1
     // 思路：
     // 1,2,3,4,5 五个数
