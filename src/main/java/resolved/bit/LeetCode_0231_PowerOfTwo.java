@@ -1,4 +1,4 @@
-package leetcode;
+package resolved.bit;
 
 /**
  * @author <a href="mailto:410486047@qq.com">Grey</a>
