@@ -17,12 +17,22 @@ package resolved.bit;
 // 输入必须是长度为 32 的 二进制串 。
 // 进阶：
 // 如果多次调用这个函数，你将如何优化你的算法？
-// Leetcode题目 : https://leetcode.com/problems/number-of-1-bits/
+// LeetCode: https://leetcode.com/problems/number-of-1-bits/
 public class LeetCode_0191_NumberOf1Bits {
-
+	// TODO
+    // 最优解
+    public int hammingWeight(int n) {
+        n = (n & 0x55555555) + ((n >>> 1) & 0x55555555);
+        n = (n & 0x33333333) + ((n >>> 2) & 0x33333333);
+        n = (n & 0x0f0f0f0f) + ((n >>> 4) & 0x0f0f0f0f);
+        n = (n & 0x00ff00ff) + ((n >>> 8) & 0x00ff00ff);
+        n = (n & 0x0000ffff) + ((n >>> 16) & 0x0000ffff);
+        return n;
+    }
+	// 常规解法
     // 一个数的二进制有多少个1
     // 最右侧的1 （N&-N）
-    public int hammingWeight(int n) {
+    public int hammingWeight2(int n) {
         int num = 0;
         while (n != 0) {
             int mostRightOne = (n) & ((~n) + 1);
@@ -34,13 +44,5 @@ public class LeetCode_0191_NumberOf1Bits {
         return num;
     }
 
-    // TODO
-    public static int hammingWeight2(int n) {
-        n = (n & 0x55555555) + ((n >>> 1) & 0x55555555);
-        n = (n & 0x33333333) + ((n >>> 2) & 0x33333333);
-        n = (n & 0x0f0f0f0f) + ((n >>> 4) & 0x0f0f0f0f);
-        n = (n & 0x00ff00ff) + ((n >>> 8) & 0x00ff00ff);
-        n = (n & 0x0000ffff) + ((n >>> 16) & 0x0000ffff);
-        return n;
-    }
+    
 }
