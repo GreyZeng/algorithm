@@ -1,4 +1,4 @@
-package bit;
+package resolved.bit;
 
 // TODO
 public class LeetCode_0190_ReverseBits {
