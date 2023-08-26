@@ -14,6 +14,4 @@
 
 ## 参考文档
 
-[Git 推送到多个远程仓库](https://blog.csdn.net/hotonyhui/article/details/123327507)
-
 [左老师算法课程代码说明汇总](https://github.com/algorithmzuo/class-notes/)
