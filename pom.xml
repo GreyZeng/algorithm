@@ -6,7 +6,7 @@
     <artifactId>algorithm</artifactId>
     <version>3.1.RELEASE</version>
     <properties>
-        <java.version>17</java.version>
+        <java.version>20</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
