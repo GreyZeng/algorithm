@@ -3,7 +3,7 @@ package bit;
 import java.util.HashSet;
 import java.util.Set;
 
-// 位图的实现
+// 位图
 // 笔记：https://www.cnblogs.com/greyzeng/p/16634282.html
 public class Code_BitMap {
 
