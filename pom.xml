@@ -22,4 +22,24 @@
             <version>2.4.0-b180830.0359</version>
         </dependency>
     </dependencies>
+    <developers>
+        <developer>
+            <id>algorithm</id>
+            <name>Grey Zeng</name>
+            <email>greyzeng@foxmail.com</email>
+            <url>https://www.cnblogs.com/greyzeng</url>
+        </developer>
+    </developers>
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://maven.aliyun.com/repository/central</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
