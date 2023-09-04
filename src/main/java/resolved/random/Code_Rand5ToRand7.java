@@ -3,7 +3,9 @@ package resolved.random;
 // 如何用1~5的随机函数加工出1~7的随机函数
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
 public class Code_Rand5ToRand7 {
-
+    // Math.random() * 5 -> [0,5)
+    // (int) (Math.random() * 5) -> [0, 4]
+    // (int) (Math.random() * 5) + 1 -> [1, 5]
     // 此函数只能用，不能修改
     // 等概率返回1~5
     public static int f() {
@@ -41,6 +43,8 @@ public class Code_Rand5ToRand7 {
     }
 
     // 方法2：等概率返回1~7
+    // (f() + f() + f() + f() + f() + f() + f()) % 7 -> [0,6]
+    // (f() + f() + f() + f() + f() + f() + f()) % 7 + 1 -> [1,7]
     public static int g2() {
         return (f() + f() + f() + f() + f() + f() + f()) % 7 + 1;
     }
