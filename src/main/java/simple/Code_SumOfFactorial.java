@@ -1,4 +1,4 @@
-package resolved.simple;
+package simple;
 
 // 给定一个参数N，返回1!+2!+3!+4!+…+N!的结果
 public class Code_SumOfFactorial {

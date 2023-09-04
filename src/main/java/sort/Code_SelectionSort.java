@@ -1,31 +1,27 @@
-package resolved.sort;
+package sort;
 
 import java.util.Arrays;
 
-// 冒泡排序
 // 笔记：https://www.cnblogs.com/greyzeng/p/15186769.html
-// 在 arr[0...N-1] 范围上：
-// arr[0] 和 arr[1]，谁大谁来到 1 号位置；
-// arr[1] 和 arr[2]，谁大谁来到 2 号位置；
-// 依此类推……
-// arr[N-2] 和 arr[N-1]，谁大谁来到第 N-1 号位置上；
-// 在 arr[0...N-2] 范围上，重复上面的过程，但最后一步是 arr[N-3] 和 arr[N-2] ，谁大谁来到第 N-2 号位置上；
-// 在 arr[0...N-3] 范围上，重复上面的过程，但最后一步是 arr[N-4] 和 arr[N-3]，谁大谁来到第 N-3 号位置上；
-// 依此类推……
-// 最后在 arr[0...1] 范围上，重复上面的过程，但最后一步是 arr[0] 和 arr[1]，谁大谁来到第 1 号位置上；
-public class Code_BubbleSort {
+// 选择排序
+//    arr[0...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 0 号位置；
+//    arr[1...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 1 号位置；
+//    arr[2...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 2 号位置；
+//    依此类推……
+//    arr[N-1...N-1] 范围上，找到最小值位置，然后把最小值交换到 N-1 号位置；
+public class Code_SelectionSort {
 
-    public static void bubbleSort(int[] arr) {
+    public static void selectionSort(int[] arr) {
         if (arr == null || arr.length <= 1) {
             return;
         }
-        for (int i = arr.length - 1; i >= 0; i--) {
-            // 每次经过下述循环，就会安排好i位置的元素
-            for (int j = 0; j < i; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    swap(arr, j, j + 1);
-                }
+        for (int i = 0; i < arr.length; i++) {
+            // min 记录位置
+            int min = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                min = arr[j] < arr[min] ? j : min;
             }
+            swap(arr, i, min);
         }
     }
 
@@ -37,7 +33,6 @@ public class Code_BubbleSort {
         }
     }
 
-    // for test
     private static int[] generateRandomArray(int maxSize, int maxValue) {
         // Math.random() -> [0,1)
         // Math.random() * N -> [0,N)
@@ -66,10 +61,10 @@ public class Code_BubbleSort {
         boolean succeed = true;
         for (int i = 0; i < times; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
-            int[] arr4 = copyArray(arr1);
-            bubbleSort(arr1);
-            Arrays.sort(arr4);
-            if (!Arrays.equals(arr1, arr4)) {
+            int[] arr2 = copyArray(arr1);
+            selectionSort(arr1);
+            Arrays.sort(arr2);
+            if (!Arrays.equals(arr2, arr1)) {
                 succeed = false;
                 break;
             }
