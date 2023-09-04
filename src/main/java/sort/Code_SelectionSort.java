@@ -10,16 +10,17 @@ import java.util.Arrays;
 //    依此类推……
 //    arr[N-1...N-1] 范围上，找到最小值位置，然后把最小值交换到 N-1 号位置；
 public class Code_SelectionSort {
-
     public static void selectionSort(int[] arr) {
-        if (arr == null || arr.length <= 1) {
+        if (null == arr || arr.length <= 1) {
             return;
         }
+        int min = 0;
         for (int i = 0; i < arr.length; i++) {
-            // min 记录位置
-            int min = i;
-            for (int j = i + 1; j < arr.length; j++) {
-                min = arr[j] < arr[min] ? j : min;
+            min = i;
+            for (int k = i + 1; k < arr.length; k++) {
+                if (arr[k] < arr[min]) {
+                    min = k;
+                }
             }
             swap(arr, i, min);
         }
