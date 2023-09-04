@@ -13,18 +13,17 @@ import java.util.Arrays;
 // 估算时发现这个算法流程的复杂程度，会因为数据状况的不同而不同。如果数组本身是有序的，那么插入排序的过程不需要移动任何数字，
 // 但是时间复杂度是以最坏情况估计，所以插入排序的时间复杂度仍然是 O(N^2)。
 public class Code_InsertionSort {
-
     public static void insertionSort(int[] arr) {
         if (null == arr || arr.length <= 1) {
             return;
         }
         for (int i = 1; i < arr.length; i++) {
-            // 经过下述循环[0...i]是有序的
-            for (int j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
-                swap(arr, j, j + 1);
+            for (int k = i - 1; k >= 0 && arr[k] > arr[k + 1]; k--) {
+                swap(arr, k, k + 1);
             }
         }
     }
+
 
     public static void swap(int[] arr, int i, int j) {
         if (i != j) {
