@@ -1,4 +1,4 @@
-package resolved.random;
+package random;
 
 // https://leetcode.com/problems/implement-rand10-using-rand7/
 // 如何用a~b的随机函数加工出c~d的随机函数
