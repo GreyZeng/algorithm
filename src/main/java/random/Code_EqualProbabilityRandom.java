@@ -31,5 +31,6 @@ public class Code_EqualProbabilityRandom {
         }
         System.out.println("0 出现的次数:" + count[0]);
         System.out.println("1 出现的次数:" + count[1]);
+        System.out.println("两个数应该差不多大");
     }
 }
