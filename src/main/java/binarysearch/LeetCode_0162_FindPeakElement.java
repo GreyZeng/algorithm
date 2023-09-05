@@ -18,7 +18,7 @@ public class LeetCode_0162_FindPeakElement {
 		if (nums.length == 2) {
 			return nums[0] > nums[1] ? 0 : 1;
 		}
-		int l = 0; 
+		int l = 0;
 		int r = nums.length - 1;
 		while (l <= r) {
 			if (nums[l] > nums[l + 1]) {
@@ -39,5 +39,5 @@ public class LeetCode_0162_FindPeakElement {
 		}
 		return -1;
 	}
-	
+
 }
