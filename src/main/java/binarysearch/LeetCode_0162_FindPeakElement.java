@@ -39,4 +39,5 @@ public class LeetCode_0162_FindPeakElement {
 		}
 		return -1;
 	}
+	
 }
