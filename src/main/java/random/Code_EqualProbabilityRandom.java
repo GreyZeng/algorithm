@@ -10,7 +10,7 @@ public class Code_EqualProbabilityRandom {
         return Math.random() < 0.8 ? 0 : 1;
     }
 
-    // 等概率返回0和1
+    // 该函数功能是等概率返回0和1
     // 由于 0 和 1 的概率是不等的
     // 但是随机两次， 0 1 或者 1 0 出现的概率一定是相等的
     public static int g() {
