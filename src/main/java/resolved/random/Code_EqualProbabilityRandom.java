@@ -1,4 +1,4 @@
-package random;
+package resolved.random;
 
 // 不等概率随机函数变成等概率随机函数
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html

@@ -1,4 +1,4 @@
-package binarysearch;
+package resolved.binarysearch;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16622554.html
 // 二分查找：在一个有序数组中，找某个数是否存在,返回目标值所在的位置

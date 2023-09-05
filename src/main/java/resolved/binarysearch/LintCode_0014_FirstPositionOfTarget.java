@@ -1,4 +1,4 @@
-package binarysearch;
+package resolved.binarysearch;
 
 // Given a sorted array (ascending order) and a target number, find the first index of this number in O(logn) time complexity.
 public class LintCode_0014_FirstPositionOfTarget {

@@ -1,10 +1,11 @@
-package binarysearch;
+package resolved.binarysearch;
 
 // 数据量
 // 1 <= nums.length <= 1000
 // -2^31 <= nums[i] <= 2^31 - 1
 // 对于所有有效的 i 都有 nums[i] != nums[i + 1]
 // https://leetcode.com/problems/find-peak-element/
+// https://www.lintcode.com/problem/75/
 // 返回局部高点的位置，如果有多个，返回一个峰值位置即可
 // 时间复杂度要求 O(logN)
 // 有一个限制条件：即对于所有有效的 i 都有 arr[i] != arr[i + 1]

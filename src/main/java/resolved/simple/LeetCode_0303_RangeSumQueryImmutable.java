@@ -1,4 +1,4 @@
-package simple;
+package resolved.simple;
 
 // 实现前缀和
 // 303. 区域和检索 - 数组不可变

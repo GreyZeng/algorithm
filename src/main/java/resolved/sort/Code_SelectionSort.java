@@ -1,29 +1,30 @@
-package sort;
+package resolved.sort;
 
 import java.util.Arrays;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/15186769.html
-// 流程如下
-// 想让 arr[0...0] 上有序，这个范围只有一个数，当然是有序的。
-// 想让 arr[0...1] 上有序，所以从 arr[1] 开始往前看，如果 arr[1] < arr[0]，就交换。否则什么也不做。
-// 依此类推……
-// 想让 arr[0...i] 上有序，所以从 arr[i] 开始往前看，arr[i] 这个数不停向左移动，一直移动到左边的数字不再比自己大，停止移动。
-// 最后一步，
-// 想让 arr[0...N-1] 上有序，arr[N-1] 这个数不停向左移动，一直移动到左边的数字不再比自己大，停止移动。
-// 估算时发现这个算法流程的复杂程度，会因为数据状况的不同而不同。如果数组本身是有序的，那么插入排序的过程不需要移动任何数字，
-// 但是时间复杂度是以最坏情况估计，所以插入排序的时间复杂度仍然是 O(N^2)。
-public class Code_InsertionSort {
-    public static void insertionSort(int[] arr) {
+// 选择排序
+//    arr[0...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 0 号位置；
+//    arr[1...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 1 号位置；
+//    arr[2...N-1] 范围上，找到最小值所在的位置，然后把最小值交换到 2 号位置；
+//    依此类推……
+//    arr[N-1...N-1] 范围上，找到最小值位置，然后把最小值交换到 N-1 号位置；
+public class Code_SelectionSort {
+    public static void selectionSort(int[] arr) {
         if (null == arr || arr.length <= 1) {
             return;
         }
-        for (int i = 1; i < arr.length; i++) {
-            for (int k = i - 1; k >= 0 && arr[k] > arr[k + 1]; k--) {
-                swap(arr, k, k + 1);
+        int min = 0;
+        for (int i = 0; i < arr.length; i++) {
+            min = i;
+            for (int k = i + 1; k < arr.length; k++) {
+                if (arr[k] < arr[min]) {
+                    min = k;
+                }
             }
+            swap(arr, i, min);
         }
     }
-
 
     public static void swap(int[] arr, int i, int j) {
         if (i != j) {
@@ -33,7 +34,6 @@ public class Code_InsertionSort {
         }
     }
 
-    // for test
     private static int[] generateRandomArray(int maxSize, int maxValue) {
         // Math.random() -> [0,1)
         // Math.random() * N -> [0,N)
@@ -62,11 +62,10 @@ public class Code_InsertionSort {
         boolean succeed = true;
         for (int i = 0; i < times; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
-
-            int[] arr3 = copyArray(arr1);
-            insertionSort(arr3);
-            Arrays.sort(arr1);
-            if (!Arrays.equals(arr1, arr3)) {
+            int[] arr2 = copyArray(arr1);
+            selectionSort(arr1);
+            Arrays.sort(arr2);
+            if (!Arrays.equals(arr2, arr1)) {
                 succeed = false;
                 break;
             }

@@ -1,4 +1,4 @@
-package random;
+package resolved.random;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16618329.html
 // 随机函数构造新随机函数问题
