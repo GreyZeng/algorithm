@@ -1,6 +1,5 @@
 package list;
 
-import java.util.List;
 
 // 删除链表的指定节点
 // https://leetcode.com/problems/remove-linked-list-elements/
