@@ -1,5 +1,4 @@
-package list;
-
+package resolved.list;
 
 // 删除链表的指定节点
 // https://leetcode.com/problems/remove-linked-list-elements/
