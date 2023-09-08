@@ -84,7 +84,7 @@ public class Code_LinkedListToQueueAndStack {
         }
 
         public boolean isEmpty() {
-            return size == 0;
+            return size() == 0;
         }
 
         public int size() {
@@ -92,37 +92,28 @@ public class Code_LinkedListToQueueAndStack {
         }
 
         public void push(V v) {
-            Node<V> newNode = new Node<>(v);
             if (isEmpty()) {
-                head = newNode;
-                size = 1;
+                head = new Node<>(v);
             } else {
-                newNode.next = head;
-                head = newNode;
-                size++;
+                Node<V> node = new Node<>(v);
+                node.next = head;
+                head = node;
             }
+            size++;
         }
 
         public V pop() {
-            if (isEmpty()) {
-                return null;
+            if (!isEmpty()) {
+                V val = head.val;
+                head = head.next;
+                size--;
+                return val;
             }
-            size--;
-            V v = head.val;
-            // 只有一个节点
-            if (head.next == null) {
-                head = null;
-                return v;
-            }
-            head = head.next;
-            return v;
+            return null;
         }
 
         public V peek() {
             return isEmpty() ? null : head.val;
         }
-
     }
-
-
 }
