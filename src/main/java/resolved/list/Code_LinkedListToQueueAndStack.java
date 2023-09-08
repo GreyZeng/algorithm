@@ -56,18 +56,13 @@ public class Code_LinkedListToQueueAndStack {
 
         // 尾部出
         public V poll() {
-            if (isEmpty()) {
-                return null;
-            }
-            size--;
-            V val = tail.val;
-            if (head == tail) {
-                head = null;
-                tail = null;
+            if (!isEmpty()) {
+                V val = tail.val;
+                tail = tail.next;
+                size--;
                 return val;
             }
-            tail = tail.next;
-            return val;
+            return null;
         }
 
         // 查看尾部数据
