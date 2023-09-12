@@ -1,4 +1,4 @@
-package list;
+package resolved.list;
 
 import java.util.Stack;
 
