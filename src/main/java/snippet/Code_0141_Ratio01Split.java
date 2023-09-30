@@ -17,53 +17,52 @@ import java.util.HashMap;
 // 输出: ans = [1, 1, 1, 2, 1, 2, 1, 1, 3]
 public class Code_0141_Ratio01Split {
 
-    // 001010010100...
-    public static int[] split(int[] arr) {
+  // 001010010100...
+  public static int[] split(int[] arr) {
 
-        // key : 分子
-        // value : 属于key的分母表, 每一个分母，及其 分子/分母 这个比例，多少个前缀拥有
-        HashMap<Integer, HashMap<Integer, Integer>> pre = new HashMap<>();
-        int n = arr.length;
-        int[] ans = new int[n];
-        int zero = 0; // 0出现的次数
-        int one = 0; // 1出现的次数
-        for (int i = 0; i < n; i++) {
-            if (arr[i] == 0) {
-                zero++;
-            } else {
-                one++;
-            }
-            if (zero == 0 || one == 0) {
-                ans[i] = i + 1;
-            } else { // 0和1，都有数量 -> 最简分数
-                int gcd = gcd(zero, one);
-                int a = zero / gcd;
-                int b = one / gcd;
-                // a / b 比例，之前有多少前缀拥有？ 3+1 4 5+1 6
-                if (!pre.containsKey(a)) {
-                    pre.put(a, new HashMap<>());
-                }
-                if (!pre.get(a).containsKey(b)) {
-                    pre.get(a).put(b, 1);
-                } else {
-                    pre.get(a).put(b, pre.get(a).get(b) + 1);
-                }
-                ans[i] = pre.get(a).get(b);
-            }
+    // key : 分子
+    // value : 属于key的分母表, 每一个分母，及其 分子/分母 这个比例，多少个前缀拥有
+    HashMap<Integer, HashMap<Integer, Integer>> pre = new HashMap<>();
+    int n = arr.length;
+    int[] ans = new int[n];
+    int zero = 0; // 0出现的次数
+    int one = 0; // 1出现的次数
+    for (int i = 0; i < n; i++) {
+      if (arr[i] == 0) {
+        zero++;
+      } else {
+        one++;
+      }
+      if (zero == 0 || one == 0) {
+        ans[i] = i + 1;
+      } else { // 0和1，都有数量 -> 最简分数
+        int gcd = gcd(zero, one);
+        int a = zero / gcd;
+        int b = one / gcd;
+        // a / b 比例，之前有多少前缀拥有？ 3+1 4 5+1 6
+        if (!pre.containsKey(a)) {
+          pre.put(a, new HashMap<>());
         }
-        return ans;
-    }
-
-    public static int gcd(int m, int n) {
-        return n == 0 ? m : gcd(n, m % n);
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {0, 1, 0, 1, 0, 1, 1, 0};
-        int[] ans = split(arr);
-        for (int i = 0; i < ans.length; i++) {
-            System.out.print(ans[i] + " ");
+        if (!pre.get(a).containsKey(b)) {
+          pre.get(a).put(b, 1);
+        } else {
+          pre.get(a).put(b, pre.get(a).get(b) + 1);
         }
+        ans[i] = pre.get(a).get(b);
+      }
     }
+    return ans;
+  }
 
+  public static int gcd(int m, int n) {
+    return n == 0 ? m : gcd(n, m % n);
+  }
+
+  public static void main(String[] args) {
+    int[] arr = {0, 1, 0, 1, 0, 1, 1, 0};
+    int[] ans = split(arr);
+    for (int i = 0; i < ans.length; i++) {
+      System.out.print(ans[i] + " ");
+    }
+  }
 }

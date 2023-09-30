@@ -17,33 +17,32 @@
  */
 package leetcode;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class LeetCode_0454_4SumII {
-    public static int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
-        Map<Integer, Integer> map = new HashMap<>();
-        int sum;
-        for (int j : A) {
-            for (int k : B) {
-                sum = j + k;
-                if (map.containsKey(sum)) {
-                    map.put(sum, map.get(sum) + 1);
-                } else {
-                    map.put(sum, 1);
-                }
-            }
+  public static int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
+    Map<Integer, Integer> map = new HashMap<>();
+    int sum;
+    for (int j : A) {
+      for (int k : B) {
+        sum = j + k;
+        if (map.containsKey(sum)) {
+          map.put(sum, map.get(sum) + 1);
+        } else {
+          map.put(sum, 1);
         }
-        int ans = 0;
-        for (int k : C) {
-            for (int i : D) {
-                sum = k + i;
-                if (map.containsKey(-sum)) {
-                    ans += map.get(-sum);
-                }
-            }
-        }
-        return ans;
+      }
     }
+    int ans = 0;
+    for (int k : C) {
+      for (int i : D) {
+        sum = k + i;
+        if (map.containsKey(-sum)) {
+          ans += map.get(-sum);
+        }
+      }
+    }
+    return ans;
+  }
 }

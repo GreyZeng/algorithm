@@ -29,35 +29,35 @@ import java.util.Comparator;
 // 至少移除多少个区间后可以保证线段不重合
 // 转换成非重叠区域的个数
 public class LeetCode_0435_NonOverlappingIntervals {
-    public static int eraseOverlapIntervals(int[][] intervals) {
-        if (null == intervals || intervals.length <= 1) {
-            return 0;
-        }
-        Interval[] arr = new Interval[intervals.length];
-        int i = 0;
-        for (int[] interval : intervals) {
-            arr[i++] = new Interval(interval[0], interval[1]);
-        }
-        Arrays.sort(arr, Comparator.comparingInt((Interval o) -> o.end));
-        // 非重叠区域个数
-        int notOverlap = 1;
-        int b = arr[0].end;
-        for (i = 1; i < arr.length; i++) {
-            if (arr[i].start >= b) {
-                notOverlap++;
-                b = arr[i].end;
-            }
-        }
-        return arr.length - notOverlap;
+  public static int eraseOverlapIntervals(int[][] intervals) {
+    if (null == intervals || intervals.length <= 1) {
+      return 0;
     }
-
-    public static class Interval {
-        public int start;
-        public int end;
-
-        public Interval(int start, int end) {
-            this.start = start;
-            this.end = end;
-        }
+    Interval[] arr = new Interval[intervals.length];
+    int i = 0;
+    for (int[] interval : intervals) {
+      arr[i++] = new Interval(interval[0], interval[1]);
     }
+    Arrays.sort(arr, Comparator.comparingInt((Interval o) -> o.end));
+    // 非重叠区域个数
+    int notOverlap = 1;
+    int b = arr[0].end;
+    for (i = 1; i < arr.length; i++) {
+      if (arr[i].start >= b) {
+        notOverlap++;
+        b = arr[i].end;
+      }
+    }
+    return arr.length - notOverlap;
+  }
+
+  public static class Interval {
+    public int start;
+    public int end;
+
+    public Interval(int start, int end) {
+      this.start = start;
+      this.end = end;
+    }
+  }
 }

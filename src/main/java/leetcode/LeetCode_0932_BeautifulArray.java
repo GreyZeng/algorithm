@@ -29,62 +29,58 @@ import java.util.Map;
 // https://leetcode-cn.com/problems/beautiful-array
 public class LeetCode_0932_BeautifulArray {
 
-    public static int[] beautifulArray(int N) {
-        Map<Integer, int[]> memo = new HashMap<>(N);
-        return f(N, memo);
+  public static int[] beautifulArray(int N) {
+    Map<Integer, int[]> memo = new HashMap<>(N);
+    return f(N, memo);
+  }
+
+  public static int[] f(int N, Map<Integer, int[]> memo) {
+    if (memo.containsKey(N)) {
+      return memo.get(N);
     }
 
-    public static int[] f(int N, Map<Integer, int[]> memo) {
-        if (memo.containsKey(N)) {
-            return memo.get(N);
-        }
-
-        int[] ans = new int[N];
-        if (N == 1) {
-            ans[0] = 1;
-        } else {
-            int t = 0;
-            for (int x : f((N + 1) / 2, memo)) {
-                ans[t++] = 2 * x - 1;
-            }
-            for (int x : f(N / 2, memo)) {
-                ans[t++] = 2 * x;
-            }
-        }
-        memo.put(N, ans);
-        return ans;
+    int[] ans = new int[N];
+    if (N == 1) {
+      ans[0] = 1;
+    } else {
+      int t = 0;
+      for (int x : f((N + 1) / 2, memo)) {
+        ans[t++] = 2 * x - 1;
+      }
+      for (int x : f(N / 2, memo)) {
+        ans[t++] = 2 * x;
+      }
     }
+    memo.put(N, ans);
+    return ans;
+  }
 
-
-    // 检验函数
-    public static boolean isValid(int[] arr) {
-        int N = arr.length;
-        for (int i = 0; i < N; i++) {
-            for (int k = i + 1; k < N; k++) {
-                for (int j = k + 1; j < N; j++) {
-                    if (arr[i] + arr[j] == 2 * arr[k]) {
-                        return false;
-                    }
-                }
-            }
+  // 检验函数
+  public static boolean isValid(int[] arr) {
+    int N = arr.length;
+    for (int i = 0; i < N; i++) {
+      for (int k = i + 1; k < N; k++) {
+        for (int j = k + 1; j < N; j++) {
+          if (arr[i] + arr[j] == 2 * arr[k]) {
+            return false;
+          }
         }
-        return true;
+      }
     }
+    return true;
+  }
 
-    public static void main(String[] args) {
-        System.out.println("test begin");
-        for (int N = 1; N < 1000; N++) {
-            int[] arr = beautifulArray(N);
-            if (!isValid(arr)) {
-                System.out.println("Oops!");
-            }
-        }
-        System.out.println("test end");
-
-        System.out.println(isValid(beautifulArray(1042)));
-        System.out.println(isValid(beautifulArray(2981)));
-
-
+  public static void main(String[] args) {
+    System.out.println("test begin");
+    for (int N = 1; N < 1000; N++) {
+      int[] arr = beautifulArray(N);
+      if (!isValid(arr)) {
+        System.out.println("Oops!");
+      }
     }
+    System.out.println("test end");
 
+    System.out.println(isValid(beautifulArray(1042)));
+    System.out.println(isValid(beautifulArray(2981)));
+  }
 }

@@ -1,4 +1,3 @@
-
 package leetcode;
 
 // 给你一个用字符数组tasks 表示的 CPU 需要执行的任务列表。其中每个字母表示一种不同种类的任务。任务可以以任意顺序执行，并且每个任务都可以在 1 个单位时间内执行完。
@@ -27,26 +26,24 @@ package leetcode;
 // Leetcode题目 : https://leetcode.com/problems/task-scheduler/
 public class LeetCode_0621_TaskScheduler {
 
-    public static int leastInterval(char[] tasks, int n) {
-        int[] count = new int[256];
-        int N = tasks.length;
-        int max = 0;
-        for (int i = 0; i < N; i++) {
-            max = Math.max(++count[tasks[i]], max);
-        }
-
-        int maxKinds = 0;
-        for (int i = 0; i < 256; i++) {
-            if (count[i] == max) {
-                maxKinds++;
-            }
-        }
-
-        int restTasks = N - maxKinds;
-        int spaces = (max - 1) * (n + 1);
-        int restSpace = Math.max(spaces - restTasks, 0);
-        return N + restSpace;
-
+  public static int leastInterval(char[] tasks, int n) {
+    int[] count = new int[256];
+    int N = tasks.length;
+    int max = 0;
+    for (int i = 0; i < N; i++) {
+      max = Math.max(++count[tasks[i]], max);
     }
 
+    int maxKinds = 0;
+    for (int i = 0; i < 256; i++) {
+      if (count[i] == max) {
+        maxKinds++;
+      }
+    }
+
+    int restTasks = N - maxKinds;
+    int spaces = (max - 1) * (n + 1);
+    int restSpace = Math.max(spaces - restTasks, 0);
+    return N + restSpace;
+  }
 }

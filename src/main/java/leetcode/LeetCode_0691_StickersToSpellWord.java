@@ -35,157 +35,155 @@ import java.util.Map;
 // 链接：https://leetcode-cn.com/problems/stickers-to-spell-word
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0691_StickersToSpellWord {
-    public static int minStickers(String[] stickers, String target) {
-        if (stickers == null || stickers.length < 1 || target.length() < 1) {
-            return 0;
-        }
-        int p = process(stickers, target);
-        return p == Integer.MAX_VALUE ? -1 : p;
+  public static int minStickers(String[] stickers, String target) {
+    if (stickers == null || stickers.length < 1 || target.length() < 1) {
+      return 0;
     }
+    int p = process(stickers, target);
+    return p == Integer.MAX_VALUE ? -1 : p;
+  }
 
-    public static int process(String[] stickers, String target) {
-        if (target.length() == 0) {
-            // 目标是空串，只需要0张贴纸
-            return 0;
-        }
-        int ways = Integer.MAX_VALUE;
-        for (String s : stickers) {
-            String rest = minus(s, target);
-            if (target.length() != rest.length()) {
-                // 有效
-                ways = Math.min(process(stickers, rest), ways);
-            }
-        }
-        return ways == Integer.MAX_VALUE ? Integer.MAX_VALUE : ways + 1;
+  public static int process(String[] stickers, String target) {
+    if (target.length() == 0) {
+      // 目标是空串，只需要0张贴纸
+      return 0;
     }
-
-    private static String minus(String first, String target) {
-        char[] s2 = target.toCharArray();
-        char[] s1 = first.toCharArray();
-        StringBuilder sb = new StringBuilder();
-        int[] dict = new int[26];
-        for (char c : s2) {
-            dict[c - 'a']++;
-        }
-        for (char c : s1) {
-            dict[c - 'a']--;
-        }
-        for (int i = 0; i < 26; i++) {
-            int times = dict[i];
-            for (int m = 0; m < times; m++) {
-                sb.append((char) (i + 'a'));
-            }
-        }
-        return sb.toString();
+    int ways = Integer.MAX_VALUE;
+    for (String s : stickers) {
+      String rest = minus(s, target);
+      if (target.length() != rest.length()) {
+        // 有效
+        ways = Math.min(process(stickers, rest), ways);
+      }
     }
+    return ways == Integer.MAX_VALUE ? Integer.MAX_VALUE : ways + 1;
+  }
 
-    // 优化1: 二维数组可以代替词频数组，也可以自然排序
-    // 优化2：只选择含有第一个字符的贴纸去尝试
-    // 也会超时
-    public static int minStickers2(String[] stickers, String target) {
-        if (stickers == null || stickers.length < 1 || target.length() < 1) {
-            return 0;
-        }
-        int[][] st = new int[stickers.length][26];
-        for (int i = 0; i < stickers.length; i++) {
-            String sticker = stickers[i];
-            char[] chars = sticker.toCharArray();
-            for (char c : chars) {
-                st[i][c - 'a']++;
-            }
-        }
-        int res = p2(st, target);
-        return res == Integer.MAX_VALUE ? -1 : res;
+  private static String minus(String first, String target) {
+    char[] s2 = target.toCharArray();
+    char[] s1 = first.toCharArray();
+    StringBuilder sb = new StringBuilder();
+    int[] dict = new int[26];
+    for (char c : s2) {
+      dict[c - 'a']++;
     }
-
-    public static int p2(int[][] stickers, String target) {
-        if (target.length() == 0) {
-            return 0;
-        }
-        char[] cs = target.toCharArray();
-        int ans = Integer.MAX_VALUE;
-        for (int[] first : stickers) {
-            if (first[cs[0] - 'a'] > 0) {
-                // 包含target首字母的字符串才考虑尝试
-                String rest = minus(first, cs);
-                if (rest.length() != target.length()) {
-                    ans = Math.min(p2(stickers, rest), ans);
-                }
-            }
-        }
-        return ans == Integer.MAX_VALUE ? Integer.MAX_VALUE : ans + 1;
+    for (char c : s1) {
+      dict[c - 'a']--;
     }
-
-    public static String minus(int[] first, char[] target) {
-        int[] count = new int[first.length];
-        System.arraycopy(first, 0, count, 0, first.length);
-        StringBuilder sb = new StringBuilder();
-        for (char c : target) {
-            if (count[c - 'a'] > 0) {
-                count[c - 'a']--;
-            } else {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
+    for (int i = 0; i < 26; i++) {
+      int times = dict[i];
+      for (int m = 0; m < times; m++) {
+        sb.append((char) (i + 'a'));
+      }
     }
+    return sb.toString();
+  }
 
-    // 将字符串数组转换成二维数组
-    public static int[][] build2D(String[] stickers) {
-        int n = stickers.length;
-        int[][] s = new int[n][26];
-        for (int i = 0; i < n; i++) {
-            char[] line = stickers[i].toCharArray();
-            for (char c : line) {
-                s[i][c - 'a']++;
-            }
-        }
-        return s;
+  // 优化1: 二维数组可以代替词频数组，也可以自然排序
+  // 优化2：只选择含有第一个字符的贴纸去尝试
+  // 也会超时
+  public static int minStickers2(String[] stickers, String target) {
+    if (stickers == null || stickers.length < 1 || target.length() < 1) {
+      return 0;
     }
-
-    // 增加缓存
-    // 可以AC
-    public static int minStickers3(String[] stickers, String target) {
-        if (target == null || target.length() < 1) {
-            return 0;
-        }
-        Map<String, Integer> map = new HashMap<>();
-        map.put("", 0);
-        int res = p3(build2D(stickers), target, map);
-        return res == Integer.MAX_VALUE ? -1 : res;
+    int[][] st = new int[stickers.length][26];
+    for (int i = 0; i < stickers.length; i++) {
+      String sticker = stickers[i];
+      char[] chars = sticker.toCharArray();
+      for (char c : chars) {
+        st[i][c - 'a']++;
+      }
     }
+    int res = p2(st, target);
+    return res == Integer.MAX_VALUE ? -1 : res;
+  }
 
-    public static int p3(int[][] stickers, String target, Map<String, Integer> map) {
-        if (map.containsKey(target)) {
-            return map.get(target);
-        }
-        if (target.length() == 0) {
-            map.put(target, 0);
-            return 0;
-        }
-        char[] t = target.toCharArray();
-        int ways = Integer.MAX_VALUE;
-        // 每一张贴纸作为第一张贴纸，搞定后续的方法数
-        for (int[] first : stickers) {
-            // 搞定第一个字符的的贴纸才考虑后续过程
-            if (first[t[0] - 'a'] > 0) {
-                String rest = minus(first, t);
-                // rest长度==target长度，说明没有搞定任何情况
-                if (rest.length() != target.length()) {
-                    ways = Math.min(p3(stickers, rest, map), ways);
-                }
-            }
-        }
-        ways = ways == Integer.MAX_VALUE ? Integer.MAX_VALUE : ways + 1;
-        map.put(target, ways);
-        return ways;
+  public static int p2(int[][] stickers, String target) {
+    if (target.length() == 0) {
+      return 0;
     }
-
-
-    public static void main(String[] args) {
-        String target = "thehat";
-        String first = "with";
-        System.out.println(minus(first, target));
+    char[] cs = target.toCharArray();
+    int ans = Integer.MAX_VALUE;
+    for (int[] first : stickers) {
+      if (first[cs[0] - 'a'] > 0) {
+        // 包含target首字母的字符串才考虑尝试
+        String rest = minus(first, cs);
+        if (rest.length() != target.length()) {
+          ans = Math.min(p2(stickers, rest), ans);
+        }
+      }
     }
+    return ans == Integer.MAX_VALUE ? Integer.MAX_VALUE : ans + 1;
+  }
 
+  public static String minus(int[] first, char[] target) {
+    int[] count = new int[first.length];
+    System.arraycopy(first, 0, count, 0, first.length);
+    StringBuilder sb = new StringBuilder();
+    for (char c : target) {
+      if (count[c - 'a'] > 0) {
+        count[c - 'a']--;
+      } else {
+        sb.append(c);
+      }
+    }
+    return sb.toString();
+  }
+
+  // 将字符串数组转换成二维数组
+  public static int[][] build2D(String[] stickers) {
+    int n = stickers.length;
+    int[][] s = new int[n][26];
+    for (int i = 0; i < n; i++) {
+      char[] line = stickers[i].toCharArray();
+      for (char c : line) {
+        s[i][c - 'a']++;
+      }
+    }
+    return s;
+  }
+
+  // 增加缓存
+  // 可以AC
+  public static int minStickers3(String[] stickers, String target) {
+    if (target == null || target.length() < 1) {
+      return 0;
+    }
+    Map<String, Integer> map = new HashMap<>();
+    map.put("", 0);
+    int res = p3(build2D(stickers), target, map);
+    return res == Integer.MAX_VALUE ? -1 : res;
+  }
+
+  public static int p3(int[][] stickers, String target, Map<String, Integer> map) {
+    if (map.containsKey(target)) {
+      return map.get(target);
+    }
+    if (target.length() == 0) {
+      map.put(target, 0);
+      return 0;
+    }
+    char[] t = target.toCharArray();
+    int ways = Integer.MAX_VALUE;
+    // 每一张贴纸作为第一张贴纸，搞定后续的方法数
+    for (int[] first : stickers) {
+      // 搞定第一个字符的的贴纸才考虑后续过程
+      if (first[t[0] - 'a'] > 0) {
+        String rest = minus(first, t);
+        // rest长度==target长度，说明没有搞定任何情况
+        if (rest.length() != target.length()) {
+          ways = Math.min(p3(stickers, rest, map), ways);
+        }
+      }
+    }
+    ways = ways == Integer.MAX_VALUE ? Integer.MAX_VALUE : ways + 1;
+    map.put(target, ways);
+    return ways;
+  }
+
+  public static void main(String[] args) {
+    String target = "thehat";
+    String first = "with";
+    System.out.println(minus(first, target));
+  }
 }

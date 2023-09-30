@@ -4,20 +4,20 @@ package bit;
 // https://www.cnblogs.com/greyzeng/p/15385402.html
 // https://leetcode.com/problems/single-number-iii/
 public class LeetCode_0260_SingleNumberIII {
-    public int[] singleNumber(int[] nums) {
-    	int eor = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            eor ^= nums[i];
-        }
-        // eor = a ^ b;
-        int leftOne = eor & (-eor);
-        int a = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if ((nums[i] & leftOne) == 0) {
-                a ^= nums[i];
-            }
-        }
-        int b = a ^ eor;
-        return new int[]{a, b};
+  public int[] singleNumber(int[] nums) {
+    int eor = nums[0];
+    for (int i = 1; i < nums.length; i++) {
+      eor ^= nums[i];
     }
+    // eor = a ^ b;
+    int leftOne = eor & (-eor);
+    int a = 0;
+    for (int i = 0; i < nums.length; i++) {
+      if ((nums[i] & leftOne) == 0) {
+        a ^= nums[i];
+      }
+    }
+    int b = a ^ eor;
+    return new int[] {a, b};
+  }
 }

@@ -13,51 +13,50 @@ package nowcoder;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16651527.html
 public class NowCoder_EatGrass {
-    public static String winner(int n) {
-        // 0 羊
-        // 1 牛
-        // 2 羊
-        // 3 牛
-        // 4 牛
-        if (n < 5) { // base case
-            return (n == 0 || n == 2) ? "yang" : "niu";
-        }
-        // n >= 5 时
-        int base = 1; // 当前先手（牛）决定吃的草数
-        // 当前是先手（牛）在选
-        while (base <= n) {
-            // 当前一共n份草，先手（牛）吃掉的是base份，n - base 是留给后手（羊）的草
-            if (winner(n - base).equals("yang")) {
-                return "niu";
-            }
-            if (base > (n >> 2)) { // 防止base*4之后溢出
-                break;
-            }
-            base <<= 2;
-        }
-        return "yang";
+  public static String winner(int n) {
+    // 0 羊
+    // 1 牛
+    // 2 羊
+    // 3 牛
+    // 4 牛
+    if (n < 5) { // base case
+      return (n == 0 || n == 2) ? "yang" : "niu";
     }
-
-    public static String winner2(int n) {
-        if (n % 5 == 0 || n % 5 == 2) {
-            return "yang";
-        } else {
-            return "niu";
-        }
+    // n >= 5 时
+    int base = 1; // 当前先手（牛）决定吃的草数
+    // 当前是先手（牛）在选
+    while (base <= n) {
+      // 当前一共n份草，先手（牛）吃掉的是base份，n - base 是留给后手（羊）的草
+      if (winner(n - base).equals("yang")) {
+        return "niu";
+      }
+      if (base > (n >> 2)) { // 防止base*4之后溢出
+        break;
+      }
+      base <<= 2;
     }
+    return "yang";
+  }
 
-    public static void main(String[] args) {
-        int times = 20000;
-        int maxValue = 55;
-        int t;
-        for (int i = 0; i < times; i++) {
-            t = (int) (Math.random() * maxValue) + 1;
-            if (!winner(t).equals(winner2(t))) {
-                System.out.println("Oops!");
-                break;
-            }
-        }
-        System.out.println("finish");
+  public static String winner2(int n) {
+    if (n % 5 == 0 || n % 5 == 2) {
+      return "yang";
+    } else {
+      return "niu";
     }
+  }
 
+  public static void main(String[] args) {
+    int times = 20000;
+    int maxValue = 55;
+    int t;
+    for (int i = 0; i < times; i++) {
+      t = (int) (Math.random() * maxValue) + 1;
+      if (!winner(t).equals(winner2(t))) {
+        System.out.println("Oops!");
+        break;
+      }
+    }
+    System.out.println("finish");
+  }
 }

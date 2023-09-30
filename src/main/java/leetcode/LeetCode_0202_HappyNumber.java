@@ -24,36 +24,36 @@ import java.util.HashSet;
 // Leetcode题目 : https://leetcode.com/problems/happy-number
 public class LeetCode_0202_HappyNumber {
 
-    // 使用Hash表
-    public boolean isHappy(int n) {
-        HashSet<Integer> set = new HashSet<>();
-        while (n != 1) {
-            int s = 0;
-            while (n != 0) {
-                int t = n % 10;
-                s += (t * t);
-                n = n / 10;
-            }
-            n = s;
-            // 如果沿途算过的值在set中出现过，说明出现了循环引用，此时如果n!=1，则认为肯定不是happyNumber
-            if (set.contains(n)) {
-                break;
-            }
-            set.add(n);
-        }
-        return n == 1;
+  // 使用Hash表
+  public boolean isHappy(int n) {
+    HashSet<Integer> set = new HashSet<>();
+    while (n != 1) {
+      int s = 0;
+      while (n != 0) {
+        int t = n % 10;
+        s += (t * t);
+        n = n / 10;
+      }
+      n = s;
+      // 如果沿途算过的值在set中出现过，说明出现了循环引用，此时如果n!=1，则认为肯定不是happyNumber
+      if (set.contains(n)) {
+        break;
+      }
+      set.add(n);
     }
+    return n == 1;
+  }
 
-    // 公式解法 不具有普遍性
-    public static boolean isHappy2(int n) {
-        while (n != 1 && n != 4) {
-            int sum = 0;
-            while (n != 0) {
-                sum += (n % 10) * (n % 10);
-                n /= 10;
-            }
-            n = sum;
-        }
-        return n == 1;
+  // 公式解法 不具有普遍性
+  public static boolean isHappy2(int n) {
+    while (n != 1 && n != 4) {
+      int sum = 0;
+      while (n != 0) {
+        sum += (n % 10) * (n % 10);
+        n /= 10;
+      }
+      n = sum;
     }
+    return n == 1;
+  }
 }

@@ -29,45 +29,45 @@ import java.util.List;
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 // 笔记：https://www.cnblogs.com/greyzeng/p/16485378.html
 public class LeetCode_0438_FindAllAnagramsInAString {
-    // 滑动窗口 + 欠账表
-    public List<Integer> findAnagrams(String s, String p) {
-        if (s == null || p == null) {
-            return new ArrayList<>();
-        }
-        List<Integer> ans = new ArrayList<>();
-        char[] str = s.toCharArray();
-        char[] pStr = p.toCharArray();
-        // 词频表
-        int[] map = new int[26];
-        // 窗口从[l,r)
-        int l = 0;
-        int r = 0;
-        // 欠账数量
-        int c = pStr.length;
-        for (char ch : pStr) {
-            map[ch - 'a']++;
-        }
-        int n = str.length;
-        while (r < n) {
-            if (map[str[r] - 'a'] > 0) {
-                // 有效还款
-                c--;
-            }
-            map[str[r++] - 'a']--;
-            if (c == 0) {
-                // 收集到一个位置
-                ans.add(l);
-            }
-            // 形成窗口
-            if (r - l == pStr.length) {
-                // l面临要出窗口
-                if (map[str[l] - 'a'] >= 0) {
-                    // 退回去
-                    c++;
-                }
-                map[str[l++] - 'a']++;
-            }
-        }
-        return ans;
+  // 滑动窗口 + 欠账表
+  public List<Integer> findAnagrams(String s, String p) {
+    if (s == null || p == null) {
+      return new ArrayList<>();
     }
+    List<Integer> ans = new ArrayList<>();
+    char[] str = s.toCharArray();
+    char[] pStr = p.toCharArray();
+    // 词频表
+    int[] map = new int[26];
+    // 窗口从[l,r)
+    int l = 0;
+    int r = 0;
+    // 欠账数量
+    int c = pStr.length;
+    for (char ch : pStr) {
+      map[ch - 'a']++;
+    }
+    int n = str.length;
+    while (r < n) {
+      if (map[str[r] - 'a'] > 0) {
+        // 有效还款
+        c--;
+      }
+      map[str[r++] - 'a']--;
+      if (c == 0) {
+        // 收集到一个位置
+        ans.add(l);
+      }
+      // 形成窗口
+      if (r - l == pStr.length) {
+        // l面临要出窗口
+        if (map[str[l] - 'a'] >= 0) {
+          // 退回去
+          c++;
+        }
+        map[str[l++] - 'a']++;
+      }
+    }
+    return ans;
+  }
 }

@@ -26,15 +26,15 @@ package stock;
 // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/
 // https://www.cnblogs.com/greyzeng/p/16182420.html
 public class LeetCode_0121_BestTimeToBuyAndSellStock {
-    // 必须在某个时刻卖出的情况下，最大收益是多少？
+  // 必须在某个时刻卖出的情况下，最大收益是多少？
 
-    public int maxProfit(int[] arr) {
-        int max = 0;
-        int min = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            min = Math.min(arr[i], min);
-            max = Math.max(arr[i] - min, max);
-        }
-        return max;
+  public int maxProfit(int[] arr) {
+    int max = 0;
+    int min = arr[0];
+    for (int i = 1; i < arr.length; i++) {
+      min = Math.min(arr[i], min);
+      max = Math.max(arr[i] - min, max);
     }
+    return max;
+  }
 }

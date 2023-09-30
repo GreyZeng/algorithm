@@ -14,46 +14,45 @@ package snippet;
 // 返回分数
 public class Code_0143_ComputeExpressionValue {
 
-    public static int sores(String s) {
-        return compute(s.toCharArray(), 0)[0];
+  public static int sores(String s) {
+    return compute(s.toCharArray(), 0)[0];
+  }
+
+  // s[i.....] 遇到 ')' 或者 终止位置 停！
+  // 返回值：int[] 长度就是2
+  // 0 ：分数是多少
+  // 1 : 来到了什么位置停的！
+  public static int[] compute(char[] s, int i) {
+    if (s[i] == ')') {
+      return new int[] {1, i};
     }
-
-    // s[i.....] 遇到 ')' 或者 终止位置 停！
-    // 返回值：int[] 长度就是2
-    // 0 ：分数是多少
-    // 1 : 来到了什么位置停的！
-    public static int[] compute(char[] s, int i) {
-        if (s[i] == ')') {
-            return new int[]{1, i};
-        }
-        int ans = 1;
-        while (i < s.length && s[i] != ')') {
-            int[] info = compute(s, i + 1);
-            ans *= info[0] + 1;
-            i = info[1] + 1;
-        }
-        return new int[]{ans, i};
+    int ans = 1;
+    while (i < s.length && s[i] != ')') {
+      int[] info = compute(s, i + 1);
+      ans *= info[0] + 1;
+      i = info[1] + 1;
     }
+    return new int[] {ans, i};
+  }
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        String str1 = "(()())()(())";
-        System.out.println(sores(str1));
+    String str1 = "(()())()(())";
+    System.out.println(sores(str1));
 
-        // (()()) + (((()))) + ((())())
-        // (()()) -> 2 * 2 + 1 -> 5
-        // (((()))) -> 5
-        // ((())()) -> ((2 + 1) * 2) + 1 -> 7
-        // 所以下面的结果应该是175
-        String str2 = "(()())(((())))((())())";
-        System.out.println(sores(str2));
+    // (()()) + (((()))) + ((())())
+    // (()()) -> 2 * 2 + 1 -> 5
+    // (((()))) -> 5
+    // ((())()) -> ((2 + 1) * 2) + 1 -> 7
+    // 所以下面的结果应该是175
+    String str2 = "(()())(((())))((())())";
+    System.out.println(sores(str2));
 
-        // (()()()) + (()(()))
-        // (()()()) -> 2 * 2 * 2 + 1 -> 9
-        // (()(())) -> 2 * 3 + 1 -> 7
-        // 所以下面的结果应该是63
-        String str3 = "(()()())(()(()))";
-        System.out.println(sores(str3));
-    }
-
+    // (()()()) + (()(()))
+    // (()()()) -> 2 * 2 * 2 + 1 -> 9
+    // (()(())) -> 2 * 3 + 1 -> 7
+    // 所以下面的结果应该是63
+    String str3 = "(()()())(()(()))";
+    System.out.println(sores(str3));
+  }
 }

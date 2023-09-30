@@ -39,59 +39,58 @@ package reservoirsampling;
 //
 // base + 各区域的服务器 range + base 最小值+range 压力被range分散掉
 public class Code_ReservoirSampling {
-    public static class RandomBox {
-        private int[] bag;
-        // 袋子容量
-        private int capacity;
-        // 第几号球
-        private int count;
+  public static class RandomBox {
+    private int[] bag;
+    // 袋子容量
+    private int capacity;
+    // 第几号球
+    private int count;
 
-        public RandomBox(int capacity) {
-            bag = new int[capacity];
-            this.capacity = capacity;
-            count = 0;
-        }
-
-        // 随机函数，等概率生成1-max之间随机的一个数字
-        // Math.random() -> 生成[0,1)范围内的数
-        // (int)i 是对i进行向下取整
-        private int rand(int max) {
-            return (int) (Math.random() * max) + 1;
-        }
-
-        public void add(int num) {
-            // 球个数增加
-            count++;
-            // 如果球的个数没有超过容量
-            if (count <= capacity) {
-                // 则入袋
-                bag[count - 1] = num;
-            } else if (rand(count) <= capacity) {
-                // 否则以N/count的概率入袋
-                bag[rand(capacity) - 1] = num;
-            }
-        }
-
-        // 返回袋子中最终选中的球
-        public int[] choices() {
-            int[] res = new int[capacity];
-            System.arraycopy(bag, 0, res, 0, capacity);
-            return res;
-        }
-
+    public RandomBox(int capacity) {
+      bag = new int[capacity];
+      this.capacity = capacity;
+      count = 0;
     }
 
-    public static void main(String[] args) {
-        System.out.println("hello");
-        int all = 100;
-        int choose = 10;
-        RandomBox box = new RandomBox(choose);
-        for (int num = 1; num <= all; num++) {
-            box.add(num);
-        }
-        int[] ans = box.choices();
-        for (int i = 0; i < ans.length; i++) {
-            System.out.println(i + " times : " + ans[i]);
-        }
+    // 随机函数，等概率生成1-max之间随机的一个数字
+    // Math.random() -> 生成[0,1)范围内的数
+    // (int)i 是对i进行向下取整
+    private int rand(int max) {
+      return (int) (Math.random() * max) + 1;
     }
+
+    public void add(int num) {
+      // 球个数增加
+      count++;
+      // 如果球的个数没有超过容量
+      if (count <= capacity) {
+        // 则入袋
+        bag[count - 1] = num;
+      } else if (rand(count) <= capacity) {
+        // 否则以N/count的概率入袋
+        bag[rand(capacity) - 1] = num;
+      }
+    }
+
+    // 返回袋子中最终选中的球
+    public int[] choices() {
+      int[] res = new int[capacity];
+      System.arraycopy(bag, 0, res, 0, capacity);
+      return res;
+    }
+  }
+
+  public static void main(String[] args) {
+    System.out.println("hello");
+    int all = 100;
+    int choose = 10;
+    RandomBox box = new RandomBox(choose);
+    for (int num = 1; num <= all; num++) {
+      box.add(num);
+    }
+    int[] ans = box.choices();
+    for (int i = 0; i < ans.length; i++) {
+      System.out.println(i + " times : " + ans[i]);
+    }
+  }
 }

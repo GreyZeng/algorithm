@@ -28,30 +28,30 @@ import java.util.Scanner;
 // 不是0的话，先手赢
 // 先手总是可以让选择后的数据异或和为0
 public class Luogu_P2197_Nim {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int T = in.nextInt();
-        for (int i = 0; i < T; i++) {
-            int n = in.nextInt();
-            int[] arr = new int[n];
-            for (int j = 0; j < n; j++) {
-                arr[j] = in.nextInt();
-            }
-            System.out.println(preWin(arr));
-        }
-        in.close();
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    int T = in.nextInt();
+    for (int i = 0; i < T; i++) {
+      int n = in.nextInt();
+      int[] arr = new int[n];
+      for (int j = 0; j < n; j++) {
+        arr[j] = in.nextInt();
+      }
+      System.out.println(preWin(arr));
     }
+    in.close();
+  }
 
-    // 先手是否必胜
-    public static String preWin(int[] arr) {
-        int eor = 0;
-        for (int num : arr) {
-            eor ^= num;
-        }
-        if (eor == 0) {
-            return "No";
-        } else {
-            return "Yes";
-        }
+  // 先手是否必胜
+  public static String preWin(int[] arr) {
+    int eor = 0;
+    for (int num : arr) {
+      eor ^= num;
     }
+    if (eor == 0) {
+      return "No";
+    } else {
+      return "Yes";
+    }
+  }
 }

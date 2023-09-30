@@ -10,7 +10,6 @@
  * 输出描述: 输出目录结构，每一个测试样例的输出紧跟一个空行。 示例1 输入 4 a\b\c a\d\e b\cst d\ 0 输出 a b c d e b cst d
  */
 
-
 package nowcoder;
 
 import java.util.ArrayList;
@@ -24,75 +23,74 @@ import java.util.TreeMap;
  * @date 2021/1/24 15:40
  */
 public class NowCoder_Folder {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        while (n != 0) {
-            String[] folders = new String[n];
-            for (int i = 0; i < n; i++) {
-                folders[i] = in.next();
-            }
-            List<String> ans = print(folders);
-            for (String a : ans) {
-                System.out.println(a);
-            }
-            System.out.println();
-            n = in.nextInt();
-        }
-
-        in.close();
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    int n = in.nextInt();
+    while (n != 0) {
+      String[] folders = new String[n];
+      for (int i = 0; i < n; i++) {
+        folders[i] = in.next();
+      }
+      List<String> ans = print(folders);
+      for (String a : ans) {
+        System.out.println(a);
+      }
+      System.out.println();
+      n = in.nextInt();
     }
 
-    public static List<String> print(String[] folders) {
-        if (null == folders || folders.length == 0) {
-            return new ArrayList<>();
-        }
-        List<String> ans = new ArrayList<>();
-        Node head = buildTrie(folders);
-        buildLevel(head, 0, ans);
-        return ans;
+    in.close();
+  }
+
+  public static List<String> print(String[] folders) {
+    if (null == folders || folders.length == 0) {
+      return new ArrayList<>();
     }
+    List<String> ans = new ArrayList<>();
+    Node head = buildTrie(folders);
+    buildLevel(head, 0, ans);
+    return ans;
+  }
 
-    private static void buildLevel(Node head, int level, List<String> ans) {
-        if (level != 0) {
-            ans.add(space(level) + head.value);
-        }
-        for (Node next : head.next.values()) {
-            buildLevel(next, level + 1, ans);
-        }
+  private static void buildLevel(Node head, int level, List<String> ans) {
+    if (level != 0) {
+      ans.add(space(level) + head.value);
     }
-
-    private static String space(int level) {
-        String res = "";
-        for (int i = 1; i < level; i++) {
-            res += "  ";
-        }
-        return res;
+    for (Node next : head.next.values()) {
+      buildLevel(next, level + 1, ans);
     }
+  }
 
-    public static class Node {
-        public String value;
-        public TreeMap<String, Node> next;
-
-        public Node(String v) {
-            value = v;
-            next = new TreeMap<>();
-        }
+  private static String space(int level) {
+    String res = "";
+    for (int i = 1; i < level; i++) {
+      res += "  ";
     }
+    return res;
+  }
 
-    public static Node buildTrie(String[] folders) {
-        Node head = new Node("");
-        for (String folder : folders) {
-            String[] paths = folder.split("\\\\");
-            Node cur = head;
-            for (String path : paths) {
-                if (!cur.next.containsKey(path)) {
-                    cur.next.put(path, new Node(path));
-                }
-                cur = cur.next.get(path);
-            }
-        }
-        return head;
+  public static class Node {
+    public String value;
+    public TreeMap<String, Node> next;
+
+    public Node(String v) {
+      value = v;
+      next = new TreeMap<>();
     }
+  }
 
+  public static Node buildTrie(String[] folders) {
+    Node head = new Node("");
+    for (String folder : folders) {
+      String[] paths = folder.split("\\\\");
+      Node cur = head;
+      for (String path : paths) {
+        if (!cur.next.containsKey(path)) {
+          cur.next.put(path, new Node(path));
+        }
+        cur = cur.next.get(path);
+      }
+    }
+    return head;
+  }
 }

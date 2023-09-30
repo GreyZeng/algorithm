@@ -35,39 +35,39 @@ package houserobber;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16494637.html
 public class LeetCode_0213_HouseRobberII {
 
-    public static int rob(int[] arr) {
-        if (arr == null || arr.length == 0) {
-            return 0;
-        }
-        if (arr.length == 1) {
-            return arr[0];
-        }
-        if (arr.length == 2) {
-            return Math.max(arr[0], arr[1]);
-        }
-        if (arr.length == 3) {
-            return Math.max(Math.max(arr[0], arr[1]), arr[2]);
-        }
-        final int n = arr.length;
-        // 以下情况是考虑最后一个位置
-        int prePre = arr[1];
-        int pre = Math.max(arr[1], arr[2]);
-        int max = pre;
-        for (int i = 3; i < n; i++) {
-            int cur = Math.max(pre, prePre + arr[i]);
-            prePre = pre;
-            pre = cur;
-            max = Math.max(cur, max);
-        }
-        // 以下情况是不考虑最后一个位置
-        prePre = arr[0];
-        pre = Math.max(arr[0], arr[1]);
-        for (int i = 2; i < n - 1; i++) {
-            int cur = Math.max(pre, prePre + arr[i]);
-            prePre = pre;
-            pre = cur;
-            max = Math.max(cur, max);
-        }
-        return max;
+  public static int rob(int[] arr) {
+    if (arr == null || arr.length == 0) {
+      return 0;
     }
+    if (arr.length == 1) {
+      return arr[0];
+    }
+    if (arr.length == 2) {
+      return Math.max(arr[0], arr[1]);
+    }
+    if (arr.length == 3) {
+      return Math.max(Math.max(arr[0], arr[1]), arr[2]);
+    }
+    final int n = arr.length;
+    // 以下情况是考虑最后一个位置
+    int prePre = arr[1];
+    int pre = Math.max(arr[1], arr[2]);
+    int max = pre;
+    for (int i = 3; i < n; i++) {
+      int cur = Math.max(pre, prePre + arr[i]);
+      prePre = pre;
+      pre = cur;
+      max = Math.max(cur, max);
+    }
+    // 以下情况是不考虑最后一个位置
+    prePre = arr[0];
+    pre = Math.max(arr[0], arr[1]);
+    for (int i = 2; i < n - 1; i++) {
+      int cur = Math.max(pre, prePre + arr[i]);
+      prePre = pre;
+      pre = cur;
+      max = Math.max(cur, max);
+    }
+    return max;
+  }
 }

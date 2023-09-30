@@ -40,38 +40,38 @@ import java.util.List;
 // https://leetcode.cn/problems/combination-sum/
 public class LeetCode_0039_CombinationSum {
 
-    public static List<List<Integer>> combinationSum(int[] arr, int k) {
-        return p(arr, arr.length, 0, k);
+  public static List<List<Integer>> combinationSum(int[] arr, int k) {
+    return p(arr, arr.length, 0, k);
+  }
+
+  // 从i号位置开始及其后面的所有，帮我搞定target
+  private static List<List<Integer>> p(int[] arr, int len, int i, int k) {
+
+    if (i == len) {
+      return new ArrayList<>();
+    }
+    List<List<Integer>> ans = new ArrayList<>();
+    if (k == 0) {
+      ans.add(new ArrayList<>());
+      return ans;
     }
 
-    // 从i号位置开始及其后面的所有，帮我搞定target
-    private static List<List<Integer>> p(int[] arr, int len, int i, int k) {
-
-        if (i == len) {
-            return new ArrayList<>();
+    for (int times = 0; times * arr[i] <= k; times++) {
+      if (times * arr[i] == k) {
+        List<Integer> t = new ArrayList<>();
+        for (int j = 0; j < times; j++) {
+          t.add(arr[i]);
         }
-        List<List<Integer>> ans = new ArrayList<>();
-        if (k == 0) {
-            ans.add(new ArrayList<>());
-            return ans;
-        }
-
-        for (int times = 0; times * arr[i] <= k; times++) {
-            if (times * arr[i] == k) {
-                List<Integer> t = new ArrayList<>();
-                for (int j = 0; j < times; j++) {
-                    t.add(arr[i]);
-                }
-                ans.add(t);
-                return ans;
-            }
-            for (List<Integer> a : p(arr, len, i + 1, k - times * arr[i])) {
-                for (int j = 0; j < times; j++) {
-                    a.add(arr[i]);
-                }
-                ans.add(a);
-            }
-        }
+        ans.add(t);
         return ans;
+      }
+      for (List<Integer> a : p(arr, len, i + 1, k - times * arr[i])) {
+        for (int j = 0; j < times; j++) {
+          a.add(arr[i]);
+        }
+        ans.add(a);
+      }
     }
+    return ans;
+  }
 }

@@ -30,54 +30,53 @@ import java.util.HashMap;
 // https://leetcode.cn/problems/path-sum-iii/
 public class LeetCode_0437_PathSumIII {
 
-    public class TreeNode {
+  public class TreeNode {
 
-        int val;
-        TreeNode left;
-        TreeNode right;
+    int val;
+    TreeNode left;
+    TreeNode right;
 
-        TreeNode() {
-        }
+    TreeNode() {}
 
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
+    TreeNode(int val) {
+      this.val = val;
     }
 
-    public static int pathSum(TreeNode root, int sum) {
-        HashMap<Long, Integer> preSumMap = new HashMap<>();
-        preSumMap.put(0L, 1);
-        return process(root, sum, 0, preSumMap);
+    TreeNode(int val, TreeNode left, TreeNode right) {
+      this.val = val;
+      this.left = left;
+      this.right = right;
     }
+  }
 
-    // 返回方法数
-    public static int process(TreeNode x, int sum, long preAll, HashMap<Long, Integer> preSumMap) {
-        if (x == null) {
-            return 0;
-        }
-        long all = preAll + x.val;
-        int ans = 0;
-        if (preSumMap.containsKey(all - sum)) {
-            ans = preSumMap.get(all - sum);
-        }
-        if (!preSumMap.containsKey(all)) {
-            preSumMap.put(all, 1);
-        } else {
-            preSumMap.put(all, preSumMap.get(all) + 1);
-        }
-        ans += process(x.left, sum, all, preSumMap);
-        ans += process(x.right, sum, all, preSumMap);
-        if (preSumMap.get(all) == 1) {
-            preSumMap.remove(all);
-        } else {
-            preSumMap.put(all, preSumMap.get(all) - 1);
-        }
-        return ans;
+  public static int pathSum(TreeNode root, int sum) {
+    HashMap<Long, Integer> preSumMap = new HashMap<>();
+    preSumMap.put(0L, 1);
+    return process(root, sum, 0, preSumMap);
+  }
+
+  // 返回方法数
+  public static int process(TreeNode x, int sum, long preAll, HashMap<Long, Integer> preSumMap) {
+    if (x == null) {
+      return 0;
     }
+    long all = preAll + x.val;
+    int ans = 0;
+    if (preSumMap.containsKey(all - sum)) {
+      ans = preSumMap.get(all - sum);
+    }
+    if (!preSumMap.containsKey(all)) {
+      preSumMap.put(all, 1);
+    } else {
+      preSumMap.put(all, preSumMap.get(all) + 1);
+    }
+    ans += process(x.left, sum, all, preSumMap);
+    ans += process(x.right, sum, all, preSumMap);
+    if (preSumMap.get(all) == 1) {
+      preSumMap.remove(all);
+    } else {
+      preSumMap.put(all, preSumMap.get(all) - 1);
+    }
+    return ans;
+  }
 }

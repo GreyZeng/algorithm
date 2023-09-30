@@ -10,44 +10,43 @@ import java.util.Stack;
 // https://leetcode.com/problems/implement-queue-using-stacks/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
 public class LeetCode_0232_ImplementQueueUsingStacks {
-	class MyQueue {
-		private Stack<Integer> popStack;
-		private Stack<Integer> pushStack;
+  class MyQueue {
+    private Stack<Integer> popStack;
+    private Stack<Integer> pushStack;
 
-		public MyQueue() {
-			popStack = new Stack<>();
-			pushStack = new Stack<>();
-		}
+    public MyQueue() {
+      popStack = new Stack<>();
+      pushStack = new Stack<>();
+    }
 
-		public void push(int x) {
-			pushStack.push(x);
-		}
+    public void push(int x) {
+      pushStack.push(x);
+    }
 
-		public int pop() {
-			while (!pushStack.isEmpty()) {
-				popStack.push(pushStack.pop());
-			}
-			int v = popStack.pop();
-			while (!popStack.isEmpty()) {
-				pushStack.push(popStack.pop());
-			}
-			return v;
-		}
+    public int pop() {
+      while (!pushStack.isEmpty()) {
+        popStack.push(pushStack.pop());
+      }
+      int v = popStack.pop();
+      while (!popStack.isEmpty()) {
+        pushStack.push(popStack.pop());
+      }
+      return v;
+    }
 
-		public int peek() {
-			while (!pushStack.isEmpty()) {
-				popStack.push(pushStack.pop());
-			}
-			int v = popStack.peek();
-			while (!popStack.isEmpty()) {
-				pushStack.push(popStack.pop());
-			}
-			return v;
-		}
+    public int peek() {
+      while (!pushStack.isEmpty()) {
+        popStack.push(pushStack.pop());
+      }
+      int v = popStack.peek();
+      while (!popStack.isEmpty()) {
+        pushStack.push(popStack.pop());
+      }
+      return v;
+    }
 
-		public boolean empty() {
-			return pushStack.isEmpty();
-		}
-	}
-
+    public boolean empty() {
+      return pushStack.isEmpty();
+    }
+  }
 }

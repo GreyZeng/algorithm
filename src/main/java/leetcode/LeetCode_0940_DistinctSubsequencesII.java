@@ -19,19 +19,19 @@ package leetcode;
 // 某个字符上一步all+新-修正值
 // 修正值=上一步以这个字符结尾的字符数量
 public class LeetCode_0940_DistinctSubsequencesII {
-    public static int distinctSubseqII(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
-        }
-        int m = 1000000007;
-        char[] str = s.toCharArray();
-        int[] count = new int[26];
-        int all = 1; // 算空集
-        for (char x : str) {
-            int add = (all - count[x - 'a'] + m) % m;
-            all = (all + add) % m;
-            count[x - 'a'] = (count[x - 'a'] + add) % m;
-        }
-        return all - 1;
+  public static int distinctSubseqII(String s) {
+    if (s == null || s.length() == 0) {
+      return 0;
     }
+    int m = 1000000007;
+    char[] str = s.toCharArray();
+    int[] count = new int[26];
+    int all = 1; // 算空集
+    for (char x : str) {
+      int add = (all - count[x - 'a'] + m) % m;
+      all = (all + add) % m;
+      count[x - 'a'] = (count[x - 'a'] + add) % m;
+    }
+    return all - 1;
+  }
 }

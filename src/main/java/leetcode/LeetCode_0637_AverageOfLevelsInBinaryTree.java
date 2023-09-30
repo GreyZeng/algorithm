@@ -15,43 +15,43 @@ import java.util.Queue;
 // https://leetcode.cn/problems/average-of-levels-in-binary-tree/description/
 // 按层遍历，然后求每层的平均值
 public class LeetCode_0637_AverageOfLevelsInBinaryTree {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+  public static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+  }
+
+  public static List<Double> averageOfLevels(TreeNode root) {
+    if (null == root) {
+      return new ArrayList<>();
+    }
+    List<Double> result = new ArrayList<>();
+    Queue<TreeNode> queue = new LinkedList<>();
+    TreeNode curEnd = root;
+    TreeNode nextEnd = null;
+    int numOfNodes = 0;
+    Double sumOfNodesVal = 0d;
+    queue.offer(root);
+    while (!queue.isEmpty()) {
+      TreeNode poll = queue.poll();
+      if (null != poll.left) {
+        queue.offer(poll.left);
+        nextEnd = poll.left;
+      }
+      if (null != poll.right) {
+        queue.offer(poll.right);
+        nextEnd = poll.right;
+      }
+      numOfNodes++;
+      sumOfNodesVal += poll.val;
+      if (poll == curEnd) {
+        result.add(sumOfNodesVal / numOfNodes);
+        sumOfNodesVal = 0d;
+        numOfNodes = 0;
+        curEnd = nextEnd;
+      }
     }
 
-    public static List<Double> averageOfLevels(TreeNode root) {
-        if (null == root) {
-            return new ArrayList<>();
-        }
-        List<Double> result = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        TreeNode curEnd = root;
-        TreeNode nextEnd = null;
-        int numOfNodes = 0;
-        Double sumOfNodesVal = 0d;
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            TreeNode poll = queue.poll();
-            if (null != poll.left) {
-                queue.offer(poll.left);
-                nextEnd = poll.left;
-            }
-            if (null != poll.right) {
-                queue.offer(poll.right);
-                nextEnd = poll.right;
-            }
-            numOfNodes++;
-            sumOfNodesVal += poll.val;
-            if (poll == curEnd) {
-                result.add(sumOfNodesVal / numOfNodes);
-                sumOfNodesVal = 0d;
-                numOfNodes = 0;
-                curEnd = nextEnd;
-            }
-        }
-
-        return result;
-    }
+    return result;
+  }
 }

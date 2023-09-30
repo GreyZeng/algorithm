@@ -20,73 +20,72 @@ import java.util.LinkedList;
 // Leetcode题目 : https://leetcode.com/problems/course-schedule-ii/
 public class LeetCode_0210_CourseScheduleII {
 
-    public static class Node {
-        public int name; // 节点名称
-        public int in; // 入度的个数
-        public ArrayList<Node> nexts; // 邻居节点
+  public static class Node {
+    public int name; // 节点名称
+    public int in; // 入度的个数
+    public ArrayList<Node> nexts; // 邻居节点
 
-        public Node(int n) {
-            name = n;
-            in = 0;
-            nexts = new ArrayList<>();
-        }
+    public Node(int n) {
+      name = n;
+      in = 0;
+      nexts = new ArrayList<>();
     }
+  }
 
-    // 找入度为0的点，删掉后，继续找入度为0的点..依次调用下去
-    // 如果最后所有的点删光了，则说明可以完成，如果出现循环无法删，则无法完成
-    public static int[] findOrder(int numCourses, int[][] prerequisites) {
-        int[] res = new int[numCourses];
-        for (int i = 0; i < numCourses; i++) {
-            res[i] = i;
-        }
-        if (prerequisites == null || prerequisites.length == 0) {
-            return res;
-        }
-        HashMap<Integer, Node> map = new HashMap<>();
-        for (int[] prerequisite : prerequisites) {
-            Node f;
-            Node t;
-            if (map.containsKey(prerequisite[1])) {
-                f = map.get(prerequisite[1]);
-            } else {
-                f = new Node(prerequisite[1]);
-            }
-            if (map.containsKey(prerequisite[0])) {
-                t = map.get(prerequisite[0]);
-            } else {
-                t = new Node(prerequisite[0]);
-            }
-            t.in++;
-            f.nexts.add(t);
-            map.put(prerequisite[1], f);
-            map.put(prerequisite[0], t);
-        }
-        LinkedList<Node> zero = new LinkedList<>();
-        // int s = 0;
-        int x = 0;
-        for (int i = 0; i < numCourses; i++) {
-            if (!map.containsKey(i)) {
-                res[x++] = i;
-            } else {
-                Node t = map.get(i);
-                if (t.in == 0) {
-                    zero.add(t);
-                }
-            }
-        }
-        int s = map.size();
-        while (!zero.isEmpty()) {
-            s--;
-            Node t = zero.poll();
-            res[x++] = t.name;
-            for (Node i : t.nexts) {
-                i.in--;
-                if (i.in == 0) {
-                    zero.add(i);
-                }
-            }
-        }
-        return s == 0 ? res : new int[]{};
+  // 找入度为0的点，删掉后，继续找入度为0的点..依次调用下去
+  // 如果最后所有的点删光了，则说明可以完成，如果出现循环无法删，则无法完成
+  public static int[] findOrder(int numCourses, int[][] prerequisites) {
+    int[] res = new int[numCourses];
+    for (int i = 0; i < numCourses; i++) {
+      res[i] = i;
     }
-
+    if (prerequisites == null || prerequisites.length == 0) {
+      return res;
+    }
+    HashMap<Integer, Node> map = new HashMap<>();
+    for (int[] prerequisite : prerequisites) {
+      Node f;
+      Node t;
+      if (map.containsKey(prerequisite[1])) {
+        f = map.get(prerequisite[1]);
+      } else {
+        f = new Node(prerequisite[1]);
+      }
+      if (map.containsKey(prerequisite[0])) {
+        t = map.get(prerequisite[0]);
+      } else {
+        t = new Node(prerequisite[0]);
+      }
+      t.in++;
+      f.nexts.add(t);
+      map.put(prerequisite[1], f);
+      map.put(prerequisite[0], t);
+    }
+    LinkedList<Node> zero = new LinkedList<>();
+    // int s = 0;
+    int x = 0;
+    for (int i = 0; i < numCourses; i++) {
+      if (!map.containsKey(i)) {
+        res[x++] = i;
+      } else {
+        Node t = map.get(i);
+        if (t.in == 0) {
+          zero.add(t);
+        }
+      }
+    }
+    int s = map.size();
+    while (!zero.isEmpty()) {
+      s--;
+      Node t = zero.poll();
+      res[x++] = t.name;
+      for (Node i : t.nexts) {
+        i.in--;
+        if (i.in == 0) {
+          zero.add(i);
+        }
+      }
+    }
+    return s == 0 ? res : new int[] {};
+  }
 }

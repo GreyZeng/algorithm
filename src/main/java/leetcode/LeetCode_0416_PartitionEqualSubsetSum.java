@@ -22,9 +22,7 @@ package leetcode;
 // TODO
 public class LeetCode_0416_PartitionEqualSubsetSum {
 
-
-    public static boolean canPartition(int[] nums) {
-        return false;
-    }
-
+  public static boolean canPartition(int[] nums) {
+    return false;
+  }
 }

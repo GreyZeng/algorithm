@@ -20,46 +20,47 @@ package hanota;
 // 如果这个状况是汉诺塔最优解运动过程中的状态，返回它是第几个状态
 // 笔记：https://www.cnblogs.com/greyzeng/p/14418802.html
 public class NowCoder_HanotaII {
-    // O(N)
-    public static int chkStep(int[] arr, int N) {
-        return f(arr, N - 1, 1, 3, 2);
-    }
-    // n 表示0...n个圆盘 n+1
-    // from 从哪个位置
-    // to 到哪个位置
-    // other 其他位置
-    // 返回，这个是最优解的第几步
-    // eg: f(arr, 8,1,3,2): arr中表示9个圆盘目前的状态，从左边移动到右边，是最优解的第几步
+  // O(N)
+  public static int chkStep(int[] arr, int N) {
+    return f(arr, N - 1, 1, 3, 2);
+  }
 
-    // 三层汉诺塔问题
-    // 0~i-1 from -> other
-    // i from -> to
-    // 0~i-1 other -> to
-    // 所以i位置没有必要去other位置
-    // 如果某一步 arr[i] = other 直接返回-1
-    // 如果arr[i] = from 说明 第一步没走完
-    // 调用 f(arr, i-1, from ,other, to)
-    // 如果arr[i] = to 说明在第三步
-    // 因为N层汉诺塔问题的步数是 2^N - 1
-    // 第一步走了 2^(i-1) - 1
-    // 第二步走了 1步
-    // 所以第一步+ 第二步 = 2^(i-1)
-    // 剩下第三步走了 2^(i-1) + f(arr, i-1,other,to,from)
-    public static int f(int[] arr, int N, int from, int to, int other) {
-        if (N == -1) {
-            return 0;
-        }
-        if (arr[N] == other) {
-            return -1;
-        }
-        if (arr[N] == from) {
-            return f(arr, N - 1, from, other, to);
-        } else {
-            int rest = f(arr, N - 1, other, to, from);
-            if (rest == -1) {
-                return -1;
-            }
-            return (1 << N) + rest;
-        }
+  // n 表示0...n个圆盘 n+1
+  // from 从哪个位置
+  // to 到哪个位置
+  // other 其他位置
+  // 返回，这个是最优解的第几步
+  // eg: f(arr, 8,1,3,2): arr中表示9个圆盘目前的状态，从左边移动到右边，是最优解的第几步
+
+  // 三层汉诺塔问题
+  // 0~i-1 from -> other
+  // i from -> to
+  // 0~i-1 other -> to
+  // 所以i位置没有必要去other位置
+  // 如果某一步 arr[i] = other 直接返回-1
+  // 如果arr[i] = from 说明 第一步没走完
+  // 调用 f(arr, i-1, from ,other, to)
+  // 如果arr[i] = to 说明在第三步
+  // 因为N层汉诺塔问题的步数是 2^N - 1
+  // 第一步走了 2^(i-1) - 1
+  // 第二步走了 1步
+  // 所以第一步+ 第二步 = 2^(i-1)
+  // 剩下第三步走了 2^(i-1) + f(arr, i-1,other,to,from)
+  public static int f(int[] arr, int N, int from, int to, int other) {
+    if (N == -1) {
+      return 0;
     }
+    if (arr[N] == other) {
+      return -1;
+    }
+    if (arr[N] == from) {
+      return f(arr, N - 1, from, other, to);
+    } else {
+      int rest = f(arr, N - 1, other, to, from);
+      if (rest == -1) {
+        return -1;
+      }
+      return (1 << N) + rest;
+    }
+  }
 }

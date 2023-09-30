@@ -46,63 +46,61 @@ package leetcode;
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 // 笔记：https://www.cnblogs.com/greyzeng/p/16817155.html
 public class LeetCode_0091_DecodeWays {
-    public static int numDecodings(String s) {
-        if (null == s || s.length() < 1) {
-            return 0;
-        }
-        char[] str = s.toCharArray();
-        int[] dp = new int[str.length + 1];
-        dp[str.length] = 1;
-        for (int i = str.length - 1; i >= 0; i--) {
-            if (str[i] == '0') {
-                dp[i] = 0;
-            } else {
-                dp[i] = dp[i + 1];
-                if (str[i] == '1' && i + 1 < str.length) {
-                    dp[i] = dp[i] + dp[i + 2];
-                } else if (str[i] == '2' && i + 1 < str.length && str[i + 1] <= '6') {
-                    dp[i] += dp[i + 2];
-                }
-            }
-        }
-        return dp[0];
+  public static int numDecodings(String s) {
+    if (null == s || s.length() < 1) {
+      return 0;
     }
-
-    // 暴力方法，无法AC
-    public static int numDecodings2(String s) {
-        if (null == s || s.length() < 1) {
-            return 0;
+    char[] str = s.toCharArray();
+    int[] dp = new int[str.length + 1];
+    dp[str.length] = 1;
+    for (int i = str.length - 1; i >= 0; i--) {
+      if (str[i] == '0') {
+        dp[i] = 0;
+      } else {
+        dp[i] = dp[i + 1];
+        if (str[i] == '1' && i + 1 < str.length) {
+          dp[i] = dp[i] + dp[i + 2];
+        } else if (str[i] == '2' && i + 1 < str.length && str[i + 1] <= '6') {
+          dp[i] += dp[i + 2];
         }
-        char[] str = s.toCharArray();
-        return process(0, str);
-
+      }
     }
+    return dp[0];
+  }
 
-    // 从i一直到最后，得到的解码数
-    public static int process(int i, char[] str) {
-        if (i > str.length) {
-            return 0;
-        }
-        if (i == str.length) {
-            return 1;
-        }
-        // i < str.length
-        if (str[i] == '0') {
-            return 0;
-        }
-        if (str[i] == '1') {
-            int p1 = process(i + 1, str);
-            int p2 = process(i + 2, str);
-            return p1 + p2;
-        }
-        if (str[i] == '2') {
-            int p1 = process(i + 1, str);
-            if (i + 1 < str.length && str[i + 1] <= '6') {
-                p1 += process(i + 2, str);
-            }
-            return p1;
-        }
-        return process(i + 1, str);
+  // 暴力方法，无法AC
+  public static int numDecodings2(String s) {
+    if (null == s || s.length() < 1) {
+      return 0;
     }
+    char[] str = s.toCharArray();
+    return process(0, str);
+  }
 
+  // 从i一直到最后，得到的解码数
+  public static int process(int i, char[] str) {
+    if (i > str.length) {
+      return 0;
+    }
+    if (i == str.length) {
+      return 1;
+    }
+    // i < str.length
+    if (str[i] == '0') {
+      return 0;
+    }
+    if (str[i] == '1') {
+      int p1 = process(i + 1, str);
+      int p2 = process(i + 2, str);
+      return p1 + p2;
+    }
+    if (str[i] == '2') {
+      int p1 = process(i + 1, str);
+      if (i + 1 < str.length && str[i + 1] <= '6') {
+        p1 += process(i + 2, str);
+      }
+      return p1;
+    }
+    return process(i + 1, str);
+  }
 }

@@ -1,4 +1,3 @@
-
 package lintcode;
 
 import java.util.ArrayList;
@@ -25,28 +24,27 @@ import java.util.List;
 // lintcode 链接：https://www.lintcode.com/problem/missing-ranges/description
 public class LintCode_0641_MissingRanges {
 
-    public static List<String> findMissingRanges(int[] nums, int lower, int upper) {
-        List<String> list = new ArrayList<>();
-        for (int num : nums) {
-            if (num > lower) {
-                list.add(build(lower, num - 1));
-            }
-            if (num == upper) {
-                return list;
-            }
-            lower = num + 1;
-        }
-        if (lower <= upper) {
-            list.add(build(lower, upper));
-        }
+  public static List<String> findMissingRanges(int[] nums, int lower, int upper) {
+    List<String> list = new ArrayList<>();
+    for (int num : nums) {
+      if (num > lower) {
+        list.add(build(lower, num - 1));
+      }
+      if (num == upper) {
         return list;
+      }
+      lower = num + 1;
     }
-
-    public static String build(int s, int e) {
-        if (s == e) {
-            return s + "";
-        }
-        return s + "->" + e;
+    if (lower <= upper) {
+      list.add(build(lower, upper));
     }
+    return list;
+  }
 
+  public static String build(int s, int e) {
+    if (s == e) {
+      return s + "";
+    }
+    return s + "->" + e;
+  }
 }

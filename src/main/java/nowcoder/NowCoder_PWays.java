@@ -24,57 +24,56 @@ import java.util.Scanner;
 // ```dp[L][R-1]=a+b```
 // 加工a+b+cd=a+1(考虑空串，所以要加1)
 public class NowCoder_PWays {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String s = in.nextLine();
-        System.out.println(ways(s));
-        in.close();
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    String s = in.nextLine();
+    System.out.println(ways(s));
+    in.close();
+  }
+
+  public static int ways(String str) {
+    int mod = 998244353;
+    char[] s = str.toCharArray();
+    int n = s.length;
+    int[][] dp = new int[n][n];
+    for (int i = 0; i < n; i++) {
+      // 只有一个字符，只能选择：不移除 这种方式
+      dp[i][i] = 1;
+    }
+    for (int i = 0; i < n - 1; i++) {
+      // ab
+      // 移除a
+      // 移除b
+      // 一共2种
+      // aa
+      // 移除第一个a
+      // 移除第二个a
+      // 不移除
+      dp[i][i + 1] = s[i] == s[i + 1] ? 3 : 2;
     }
 
-    public static int ways(String str) {
-        int mod = 998244353;
-        char[] s = str.toCharArray();
-        int n = s.length;
-        int[][] dp = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            // 只有一个字符，只能选择：不移除 这种方式
-            dp[i][i] = 1;
-        }
-        for (int i = 0; i < n - 1; i++) {
-            // ab
-            // 移除a
-            // 移除b
-            // 一共2种
-            // aa
-            // 移除第一个a
-            // 移除第二个a
-            // 不移除
-            dp[i][i + 1] = s[i] == s[i + 1] ? 3 : 2;
+    for (int L = n - 3; L >= 0; L--) {
+      for (int R = L + 2; R < n; R++) {
+        // 普遍位置
+        // L 位置和 R位置的值是否一样来确定
+        // dp[L][R] 可以不选L，可以不选R
+        // dp[L][R] = dp[L+1][R] + dp[L][R-1]
+        // 因为这里面是有重复的，相当于加了两遍的dp[L+1][R-1]
+        // 所以dp[L][R] 至少应该是 dp[L + 1][R] + dp[L][R - 1] - dp[L + 1][R - 1]
+        // 如果正好L位置的值等于R位置的值
+        // 那么dp[L][R] 囊括了 dp[L-1][R-1]的所有情况，且还可以把dp[L-1][R-1] 全部删成空串，所以dp[L-1][R-1] + 1
+        dp[L][R] = (dp[L + 1][R] + dp[L][R - 1] - dp[L + 1][R - 1]) % mod;
+        if (s[L] == s[R]) {
+          dp[L][R] = (dp[L][R] + dp[L + 1][R - 1] + 1) % mod;
         }
 
-        for (int L = n - 3; L >= 0; L--) {
-            for (int R = L + 2; R < n; R++) {
-                // 普遍位置
-                // L 位置和 R位置的值是否一样来确定
-                // dp[L][R] 可以不选L，可以不选R
-                // dp[L][R] = dp[L+1][R] + dp[L][R-1]
-                // 因为这里面是有重复的，相当于加了两遍的dp[L+1][R-1]
-                // 所以dp[L][R] 至少应该是 dp[L + 1][R] + dp[L][R - 1] - dp[L + 1][R - 1]
-                // 如果正好L位置的值等于R位置的值
-                // 那么dp[L][R] 囊括了 dp[L-1][R-1]的所有情况，且还可以把dp[L-1][R-1] 全部删成空串，所以dp[L-1][R-1] + 1
-                dp[L][R] = (dp[L + 1][R] + dp[L][R - 1] - dp[L + 1][R - 1]) % mod;
-                if (s[L] == s[R]) {
-                    dp[L][R] = (dp[L][R] + dp[L + 1][R - 1] + 1) % mod;
-                }
-
-
-                // 数据很大，做特殊处理
-                if (dp[L][R] < 0) {
-                    dp[L][R] += mod;
-                }
-            }
+        // 数据很大，做特殊处理
+        if (dp[L][R] < 0) {
+          dp[L][R] += mod;
         }
-
-        return dp[0][n - 1];
+      }
     }
+
+    return dp[0][n - 1];
+  }
 }

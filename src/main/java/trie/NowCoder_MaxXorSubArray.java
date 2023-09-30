@@ -21,123 +21,123 @@ package trie;
 // 笔记：https://www.cnblogs.com/greyzeng/p/17007011.html
 public class NowCoder_MaxXorSubArray {
 
-    public static class Node {
-        // 前缀树的Node结构
-        // next[0] -> 0方向的路
-        // next[1] -> 1方向的路
-        // next[x] == null 表示 x 方向没有路
-        public Node[] next = new Node[2];
+  public static class Node {
+    // 前缀树的Node结构
+    // next[0] -> 0方向的路
+    // next[1] -> 1方向的路
+    // next[x] == null 表示 x 方向没有路
+    public Node[] next = new Node[2];
+  }
+
+  // 基于本题，定制前缀树的实现
+  public static class NumTrie {
+    // 头节点
+    public Node head = new Node();
+
+    public void add(int newNum) {
+      Node cur = head;
+      for (int move = 31; move >= 0; move--) {
+        int path = ((newNum >> move) & 1);
+        cur.next[path] = cur.next[path] == null ? new Node() : cur.next[path];
+        cur = cur.next[path];
+      }
     }
 
-    // 基于本题，定制前缀树的实现
-    public static class NumTrie {
-        // 头节点
-        public Node head = new Node();
-
-        public void add(int newNum) {
-            Node cur = head;
-            for (int move = 31; move >= 0; move--) {
-                int path = ((newNum >> move) & 1);
-                cur.next[path] = cur.next[path] == null ? new Node() : cur.next[path];
-                cur = cur.next[path];
-            }
-        }
-
-        // num和 谁 ^ 最大的结果（把结果返回）
-        public int maxXor(int num) {
-            Node cur = head;
-            int ans = 0;
-            for (int move = 31; move >= 0; move--) {
-                // 取出num中第move位的状态，path只有两种值0就1，整数
-                int path = (num >> move) & 1;
-                // 期待遇到的东西
-                int best = move == 31 ? path : (path ^ 1);
-                // 实际遇到的东西
-                best = cur.next[best] != null ? best : (best ^ 1);
-                // (path ^ best) 当前位位异或完的结果
-                ans |= (path ^ best) << move;
-                cur = cur.next[best];
-            }
-            return ans;
-        }
+    // num和 谁 ^ 最大的结果（把结果返回）
+    public int maxXor(int num) {
+      Node cur = head;
+      int ans = 0;
+      for (int move = 31; move >= 0; move--) {
+        // 取出num中第move位的状态，path只有两种值0就1，整数
+        int path = (num >> move) & 1;
+        // 期待遇到的东西
+        int best = move == 31 ? path : (path ^ 1);
+        // 实际遇到的东西
+        best = cur.next[best] != null ? best : (best ^ 1);
+        // (path ^ best) 当前位位异或完的结果
+        ans |= (path ^ best) << move;
+        cur = cur.next[best];
+      }
+      return ans;
     }
+  }
 
-    // O(N)
-    public static int maxXorSubarray2(int[] arr) {
-        if (arr == null || arr.length == 0) {
-            return 0;
-        }
-        int max = arr[0];
-        // 0~i整体异或和
-        int xor = 0;
-        NumTrie numTrie = new NumTrie();
-        numTrie.add(0);
-        for (int i = 0; i < arr.length; i++) {
-            xor ^= arr[i]; // 0 ~ i
-            max = Math.max(max, numTrie.maxXor(xor));
-            numTrie.add(xor);
-        }
-        return max;
+  // O(N)
+  public static int maxXorSubarray2(int[] arr) {
+    if (arr == null || arr.length == 0) {
+      return 0;
     }
+    int max = arr[0];
+    // 0~i整体异或和
+    int xor = 0;
+    NumTrie numTrie = new NumTrie();
+    numTrie.add(0);
+    for (int i = 0; i < arr.length; i++) {
+      xor ^= arr[i]; // 0 ~ i
+      max = Math.max(max, numTrie.maxXor(xor));
+      numTrie.add(xor);
+    }
+    return max;
+  }
 
-    // for test
-    public static int[] generateRandomArray(int maxSize, int maxValue) {
-        int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
-        }
-        return arr;
+  // for test
+  public static int[] generateRandomArray(int maxSize, int maxValue) {
+    int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
     }
+    return arr;
+  }
 
-    // for test
-    public static void printArray(int[] arr) {
-        if (arr == null) {
-            return;
-        }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
-        System.out.println();
+  // for test
+  public static void printArray(int[] arr) {
+    if (arr == null) {
+      return;
     }
+    for (int i = 0; i < arr.length; i++) {
+      System.out.print(arr[i] + " ");
+    }
+    System.out.println();
+  }
 
-    // for test
-    public static void main(String[] args) {
-        int testTime = 500000;
-        int maxSize = 30;
-        int maxValue = 50;
-        boolean succeed = true;
-        for (int i = 0; i < testTime; i++) {
-            int[] arr = generateRandomArray(maxSize, maxValue);
-            int comp = maxEor1(arr, arr.length);
-            int res = maxXorSubarray2(arr);
-            if (res != comp) {
-                succeed = false;
-                printArray(arr);
-                System.out.println(res);
-                System.out.println(comp);
-                break;
-            }
-        }
-        System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+  // for test
+  public static void main(String[] args) {
+    int testTime = 500000;
+    int maxSize = 30;
+    int maxValue = 50;
+    boolean succeed = true;
+    for (int i = 0; i < testTime; i++) {
+      int[] arr = generateRandomArray(maxSize, maxValue);
+      int comp = maxEor1(arr, arr.length);
+      int res = maxXorSubarray2(arr);
+      if (res != comp) {
+        succeed = false;
+        printArray(arr);
+        System.out.println(res);
+        System.out.println(comp);
+        break;
+      }
     }
+    System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+  }
 
-    // 暴力解法，超时，利用前缀异或和数组
-    public static int maxEor1(int[] arr, int n) {
-        if (n == 0) {
-            return 0;
-        }
-        int[] eor = new int[arr.length];
-        int max = arr[0];
-        eor[0] = arr[0];
-        for (int i = 1; i < n; i++) {
-            eor[i] = eor[i - 1] ^ arr[i];
-        }
-        for (int i = 1; i < n; i++) {
-            max = Math.max(max, eor[i]);
-            for (int j = i; j < n; j++) {
-                max = Math.max(max, eor[j] ^ eor[i - 1]);
-            }
-        }
-        return max;
+  // 暴力解法，超时，利用前缀异或和数组
+  public static int maxEor1(int[] arr, int n) {
+    if (n == 0) {
+      return 0;
     }
+    int[] eor = new int[arr.length];
+    int max = arr[0];
+    eor[0] = arr[0];
+    for (int i = 1; i < n; i++) {
+      eor[i] = eor[i - 1] ^ arr[i];
+    }
+    for (int i = 1; i < n; i++) {
+      max = Math.max(max, eor[i]);
+      for (int j = i; j < n; j++) {
+        max = Math.max(max, eor[j] ^ eor[i - 1]);
+      }
+    }
+    return max;
+  }
 }

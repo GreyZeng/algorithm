@@ -35,29 +35,29 @@ package leetcode;
 // ref : https://www.lintcode.com/problem/minimum-add-to-make-parentheses-valid/description
 public class LeetCode_0921_MinimumAddToMakeParenthesesValid {
 
-    public static int minAddToMakeValid(String s) {
-        int count = 0;
-        int need = 0;
-        char[] strs = s.toCharArray();
-        for (char str : strs) {
-            if (str == ')') {
-                count--;
-                if (count == -1) {
-                    // 说明左括号无法cover住右括号了，需要补上一个
-                    count = 0;
-                    need++;
-                }
-            } else {
-                count++;
-            }
+  public static int minAddToMakeValid(String s) {
+    int count = 0;
+    int need = 0;
+    char[] strs = s.toCharArray();
+    for (char str : strs) {
+      if (str == ')') {
+        count--;
+        if (count == -1) {
+          // 说明左括号无法cover住右括号了，需要补上一个
+          count = 0;
+          need++;
         }
-        // 多余的左括号
-        // 多余的右括号
-        return count + need;
+      } else {
+        count++;
+      }
     }
+    // 多余的左括号
+    // 多余的右括号
+    return count + need;
+  }
 
-    public static void main(String[] args) {
-        String s = "()))((";
-        System.out.println(minAddToMakeValid(s));
-    }
+  public static void main(String[] args) {
+    String s = "()))((";
+    System.out.println(minAddToMakeValid(s));
+  }
 }

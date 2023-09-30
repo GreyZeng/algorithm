@@ -13,65 +13,63 @@ import java.util.Arrays;
 // 估算时发现这个算法流程的复杂程度，会因为数据状况的不同而不同。如果数组本身是有序的，那么插入排序的过程不需要移动任何数字，
 // 但是时间复杂度是以最坏情况估计，所以插入排序的时间复杂度仍然是 O(N^2)。
 public class Code_InsertionSort {
-    public static void insertionSort(int[] arr) {
-        if (null == arr || arr.length <= 1) {
-            return;
-        }
-        for (int i = 1; i < arr.length; i++) {
-            for (int k = i - 1; k >= 0 && arr[k] > arr[k + 1]; k--) {
-                swap(arr, k, k + 1);
-            }
-        }
+  public static void insertionSort(int[] arr) {
+    if (null == arr || arr.length <= 1) {
+      return;
     }
-
-
-    public static void swap(int[] arr, int i, int j) {
-        if (i != j) {
-            arr[i] = arr[i] ^ arr[j];
-            arr[j] = arr[i] ^ arr[j];
-            arr[i] = arr[i] ^ arr[j];
-        }
+    for (int i = 1; i < arr.length; i++) {
+      for (int k = i - 1; k >= 0 && arr[k] > arr[k + 1]; k--) {
+        swap(arr, k, k + 1);
+      }
     }
+  }
 
-    // for test
-    private static int[] generateRandomArray(int maxSize, int maxValue) {
-        // Math.random() -> [0,1)
-        // Math.random() * N -> [0,N)
-        // (int)(Math.random()*N) -> [0,N-1]
-        int[] arr = new int[(int) (Math.random() * (maxSize + 1))];
-        for (int i = 0; i < arr.length; i++) {
-            // [-? , +?]
-            arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) ((maxValue + 1) * Math.random());
-        }
-        return arr;
+  public static void swap(int[] arr, int i, int j) {
+    if (i != j) {
+      arr[i] = arr[i] ^ arr[j];
+      arr[j] = arr[i] ^ arr[j];
+      arr[i] = arr[i] ^ arr[j];
     }
+  }
 
-    private static int[] copyArray(int[] arr1) {
-        if (arr1 == null) {
-            return null;
-        }
-        int[] arr2 = new int[arr1.length];
-        System.arraycopy(arr1, 0, arr2, 0, arr1.length);
-        return arr2;
+  // for test
+  private static int[] generateRandomArray(int maxSize, int maxValue) {
+    // Math.random() -> [0,1)
+    // Math.random() * N -> [0,N)
+    // (int)(Math.random()*N) -> [0,N-1]
+    int[] arr = new int[(int) (Math.random() * (maxSize + 1))];
+    for (int i = 0; i < arr.length; i++) {
+      // [-? , +?]
+      arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) ((maxValue + 1) * Math.random());
     }
+    return arr;
+  }
 
-    public static void main(String[] args) {
-        int times = 500000; // 测试的次数
-        int maxSize = 100; // 数组的最大长度是100
-        int maxValue = 100; // 数组元素的大小[-100,100]
-        boolean succeed = true;
-        for (int i = 0; i < times; i++) {
-            int[] arr1 = generateRandomArray(maxSize, maxValue);
-
-            int[] arr3 = copyArray(arr1);
-            insertionSort(arr3);
-            Arrays.sort(arr1);
-            if (!Arrays.equals(arr1, arr3)) {
-                succeed = false;
-                break;
-            }
-        }
-        System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+  private static int[] copyArray(int[] arr1) {
+    if (arr1 == null) {
+      return null;
     }
+    int[] arr2 = new int[arr1.length];
+    System.arraycopy(arr1, 0, arr2, 0, arr1.length);
+    return arr2;
+  }
 
+  public static void main(String[] args) {
+    int times = 500000; // 测试的次数
+    int maxSize = 100; // 数组的最大长度是100
+    int maxValue = 100; // 数组元素的大小[-100,100]
+    boolean succeed = true;
+    for (int i = 0; i < times; i++) {
+      int[] arr1 = generateRandomArray(maxSize, maxValue);
+
+      int[] arr3 = copyArray(arr1);
+      insertionSort(arr3);
+      Arrays.sort(arr1);
+      if (!Arrays.equals(arr1, arr3)) {
+        succeed = false;
+        break;
+      }
+    }
+    System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+  }
 }

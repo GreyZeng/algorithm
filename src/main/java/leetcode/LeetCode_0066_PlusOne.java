@@ -33,42 +33,40 @@ package leetcode;
 @Deprecated
 public class LeetCode_0066_PlusOne {
 
-    public static int[] plusOne(int[] digits) {
-        if (null == digits) {
-            return null;
-        }
-        int N = digits.length;
-        int p = 1;
-        int M = N;
-        for (int i = N - 1; i >= 0; i--) {
-            if (digits[i] + p != 10) {
-                digits[i] += p;
-                p = 0;
-            } else {
-                if (i == 0) {
-                    M = N + 1;
-                }
-                p = 1;
-                digits[i] = 0;
-            }
-        }
-        if (M == N) {
-            return digits;
-        } else {
-            int[] res = new int[M];
-            res[0] = 1;
-            System.arraycopy(digits, 0, res, 1, M - 1);
-            return res;
-        }
-
+  public static int[] plusOne(int[] digits) {
+    if (null == digits) {
+      return null;
     }
-
-    public static void main(String[] args) {
-        int[] digits = {9, 9, 9, 9};
-        int[] res = plusOne(digits);
-        for (int re : res) {
-            System.out.print(re + " ");
+    int N = digits.length;
+    int p = 1;
+    int M = N;
+    for (int i = N - 1; i >= 0; i--) {
+      if (digits[i] + p != 10) {
+        digits[i] += p;
+        p = 0;
+      } else {
+        if (i == 0) {
+          M = N + 1;
         }
+        p = 1;
+        digits[i] = 0;
+      }
     }
+    if (M == N) {
+      return digits;
+    } else {
+      int[] res = new int[M];
+      res[0] = 1;
+      System.arraycopy(digits, 0, res, 1, M - 1);
+      return res;
+    }
+  }
 
+  public static void main(String[] args) {
+    int[] digits = {9, 9, 9, 9};
+    int[] res = plusOne(digits);
+    for (int re : res) {
+      System.out.print(re + " ");
+    }
+  }
 }

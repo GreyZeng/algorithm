@@ -19,60 +19,60 @@ import java.util.LinkedList;
 // 解释：总共有 2 门课程。学习课程 1 之前，你需要先完成课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。
 // Leetcode题目 : https://leetcode.com/problems/course-schedule/
 public class LeetCode_0207_CourseSchedule {
-    public static class Node {
-        public int name; // 节点名称
-        public int in; // 入度的个数
-        public ArrayList<Node> nexts; // 邻居节点
+  public static class Node {
+    public int name; // 节点名称
+    public int in; // 入度的个数
+    public ArrayList<Node> nexts; // 邻居节点
 
-        public Node(int n) {
-            name = n;
-            in = 0;
-            nexts = new ArrayList<>();
-        }
+    public Node(int n) {
+      name = n;
+      in = 0;
+      nexts = new ArrayList<>();
     }
+  }
 
-    // 找入度为0的点，删掉后，继续找入度为0的点..依次调用下去
-    // 如果最后所有的点删光了，则说明可以完成，如果出现循环无法删，则无法完成
-    public static boolean canFinish(int numCourses, int[][] prerequisites) {
-        if (prerequisites == null || prerequisites.length == 0) {
-            return true;
-        }
-        HashMap<Integer, Node> map = new HashMap<>();
-        for (int[] prerequisite : prerequisites) {
-            Node f;
-            Node t;
-            if (map.containsKey(prerequisite[1])) {
-                f = map.get(prerequisite[1]);
-            } else {
-                f = new Node(prerequisite[1]);
-            }
-            if (map.containsKey(prerequisite[0])) {
-                t = map.get(prerequisite[0]);
-            } else {
-                t = new Node(prerequisite[0]);
-            }
-            t.in++;
-            f.nexts.add(t);
-            map.put(prerequisite[1], f);
-            map.put(prerequisite[0], t);
-        }
-        LinkedList<Node> zero = new LinkedList<>();
-        int s = 0;
-        for (Node t : map.values()) {
-            s++;
-            if (t.in == 0) {
-                zero.add(t);
-            }
-        }
-        while (!zero.isEmpty()) {
-            s--;
-            for (Node i : zero.poll().nexts) {
-                i.in--;
-                if (i.in == 0) {
-                    zero.add(i);
-                }
-            }
-        }
-        return s == 0;
+  // 找入度为0的点，删掉后，继续找入度为0的点..依次调用下去
+  // 如果最后所有的点删光了，则说明可以完成，如果出现循环无法删，则无法完成
+  public static boolean canFinish(int numCourses, int[][] prerequisites) {
+    if (prerequisites == null || prerequisites.length == 0) {
+      return true;
     }
+    HashMap<Integer, Node> map = new HashMap<>();
+    for (int[] prerequisite : prerequisites) {
+      Node f;
+      Node t;
+      if (map.containsKey(prerequisite[1])) {
+        f = map.get(prerequisite[1]);
+      } else {
+        f = new Node(prerequisite[1]);
+      }
+      if (map.containsKey(prerequisite[0])) {
+        t = map.get(prerequisite[0]);
+      } else {
+        t = new Node(prerequisite[0]);
+      }
+      t.in++;
+      f.nexts.add(t);
+      map.put(prerequisite[1], f);
+      map.put(prerequisite[0], t);
+    }
+    LinkedList<Node> zero = new LinkedList<>();
+    int s = 0;
+    for (Node t : map.values()) {
+      s++;
+      if (t.in == 0) {
+        zero.add(t);
+      }
+    }
+    while (!zero.isEmpty()) {
+      s--;
+      for (Node i : zero.poll().nexts) {
+        i.in--;
+        if (i.in == 0) {
+          zero.add(i);
+        }
+      }
+    }
+    return s == 0;
+  }
 }

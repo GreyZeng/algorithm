@@ -13,19 +13,17 @@ package leetcode;
 // Leetcode题目 : https://leetcode.com/problems/factorial-trailing-zeroes/
 public class LeetCode_0172_FactorialTrailingZeroes {
 
-    // 5的因子有多少个
-    public static int trailingZeroes(int n) {
-        int ans = 0;
-        while (n != 0) {
-            n /= 5;
-            ans += n;
-        }
-        return ans;
+  // 5的因子有多少个
+  public static int trailingZeroes(int n) {
+    int ans = 0;
+    while (n != 0) {
+      n /= 5;
+      ans += n;
     }
+    return ans;
+  }
 
-
-    public static void main(String[] args) {
-        System.out.println(trailingZeroes(25));
-    }
-
+  public static void main(String[] args) {
+    System.out.println(trailingZeroes(25));
+  }
 }

@@ -23,27 +23,27 @@ package leetcode;
 // 链接：https://leetcode.cn/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCodeCN_0058_LCOF {
-    public String reverseLeftWords(String s, int n) {
-        char[] str = s.toCharArray();
-        rotate(str, 0, n - 1, s.length() - 1);
-        return String.valueOf(str);
-    }
+  public String reverseLeftWords(String s, int n) {
+    char[] str = s.toCharArray();
+    rotate(str, 0, n - 1, s.length() - 1);
+    return String.valueOf(str);
+  }
 
-    public void rotate(char[] arr, int L, int M, int R) {
-        reverse(arr, L, M);
-        reverse(arr, M + 1, R);
-        reverse(arr, L, R);
-    }
+  public void rotate(char[] arr, int L, int M, int R) {
+    reverse(arr, L, M);
+    reverse(arr, M + 1, R);
+    reverse(arr, L, R);
+  }
 
-    public void reverse(char[] str, int l, int r) {
-        while (l < r) {
-            swap(str, l++, r--);
-        }
+  public void reverse(char[] str, int l, int r) {
+    while (l < r) {
+      swap(str, l++, r--);
     }
+  }
 
-    public void swap(char[] str, int l, int r) {
-        char tmp = str[l];
-        str[l] = str[r];
-        str[r] = tmp;
-    }
+  public void swap(char[] str, int l, int r) {
+    char tmp = str[l];
+    str[l] = str[r];
+    str[r] = tmp;
+  }
 }

@@ -33,62 +33,62 @@ package leetcode;
 // k >= 0
 public class LeetCode_0189_RotateArray {
 
-    // 方法1 左逆序，右逆序，整体逆序
-    public static void rotate(int[] nums, int k) {
-        int R = nums.length;
-        k = k % R;
-        if (k != 0) {
-            reverse(nums, 0, R - k - 1);
-            reverse(nums, R - k, R - 1);
-            reverse(nums, 0, R - 1);
-        }
+  // 方法1 左逆序，右逆序，整体逆序
+  public static void rotate(int[] nums, int k) {
+    int R = nums.length;
+    k = k % R;
+    if (k != 0) {
+      reverse(nums, 0, R - k - 1);
+      reverse(nums, R - k, R - 1);
+      reverse(nums, 0, R - 1);
     }
+  }
 
-    private static void reverse(int[] nums, int L, int R) {
-        while (L < R) {
-            nums[L] = nums[L] ^ nums[R];
-            nums[R] = nums[L] ^ nums[R];
-            nums[L] = nums[L++] ^ nums[R--];
-        }
+  private static void reverse(int[] nums, int L, int R) {
+    while (L < R) {
+      nums[L] = nums[L] ^ nums[R];
+      nums[R] = nums[L] ^ nums[R];
+      nums[L] = nums[L++] ^ nums[R--];
     }
+  }
 
-    // TODO 方法2 相等对半再相等对半分
-    public static void rotate2(int[] nums, int k) {
-        int N = nums.length;
-        k = k % N;
-        if (k == 0) {
-            return;
-        }
-        int L = 0;
-        int R = N - 1;
-        int lpart = N - k;
-        int rpart = k;
-        int same = Math.min(lpart, rpart);
-        int diff = lpart - rpart;
-        exchange(nums, L, R, same);
-        while (diff != 0) {
-            if (diff > 0) {
-                L += same;
-                lpart = diff;
-            } else {
-                R -= same;
-                rpart = -diff;
-            }
-            same = Math.min(lpart, rpart);
-            diff = lpart - rpart;
-            exchange(nums, L, R, same);
-        }
+  // TODO 方法2 相等对半再相等对半分
+  public static void rotate2(int[] nums, int k) {
+    int N = nums.length;
+    k = k % N;
+    if (k == 0) {
+      return;
     }
+    int L = 0;
+    int R = N - 1;
+    int lpart = N - k;
+    int rpart = k;
+    int same = Math.min(lpart, rpart);
+    int diff = lpart - rpart;
+    exchange(nums, L, R, same);
+    while (diff != 0) {
+      if (diff > 0) {
+        L += same;
+        lpart = diff;
+      } else {
+        R -= same;
+        rpart = -diff;
+      }
+      same = Math.min(lpart, rpart);
+      diff = lpart - rpart;
+      exchange(nums, L, R, same);
+    }
+  }
 
-    public static void exchange(int[] nums, int start, int end, int size) {
-        int i = end - size + 1;
-        int tmp = 0;
-        while (size-- != 0) {
-            tmp = nums[start];
-            nums[start] = nums[i];
-            nums[i] = tmp;
-            start++;
-            i++;
-        }
+  public static void exchange(int[] nums, int start, int end, int size) {
+    int i = end - size + 1;
+    int tmp = 0;
+    while (size-- != 0) {
+      tmp = nums[start];
+      nums[start] = nums[i];
+      nums[i] = tmp;
+      start++;
+      i++;
     }
+  }
 }
