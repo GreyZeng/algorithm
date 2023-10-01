@@ -2,7 +2,6 @@ package snippet;
 
 import java.math.BigDecimal;
 
-// TODO
 public class Code_0055_NCardsABWin {
   // Google面试题
   // 面值为1~10的牌组成一组，
@@ -123,6 +122,7 @@ public class Code_0055_NCardsABWin {
     return dp[0];
   }
 
+  // TODO
   public static void main(String[] args) {
     int N = 10;
     int a = 17;
