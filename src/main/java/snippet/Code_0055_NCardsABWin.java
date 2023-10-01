@@ -1,6 +1,7 @@
 package snippet;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Code_0055_NCardsABWin {
   // Google面试题
@@ -139,14 +140,14 @@ public class Code_0055_NCardsABWin {
     System.out.println("test begin");
     System.out.print("比对double类型答案可能会有精度对不准的问题");
     System.out.print("所以答案一律只保留小数点后四位进行比对");
-    System.out.println("如果没有错误提示则说明验证通过");
+    System.out.println("如果没有错误提示说明验证通过");
     for (int i = 0; i < testTime; i++) {
       N = (int) (Math.random() * maxN);
       a = (int) (Math.random() * maxM);
       b = (int) (Math.random() * maxM);
-      double ans2 = new BigDecimal(f2(N, a, b)).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
-      double ans3 = new BigDecimal(f3(N, a, b)).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
-      double ans4 = new BigDecimal(f4(N, a, b)).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+      double ans2 = BigDecimal.valueOf(f2(N, a, b)).setScale(4, RoundingMode.HALF_UP).doubleValue();
+      double ans3 = BigDecimal.valueOf(f3(N, a, b)).setScale(4, RoundingMode.HALF_UP).doubleValue();
+      double ans4 = BigDecimal.valueOf(f4(N, a, b)).setScale(4, RoundingMode.HALF_UP).doubleValue();
       if (ans2 != ans3 || ans2 != ans4) {
         System.out.println("Oops!");
         System.out.println(N + "," + a + "," + b);
