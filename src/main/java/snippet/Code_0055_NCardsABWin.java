@@ -50,7 +50,7 @@ public class Code_0055_NCardsABWin {
     return p2(0, N, a, b);
   }
 
-  // 游戏规则，如上，int N, int a, int b，固定参数！
+  // 游戏规则，如上，int N, int a, int b，固定参数
   // cur，目前到达了cur的累加和
   // 返回赢的概率
   public static double p2(int cur, int N, int a, int b) {
@@ -127,7 +127,7 @@ public class Code_0055_NCardsABWin {
     int N = 10;
     int a = 17;
     int b = 21;
-    System.out.println("N = " + N + ", a = " + a + ", b = " + b);
+    System.out.println("N=" + N + ",a=" + a + ",b=" + b);
     System.out.println(f1());
     System.out.println(f2(N, a, b));
     System.out.println(f3(N, a, b));
@@ -136,10 +136,10 @@ public class Code_0055_NCardsABWin {
     int maxN = 15;
     int maxM = 20;
     int testTime = 100000;
-    System.out.println("测试开始");
-    System.out.print("比对double类型答案可能会有精度对不准的问题, ");
-    System.out.print("所以答案一律只保留小数点后四位进行比对, ");
-    System.out.println("如果没有错误提示, 说明验证通过");
+    System.out.println("test begin");
+    System.out.print("比对double类型答案可能会有精度对不准的问题");
+    System.out.print("所以答案一律只保留小数点后四位进行比对");
+    System.out.println("如果没有错误提示则说明验证通过");
     for (int i = 0; i < testTime; i++) {
       N = (int) (Math.random() * maxN);
       a = (int) (Math.random() * maxM);
@@ -149,19 +149,19 @@ public class Code_0055_NCardsABWin {
       double ans4 = new BigDecimal(f4(N, a, b)).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
       if (ans2 != ans3 || ans2 != ans4) {
         System.out.println("Oops!");
-        System.out.println(N + " , " + a + " , " + b);
+        System.out.println(N + "," + a + "," + b);
         System.out.println(ans2);
         System.out.println(ans3);
         System.out.println(ans4);
       }
     }
-    System.out.println("测试结束");
+    System.out.println("test end!");
 
     N = 10000;
     a = 67834;
     b = 72315;
-    System.out.println("N = " + N + ", a = " + a + ", b = " + b + "时, 除了方法4外都超时");
-    System.out.print("方法4答案: ");
+    System.out.println("N=" + N + ",a=" + a + ",b=" + b + "时,除了方法4外都超时");
+    System.out.print("方法4答案:");
     System.out.println(f4(N, a, b));
   }
 }
