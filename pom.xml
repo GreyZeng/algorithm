@@ -7,7 +7,7 @@
     <artifactId>algorithm</artifactId>
     <version>4.0.RELEASE</version>
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
@@ -58,12 +58,4 @@
             </snapshots>
         </repository>
     </repositories>
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
-            </plugin>
-        </plugins>
-    </build>
 </project>
