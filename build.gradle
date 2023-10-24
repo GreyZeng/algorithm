@@ -5,10 +5,15 @@ plugins {
 group = 'git.snippet'
 version = '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public/'
+        }
+        mavenLocal()
+        mavenCentral()
+    }
 }
-
 dependencies {
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
     testImplementation platform('org.junit:junit-bom:5.9.1')
