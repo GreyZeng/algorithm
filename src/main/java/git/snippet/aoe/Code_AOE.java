@@ -1,4 +1,4 @@
-package aoe;
+package git.snippet.aoe;
 
 import java.util.Arrays;
 

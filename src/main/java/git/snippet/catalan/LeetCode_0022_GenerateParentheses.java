@@ -6,7 +6,7 @@
  *
  * [ "((()))", "(()())", "(())()", "()(())", "()()()" ]
  */
-package catalan;
+package git.snippet.catalan;
 
 import java.util.ArrayList;
 import java.util.List;

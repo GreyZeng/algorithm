@@ -7,7 +7,7 @@
  *
  * 解释: 最长公共子串是 "BC"
  */
-package dp;
+package git.snippet.dp;
 
 public class LintCode_0079_LongestCommonSubstring {
   public static int longestCommonSubstring(String A, String B) {

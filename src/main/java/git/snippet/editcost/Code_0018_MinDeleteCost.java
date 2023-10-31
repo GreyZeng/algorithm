@@ -1,4 +1,4 @@
-package editcost;
+package git.snippet.editcost;
 
 import java.util.ArrayList;
 import java.util.List;

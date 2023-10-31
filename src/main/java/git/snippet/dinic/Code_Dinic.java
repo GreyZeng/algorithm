@@ -1,4 +1,4 @@
-package dinic;
+package git.snippet.dinic;
 
 import java.io.BufferedReader;
 import java.io.IOException;

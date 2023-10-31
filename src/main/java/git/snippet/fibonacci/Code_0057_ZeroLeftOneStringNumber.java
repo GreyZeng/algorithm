@@ -1,4 +1,4 @@
-package fibonacci;
+package git.snippet.fibonacci;
 
 // 给定一个数N，想象只由0和1两种字符，组成的所有长度为N的字符串
 //

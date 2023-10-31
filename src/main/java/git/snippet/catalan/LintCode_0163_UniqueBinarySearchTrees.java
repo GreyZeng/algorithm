@@ -1,4 +1,4 @@
-package catalan;
+package git.snippet.catalan;
 
 import java.math.BigInteger;
 

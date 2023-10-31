@@ -1,4 +1,4 @@
-package dp;
+package git.snippet.dp;
 
 import java.util.Arrays;
 

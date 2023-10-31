@@ -1,4 +1,4 @@
-package dc3;
+package git.snippet.dc3;
 
 public class Code_DC3 {
 

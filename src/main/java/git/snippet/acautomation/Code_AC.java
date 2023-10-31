@@ -1,4 +1,4 @@
-package acautomation;
+package git.snippet.acautomation;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

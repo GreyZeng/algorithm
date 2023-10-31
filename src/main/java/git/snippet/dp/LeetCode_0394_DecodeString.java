@@ -22,7 +22,7 @@
  *
  * Input: s = "abc3[cd]xyz" Output: "abccdcdcdxyz"
  */
-package dp;
+package git.snippet.dp;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/17001706.html
 // 递归的嵌套结构 嵌套问题 计算器问题

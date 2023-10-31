@@ -1,4 +1,4 @@
-package binarysearch;
+package git.snippet.binarysearch;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package candy;
+package git.snippet.candy;
 
 import java.util.Scanner;
 

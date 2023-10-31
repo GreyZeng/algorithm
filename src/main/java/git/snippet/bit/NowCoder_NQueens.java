@@ -1,4 +1,4 @@
-package bit;
+package git.snippet.bit;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16909274.html
 // N皇后问题

@@ -1,4 +1,4 @@
-package bit;
+package git.snippet.bit;
 
 import java.util.Arrays;
 import java.util.HashSet;
