@@ -4,7 +4,9 @@ out/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-
+/gradle/
+gradlew
+gradlew.bat
 ### STS ###
 .apt_generated
 .classpath
