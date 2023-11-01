@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class Code_PrintBinaryTest {
 
     @Test
-    void testBinary() {
+    public void testBinary() {
         Code_PrintBinary test = new Code_PrintBinary();
         int num = 0b10001010_11101010_10001000_11101010;
         System.out.println("要处理的数据是：");
@@ -31,6 +31,7 @@ public class Code_PrintBinaryTest {
         System.out.println(test.binary(Integer.MIN_VALUE));
         System.out.println("负的系统最小值的二进制(还是本身)：");
         System.out.println(test.binary(-Integer.MIN_VALUE));
+        System.out.println((-Integer.MIN_VALUE) == (Integer.MIN_VALUE));
         System.out.println("取反：");
         System.out.println(test.binary(~num));
     }
