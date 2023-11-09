@@ -5,28 +5,29 @@ package git.snippet.tree;
 // the same value.
 public class LeetCode_0100_SameTree {
 
-  public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode() {}
-
-    TreeNode(int val) {
-      this.val = val;
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null || q == null) {
+            return p == null && q == null;
+        }
+        return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-      this.val = val;
-      this.left = left;
-      this.right = right;
-    }
-  }
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
-  public boolean isSameTree(TreeNode p, TreeNode q) {
-    if (p == null || q == null) {
-      return p == null && q == null;
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
-    return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
-  }
 }

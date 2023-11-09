@@ -12,32 +12,32 @@ package git.snippet.resolved.binarysearch;
 // 二分法
 // 笔记：https://www.cnblogs.com/greyzeng/p/16622554.html
 public class LeetCode_0162_FindPeakElement {
-  public int findPeakElement(int[] nums) {
-    if (nums.length == 1) {
-      return 0;
+    public int findPeakElement(int[] nums) {
+        if (nums.length == 1) {
+            return 0;
+        }
+        if (nums.length == 2) {
+            return nums[0] > nums[1] ? 0 : 1;
+        }
+        int l = 0;
+        int r = nums.length - 1;
+        while (l <= r) {
+            if (nums[l] > nums[l + 1]) {
+                return l;
+            }
+            if (nums[r] > nums[r - 1]) {
+                return r;
+            }
+            int m = l + ((r - l) >> 1);
+            if (nums[m] > nums[m - 1] && nums[m] > nums[m + 1]) {
+                return m;
+            } else if (nums[m] < nums[m - 1]) {
+                r = m - 1;
+            } else {
+                // nums[m] < nums[m + 1]
+                l = m + 1;
+            }
+        }
+        return -1;
     }
-    if (nums.length == 2) {
-      return nums[0] > nums[1] ? 0 : 1;
-    }
-    int l = 0;
-    int r = nums.length - 1;
-    while (l <= r) {
-      if (nums[l] > nums[l + 1]) {
-        return l;
-      }
-      if (nums[r] > nums[r - 1]) {
-        return r;
-      }
-      int m = l + ((r - l) >> 1);
-      if (nums[m] > nums[m - 1] && nums[m] > nums[m + 1]) {
-        return m;
-      } else if (nums[m] < nums[m - 1]) {
-        r = m - 1;
-      } else {
-        // nums[m] < nums[m + 1]
-        l = m + 1;
-      }
-    }
-    return -1;
-  }
 }

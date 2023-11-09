@@ -20,41 +20,41 @@ import java.util.Scanner;
  * @date 2021/1/25 0:06
  */
 public class NowCoder_MissingNum {
-  public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
-    int n = in.nextInt();
-    int aim = in.nextInt();
-    int[] arr = new int[n];
-    for (int i = 0; i < n; i++) {
-      arr[i] = in.nextInt();
-    }
-    System.out.println(missing(arr, aim));
-    in.close();
-  }
-
-  // 如果要实现1~range所有目标，但整个目标还没有达到1~aim，你永远缺range+1，一定是最省且最经济的，补上range+1后，能达到的数是1~2*range+1
-  // 先将数组排序，依次考察如何最经济使用i位置的数
-  public static int missing(int[] arr, int aim) {
-    int miss = 0;
-    long range = 0;
-    Arrays.sort(arr);
-    for (int item : arr) {
-      while (item > range + 1) {
-        range += (range + 1);
-        miss++;
-        if (range >= aim) {
-          return miss;
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int aim = in.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
         }
-      }
-      range += item;
-      if (range >= aim) {
+        System.out.println(missing(arr, aim));
+        in.close();
+    }
+
+    // 如果要实现1~range所有目标，但整个目标还没有达到1~aim，你永远缺range+1，一定是最省且最经济的，补上range+1后，能达到的数是1~2*range+1
+    // 先将数组排序，依次考察如何最经济使用i位置的数
+    public static int missing(int[] arr, int aim) {
+        int miss = 0;
+        long range = 0;
+        Arrays.sort(arr);
+        for (int item : arr) {
+            while (item > range + 1) {
+                range += (range + 1);
+                miss++;
+                if (range >= aim) {
+                    return miss;
+                }
+            }
+            range += item;
+            if (range >= aim) {
+                return miss;
+            }
+        }
+        while (aim >= range + 1) {
+            range += range + 1;
+            miss++;
+        }
         return miss;
-      }
     }
-    while (aim >= range + 1) {
-      range += range + 1;
-      miss++;
-    }
-    return miss;
-  }
 }

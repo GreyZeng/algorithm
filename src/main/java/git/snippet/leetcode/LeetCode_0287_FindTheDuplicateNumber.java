@@ -22,24 +22,24 @@ package git.snippet.leetcode;
 // 链接：https://leetcode.cn/problems/find-the-duplicate-number
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0287_FindTheDuplicateNumber {
-  // 单链表入环节点就是重复数字
-  public static int findDuplicate(int[] arr) {
-    int s = arr[0];
-    int f = arr[arr[0]];
-    // 快指针一次走两步
-    // 慢指针一次走一步
-    while (f != s) {
-      s = arr[s];
-      f = arr[arr[f]];
+    // 单链表入环节点就是重复数字
+    public static int findDuplicate(int[] arr) {
+        int s = arr[0];
+        int f = arr[arr[0]];
+        // 快指针一次走两步
+        // 慢指针一次走一步
+        while (f != s) {
+            s = arr[s];
+            f = arr[arr[f]];
+        }
+        // 一定会相遇
+        // 相遇后，快指针回到0位置，然后一次走一步
+        // 慢指针也是一次走一步，一定会在入环节点相遇
+        f = 0;
+        while (s != f) {
+            f = arr[f];
+            s = arr[s];
+        }
+        return s;
     }
-    // 一定会相遇
-    // 相遇后，快指针回到0位置，然后一次走一步
-    // 慢指针也是一次走一步，一定会在入环节点相遇
-    f = 0;
-    while (s != f) {
-      f = arr[f];
-      s = arr[s];
-    }
-    return s;
-  }
 }

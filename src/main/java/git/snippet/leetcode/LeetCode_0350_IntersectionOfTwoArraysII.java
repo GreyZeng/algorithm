@@ -25,46 +25,46 @@ import java.util.Set;
 // 词频表
 public class LeetCode_0350_IntersectionOfTwoArraysII {
 
-  public static int[] intersect(int[] nums1, int[] nums2) {
-    if (null == nums1 || null == nums2) {
-      return null;
-    }
-    if (0 == nums1.length || 0 == nums2.length) {
-      return new int[] {};
-    }
-    HashMap<Integer, Integer> map1 = new HashMap<>();
-    for (int j : nums1) {
-      if (map1.containsKey(j)) {
-        map1.put(j, map1.get(j) + 1);
-      } else {
-        map1.put(j, 1);
-      }
-    }
-    HashMap<Integer, Integer> map2 = new HashMap<>();
-    for (int j : nums2) {
-      if (map1.containsKey(j)) {
-        int base = map1.get(j);
-        if (map2.containsKey(j)) {
-          map2.put(j, Math.min(map2.get(j) + 1, base));
-        } else {
-          map2.put(j, 1);
+    public static int[] intersect(int[] nums1, int[] nums2) {
+        if (null == nums1 || null == nums2) {
+            return null;
         }
-      }
+        if (0 == nums1.length || 0 == nums2.length) {
+            return new int[]{};
+        }
+        HashMap<Integer, Integer> map1 = new HashMap<>();
+        for (int j : nums1) {
+            if (map1.containsKey(j)) {
+                map1.put(j, map1.get(j) + 1);
+            } else {
+                map1.put(j, 1);
+            }
+        }
+        HashMap<Integer, Integer> map2 = new HashMap<>();
+        for (int j : nums2) {
+            if (map1.containsKey(j)) {
+                int base = map1.get(j);
+                if (map2.containsKey(j)) {
+                    map2.put(j, Math.min(map2.get(j) + 1, base));
+                } else {
+                    map2.put(j, 1);
+                }
+            }
+        }
+        Set<Integer> set = map2.keySet();
+        List<Integer> list = new ArrayList<>();
+        int t;
+        for (int i : set) {
+            t = map2.get(i);
+            while (t != 0) {
+                list.add(i);
+                t--;
+            }
+        }
+        int[] res = new int[list.size()];
+        for (t = 0; t < res.length; t++) {
+            res[t] = list.get(t);
+        }
+        return res;
     }
-    Set<Integer> set = map2.keySet();
-    List<Integer> list = new ArrayList<>();
-    int t;
-    for (int i : set) {
-      t = map2.get(i);
-      while (t != 0) {
-        list.add(i);
-        t--;
-      }
-    }
-    int[] res = new int[list.size()];
-    for (t = 0; t < res.length; t++) {
-      res[t] = list.get(t);
-    }
-    return res;
-  }
 }

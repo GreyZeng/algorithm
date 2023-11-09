@@ -16,91 +16,91 @@ import java.util.PriorityQueue;
 // https://www.lintcode.com/problem/minimum-cost-to-connect-sticks/description
 // 笔记：https://www.cnblogs.com/greyzeng/p/16704842.html
 public class NowCoder_SplitGolden {
-  public static long lessMoney(long[] arr) {
-    if (arr == null || arr.length <= 1) {
-      return 0;
-    }
-    if (arr.length == 2) {
-      return arr[0] + arr[1];
-    }
-
-    PriorityQueue<Long> queue = new PriorityQueue<>();
-    for (long i : arr) {
-      queue.add(i);
-    }
-    long cost = 0;
-    while (queue.size() > 1) {
-      long i = queue.poll();
-      long j = queue.poll();
-      cost += (i + j);
-      queue.offer(i + j);
-    }
-    return cost;
-  }
-
-  // 暴力递归版本
-  public static long lessMoney0(long[] arr) {
-    if (arr == null || arr.length <= 1) {
-      return 0;
-    }
-    return process0(arr, 0);
-  }
-
-  private static long process0(long[] arr, long s) {
-    if (arr.length == 1) {
-      return s;
-    } else {
-      long min = Long.MAX_VALUE;
-      for (int i = 0; i < arr.length; i++) {
-        for (int j = i + 1; j < arr.length; j++) {
-          min = Math.min(process0(copyExcept(arr, i, j), s + (arr[i] + arr[j])), min);
+    public static long lessMoney(long[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return 0;
         }
-      }
-      return min;
-    }
-  }
+        if (arr.length == 2) {
+            return arr[0] + arr[1];
+        }
 
-  private static long[] copyExcept(long[] arr, int i1, int i2) {
-    int m = 0;
-    long[] nArr = new long[arr.length - 1];
-    long t = 0;
-    for (int j = 0; j < arr.length; j++) {
-      if (j != i1 && j != i2) {
-        nArr[m++] = arr[j];
-      } else {
-        t += arr[j];
-      }
+        PriorityQueue<Long> queue = new PriorityQueue<>();
+        for (long i : arr) {
+            queue.add(i);
+        }
+        long cost = 0;
+        while (queue.size() > 1) {
+            long i = queue.poll();
+            long j = queue.poll();
+            cost += (i + j);
+            queue.offer(i + j);
+        }
+        return cost;
     }
-    nArr[arr.length - 2] = t;
-    return nArr;
-  }
 
-  public static long[] generateRandomArr(int maxSize, long maxValue) {
-    int size = (int) (Math.random() * maxSize) + 1;
-    long[] arr = new long[size];
-    for (int i = 0; i < size; i++) {
-      arr[i] = (long) (Math.random() * (maxValue + 1)) - (long) (Math.random() * (maxValue + 1));
+    // 暴力递归版本
+    public static long lessMoney0(long[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return 0;
+        }
+        return process0(arr, 0);
     }
-    return arr;
-  }
 
-  public static void main(String[] args) {
-    int times = 50000;
-    long maxValue = 9;
-    int maxSize = 7;
-    for (int i = 0; i < times; i++) {
-      long[] arr = generateRandomArr(maxSize, maxValue);
-      if (lessMoney(arr) != lessMoney0(arr)) {
-        System.out.println("Ops!");
-      }
+    private static long process0(long[] arr, long s) {
+        if (arr.length == 1) {
+            return s;
+        } else {
+            long min = Long.MAX_VALUE;
+            for (int i = 0; i < arr.length; i++) {
+                for (int j = i + 1; j < arr.length; j++) {
+                    min = Math.min(process0(copyExcept(arr, i, j), s + (arr[i] + arr[j])), min);
+                }
+            }
+            return min;
+        }
     }
-    System.out.println("Nice!");
 
-    // 以下为牛客输入
-    /*
-     * Scanner in = new Scanner(System.in); int count = in.nextInt(); long[] arr = new long[count];
-     * for (int i = 0; i < count;i++) { arr[i] = in.nextLong(); }
-     * System.out.println(lessMoney(arr));
-     */
-  }
+    private static long[] copyExcept(long[] arr, int i1, int i2) {
+        int m = 0;
+        long[] nArr = new long[arr.length - 1];
+        long t = 0;
+        for (int j = 0; j < arr.length; j++) {
+            if (j != i1 && j != i2) {
+                nArr[m++] = arr[j];
+            } else {
+                t += arr[j];
+            }
+        }
+        nArr[arr.length - 2] = t;
+        return nArr;
+    }
+
+    public static long[] generateRandomArr(int maxSize, long maxValue) {
+        int size = (int) (Math.random() * maxSize) + 1;
+        long[] arr = new long[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = (long) (Math.random() * (maxValue + 1)) - (long) (Math.random() * (maxValue + 1));
+        }
+        return arr;
+    }
+
+    public static void main(String[] args) {
+        int times = 50000;
+        long maxValue = 9;
+        int maxSize = 7;
+        for (int i = 0; i < times; i++) {
+            long[] arr = generateRandomArr(maxSize, maxValue);
+            if (lessMoney(arr) != lessMoney0(arr)) {
+                System.out.println("Ops!");
+            }
+        }
+        System.out.println("Nice!");
+
+        // 以下为牛客输入
+        /*
+         * Scanner in = new Scanner(System.in); int count = in.nextInt(); long[] arr = new long[count];
+         * for (int i = 0; i < count;i++) { arr[i] = in.nextLong(); }
+         * System.out.println(lessMoney(arr));
+         */
+    }
 }

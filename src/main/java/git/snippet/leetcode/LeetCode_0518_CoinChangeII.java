@@ -36,118 +36,118 @@ package git.snippet.leetcode;
 
 public class LeetCode_0518_CoinChangeII {
 
-  public static int change(int amount, int[] coins) {
-    if (amount == 0) {
-      return 1;
-    }
-    if (coins == null || coins.length == 0) {
-      return 0;
-    }
-    int M = coins.length;
-    int N = amount;
-    int[][] dp = new int[M + 1][N + 1];
-    dp[M][0] = 1;
-
-    for (int i = M - 1; i >= 0; i--) {
-      for (int j = 0; j <= N; j++) {
-        dp[i][j] = dp[i + 1][j];
-        if (j - coins[i] >= 0) {
-          dp[i][j] += dp[i][j - coins[i]];
+    public static int change(int amount, int[] coins) {
+        if (amount == 0) {
+            return 1;
         }
-      }
-    }
-    return dp[0][amount];
-  }
+        if (coins == null || coins.length == 0) {
+            return 0;
+        }
+        int M = coins.length;
+        int N = amount;
+        int[][] dp = new int[M + 1][N + 1];
+        dp[M][0] = 1;
 
-  public static int change2(int amount, int[] coins) {
-    if (amount == 0) {
-      return 1;
+        for (int i = M - 1; i >= 0; i--) {
+            for (int j = 0; j <= N; j++) {
+                dp[i][j] = dp[i + 1][j];
+                if (j - coins[i] >= 0) {
+                    dp[i][j] += dp[i][j - coins[i]];
+                }
+            }
+        }
+        return dp[0][amount];
     }
-    if (coins == null || coins.length == 0) {
-      return 0;
-    }
-    int M = coins.length;
-    int N = amount;
-    int[][] dp = new int[M + 1][N + 1];
-    dp[M][0] = 1;
 
-    for (int i = M - 1; i >= 0; i--) {
-      for (int j = 0; j <= N; j++) {
+    public static int change2(int amount, int[] coins) {
+        if (amount == 0) {
+            return 1;
+        }
+        if (coins == null || coins.length == 0) {
+            return 0;
+        }
+        int M = coins.length;
+        int N = amount;
+        int[][] dp = new int[M + 1][N + 1];
+        dp[M][0] = 1;
+
+        for (int i = M - 1; i >= 0; i--) {
+            for (int j = 0; j <= N; j++) {
+                int p = 0;
+                for (int num = 0; coins[i] * num <= j; num++) {
+                    p += dp[i + 1][j - coins[i] * num];
+                }
+                dp[i][j] = p;
+            }
+        }
+        return dp[0][amount];
+    }
+
+    // 记忆化搜索
+    public static int change3(int amount, int[] coins) {
+        if (amount == 0) {
+            return 1;
+        }
+        if (coins == null || coins.length == 0) {
+            return 0;
+        }
+        int M = coins.length + 1;
+        int N = amount + 1;
+        int[][] dp = new int[M][N];
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                dp[i][j] = -1;
+            }
+        }
+        return p2(coins, 0, amount, dp);
+    }
+
+    // 前面0..i-1号硬币用过了，剩余rest数量没有凑够，来到i位置决策
+    // 需要的方法数是多少
+    public static int p2(int[] coins, int i, int rest, int[][] dp) {
+        if (dp[i][rest] != -1) {
+            return dp[i][rest];
+        }
+        if (rest == 0) {
+            dp[i][rest] = 1;
+            return dp[i][rest];
+        }
+        if (i == coins.length) {
+            dp[i][rest] = 0;
+            return dp[i][rest];
+        }
         int p = 0;
-        for (int num = 0; coins[i] * num <= j; num++) {
-          p += dp[i + 1][j - coins[i] * num];
+        for (int j = 0; coins[i] * j <= rest; j++) {
+            p += p2(coins, i + 1, rest - coins[i] * j, dp);
         }
-        dp[i][j] = p;
-      }
+        dp[i][rest] = p;
+        return dp[i][rest];
     }
-    return dp[0][amount];
-  }
 
-  // 记忆化搜索
-  public static int change3(int amount, int[] coins) {
-    if (amount == 0) {
-      return 1;
+    // 暴力解 过不了leetcode
+    public static int change4(int amount, int[] coins) {
+        return p(coins, 0, amount);
     }
-    if (coins == null || coins.length == 0) {
-      return 0;
-    }
-    int M = coins.length + 1;
-    int N = amount + 1;
-    int[][] dp = new int[M][N];
-    for (int i = 0; i < M; i++) {
-      for (int j = 0; j < N; j++) {
-        dp[i][j] = -1;
-      }
-    }
-    return p2(coins, 0, amount, dp);
-  }
 
-  // 前面0..i-1号硬币用过了，剩余rest数量没有凑够，来到i位置决策
-  // 需要的方法数是多少
-  public static int p2(int[] coins, int i, int rest, int[][] dp) {
-    if (dp[i][rest] != -1) {
-      return dp[i][rest];
+    // 前面0..i-1号硬币用过了，剩余rest数量没有凑够，来到i位置决策
+    // 需要的方法数是多少
+    public static int p(int[] coins, int i, int rest) {
+        if (rest == 0) {
+            return 1;
+        }
+        if (i == coins.length) {
+            return 0;
+        }
+        int p = 0;
+        for (int j = 0; coins[i] * j <= rest; j++) {
+            p += p(coins, i + 1, rest - coins[i] * j);
+        }
+        return p;
     }
-    if (rest == 0) {
-      dp[i][rest] = 1;
-      return dp[i][rest];
-    }
-    if (i == coins.length) {
-      dp[i][rest] = 0;
-      return dp[i][rest];
-    }
-    int p = 0;
-    for (int j = 0; coins[i] * j <= rest; j++) {
-      p += p2(coins, i + 1, rest - coins[i] * j, dp);
-    }
-    dp[i][rest] = p;
-    return dp[i][rest];
-  }
 
-  // 暴力解 过不了leetcode
-  public static int change4(int amount, int[] coins) {
-    return p(coins, 0, amount);
-  }
-
-  // 前面0..i-1号硬币用过了，剩余rest数量没有凑够，来到i位置决策
-  // 需要的方法数是多少
-  public static int p(int[] coins, int i, int rest) {
-    if (rest == 0) {
-      return 1;
+    public static void main(String[] args) {
+        int amount = 5;
+        int[] coins = {5};
+        System.out.println(change(amount, coins));
     }
-    if (i == coins.length) {
-      return 0;
-    }
-    int p = 0;
-    for (int j = 0; coins[i] * j <= rest; j++) {
-      p += p(coins, i + 1, rest - coins[i] * j);
-    }
-    return p;
-  }
-
-  public static void main(String[] args) {
-    int amount = 5;
-    int[] coins = {5};
-    System.out.println(change(amount, coins));
-  }
 }

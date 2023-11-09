@@ -38,44 +38,45 @@ import java.util.ArrayList;
 // You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
 public class LeetCode_0230_KthSmallestElementInBST {
 
-  public static class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode() {}
-
-    TreeNode(int val) {
-      this.val = val;
+    // 中序遍历第K个节点
+    public static int kthSmallest(TreeNode root, int k) {
+        ArrayList<TreeNode> t = new ArrayList<>();
+        p(root, t);
+        return t.get(k - 1).val;
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-      this.val = val;
-      this.left = left;
-      this.right = right;
+    public static void p(TreeNode r, ArrayList<TreeNode> res) {
+        if (r == null) {
+            return;
+        }
+        if (r.left == null && r.right == null) {
+            res.add(r);
+            return;
+        }
+        p(r.left, res);
+        res.add(r);
+        p(r.right, res);
     }
-  }
 
-  // 中序遍历第K个节点
-  public static int kthSmallest(TreeNode root, int k) {
-    ArrayList<TreeNode> t = new ArrayList<>();
-    p(root, t);
-    return t.get(k - 1).val;
-  }
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
-  public static void p(TreeNode r, ArrayList<TreeNode> res) {
-    if (r == null) {
-      return;
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
-    if (r.left == null && r.right == null) {
-      res.add(r);
-      return;
-    }
-    p(r.left, res);
-    res.add(r);
-    p(r.right, res);
-  }
 
-  // TODO morris遍历解
+    // TODO morris遍历解
 
 }

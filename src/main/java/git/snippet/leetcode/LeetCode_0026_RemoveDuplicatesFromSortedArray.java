@@ -38,16 +38,16 @@
 package git.snippet.leetcode;
 
 public class LeetCode_0026_RemoveDuplicatesFromSortedArray {
-  public int removeDuplicates(int[] nums) {
-    if (nums.length == 0) {
-      return 0;
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        int fill = 0;
+        for (int cur = 0; cur < nums.length; cur++) {
+            if (nums[cur] != nums[fill]) {
+                nums[++fill] = nums[cur];
+            }
+        }
+        return fill + 1;
     }
-    int fill = 0;
-    for (int cur = 0; cur < nums.length; cur++) {
-      if (nums[cur] != nums[fill]) {
-        nums[++fill] = nums[cur];
-      }
-    }
-    return fill + 1;
-  }
 }

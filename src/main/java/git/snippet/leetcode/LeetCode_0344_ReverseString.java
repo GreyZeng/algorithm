@@ -20,17 +20,17 @@ package git.snippet.leetcode;
 // Output: ["h","a","n","n","a","H"]
 public class LeetCode_0344_ReverseString {
 
-  public void reverseString(char[] s) {
-    int l = 0;
-    int r = s.length - 1;
-    while (l < r) {
-      swap(s, l++, r--);
+    public void reverseString(char[] s) {
+        int l = 0;
+        int r = s.length - 1;
+        while (l < r) {
+            swap(s, l++, r--);
+        }
     }
-  }
 
-  public void swap(char[] s, int l, int r) {
-    char tmp = s[l];
-    s[l] = s[r];
-    s[r] = tmp;
-  }
+    public void swap(char[] s, int l, int r) {
+        char tmp = s[l];
+        s[l] = s[r];
+        s[r] = tmp;
+    }
 }

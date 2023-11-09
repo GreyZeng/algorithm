@@ -27,14 +27,14 @@ package git.snippet.leetcode;
 // Leetcode题目 : https://leetcode.com/problems/excel-sheet-column-number/
 public class LeetCode_0171_ExcelSheetColumnNumber {
 
-  // 这道题反过来也要会写
-  public static int titleToNumber(String s) {
-    char[] str = s.toCharArray();
-    int ans = 0;
-    for (int i = 0; i < str.length; i++) {
-      ans = ans * 26 + (str[i] - 'A') + 1;
-    }
+    // 这道题反过来也要会写
+    public static int titleToNumber(String s) {
+        char[] str = s.toCharArray();
+        int ans = 0;
+        for (int i = 0; i < str.length; i++) {
+            ans = ans * 26 + (str[i] - 'A') + 1;
+        }
 
-    return ans;
-  }
+        return ans;
+    }
 }

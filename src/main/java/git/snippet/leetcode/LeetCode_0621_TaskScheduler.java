@@ -26,24 +26,24 @@ package git.snippet.leetcode;
 // Leetcode题目 : https://leetcode.com/problems/task-scheduler/
 public class LeetCode_0621_TaskScheduler {
 
-  public static int leastInterval(char[] tasks, int n) {
-    int[] count = new int[256];
-    int N = tasks.length;
-    int max = 0;
-    for (int i = 0; i < N; i++) {
-      max = Math.max(++count[tasks[i]], max);
-    }
+    public static int leastInterval(char[] tasks, int n) {
+        int[] count = new int[256];
+        int N = tasks.length;
+        int max = 0;
+        for (int i = 0; i < N; i++) {
+            max = Math.max(++count[tasks[i]], max);
+        }
 
-    int maxKinds = 0;
-    for (int i = 0; i < 256; i++) {
-      if (count[i] == max) {
-        maxKinds++;
-      }
-    }
+        int maxKinds = 0;
+        for (int i = 0; i < 256; i++) {
+            if (count[i] == max) {
+                maxKinds++;
+            }
+        }
 
-    int restTasks = N - maxKinds;
-    int spaces = (max - 1) * (n + 1);
-    int restSpace = Math.max(spaces - restTasks, 0);
-    return N + restSpace;
-  }
+        int restTasks = N - maxKinds;
+        int spaces = (max - 1) * (n + 1);
+        int restSpace = Math.max(spaces - restTasks, 0);
+        return N + restSpace;
+    }
 }

@@ -7,52 +7,52 @@ package git.snippet.list;
 // 如果一个长度是100，另外一个长度是80， 则让100的节点先走20个节点，然后开始两个链表开始走。
 public class LeetCode_0160_IntersectionOfTwoLinkedLists {
 
-  public class ListNode {
-    int val;
-    ListNode next;
+    //
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (null == headA || null == headB) {
+            return null;
+        }
+        if (headA == headB) {
+            return headA;
+        }
+        int lenOfA = getLen(headA);
+        int lenOfB = getLen(headB);
+        int maxLen = Math.max(lenOfA, lenOfB);
+        int gap = Math.abs(lenOfA - lenOfB);
+        ListNode longList = maxLen == lenOfA ? headA : headB;
+        ListNode shortList = longList == headA ? headB : headA;
+        for (int i = 0; i < gap; i++) {
+            longList = longList.next;
+        }
+        if (longList == shortList) {
+            return longList;
+        }
+        while (shortList != null) {
+            shortList = shortList.next;
+            longList = longList.next;
+            if (shortList == longList) {
+                return shortList;
+            }
+        }
+        return null;
+    }
 
-    ListNode(int x) {
-      val = x;
-      next = null;
+    public int getLen(ListNode head) {
+        int len = 0;
+        while (head != null) {
+            len++;
+            head = head.next;
+        }
+        return len;
     }
-  }
 
-  //
-  public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-    if (null == headA || null == headB) {
-      return null;
-    }
-    if (headA == headB) {
-      return headA;
-    }
-    int lenOfA = getLen(headA);
-    int lenOfB = getLen(headB);
-    int maxLen = Math.max(lenOfA, lenOfB);
-    int gap = Math.abs(lenOfA - lenOfB);
-    ListNode longList = maxLen == lenOfA ? headA : headB;
-    ListNode shortList = longList == headA ? headB : headA;
-    for (int i = 0; i < gap; i++) {
-      longList = longList.next;
-    }
-    if (longList == shortList) {
-      return longList;
-    }
-    while (shortList != null) {
-      shortList = shortList.next;
-      longList = longList.next;
-      if (shortList == longList) {
-        return shortList;
-      }
-    }
-    return null;
-  }
+    public class ListNode {
+        int val;
+        ListNode next;
 
-  public int getLen(ListNode head) {
-    int len = 0;
-    while (head != null) {
-      len++;
-      head = head.next;
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
     }
-    return len;
-  }
 }

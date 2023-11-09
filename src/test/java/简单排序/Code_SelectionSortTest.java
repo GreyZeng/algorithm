@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static 简单排序.Code_InsertionSort.insertionSort;
 import static 简单排序.Code_SelectionSort.selectionSort;
 import static 通用.Generator.copyArray;
 import static 通用.Generator.generateRandomArray;

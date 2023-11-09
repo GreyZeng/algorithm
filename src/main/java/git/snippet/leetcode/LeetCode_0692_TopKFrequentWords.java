@@ -21,63 +21,63 @@ import java.util.*;
 // - 方法1：Hash表+小根堆
 // - 方法2：用bfprt和快排改进 TODO
 public class LeetCode_0692_TopKFrequentWords {
-  public static class Node {
-    public String value;
-    public int times;
+    public static List<String> topKFrequent(String[] words, int k) {
+        HashMap<String, Integer> map = new HashMap<>();
 
-    public Node(String v, int t) {
-      value = v;
-      times = t;
-    }
-  }
-
-  public static class TimesComparator implements Comparator<Node> {
-
-    @Override
-    public int compare(Node a, Node b) {
-      if (a.times == b.times) {
-        return b.value.compareTo(a.value);
-      } else {
-        if (a.times > b.times) {
-          return 1;
-        } else {
-          return -1;
+        for (String word : words) {
+            if (map.containsKey(word)) {
+                map.put(word, map.get(word) + 1);
+            } else {
+                map.put(word, 1);
+            }
         }
-      }
-    }
-  }
+        PriorityQueue<Node> heap = new PriorityQueue<>(new TimesComparator());
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            heap.offer(new Node(entry.getKey(), entry.getValue()));
+            if (heap.size() > k) {
+                heap.poll();
+            }
+        }
 
-  public static List<String> topKFrequent(String[] words, int k) {
-    HashMap<String, Integer> map = new HashMap<>();
-
-    for (String word : words) {
-      if (map.containsKey(word)) {
-        map.put(word, map.get(word) + 1);
-      } else {
-        map.put(word, 1);
-      }
-    }
-    PriorityQueue<Node> heap = new PriorityQueue<>(new TimesComparator());
-    for (Map.Entry<String, Integer> entry : map.entrySet()) {
-      heap.offer(new Node(entry.getKey(), entry.getValue()));
-      if (heap.size() > k) {
-        heap.poll();
-      }
+        List<String> ans = new LinkedList<>();
+        while (!heap.isEmpty()) {
+            ans.add(0, heap.poll().value);
+        }
+        return ans;
     }
 
-    List<String> ans = new LinkedList<>();
-    while (!heap.isEmpty()) {
-      ans.add(0, heap.poll().value);
+    public static void main(String[] args) {
+        String[] words1 = {"i", "love", "练习题/leetcode", "i", "love", "coding"};
+        int k = 2;
+        System.out.println(topKFrequent(words1, k));
+        String[] words2 = {"the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"};
+        k = 4;
+        System.out.println(topKFrequent(words2, k));
     }
-    return ans;
-  }
 
-  public static void main(String[] args) {
-    String[] words1 = {"i", "love", "练习题/leetcode", "i", "love", "coding"};
-    int k = 2;
-    System.out.println(topKFrequent(words1, k));
-    String[] words2 = {"the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"};
-    k = 4;
-    System.out.println(topKFrequent(words2, k));
-  }
+    public static class Node {
+        public String value;
+        public int times;
+
+        public Node(String v, int t) {
+            value = v;
+            times = t;
+        }
+    }
+
+    public static class TimesComparator implements Comparator<Node> {
+
+        @Override
+        public int compare(Node a, Node b) {
+            if (a.times == b.times) {
+                return b.value.compareTo(a.value);
+            } else {
+                if (a.times > b.times) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        }
+    }
 }

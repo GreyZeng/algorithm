@@ -15,55 +15,55 @@ import java.util.Stack;
 // 笔记：
 // 用递归函数和栈操作逆序栈
 public class NowCoder_ReverseStack {
-  public static void main(String[] args) {
-    int[] arr = {1, 2, 3, 4};
-    int[] result = reverseStackRecursively(arr, arr.length);
-    for (int m : result) {
-      System.out.println(m);
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4};
+        int[] result = reverseStackRecursively(arr, arr.length);
+        for (int m : result) {
+            System.out.println(m);
+        }
     }
-  }
 
-  public static int[] reverseStackRecursively(int[] stack, int top) {
-    if (top >= 1) {
-      // 获取栈底元素
-      int bottom = getBottom(stack, top);
-      // 逆序
-      stack = reverseStackRecursively(stack, --top);
-      // 栈底放栈顶
-      stack[top] = bottom;
+    public static int[] reverseStackRecursively(int[] stack, int top) {
+        if (top >= 1) {
+            // 获取栈底元素
+            int bottom = getBottom(stack, top);
+            // 逆序
+            stack = reverseStackRecursively(stack, --top);
+            // 栈底放栈顶
+            stack[top] = bottom;
+        }
+        return stack;
     }
-    return stack;
-  }
 
-  public static int getBottom(int[] stack, int top) {
-    if (top == 1) {
-      return stack[0];
-    } else {
-      int tmp = stack[--top];
-      int bottom = getBottom(stack, top);
-      stack[--top] = tmp;
-      return bottom;
+    public static int getBottom(int[] stack, int top) {
+        if (top == 1) {
+            return stack[0];
+        } else {
+            int tmp = stack[--top];
+            int bottom = getBottom(stack, top);
+            stack[--top] = tmp;
+            return bottom;
+        }
     }
-  }
 
-  public static void reverseStackRecursively3(Stack<Integer> stack) {
-    if (stack.isEmpty()) {
-      return;
+    public static void reverseStackRecursively3(Stack<Integer> stack) {
+        if (stack.isEmpty()) {
+            return;
+        }
+        int last = f(stack);
+        reverseStackRecursively3(stack);
+        stack.push(last);
     }
-    int last = f(stack);
-    reverseStackRecursively3(stack);
-    stack.push(last);
-  }
 
-  // 返回栈底元素
-  public static int f(Stack<Integer> stack) {
-    int result = stack.pop();
-    if (stack.isEmpty()) {
-      return result;
-    } else {
-      int last = f(stack);
-      stack.push(result);
-      return last;
+    // 返回栈底元素
+    public static int f(Stack<Integer> stack) {
+        int result = stack.pop();
+        if (stack.isEmpty()) {
+            return result;
+        } else {
+            int last = f(stack);
+            stack.push(result);
+            return last;
+        }
     }
-  }
 }

@@ -22,28 +22,28 @@ package git.snippet.leetcode;
 import java.util.Random;
 
 public class LeetCode_0398_RandomPickIndex {
-  class Solution {
-    int[] nums;
-    Random random;
+    class Solution {
+        int[] nums;
+        Random random;
 
-    public Solution(int[] nums) {
-      this.nums = nums;
-      random = new Random();
-    }
-
-    public int pick(int target) {
-      int count = 0;
-      int index = 0;
-      for (int i = 0; i < nums.length; i++) {
-        if (nums[i] == target) {
-          count++;
-          // 如果只有一个的话，count=1, random.nextInt(count)必为0,所以index至少一定可以抓到第一个值
-          if (random.nextInt(count) == 0) {
-            index = i;
-          }
+        public Solution(int[] nums) {
+            this.nums = nums;
+            random = new Random();
         }
-      }
-      return index;
+
+        public int pick(int target) {
+            int count = 0;
+            int index = 0;
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] == target) {
+                    count++;
+                    // 如果只有一个的话，count=1, random.nextInt(count)必为0,所以index至少一定可以抓到第一个值
+                    if (random.nextInt(count) == 0) {
+                        index = i;
+                    }
+                }
+            }
+            return index;
+        }
     }
-  }
 }

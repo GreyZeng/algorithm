@@ -8,10 +8,10 @@ package git.snippet.bit;
 // 牛客的测评链接：https://www.nowcoder.com/questionTerminal/d0ef3e33e63a49dd99c90aeef306b0fc
 public class LeetCode_0136_SingleNumber {
 
-  public int singleNumber(int[] nums) {
-    for (int i = 1; i < nums.length; i++) {
-      nums[0] ^= nums[i];
+    public int singleNumber(int[] nums) {
+        for (int i = 1; i < nums.length; i++) {
+            nums[0] ^= nums[i];
+        }
+        return nums[0];
     }
-    return nums[0];
-  }
 }

@@ -30,97 +30,97 @@ package git.snippet.leetcode;
 
 public class LeetCode_0289_GameOfLife {
 
-  // TODO 可以优化的点：位信息压缩
-  public static void gameOfLife(int[][] board) {
-    if (null == board || board.length == 0 || board[0].length == 0) {
-      return;
-    }
-    int M = board.length;
-    int N = board[0].length;
-    for (int i = 0; i < M; i++) {
-      for (int j = 0; j < N; j++) {
-        process(board, M, N, i, j);
-      }
-    }
-
-    for (int i = 0; i < M; i++) {
-      for (int j = 0; j < N; j++) {
-        if (board[i][j] == 3) {
-          board[i][j] = 1;
+    // TODO 可以优化的点：位信息压缩
+    public static void gameOfLife(int[][] board) {
+        if (null == board || board.length == 0 || board[0].length == 0) {
+            return;
         }
-        if (board[i][j] == 4) {
-          board[i][j] = 0;
+        int M = board.length;
+        int N = board[0].length;
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                process(board, M, N, i, j);
+            }
         }
-      }
-    }
-  }
 
-  private static void process(int[][] board, int m, int n, int i, int j) {
-    int nb = nb(board, m, n, i, j);
-    boolean isLive = isLive(nb);
-    int state = board[i][j];
-    /*
-     * if (isLive && state == 1) { // 不处理 } if (!isLive && state == 0) { // 不处理 }
-     */
-    if (nb == 3 && state == 0) {
-      // 复活的情况
-      board[i][j] = 3;
-    }
-    if (!isLive && state == 1) {
-      // 死亡的情况
-      board[i][j] = 4;
-    }
-    // die -> Live
-    // Live -> die
-    // die -> die 0->0
-    // Live -> Live 1->1
-  }
-
-  private static boolean isLive(int nb) {
-    return nb == 3 || nb == 2;
-  }
-
-  private static int nb(int[][] board, int M, int N, int i, int j) {
-    int nb = 0;
-
-    if (i - 1 >= 0) {
-      nb += (board[i - 1][j] == 1 || board[i - 1][j] == 4) ? 1 : 0;
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] == 3) {
+                    board[i][j] = 1;
+                }
+                if (board[i][j] == 4) {
+                    board[i][j] = 0;
+                }
+            }
+        }
     }
 
-    if (i + 1 < M) {
-      nb += (board[i + 1][j] == 1 || board[i + 1][j] == 4) ? 1 : 0;
+    private static void process(int[][] board, int m, int n, int i, int j) {
+        int nb = nb(board, m, n, i, j);
+        boolean isLive = isLive(nb);
+        int state = board[i][j];
+        /*
+         * if (isLive && state == 1) { // 不处理 } if (!isLive && state == 0) { // 不处理 }
+         */
+        if (nb == 3 && state == 0) {
+            // 复活的情况
+            board[i][j] = 3;
+        }
+        if (!isLive && state == 1) {
+            // 死亡的情况
+            board[i][j] = 4;
+        }
+        // die -> Live
+        // Live -> die
+        // die -> die 0->0
+        // Live -> Live 1->1
     }
 
-    if (j - 1 >= 0) {
-      nb += (board[i][j - 1] == 1 || board[i][j - 1] == 4) ? 1 : 0;
+    private static boolean isLive(int nb) {
+        return nb == 3 || nb == 2;
     }
 
-    if (j + 1 < N) {
-      nb += (board[i][j + 1] == 1 || board[i][j + 1] == 4) ? 1 : 0;
+    private static int nb(int[][] board, int M, int N, int i, int j) {
+        int nb = 0;
+
+        if (i - 1 >= 0) {
+            nb += (board[i - 1][j] == 1 || board[i - 1][j] == 4) ? 1 : 0;
+        }
+
+        if (i + 1 < M) {
+            nb += (board[i + 1][j] == 1 || board[i + 1][j] == 4) ? 1 : 0;
+        }
+
+        if (j - 1 >= 0) {
+            nb += (board[i][j - 1] == 1 || board[i][j - 1] == 4) ? 1 : 0;
+        }
+
+        if (j + 1 < N) {
+            nb += (board[i][j + 1] == 1 || board[i][j + 1] == 4) ? 1 : 0;
+        }
+
+        if (i - 1 >= 0 && j - 1 >= 0) {
+            nb += (board[i - 1][j - 1] == 1 || board[i - 1][j - 1] == 4) ? 1 : 0;
+        }
+
+        if (i - 1 >= 0 && j + 1 < N) {
+            nb += (board[i - 1][j + 1] == 1 || board[i - 1][j + 1] == 4) ? 1 : 0;
+        }
+
+        if (i + 1 < M && j - 1 >= 0) {
+            nb += (board[i + 1][j - 1] == 1 || board[i + 1][j - 1] == 4) ? 1 : 0;
+        }
+
+        if (i + 1 < M && j + 1 < N) {
+            nb += (board[i + 1][j + 1] == 1 || board[i + 1][j + 1] == 4) ? 1 : 0;
+        }
+
+        return nb;
     }
 
-    if (i - 1 >= 0 && j - 1 >= 0) {
-      nb += (board[i - 1][j - 1] == 1 || board[i - 1][j - 1] == 4) ? 1 : 0;
+    public static void main(String[] args) {
+        // [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+        int[][] board = {{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}};
+        gameOfLife(board);
     }
-
-    if (i - 1 >= 0 && j + 1 < N) {
-      nb += (board[i - 1][j + 1] == 1 || board[i - 1][j + 1] == 4) ? 1 : 0;
-    }
-
-    if (i + 1 < M && j - 1 >= 0) {
-      nb += (board[i + 1][j - 1] == 1 || board[i + 1][j - 1] == 4) ? 1 : 0;
-    }
-
-    if (i + 1 < M && j + 1 < N) {
-      nb += (board[i + 1][j + 1] == 1 || board[i + 1][j + 1] == 4) ? 1 : 0;
-    }
-
-    return nb;
-  }
-
-  public static void main(String[] args) {
-    // [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
-    int[][] board = {{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}};
-    gameOfLife(board);
-  }
 }

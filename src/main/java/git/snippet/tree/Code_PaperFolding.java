@@ -16,21 +16,21 @@ package git.snippet.tree;
  * <p>右子树的头节点都是凸折痕
  */
 public class Code_PaperFolding {
-  public static void printAllFolds(int N) {
-    process(1, N, true);
-  }
-
-  public static void process(int i, int N, boolean down) {
-    if (i > N) {
-      return;
+    public static void printAllFolds(int N) {
+        process(1, N, true);
     }
-    process(i + 1, N, true);
-    System.out.print(down ? "down " : "up ");
-    process(i + 1, N, false);
-  }
 
-  public static void main(String[] args) {
-    int N = 3;
-    printAllFolds(N);
-  }
+    public static void process(int i, int N, boolean down) {
+        if (i > N) {
+            return;
+        }
+        process(i + 1, N, true);
+        System.out.print(down ? "down " : "up ");
+        process(i + 1, N, false);
+    }
+
+    public static void main(String[] args) {
+        int N = 3;
+        printAllFolds(N);
+    }
 }

@@ -23,48 +23,48 @@ import java.util.PriorityQueue;
 // Hash表词频 + 小根堆（拿次数排序，大小是K就开始收集）
 public class LeetCode_0347_TopKFrequentElements {
 
-  public static class Node {
-    // 值
-    public int v;
-    // 次数
-    public int t;
+    public static int[] topKFrequent(int[] arr, int k) {
+        if (arr == null || arr.length == 0 || arr.length < k) {
+            return null;
+        }
+        Map<Integer, Node> freqMap = new HashMap<>();
+        for (int n : arr) {
+            if (freqMap.containsKey(n)) {
+                freqMap.get(n).t++;
+            } else {
+                freqMap.put(n, new Node(n, 1));
+            }
+        }
+        // 字符种类没有k个，无法得到结果
+        if (freqMap.size() < k) {
+            return null;
+        }
+        int[] ans = new int[k];
+        PriorityQueue<Node> topK = new PriorityQueue<>(k, Comparator.comparingInt(o -> o.t));
+        for (Map.Entry<Integer, Node> entry : freqMap.entrySet()) {
+            if (topK.size() <= k || topK.peek().t < entry.getValue().t) {
+                topK.offer(entry.getValue());
+            }
+            if (topK.size() > k) {
+                topK.poll();
+            }
+        }
+        int i = 0;
+        while (!topK.isEmpty()) {
+            ans[i++] = topK.poll().v;
+        }
+        return ans;
+    }
 
-    public Node(int value, int times) {
-      v = value;
-      t = times;
-    }
-  }
+    public static class Node {
+        // 值
+        public int v;
+        // 次数
+        public int t;
 
-  public static int[] topKFrequent(int[] arr, int k) {
-    if (arr == null || arr.length == 0 || arr.length < k) {
-      return null;
+        public Node(int value, int times) {
+            v = value;
+            t = times;
+        }
     }
-    Map<Integer, Node> freqMap = new HashMap<>();
-    for (int n : arr) {
-      if (freqMap.containsKey(n)) {
-        freqMap.get(n).t++;
-      } else {
-        freqMap.put(n, new Node(n, 1));
-      }
-    }
-    // 字符种类没有k个，无法得到结果
-    if (freqMap.size() < k) {
-      return null;
-    }
-    int[] ans = new int[k];
-    PriorityQueue<Node> topK = new PriorityQueue<>(k, Comparator.comparingInt(o -> o.t));
-    for (Map.Entry<Integer, Node> entry : freqMap.entrySet()) {
-      if (topK.size() <= k || topK.peek().t < entry.getValue().t) {
-        topK.offer(entry.getValue());
-      }
-      if (topK.size() > k) {
-        topK.poll();
-      }
-    }
-    int i = 0;
-    while (!topK.isEmpty()) {
-      ans[i++] = topK.poll().v;
-    }
-    return ans;
-  }
 }

@@ -28,31 +28,31 @@ package git.snippet.leetcode;
  */
 public class LeetCode_0055_JumpGame {
 
-  public static boolean canJump(int[] nums) {
-    if (nums == null) {
-      return false;
-    }
-    int N = nums.length;
-    if (N == 0) {
-      return false;
-    }
-    if (N == 1) {
-      return true;
-    }
-    int max = nums[0];
+    public static boolean canJump(int[] nums) {
+        if (nums == null) {
+            return false;
+        }
+        int N = nums.length;
+        if (N == 0) {
+            return false;
+        }
+        if (N == 1) {
+            return true;
+        }
+        int max = nums[0];
 
-    if (max >= N - 1) {
-      return true;
-    }
-    for (int i = 1; i < N; i++) {
-      if (max >= N - 1) {
+        if (max >= N - 1) {
+            return true;
+        }
+        for (int i = 1; i < N; i++) {
+            if (max >= N - 1) {
+                return true;
+            }
+            if (i > max) {
+                return false;
+            }
+            max = Math.max(max, i + nums[i]);
+        }
         return true;
-      }
-      if (i > max) {
-        return false;
-      }
-      max = Math.max(max, i + nums[i]);
     }
-    return true;
-  }
 }

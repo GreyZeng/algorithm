@@ -36,35 +36,35 @@ package git.snippet.leetcode;
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LeetCode_0384_ShuffleAnArray {
 
-  private class Solution {
-    public int[] origin;
-    public int[] helper;
+    private class Solution {
+        public int[] origin;
+        public int[] helper;
 
-    public Solution(int[] arr) {
-      origin = arr;
-      helper = new int[arr.length];
-      System.arraycopy(arr, 0, helper, 0, arr.length);
-    }
+        public Solution(int[] arr) {
+            origin = arr;
+            helper = new int[arr.length];
+            System.arraycopy(arr, 0, helper, 0, arr.length);
+        }
 
-    public int[] reset() {
-      return origin;
-    }
+        public int[] reset() {
+            return origin;
+        }
 
-    // 0...i随机选一个位置的值和i上的值进行交换
-    public int[] shuffle() {
-      int index = origin.length - 1;
-      for (int i = origin.length - 1; i >= 1; i--) {
-        swap(helper, (int) (Math.random() * origin.length), index--);
-      }
-      return helper;
-    }
+        // 0...i随机选一个位置的值和i上的值进行交换
+        public int[] shuffle() {
+            int index = origin.length - 1;
+            for (int i = origin.length - 1; i >= 1; i--) {
+                swap(helper, (int) (Math.random() * origin.length), index--);
+            }
+            return helper;
+        }
 
-    public void swap(int[] arr, int i, int j) {
-      if (i != j) {
-        arr[i] = arr[i] ^ arr[j];
-        arr[j] = arr[i] ^ arr[j];
-        arr[i] = arr[i] ^ arr[j];
-      }
+        public void swap(int[] arr, int i, int j) {
+            if (i != j) {
+                arr[i] = arr[i] ^ arr[j];
+                arr[j] = arr[i] ^ arr[j];
+                arr[i] = arr[i] ^ arr[j];
+            }
+        }
     }
-  }
 }

@@ -26,55 +26,56 @@ import java.util.Queue;
 // ]
 public class LeetCode_0107_BinaryTreeLevelOrderTraversalII {
 
-  public class TreeNode {
-
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode() {}
-
-    TreeNode(int val) {
-      this.val = val;
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        TreeNode cur = root;
+        TreeNode curEnd = root;
+        TreeNode nextEnd = null;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(cur);
+        List<Integer> items = new LinkedList<>();
+        while (!queue.isEmpty()) {
+            cur = queue.poll();
+            if (cur.left != null) {
+                queue.offer(cur.left);
+                nextEnd = cur.left;
+            }
+            if (cur.right != null) {
+                queue.offer(cur.right);
+                nextEnd = cur.right;
+            }
+            items.add(0, cur.val);
+            if (curEnd == cur) {
+                curEnd = nextEnd;
+                // 如果是顺序按层遍历，这段代码只需要改成
+                // ans.add(items);
+                ans.add(0, items);
+                items = new LinkedList<>();
+            }
+        }
+        return ans;
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-      this.val = val;
-      this.left = left;
-      this.right = right;
-    }
-  }
+    public class TreeNode {
 
-  public List<List<Integer>> levelOrderBottom(TreeNode root) {
-    List<List<Integer>> ans = new ArrayList<>();
-    if (root == null) {
-      return ans;
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
-    TreeNode cur = root;
-    TreeNode curEnd = root;
-    TreeNode nextEnd = null;
-    Queue<TreeNode> queue = new LinkedList<>();
-    queue.offer(cur);
-    List<Integer> items = new LinkedList<>();
-    while (!queue.isEmpty()) {
-      cur = queue.poll();
-      if (cur.left != null) {
-        queue.offer(cur.left);
-        nextEnd = cur.left;
-      }
-      if (cur.right != null) {
-        queue.offer(cur.right);
-        nextEnd = cur.right;
-      }
-      items.add(0, cur.val);
-      if (curEnd == cur) {
-        curEnd = nextEnd;
-        // 如果是顺序按层遍历，这段代码只需要改成
-        // ans.add(items);
-        ans.add(0, items);
-        items = new LinkedList<>();
-      }
-    }
-    return ans;
-  }
 }

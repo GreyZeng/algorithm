@@ -14,49 +14,50 @@ package git.snippet.houserobber;
 // https://leetcode.cn/problems/house-robber-iii/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16494637.html
 public class LeetCode_0337_HouseRobberIII {
-  public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode() {}
-
-    TreeNode(int val) {
-      this.val = val;
+    public int rob(TreeNode root) {
+        Info info = p(root);
+        return Math.max(info.yes, info.no);
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-      this.val = val;
-      this.left = left;
-      this.right = right;
+    public Info p(TreeNode root) {
+        if (root == null) {
+            return new Info(0, 0);
+        }
+        Info left = p(root.left);
+        Info right = p(root.right);
+        int yes = root.val + left.no + right.no;
+        int no = Math.max(left.yes, left.no) + Math.max(right.yes, right.no);
+        return new Info(yes, no);
     }
-  }
 
-  public int rob(TreeNode root) {
-    Info info = p(root);
-    return Math.max(info.yes, info.no);
-  }
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
-  public class Info {
-    // 选头节点
-    public int yes;
-    // 不选头节点
-    public int no;
+        TreeNode() {
+        }
 
-    public Info(int y, int n) {
-      yes = y;
-      no = n;
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
-  }
 
-  public Info p(TreeNode root) {
-    if (root == null) {
-      return new Info(0, 0);
+    public class Info {
+        // 选头节点
+        public int yes;
+        // 不选头节点
+        public int no;
+
+        public Info(int y, int n) {
+            yes = y;
+            no = n;
+        }
     }
-    Info left = p(root.left);
-    Info right = p(root.right);
-    int yes = root.val + left.no + right.no;
-    int no = Math.max(left.yes, left.no) + Math.max(right.yes, right.no);
-    return new Info(yes, no);
-  }
 }

@@ -34,33 +34,33 @@ import java.util.Stack;
 // 单调栈
 // 笔记：https://www.cnblogs.com/greyzeng/p/16326526.html
 public class LeetCode_0907_SumOfSubarrayMinimums {
-  static int MOD = (int) 1e9 + 7;
+    static int MOD = (int) 1e9 + 7;
 
-  // arr[i]左右两边离i最近的比arr[i]小的位置是m，n
-  // 必须以arr[i]作为最小值的子数组有 (i - m) * (n - i)
-  public static int sumSubarrayMins(int[] arr) {
-    if (arr == null || arr.length < 1) {
-      return 0;
+    // arr[i]左右两边离i最近的比arr[i]小的位置是m，n
+    // 必须以arr[i]作为最小值的子数组有 (i - m) * (n - i)
+    public static int sumSubarrayMins(int[] arr) {
+        if (arr == null || arr.length < 1) {
+            return 0;
+        }
+        long max = 0;
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < arr.length; i++) {
+            while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+                Integer popIndex = stack.pop();
+                max +=
+                        (long) arr[popIndex]
+                                * (popIndex - (stack.isEmpty() ? -1 : stack.peek()))
+                                * (i - popIndex);
+            }
+            stack.push(i);
+        }
+        while (!stack.isEmpty()) {
+            Integer popIndex = stack.pop();
+            max +=
+                    (long) arr[popIndex]
+                            * (popIndex - (stack.isEmpty() ? -1 : stack.peek()))
+                            * (arr.length - popIndex);
+        }
+        return (int) (max % MOD);
     }
-    long max = 0;
-    Stack<Integer> stack = new Stack<>();
-    for (int i = 0; i < arr.length; i++) {
-      while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
-        Integer popIndex = stack.pop();
-        max +=
-            (long) arr[popIndex]
-                * (popIndex - (stack.isEmpty() ? -1 : stack.peek()))
-                * (i - popIndex);
-      }
-      stack.push(i);
-    }
-    while (!stack.isEmpty()) {
-      Integer popIndex = stack.pop();
-      max +=
-          (long) arr[popIndex]
-              * (popIndex - (stack.isEmpty() ? -1 : stack.peek()))
-              * (arr.length - popIndex);
-    }
-    return (int) (max % MOD);
-  }
 }

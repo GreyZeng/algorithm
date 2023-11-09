@@ -12,55 +12,56 @@ package git.snippet.resolved.list;
 // 注意是从左往右加，最右侧要注意进位信息
 // 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
 public class LeetCode_0002_AddTwoNumbers {
-  public static class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode() {}
-
-    ListNode(int val) {
-      this.val = val;
+    // l1 和 l2 非空
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int val = (l1.val + l2.val) % 10;
+        ListNode h = new ListNode(val);
+        int carry = (l1.val + l2.val) / 10;
+        ListNode cur = h;
+        l1 = l1.next;
+        l2 = l2.next;
+        while (l1 != null && l2 != null) {
+            val = (l1.val + l2.val + carry) % 10;
+            carry = (l1.val + l2.val + carry) / 10;
+            cur.next = new ListNode(val);
+            cur = cur.next;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        while (l1 != null) {
+            val = (l1.val + carry) % 10;
+            carry = (l1.val + carry) / 10;
+            cur.next = new ListNode(val);
+            cur = cur.next;
+            l1 = l1.next;
+        }
+        while (l2 != null) {
+            val = (l2.val + carry) % 10;
+            carry = (l2.val + carry) / 10;
+            cur.next = new ListNode(val);
+            cur = cur.next;
+            l2 = l2.next;
+        }
+        if (carry != 0) {
+            cur.next = new ListNode(carry);
+        }
+        return h;
     }
 
-    ListNode(int val, ListNode next) {
-      this.val = val;
-      this.next = next;
-    }
-  }
+    public static class ListNode {
+        int val;
+        ListNode next;
 
-  // l1 和 l2 非空
-  public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-    int val = (l1.val + l2.val) % 10;
-    ListNode h = new ListNode(val);
-    int carry = (l1.val + l2.val) / 10;
-    ListNode cur = h;
-    l1 = l1.next;
-    l2 = l2.next;
-    while (l1 != null && l2 != null) {
-      val = (l1.val + l2.val + carry) % 10;
-      carry = (l1.val + l2.val + carry) / 10;
-      cur.next = new ListNode(val);
-      cur = cur.next;
-      l1 = l1.next;
-      l2 = l2.next;
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
     }
-    while (l1 != null) {
-      val = (l1.val + carry) % 10;
-      carry = (l1.val + carry) / 10;
-      cur.next = new ListNode(val);
-      cur = cur.next;
-      l1 = l1.next;
-    }
-    while (l2 != null) {
-      val = (l2.val + carry) % 10;
-      carry = (l2.val + carry) / 10;
-      cur.next = new ListNode(val);
-      cur = cur.next;
-      l2 = l2.next;
-    }
-    if (carry != 0) {
-      cur.next = new ListNode(carry);
-    }
-    return h;
-  }
 }

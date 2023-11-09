@@ -12,62 +12,62 @@ import java.util.HashMap;
 // 求中点，然后验证
 // https://www.cnblogs.com/greyzeng/p/15690136.html
 public class Code_IsStepSum {
-  public static boolean isStepSum(int stepSum) {
-    int i = 0;
-    int j = stepSum;
-    while (i <= j) {
-      int mid = i + ((j - i) >> 1);
-      int value = stepSumOf(mid);
-      if (value == stepSum) {
-        return true;
-      } else if (value < stepSum) {
-        i = mid + 1;
-      } else {
-        // value > stepSum
-        j = mid - 1;
-      }
+    public static boolean isStepSum(int stepSum) {
+        int i = 0;
+        int j = stepSum;
+        while (i <= j) {
+            int mid = i + ((j - i) >> 1);
+            int value = stepSumOf(mid);
+            if (value == stepSum) {
+                return true;
+            } else if (value < stepSum) {
+                i = mid + 1;
+            } else {
+                // value > stepSum
+                j = mid - 1;
+            }
+        }
+        return false;
     }
-    return false;
-  }
 
-  public static int stepSumOf(int num) {
-    int v = 0;
-    while (num != 0) {
-      v += num;
-      num = num / 10;
+    public static int stepSumOf(int num) {
+        int v = 0;
+        while (num != 0) {
+            v += num;
+            num = num / 10;
+        }
+        return v;
     }
-    return v;
-  }
 
-  public static int stepSum(int num) {
-    int sum = 0;
-    while (num != 0) {
-      sum += num;
-      num /= 10;
+    public static int stepSum(int num) {
+        int sum = 0;
+        while (num != 0) {
+            sum += num;
+            num /= 10;
+        }
+        return sum;
     }
-    return sum;
-  }
 
-  // for test
-  public static HashMap<Integer, Integer> generateStepSumNumberMap(int numMax) {
-    HashMap<Integer, Integer> map = new HashMap<>();
-    for (int i = 0; i <= numMax; i++) {
-      map.put(stepSum(i), i);
+    // for test
+    public static HashMap<Integer, Integer> generateStepSumNumberMap(int numMax) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i <= numMax; i++) {
+            map.put(stepSum(i), i);
+        }
+        return map;
     }
-    return map;
-  }
 
-  // for test
-  public static void main(String[] args) {
-    int max = 10000000;
-    int maxStepSum = stepSum(max);
-    HashMap<Integer, Integer> ans = generateStepSumNumberMap(max);
-    System.out.println("测试开始");
-    for (int i = 0; i <= maxStepSum; i++) {
-      if (isStepSum(i) ^ ans.containsKey(i)) {
-        System.out.println("出错了！");
-      }
+    // for test
+    public static void main(String[] args) {
+        int max = 10000000;
+        int maxStepSum = stepSum(max);
+        HashMap<Integer, Integer> ans = generateStepSumNumberMap(max);
+        System.out.println("测试开始");
+        for (int i = 0; i <= maxStepSum; i++) {
+            if (isStepSum(i) ^ ans.containsKey(i)) {
+                System.out.println("出错了！");
+            }
+        }
+        System.out.println("测试结束");
     }
-    System.out.println("测试结束");
-  }
 }

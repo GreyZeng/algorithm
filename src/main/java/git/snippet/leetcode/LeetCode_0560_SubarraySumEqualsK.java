@@ -10,25 +10,25 @@ import java.util.HashMap;
 // 初始化 Map.put(0,-1)
 // （-100，3，1，2，100）
 public class LeetCode_0560_SubarraySumEqualsK {
-  public static int subarraySum(int[] nums, int k) {
-    // 初始化前缀和数组
-    HashMap<Integer, Integer> dp = new HashMap<>();
-    dp.put(0, 1);
-    int all = 0;
-    int ans = 0;
-    int g;
-    for (int num : nums) {
-      all += num;
-      g = all - k;
-      if (dp.containsKey(g)) {
-        ans += dp.get(g);
-      }
-      if (!dp.containsKey(all)) {
-        dp.put(all, 1);
-      } else {
-        dp.put(all, dp.get(all) + 1);
-      }
+    public static int subarraySum(int[] nums, int k) {
+        // 初始化前缀和数组
+        HashMap<Integer, Integer> dp = new HashMap<>();
+        dp.put(0, 1);
+        int all = 0;
+        int ans = 0;
+        int g;
+        for (int num : nums) {
+            all += num;
+            g = all - k;
+            if (dp.containsKey(g)) {
+                ans += dp.get(g);
+            }
+            if (!dp.containsKey(all)) {
+                dp.put(all, 1);
+            } else {
+                dp.put(all, dp.get(all) + 1);
+            }
+        }
+        return ans;
     }
-    return ans;
-  }
 }

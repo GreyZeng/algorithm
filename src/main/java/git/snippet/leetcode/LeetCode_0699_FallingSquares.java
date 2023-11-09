@@ -56,102 +56,102 @@ import java.util.TreeSet;
 
 // 线段树解法：https://www.cnblogs.com/greyzeng/p/15328120.html
 public class LeetCode_0699_FallingSquares {
-  public static class SegmentTree {
-    public int MAXN;
-    public int[] arr;
-    public int[] max;
-    public boolean[] update;
-
-    public SegmentTree(int N) {
-      MAXN = N + 1;
-      arr = new int[MAXN];
-      int v = MAXN << 2;
-      max = new int[v];
-      update = new boolean[v];
+    public HashMap<Integer, Integer> index(int[][] positions) {
+        // TreeSet只存有效的区间范围
+        TreeSet<Integer> set = new TreeSet<>();
+        for (int[] arr : positions) {
+            set.add(arr[0]);
+            // 边缘重合部分不算
+            set.add(arr[0] + arr[1] - 1);
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int count = 0;
+        for (Integer i : set) {
+            map.put(i, ++count);
+        }
+        return map;
     }
 
-    private void pushUp(int rt) {
-      max[rt] = Math.max(max[rt << 1], max[(rt << 1) | 1]);
+    public List<Integer> fallingSquares(int[][] positions) {
+        HashMap<Integer, Integer> map = index(positions);
+        int N = map.size();
+        SegmentTree tree = new SegmentTree(N);
+        int L;
+        int R;
+        int max = 0;
+        int height;
+        List<Integer> ans = new ArrayList<>();
+        for (int[] arr : positions) {
+            L = map.get(arr[0]);
+            R = map.get(arr[0] + arr[1] - 1);
+            height = tree.queryMax(L, R, 1, N, 1) + arr[1];
+            max = Math.max(max, height);
+            ans.add(max);
+            tree.update(L, R, height, 1, N, 1);
+        }
+        return ans;
     }
 
-    public void update(int L, int R, int C, int l, int r, int rt) {
-      if (L <= l && R >= r) {
-        update[rt] = true;
-        max[rt] = C;
-        return;
-      }
-      int mid = (l + r) >> 1;
-      pushDown(rt);
-      if (L <= mid) {
-        update(L, R, C, l, mid, rt << 1);
-      }
-      if (R > mid) {
-        update(L, R, C, mid + 1, r, (rt << 1) | 1);
-      }
-      pushUp(rt);
-    }
+    public static class SegmentTree {
+        public int MAXN;
+        public int[] arr;
+        public int[] max;
+        public boolean[] update;
 
-    public int queryMax(int L, int R, int l, int r, int rt) {
-      if (L <= l && R >= r) {
-        return max[rt];
-      }
-      int mid = (l + r) >> 1;
-      pushDown(rt);
-      int left = Integer.MIN_VALUE;
-      int right = Integer.MIN_VALUE;
-      if (L <= mid) {
-        left = queryMax(L, R, l, mid, rt << 1);
-      }
-      if (R > mid) {
-        right = queryMax(L, R, mid + 1, r, (rt << 1) | 1);
-      }
-      return Math.max(right, left);
-    }
+        public SegmentTree(int N) {
+            MAXN = N + 1;
+            arr = new int[MAXN];
+            int v = MAXN << 2;
+            max = new int[v];
+            update = new boolean[v];
+        }
 
-    public void pushDown(int rt) {
-      if (update[rt]) {
-        max[rt << 1] = max[rt];
-        max[(rt << 1) | 1] = max[rt];
-        update[rt << 1] = true;
-        update[(rt << 1) | 1] = true;
-        update[rt] = false;
-      }
-    }
-  }
+        private void pushUp(int rt) {
+            max[rt] = Math.max(max[rt << 1], max[(rt << 1) | 1]);
+        }
 
-  public HashMap<Integer, Integer> index(int[][] positions) {
-    // TreeSet只存有效的区间范围
-    TreeSet<Integer> set = new TreeSet<>();
-    for (int[] arr : positions) {
-      set.add(arr[0]);
-      // 边缘重合部分不算
-      set.add(arr[0] + arr[1] - 1);
-    }
-    HashMap<Integer, Integer> map = new HashMap<>();
-    int count = 0;
-    for (Integer i : set) {
-      map.put(i, ++count);
-    }
-    return map;
-  }
+        public void update(int L, int R, int C, int l, int r, int rt) {
+            if (L <= l && R >= r) {
+                update[rt] = true;
+                max[rt] = C;
+                return;
+            }
+            int mid = (l + r) >> 1;
+            pushDown(rt);
+            if (L <= mid) {
+                update(L, R, C, l, mid, rt << 1);
+            }
+            if (R > mid) {
+                update(L, R, C, mid + 1, r, (rt << 1) | 1);
+            }
+            pushUp(rt);
+        }
 
-  public List<Integer> fallingSquares(int[][] positions) {
-    HashMap<Integer, Integer> map = index(positions);
-    int N = map.size();
-    SegmentTree tree = new SegmentTree(N);
-    int L;
-    int R;
-    int max = 0;
-    int height;
-    List<Integer> ans = new ArrayList<>();
-    for (int[] arr : positions) {
-      L = map.get(arr[0]);
-      R = map.get(arr[0] + arr[1] - 1);
-      height = tree.queryMax(L, R, 1, N, 1) + arr[1];
-      max = Math.max(max, height);
-      ans.add(max);
-      tree.update(L, R, height, 1, N, 1);
+        public int queryMax(int L, int R, int l, int r, int rt) {
+            if (L <= l && R >= r) {
+                return max[rt];
+            }
+            int mid = (l + r) >> 1;
+            pushDown(rt);
+            int left = Integer.MIN_VALUE;
+            int right = Integer.MIN_VALUE;
+            if (L <= mid) {
+                left = queryMax(L, R, l, mid, rt << 1);
+            }
+            if (R > mid) {
+                right = queryMax(L, R, mid + 1, r, (rt << 1) | 1);
+            }
+            return Math.max(right, left);
+        }
+
+        public void pushDown(int rt) {
+            if (update[rt]) {
+                max[rt << 1] = max[rt];
+                max[(rt << 1) | 1] = max[rt];
+                update[rt << 1] = true;
+                update[(rt << 1) | 1] = true;
+                update[rt] = false;
+            }
+        }
     }
-    return ans;
-  }
 }

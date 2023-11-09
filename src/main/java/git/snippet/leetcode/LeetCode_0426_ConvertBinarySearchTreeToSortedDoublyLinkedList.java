@@ -10,61 +10,62 @@ package git.snippet.leetcode;
 // https://leetcode-cn.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/
 // https://www.lintcode.com/problem/convert-binary-search-tree-to-sorted-doubly-linked-list/description
 public class LeetCode_0426_ConvertBinarySearchTreeToSortedDoublyLinkedList {
-  public class Node {
-    public int val;
-    public Node left;
-    public Node right;
-
-    public Node() {}
-
-    public Node(int _val) {
-      val = _val;
+    public Node treeToDoublyList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Info info = p(head);
+        info.end.right = info.start;
+        info.start.left = info.end;
+        return info.start;
     }
 
-    public Node(int _val, Node _left, Node _right) {
-      val = _val;
-      left = _left;
-      right = _right;
-    }
-  }
+    public Info p(Node head) {
+        if (head == null) {
+            return new Info(null, null);
+        }
+        Info left = p(head.left);
+        if (left.end != null) {
+            left.end.right = head;
+        }
+        head.left = left.end;
 
-  public Node treeToDoublyList(Node head) {
-    if (head == null) {
-      return null;
+        Info right = p(head.right);
+        if (right.start != null) {
+            right.start.left = head;
+        }
+        head.right = right.start;
+        Node start = left.start != null ? left.start : head;
+        Node end = right.end != null ? right.end : head;
+        return new Info(start, end);
     }
-    Info info = p(head);
-    info.end.right = info.start;
-    info.start.left = info.end;
-    return info.start;
-  }
 
-  public Info p(Node head) {
-    if (head == null) {
-      return new Info(null, null);
-    }
-    Info left = p(head.left);
-    if (left.end != null) {
-      left.end.right = head;
-    }
-    head.left = left.end;
+    public class Node {
+        public int val;
+        public Node left;
+        public Node right;
 
-    Info right = p(head.right);
-    if (right.start != null) {
-      right.start.left = head;
-    }
-    head.right = right.start;
-    Node start = left.start != null ? left.start : head;
-    Node end = right.end != null ? right.end : head;
-    return new Info(start, end);
-  }
+        public Node() {
+        }
 
-  public class Info {
-    public Node start;
-    public Node end;
+        public Node(int _val) {
+            val = _val;
+        }
 
-    public Info(Node s, Node e) {
-      start = s;
-      end = e;
+        public Node(int _val, Node _left, Node _right) {
+            val = _val;
+            left = _left;
+            right = _right;
+        }
     }
-  }
+
+    public class Info {
+        public Node start;
+        public Node end;
+
+        public Info(Node s, Node e) {
+            start = s;
+            end = e;
+        }
+    }
 }

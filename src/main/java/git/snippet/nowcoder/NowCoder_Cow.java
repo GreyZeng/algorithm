@@ -36,54 +36,54 @@ import java.util.Scanner;
 // N年后牛的数量等于，去年牛的数量，和3年前牛的数量（因为3年后牛可以生小牛）
 public class NowCoder_Cow {
 
-  static final int MOD = 1_000_000_007;
+    static final int MOD = 1_000_000_007;
 
-  // F(N) = F(N-1) + F(N-3)
-  // 3阶
-  public static long cow(long N) {
+    // F(N) = F(N-1) + F(N-3)
+    // 3阶
+    public static long cow(long N) {
 
-    if (N < 1) {
-      return 0;
+        if (N < 1) {
+            return 0;
+        }
+        if (N == 1 || N == 2 || N == 3) {
+            return N;
+        }
+        long[][] matrix = {{1, 1, 0}, {0, 0, 1}, {1, 0, 0}};
+        long[][] res = powerN(N - 3, matrix);
+        return (3 * res[0][0] + 2 * res[1][0] + res[2][0]) % MOD;
     }
-    if (N == 1 || N == 2 || N == 3) {
-      return N;
+
+    public static long[][] powerN(long n, long[][] m) {
+        long[][] ans = new long[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+        long[][] t = m;
+        while (n != 0) {
+            if ((n & 1) != 0) {
+                ans = matrix(ans, t);
+            }
+            t = matrix(t, t);
+            n >>= 1;
+        }
+        return ans;
     }
-    long[][] matrix = {{1, 1, 0}, {0, 0, 1}, {1, 0, 0}};
-    long[][] res = powerN(N - 3, matrix);
-    return (3 * res[0][0] + 2 * res[1][0] + res[2][0]) % MOD;
-  }
 
-  public static long[][] powerN(long n, long[][] m) {
-    long[][] ans = new long[][] {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-    long[][] t = m;
-    while (n != 0) {
-      if ((n & 1) != 0) {
-        ans = matrix(ans, t);
-      }
-      t = matrix(t, t);
-      n >>= 1;
+    // 3阶矩阵乘法
+    public static long[][] matrix(long[][] A, long[][] B) {
+        long[][] result = new long[3][3];
+        result[0][0] = A[0][0] * B[0][0] % MOD + A[0][1] * B[1][0] % MOD + A[0][2] * B[2][0] % MOD;
+        result[0][1] = A[0][0] * B[0][1] % MOD + A[0][1] * B[1][1] % MOD + A[0][2] * B[2][1] % MOD;
+        result[0][2] = A[0][0] * B[0][2] % MOD + A[0][1] * B[1][2] % MOD + A[0][2] * B[2][2] % MOD;
+        result[1][0] = A[1][0] * B[0][0] % MOD + A[1][1] * B[1][0] % MOD + A[1][2] * B[2][0] % MOD;
+        result[1][1] = A[1][0] * B[0][1] % MOD + A[1][1] * B[1][1] % MOD + A[1][2] * B[2][1] % MOD;
+        result[1][2] = A[1][0] * B[0][2] % MOD + A[1][1] * B[1][2] % MOD + A[1][2] * B[2][2] % MOD;
+        result[2][0] = A[2][0] * B[0][0] % MOD + A[2][1] * B[1][0] % MOD + A[2][2] * B[2][0] % MOD;
+        result[2][1] = A[2][0] * B[0][1] % MOD + A[2][1] * B[1][1] % MOD + A[2][2] * B[2][1] % MOD;
+        result[2][2] = A[2][0] * B[0][2] % MOD + A[2][1] * B[1][2] % MOD + A[2][2] * B[2][2] % MOD;
+        return result;
     }
-    return ans;
-  }
 
-  // 3阶矩阵乘法
-  public static long[][] matrix(long[][] A, long[][] B) {
-    long[][] result = new long[3][3];
-    result[0][0] = A[0][0] * B[0][0] % MOD + A[0][1] * B[1][0] % MOD + A[0][2] * B[2][0] % MOD;
-    result[0][1] = A[0][0] * B[0][1] % MOD + A[0][1] * B[1][1] % MOD + A[0][2] * B[2][1] % MOD;
-    result[0][2] = A[0][0] * B[0][2] % MOD + A[0][1] * B[1][2] % MOD + A[0][2] * B[2][2] % MOD;
-    result[1][0] = A[1][0] * B[0][0] % MOD + A[1][1] * B[1][0] % MOD + A[1][2] * B[2][0] % MOD;
-    result[1][1] = A[1][0] * B[0][1] % MOD + A[1][1] * B[1][1] % MOD + A[1][2] * B[2][1] % MOD;
-    result[1][2] = A[1][0] * B[0][2] % MOD + A[1][1] * B[1][2] % MOD + A[1][2] * B[2][2] % MOD;
-    result[2][0] = A[2][0] * B[0][0] % MOD + A[2][1] * B[1][0] % MOD + A[2][2] * B[2][0] % MOD;
-    result[2][1] = A[2][0] * B[0][1] % MOD + A[2][1] * B[1][1] % MOD + A[2][2] * B[2][1] % MOD;
-    result[2][2] = A[2][0] * B[0][2] % MOD + A[2][1] * B[1][2] % MOD + A[2][2] * B[2][2] % MOD;
-    return result;
-  }
-
-  public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
-    System.out.println(cow(in.nextLong()));
-    in.close();
-  }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.println(cow(in.nextLong()));
+        in.close();
+    }
 }

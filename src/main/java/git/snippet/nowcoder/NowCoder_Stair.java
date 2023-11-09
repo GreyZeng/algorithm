@@ -25,58 +25,58 @@ import java.util.Scanner;
 // 返回这个人迈上N级台阶的方法数
 public class NowCoder_Stair {
 
-  public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
-    int n = in.nextInt();
-    in.close();
-    if (n <= 2) {
-      System.out.println(n);
-      return;
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        in.close();
+        if (n <= 2) {
+            System.out.println(n);
+            return;
+        }
+        System.out.println(ways(n));
     }
-    System.out.println(ways(n));
-  }
 
-  public static BigInteger ways1(int n) {
-    BigInteger f1 = BigInteger.valueOf(1);
-    BigInteger f2 = BigInteger.valueOf(2);
-    BigInteger result = null;
+    public static BigInteger ways1(int n) {
+        BigInteger f1 = BigInteger.valueOf(1);
+        BigInteger f2 = BigInteger.valueOf(2);
+        BigInteger result = null;
 
-    for (int i = 3; i < n + 1; i++) {
-      result = f1.add(f2);
-      f1 = f2;
-      f2 = result;
+        for (int i = 3; i < n + 1; i++) {
+            result = f1.add(f2);
+            f1 = f2;
+            f2 = result;
+        }
+        return result;
     }
-    return result;
-  }
 
-  public static BigInteger ways(int n) {
-    BigInteger[][] base = {
-      {BigInteger.valueOf(1), BigInteger.valueOf(1)}, {BigInteger.valueOf(1), BigInteger.valueOf(0)}
-    };
-    BigInteger[][] result = matrixPow(base, n - 2);
-    return result[1][0].add(result[0][0].multiply(BigInteger.valueOf(2)));
-  }
-
-  public static BigInteger[][] matrixPow(BigInteger[][] m, int n) {
-    BigInteger[][] ans = {
-      {BigInteger.valueOf(1), BigInteger.valueOf(0)}, {BigInteger.valueOf(0), BigInteger.valueOf(1)}
-    };
-    BigInteger[][] t = m;
-    while (n != 0) {
-      if ((n & 1) != 0) {
-        ans = matrixMultiply(ans, t);
-      }
-      t = matrixMultiply(t, t);
-      n = (n >> 1);
+    public static BigInteger ways(int n) {
+        BigInteger[][] base = {
+                {BigInteger.valueOf(1), BigInteger.valueOf(1)}, {BigInteger.valueOf(1), BigInteger.valueOf(0)}
+        };
+        BigInteger[][] result = matrixPow(base, n - 2);
+        return result[1][0].add(result[0][0].multiply(BigInteger.valueOf(2)));
     }
-    return ans;
-  }
 
-  private static BigInteger[][] matrixMultiply(BigInteger[][] ans, BigInteger[][] t) {
-    BigInteger a = ans[0][0].multiply(t[0][0]).add(ans[0][1].multiply(t[1][0]));
-    BigInteger b = ans[0][0].multiply(t[0][1]).add(ans[0][1].multiply(t[1][1]));
-    BigInteger c = ans[1][0].multiply(t[0][0]).add(ans[1][1].multiply(t[1][0]));
-    BigInteger d = ans[1][0].multiply(t[0][1]).add(ans[1][1].multiply(t[1][1]));
-    return new BigInteger[][] {{a, b}, {c, d}};
-  }
+    public static BigInteger[][] matrixPow(BigInteger[][] m, int n) {
+        BigInteger[][] ans = {
+                {BigInteger.valueOf(1), BigInteger.valueOf(0)}, {BigInteger.valueOf(0), BigInteger.valueOf(1)}
+        };
+        BigInteger[][] t = m;
+        while (n != 0) {
+            if ((n & 1) != 0) {
+                ans = matrixMultiply(ans, t);
+            }
+            t = matrixMultiply(t, t);
+            n = (n >> 1);
+        }
+        return ans;
+    }
+
+    private static BigInteger[][] matrixMultiply(BigInteger[][] ans, BigInteger[][] t) {
+        BigInteger a = ans[0][0].multiply(t[0][0]).add(ans[0][1].multiply(t[1][0]));
+        BigInteger b = ans[0][0].multiply(t[0][1]).add(ans[0][1].multiply(t[1][1]));
+        BigInteger c = ans[1][0].multiply(t[0][0]).add(ans[1][1].multiply(t[1][0]));
+        BigInteger d = ans[1][0].multiply(t[0][1]).add(ans[1][1].multiply(t[1][1]));
+        return new BigInteger[][]{{a, b}, {c, d}};
+    }
 }

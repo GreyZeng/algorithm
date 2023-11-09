@@ -18,32 +18,32 @@ import java.util.Queue;
 // 数据范围：对于所有数据，满足1<=T<=3, 1<=N, Mj<=100000, 0<=Di<=1000, 0<=sum(Ki)<=N*2。
 public class Code_0138_ArrangeProject {
 
-  public static int dayCount(ArrayList<Integer>[] nums, int[] days, int[] headCount) {
-    Queue<Integer> head = countHead(headCount);
-    int maxDay = 0;
-    int[] countDay = new int[days.length];
-    while (!head.isEmpty()) {
-      int cur = head.poll();
-      countDay[cur] += days[cur];
-      for (int j = 0; j < nums[cur].size(); j++) {
-        headCount[nums[cur].get(j)]--;
-        if (headCount[nums[cur].get(j)] == 0) {
-          head.offer(nums[cur].get(j));
+    public static int dayCount(ArrayList<Integer>[] nums, int[] days, int[] headCount) {
+        Queue<Integer> head = countHead(headCount);
+        int maxDay = 0;
+        int[] countDay = new int[days.length];
+        while (!head.isEmpty()) {
+            int cur = head.poll();
+            countDay[cur] += days[cur];
+            for (int j = 0; j < nums[cur].size(); j++) {
+                headCount[nums[cur].get(j)]--;
+                if (headCount[nums[cur].get(j)] == 0) {
+                    head.offer(nums[cur].get(j));
+                }
+                countDay[nums[cur].get(j)] = Math.max(countDay[nums[cur].get(j)], countDay[cur]);
+            }
         }
-        countDay[nums[cur].get(j)] = Math.max(countDay[nums[cur].get(j)], countDay[cur]);
-      }
+        for (int i = 0; i < countDay.length; i++) {
+            maxDay = Math.max(maxDay, countDay[i]);
+        }
+        return maxDay;
     }
-    for (int i = 0; i < countDay.length; i++) {
-      maxDay = Math.max(maxDay, countDay[i]);
-    }
-    return maxDay;
-  }
 
-  private static Queue<Integer> countHead(int[] headCount) {
-    Queue<Integer> queue = new LinkedList<>();
-    for (int i = 0; i < headCount.length; i++) {
-      if (headCount[i] == 0) queue.offer(i); // 没有前驱任务
+    private static Queue<Integer> countHead(int[] headCount) {
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < headCount.length; i++) {
+            if (headCount[i] == 0) queue.offer(i); // 没有前驱任务
+        }
+        return queue;
     }
-    return queue;
-  }
 }

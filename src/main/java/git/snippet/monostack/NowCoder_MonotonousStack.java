@@ -8,12 +8,7 @@ package git.snippet.monostack;
 // 可以直接通过
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16326526.html
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StreamTokenizer;
+import java.io.*;
 
 /**
  * @author <a href="mailto:410486047@qq.com">Grey</a>
@@ -21,64 +16,64 @@ import java.io.StreamTokenizer;
  * @since
  */
 public class NowCoder_MonotonousStack {
-  public static int[] arr = new int[1000000];
-  public static int[][] ans = new int[1000000][2];
-  // stack1 : 相等值的位置也放
-  // stack2 : 只放不相等值的最后一个位置
-  // 比如 : arr = { 3, 3, 3, 4, 4, 6, 6, 6}
-  // 位置 0 1 2 3 4 5 6 7
-  // 如果位置依次压栈，
-  // stack1中的记录是（位置） : 0 1 2 3 4 5 6 7
-  // stack1中的记录是（位置） : 2 4 7
-  public static int[] stack1 = new int[1000000];
-  public static int[] stack2 = new int[1000000];
+    public static int[] arr = new int[1000000];
+    public static int[][] ans = new int[1000000][2];
+    // stack1 : 相等值的位置也放
+    // stack2 : 只放不相等值的最后一个位置
+    // 比如 : arr = { 3, 3, 3, 4, 4, 6, 6, 6}
+    // 位置 0 1 2 3 4 5 6 7
+    // 如果位置依次压栈，
+    // stack1中的记录是（位置） : 0 1 2 3 4 5 6 7
+    // stack1中的记录是（位置） : 2 4 7
+    public static int[] stack1 = new int[1000000];
+    public static int[] stack2 = new int[1000000];
 
-  public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    StreamTokenizer in = new StreamTokenizer(br);
-    PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-    while (in.nextToken() != StreamTokenizer.TT_EOF) {
-      int n = (int) in.nval;
-      for (int i = 0; i < n; i++) {
-        in.nextToken();
-        arr[i] = (int) in.nval;
-      }
-      getNearLess(n);
-      for (int i = 0; i < n; i++) {
-        out.println(ans[i][0] + " " + ans[i][1]);
-      }
-      out.flush();
-    }
-  }
-
-  public static void getNearLess(int n) {
-    int stackSize1 = 0;
-    int stackSize2 = 0;
-    for (int i = 0; i < n; i++) {
-      while (stackSize1 > 0 && arr[stack1[stackSize1 - 1]] > arr[i]) {
-        int curIndex = stack1[--stackSize1];
-        int left = stackSize2 < 2 ? -1 : stack2[stackSize2 - 2];
-        ans[curIndex][0] = left;
-        ans[curIndex][1] = i;
-        if (stackSize1 == 0 || arr[stack1[stackSize1 - 1]] != arr[curIndex]) {
-          stackSize2--;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StreamTokenizer in = new StreamTokenizer(br);
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+        while (in.nextToken() != StreamTokenizer.TT_EOF) {
+            int n = (int) in.nval;
+            for (int i = 0; i < n; i++) {
+                in.nextToken();
+                arr[i] = (int) in.nval;
+            }
+            getNearLess(n);
+            for (int i = 0; i < n; i++) {
+                out.println(ans[i][0] + " " + ans[i][1]);
+            }
+            out.flush();
         }
-      }
-      if (stackSize1 != 0 && arr[stack1[stackSize1 - 1]] == arr[i]) {
-        stack2[stackSize2 - 1] = i;
-      } else {
-        stack2[stackSize2++] = i;
-      }
-      stack1[stackSize1++] = i;
     }
-    while (stackSize1 != 0) {
-      int curIndex = stack1[--stackSize1];
-      int left = stackSize2 < 2 ? -1 : stack2[stackSize2 - 2];
-      ans[curIndex][0] = left;
-      ans[curIndex][1] = -1;
-      if (stackSize1 == 0 || arr[stack1[stackSize1 - 1]] != arr[curIndex]) {
-        stackSize2--;
-      }
+
+    public static void getNearLess(int n) {
+        int stackSize1 = 0;
+        int stackSize2 = 0;
+        for (int i = 0; i < n; i++) {
+            while (stackSize1 > 0 && arr[stack1[stackSize1 - 1]] > arr[i]) {
+                int curIndex = stack1[--stackSize1];
+                int left = stackSize2 < 2 ? -1 : stack2[stackSize2 - 2];
+                ans[curIndex][0] = left;
+                ans[curIndex][1] = i;
+                if (stackSize1 == 0 || arr[stack1[stackSize1 - 1]] != arr[curIndex]) {
+                    stackSize2--;
+                }
+            }
+            if (stackSize1 != 0 && arr[stack1[stackSize1 - 1]] == arr[i]) {
+                stack2[stackSize2 - 1] = i;
+            } else {
+                stack2[stackSize2++] = i;
+            }
+            stack1[stackSize1++] = i;
+        }
+        while (stackSize1 != 0) {
+            int curIndex = stack1[--stackSize1];
+            int left = stackSize2 < 2 ? -1 : stack2[stackSize2 - 2];
+            ans[curIndex][0] = left;
+            ans[curIndex][1] = -1;
+            if (stackSize1 == 0 || arr[stack1[stackSize1 - 1]] != arr[curIndex]) {
+                stackSize2--;
+            }
+        }
     }
-  }
 }

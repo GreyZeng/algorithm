@@ -9,60 +9,61 @@ package git.snippet.leetcode;
 // 也可以贪心
 // https://leetcode-cn.com/problems/binary-tree-cameras/
 public class LeetCode_0968_BinaryTreeCameras {
-  public static class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode() {}
-
-    TreeNode(int val) {
-      this.val = val;
+    public static int minCameraCover(TreeNode root) {
+        Info info = p(root);
+        return info.status == Status.UNCOVER ? 1 + info.camera : info.camera;
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-      this.val = val;
-      this.left = left;
-      this.right = right;
+    public static Info p(TreeNode root) {
+        if (root == null) {
+            return new Info(Status.COVER_NO_CAMERA, 0);
+        }
+        Info left = p(root.left);
+        Info right = p(root.right);
+        // if1
+        if (left.status == Status.UNCOVER || right.status == Status.UNCOVER) {
+            return new Info(Status.COVER_WITH_CAMERA, left.camera + right.camera + 1);
+        }
+        // if2
+        // if1和if2的顺序不能调换！
+        if (left.status == Status.COVER_WITH_CAMERA || right.status == Status.COVER_WITH_CAMERA) {
+            return new Info(Status.COVER_NO_CAMERA, left.camera + right.camera);
+        }
+        return new Info(Status.UNCOVER, left.camera + right.camera);
     }
-  }
 
-  public enum Status {
-    UNCOVER,
-    COVER_WITH_CAMERA,
-    COVER_NO_CAMERA
-  }
-
-  public static class Info {
-    public Status status;
-    public int camera;
-
-    public Info(Status s, int c) {
-      status = s;
-      camera = c;
+    public enum Status {
+        UNCOVER,
+        COVER_WITH_CAMERA,
+        COVER_NO_CAMERA
     }
-  }
 
-  public static int minCameraCover(TreeNode root) {
-    Info info = p(root);
-    return info.status == Status.UNCOVER ? 1 + info.camera : info.camera;
-  }
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
-  public static Info p(TreeNode root) {
-    if (root == null) {
-      return new Info(Status.COVER_NO_CAMERA, 0);
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
-    Info left = p(root.left);
-    Info right = p(root.right);
-    // if1
-    if (left.status == Status.UNCOVER || right.status == Status.UNCOVER) {
-      return new Info(Status.COVER_WITH_CAMERA, left.camera + right.camera + 1);
+
+    public static class Info {
+        public Status status;
+        public int camera;
+
+        public Info(Status s, int c) {
+            status = s;
+            camera = c;
+        }
     }
-    // if2
-    // if1和if2的顺序不能调换！
-    if (left.status == Status.COVER_WITH_CAMERA || right.status == Status.COVER_WITH_CAMERA) {
-      return new Info(Status.COVER_NO_CAMERA, left.camera + right.camera);
-    }
-    return new Info(Status.UNCOVER, left.camera + right.camera);
-  }
 }

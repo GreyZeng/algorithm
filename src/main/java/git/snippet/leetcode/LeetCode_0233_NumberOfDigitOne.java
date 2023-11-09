@@ -35,44 +35,44 @@ package git.snippet.leetcode;
 //
 // 数位dp
 public class LeetCode_0233_NumberOfDigitOne {
-  // 数位dp
-  // 递归方法：
-  // 假设要求的数是：134556
-  // 非递归部分，求34557 ~ 134556中有几个1， 然后+递归调用 countDigitOne(34556)的结果即可
-  // base case f(n) n<10时候，f(n) = 1
+    // 数位dp
+    // 递归方法：
+    // 假设要求的数是：134556
+    // 非递归部分，求34557 ~ 134556中有几个1， 然后+递归调用 countDigitOne(34556)的结果即可
+    // base case f(n) n<10时候，f(n) = 1
 
-  // 非递归情况，要分情况
-  // 是1 [N % 10^(k-1) + 1] + [ (k-1) * 10 ^ (k-2)]
-  // 不是1 ,假设最高位是a， 10^(k-1) + a * 10^(k-2) * (k-1)
-  public static int countDigitOne(int n) {
-    if (n <= 0) {
-      return 0;
+    // 非递归情况，要分情况
+    // 是1 [N % 10^(k-1) + 1] + [ (k-1) * 10 ^ (k-2)]
+    // 不是1 ,假设最高位是a， 10^(k-1) + a * 10^(k-2) * (k-1)
+    public static int countDigitOne(int n) {
+        if (n <= 0) {
+            return 0;
+        }
+        if (n < 10) {
+            return 1;
+        }
+        // 数字的长度
+        int len = getLen(n);
+        int base = getBase(len - 1);
+        // 最高位的数字
+        int first = n / base;
+        // 最高位为1的数字的总数
+        int firstOne = first == 1 ? n % base + 1 : base;
+        // 除去最高位，其他位置为1的数字总数
+        int otherOne = first * (len - 1) * (base / 10);
+        return firstOne + otherOne + countDigitOne(n % base);
     }
-    if (n < 10) {
-      return 1;
-    }
-    // 数字的长度
-    int len = getLen(n);
-    int base = getBase(len - 1);
-    // 最高位的数字
-    int first = n / base;
-    // 最高位为1的数字的总数
-    int firstOne = first == 1 ? n % base + 1 : base;
-    // 除去最高位，其他位置为1的数字总数
-    int otherOne = first * (len - 1) * (base / 10);
-    return firstOne + otherOne + countDigitOne(n % base);
-  }
 
-  public static int getLen(int num) {
-    int len = 0;
-    while (num != 0) {
-      len++;
-      num /= 10;
+    public static int getLen(int num) {
+        int len = 0;
+        while (num != 0) {
+            len++;
+            num /= 10;
+        }
+        return len;
     }
-    return len;
-  }
 
-  public static int getBase(int base) {
-    return (int) Math.pow(10, base);
-  }
+    public static int getBase(int base) {
+        return (int) Math.pow(10, base);
+    }
 }

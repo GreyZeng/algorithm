@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DisplayName("给定一个参数N，返回1!+2!+3!+4!+…+N!的结果")
 public class Code_SumOfFactorialTest {
 

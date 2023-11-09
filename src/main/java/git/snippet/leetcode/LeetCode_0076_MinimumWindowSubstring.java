@@ -26,50 +26,50 @@ package git.snippet.leetcode;
  */
 public class LeetCode_0076_MinimumWindowSubstring {
 
-  // 欠账表 + all
-  // 滑动窗口
-  public static String minWindow(String s, String t) {
-    // 如果目标串比原始串还大，则原始串无论如何都无法找到包含目标串所有字符的子串
-    if (s.length() < t.length()) {
-      return "";
-    }
-    char[] str = s.toCharArray();
-    char[] target = t.toCharArray();
-    // 初始化欠帐表
-    // 如果不止ASCII码的字符，则可以用Hash表来实现欠账表
-    int[] owe = new int[256];
-    for (char c : target) {
-      owe[c]++;
-    }
-    int all = target.length;
-    int win = 0;
-    int l = 0;
-    int r = 0;
-    // [finalL, finalL + win] 就是对应的结果字符串
-    int finalL = 0;
-    while (r != str.length) {
-      owe[str[r]]--;
-      if (owe[str[r]] >= 0) {
-        // 有效还款
-        all--;
-      }
-      // all等于0说明找到一个符合条件的窗口，开始结算
-      if (all == 0) {
-        // 开始移动L，缩小窗口
-        while (owe[str[l]] < 0) {
-          // owe[str[l]] < 0 都是无效的还款
-          owe[str[l++]]++;
+    // 欠账表 + all
+    // 滑动窗口
+    public static String minWindow(String s, String t) {
+        // 如果目标串比原始串还大，则原始串无论如何都无法找到包含目标串所有字符的子串
+        if (s.length() < t.length()) {
+            return "";
         }
-        // 窗口没有形成或者窗口当前形成的窗口小于上一次的窗口大小，则更新
-        if (win == 0 || win > r - l + 1) {
-          win = r - l + 1;
-          finalL = l;
+        char[] str = s.toCharArray();
+        char[] target = t.toCharArray();
+        // 初始化欠帐表
+        // 如果不止ASCII码的字符，则可以用Hash表来实现欠账表
+        int[] owe = new int[256];
+        for (char c : target) {
+            owe[c]++;
         }
-        owe[str[l++]]++;
-        all++;
-      }
-      r++;
+        int all = target.length;
+        int win = 0;
+        int l = 0;
+        int r = 0;
+        // [finalL, finalL + win] 就是对应的结果字符串
+        int finalL = 0;
+        while (r != str.length) {
+            owe[str[r]]--;
+            if (owe[str[r]] >= 0) {
+                // 有效还款
+                all--;
+            }
+            // all等于0说明找到一个符合条件的窗口，开始结算
+            if (all == 0) {
+                // 开始移动L，缩小窗口
+                while (owe[str[l]] < 0) {
+                    // owe[str[l]] < 0 都是无效的还款
+                    owe[str[l++]]++;
+                }
+                // 窗口没有形成或者窗口当前形成的窗口小于上一次的窗口大小，则更新
+                if (win == 0 || win > r - l + 1) {
+                    win = r - l + 1;
+                    finalL = l;
+                }
+                owe[str[l++]]++;
+                all++;
+            }
+            r++;
+        }
+        return s.substring(finalL, finalL + win);
     }
-    return s.substring(finalL, finalL + win);
-  }
 }

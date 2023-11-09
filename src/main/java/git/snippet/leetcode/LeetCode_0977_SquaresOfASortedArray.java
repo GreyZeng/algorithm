@@ -23,32 +23,32 @@ package git.snippet.leetcode;
 // 返回arr中有多少个不同的数字？
 // Code_0110_Power2Diffs
 public class LeetCode_0977_SquaresOfASortedArray {
-  // 平方有多少，绝对值就有多少
-  // 因为有0，所以可以从最大值开始填
-  public static int[] sortedSquares(int[] nums) {
-    int[] ans = new int[nums.length];
-    int index = nums.length;
-    int i = 0;
-    int j = nums.length - 1;
-    while (i <= j) {
-      int left = nums[i] * nums[i];
-      int right = nums[j] * nums[j];
-      if (left > right) {
-        ans[--index] = left;
-        i++;
-      } else {
-        ans[--index] = right;
-        j--;
-      }
+    // 平方有多少，绝对值就有多少
+    // 因为有0，所以可以从最大值开始填
+    public static int[] sortedSquares(int[] nums) {
+        int[] ans = new int[nums.length];
+        int index = nums.length;
+        int i = 0;
+        int j = nums.length - 1;
+        while (i <= j) {
+            int left = nums[i] * nums[i];
+            int right = nums[j] * nums[j];
+            if (left > right) {
+                ans[--index] = left;
+                i++;
+            } else {
+                ans[--index] = right;
+                j--;
+            }
+        }
+        return ans;
     }
-    return ans;
-  }
 
-  public static void main(String[] args) {
-    int[] arr = {-4, -1, 0, 1, 10};
-    int[] result = sortedSquares(arr);
-    for (int n : result) {
-      System.out.print(n + ", ");
+    public static void main(String[] args) {
+        int[] arr = {-4, -1, 0, 1, 10};
+        int[] result = sortedSquares(arr);
+        for (int n : result) {
+            System.out.print(n + ", ");
+        }
     }
-  }
 }

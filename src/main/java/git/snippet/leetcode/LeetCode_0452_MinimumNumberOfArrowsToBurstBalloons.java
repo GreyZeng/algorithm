@@ -48,49 +48,49 @@ import java.util.Arrays;
 
 public class LeetCode_0452_MinimumNumberOfArrowsToBurstBalloons {
 
-  public static int findMinArrowShots(int[][] m) {
-    if (m == null || m.length == 0) {
-      return 0;
+    public static int findMinArrowShots(int[][] m) {
+        if (m == null || m.length == 0) {
+            return 0;
+        }
+        Line[] lines = new Line[m.length];
+        for (int i = 0; i < m.length; i++) {
+            lines[i] = new Line(m[i][0], m[i][1]);
+        }
+        Arrays.sort(
+                lines,
+                (o1, o2) -> {
+                    if (o1.end > o2.end) {
+                        return 1;
+                    } else if (o1.end < o2.end) {
+                        return -1;
+                    }
+                    return 0;
+                });
+        int min = 1;
+        int b = lines[0].end;
+        for (int i = 1; i < lines.length; i++) {
+            if (b >= lines[i].start) {
+                continue;
+            }
+            min++;
+            b = lines[i].end;
+        }
+        return min;
     }
-    Line[] lines = new Line[m.length];
-    for (int i = 0; i < m.length; i++) {
-      lines[i] = new Line(m[i][0], m[i][1]);
-    }
-    Arrays.sort(
-        lines,
-        (o1, o2) -> {
-          if (o1.end > o2.end) {
-            return 1;
-          } else if (o1.end < o2.end) {
-            return -1;
-          }
-          return 0;
-        });
-    int min = 1;
-    int b = lines[0].end;
-    for (int i = 1; i < lines.length; i++) {
-      if (b >= lines[i].start) {
-        continue;
-      }
-      min++;
-      b = lines[i].end;
-    }
-    return min;
-  }
 
-  public static class Line {
-    public int start;
-    public int end;
-
-    public Line(int s, int e) {
-      start = s;
-      end = e;
+    public static void main(String[] args) {
+        // [[9,12],[1,10],[4,11],[8,12],[3,9],[6,9],[6,7]]
+        int[][] p = {{9, 12}, {1, 10}, {4, 11}, {8, 12}, {3, 9}, {6, 9}, {6, 7}};
+        System.out.println(findMinArrowShots(p));
     }
-  }
 
-  public static void main(String[] args) {
-    // [[9,12],[1,10],[4,11],[8,12],[3,9],[6,9],[6,7]]
-    int[][] p = {{9, 12}, {1, 10}, {4, 11}, {8, 12}, {3, 9}, {6, 9}, {6, 7}};
-    System.out.println(findMinArrowShots(p));
-  }
+    public static class Line {
+        public int start;
+        public int end;
+
+        public Line(int s, int e) {
+            start = s;
+            end = e;
+        }
+    }
 }
