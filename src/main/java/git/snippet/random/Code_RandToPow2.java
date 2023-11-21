@@ -3,7 +3,7 @@ package git.snippet.random;
 // 将 [0,x) 中的数出现的的概率调整成 x^2
 // 笔记见：https://www.cnblogs.com/greyzeng/p/16618329.html
 public class Code_RandToPow2 {
-    // 将`[0,x)`中的数出现的的概率调整成 x^2
+    // 将`[0,x)`中的数出现的概率调整成 x^2
     public static double randToPow2() {
         return Math.max(Math.random(), Math.random());
     }
