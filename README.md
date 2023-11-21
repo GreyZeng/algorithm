@@ -1,17 +1,25 @@
 # 算法和数据结构(Java 实现)
 
-## 代码
+## 笔记清单，持续更新
 
-[源仓库](https://github.com/GreyZeng/algorithm)
+[算法和数据结构学习中的一些小的工具函数](https://www.cnblogs.com/greyzeng/p/17118195.html)
 
-[镜像仓库](https://gitcode.net/hotonyhui/algorithm)
+[随机函数变换相关技巧](https://www.cnblogs.com/greyzeng/p/16618329.html)
 
-## 笔记
+[几种简单排序（冒泡排序，插入排序，选择排序）算法介绍](https://www.cnblogs.com/greyzeng/p/15186769.html)
 
-[博客园](https://www.cnblogs.com/greyzeng/tag/%E7%AE%97%E6%B3%95/)
+[使用二分法来解决的一些问题](https://www.cnblogs.com/greyzeng/p/16622554.html)
 
-[CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
+## 更多
 
-## 参考文档
+[算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
 
-[左老师算法课程代码说明汇总](https://github.com/algorithmzuo/class-notes/)
+[算法和数据结构学习笔记：博客园](https://www.cnblogs.com/greyzeng/category/2069297.html)
+
+[算法和数据结构学习代码: Github](https://github.com/GreyZeng/algorithm)
+
+[算法和数据结构学习代码: GitCode](https://gitcode.net/hotonyhui/algorithm)
+
+## 参考资料
+
+[算法和数据结构基础班-左程云](https://ke.qq.com/course/2145184)
