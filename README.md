@@ -10,6 +10,8 @@
 
 [使用二分法来解决的一些问题](https://www.cnblogs.com/greyzeng/p/16622554.html)
 
+[和链表相关的一些问题](https://www.cnblogs.com/greyzeng/p/16629407.html)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
