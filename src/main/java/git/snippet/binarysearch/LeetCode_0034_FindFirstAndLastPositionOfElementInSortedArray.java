@@ -5,51 +5,52 @@ package git.snippet.binarysearch;
 // 如果数组中不存在目标值 target，返回[-1, -1]。
 // 你必须设计并实现时间复杂度为O(log n)的算法解决此问题。
 // https://www.cnblogs.com/greyzeng/p/16622554.html
+// https://www.lintcode.com/problem/1536/
 // https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/
 public class LeetCode_0034_FindFirstAndLastPositionOfElementInSortedArray {
     public int[] searchRange(int[] nums, int target) {
         return new int[]{left(nums, target), right(nums, target)};
     }
 
-    private int left(int[] nums, int target) {
-        if (nums == null || nums.length < 1) {
+    public int left(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
             return -1;
         }
-        int l = 0;
-        int r = nums.length - 1;
-        int ans = -1;
-        while (l <= r) {
-            int m = l + ((r - l) >> 1);
-            if (nums[m] == target) {
-                ans = m;
-                r = m - 1;
-            } else if (nums[m] > target) {
-                r = m - 1;
+        int left = 0;
+        int right = nums.length - 1;
+        int result = -1;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if (nums[mid] == target) {
+                result = mid;
+                right = mid - 1;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
             } else {
-                l = m + 1;
+                right = mid - 1;
             }
         }
-        return ans;
+        return result;
     }
 
-    private int right(int[] nums, int target) {
-        if (nums == null || nums.length < 1) {
+    public int right(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
             return -1;
         }
-        int l = 0;
-        int r = nums.length - 1;
-        int ans = -1;
-        while (l <= r) {
-            int m = l + ((r - l) >> 1);
-            if (nums[m] == target) {
-                ans = m;
-                l = m + 1;
-            } else if (nums[m] < target) {
-                l = m + 1;
+        int left = 0;
+        int right = nums.length - 1;
+        int result = -1;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if (nums[mid] == target) {
+                result = mid;
+                left = mid + 1;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
             } else {
-                r = m - 1;
+                right = mid - 1;
             }
         }
-        return ans;
+        return result;
     }
 }

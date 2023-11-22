@@ -13,29 +13,39 @@ package git.snippet.binarysearch;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16622554.html
 public class LeetCode_0162_FindPeakElement {
     public int findPeakElement(int[] nums) {
+        // 处理 nums <= 2 的情况
         if (nums.length == 1) {
             return 0;
         }
         if (nums.length == 2) {
             return nums[0] > nums[1] ? 0 : 1;
         }
-        int l = 0;
-        int r = nums.length - 1;
-        while (l <= r) {
-            if (nums[l] > nums[l + 1]) {
-                return l;
-            }
-            if (nums[r] > nums[r - 1]) {
-                return r;
-            }
-            int m = l + ((r - l) >> 1);
-            if (nums[m] > nums[m - 1] && nums[m] > nums[m + 1]) {
-                return m;
-            } else if (nums[m] < nums[m - 1]) {
-                r = m - 1;
+        int left = 0;
+        int right = nums.length - 1;
+        if (nums[left] > nums[left + 1]) {
+            return left;
+        } else {
+            left = left + 1;
+        }
+        if (nums[right] > nums[right - 1]) {
+            return right;
+        } else {
+            right = right - 1;
+        }
+        if (left == right) {
+            return left;
+        }
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if (nums[mid] > nums[mid + 1] && nums[mid] > nums[mid - 1]) {
+                return mid;
+            } else if (nums[mid] > nums[mid + 1]) {
+                right = mid - 1;
+            } else if (nums[mid] > nums[mid - 1]) {
+                left = mid + 1;
             } else {
-                // nums[m] < nums[m + 1]
-                l = m + 1;
+                // nums[mid] < nums[mid - 1] && nums[mid] < nums[mid + 1]
+                left = mid + 1;
             }
         }
         return -1;
