@@ -1,26 +1,29 @@
 package git.snippet.binarysearch;
 
-// Given a sorted array (ascending order) and a target number, find the first index of this number
-// in O(logn) time complexity.
+
+// 笔记：https://www.cnblogs.com/greyzeng/p/16622554.html
+// 二分查找：在一个有序数组中，找某个数是否存在,返回目标值第一次出现的下标
+// https://leetcode.com/problems/binary-search/
+// https://www.lintcode.com/problem/14/
 public class LintCode_0014_FirstPositionOfTarget {
     public int binarySearch(int[] nums, int target) {
-        if (nums == null || nums.length == 0) {
+        if (null == nums || nums.length == 0) {
             return -1;
         }
-        int l = 0;
-        int r = nums.length - 1;
-        int ans = -1;
-        while (l <= r) {
-            int m = l + ((r - l) >> 1);
-            if (nums[m] == target) {
-                ans = m;
-                r = m - 1;
-            } else if (nums[m] < target) {
-                l = m + 1;
+        int result = -1;
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if (nums[mid] == target) {
+                result = mid;
+                right = mid - 1;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
             } else {
-                r = m - 1;
+                right = mid - 1;
             }
         }
-        return ans;
+        return result;
     }
 }
