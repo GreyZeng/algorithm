@@ -7,31 +7,31 @@ package git.snippet.list;
 // both?
 public class LeetCode_0206_ReverseLinkedList {
     // 非递归版本
-    public ListNode reverseList2(ListNode h) {
-        if (h == null || h.next == null) {
-            return h;
-        }
+    public ListNode reverseList2(ListNode head) {
         ListNode pre = null;
-        ListNode cur = h;
+        ListNode cur = head;
         while (cur != null) {
-            ListNode t = cur.next;
+            ListNode tmp = cur.next;
             cur.next = pre;
             pre = cur;
-            cur = t;
+            cur = tmp;
         }
         return pre;
     }
 
     // 递归版本
-    // 反转head为头的链表，并把反转后的头节点返回
     public ListNode reverseList(ListNode head) {
+        return reverse(head);
+    }
+
+    public ListNode reverse(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode newHead = reverseList(head.next);
+        ListNode preHead = reverse(head.next);
         head.next.next = head;
         head.next = null;
-        return newHead;
+        return preHead;
     }
 
     public class ListNode {
