@@ -1,7 +1,7 @@
 package git.snippet.list;
 
 // 单链表反转
-// 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
+// 笔记：https://www.cnblogs.com/greyzeng/p/17852345.html
 // https://leetcode.com/problems/reverse-linked-list/
 // Follow up: A linked list can be reversed either iteratively or recursively. Could you implement
 // both?

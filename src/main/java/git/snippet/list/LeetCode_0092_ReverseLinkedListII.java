@@ -7,7 +7,7 @@ package git.snippet.list;
 //-500 <= Node.val <= 500
 //1 <= left <= right <= n
 // https://leetcode.cn/problems/reverse-linked-list-ii/
-// 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
+// 笔记：https://www.cnblogs.com/greyzeng/p/17852345.html
 public class LeetCode_0092_ReverseLinkedListII {
     static ListNode successor = null;
 

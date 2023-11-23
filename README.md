@@ -10,7 +10,7 @@
 
 [使用二分法来解决的一些问题](https://www.cnblogs.com/greyzeng/p/16622554.html)
 
-[和链表相关的一些问题](https://www.cnblogs.com/greyzeng/p/16629407.html)
+[反转链表系列问题](https://www.cnblogs.com/greyzeng/p/17852345.html)
 
 ## 更多
 

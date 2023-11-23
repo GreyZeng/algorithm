@@ -1,7 +1,7 @@
 package git.snippet.list;
 
 // 反转双向链表
-// 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
+// 笔记：https://www.cnblogs.com/greyzeng/p/17852345.html
 public class Code_ReverseDoubleList {
 
     public static DoubleNode reverseDoubleList(DoubleNode head) {
