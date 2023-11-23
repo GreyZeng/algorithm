@@ -9,31 +9,9 @@ package git.snippet.list;
 // https://leetcode.cn/problems/reverse-linked-list-ii/
 // 笔记：https://www.cnblogs.com/greyzeng/p/17852345.html
 public class LeetCode_0092_ReverseLinkedListII {
-    static ListNode successor = null;
-
-    public static ListNode reverseBetweenRecursive(ListNode head, int m, int n) {
-        if (m == 1) {
-            return reverseN(head, n);
-        }
-        head.next = reverseBetweenRecursive(head.next, m - 1, n - 1);
-        return head;
-    }
-
-    // 反转链表前N个节点
-    public static ListNode reverseN(ListNode head, int n) {
-        if (n == 1) {
-            successor = head.next;
-            return head;
-        }
-        ListNode last = reverseN(head.next, n - 1);
-        head.next.next = head;
-        head.next = successor;
-        return last;
-    }
-
     // 非递归解法
     // 链表开始位置是从 1 开始
-    public ListNode reverseBetween(ListNode head, int left, int right) {
+    public ListNode reverseBetween2(ListNode head, int left, int right) {
         if (head.next == null || left == right) {
             // 只有一个节点，怎么反转都一样
             // 只要反转一个节点，反转前后链表还是一样的
@@ -78,6 +56,30 @@ public class LeetCode_0092_ReverseLinkedListII {
         }
     }
 
+    // 递归解法
+    public static ListNode reverseBetween(ListNode head, int left, int right) {
+        if (left == 1) {
+            return reverseN(head, right);
+        }
+        head.next = reverseBetween(head.next, left - 1, right - 1);
+        return head;
+    }
+
+    // 反转链表前N个节点
+    public static ListNode reverseN(ListNode head, int n) {
+        if (n == 1) {
+            successor = head.next;
+            return head;
+        }
+        ListNode last = reverseN(head.next, n - 1);
+        head.next.next = head;
+        head.next = successor;
+        return last;
+    }
+
+    static ListNode successor = null;
+
+    // for debug
     public static void printList(ListNode head) {
         while (head != null) {
             System.out.print(head.val + " ");
