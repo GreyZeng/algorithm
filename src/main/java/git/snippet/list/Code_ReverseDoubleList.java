@@ -8,14 +8,14 @@ public class Code_ReverseDoubleList {
         if (head == null || head.next == null) {
             return head;
         }
-        DoubleNode cur = head;
         DoubleNode pre = null;
+        DoubleNode cur = head;
         while (cur != null) {
-            DoubleNode t = cur.next;
+            DoubleNode tmp = cur.next;
             cur.next = pre;
-            cur.last = t;
+            cur.last = tmp;
             pre = cur;
-            cur = t;
+            cur = tmp;
         }
         return pre;
     }

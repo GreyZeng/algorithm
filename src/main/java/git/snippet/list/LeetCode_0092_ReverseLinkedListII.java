@@ -2,6 +2,10 @@ package git.snippet.list;
 
 // 值得反复练习的习题
 // 反转单链表一部分
+//The number of nodes in the list is n.
+//1 <= n <= 500
+//-500 <= Node.val <= 500
+//1 <= left <= right <= n
 // https://leetcode.cn/problems/reverse-linked-list-ii/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
 public class LeetCode_0092_ReverseLinkedListII {
@@ -27,34 +31,72 @@ public class LeetCode_0092_ReverseLinkedListII {
         return last;
     }
 
-    public ListNode reverseBetween(ListNode h, int m, int n) {
-        if (m == n || h == null || h.next == null) {
-            return h;
+    // 非递归解法
+    // 链表开始位置是从 1 开始
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        if (head.next == null || left == right) {
+            // 只有一个节点，怎么反转都一样
+            // 只要反转一个节点，反转前后链表还是一样的
+            return head;
         }
-        ListNode dummy = new ListNode(0, h);
-        ListNode startPre = dummy;
-        ListNode start = h;
-        for (int i = 1; i < m; i++) {
-            startPre = startPre.next;
-            start = start.next;
-        }
-        ListNode pre = null;
-        ListNode cur = start;
-        for (int i = m; i <= n; i++) {
-            ListNode tmp = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = tmp;
-        }
-        if (m != 1) {
-            startPre.next = pre;
-            start.next = cur;
-            return h;
-        } else {
-            start.next = cur;
+        if (left == 1) {
+            // 需要换头
+            ListNode pre = null;
+            ListNode end = head;
+            ListNode cur = head;
+            int gap = right - left + 1;
+            while (gap != 0) {
+                ListNode tmp = cur.next;
+                cur.next = pre;
+                pre = cur;
+                cur = tmp;
+                gap--;
+            }
+            end.next = cur;
             return pre;
+        } else {
+            ListNode pre = null;
+            for (int i = 1; i < left; i++) {
+                pre = pre == null ? head : pre.next;
+            }
+            ListNode end = pre;
+            ListNode cur = pre == null ? head : pre.next;
+            ListNode last = cur;
+            int gap = right - left + 1;
+            while (gap != 0) {
+                ListNode tmp = cur.next;
+                cur.next = pre;
+                pre = cur;
+                cur = tmp;
+                gap--;
+            }
+
+            if (end != null) end.next = pre;
+            if (last != null) last.next = cur;
+            // 不需要换头，返回原先的头节点
+            return head;
         }
     }
+
+    public static void printList(ListNode head) {
+        while (head != null) {
+            System.out.print(head.val + " ");
+            head = head.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+        printList(head);
+        ListNode newHead = new LeetCode_0092_ReverseLinkedListII().reverseBetween(head, 2, 3);
+        printList(newHead);
+    }
+
 
     public static class ListNode {
         int val;
