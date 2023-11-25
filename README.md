@@ -12,6 +12,8 @@
 
 [反转链表系列问题](https://www.cnblogs.com/greyzeng/p/17852345.html)
 
+[用单链表实现栈和队列](https://github.com/GreyZeng/algorithm/blob/master/src/main/java/git/snippet/list/Code_LinkedListToQueueAndStack.java)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
