@@ -1,5 +1,7 @@
 package git.snippet.list;
 
+import java.util.List;
+
 // merge two sorted lists
 // leetcode: https://leetcode.com/problems/merge-two-sorted-lists
 // lintcode: https://www.lintcode.com/problem/165/
@@ -16,39 +18,46 @@ public class LeetCode_0021_MergeTwoSortedLists {
     // 1 -> 2 -> 3 -> 6 -> 6 -> 8 -> 9 -> 12 -> 64
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         if (list1 == null || list2 == null) {
-            return list1 != null ? list1 : list2;
+            return list1 == null ? list2 : list1;
         }
-        ListNode start = list1.val > list2.val ? list2 : list1;
-        ListNode l1 = start == list1 ? list1.next : list1;
-        ListNode l2 = start == list1 ? list2 : list2.next;
-
-        ListNode cur = start;
-        while (l1 != null && l2 != null) {
-            if (l1.val > l2.val) {
-                cur.next = l2;
-                l2 = l2.next;
+        ListNode newHead = list1.val > list2.val ? list2 : list1;
+        if (newHead == list1) {
+            list1 = list1.next;
+        } else {
+            list2 = list2.next;
+        }
+        ListNode cur = newHead;
+        while (list1 != null && list2 != null) {
+            if (list1.val > list2.val) {
+                cur.next = list2;
+                cur = cur.next;
+                list2 = list2.next;
             } else {
-                cur.next = l1;
-                l1 = l1.next;
+                cur.next = list1;
+                cur = cur.next;
+                list1 = list1.next;
             }
-            cur = cur.next;
         }
-        while (l1 != null) {
-            cur.next = l1;
+        while (list1 != null) {
+            cur.next = list1;
             cur = cur.next;
-            l1 = l1.next;
+            list1 = list1.next;
         }
-
-        while (l2 != null) {
-            cur.next = l2;
+        while (list2 != null) {
+            cur.next = list2;
             cur = cur.next;
-            l2 = l2.next;
+            list2 = list2.next;
         }
-        return start;
+        return newHead;
     }
 
-    public class ListNode {
+
+    public static class ListNode {
         int val;
         ListNode next;
+
+        public ListNode(int val) {
+            this.val = val;
+        }
     }
 }

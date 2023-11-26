@@ -18,6 +18,8 @@
 
 [两个链表相加问题](https://www.cnblogs.com/greyzeng/p/16629407.html)
 
+[合并两个及以上有序链表问题](https://www.cnblogs.com/greyzeng/p/7551789.html)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
