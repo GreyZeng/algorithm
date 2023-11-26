@@ -38,7 +38,6 @@ public class Code_LinkedListToQueueAndStack {
 
         // 头部进!!!
         public void offer(V value) {
-
             if (isEmpty()) {
                 t = new Node<>(value);
                 h = t;
@@ -53,7 +52,6 @@ public class Code_LinkedListToQueueAndStack {
         // 尾部出
         public V poll() {
             if (!isEmpty()) {
-
                 V r = t.val;
                 t = t.next;
                 size--;

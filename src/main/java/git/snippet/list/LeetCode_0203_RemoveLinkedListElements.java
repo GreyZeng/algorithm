@@ -4,28 +4,25 @@ package git.snippet.list;
 // https://leetcode.com/problems/remove-linked-list-elements/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
 public class LeetCode_0203_RemoveLinkedListElements {
-    public ListNode removeElements(ListNode head, int val) {
-        if (head == null) {
-            return head;
-        }
+
+    public static ListNode removeElements(ListNode head, int val) {
         while (head != null && head.val == val) {
             head = head.next;
         }
-        // 元素已经被删除光了
         if (head == null) {
-            return head;
+            // 所有节点都删除光了
+            return null;
         }
         ListNode newHead = head;
-        ListNode cur = newHead;
-        ListNode dummy = new ListNode(val, newHead);
+        ListNode cur = head.next;
+        ListNode pre = head;
         while (cur != null) {
             if (cur.val == val) {
-                cur = cur.next;
-                dummy.next = cur;
+                pre.next = cur.next;
             } else {
-                cur = cur.next;
-                dummy = dummy.next;
+                pre = cur;
             }
+            cur = cur.next;
         }
         return newHead;
     }
