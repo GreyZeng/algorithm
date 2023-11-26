@@ -14,38 +14,42 @@ package git.snippet.list;
 public class LeetCode_0002_AddTwoNumbers {
     // l1 和 l2 非空
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int val = (l1.val + l2.val) % 10;
-        ListNode h = new ListNode(val);
-        int carry = (l1.val + l2.val) / 10;
-        ListNode cur = h;
+        if (l1 == null || l2 == null) {
+            return l1 == null ? l2 : l1;
+        }
+        ListNode newHead = new ListNode((l1.val + l2.val) % 10);
+        ListNode cur = newHead;
+        // 进位
+        int carry = (l1.val + l2.val) >= 10 ? 1 : 0;
         l1 = l1.next;
         l2 = l2.next;
         while (l1 != null && l2 != null) {
-            val = (l1.val + l2.val + carry) % 10;
-            carry = (l1.val + l2.val + carry) / 10;
-            cur.next = new ListNode(val);
-            cur = cur.next;
+            ListNode next = new ListNode((l1.val + l2.val + carry) % 10);
+            carry = (l1.val + l2.val + carry) >= 10 ? 1 : 0;
+            cur.next = next;
+            cur = next;
             l1 = l1.next;
             l2 = l2.next;
         }
         while (l1 != null) {
-            val = (l1.val + carry) % 10;
-            carry = (l1.val + carry) / 10;
-            cur.next = new ListNode(val);
-            cur = cur.next;
+            ListNode next = new ListNode((l1.val + carry) % 10);
+            carry = (l1.val + carry) >= 10 ? 1 : 0;
+            cur.next = next;
+            cur = next;
             l1 = l1.next;
         }
         while (l2 != null) {
-            val = (l2.val + carry) % 10;
-            carry = (l2.val + carry) / 10;
-            cur.next = new ListNode(val);
-            cur = cur.next;
+            ListNode next = new ListNode((l2.val + carry) % 10);
+            carry = (l2.val + carry) >= 10 ? 1 : 0;
+            cur.next = next;
+            cur = next;
             l2 = l2.next;
         }
         if (carry != 0) {
             cur.next = new ListNode(carry);
+            cur = cur.next;
         }
-        return h;
+        return newHead;
     }
 
     public static class ListNode {

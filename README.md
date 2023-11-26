@@ -13,8 +13,10 @@
 [反转链表系列问题](https://www.cnblogs.com/greyzeng/p/17852345.html)
 
 [用单链表实现栈和队列](https://github.com/GreyZeng/algorithm/blob/master/src/main/java/git/snippet/list/Code_LinkedListToQueueAndStack.java)
-    
+
 [删除链表指定节点](https://www.cnblogs.com/greyzeng/p/16629407.html)
+
+[两个链表相加问题](https://www.cnblogs.com/greyzeng/p/16629407.html)
 
 ## 更多
 
