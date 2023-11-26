@@ -1,6 +1,5 @@
 package git.snippet.list;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 // 把每个链表的头节点加入到小根堆中
