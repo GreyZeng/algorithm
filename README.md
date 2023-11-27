@@ -20,6 +20,8 @@
 
 [合并两个及以上有序链表问题](https://www.cnblogs.com/greyzeng/p/7551789.html)
 
+[链表K个节点的组内逆序调整问题](https://www.cnblogs.com/greyzeng/p/17859529.html)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)

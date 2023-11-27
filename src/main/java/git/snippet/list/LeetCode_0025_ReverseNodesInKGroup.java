@@ -6,7 +6,7 @@ package git.snippet.list;
 // 0 <= Node.val <= 1000
 // K个节点的组内逆序调整问题
 // 测试链接：https://leetcode.com/problems/reverse-nodes-in-k-group/
-// 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
+// 笔记:https://www.cnblogs.com/greyzeng/p/17859529.html
 public class LeetCode_0025_ReverseNodesInKGroup {
 
     // 不超过k个就保持原样
@@ -18,7 +18,7 @@ public class LeetCode_0025_ReverseNodesInKGroup {
         }
         // 第一组已经凑够了，所以直接返回head
         head = end;
-        reverseBetween(start, end);
+        reverse(start, end);
         // 上一组的结尾节点
         ListNode lastEnd = start;
         while (lastEnd.next != null) {
@@ -27,7 +27,7 @@ public class LeetCode_0025_ReverseNodesInKGroup {
             if (end == null) {
                 return head;
             }
-            reverseBetween(start, end);
+            reverse(start, end);
             lastEnd.next = end;
             lastEnd = start;
         }
@@ -55,7 +55,7 @@ public class LeetCode_0025_ReverseNodesInKGroup {
     // 假设start = a, end = d
     // 经过如下方法，会变成
     // ...d->c->b->a->e.....
-    public void reverseBetween(ListNode start, ListNode end) {
+    public void reverse(ListNode start, ListNode end) {
         end = end.next;
         ListNode pre = null;
         ListNode cur = start;
