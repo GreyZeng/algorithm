@@ -22,6 +22,8 @@
 
 [链表K个节点的组内逆序调整问题](https://www.cnblogs.com/greyzeng/p/17859529.html)
 
+[位图的使用与实现](https://www.cnblogs.com/greyzeng/p/16634282.html)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
@@ -29,8 +31,6 @@
 [算法和数据结构学习笔记：博客园](https://www.cnblogs.com/greyzeng/category/2069297.html)
 
 [算法和数据结构学习代码: Github](https://github.com/GreyZeng/algorithm)
-
-[算法和数据结构学习代码: GitCode](https://gitcode.net/hotonyhui/algorithm)
 
 ## 参考资料
 
