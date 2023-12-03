@@ -1,12 +1,7 @@
 package git.snippet.bit;
 
-import java.util.HashSet;
-import java.util.Set;
-
 // 位图
 // 笔记：https://www.cnblogs.com/greyzeng/p/16634282.html
-
-// 位图
 public class BitMap {
 
     private final long[] bits;
