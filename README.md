@@ -31,7 +31,3 @@
 [算法和数据结构学习笔记：博客园](https://www.cnblogs.com/greyzeng/category/2069297.html)
 
 [算法和数据结构学习代码: Github](https://github.com/GreyZeng/algorithm)
-
-## 参考资料
-
-[算法和数据结构基础班-左程云](https://ke.qq.com/course/2145184)
