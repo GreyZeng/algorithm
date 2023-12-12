@@ -22,7 +22,7 @@
 
 [链表K个节点的组内逆序调整问题](https://www.cnblogs.com/greyzeng/p/17859529.html)
 
-[位图的使用与实现](https://www.cnblogs.com/greyzeng/p/16634282.html)
+[位图的设计与实现](https://www.cnblogs.com/greyzeng/p/16634282.html)
 
 ## 更多
 
