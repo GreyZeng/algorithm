@@ -10,7 +10,8 @@ public class BitMap {
     public BitMap(int max) {
         // 准备多少个整数？ 0 ~ 63 需要1个整数
         // >> 6 就是 除以 64 ，>> 效率比除法高
-        bits = new long[(max + 64) >> 6];
+        // bits = new long[(max + 64) >> 6];
+        bits = new long[(max + 64) / 64];
     }
 
     public void add(int num) {
