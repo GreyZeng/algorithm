@@ -1,5 +1,5 @@
 package git.snippet.tree;
-
+// 笔记：https://www.cnblogs.com/greyzeng/articles/16971977.html
 // 判断一棵树是否是镜面树
 // https://leetcode.com/problems/symmetric-tree
 public class LeetCode_0101_SymmetricTree {
@@ -10,7 +10,6 @@ public class LeetCode_0101_SymmetricTree {
         if (root.left == null || root.right == null) {
             return root.left == null && root.right == null;
         }
-
         return root.left.val == root.right.val && isSymmetric(root.left, root.right);
     }
 
