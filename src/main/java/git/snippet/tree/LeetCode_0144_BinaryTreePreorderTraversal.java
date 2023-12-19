@@ -9,37 +9,6 @@ import java.util.Stack;
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
 public class LeetCode_0144_BinaryTreePreorderTraversal {
 
-    // Morris遍历实现先序遍历，空间复杂度O(1)
-    // 来到两次的节点第一次来到时候打印，其他节点正常打印
-    public static List<Integer> preorderTraversal3(TreeNode root) {
-        if (null == root) {
-            return new ArrayList<>();
-        }
-        List<Integer> ans = new ArrayList<>();
-        TreeNode mostRight;
-        TreeNode cur = root;
-        while (cur != null) {
-            mostRight = cur.left;
-            if (mostRight != null) {
-                while (mostRight.right != null && mostRight.right != cur) {
-                    mostRight = mostRight.right;
-                }
-                if (mostRight.right == null) {
-                    ans.add(cur.val);
-                    mostRight.right = cur;
-                    cur = cur.left;
-                    continue;
-                } else {
-                    // mostRight.right = cur;
-                    mostRight.right = null;
-                }
-            } else {
-                ans.add(cur.val);
-            }
-            cur = cur.right;
-        }
-        return ans;
-    }
 
     // 递归方法
     public List<Integer> preorderTraversal(TreeNode root) {
@@ -79,6 +48,38 @@ public class LeetCode_0144_BinaryTreePreorderTraversal {
             if (node.left != null) {
                 stack.push(node.left);
             }
+        }
+        return ans;
+    }
+
+    // Morris遍历实现先序遍历，空间复杂度O(1)
+    // 来到两次的节点第一次来到时候打印，其他节点正常打印
+    public List<Integer> preorderTraversal3(TreeNode root) {
+        if (null == root) {
+            return new ArrayList<>();
+        }
+        List<Integer> ans = new ArrayList<>();
+        TreeNode mostRight;
+        TreeNode cur = root;
+        while (cur != null) {
+            mostRight = cur.left;
+            if (mostRight != null) {
+                while (mostRight.right != null && mostRight.right != cur) {
+                    mostRight = mostRight.right;
+                }
+                if (mostRight.right == null) {
+                    ans.add(cur.val);
+                    mostRight.right = cur;
+                    cur = cur.left;
+                    continue;
+                } else {
+                    // mostRight.right = cur;
+                    mostRight.right = null;
+                }
+            } else {
+                ans.add(cur.val);
+            }
+            cur = cur.right;
         }
         return ans;
     }
