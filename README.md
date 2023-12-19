@@ -24,6 +24,8 @@
 
 [位图的设计与实现](https://www.cnblogs.com/greyzeng/p/16634282.html)
 
+[使用位运算技巧实现加减乘除](https://www.cnblogs.com/greyzeng/p/16637476.html)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
