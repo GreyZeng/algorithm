@@ -1,13 +1,65 @@
 package git.snippet.tree;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 // https://leetcode.com/problems/binary-tree-postorder-traversal/
 // 二叉树的后序遍历
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
 public class LeetCode_0145_BinaryTreePostorderTraversal {
+
+    // 递归方法
+    public List<Integer> postorderTraversal3(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        List<Integer> ans = new ArrayList<>();
+        pos(root, ans);
+        return ans;
+    }
+
+    public void pos(TreeNode root, List<Integer> ans) {
+        if (root == null) {
+            return;
+        }
+        pos(root.left, ans);
+        pos(root.right, ans);
+        ans.add(root.val);
+    }
+
+    // 非递归 双栈或者一栈+一链表方式
+    // 改造先序遍历
+    // 先序遍历是，头，左，右
+    // 改造一下，变成：头，右，左
+    // 然后：逆序一下，就变成了后序遍历
+    // 所以用两个栈即可实现
+    public List<Integer> postorderTraversal2(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        List<Integer> ans = new ArrayList<>();
+        Stack<TreeNode> helper = new Stack<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        stack.push(cur);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            // 先存一个栈里面
+            helper.push(node);
+            // 先序遍历的时候，是先判断右树，改造一下，先判断左树
+            if (node.left != null) {
+                cur = node.left;
+                stack.push(cur);
+            }
+            if (node.right != null) {
+                cur = node.right;
+                stack.push(cur);
+            }
+        }
+        while (!helper.isEmpty()) {
+            ans.add(helper.pop().val);
+        }
+        return ans;
+    }
 
     // TODO
     // 【非递归】【单栈】后序遍历
@@ -87,59 +139,6 @@ public class LeetCode_0145_BinaryTreePostorderTraversal {
             cur = t;
         }
         return pre;
-    }
-
-    // 递归方法
-    public List<Integer> postorderTraversal3(TreeNode root) {
-        if (root == null) {
-            return new ArrayList<>();
-        }
-        List<Integer> ans = new ArrayList<>();
-        post(root, ans);
-        return ans;
-    }
-
-    public void post(TreeNode root, List<Integer> ans) {
-        if (root == null) {
-            return;
-        }
-        post(root.left, ans);
-        post(root.right, ans);
-        ans.add(root.val);
-    }
-
-    // 非递归 双栈或者一栈+一链表方式
-    // 改造先序遍历
-    // 先序遍历是，头，左，右
-    // 改造一下，变成：头，右，左
-    // 然后：逆序一下，就变成了后序遍历
-    // 所以用两个栈即可实现
-    public List<Integer> postorderTraversal2(TreeNode root) {
-        if (null == root) {
-            return new ArrayList<>();
-        }
-        List<TreeNode> ans = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode cur = root;
-        stack.push(cur);
-        while (!stack.isEmpty()) {
-            TreeNode node = stack.pop();
-            ans.add(node);
-            if (node.left != null) {
-                stack.push(node.left);
-            }
-            if (node.right != null) {
-                stack.push(node.right);
-            }
-        }
-        for (TreeNode node : ans) {
-            stack.push(node);
-        }
-        List<Integer> result = new ArrayList<>();
-        while (!stack.isEmpty()) {
-            result.add(stack.pop().val);
-        }
-        return result;
     }
 
     public class TreeNode {
