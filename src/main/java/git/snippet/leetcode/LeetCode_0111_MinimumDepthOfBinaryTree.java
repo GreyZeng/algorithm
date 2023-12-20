@@ -6,14 +6,14 @@ package git.snippet.leetcode;
 // 最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
 //
 // 说明：叶子节点是指没有子节点的节点。
-// https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
+// https://leetcode.com/problems/minimum-depth-of-binary-tree/
 // 二叉树递归套路
 // Morris遍历
 public class LeetCode_0111_MinimumDepthOfBinaryTree {
 
     // 二叉树的递归套路
-    public static int minDepth(TreeNode head) {
-        if (head == null) {
+    public int minDepth(TreeNode head) {
+        if (null == head) {
             return 0;
         }
         if (head.left == null) {
@@ -26,7 +26,7 @@ public class LeetCode_0111_MinimumDepthOfBinaryTree {
     }
 
     // morris遍历方式
-    public static int minDepth2(TreeNode head) {
+    public int minDepth2(TreeNode head) {
         if (head == null) {
             return 0;
         }

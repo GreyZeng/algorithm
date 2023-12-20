@@ -16,7 +16,7 @@ public class LeetCode_0104_MaximumDepthOfBinaryTree {
     }
 
     // by morris，空间复杂度可以优化成 O(1)
-    public int maxDepthByMorris(TreeNode head) {
+    public int maxDepth2(TreeNode head) {
         if (head == null) {
             return 0;
         }
@@ -65,21 +65,7 @@ public class LeetCode_0104_MaximumDepthOfBinaryTree {
      * 注意最小高度比这个复杂，要额外小心判断空
      */
     public class TreeNode {
-        int val;
         TreeNode left;
         TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 }
