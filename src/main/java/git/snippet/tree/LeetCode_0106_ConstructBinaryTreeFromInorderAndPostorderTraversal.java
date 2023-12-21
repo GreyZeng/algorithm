@@ -1,10 +1,12 @@
-package git.snippet.leetcode;
+package git.snippet.tree;
 
 import java.util.HashMap;
 import java.util.Map;
 
+// LeetCode：https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+// 笔记：https://www.cnblogs.com/greyzeng/p/16715432.html
 public class LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal {
-    public static TreeNode buildTree(int[] inorder, int[] postorder) {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
         if (null == postorder || inorder == null || postorder.length != inorder.length) {
             return null;
         }
@@ -16,8 +18,7 @@ public class LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal {
         return f(inorder, 0, L, postorder, 0, L, m);
     }
 
-    private static TreeNode f(
-            int[] inorder, int L1, int R1, int[] postorder, int L2, int R2, Map<Integer, Integer> m) {
+    private TreeNode f(int[] inorder, int L1, int R1, int[] postorder, int L2, int R2, Map<Integer, Integer> m) {
         if (L2 > R2) {
             return null;
         }
@@ -31,7 +32,7 @@ public class LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal {
         return root;
     }
 
-    public static class TreeNode {
+    public class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
