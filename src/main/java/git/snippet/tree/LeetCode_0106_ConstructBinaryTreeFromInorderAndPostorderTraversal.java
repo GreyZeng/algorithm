@@ -27,7 +27,7 @@ public class LeetCode_0106_ConstructBinaryTreeFromInorderAndPostorderTraversal {
             return root;
         }
         int index = m.get(postorder[R2]);
-        root.left = f(inorder, L1, index - 1, postorder, L2, L2 + index - L1 - 1, m);
+        root.left = f(inorder, L1, index - 1, postorder, L2, L2 + (index - L1 - 1), m);
         root.right = f(inorder, index + 1, R1, postorder, L2 + index - L1, R2 - 1, m);
         return root;
     }
