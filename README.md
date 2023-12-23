@@ -32,6 +32,8 @@
 
 [二叉树的最小（大）深度问题](https://www.cnblogs.com/greyzeng/p/16963808.html)
 
+[重建二叉树问题](https://www.cnblogs.com/greyzeng/p/16715432.html)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
