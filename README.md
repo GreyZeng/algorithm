@@ -34,6 +34,8 @@
 
 [重建二叉树问题](https://www.cnblogs.com/greyzeng/p/16715432.html)
 
+[二叉树的按层遍历](https://www.cnblogs.com/greyzeng/p/16356829.html)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)

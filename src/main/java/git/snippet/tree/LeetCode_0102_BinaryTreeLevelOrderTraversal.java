@@ -11,78 +11,83 @@ import java.util.*;
 public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
 
     // 哈希表结合Java自带的LinkedList
-    public List<List<Integer>> levelOrder3(TreeNode head) {
-        if (head == null) {
+    public List<List<Integer>> levelOrder3(TreeNode root) {
+        if (null == root) {
             return new ArrayList<>();
         }
-        List<List<Integer>> ans = new ArrayList<>();
-        // 记录某个节点在第几层
+        // 存每个节点在哪一层
         Map<TreeNode, Integer> map = new HashMap<>();
+        // 用于遍历树的节点
         Queue<TreeNode> queue = new LinkedList<>();
-        // 当前是第几层
+        List<List<Integer>> ans = new ArrayList<>();
+        map.put(root, 0); // 根节点在第0层
+        queue.offer(root);
         int curLevel = 0;
-        TreeNode cur = head;
-        queue.offer(cur);
-        map.put(cur, curLevel);
-        List<Integer> levelRecords = new ArrayList<>();
+        List<Integer> everyLevel = new ArrayList<>();
         while (!queue.isEmpty()) {
             TreeNode c = queue.poll();
-            int level = map.get(c);
+            // 弹出节点在第几层
+            int nodeLevel = map.get(c);
             if (c.left != null) {
                 queue.offer(c.left);
-                map.put(c.left, level + 1);
+                map.put(c.left, nodeLevel + 1);
             }
             if (c.right != null) {
                 queue.offer(c.right);
-                map.put(c.right, level + 1);
+                map.put(c.right, nodeLevel + 1);
             }
-            if (curLevel == level) {
-                levelRecords.add(c.val);
+            if (curLevel == nodeLevel) {
+                // 弹出节点就是当前节点所在的层，说明没有收集完毕，继续收集
+                everyLevel.add(c.val);
             } else {
-                ans.add(levelRecords);
-                levelRecords = new ArrayList<>();
-                levelRecords.add(c.val);
-                curLevel = level;
+                // 弹出节点不是当前节点所在层，则一定是下一层的节点（因为每次map进入的节点层数只加一）所在层
+                // 此时说明当前层已经遍历结束
+                ans.add(everyLevel);// 可以收集当前层的完整信息
+                everyLevel = new ArrayList<>(); // 继续为下一层开辟空间
+                everyLevel.add(c.val);
+                curLevel = nodeLevel;
             }
         }
-        // 记得要存最后一层的数据
-        ans.add(levelRecords);
+        ans.add(everyLevel);
         return ans;
     }
 
     // 不用Hash表，只用LinkedList和若干个变量
     public List<List<Integer>> levelOrder2(TreeNode root) {
-        List<List<Integer>> ans = new ArrayList<>();
         if (null == root) {
-            return ans;
+            return new ArrayList<>();
         }
-        List<Integer> level = new ArrayList<>();
+        // 用于遍历树的节点
         Queue<TreeNode> queue = new LinkedList<>();
-        TreeNode cur = root;
-        queue.offer(cur);
+        List<List<Integer>> ans = new ArrayList<>();
+        queue.offer(root);
+        List<Integer> everyLevel = new ArrayList<>();
         TreeNode nextEnd = null;
-        TreeNode curEnd = cur;
+        TreeNode curEnd = root;
         while (!queue.isEmpty()) {
-            cur = queue.poll();
-            level.add(cur.val);
-            if (cur.left != null) {
-                queue.offer(cur.left);
-                nextEnd = cur.left;
+            TreeNode c = queue.poll();
+            if (c.left != null) {
+                nextEnd = c.left;
+                queue.offer(c.left);
             }
-            if (cur.right != null) {
-                queue.offer(cur.right);
-                nextEnd = cur.right;
+            if (c.right != null) {
+                nextEnd = c.right;
+                queue.offer(c.right);
             }
-            if (cur == curEnd) {
+            if (curEnd == c) {
+                // 当前层结束了
+                everyLevel.add(c.val);
+                ans.add(everyLevel);
+                everyLevel = new ArrayList<>();
                 curEnd = nextEnd;
-                // 如果要逆序打印层次，见 LeetCode 107
-                // 这里改成： ans.add(0, level);
-                ans.add(level);
-                level = new ArrayList<>();
+            } else {
+                // 当前层还没结束
+                everyLevel.add(c.val);
             }
         }
         return ans;
     }
+
 
     // 用自定义Queue
     public List<List<Integer>> levelOrder(TreeNode root) {
@@ -95,7 +100,7 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
         queue.offer(head);
         MyNode curEnd = head;
         MyNode nextEnd = null;
-        List<Integer> item = new ArrayList<>();
+        List<Integer> everyLevel = new ArrayList<>();
         MyNode t;
         while (!queue.isEmpty()) {
             MyNode c = queue.poll();
@@ -109,10 +114,10 @@ public class LeetCode_0102_BinaryTreeLevelOrderTraversal {
                 queue.offer(t);
                 nextEnd = t;
             }
-            item.add(c.data.val);
+            everyLevel.add(c.data.val);
             if (curEnd.data == c.data) {
-                ans.add(item);
-                item = new ArrayList<>();
+                ans.add(everyLevel);
+                everyLevel = new ArrayList<>();
                 curEnd = nextEnd;
             }
         }
