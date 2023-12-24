@@ -34,7 +34,10 @@
 
 [重建二叉树问题](https://www.cnblogs.com/greyzeng/p/16715432.html)
 
-[二叉树的按层遍历](https://www.cnblogs.com/greyzeng/p/16356829.html)
+[二叉树的按层遍历相关问题](https://www.cnblogs.com/greyzeng/p/16356829.html)
+- 类似问题一： 二叉树自底向上层序遍历
+
+    
 
 ## 更多
 
