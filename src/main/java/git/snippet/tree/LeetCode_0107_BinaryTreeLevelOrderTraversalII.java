@@ -18,19 +18,24 @@ public class LeetCode_0107_BinaryTreeLevelOrderTraversalII {
             int size = queue.size();
             List<Integer> curAns = new LinkedList<>();
             for (int i = 0; i < size; i++) {
+                // 一次搞定一层
                 TreeNode curNode = queue.poll();
-                curAns.add(curNode.val);
-                if (curNode.left != null) {
-                    queue.add(curNode.left);
-                }
-                if (curNode.right != null) {
-                    queue.add(curNode.right);
+                if (curNode != null) {
+                    curAns.add(curNode.val);
+                    if (curNode.left != null) {
+                        queue.add(curNode.left);
+                    }
+                    if (curNode.right != null) {
+                        queue.add(curNode.right);
+                    }
                 }
             }
+            // 每次把最新的那一层插入到链表的头部，模拟栈
             ans.addFirst(curAns);
         }
         return ans;
     }
+
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         if (null == root) {
             return new ArrayList<>();
