@@ -1,10 +1,11 @@
-package git.snippet.leetcode;
+package git.snippet.tree;
 
 // 和116题一样
-// https://leetcode.cn/problems/populating-next-right-pointers-in-each-node-ii/
+// https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16356829.html
 public class LeetCode_0117_PopulatingNextRightPointersInEachNodeII {
-    public static Node connect(Node root) {
+    // 采用自定义队列
+    public Node connect(Node root) {
         if (root == null) {
             return null;
         }
@@ -33,7 +34,7 @@ public class LeetCode_0117_PopulatingNextRightPointersInEachNodeII {
         return root;
     }
 
-    public static class Node {
+    public class Node {
         public int val;
         public Node left;
         public Node right;

@@ -1,9 +1,9 @@
-package git.snippet.leetcode;
+package git.snippet.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-// https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/description/
+// https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/
 // 本质是树的按层遍历
 // 1. hash表+LinkedList
 // 2. 仅用LinkedList
@@ -16,7 +16,7 @@ import java.util.Queue;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16356829.html
 public class LeetCode_0116_PopulatingNextRightPointersInEachNode {
     // 使用LinkedList作为队列,空间O(N)
-    public static Node connect(Node root) {
+    public Node connect(Node root) {
         if (null == root) {
             return null;
         }
@@ -28,6 +28,7 @@ public class LeetCode_0116_PopulatingNextRightPointersInEachNode {
             size = queue.size();
             // 把每一层用链表串好，pre记录每一层的最后那个位置
             // 用于和下一层的开头连接
+            // 每次把一层搞定
             for (; size > 0; size--) {
                 Node p = queue.poll();
                 if (pre != null) {
@@ -46,7 +47,7 @@ public class LeetCode_0116_PopulatingNextRightPointersInEachNode {
         return root;
     }
 
-    public static Node connect2(Node root) {
+    public Node connect2(Node root) {
         if (root == null) {
             return null;
         }
