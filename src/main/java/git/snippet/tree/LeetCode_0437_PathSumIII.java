@@ -18,7 +18,7 @@
  *
  * 1. 5 -> 3 2. 5 -> 2 -> 1 3. -3 -> 11
  */
-package git.snippet.leetcode;
+package git.snippet.tree;
 
 import java.util.HashMap;
 
@@ -27,7 +27,7 @@ import java.util.HashMap;
 // Leetcode题目 : https://leetcode.com/problems/path-sum-iii/
 // tips: 先序遍历
 // 类似数组三连的第二问
-// https://leetcode.cn/problems/path-sum-iii/
+// https://leetcode.com/problems/path-sum-iii/
 public class LeetCode_0437_PathSumIII {
 
     public static int pathSum(TreeNode root, int sum) {
