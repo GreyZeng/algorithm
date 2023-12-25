@@ -1,4 +1,4 @@
-package git.snippet.leetcode;
+package git.snippet.tree;
 
 import java.util.LinkedList;
 
