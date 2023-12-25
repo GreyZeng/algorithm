@@ -77,35 +77,45 @@ public class LeetCode_0098_ValidateBinarySearchTree {
         in(head.right, arr);
     }
 
+    // 使用二叉树的递归套路
     public boolean isValidBST(TreeNode root) {
         if (root == null) {
             return true;
         }
-        return p(root).isBST;
+        return process(root).isBST;
     }
 
-    public Info p(TreeNode root) {
-        if (root == null) {
+    public Info process(TreeNode head) {
+        if (head == null) {
             return null;
         }
-        int max = root.val;
-        int min = root.val;
-        boolean isBST = true;
-        Info left = p(root.left);
-        if (left != null) {
-            max = Math.max(left.max, max);
-            min = Math.min(left.min, min);
-            isBST &= left.isBST;
-            isBST &= (root.val > left.max);
+        Info left = process(head.left);
+        Info right = process(head.right);
+        if (left == null && right == null) {
+            return new Info(head.val, head.val, true);
         }
-        Info right = p(root.right);
-        if (right != null) {
-            max = Math.max(right.max, max);
-            min = Math.min(right.min, min);
-            isBST &= right.isBST;
-            isBST &= (root.val < right.min);
+        if (left == null) {
+            // right != null
+            return new Info(Math.max(head.val, right.max), Math.min(head.val, right.min), head.val < right.min && right.isBST);
         }
-        return new Info(max, min, isBST);
+        if (right == null) {
+            // right != null
+            return new Info(Math.max(head.val, left.max), Math.min(head.val, left.min), head.val > left.max && left.isBST);
+        }
+        // right != null && left != null;
+        return new Info(Math.max(head.val, Math.max(left.max, right.max)), Math.min(head.val, Math.min(left.min, right.min)), head.val > left.max && head.val < right.min && left.isBST && right.isBST);
+    }
+
+    public class Info {
+        public int max; // 最大值
+        public int min; // 最小值
+        public boolean isBST; // 是否为搜索二叉树
+
+        public Info(int max, int min, boolean isBST) {
+            this.max = max;
+            this.min = min;
+            this.isBST = isBST;
+        }
     }
 
     public class TreeNode {
@@ -128,15 +138,4 @@ public class LeetCode_0098_ValidateBinarySearchTree {
         }
     }
 
-    public class Info {
-        public int max;
-        public int min;
-        public boolean isBST;
-
-        public Info(int max, int min, boolean isBST) {
-            this.max = max;
-            this.min = min;
-            this.isBST = isBST;
-        }
-    }
 }
