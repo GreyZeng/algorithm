@@ -3,67 +3,43 @@ package git.snippet.tree;
 import java.util.ArrayList;
 import java.util.List;
 
+// 笔记：https://www.cnblogs.com/greyzeng/articles/15700243.html
 // https://leetcode.com/problems/path-sum-ii
 public class LeetCode_0113_PathSumII {
-    private static int SUM = 0;
 
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         if (root == null) {
             return new ArrayList<>();
         }
-        SUM = targetSum;
-        List<List<Integer>> ans = new ArrayList<>();
-        p(root, 0, new ArrayList<>(), ans);
-        return ans;
+        List<Integer> path = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        process(root, 0, path, targetSum, result);
+        return result;
     }
 
-    public void p(TreeNode root, int preSum, List<Integer> preList, List<List<Integer>> ans) {
-        if (root.left == null && root.right == null) {
-            // leaf note
-            if (preSum + root.val == SUM) {
-                preList.add(root.val);
-                ans.add(copy(preList));
-                // 清理现场
-                preList.remove(preList.size() - 1);
+    public void process(TreeNode node, int preSum, List<Integer> path, int targetSum, List<List<Integer>> result) {
+        if (node == null) {
+            return;
+        }
+        if (node.left == null && node.right == null) {
+            // 叶子节点
+            if (preSum + node.val == targetSum) {
+                path.add(node.val);
+                result.add(path);
             }
             return;
         }
-        preList.add(root.val);
-        preSum += root.val;
-        if (root.left != null) {
-            p(root.left, preSum, preList, ans);
-        }
-        if (root.right != null) {
-            p(root.right, preSum, preList, ans);
-        }
-        preList.remove(preList.size() - 1);
-    }
-
-    public List<Integer> copy(List<Integer> list) {
-        List<Integer> copy = new ArrayList<>();
-        for (Integer i : list) {
-            copy.add(i);
-        }
-        return copy;
+        List<Integer> copy1 = new ArrayList<>(path);
+        List<Integer> copy2 = new ArrayList<>(path);
+        copy1.add(node.val);
+        copy2.add(node.val);
+        process(node.left, preSum + node.val, copy1, targetSum, result);
+        process(node.right, preSum + node.val, copy2, targetSum, result);
     }
 
     public class TreeNode {
-
         int val;
         TreeNode left;
         TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 }

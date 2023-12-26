@@ -1,5 +1,5 @@
 package git.snippet.tree;
-
+// 笔记：https://www.cnblogs.com/greyzeng/articles/15700243.html
 // Given the root of a binary tree and an integer targetSum,
 // return true if the tree has a root-to-leaf path such that adding up all the values along the path
 // equals targetSum.
@@ -26,22 +26,8 @@ public class LeetCode_0112_PathSum {
 
 
     public class TreeNode {
-
         int val;
         TreeNode left;
         TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 }
