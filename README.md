@@ -26,6 +26,8 @@
 
 [使用位运算技巧实现加减乘除](https://www.cnblogs.com/greyzeng/p/16637476.html)
 
+[使用位运算技巧比较两个数的大小](https://www.cnblogs.com/greyzeng/p/16641111.html)
+
 [二叉树的先，中，后序遍历(递归，非递归)](https://www.cnblogs.com/greyzeng/articles/15941957.html)
 
 [相同二叉树和镜面二叉树问题](https://www.cnblogs.com/greyzeng/articles/16971977.html)
