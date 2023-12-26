@@ -7,35 +7,23 @@ package git.snippet.tree;
 // https://leetcode.com/problems/path-sum
 public class LeetCode_0112_PathSum {
 
-    private static int sum = 0;
-    private static boolean isSum = false;
 
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        if (root == null) {
-            return false;
-        }
-        sum = targetSum;
-        isSum = false;
-        process(root, 0);
-        return isSum;
+        return process(root, 0, targetSum);
     }
 
-    public void process(TreeNode root, int preSum) {
-        if (root.left == null && root.right == null) {
-            //  leaf node
-            if (root.val + preSum == sum) {
-                isSum = true;
-            }
-            return;
+    // 从 某个节点到 叶子节点，是否可以累计得到某个值（targetSum), 之前的值是 preSum
+    public boolean process(TreeNode node, int preSum, int target) {
+        if (node == null) {
+            return false;
         }
-        preSum += root.val;
-        if (root.left != null) {
-            process(root.left, preSum);
+        if (node.left == null && node.right == null) {
+            // node 是叶子节点
+            return preSum + node.val == target;
         }
-        if (root.right != null) {
-            process(root.right, preSum);
-        }
+        return process(node.left, preSum + node.val, target) || process(node.right, preSum + node.val, target);
     }
+
 
     public class TreeNode {
 
