@@ -10,51 +10,47 @@ package git.snippet.mergesort;
 //归并排序的实质是把比较行为变成了有序信息并传递，比O(N^2)的排序快
 // 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
 public class Code_MergeSort {
-
     // 递归方法实现
-    public static void mergeSort1(int[] arr) {
+    public static void sort1(int[] arr) {
         if (null == arr || arr.length <= 1) {
             return;
         }
-        process(arr, 0, arr.length - 1);
+        p(arr, 0, arr.length - 1);
     }
 
-    public static void process(int[] arr, int l, int r) {
-        if (l == r) {
+    public static void p(int[] arr, int l, int r) {
+        if (l >= r) {
             return;
         }
-        // 求中点
-        int mid = l + ((r - l) >> 1);
-        // 左边部分有序
-        process(arr, l, mid);
-        // 右边部分有序
-        process(arr, mid + 1, r);
-        // 整体变有序
-        merge(arr, l, mid, r);
+        int m = l + ((r - l) >> 1);
+        p(arr, l, m);
+        p(arr, m + 1, r);
+        m(arr, l, m, r);
     }
 
-    private static void merge(int[] arr, int l, int m, int r) {
-        int[] helper = new int[r - l + 1];
-        int index = 0;
-        int ls = l;
-        int rs = m + 1;
-        while (ls <= m && rs <= r) {
-            if (arr[ls] > arr[rs]) {
-                helper[index++] = arr[rs++];
+    public static void m(int[] arr, int l, int m, int r) {
+        int[] help = new int[r - l + 1];
+        int s = l;
+        int e = m + 1;
+        int i = 0;
+        while (s <= m && e <= r) {
+            if (arr[s] < arr[e]) {
+                help[i++] = arr[s++];
             } else {
-                helper[index++] = arr[ls++];
+                help[i++] = arr[e++];
             }
         }
-        while (ls <= m) {
-            helper[index++] = arr[ls++];
+        while (s <= m) {
+            help[i++] = arr[s++];
         }
-        while (rs <= r) {
-            helper[index++] = arr[rs++];
+        while (e <= r) {
+            help[i++] = arr[e++];
         }
-        for (int i = 0; i < helper.length; i++) {
-            arr[l + i] = helper[i];
+        for (int k = 0; k < help.length; k++) {
+            arr[l + k] = help[k];
         }
     }
+
 
     // 非递归方法实现
     public static void mergeSort2(int[] arr) {
@@ -77,6 +73,30 @@ public class Code_MergeSort {
                 }
                 group <<= 1;
             }
+        }
+    }
+
+
+    private static void merge(int[] arr, int l, int m, int r) {
+        int[] helper = new int[r - l + 1];
+        int index = 0;
+        int ls = l;
+        int rs = m + 1;
+        while (ls <= m && rs <= r) {
+            if (arr[ls] > arr[rs]) {
+                helper[index++] = arr[rs++];
+            } else {
+                helper[index++] = arr[ls++];
+            }
+        }
+        while (ls <= m) {
+            helper[index++] = arr[ls++];
+        }
+        while (rs <= r) {
+            helper[index++] = arr[rs++];
+        }
+        for (int i = 0; i < helper.length; i++) {
+            arr[l + i] = helper[i];
         }
     }
 }
