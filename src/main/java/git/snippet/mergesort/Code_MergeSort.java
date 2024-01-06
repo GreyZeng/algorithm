@@ -46,9 +46,7 @@ public class Code_MergeSort {
         while (e <= r) {
             help[i++] = arr[e++];
         }
-        for (int k = 0; k < help.length; k++) {
-            arr[l + k] = help[k];
-        }
+        System.arraycopy(help, 0, arr, l, help.length);
     }
 
 
