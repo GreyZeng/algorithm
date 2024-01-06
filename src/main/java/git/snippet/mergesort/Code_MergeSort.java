@@ -50,51 +50,63 @@ public class Code_MergeSort {
     }
 
 
-    // 非递归方法实现
+    // 归并排序的迭代版
     public static void mergeSort2(int[] arr) {
-        if (null != arr && arr.length > 1) {
-            int group = 1;
-            int len = arr.length;
-            while (group < len) {
-                int ls = 0;
-                while (ls < len) {
-                    if (ls + group >= len) {
-                        break;
-                    }
-                    int mid = ls + group - 1;
-                    int le = Math.min(mid + group, len - 1);
-                    merge(arr, ls, mid, le);
-                    ls = le + 1;
-                }
-                if (group * 2 > len) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        int len = arr.length;
+        // 步长，1，2，4，8…….
+        int step = 1;
+        while (step < len) {
+            // 左组的第一个位置
+            int lStart = 0;
+            while (lStart < len) {
+                if (lStart + step >= len) {
+                    // 没有右组
                     break;
                 }
-                group <<= 1;
+                int mid = lStart + step - 1;
+                // rEnd不能越界
+                int rEnd = mid + Math.min(step, len - mid - 1);
+                // 右组中第一个位置
+                // 中点位置
+                merge(arr, lStart, mid, rEnd);
+                lStart = rEnd + 1;
             }
+            // 防止溢出
+            if (step > (len / 2)) {
+                break;
+            }
+            step <<= 1;
         }
     }
 
-
-    private static void merge(int[] arr, int l, int m, int r) {
-        int[] helper = new int[r - l + 1];
-        int index = 0;
+    // 最好分开两个merge写，否则在做两个方法对数的时候，都引用了同一个merge方法，会导致同时对同时错，这样就测试不准确
+    // arr[l……mid]已经有序
+    // arr[mid+1……r]也已经有序
+    // 将arr[l……r]整体变有序
+    public static void merge(int[] arr, int l, int mid, int r) {
+        // 辅助数组
+        int[] help = new int[r - l + 1];
         int ls = l;
-        int rs = m + 1;
-        while (ls <= m && rs <= r) {
-            if (arr[ls] > arr[rs]) {
-                helper[index++] = arr[rs++];
+        int rs = mid + 1;
+        int i = 0;
+        while (ls <= mid && rs <= r) {
+            // 谁小拷贝谁到辅助数组中。
+            if (arr[ls] < arr[rs]) {
+                help[i++] = arr[ls++];
             } else {
-                helper[index++] = arr[ls++];
+                help[i++] = arr[rs++];
             }
         }
-        while (ls <= m) {
-            helper[index++] = arr[ls++];
+        // 左边和右边剩余部分直接拷贝到辅助数组中
+        while (ls <= mid) {
+            help[i++] = arr[ls++];
         }
         while (rs <= r) {
-            helper[index++] = arr[rs++];
+            help[i++] = arr[rs++];
         }
-        for (int i = 0; i < helper.length; i++) {
-            arr[l + i] = helper[i];
-        }
+        System.arraycopy(help, 0, arr, l, help.length);
     }
 }
