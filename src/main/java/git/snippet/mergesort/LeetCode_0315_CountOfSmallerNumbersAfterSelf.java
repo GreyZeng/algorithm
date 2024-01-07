@@ -1,6 +1,7 @@
 package git.snippet.mergesort;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,20 +19,18 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
     // 思路转换为：一个数的右边有多少个数比它小！
     // 改归并排序（从大到小）
     public List<Integer> countSmaller(int[] nums) {
-        List<Integer> ans = new LinkedList<>();
-        int[] result = new int[nums.length];
+        List<Integer> ans = new ArrayList<>(nums.length);
         Node[] nodes = new Node[nums.length];
         for (int i = 0; i < nums.length; i++) {
             nodes[i] = new Node(i, nums[i]);
+            ans.add(0);
         }
-        count(nodes, 0, nums.length - 1, result);
-        for (int n : result) {
-            ans.add(n);
-        }
+        count(nodes, 0, nums.length - 1, ans);
+
         return ans;
     }
 
-    public void count(Node[] nums, int l, int r, int[] result) {
+    public void count(Node[] nums, int l, int r, List<Integer> result) {
         if (l != r) {
             int m = ((r - l) >> 1) + l;
             count(nums, l, m, result);
@@ -41,14 +40,14 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
     }
 
     // 54 21 20 19 18 17
-    public void merge(Node[] nums, int l, int m, int r, int[] result) {
+    public void merge(Node[] nums, int l, int m, int r, List<Integer> result) {
         Node[] help = new Node[r - l + 1];
         int i = 0;
         int ls = l;
         int rs = m + 1;
         while (ls <= m && rs <= r) {
             if (nums[ls].value > nums[rs].value) {
-                result[nums[ls].index] = r - rs + 1 + result[nums[ls].index];
+                result.set(nums[ls].index, r - rs + 1 + result.get(nums[ls].index));
                 help[i++] = nums[ls++];
             } else {
                 help[i++] = nums[rs++];

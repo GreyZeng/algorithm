@@ -37,16 +37,24 @@
 [重建二叉树问题](https://www.cnblogs.com/greyzeng/p/16715432.html)
 
 [二叉树的按层遍历相关问题](https://www.cnblogs.com/greyzeng/p/16356829.html)
+
 - 类似问题一： 二叉树自底向上层序遍历
 - 类似问题二：以数组的形式返回每一层节点的平均值
 - 类似问题三：填充每个节点的下一个右侧节点指针
 
 [使用二叉树的递归套路来解决的问题](https://www.cnblogs.com/greyzeng/p/16703346.html)
+
 - 判断一棵树是否为平衡二叉树
 - 判断一棵树是否为搜索二叉树
 - 判断一棵树是否为完全二叉树
 
 [二叉树路径总和系列问题](https://www.cnblogs.com/greyzeng/p/15700243.html)
+
+[与归并排序相关的一些问题](https://www.cnblogs.com/greyzeng/p/16653063.html)
+
+- 归并排序递归和非递归解法
+- 合并两个有序数组
+- 计算右侧小于当前元素的个数问题
 
 ## 更多
 
