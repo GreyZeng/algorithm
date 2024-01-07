@@ -1,10 +1,11 @@
-package git.snippet.binarysearch;
+package git.snippet.mergesort;
 
 // How can you optimize your algorithm if one array is very large and the other is very small?
 // https://www.lintcode.com/problem/6/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
 public class LintCode_0006_MergeTwoSortedArrays {
     // 常规解法
+    // 借鉴归并排序方法
     public static int[] mergeSortedArray1(int[] A, int[] B) {
         int m = A.length;
         int n = B.length;
@@ -13,11 +14,7 @@ public class LintCode_0006_MergeTwoSortedArrays {
         int j = 0;
         int index = 0;
         while (i < m && j < n) {
-            if (A[i] > B[j]) {
-                res[index++] = B[j++];
-            } else {
-                res[index++] = A[i++];
-            }
+            res[index++] = A[i] > B[j] ? B[j++] : A[i++];
         }
         while (i < m) {
             res[index++] = A[i++];
