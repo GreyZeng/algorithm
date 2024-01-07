@@ -7,7 +7,7 @@ import java.util.List;
 
 // 笔记：https://blog.csdn.net/hotonyhui/article/details/128474428
 // 利用只支持单点增加 + 范围查询的动态开点线段树（累加和），解决leetcode 315
-public class Problem_0315_CountOfSmallerNumbersAfterSelf {
+public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
 
     public static List<Integer> countSmaller(int[] nums) {
         if (nums == null || nums.length == 0) {
