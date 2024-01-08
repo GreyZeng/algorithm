@@ -49,17 +49,15 @@ public class Code_MergeSort {
         System.arraycopy(help, 0, arr, l, help.length);
     }
 
-
+    // TODO 值得反复练习的Code
     // 归并排序的迭代版
     public static void mergeSort2(int[] arr) {
-        if (arr == null || arr.length < 2) {
+        if (null == arr || arr.length <= 1) {
             return;
         }
+        int step = 1; // 步长，初始为1
         int len = arr.length;
-        // 步长，1，2，4，8…….
-        int step = 1;
         while (step < len) {
-            // 左组的第一个位置
             int lStart = 0;
             while (lStart < len) {
                 if (lStart + step >= len) {
@@ -67,18 +65,15 @@ public class Code_MergeSort {
                     break;
                 }
                 int mid = lStart + step - 1;
-                // rEnd不能越界
-                int rEnd = mid + Math.min(step, len - mid - 1);
-                // 右组中第一个位置
-                // 中点位置
-                merge(arr, lStart, mid, rEnd);
-                lStart = rEnd + 1;
+                int lEnd = Math.min(len - 1, mid + step);
+                merge(arr, lStart, mid, lEnd);
+                lStart = lEnd + 1;
             }
-            // 防止溢出
-            if (step > (len / 2)) {
+            if (step > len / 2) {
+                // 防止溢出
                 break;
             }
-            step <<= 1;
+            step = step * 2;
         }
     }
 
@@ -87,25 +82,18 @@ public class Code_MergeSort {
     // arr[mid+1……r]也已经有序
     // 将arr[l……r]整体变有序
     public static void merge(int[] arr, int l, int mid, int r) {
-        // 辅助数组
         int[] help = new int[r - l + 1];
-        int ls = l;
-        int rs = mid + 1;
-        int i = 0;
-        while (ls <= mid && rs <= r) {
-            // 谁小拷贝谁到辅助数组中。
-            if (arr[ls] < arr[rs]) {
-                help[i++] = arr[ls++];
-            } else {
-                help[i++] = arr[rs++];
-            }
+        int lStart = l;
+        int index = 0;
+        int rStart = mid + 1;
+        while (lStart <= mid && rStart <= r) {
+            help[index++] = arr[lStart] > arr[rStart] ? arr[rStart++] : arr[lStart++];
         }
-        // 左边和右边剩余部分直接拷贝到辅助数组中
-        while (ls <= mid) {
-            help[i++] = arr[ls++];
+        while (lStart <= mid) {
+            help[index++] = arr[lStart++];
         }
-        while (rs <= r) {
-            help[i++] = arr[rs++];
+        while (rStart <= r) {
+            help[index++] = arr[rStart++];
         }
         System.arraycopy(help, 0, arr, l, help.length);
     }
