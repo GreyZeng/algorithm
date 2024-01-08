@@ -23,20 +23,21 @@ public class LeetCode_0315_CountOfSmallerNumbersAfterSelf {
         Node[] nodes = new Node[nums.length];
         for (int i = 0; i < nums.length; i++) {
             nodes[i] = new Node(i, nums[i]);
+            // 必须初始化
             ans.add(0);
         }
         count(nodes, 0, nums.length - 1, ans);
-
         return ans;
     }
 
     public void count(Node[] nums, int l, int r, List<Integer> result) {
-        if (l != r) {
-            int m = ((r - l) >> 1) + l;
-            count(nums, l, m, result);
-            count(nums, m + 1, r, result);
-            merge(nums, l, m, r, result);
+        if (l >= r) {
+            return;
         }
+        int m = ((r - l) >> 1) + l;
+        count(nums, l, m, result);
+        count(nums, m + 1, r, result);
+        merge(nums, l, m, r, result);
     }
 
     // 54 21 20 19 18 17
