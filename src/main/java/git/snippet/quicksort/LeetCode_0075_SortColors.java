@@ -6,20 +6,18 @@ package git.snippet.quicksort;
 // https://leetcode.com/problems/sort-colors/
 public class LeetCode_0075_SortColors {
     public void sortColors(int[] nums) {
-        if (nums == null || nums.length < 2) {
-            return;
-        }
         int i = 0;
         int l = -1;
         int r = nums.length;
         while (i < r) {
-            if (nums[i] == 0) {
-                swap(nums, i++, ++l);
-            } else if (nums[i] == 2) {
-                swap(nums, i, --r);
-            } else {
+            if (nums[i] > 1) {
                 // nums[i] == 2
+                swap(nums, i, --r);
+            } else if (nums[i] == 1) {
                 i++;
+            } else {
+                // nums[i] == 0
+                swap(nums, i++, ++l);
             }
         }
     }
