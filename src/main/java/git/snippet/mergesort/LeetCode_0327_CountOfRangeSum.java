@@ -2,6 +2,8 @@ package git.snippet.mergesort;
 
 import java.util.HashSet;
 
+// TODO
+// 需要多练习的题目
 // https://leetcode.com/problems/count-of-range-sum/
 // 方法1：归并排序
 // 笔记：https://www.cnblogs.com/greyzeng/p/16653063.html
@@ -20,16 +22,20 @@ import java.util.HashSet;
 // 有序表提供add(num) [可以加入重复数字] 和 search(L,R)【L...R中有多少个，其实只需要提供<num的数有多少个这个接口加工而来】 两个接口即可
 // 左滑不处理，右滑累加，每个数据项里面包含节点个数
 public class LeetCode_0327_CountOfRangeSum {
+   
     public int countRangeSum(int[] nums, int lower, int upper) {
+        if (null == nums || nums.length < 1) {
+            return 0;
+        }
         long[] preSum = new long[nums.length];
         preSum[0] = nums[0];
         for (int i = 1; i < nums.length; i++) {
             preSum[i] = preSum[i - 1] + nums[i];
         }
-        return count(preSum, 0, preSum.length - 1, lower, upper);
+        return process(preSum, 0, nums.length - 1, lower, upper);
     }
 
-    public int count(long[] preSum, int l, int r, int lower, int upper) {
+    public int process(long[] preSum, int l, int r, int lower, int upper) {
         if (l == r) {
             if (preSum[l] <= upper && preSum[l] >= lower) {
                 return 1;
@@ -37,18 +43,13 @@ public class LeetCode_0327_CountOfRangeSum {
             return 0;
         }
         int m = l + ((r - l) >> 1);
-        int left = count(preSum, l, m, lower, upper);
-        int right = count(preSum, m + 1, r, lower, upper);
-        int merge = merge(preSum, l, m, r, lower, upper);
-        return left + right + merge;
+        return process(preSum, l, m, lower, upper) + process(preSum, m + 1, r, lower, upper) + merge(preSum, l, m, r, lower, upper);
     }
 
-    private int merge(long[] preSum, int l, int m, int r, int lower, int upper) {
-        int ans = 0;
-        // 单调性->滑动窗口
+    public int merge(long[] preSum, int l, int m, int r, int lower, int upper) {
         int windowL = l;
         int windowR = l;
-        // [windowL, windowR)
+        int ans = 0;
         for (int i = m + 1; i <= r; i++) {
             long min = preSum[i] - upper;
             long max = preSum[i] - lower;
@@ -58,20 +59,14 @@ public class LeetCode_0327_CountOfRangeSum {
             while (windowL <= m && preSum[windowL] < min) {
                 windowL++;
             }
-            ans += windowR - windowL;
+            ans += (windowR - windowL);
         }
-
-        // mergeSort经典代码
         long[] helper = new long[r - l + 1];
         int ls = l;
         int rs = m + 1;
         int index = 0;
         while (ls <= m && rs <= r) {
-            if (preSum[ls] > preSum[rs]) {
-                helper[index++] = preSum[rs++];
-            } else {
-                helper[index++] = preSum[ls++];
-            }
+            helper[index++] = preSum[ls] < preSum[rs] ? preSum[ls++] : preSum[rs++];
         }
         while (ls <= m) {
             helper[index++] = preSum[ls++];
@@ -79,12 +74,10 @@ public class LeetCode_0327_CountOfRangeSum {
         while (rs <= r) {
             helper[index++] = preSum[rs++];
         }
-        int k = 0;
-        for (long num : helper) {
-            preSum[l + (k++)] = num;
-        }
+        System.arraycopy(helper, 0, preSum, l, helper.length);
         return ans;
     }
+
 
     // ways2 通过改有序表的方式实现。
     public int countRangeSum2(int[] nums, int lower, int upper) {
