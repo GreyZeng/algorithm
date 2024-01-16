@@ -1,6 +1,5 @@
 package git.snippet.bit;
 
-import git.snippet.bit.Code_PrintBinary;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

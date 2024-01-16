@@ -1,13 +1,11 @@
 package git.snippet.bit;
 
-import git.snippet.common.Generator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static git.snippet.bit.Code_GetMaxWithoutCompare.getMax1;
 import static git.snippet.bit.Code_GetMaxWithoutCompare.getMax2;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("使用位运算技巧比较两个数大小")
 public class Code_GetMaxWithoutCompareTest {
