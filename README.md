@@ -60,6 +60,11 @@
 
 [荷兰国旗问题与快速排序算法](https://www.cnblogs.com/greyzeng/p/16739515.html)
 
+[找到数组中出现特定次数数字的问题](https://www.cnblogs.com/greyzeng/p/15385402.html)
+- 一个数组中有一种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这种数?
+- 一个数组中有两种数出现了奇数次，其他数都出现了偶数次，怎么找到并打印这两种数
+- 一个数组中有一种数出现 k 次，其他数都出现了 m 次，m > 1,  k < m, 找到出现了 k 次的数
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
