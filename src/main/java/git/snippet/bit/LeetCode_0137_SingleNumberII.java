@@ -4,6 +4,8 @@ package git.snippet.bit;
 // which appears exactly once. Find the single element and return it.
 // You must implement a solution with a linear runtime complexity and use only constant extra space.
 // https://www.cnblogs.com/greyzeng/p/15385402.html
+// NowCoder_FindOneInK 的特例之一而已
+// leetcode: https://leetcode.com/problems/single-number-ii/
 public class LeetCode_0137_SingleNumberII {
     public int singleNumber(int[] nums) {
         int[] bit = new int[32];

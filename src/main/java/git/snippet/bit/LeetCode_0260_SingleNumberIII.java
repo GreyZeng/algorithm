@@ -4,20 +4,22 @@ package git.snippet.bit;
 // https://www.cnblogs.com/greyzeng/p/15385402.html
 // https://leetcode.com/problems/single-number-iii/
 public class LeetCode_0260_SingleNumberIII {
+	
     public int[] singleNumber(int[] nums) {
-        int eor = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            eor ^= nums[i];
+        int eor = 0;
+        for (int num : nums) {
+        	eor ^= num;
         }
-        // eor = a ^ b;
-        int leftOne = eor & (-eor);
+        // eor = a ^ b
+        // rightOne = (eor) & (-eor)
+        int rightOne =(eor) & ((~eor) + 1);
         int a = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if ((nums[i] & leftOne) == 0) {
-                a ^= nums[i];
-            }
+        for (int num : nums) {
+        	if ((num & rightOne) == 0) {
+        		a ^= num;
+        	}
         }
         int b = a ^ eor;
-        return new int[]{a, b};
+        return new int[] {a, b};
     }
 }
