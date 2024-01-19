@@ -58,6 +58,8 @@
 - 2倍逆序对问题
 - 区间和的个数问题
 
+[荷兰国旗问题与快速排序算法](https://www.cnblogs.com/greyzeng/p/16739515.html)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)

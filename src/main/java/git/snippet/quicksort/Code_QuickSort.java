@@ -20,84 +20,88 @@ import java.util.Stack;
 // 时间复杂度O(N*logN)，额外空间复杂度O(logN)都是这么来的。
 public class Code_QuickSort {
 
-    // 递归方法
-    public static void sort1(int[] a) {
-        if (null == a || a.length <= 1) {
-            return;
-        }
-        quickSort(a, 0, a.length - 1);
-    }
+	// 递归方法
+	public static void sort1(int[] a) {
+		if (null == a || a.length <= 1) {
+			return;
+		}
+		// quickSort(a, 0, a.length - 1);
+		quickSort(a, 0, a.length - 1);
+	}
+	// 快排算法递归解法
+	public static void quickSort(int[] arr, int l, int r) {
+		if (null == arr || arr.length <= 1 || l >= r) {
+			return;
+		}
+		// Math.random() -> [0,1) -> (int) (N * Math.random()) -> [0, N - 1]
+		// [l, r] -> [l, r + 1) -> l + [0, r + 1 - l) -> l + (int)((r - l) *
+		// Math.random())
+		int pivot = l + (int) ((r - l) * Math.random());
+		swap(arr, pivot, r);
+		// 以arr[r]作为分界数
+		int[] range = sortColor(arr, l, r);
+		quickSort(arr, l, range[0] - 1);
+		quickSort(arr, range[1] + 1, r);
+	}
 
-    // 快排算法递归解法
-    public static void quickSort(int[] arr, int l, int r) {
-        if (l < r) {
-            int p = l + (int) (Math.random() * (r - l));
-            swap(arr, p, r);
-            int[] range = sortColors(arr, l, r);
-            quickSort(arr, l, range[0] - 1);
-            quickSort(arr, range[1] + 1, r);
-        }
-    }
+	public static int[] sortColor(int[] arr, int l, int r) {
+		int smaller = l - 1;
+		int bigger = r + 1;
+		int cur = l;
+		int pivot = arr[r];
+		while (cur < bigger) {
+			if (arr[cur] > pivot) {
+				swap(arr, cur, --bigger);
+			} else if (arr[cur] == pivot) {
+				cur++;
+			} else {
+				swap(arr, cur++, ++smaller);
+			}
+		}
+		return new int[] { smaller + 1, bigger - 1 };
+	}
 
-    public static int[] sortColors(int[] arr, int l, int r) {
-        int i = l;
-        int p = arr[r];
-        int s = l - 1;
-        int e = r + 1;
-        while (i < e) {
-            if (arr[i] < p) {
-                swap(arr, i++, ++s);
-            } else if (arr[i] > p) {
-                swap(arr, i, --e);
-            } else {
-                i++;
-            }
-        }
+	// TODO
+	// 快速排序非递归版本
+	public static void sort2(int[] a) {
+		if (null == a || a.length <= 1) {
+			return;
+		}
+		int l = 0;
+		int r = a.length - 1;
+		int p = l + (int) (Math.random() * (r - l + 1));
+		swap(a, p, r);
+		int[] range = sortColor(a, l, r);
+		Stack<Op> stack = new Stack<>();
+		stack.push(new Op(l, range[0] - 1));
+		stack.push(new Op(range[1] + 1, r));
+		while (!stack.isEmpty()) {
+			Op op = stack.pop();
+			if (op.l < op.r) {
+				swap(a, op.r, op.l + (int) (Math.random() * (op.r - op.l)));
+				range = sortColor(a, op.l, op.r);
+				stack.push(new Op(op.l, range[0] - 1));
+				stack.push(new Op(range[1] + 1, op.r));
+			}
+		}
+	}
 
-        return new int[]{s + 1, e - 1};
-    }
+	public static class Op {
+		public int l;
+		public int r;
 
-    // 快速排序非递归版本
-    public static void sort2(int[] a) {
-        if (null == a || a.length <= 1) {
-            return;
-        }
-        int l = 0;
-        int r = a.length - 1;
-        int p = l + (int) (Math.random() * (r - l + 1));
-        swap(a, p, r);
-        int[] range = sortColors(a, l, r);
-        Stack<Op> stack = new Stack<>();
-        stack.push(new Op(l, range[0] - 1));
-        stack.push(new Op(range[1] + 1, r));
-        while (!stack.isEmpty()) {
-            Op op = stack.pop();
-            if (op.l < op.r) {
-                swap(a, op.r, op.l + (int) (Math.random() * (op.r - op.l)));
-                range = sortColors(a, op.l, op.r);
-                stack.push(new Op(op.l, range[0] - 1));
-                stack.push(new Op(range[1] + 1, op.r));
-            }
-        }
-    }
+		public Op(int l, int r) {
+			this.l = l;
+			this.r = r;
+		}
+	}
 
-
-    public static class Op {
-        public int l;
-        public int r;
-
-        public Op(int l, int r) {
-            this.l = l;
-            this.r = r;
-        }
-    }
-
-    public static void swap(int[] arr, int l, int r) {
-        if (l != r) {
-            arr[l] = arr[l] ^ arr[r];
-            arr[r] = arr[l] ^ arr[r];
-            arr[l] = arr[l] ^ arr[r];
-        }
-    }
+	public static void swap(int[] arr, int l, int r) {
+		if (l != r) {
+			arr[l] = arr[l] ^ arr[r];
+			arr[r] = arr[l] ^ arr[r];
+			arr[l] = arr[l] ^ arr[r];
+		}
+	}
 
 }
