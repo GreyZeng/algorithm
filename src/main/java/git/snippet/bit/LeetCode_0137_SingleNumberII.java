@@ -8,18 +8,20 @@ package git.snippet.bit;
 // leetcode: https://leetcode.com/problems/single-number-ii/
 public class LeetCode_0137_SingleNumberII {
     public int singleNumber(int[] nums) {
-        int[] bit = new int[32];
-        for (int n : nums) {
-            for (int i = 31; i >= 0; i--) {
-                bit[i] += ((n >>> i) & 1);
+        int[] helper = new int[32];
+        for (int num : nums) {
+            for (int i = 0; i < 32; i++) {
+                helper[i] += ((num >>> i) & 1);
             }
         }
+
         int ans = 0;
         for (int i = 0; i < 32; i++) {
-            if (bit[i] % 3 != 0) {
+            if (helper[i] % 3 != 0) {
                 ans |= (1 << i);
             }
         }
         return ans;
     }
+
 }
