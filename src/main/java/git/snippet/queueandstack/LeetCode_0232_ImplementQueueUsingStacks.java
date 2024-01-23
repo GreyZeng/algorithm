@@ -11,42 +11,43 @@ import java.util.Stack;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
 public class LeetCode_0232_ImplementQueueUsingStacks {
     class MyQueue {
-        private Stack<Integer> popStack;
-        private Stack<Integer> pushStack;
+        private final Stack<Integer> push;
+        private final Stack<Integer> pop;
 
         public MyQueue() {
-            popStack = new Stack<>();
-            pushStack = new Stack<>();
+            push = new Stack<>();
+            pop = new Stack<>();
         }
 
         public void push(int x) {
-            pushStack.push(x);
+            push.push(x);
         }
 
         public int pop() {
-            while (!pushStack.isEmpty()) {
-                popStack.push(pushStack.pop());
+            while (!push.isEmpty()) {
+                pop.push(push.pop());
             }
-            int v = popStack.pop();
-            while (!popStack.isEmpty()) {
-                pushStack.push(popStack.pop());
+            int val = pop.pop();
+            while (!pop.isEmpty()) {
+                push.push(pop.pop());
             }
-            return v;
+
+            return val;
         }
 
         public int peek() {
-            while (!pushStack.isEmpty()) {
-                popStack.push(pushStack.pop());
+            while (!push.isEmpty()) {
+                pop.push(push.pop());
             }
-            int v = popStack.peek();
-            while (!popStack.isEmpty()) {
-                pushStack.push(popStack.pop());
+            int val = pop.peek();
+            while (!pop.isEmpty()) {
+                push.push(pop.pop());
             }
-            return v;
+            return val;
         }
 
         public boolean empty() {
-            return pushStack.isEmpty();
+            return push.isEmpty();
         }
     }
 }
