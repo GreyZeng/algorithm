@@ -12,6 +12,26 @@ package git.snippet.sort;
 // 依此类推……
 // 最后在 arr[0...1] 范围上，重复上面的过程，但最后一步是 arr[0] 和 arr[1]，谁大谁来到第 1 号位置上；
 public class Code_BubbleSort {
+    // 只用一个循环实现冒泡排序 TODO
+    public static void bubbleSort2(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
+        int n = arr.length;
+        int end = n - 1, i = 0;
+        while (end > 0) {
+            if (arr[i] > arr[i + 1]) {
+                swap(arr, i, i + 1);
+            }
+            if (i < end - 1) {
+                i++;
+            } else {
+                end--;
+                i = 0;
+            }
+        }
+    }
+
     public static void bubbleSort(int[] arr) {
         if (null == arr || arr.length <= 1) {
             return;
