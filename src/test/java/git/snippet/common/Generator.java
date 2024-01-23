@@ -22,4 +22,17 @@ public class Generator {
         System.arraycopy(arr1, 0, arr2, 0, arr1.length);
         return arr2;
     }
+
+    public static boolean isEqual(Integer o1, Integer o2) {
+        if (o1 == null && o2 != null) {
+            return false;
+        }
+        if (o1 != null && o2 == null) {
+            return false;
+        }
+        if (o1 == null) {
+            return true;
+        }
+        return o1.equals(o2);
+    }
 }

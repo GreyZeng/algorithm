@@ -11,37 +11,31 @@ public class LeetCode_0155_MinStack {
         System.out.println(Long.toBinaryString(offset));
     }
 
-    static class MinStack {
+    class MinStack {
+        Stack<Integer> stack;
         Stack<Integer> minStack;
-        Stack<Integer> valStack;
 
         public MinStack() {
+            stack = new Stack<>();
             minStack = new Stack<>();
-            valStack = new Stack<>();
         }
 
         public void push(int val) {
-            valStack.push(val);
-            if (!minStack.isEmpty()) {
-                if (minStack.peek() < val) {
-                    minStack.push(minStack.peek());
-                } else {
-                    minStack.push(val);
-                }
-            } else {
+            stack.push(val);
+            if (minStack.isEmpty() || minStack.peek() > val) {
                 minStack.push(val);
+            } else {
+                minStack.push(minStack.peek());
             }
         }
 
         public void pop() {
-            if (!valStack.isEmpty()) {
-                valStack.pop();
-                minStack.pop();
-            }
+            minStack.pop();
+            stack.pop();
         }
 
         public int top() {
-            return valStack.peek();
+            return stack.peek();
         }
 
         public int getMin() {
