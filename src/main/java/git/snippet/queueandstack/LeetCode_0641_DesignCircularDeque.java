@@ -6,90 +6,101 @@ package git.snippet.queueandstack;
 public class LeetCode_0641_DesignCircularDeque {
 
     class MyCircularDeque {
-        Node head;
-        Node tail;
-        int size;
-        int capacity;
+        private class Node {
+            int v;
+            Node last;
+            Node next;
+
+            public Node(int val) {
+                v = val;
+            }
+        }
+
+        private Node head; // 头节点
+        private Node tail; // 尾部节点
+        private int cap; // 容量
+        private int size; // 当前大小
+
         public MyCircularDeque(int k) {
-            capacity = k;
+            cap = k;
         }
 
         public boolean insertFront(int value) {
-            if (!isFull()) {
-                if (head == null) {
-                    head = new Node(value);
-                    tail = head;
-                } else {
-                    Node newHead = new Node(value);
-                    head.last = newHead;
-                    newHead.next = head;
-                    head = newHead;
-                }
-                size++;
-                return true;
+            if (isFull()) {
+                return false;
             }
-            return false;
+            size++;
+            if (head == null) {
+                head = new Node(value);
+                tail = head;
+            } else {
+                Node newHead = new Node(value);
+                newHead.next = head;
+                head.last = newHead;
+                head = newHead;
+            }
+            return true;
         }
 
         public boolean insertLast(int value) {
-            if (!isFull()) {
-                if (head == null) {
-                    head = new Node(value);
-                    tail = head;
-                } else {
-                    Node newTail = new Node(value);
-                    tail.next = newTail;
-                    newTail.last = tail;
-                    tail = newTail;
-                }
-                size++;
-                return true;
+            if (isFull()) {
+                return false;
             }
-            return false;
+            size++;
+            if (head == null) {
+                head = new Node(value);
+                tail = head;
+            } else {
+                Node newTail = new Node(value);
+                tail.next = newTail;
+                newTail.last = tail;
+                tail = newTail;
+            }
+            return true;
         }
 
         public boolean deleteFront() {
-            if (!isEmpty()) {
-                if (size == 1) {
-                    head = null;
-                    tail = null;
-                    size = 0;
-                    return true;
-                } else {
-                    Node t = head.next;
-                    t.last = null;
-                    head = t;
-                    size--;
-                }
-                return true;
+            if (size == 0 || cap == 0) {
+                return false;
             }
-            return false;
+            size--;
+            if (size == 0) {
+                head = null;
+                tail = null;
+            } else {
+                head = head.next;
+                head.last = null;
+            }
+            return true;
         }
 
         public boolean deleteLast() {
-            if (!isEmpty()) {
-                if (size == 1) {
-                    head = null;
-                    tail = null;
-                    size = 0;
-                    return true;
-                } else {
-                    Node t = tail.last;
-                    t.next = null;
-                    tail = t;
-                    size--;
-                }
-                return true;
+            if (size == 0 || cap == 0) {
+                return false;
             }
-            return false;
+            size--;
+            if (size == 0) {
+                head = null;
+                tail = null;
+            } else {
+                tail = tail.last;
+                tail.next = null;
+            }
+            return true;
         }
 
         public int getFront() {
-            return isEmpty() ? -1 : head.v;
+            if (size == 0) {
+                return -1;
+            }
+            return head.v;
         }
 
         public int getRear() {
-            return isEmpty() ? -1 : tail.v;
+            if (size == 0) {
+                return -1;
+            }
+            return tail.v;
         }
 
         public boolean isEmpty() {
@@ -97,17 +108,7 @@ public class LeetCode_0641_DesignCircularDeque {
         }
 
         public boolean isFull() {
-            return capacity == size;
-        }
-
-        class Node {
-            public int v;
-            public Node next;
-            public Node last;
-
-            public Node(int v) {
-                this.v = v;
-            }
+            return size == cap;
         }
     }
 }
