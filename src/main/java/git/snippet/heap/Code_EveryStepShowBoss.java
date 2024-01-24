@@ -251,13 +251,13 @@ public class Code_EveryStepShowBoss {
     public static class WhosYourDaddy {
         private final int daddyLimit;
         private HashMap<Integer, Customer> customers;
-        private Code_Heap.HeapGreater<Customer> candHeap;
-        private Code_Heap.HeapGreater<Customer> daddyHeap;
+        private Code_HeapGreater<Customer> candHeap;
+        private Code_HeapGreater<Customer> daddyHeap;
 
         public WhosYourDaddy(int limit) {
             customers = new HashMap<>();
-            candHeap = new Code_Heap.HeapGreater<>(new CandidateComparator());
-            daddyHeap = new Code_Heap.HeapGreater<>(new DaddyComparator());
+            candHeap = new Code_HeapGreater<>(new CandidateComparator());
+            daddyHeap = new Code_HeapGreater<>(new DaddyComparator());
             daddyLimit = limit;
         }
 
