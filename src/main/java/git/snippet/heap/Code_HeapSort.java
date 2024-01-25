@@ -10,53 +10,38 @@ package git.snippet.heap;
 // 测评：https://www.lintcode.com/problem/464
 public class Code_HeapSort {
     public static void sort(int[] arr) {
-        if (arr == null || arr.length < 2) {
+        if (null == arr || arr.length < 2) {
             return;
         }
-        // O(N*logN)
-        // for (int i = 0; i < arr.length; i++) { // O(N)
-        // heapInsert(arr, i); // O(logN)
-        // }
-        // O(N)
-        for (int i = arr.length - 1; i >= 0; i--) {
-            heapify(arr, i, arr.length);
+        int n = arr.length;
+        for (int i = n - 1; i >= 0; i--) {
+            heapify(arr, i, n); // 构造大根堆
         }
-        int heapSize = arr.length;
-        swap(arr, 0, --heapSize);
-        // O(N*logN)
-        while (heapSize > 0) { // O(N)
-            heapify(arr, 0, heapSize); // O(logN)
-            swap(arr, 0, --heapSize); // O(1)
+        while (n > 0) {
+            heapify(arr, 0, n);
+            swap(arr, 0, --n);
         }
     }
 
-    // arr[index]刚来的数，往上
-    public static void heapInsert(int[] arr, int i) {
-        while (arr[i] > arr[(i - 1) / 2]) {
-            swap(arr, i, (i - 1) / 2);
-            i = (i - 1) / 2;
-        }
-    }
-
-    // 构造大根堆
-    // arr[index]位置的数，能否往下移动
-    public static void heapify(int[] arr, int i, int heapSize) {
-        int left = i * 2 + 1;
-        while (left < heapSize) {
-            int largest = left + 1 < heapSize && arr[left + 1] > arr[left] ? left + 1 : left;
-            largest = arr[largest] > arr[i] ? largest : i;
-            if (largest == i) {
+    public static void heapify(int[] arr, int i, int n) {
+        int j = i * 2 + 1;
+        while (j < n) {
+            int max = j + 1 < n && arr[j + 1] > arr[j] ? j + 1 : j;
+            max = arr[max] > arr[i] ? max : i;
+            if (max == i) {
                 break;
             }
-            swap(arr, largest, i);
-            i = largest;
-            left = i * 2 + 1;
+            swap(arr, max, i);
+            i = max;
+            j = i * 2 + 1;
         }
     }
 
     public static void swap(int[] arr, int i, int j) {
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
+        if (i != j) {
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
+        }
     }
 }
