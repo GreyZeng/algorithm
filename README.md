@@ -73,6 +73,13 @@
 - 栈和队列之间互相实现
 - 数组实现固定大小的队列
 
+[与堆和堆排序相关的问题](https://www.cnblogs.com/greyzeng/p/16933830.html)
+
+- Heapify
+- HeapInsert
+- Heap Sort
+- 几乎有序数组的排序问题
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
