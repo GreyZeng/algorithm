@@ -22,12 +22,10 @@ package git.snippet.heap;
 // heapify和heapInsert都是logN级别的复杂度，因为N个节点的二叉树高度是logN
 public class MaxHeap {
     private final int[] heap;
-    // private final int limit; limit == heap.length
     private int heapSize;
 
     public MaxHeap(int limit) {
         heap = new int[limit];
-        // this.limit = limit;
         heapSize = 0;
     }
 
