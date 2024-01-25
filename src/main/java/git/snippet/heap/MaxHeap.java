@@ -20,12 +20,12 @@ package git.snippet.heap;
 // 父节点 i / 2 即：i >> 1
 // 大根堆：完全二叉树中，每棵树的最大值都是头节点的值
 // heapify和heapInsert都是logN级别的复杂度，因为N个节点的二叉树高度是logN
-public class Code_MaxHeap {
+public class MaxHeap {
     private final int[] heap;
     // private final int limit; limit == heap.length
     private int heapSize;
 
-    public Code_MaxHeap(int limit) {
+    public MaxHeap(int limit) {
         heap = new int[limit];
         // this.limit = limit;
         heapSize = 0;
@@ -34,13 +34,13 @@ public class Code_MaxHeap {
     public void push(int value) {
         if (!isFull()) {
             heap[heapSize] = value;
-            // value heapSize
             heapInsert();
             heapSize++;
         }
     }
 
     public int pop() {
+        // heap[0] 就是堆顶
         int ans = heap[0];
         swap(heap, 0, --heapSize);
         heapify();

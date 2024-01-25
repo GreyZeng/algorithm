@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("堆结构测试")
-public class Code_HeapTest {
+public class MaxHeapTest {
     @Test
     public void testHeap() {
         int value = 1000;
@@ -13,7 +13,7 @@ public class Code_HeapTest {
         int testTimes = 1000000;
         for (int i = 0; i < testTimes; i++) {
             int curLimit = (int) (Math.random() * limit) + 1;
-            Code_MaxHeap my = new Code_MaxHeap(curLimit);
+            MaxHeap my = new MaxHeap(curLimit);
             RightMaxHeap test = new RightMaxHeap(curLimit);
             int curOpTimes = (int) (Math.random() * limit);
             for (int j = 0; j < curOpTimes; j++) {
