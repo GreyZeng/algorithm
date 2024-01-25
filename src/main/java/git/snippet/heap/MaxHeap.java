@@ -55,7 +55,7 @@ public class MaxHeap {
 
     private void heapify() {
         int index = 0;
-        int left = index * 2 + 1;
+        int left = 1; // index * 2 + 1;
         while (left < heapSize) {
             int largest // bigger index
                     = left + 1 < heapSize // right child exist
