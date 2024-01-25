@@ -16,10 +16,13 @@ public class Code_DistanceLessK {
             heap.offer(arr[i]);
         }
         int index = 0;
-        for (; i < arr.length || !heap.isEmpty(); i++) {
-            if (i < arr.length) {
-                heap.offer(arr[i]);
-            }
+        // O(N*logK)
+        for (; i < arr.length; i++) {
+            heap.offer(arr[i]);
+            // 移动一定不会超过K次
+            arr[index++] = heap.poll();
+        }
+        while (!heap.isEmpty()) {
             arr[index++] = heap.poll();
         }
     }
