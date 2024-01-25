@@ -31,26 +31,26 @@ public class Code_HeapSort {
     }
 
     // arr[index]刚来的数，往上
-    public static void heapInsert(int[] arr, int index) {
-        while (arr[index] > arr[(index - 1) / 2]) {
-            swap(arr, index, (index - 1) / 2);
-            index = (index - 1) / 2;
+    public static void heapInsert(int[] arr, int i) {
+        while (arr[i] > arr[(i - 1) / 2]) {
+            swap(arr, i, (i - 1) / 2);
+            i = (i - 1) / 2;
         }
     }
 
     // 构造大根堆
     // arr[index]位置的数，能否往下移动
-    public static void heapify(int[] arr, int index, int heapSize) {
-        int left = index * 2 + 1;
+    public static void heapify(int[] arr, int i, int heapSize) {
+        int left = i * 2 + 1;
         while (left < heapSize) {
             int largest = left + 1 < heapSize && arr[left + 1] > arr[left] ? left + 1 : left;
-            largest = arr[largest] > arr[index] ? largest : index;
-            if (largest == index) {
+            largest = arr[largest] > arr[i] ? largest : i;
+            if (largest == i) {
                 break;
             }
-            swap(arr, largest, index);
-            index = largest;
-            left = index * 2 + 1;
+            swap(arr, largest, i);
+            i = largest;
+            left = i * 2 + 1;
         }
     }
 
