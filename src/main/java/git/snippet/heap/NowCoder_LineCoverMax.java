@@ -18,7 +18,9 @@ public class NowCoder_LineCoverMax {
         if (null == arr || arr.length == 0) {
             return 0;
         }
+        // 线段的开始位置
         int min = arr[0][0];
+        // 线段的结束位置
         int max = arr[0][1];
         for (int i = 1; i < arr.length; i++) {
             min = Math.min(min, arr[i][0]);
@@ -27,8 +29,8 @@ public class NowCoder_LineCoverMax {
         int maxCover = 1;
         for (int i = min; i <= max; i++) {
             int cover = 0;
-            for (int j = 0; j < arr.length; j++) {
-                if (arr[j][0] <= i && arr[j][1] >= i) {
+            for (int[] line : arr) {
+                if (line[0] <= i && line[1] >= i) {
                     cover++;
                 }
             }
@@ -91,49 +93,21 @@ public class NowCoder_LineCoverMax {
     }
 
     public static void main(String[] args) {
-        //        try (Scanner in = new Scanner(System.in)) {
-        //            int N = in.nextInt();
-        //            int[][] lines = new int[N][2];
-        //            for (int i = 0; i < N; i++) {
-        //                lines[i][0] = in.nextInt();
-        //                lines[i][1] = in.nextInt();
-        //            }
-        //            // System.out.println(maxCover(lines));
-        //            // System.out.println(maxCover1(lines));
-        //            System.out.println(maxCover2(lines));
-        //            in.close();
-        //        }
-        System.out.println("test begin");
-        int N = 100;
-        int L = 0;
-        int R = 200;
-        int testTimes = 200000;
-        for (int i = 0; i < testTimes; i++) {
-            int[][] lines = generateLines(N, L, R);
-            int ans1 = maxCover(lines);
-            int ans2 = maxCover1(lines);
-            int ans3 = maxCover2(lines);
-            if (ans1 != ans2 || ans1 != ans3) {
-                System.out.println("Oops!");
+        try (Scanner in = new Scanner(System.in)) {
+            int N = in.nextInt();
+            int[][] lines = new int[N][2];
+            for (int i = 0; i < N; i++) {
+                lines[i][0] = in.nextInt();
+                lines[i][1] = in.nextInt();
             }
+            // System.out.println(maxCover(lines));
+            // System.out.println(maxCover1(lines));
+            System.out.println(maxCover2(lines));
+            // in.close();
         }
-        System.out.println("test end");
+
     }
 
-    public static int[][] generateLines(int N, int L, int R) {
-        int size = (int) (Math.random() * N) + 1;
-        int[][] ans = new int[size][2];
-        for (int i = 0; i < size; i++) {
-            int a = L + (int) (Math.random() * (R - L + 1));
-            int b = L + (int) (Math.random() * (R - L + 1));
-            if (a == b) {
-                b = a + 1;
-            }
-            ans[i][0] = Math.min(a, b);
-            ans[i][1] = Math.max(a, b);
-        }
-        return ans;
-    }
 
     // [1...3],[2..6],[4..9]，问：哪个区间描的最多，可以用线段树(注意离散化，注意在范围内+1以后，执行的不是querySum而是queryMax)
     // 注意：不管什么线段，开始位置排序，线段开始位置越早，越先处理
