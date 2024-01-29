@@ -10,27 +10,37 @@ import java.util.*;
 // 笔记：https://www.cnblogs.com/greyzeng/p/15058662.html
 // 线段树解法
 public class NowCoder_LineCoverMax {
+    public static void main(String[] args) {
+        try (Scanner in = new Scanner(System.in)) {
+            int lens = in.nextInt();
+            int[][] lines = new int[lens][2];
+            for (int i = 0; i < lens; i++) {
+                lines[i][0] = in.nextInt();
+                lines[i][1] = in.nextInt();
+            }
+            System.out.println(maxCover(lines));
+        }
+    }
+
     // 暴力解
-    // arr[i][0]: 第i条线的起始点
-    // arr[i][0]: 第i条线的终点
+    // lines[i][0]: 第i条线的起始点
+    // lines[i][0]: 第i条线的终点
     // 时间复杂度O(n*(max - min))
-    public static int maxCover(int[][] arr) {
-        if (null == arr || arr.length == 0) {
+    public static int maxCover(int[][] lines) {
+        if (null == lines || lines.length == 0) {
             return 0;
         }
-        // 线段的开始位置
-        int min = arr[0][0];
-        // 线段的结束位置
-        int max = arr[0][1];
-        for (int i = 1; i < arr.length; i++) {
-            min = Math.min(min, arr[i][0]);
-            max = Math.max(max, arr[i][1]);
+        int min = lines[0][0];
+        int max = lines[0][1];
+        for (int i = 1; i < lines.length; i++) {
+            min = Math.min(min, lines[i][0]);
+            max = Math.max(max, lines[i][1]);
         }
-        int maxCover = 1;
+        int maxCover = 0;
         for (int i = min; i <= max; i++) {
             int cover = 0;
-            for (int[] line : arr) {
-                if (line[0] <= i && line[1] >= i) {
+            for (int[] line : lines) {
+                if (i >= line[0] && i <= line[1]) {
                     cover++;
                 }
             }
@@ -90,22 +100,6 @@ public class NowCoder_LineCoverMax {
             map.put(i, ++count);
         }
         return map;
-    }
-
-    public static void main(String[] args) {
-        try (Scanner in = new Scanner(System.in)) {
-            int N = in.nextInt();
-            int[][] lines = new int[N][2];
-            for (int i = 0; i < N; i++) {
-                lines[i][0] = in.nextInt();
-                lines[i][1] = in.nextInt();
-            }
-            // System.out.println(maxCover(lines));
-            // System.out.println(maxCover1(lines));
-            System.out.println(maxCover2(lines));
-            // in.close();
-        }
-
     }
 
 
