@@ -80,6 +80,11 @@
 - Heap Sort
 - 几乎有序数组的排序问题
 
+[与堆有关的问题：线段最大重合区域问题](https://www.cnblogs.com/greyzeng/p/15058662.html)
+
+- 连接点算重合区域
+- 连接点不算重合区域
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)
