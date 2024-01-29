@@ -12,52 +12,46 @@ import java.util.PriorityQueue;
 // 堆解法
 // 线段树解法 TODO
 public class NowCoder_LineCoverMax2 {
-
-    // 暴力解法
-    private static int maxCover(int[][] arr) {
-        Line[] lines = toLine(arr);
-        int min = lines[0].start;
-        int max = lines[0].end;
-        for (int i = 1; i < lines.length; i++) {
-            max = Math.max(max, lines[i].end);
-            min = Math.min(min, lines[i].start);
+    // 暴力解法，无法过牛客测评，可以通过对数器来验证
+    public static int maxCover(int[][] lines) {
+        if (null == lines || lines.length == 0) {
+            return 0;
         }
-        int coverMax = 0;
-        int cover = 0;
+        int min = lines[0][0];
+        int max = lines[0][1];
+        for (int i = 1; i < lines.length; i++) {
+            min = Math.min(min, lines[i][0]);
+            max = Math.max(max, lines[i][1]);
+        }
+        int maxCover = 0;
         for (int i = min; i <= max; i++) {
-            for (Line line : lines) {
-                if (line.start <= i + 0.5 && line.end >= i + 0.5) {
+            int cover = 0;
+            for (int[] line : lines) {
+                if (line[0] <= i + 0.1 && line[1] >= i + 0.1) {
                     cover++;
                 }
             }
-            coverMax = Math.max(cover, coverMax);
-            cover = 0;
+            maxCover = Math.max(maxCover, cover);
         }
-        return coverMax;
+        return maxCover;
     }
 
     // 堆解法
-    public static int maxCover2(int[][] arr) {
-        Line[] lines = toLine(arr);
-        Arrays.sort(lines, Comparator.comparingInt(o -> o.start));
-        PriorityQueue<Line> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.end));
-        int max = 1;
-        for (Line line : lines) {
-            while (!heap.isEmpty() && heap.peek().end <= line.start) {
+    public static int maxCover2(int[][] lines) {
+        if (null == lines || lines.length == 0) {
+            return 0;
+        }
+        Arrays.sort(lines, Comparator.comparingInt(line -> line[0]));
+        PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(line -> line[1]));
+        int max = 0;
+        for (int[] line : lines) {
+            while (!heap.isEmpty() && heap.peek()[1] <= line[0]) {
                 heap.poll();
             }
             heap.offer(line);
-            max = Math.max(heap.size(), max);
+            max = Math.max(max, heap.size());
         }
         return max;
-    }
-
-    private static Line[] toLine(int[][] arr) {
-        Line[] lines = new Line[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            lines[i] = new Line(arr[i][0], arr[i][1]);
-        }
-        return lines;
     }
 
     public static int[][] generateLines(int N, int L, int R) {
