@@ -51,16 +51,15 @@ public class NowCoder_LineCoverMax {
 
     // 堆解法
     // O(N*logN)
-    public static int maxCover1(int[][] arr) {
-        if (null == arr || arr.length == 0) {
+    public static int maxCover3(int[][] lines) {
+        if (null == lines || lines.length == 0) {
             return 0;
         }
-        // 起始位置排序
-        Arrays.sort(arr, Comparator.comparingInt(o -> o[0]));
-        // 结尾位置排序建堆
-        PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
-        int max = 1;
-        for (int[] line : arr) {
+        // 开始位置排序
+        Arrays.sort(lines, Comparator.comparingInt(line -> line[0]));
+        PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(line -> line[1]));
+        int max = 0;
+        for (int[] line : lines) {
             while (!heap.isEmpty() && heap.peek()[1] < line[0]) {
                 heap.poll();
             }
