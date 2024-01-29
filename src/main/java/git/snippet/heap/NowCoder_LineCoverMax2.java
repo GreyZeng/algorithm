@@ -94,14 +94,4 @@ public class NowCoder_LineCoverMax2 {
         }
         System.out.println("test end");
     }
-
-    public static class Line {
-        public int start;
-        public int end;
-
-        public Line(int s, int e) {
-            start = s;
-            end = e;
-        }
-    }
 }
