@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
 // 几乎有序是指，如果把数组排好顺序的话，每个元素移动的距离一定不超过k，并且k相对于数组长度来说是比较小的。
 // 请选择一个合适的排序策略，对这个数组进行排序。(从小到大)
 // tips: 加k个数进堆，然后再加入一个，弹出一个，最后堆里面剩下的继续弹出即可 时间复杂度：O(N*logK)
-public class Code_DistanceLessK {
+public class DistanceLessK {
     public static void sortedArrDistanceLessK(int[] arr, int k) {
         k = Math.min(arr.length - 1, k);
         PriorityQueue<Integer> heap = new PriorityQueue<>();
@@ -20,7 +20,9 @@ public class Code_DistanceLessK {
         for (; i < arr.length; i++) {
             heap.offer(arr[i]);
             // 移动一定不会超过K次
-            arr[index++] = heap.poll();
+            if (!heap.isEmpty()) {
+                arr[index++] = heap.poll();
+            }
         }
         while (!heap.isEmpty()) {
             arr[index++] = heap.poll();
