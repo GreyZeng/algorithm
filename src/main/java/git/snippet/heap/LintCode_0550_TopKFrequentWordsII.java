@@ -14,9 +14,236 @@ package git.snippet.heap;
 
 import java.util.*;
 
+// TODO 值得反复练习的习题
 // https://www.lintcode.com/problem/top-k-frequent-words-ii/description
 // 笔记：https://www.cnblogs.com/greyzeng/p/16125150.html
 public class LintCode_0550_TopKFrequentWordsII {
+
+    // 该方法是正式方法，使用加强堆
+    public static class TopK {
+        private final TreeSet<Word> topK;
+        private final Heap heap;
+        private final Map<String, Word> map;
+        private final int k;
+
+        public TopK(int k) {
+            this.k = k;
+            topK = new TreeSet<>((o1, o2) -> {
+                // 次数大的排前面，次数一样字典序在小的排前面
+                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
+            });
+            heap = new Heap(k, (o1, o2) -> {
+                // 设置堆门槛，堆顶元素最先被淘汰
+                return o1.times == o2.times ? o2.value.compareTo(o1.value) : (o1.times - o2.times);
+            });
+            map = new HashMap<>();
+        }
+
+        public void add(String str) {
+            if (k == 0) {
+                return;
+            }
+            Word word = map.get(str);
+            if (word == null) {
+                // 新增元素
+                word = new Word(str, 1);
+                // 是否到达门槛可以替换堆中元素
+                if (heap.isReachThreshold(word)) {
+                    if (heap.isFull()) {
+                        Word toBeRemoved = heap.poll();
+                        topK.remove(toBeRemoved);
+                    }
+                    heap.add(word);
+                    topK.add(word);
+                }
+            } else {
+                if (heap.contains(word)) {
+                    topK.remove(word);
+                    word.times++;
+                    topK.add(word);
+                    heap.resign(word);
+                } else {
+                    word.times++;
+                    if (heap.isReachThreshold(word)) {
+                        if (heap.isFull()) {
+                            Word toBeRemoved = heap.poll();
+                            topK.remove(toBeRemoved);
+                        }
+                        heap.add(word);
+                        topK.add(word);
+                    }
+                }
+            }
+            map.put(str, word);
+        }
+
+        public List<String> topk() {
+            if (k == 0) {
+                return new ArrayList<>();
+            }
+            List<String> result = new ArrayList<>();
+            for (Word word : topK) {
+                result.add(word.value);
+            }
+            return result;
+        }
+
+        private static class Word {
+            public String value;
+            public int times;
+
+            public Word(String v, int t) {
+                value = v;
+                times = t;
+            }
+        }
+
+        // 加强堆结构
+        private static class Heap {
+            private final Word[] words;
+            private final Comparator<Word> comparator;
+            private final Map<Word, Integer> indexMap;
+
+            public Heap(int k, Comparator<Word> comparator) {
+                words = new Word[k];
+                indexMap = new HashMap<>();
+                this.comparator = comparator;
+            }
+
+            public boolean isEmpty() {
+                return indexMap.isEmpty();
+            }
+
+            public boolean isFull() {
+                return indexMap.size() == words.length;
+            }
+
+            public boolean isReachThreshold(Word word) {
+                if (isEmpty() || indexMap.size() < words.length) {
+                    return true;
+                } else {
+                    return comparator.compare(words[0], word) < 0;
+                }
+            }
+
+            public void add(Word word) {
+                int size = indexMap.size();
+                words[size] = word;
+                indexMap.put(word, size);
+                heapInsert(size);
+            }
+
+            private void heapify(int i) {
+                int size = indexMap.size();
+                int leftChildIndex = 2 * i + 1;
+                while (leftChildIndex < size) {
+                    Word weakest = leftChildIndex + 1 < size ? (comparator.compare(words[leftChildIndex], words[leftChildIndex + 1]) < 0 ? words[leftChildIndex] : words[leftChildIndex + 1]) : words[leftChildIndex];
+                    if (comparator.compare(words[i], weakest) < 0) {
+                        break;
+                    }
+                    int weakestIndex = weakest == words[leftChildIndex] ? leftChildIndex : leftChildIndex + 1;
+                    swap(weakestIndex, i);
+                    i = weakestIndex;
+                    leftChildIndex = 2 * i + 1;
+                }
+            }
+
+            public void resign(Word word) {
+                int i = indexMap.get(word);
+                heapify(i);
+                heapInsert(i);
+            }
+
+            private void heapInsert(int i) {
+                while (comparator.compare(words[i], words[(i - 1) / 2]) < 0) {
+                    swap(i, (i - 1) / 2);
+                    i = (i - 1) / 2;
+                }
+            }
+
+            public boolean contains(Word word) {
+                return indexMap.containsKey(word);
+            }
+
+            public Word poll() {
+                Word result = words[0];
+                swap(0, indexMap.size() - 1);
+                indexMap.remove(result);
+                heapify(0);
+                return result;
+            }
+
+            private void swap(int i, int j) {
+                if (i != j) {
+                    indexMap.put(words[i], j);
+                    indexMap.put(words[j], i);
+                    Word tmp = words[i];
+                    words[i] = words[j];
+                    words[j] = tmp;
+                }
+            }
+        }
+    }
+
+    // 该方法是对数器，也可以通过lintcode测评
+    public static class TopK2 {
+        private final TreeSet<Word> topK;
+        private final Map<String, Word> indexMap;
+        private final int k;
+
+        public TopK2(int k) {
+            this.k = k;
+            topK = new TreeSet<>((o1, o2) -> {
+                // 次数大的排前面，次数一样字典序在小的排前面
+                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
+            });
+            indexMap = new HashMap<>();
+        }
+
+        public void add(String str) {
+            if (k == 0) {
+                return;
+            }
+            Word word = indexMap.get(str);
+            if (word == null) {
+                // 新增元素
+                word = new Word(str, 1);
+                topK.add(word);
+            } else {
+                topK.remove(word);
+                word.times++;
+                topK.add(word);
+            }
+            indexMap.put(str, word);
+        }
+
+        public List<String> topk() {
+            if (k == 0) {
+                return new ArrayList<>();
+            }
+            List<String> result = new ArrayList<>();
+            int t = k;
+            for (Word word : topK) {
+                if (t == 0) {
+                    break;
+                }
+                result.add(word.value);
+                t--;
+            }
+            return result;
+        }
+
+        private static class Word {
+            public String value;
+            public int times;
+
+            public Word(String v, int t) {
+                value = v;
+                times = t;
+            }
+        }
+    }
+
     // for test
     public static String generateRandomString(int strLen) {
         char[] ans = new char[(int) (Math.random() * strLen) + 1];
@@ -78,241 +305,5 @@ public class LintCode_0550_TopKFrequentWordsII {
             }
         }
         return true;
-    }
-
-    // 该方法是正式方法，使用加强堆
-    public static class TopK {
-        private TreeSet<Word> topK;
-        private Heap heap;
-        private Map<String, Word> map;
-        private int k;
-
-        public TopK(int k) {
-            this.k = k;
-            topK =
-                    new TreeSet<>(
-                            (o1, o2) -> {
-                                // 次数大的排前面，次数一样字典序在小的排前面
-                                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
-                            });
-            heap =
-                    new Heap(
-                            k,
-                            (o1, o2) -> {
-                                // 设置堆门槛，堆顶元素最先被淘汰
-                                return o1.times == o2.times ? o2.value.compareTo(o1.value) : (o1.times - o2.times);
-                            });
-            map = new HashMap<>();
-        }
-
-        public void add(String str) {
-            if (k == 0) {
-                return;
-            }
-            Word word = map.get(str);
-            if (word == null) {
-                // 新增元素
-                word = new Word(str, 1);
-                // 是否到达门槛可以替换堆中元素
-                if (heap.isReachThreshold(word)) {
-                    if (heap.isFull()) {
-                        Word toBeRemoved = heap.poll();
-                        topK.remove(toBeRemoved);
-                    }
-                    heap.add(word);
-                    topK.add(word);
-                }
-            } else {
-                if (heap.contains(word)) {
-                    topK.remove(word);
-                    word.times++;
-                    topK.add(word);
-                    heap.resign(word);
-                } else {
-                    word.times++;
-                    if (heap.isReachThreshold(word)) {
-                        if (heap.isFull()) {
-                            Word toBeRemoved = heap.poll();
-                            topK.remove(toBeRemoved);
-                        }
-                        heap.add(word);
-                        topK.add(word);
-                    }
-                }
-            }
-            map.put(str, word);
-        }
-
-        public List<String> topk() {
-            if (k == 0) {
-                return new ArrayList<>();
-            }
-            List<String> result = new ArrayList<>();
-            for (Word word : topK) {
-                result.add(word.value);
-            }
-            return result;
-        }
-
-        private class Word {
-            public String value;
-            public int times;
-
-            public Word(String v, int t) {
-                value = v;
-                times = t;
-            }
-        }
-
-        private class Heap {
-            private Word[] words;
-            private Comparator<Word> comparator;
-            private Map<Word, Integer> indexMap;
-
-            public Heap(int k, Comparator<Word> comparator) {
-                words = new Word[k];
-                indexMap = new HashMap<>();
-                this.comparator = comparator;
-            }
-
-            public boolean isEmpty() {
-                return indexMap.isEmpty();
-            }
-
-            public boolean isFull() {
-                return indexMap.size() == words.length;
-            }
-
-            public boolean isReachThreshold(Word word) {
-                if (isEmpty() || indexMap.size() < words.length) {
-                    return true;
-                } else {
-                    return comparator.compare(words[0], word) < 0;
-                }
-            }
-
-            public void add(Word word) {
-                int size = indexMap.size();
-                words[size] = word;
-                indexMap.put(word, size);
-                heapInsert(size);
-            }
-
-            private void heapify(int i) {
-                int size = indexMap.size();
-                int leftChildIndex = 2 * i + 1;
-                while (leftChildIndex < size) {
-                    Word weakest =
-                            leftChildIndex + 1 < size
-                                    ? (comparator.compare(words[leftChildIndex], words[leftChildIndex + 1]) < 0
-                                    ? words[leftChildIndex]
-                                    : words[leftChildIndex + 1])
-                                    : words[leftChildIndex];
-                    if (comparator.compare(words[i], weakest) < 0) {
-                        break;
-                    }
-                    int weakestIndex = weakest == words[leftChildIndex] ? leftChildIndex : leftChildIndex + 1;
-                    swap(weakestIndex, i);
-                    i = weakestIndex;
-                    leftChildIndex = 2 * i + 1;
-                }
-            }
-
-            public void resign(Word word) {
-                int i = indexMap.get(word);
-                heapify(i);
-                heapInsert(i);
-            }
-
-            private void heapInsert(int i) {
-                while (comparator.compare(words[i], words[(i - 1) / 2]) < 0) {
-                    swap(i, (i - 1) / 2);
-                    i = (i - 1) / 2;
-                }
-            }
-
-            public boolean contains(Word word) {
-                return indexMap.containsKey(word);
-            }
-
-            public Word poll() {
-                Word result = words[0];
-                swap(0, indexMap.size() - 1);
-                indexMap.remove(result);
-                heapify(0);
-                return result;
-            }
-
-            private void swap(int i, int j) {
-                if (i != j) {
-                    indexMap.put(words[i], j);
-                    indexMap.put(words[j], i);
-                    Word tmp = words[i];
-                    words[i] = words[j];
-                    words[j] = tmp;
-                }
-            }
-        }
-    }
-
-    // 该方法是对数器，也可以通过lintcode测评
-    public static class TopK2 {
-        private TreeSet<Word> topK;
-        private Map<String, Word> indexMap;
-        private int k;
-
-        public TopK2(int k) {
-            this.k = k;
-            topK =
-                    new TreeSet<>(
-                            (o1, o2) -> {
-                                // 次数大的排前面，次数一样字典序在小的排前面
-                                return o1.times == o2.times ? o1.value.compareTo(o2.value) : (o2.times - o1.times);
-                            });
-            indexMap = new HashMap<>();
-        }
-
-        public void add(String str) {
-            if (k == 0) {
-                return;
-            }
-            Word word = indexMap.get(str);
-            if (word == null) {
-                // 新增元素
-                word = new Word(str, 1);
-                topK.add(word);
-            } else {
-                topK.remove(word);
-                word.times++;
-                topK.add(word);
-            }
-            indexMap.put(str, word);
-        }
-
-        public List<String> topk() {
-            if (k == 0) {
-                return new ArrayList<>();
-            }
-            List<String> result = new ArrayList<>();
-            int t = k;
-            for (Word word : topK) {
-                if (t == 0) {
-                    break;
-                }
-                result.add(word.value);
-                t--;
-            }
-            return result;
-        }
-
-        private class Word {
-            public String value;
-            public int times;
-
-            public Word(String v, int t) {
-                value = v;
-                times = t;
-            }
-        }
     }
 }
