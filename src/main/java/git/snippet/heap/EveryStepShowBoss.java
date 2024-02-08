@@ -58,7 +58,7 @@ public class EveryStepShowBoss {
 
     public static List<List<Integer>> topK(int[] arr, boolean[] op, int k) {
         List<List<Integer>> ans = new ArrayList<>();
-        WhosYourDaddy whoDaddies = new WhosYourDaddy(k);
+        WhoIsYourDaddy whoDaddies = new WhoIsYourDaddy(k);
         for (int i = 0; i < arr.length; i++) {
             whoDaddies.operate(i, arr[i], op[i]);
             ans.add(whoDaddies.getDaddies());
@@ -249,13 +249,13 @@ public class EveryStepShowBoss {
         }
     }
 
-    public static class WhosYourDaddy {
+    public static class WhoIsYourDaddy {
         private final int daddyLimit;
         private final HashMap<Integer, Customer> customers;
         private final HeapGreater<Customer> candHeap;
         private final HeapGreater<Customer> daddyHeap;
 
-        public WhosYourDaddy(int limit) {
+        public WhoIsYourDaddy(int limit) {
             customers = new HashMap<>();
             candHeap = new HeapGreater<>(new CandidateComparator());
             daddyHeap = new HeapGreater<>(new DaddyComparator());
