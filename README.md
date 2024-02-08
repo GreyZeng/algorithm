@@ -85,6 +85,10 @@
 - 连接点算重合区域
 - 连接点不算重合区域
 
+[加强堆结构说明](https://www.cnblogs.com/greyzeng/p/16936506.html)
+
+[使用加强堆解决 topK 问题](https://www.cnblogs.com/greyzeng/p/16125150.html)
+
 ## 更多
 
 [算法和数据结构学习笔记：CSDN](https://blog.csdn.net/hotonyhui/category_1250716.html)

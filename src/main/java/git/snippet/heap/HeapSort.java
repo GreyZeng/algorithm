@@ -8,7 +8,7 @@ package git.snippet.heap;
 // 3. 把堆的大小减小成0之后，排序完成
 // 堆排序额外空间复杂度O(1)
 // 测评：https://www.lintcode.com/problem/464
-public class Code_HeapSort {
+public class HeapSort {
     public static void sort(int[] arr) {
         if (null == arr || arr.length < 2) {
             return;

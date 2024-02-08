@@ -5,6 +5,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @since 21
+ */
 // TODO
 // 给定一个整型数组，int[] arr；和一个布尔类型数组，boolean[] op
 //        两个数组一定等长，假设长度为N，arr[i]表示客户编号，op[i]表示客户操作
@@ -51,7 +54,7 @@ import java.util.List;
 //        会再次根据之前规则回到某个区域中，进入区域的时间重记
 //        请遍历arr数组和op数组，遍历每一步输出一个得奖名单
 // public List<List<Integer>>  topK (int[] arr, boolean[] op, int k)
-public class Code_EveryStepShowBoss {
+public class EveryStepShowBoss {
 
     public static List<List<Integer>> topK(int[] arr, boolean[] op, int k) {
         List<List<Integer>> ans = new ArrayList<>();
@@ -66,7 +69,7 @@ public class Code_EveryStepShowBoss {
     // 干完所有的事，模拟，不优化
     public static List<List<Integer>> compare(int[] arr, boolean[] op, int k) {
         HashMap<Integer, Customer> map = new HashMap<>();
-        ArrayList<Customer> cands = new ArrayList<>();
+        ArrayList<Customer> cans = new ArrayList<>();
         ArrayList<Customer> daddy = new ArrayList<>();
         List<List<Integer>> ans = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
@@ -81,7 +84,7 @@ public class Code_EveryStepShowBoss {
             // 用户之前购买数>0， 此时买货
             // 用户之前购买数>0, 此时退货
             if (!map.containsKey(id)) {
-                map.put(id, new Customer(id, 0, 0));
+                map.put(id, new Customer(id, 0));
             }
             // 买、卖
             Customer c = map.get(id);
@@ -95,20 +98,20 @@ public class Code_EveryStepShowBoss {
             }
             // c
             // 下面做
-            if (!cands.contains(c) && !daddy.contains(c)) {
+            if (!cans.contains(c) && !daddy.contains(c)) {
                 if (daddy.size() < k) {
                     c.enterTime = i;
                     daddy.add(c);
                 } else {
                     c.enterTime = i;
-                    cands.add(c);
+                    cans.add(c);
                 }
             }
-            cleanZeroBuy(cands);
+            cleanZeroBuy(cans);
             cleanZeroBuy(daddy);
-            cands.sort(new CandidateComparator());
+            cans.sort(new CandidateComparator());
             daddy.sort(new DaddyComparator());
-            move(cands, daddy, k, i);
+            move(cans, daddy, k, i);
             ans.add(getCurAns(daddy));
         }
         return ans;
@@ -120,16 +123,16 @@ public class Code_EveryStepShowBoss {
         }
         // 候选区不为空
         if (daddy.size() < k) {
-            Customer c = cands.get(0);
+            Customer c = cands.getFirst();
             c.enterTime = time;
             daddy.add(c);
-            cands.remove(0);
+            cands.removeFirst();
         } else { // 等奖区满了，候选区有东西
-            if (cands.get(0).buy > daddy.get(0).buy) {
-                Customer oldDaddy = daddy.get(0);
-                daddy.remove(0);
-                Customer newDaddy = cands.get(0);
-                cands.remove(0);
+            if (cands.getFirst().buy > daddy.getFirst().buy) {
+                Customer oldDaddy = daddy.getFirst();
+                daddy.removeFirst();
+                Customer newDaddy = cands.getFirst();
+                cands.removeFirst();
                 newDaddy.enterTime = time;
                 oldDaddy.enterTime = time;
                 daddy.add(newDaddy);
@@ -139,16 +142,14 @@ public class Code_EveryStepShowBoss {
     }
 
     public static void cleanZeroBuy(ArrayList<Customer> arr) {
-        List<Customer> noZero = new ArrayList<Customer>();
+        List<Customer> noZero = new ArrayList<>();
         for (Customer c : arr) {
             if (c.buy != 0) {
                 noZero.add(c);
             }
         }
         arr.clear();
-        for (Customer c : noZero) {
-            arr.add(c);
-        }
+        arr.addAll(noZero);
     }
 
     public static List<Integer> getCurAns(ArrayList<Customer> daddy) {
@@ -166,7 +167,7 @@ public class Code_EveryStepShowBoss {
         boolean[] op = new boolean[len];
         for (int i = 0; i < len; i++) {
             arr[i] = (int) (Math.random() * maxValue);
-            op[i] = Math.random() < 0.5 ? true : false;
+            op[i] = Math.random() < 0.5;
         }
         return new Data(arr, op);
     }
@@ -182,8 +183,8 @@ public class Code_EveryStepShowBoss {
             if (cur1.size() != cur2.size()) {
                 return false;
             }
-            cur1.sort((a, b) -> a - b);
-            cur2.sort((a, b) -> a - b);
+            cur1.sort(Comparator.comparingInt(a -> a));
+            cur2.sort(Comparator.comparingInt(a -> a));
             for (int j = 0; j < cur1.size(); j++) {
                 if (!cur1.get(j).equals(cur2.get(j))) {
                     return false;
@@ -225,7 +226,7 @@ public class Code_EveryStepShowBoss {
         public int buy;
         public int enterTime;
 
-        public Customer(int v, int b, int o) {
+        public Customer(int v, int b) {
             id = v;
             buy = b;
             enterTime = 0;
@@ -250,14 +251,14 @@ public class Code_EveryStepShowBoss {
 
     public static class WhosYourDaddy {
         private final int daddyLimit;
-        private HashMap<Integer, Customer> customers;
-        private Code_HeapGreater<Customer> candHeap;
-        private Code_HeapGreater<Customer> daddyHeap;
+        private final HashMap<Integer, Customer> customers;
+        private final HeapGreater<Customer> candHeap;
+        private final HeapGreater<Customer> daddyHeap;
 
         public WhosYourDaddy(int limit) {
             customers = new HashMap<>();
-            candHeap = new Code_HeapGreater<>(new CandidateComparator());
-            daddyHeap = new Code_HeapGreater<>(new DaddyComparator());
+            candHeap = new HeapGreater<>(new CandidateComparator());
+            daddyHeap = new HeapGreater<>(new DaddyComparator());
             daddyLimit = limit;
         }
 
@@ -267,7 +268,7 @@ public class Code_EveryStepShowBoss {
                 return;
             }
             if (!customers.containsKey(id)) {
-                customers.put(id, new Customer(id, 0, 0));
+                customers.put(id, new Customer(id, 0));
             }
             Customer c = customers.get(id);
             if (buyOrRefund) {

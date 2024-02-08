@@ -5,16 +5,20 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @param <T>
+ * @since 21
+ */
 // 加强堆
 // 笔记：https://www.cnblogs.com/greyzeng/p/16936506.html
-public class Code_HeapGreater<T> {
+public class HeapGreater<T> {
 
-    private ArrayList<T> heap;
-    private HashMap<T, Integer> indexMap; // 元素在堆中的位置
+    private final ArrayList<T> heap;
+    private final HashMap<T, Integer> indexMap; // 元素在堆中的位置
     private int heapSize; // 和heap配合使用
-    private Comparator<? super T> comp;
+    private final Comparator<? super T> comp;
 
-    public Code_HeapGreater(Comparator<T> c) {
+    public HeapGreater(Comparator<T> c) {
         heap = new ArrayList<>();
         indexMap = new HashMap<>();
         comp = c;
@@ -33,7 +37,10 @@ public class Code_HeapGreater<T> {
     }
 
     public T peek() {
-        return heap.get(0);
+        // since jdk 21
+        // before jdk 21 use
+        // heap.get(0)
+        return heap.getFirst();
     }
 
     public void push(T obj) {
@@ -43,7 +50,10 @@ public class Code_HeapGreater<T> {
     }
 
     public T pop() {
-        T ans = heap.get(0);
+        // since jdk 21
+        // before jdk 21 use
+        // heap.get(0)
+        T ans = heap.getFirst();
         swap(0, heapSize - 1);
         indexMap.remove(ans);
         heap.remove(--heapSize);
@@ -52,11 +62,14 @@ public class Code_HeapGreater<T> {
     }
 
     public void remove(T obj) {
+        // 用最后一个元素去顶替要删掉的元素
         T replace = heap.get(heapSize - 1);
+        // 要删掉的元素
         int index = indexMap.get(obj);
         indexMap.remove(obj);
         heap.remove(--heapSize);
         if (obj != replace) { // obj == replace表示删掉的是最后一个位置的数据，此时不需要进行resign操作
+            // 用顶替的元素去填充被删的元素位置
             heap.set(index, replace);
             indexMap.put(replace, index);
             resign(replace);
@@ -70,11 +83,7 @@ public class Code_HeapGreater<T> {
 
     // 请返回堆上的所有元素
     public List<T> getAllElements() {
-        List<T> ans = new ArrayList<>();
-        for (T c : heap) {
-            ans.add(c);
-        }
-        return ans;
+        return new ArrayList<>(heap);
     }
 
     private void heapInsert(int index) {
