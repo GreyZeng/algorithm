@@ -31,14 +31,14 @@ public class Code_TrieTree {
     }
 
     public static class Trie1 {
-        private Node1 root;
+        private final Node1 root;
 
         public Trie1() {
             root = new Node1();
         }
 
         public void insert(String word) {
-            if (word == null || word.length() < 1) {
+            if (word == null || word.isEmpty()) {
                 return;
             }
             Node1 c = root;
@@ -75,7 +75,7 @@ public class Code_TrieTree {
 
         // word这个单词之前加入过几次
         public int search(String word) {
-            if (word == null || word.length() < 1) {
+            if (word == null || word.isEmpty()) {
                 return 0;
             }
             Node1 cur = root;
@@ -92,7 +92,7 @@ public class Code_TrieTree {
 
         // 所有加入的字符串中，有几个是以pre这个字符串作为前缀的
         public int prefixNumber(String pre) {
-            if (pre == null || pre.length() < 1) {
+            if (pre == null || pre.isEmpty()) {
                 return 0;
             }
             Node1 cur = root;
@@ -121,14 +121,14 @@ public class Code_TrieTree {
     }
 
     public static class Trie2 {
-        private Node2 root;
+        private final Node2 root;
 
         public Trie2() {
             root = new Node2();
         }
 
         public void insert(String word) {
-            if (word == null || word.length() < 1) {
+            if (word == null || word.isEmpty()) {
                 return;
             }
             char[] str = word.toCharArray();
@@ -166,7 +166,7 @@ public class Code_TrieTree {
 
         // word这个单词之前加入过几次
         public int search(String word) {
-            if (word == null || word.length() < 1) {
+            if (word == null || word.isEmpty()) {
                 return 0;
             }
             char[] str = word.toCharArray();
@@ -183,7 +183,7 @@ public class Code_TrieTree {
 
         // 所有加入的字符串中，有几个是以pre这个字符串作为前缀的
         public int prefixNumber(String pre) {
-            if (pre == null || pre.length() < 1) {
+            if (pre == null || pre.isEmpty()) {
                 return 0;
             }
             char[] str = pre.toCharArray();
