@@ -117,26 +117,26 @@ public class EveryStepShowBoss {
         return ans;
     }
 
-    public static void move(ArrayList<Customer> cands, ArrayList<Customer> daddy, int k, int time) {
-        if (cands.isEmpty()) {
+    public static void move(ArrayList<Customer> cans, ArrayList<Customer> daddy, int k, int time) {
+        if (cans.isEmpty()) {
             return;
         }
         // 候选区不为空
         if (daddy.size() < k) {
-            Customer c = cands.getFirst();
+            Customer c = cans.getFirst();
             c.enterTime = time;
             daddy.add(c);
-            cands.removeFirst();
+            cans.removeFirst();
         } else { // 等奖区满了，候选区有东西
-            if (cands.getFirst().buy > daddy.getFirst().buy) {
+            if (cans.getFirst().buy > daddy.getFirst().buy) {
                 Customer oldDaddy = daddy.getFirst();
                 daddy.removeFirst();
-                Customer newDaddy = cands.getFirst();
-                cands.removeFirst();
+                Customer newDaddy = cans.getFirst();
+                cans.removeFirst();
                 newDaddy.enterTime = time;
                 oldDaddy.enterTime = time;
                 daddy.add(newDaddy);
-                cands.add(oldDaddy);
+                cans.add(oldDaddy);
             }
         }
     }
