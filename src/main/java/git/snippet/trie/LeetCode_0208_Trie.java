@@ -3,7 +3,7 @@ package git.snippet.trie;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16647565.html
 // https://leetcode.com/problems/implement-trie-prefix-tree/
 public class LeetCode_0208_Trie {
-    class Trie {
+    static class Trie {
         Node root;
 
         public Trie() {
@@ -11,7 +11,7 @@ public class LeetCode_0208_Trie {
         }
 
         public void insert(String word) {
-            if (null == word || word.length() == 0) {
+            if (null == word || word.isEmpty()) {
                 return;
             }
             char[] strs = word.toCharArray();
@@ -27,7 +27,7 @@ public class LeetCode_0208_Trie {
         }
 
         public boolean search(String word) {
-            if (null == word || word.length() == 0 || !startsWith(word)) {
+            if (null == word || word.isEmpty() || !startsWith(word)) {
                 return false;
             }
             char[] strs = word.toCharArray();
@@ -55,7 +55,7 @@ public class LeetCode_0208_Trie {
             return true;
         }
 
-        private class Node {
+        private static class Node {
             int p;
             int e;
             Node[] nexts = new Node[26];

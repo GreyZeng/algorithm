@@ -19,7 +19,7 @@ import java.util.HashMap;
 // abcvdk
 // 这两个字符串
 // 如果要删掉abcvdk这个字符串，那么通向c v d k节点的路可以全部删除（p=0以下的节点都没有了）
-public class Code_TrieTree {
+public class TrieTree {
     public static class Node1 {
         public int pass;
         public int end;
@@ -134,7 +134,7 @@ public class Code_TrieTree {
             char[] str = word.toCharArray();
             Node2 cur = root;
             cur.pass++;
-            int n = 0;
+            int n;
             for (char v : str) {
                 n = v;
                 if (!cur.nexts.containsKey(n)) {
@@ -154,12 +154,11 @@ public class Code_TrieTree {
             Node2 cur = root;
             cur.pass--;
             for (char v : str) {
-                int n = v;
-                if (--cur.nexts.get(n).pass == 0) {
-                    cur.nexts.remove(n);
+                if (--cur.nexts.get((int) v).pass == 0) {
+                    cur.nexts.remove((int) v);
                     return;
                 }
-                cur = cur.nexts.get(n);
+                cur = cur.nexts.get((int) v);
             }
             cur.end--;
         }
@@ -172,11 +171,10 @@ public class Code_TrieTree {
             char[] str = word.toCharArray();
             Node2 cur = root;
             for (char v : str) {
-                int n = v;
-                if (!cur.nexts.containsKey(n)) {
+                if (!cur.nexts.containsKey((int) v)) {
                     return 0;
                 }
-                cur = cur.nexts.get(n);
+                cur = cur.nexts.get((int) v);
             }
             return cur.end;
         }
@@ -189,11 +187,10 @@ public class Code_TrieTree {
             char[] str = pre.toCharArray();
             Node2 cur = root;
             for (char v : str) {
-                int n = v;
-                if (!cur.nexts.containsKey(n)) {
+                if (!cur.nexts.containsKey((int) v)) {
                     return 0;
                 }
-                cur = cur.nexts.get(n);
+                cur = cur.nexts.get((int) v);
             }
             return cur.pass;
         }
