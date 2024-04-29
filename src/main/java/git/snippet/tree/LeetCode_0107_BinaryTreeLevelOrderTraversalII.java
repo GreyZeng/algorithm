@@ -31,7 +31,7 @@ public class LeetCode_0107_BinaryTreeLevelOrderTraversalII {
                 }
             }
             // 每次把最新的那一层插入到链表的头部，模拟栈
-            ans.addFirst(curAns);
+            ans.add(0, curAns);
         }
         return ans;
     }
