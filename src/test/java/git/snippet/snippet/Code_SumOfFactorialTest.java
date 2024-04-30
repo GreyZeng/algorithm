@@ -1,6 +1,5 @@
 package git.snippet.snippet;
 
-import git.snippet.snippet.Code_SumOfFactorial;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
