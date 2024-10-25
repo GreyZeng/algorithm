@@ -20,8 +20,8 @@ public class Code_0001_Gini {
         System.out.println("测试开始");
         int num = 100;
         int round = 1000000;
-        System.out.println(STR."人数 : \{num}");
-        System.out.println(STR."轮数 : \{round}");
+        System.out.println("人数 "+num);
+        System.out.println("轮数 "+round);
         experiment(num, round);
         System.out.println("测试结束");
     }
@@ -44,7 +44,7 @@ public class Code_0001_Gini {
             }
         }
         double gini = calculateGini(people);
-        System.out.println(STR."基尼系数是\{gini}");
+        System.out.println("基尼系数是"+gini);
     }
 
     // 计算基尼系数
