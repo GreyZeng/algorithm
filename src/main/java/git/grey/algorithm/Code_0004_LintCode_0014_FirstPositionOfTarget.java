@@ -17,6 +17,7 @@ public class Code_0004_LintCode_0014_FirstPositionOfTarget {
             int mid = l + ((r - l) >> 1);
             if (nums[mid] == target) {
                 // lintcode中要求找满足条件的第一个，所以这里要先记录满足条件的，继续找左边有没有更符合要求的数据
+                // leetcode 中，题目已经说明了，答案是唯一的，所以到这里可以直接返回。
                 ans = mid;
                 r = mid - 1;
             } else if (nums[mid] > target) {
