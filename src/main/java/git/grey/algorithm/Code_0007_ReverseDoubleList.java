@@ -10,7 +10,7 @@ public class Code_0007_ReverseDoubleList {
     // 反转双向链表
     public static DoubleNode reverseDoubleList(DoubleNode head) {
         DoubleNode pre = null;
-        DoubleNode next = null;
+        DoubleNode next;
         while (head != null) {
             next = head.next;
             head.next = pre;
