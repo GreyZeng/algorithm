@@ -1,4 +1,4 @@
-package git.snippet.snippet;
+package git.grey.algorithm;
 
 import java.util.Arrays;
 
