@@ -1,41 +1,40 @@
-package git.snippet.list;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+package git.grey.algorithm;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static git.snippet.list.Code_ReverseDoubleList.DoubleNode;
-import static git.snippet.list.Code_ReverseDoubleList.reverseDoubleList;
+// 反转双向链表
+// 笔记：https://www.cnblogs.com/greyzeng/p/17852345.html
+public class Code_0007_ReverseDoubleList {
 
-@DisplayName("反转双向链表")
-class Code_ReverseDoubleListTest {
-
-    DoubleNode testReverseDoubleList(DoubleNode head) {
-        if (head == null) {
-            return null;
-        }
-        ArrayList<DoubleNode> list = new ArrayList<>();
+    // 反转双向链表
+    public static DoubleNode reverseDoubleList(DoubleNode head) {
+        DoubleNode pre = null;
+        DoubleNode next = null;
         while (head != null) {
-            list.add(head);
-            head = head.next;
+            next = head.next;
+            head.next = pre;
+            head.last = next;
+            pre = head;
+            head = next;
         }
-        list.get(0).next = null;
-        DoubleNode pre = list.get(0);
-        int N = list.size();
-        for (int i = 1; i < N; i++) {
-            DoubleNode cur = list.get(i);
-            cur.last = null;
-            cur.next = pre;
-            pre.last = cur;
-            pre = cur;
-        }
-        return list.get(N - 1);
+        return pre;
     }
 
+
+    public static class DoubleNode {
+        public int value;
+        public DoubleNode last;
+        public DoubleNode next;
+
+        public DoubleNode(int data) {
+            value = data;
+        }
+    }
+
+
     // for test
-    public DoubleNode generateRandomDoubleList(int len, int value) {
+    public static DoubleNode generateRandomDoubleList(int len, int value) {
         int size = (int) (Math.random() * (len + 1));
         if (size == 0) {
             return null;
@@ -54,7 +53,7 @@ class Code_ReverseDoubleListTest {
     }
 
     // for test
-    public List<Integer> getDoubleListOriginOrder(DoubleNode head) {
+    public static List<Integer> getDoubleListOriginOrder(DoubleNode head) {
         List<Integer> ans = new ArrayList<>();
         while (head != null) {
             ans.add(head.value);
@@ -64,7 +63,7 @@ class Code_ReverseDoubleListTest {
     }
 
     // for test
-    public boolean checkDoubleListReverse(List<Integer> origin, DoubleNode head) {
+    public static boolean checkDoubleListReverse(List<Integer> origin, DoubleNode head) {
         DoubleNode end = null;
         for (int i = origin.size() - 1; i >= 0; i--) {
             if (!origin.get(i).equals(head.value)) {
@@ -83,8 +82,8 @@ class Code_ReverseDoubleListTest {
     }
 
     // for test
-    @Test
-    void testDoubleList() {
+
+    public static void main(String[] args) {
         int len = 50;
         int value = 100;
         int testTime = 100000;
@@ -96,7 +95,6 @@ class Code_ReverseDoubleListTest {
             if (!checkDoubleListReverse(list3, node3)) {
                 System.out.println("出错了!");
             }
-
             DoubleNode node4 = generateRandomDoubleList(len, value);
             List<Integer> list4 = getDoubleListOriginOrder(node4);
             node4 = reverseDoubleList(node4);
