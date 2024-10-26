@@ -1,9 +1,10 @@
-package git.snippet.list;
+package grey.algorithm;
 
 // 链表上实现 Partition（注：要保持相对顺序）
 // https://leetcode.com/problems/partition-list/
+// https://www.lintcode.com/problem/96/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16923068.html
-public class LeetCode_0086_PartitionList {
+public class Code_0010_LintCode_0096_PartitionList {
 
     // 仅做Partition
     // 注：要保持相对秩序
@@ -19,7 +20,6 @@ public class LeetCode_0086_PartitionList {
                     smallHead = cur;
                     smallTail = cur;
                 } else {
-                    // smallTail 一定不为 null
                     smallTail.next = cur;
                     smallTail = smallTail.next;
                 }
@@ -28,7 +28,6 @@ public class LeetCode_0086_PartitionList {
                     bigHead = cur;
                     bigTail = cur;
                 } else {
-                    // bigTail 一定不为 null
                     bigTail.next = cur;
                     bigTail = bigTail.next;
                 }
@@ -36,7 +35,6 @@ public class LeetCode_0086_PartitionList {
             cur = cur.next;
         }
         if (bigTail != null) {
-            // 这个分支非常重要，防止形成环！
             bigTail.next = null;
         }
         if (smallTail != null) {
