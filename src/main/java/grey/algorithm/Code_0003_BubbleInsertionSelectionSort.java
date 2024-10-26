@@ -1,4 +1,4 @@
-package git.grey.algorithm;
+package grey.algorithm;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/15186769.html
 public class Code_0003_BubbleInsertionSelectionSort {

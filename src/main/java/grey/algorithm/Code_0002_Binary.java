@@ -1,4 +1,4 @@
-package git.grey.algorithm;
+package grey.algorithm;
 
 
 public class Code_0002_Binary {

@@ -1,4 +1,4 @@
-package git.grey.algorithm;
+package grey.algorithm;
 
 // 单链表反转
 // 笔记：https://www.cnblogs.com/greyzeng/p/17852345.html

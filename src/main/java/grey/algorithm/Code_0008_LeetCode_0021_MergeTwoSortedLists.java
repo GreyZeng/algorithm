@@ -1,4 +1,4 @@
-package git.grey.algorithm;
+package grey.algorithm;
 
 // merge two sorted lists
 // leetcode: https://leetcode.com/problems/merge-two-sorted-lists

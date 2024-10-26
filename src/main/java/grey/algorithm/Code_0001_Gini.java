@@ -1,4 +1,4 @@
-package git.grey.algorithm;
+package grey.algorithm;
 
 import java.util.Arrays;
 

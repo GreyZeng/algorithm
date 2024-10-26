@@ -1,4 +1,4 @@
-package git.grey.algorithm;
+package grey.algorithm;
 
 // 数据量
 // 1 <= nums.length <= 1000

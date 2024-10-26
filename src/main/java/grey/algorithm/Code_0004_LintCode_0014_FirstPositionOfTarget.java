@@ -1,4 +1,4 @@
-package git.grey.algorithm;
+package grey.algorithm;
 
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16622554.html
