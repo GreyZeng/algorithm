@@ -7,46 +7,52 @@ package grey.algorithm;
 // https://www.lintcode.com/problem/167/
 // 注意是从左往右加，最右侧要注意进位信息
 // 笔记：https://www.cnblogs.com/greyzeng/p/16629407.html
-public class Code_0009_LeetCode_0002_AddTwoNumbers {
-
-	// l1 和 l2 非空
-	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+public class Code_0009_LintCode_0167_AddTwoNumbers {
+	// 不额外开辟空间，复用 l1 和 l2 两个链表
+    public ListNode addLists(ListNode l1, ListNode l2) {
 		if (l1 == null || l2 == null) {
 			return l1 == null ? l2 : l1;
 		}
-		ListNode newHead = new ListNode((l1.val + l2.val) % 10);
-		ListNode cur = newHead;
-		// 进位
-		int carry = (l1.val + l2.val) >= 10 ? 1 : 0;
+		int sum = l1.val + l2.val;
+		int v = sum % 10;
+		int carry = sum / 10;
+		l1.val = v;
+		ListNode head = l1; // 复用 l1 链表
+        ListNode last = l1; // 用于记录求和链表的尾部
 		l1 = l1.next;
 		l2 = l2.next;
 		while (l1 != null && l2 != null) {
-			ListNode next = new ListNode((l1.val + l2.val + carry) % 10);
-			carry = (l1.val + l2.val + carry) >= 10 ? 1 : 0;
-			cur.next = next;
-			cur = next;
+			sum = l1.val + l2.val + carry;
+			v = sum % 10;
+			carry = sum / 10;
+			l1.val = v;
+			last = l1; // 记录一下最后一个位置
 			l1 = l1.next;
 			l2 = l2.next;
 		}
 		while (l1 != null) {
-			ListNode next = new ListNode((l1.val + carry) % 10);
-			carry = (l1.val + carry) >= 10 ? 1 : 0;
-			cur.next = next;
-			cur = next;
+			// l2 没有了
+			sum = l1.val + carry;
+			v = sum % 10;
+			carry = sum / 10;
+			l1.val = v;
+			last = l1; // 记录一下最后一个位置
 			l1 = l1.next;
 		}
 		while (l2 != null) {
-			ListNode next = new ListNode((l2.val + carry) % 10);
-			carry = (l2.val + carry) >= 10 ? 1 : 0;
-			cur.next = next;
-			cur = next;
+            // l1 没有了，接下来复用 l2 链表
+			sum = l2.val + carry;
+			v = sum % 10;
+			carry = sum / 10;
+			l2.val = v;
+            last.next = l2;
+            last = last.next;
 			l2 = l2.next;
 		}
 		if (carry != 0) {
-			cur.next = new ListNode(carry);
-			cur = cur.next;
+			last.next = new ListNode(carry);
 		}
-		return newHead;
+		return head;
 	}
 
 	public static class ListNode {
