@@ -19,7 +19,7 @@ public class Code_0001_Gini {
         System.out.println("社会可能会因此陷入危机，比如大量的犯罪或者经历社会动荡");
         System.out.println("测试开始");
         int num = 100;
-        int round = 1000000;
+        int round = 50000000;
         System.out.println("人数 "+num);
         System.out.println("轮数 "+round);
         experiment(num, round);
