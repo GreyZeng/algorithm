@@ -6,58 +6,60 @@ package grey.algorithm;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16923068.html
 public class Code_0010_LintCode_0096_PartitionList {
 
-    // 仅做Partition
-    // 注：要保持相对秩序
-    public ListNode partition(ListNode head, int x) {
-        ListNode smallHead = null;
-        ListNode smallTail = null;
-        ListNode bigHead = null;
-        ListNode bigTail = null;
-        ListNode cur = head;
-        while (cur != null) {
-            if (cur.val < x) {
-                if (smallHead == null) {
-                    smallHead = cur;
-                    smallTail = cur;
-                } else {
-                    smallTail.next = cur;
-                    smallTail = smallTail.next;
-                }
-            } else {
-                if (bigHead == null) {
-                    bigHead = cur;
-                    bigTail = cur;
-                } else {
-                    bigTail.next = cur;
-                    bigTail = bigTail.next;
-                }
-            }
-            cur = cur.next;
-        }
-        if (bigTail != null) {
-            bigTail.next = null;
-        }
-        if (smallTail != null) {
-            smallTail.next = bigHead;
-            return smallHead;
-        }
-        return bigHead;
-    }
+	// 仅做Partition
+	// 注：要保持相对秩序
+	public ListNode partition(ListNode head, int x) {
+		ListNode sH = null;
+		ListNode sT = null;
+		ListNode bH = null;
+		ListNode bT = null;
+		ListNode cur = head;
+		while (cur != null) {
+			if (cur.val < x) {
+				if (sH == null) {
+					sH = cur;
+					sT = cur;
+				} else {
+					sT.next = cur;
+					sT = sT.next;
+				}
+			} else {
+				// cur.val >= x
+				if (bH == null) {
+					bH = cur;
+					bT = cur;
+				} else {
+					bT.next = cur;
+					bT = bT.next;
+				}
+			}
+			cur = cur.next;
+		}
+		if (bT != null) {
+			//  断链，防止形成环
+			bT.next = null;
+		}
+		if (sH != null) {
+			sT.next = bH;
+			return sH;
+		}
+		return bH;
+	}
 
-    public class ListNode {
-        int val;
-        ListNode next;
+	public class ListNode {
+		int val;
+		ListNode next;
 
-        ListNode() {
-        }
+		ListNode() {
+		}
 
-        ListNode(int val) {
-            this.val = val;
-        }
+		ListNode(int val) {
+			this.val = val;
+		}
 
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
+		ListNode(int val, ListNode next) {
+			this.val = val;
+			this.next = next;
+		}
+	}
 }
