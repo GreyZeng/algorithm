@@ -1,10 +1,10 @@
-package git.snippet.queueandstack;
+package grey.algorithm;
 
 import java.util.ArrayList;
 
 // 数组实现栈和队列
 // 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
-public class Code_ArrayToStackAndQueue {
+public class Code_0011_ArrayToStackAndQueue {
 
     public static final class MyStack<T> {
         private ArrayList<T> queue;
