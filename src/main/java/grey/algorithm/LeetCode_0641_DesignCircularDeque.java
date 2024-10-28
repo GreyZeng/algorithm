@@ -1,4 +1,4 @@
-package git.snippet.queueandstack;
+package grey.algorithm;
 
 // 用双向链表实现双端队列
 // notes: https://www.cnblogs.com/greyzeng/p/16631644.html
@@ -20,7 +20,7 @@ public class LeetCode_0641_DesignCircularDeque {
 
 		public boolean insertFront(int value) {
 			if (!isFull()) {
-
+				
 			}
 			return false;
 		}
