@@ -3,12 +3,15 @@ package grey.algorithm;
 // 用双向链表实现双端队列
 // notes: https://www.cnblogs.com/greyzeng/p/16631644.html
 // https://leetcode.com/problems/design-circular-deque
-public class LeetCode_0641_DesignCircularDeque {
-	// TODO
+public class Code_0017_LeetCode_0641_DesignCircularDeque {
+
 	// 使用固定数组来实现环状队列
-	// 这比使用双链表来实现更好
 	class MyCircularDeque {
 		private int[] data;
+		// size 控制元素个数
+		// head 永远指向头部元素
+		// tail 永远指向尾部元素下一个
+		// 把整个结构当成环状来处理 head 和 tail 的移动
 		private int size, head, tail;
 
 		public MyCircularDeque(int k) {
@@ -19,10 +22,18 @@ public class LeetCode_0641_DesignCircularDeque {
 		}
 
 		public boolean insertFront(int value) {
-			if (!isFull()) {
-				
+			if (isFull()) {
+				return false;
 			}
-			return false;
+			if (isEmpty()) {
+				data[head] = value;
+				tail = next(tail);
+			} else {
+				head = pre(head);
+				data[head] = value;
+			}
+			size++;
+			return true;
 		}
 
 		private int pre(int cur) {
@@ -34,38 +45,45 @@ public class LeetCode_0641_DesignCircularDeque {
 		}
 
 		public boolean insertLast(int value) {
-			if (!isFull()) {
-
+			if (isFull()) {
+				return false;
 			}
-			return false;
+			size++;
+			data[tail] = value;
+			tail = next(tail);
+			return true;
 		}
 
 		public boolean deleteFront() {
-			if (!isEmpty()) {
-
+			if (isEmpty()) {
+				return false;
 			}
-			return false;
+			head = next(head);
+			size--;
+			return true;
 		}
 
 		public boolean deleteLast() {
-			if (!isEmpty()) {
-
+			if (isEmpty()) {
+				return false;
 			}
-			return false;
+			tail = pre(tail);
+			size--;
+			return true;
 		}
 
 		public int getFront() {
-			if (!isEmpty()) {
-
+			if (isEmpty()) {
+				return -1;
 			}
-			return -1;
+			return data[head];
 		}
 
 		public int getRear() {
-			if (!isEmpty()) {
-
+			if (isEmpty()) {
+				return -1;
 			}
-			return -1;
+			return (data[pre(tail)]);
 		}
 
 		public boolean isEmpty() {
