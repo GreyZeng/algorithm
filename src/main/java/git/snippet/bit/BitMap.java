@@ -22,40 +22,17 @@ public class BitMap {
 				bitMap.remove(num);
 				set.remove(num);
 			} else {
-				if (bitMap.contains(num)) {
-					if (set.contains(num)) {
-						continue;
-					} else {
-						System.out.println("出错了");
-						break;
-					}
-				} else {
-					if (!set.contains(num)) {
-						continue;
-					} else {
-						System.out.println("出错了");
-						break;
-					}
-				}
+				if (bitMap.contains(num)!=set.contains(num)) {
+					System.out.println("出错了");
+					break;
+				}  
 			}
 		}
 		for (int num = 0; num <= max; num++) {
-			if (bitMap.contains(num)) {
-				if (set.contains(num)) {
-					continue;
-				} else {
-					System.out.println("出错了");
-					break;
-				}
-			} else {
-				if (!set.contains(num)) {
-					continue;
-				} else {
-					System.out.println("出错了");
-					break;
-				}
+			if (bitMap.contains(num)!=set.contains(num)) {
+				System.out.println("出错了");
+				break;
 			}
-
 		}
 		System.out.println("test end");
 	}
