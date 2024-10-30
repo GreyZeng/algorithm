@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.PriorityQueue;
-
-import static git.snippet.common.Generator.copyArray;
+ 
 import static git.snippet.common.Generator.generateRandomArray;
 
 @DisplayName("堆结构测试")
@@ -27,7 +26,14 @@ public class HeapTest {
             Assertions.assertArrayEquals(arr1, arr4);
         }
     }
-
+    public static int[] copyArray(int[] arr1) {
+        if (arr1 == null) {
+            return null;
+        }
+        int[] arr2 = new int[arr1.length];
+        System.arraycopy(arr1, 0, arr2, 0, arr1.length);
+        return arr2;
+    }
     @Test
     @DisplayName("大根堆测试")
     public void testHeap() {
