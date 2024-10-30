@@ -51,12 +51,12 @@ public class Code_0012_LeetCode_0622_DesignCircularQueue {
 		}
 
 		// 判断下一个位置，模拟环行为
-		private int next(int pre) {
-			return pre == arr.length - 1 ? 0 : (pre + 1);
+		private int next(int cur) {
+			return cur == arr.length - 1 ? 0 : (cur + 1);
 		}
 
 		private int pre(int cur) {
-			return cur = cur == 0 ? arr.length - 1 : cur - 1;
+			return cur == 0 ? arr.length - 1 : cur - 1;
 		}
 
 	}
