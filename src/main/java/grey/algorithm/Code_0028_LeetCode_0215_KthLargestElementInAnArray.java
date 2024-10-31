@@ -35,9 +35,9 @@ public class Code_0028_LeetCode_0215_KthLargestElementInAnArray {
 		if (index >= range[0] && index <= range[1]) {
 			return pivot;
 		} else if (index < range[0]) {
-			return process(arr, L, range[0], index);
+			return process(arr, L, range[0] - 1, index);
 		} else {
-			return process(arr, range[1], R, index);
+			return process(arr, range[1] + 1, R, index);
 		}
 	}
 
