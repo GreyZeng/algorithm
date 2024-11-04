@@ -1,4 +1,4 @@
-package git.snippet.heap;
+package grey.algorithm;
 
 import java.util.Arrays;
 
@@ -10,7 +10,7 @@ import java.util.Arrays;
 // 3. 把堆的大小减小成0之后，排序完成
 // 堆排序额外空间复杂度O(1)
 // 测评：https://www.lintcode.com/problem/464
-public class HeapSort {
+public class Code_0030_Luogu_P1177_HeapSort {
     public static void sort(int[] arr) {
         if (null == arr || arr.length < 2) {
             return;
@@ -50,6 +50,7 @@ public class HeapSort {
     public static void main(String[] args) {
         heapSortTest();
     }
+
     public static void heapSortTest() {
         System.out.println("test start");
         int times = 500000; // 测试的次数
@@ -58,9 +59,9 @@ public class HeapSort {
         for (int i = 0; i < times; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
             int[] arr4 = copyArray(arr1);
-            HeapSort.sort(arr1);
+            Code_0030_Luogu_P1177_HeapSort.sort(arr1);
             Arrays.sort(arr4);
-            if(!arrayEquals(arr4, arr1)) {
+            if (!arrayEquals(arr4, arr1)) {
                 System.out.println("error");
                 break;
             }
@@ -68,8 +69,9 @@ public class HeapSort {
         }
         System.out.println("test end");
     }
+
     public static boolean arrayEquals(int[] arr1, int[] arr2) {
-        if (null == arr1){
+        if (null == arr1) {
             return arr2 == null;
         }
         int l1 = arr1.length;
@@ -84,6 +86,7 @@ public class HeapSort {
         }
         return true;
     }
+
     public static int[] copyArray(int[] arr1) {
         if (arr1 == null) {
             return null;
@@ -92,6 +95,7 @@ public class HeapSort {
         System.arraycopy(arr1, 0, arr2, 0, arr1.length);
         return arr2;
     }
+
     // for test
     public static int[] generateRandomArray(int maxSize, int maxValue) {
         // Math.random() -> [0,1)
