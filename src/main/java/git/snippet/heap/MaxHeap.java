@@ -1,5 +1,8 @@
 package git.snippet.heap;
 
+import java.util.Objects;
+import java.util.PriorityQueue;
+
 // 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
 // 什么是完全二叉树 如果一个树是满的，它是完全二叉树，即便不是满的，也是从左到右依次变满的
 // 堆结构
@@ -85,5 +88,55 @@ public class MaxHeap {
             arr[j] = arr[i] ^ arr[j];
             arr[i] = arr[i] ^ arr[j];
         }
+    }
+
+    // for test
+    public static void main(String[] args) {
+        testHeap();
+    }
+
+    public static void testHeap() {
+        int value = 10000;
+        int limit = 100;
+        int testTimes = 2000000;
+        System.out.println("test start");
+        for (int i = 0; i < testTimes; i++) {
+            int curLimit = (int) (Math.random() * limit) + 1;
+            MaxHeap my = new MaxHeap(curLimit);
+            PriorityQueue<Integer> test = new PriorityQueue<>((o1, o2) -> o2 - o1);
+            int curOpTimes = (int) (Math.random() * limit);
+            for (int j = 0; j < curOpTimes; j++) {
+                if (my.isEmpty() != test.isEmpty()) {
+                    System.out.println("出错了");
+                    break;
+                }
+                if (my.isFull() != (test.size() == curLimit)) {
+                    System.out.println("出错了");
+                    break;
+                }
+                if (my.isEmpty()) {
+                    int curValue = (int) (Math.random() * value);
+                    my.push(curValue);
+                    test.add(curValue);
+                } else if (my.isFull()) {
+                    if (!Objects.equals(my.pop(), test.poll())) {
+                        System.out.println("出错了");
+                        break;
+                    }
+                } else {
+                    if (Math.random() < 0.5) {
+                        int curValue = (int) (Math.random() * value);
+                        my.push(curValue);
+                        test.add(curValue);
+                    } else {
+                        if (!Objects.equals(my.pop(), test.poll())) {
+                            System.out.println("出错了");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("test end");
     }
 }

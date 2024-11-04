@@ -1,9 +1,6 @@
 package git.snippet.heap;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @param <T>
@@ -111,4 +108,45 @@ public class HeapGreater<T> {
         indexMap.put(o1, j);
     }
 
+    // for test
+    public static void main(String[] args) {
+        testGreaterHeap();
+    }
+
+    public static void testGreaterHeap() {
+        int value = 1000;
+        int limit = 100;
+        int testTimes = 2000000;
+        System.out.println("test begin");
+        for (int i = 0; i < testTimes; i++) {
+            int curLimit = (int) (Math.random() * limit) + 1;
+            HeapGreater<Integer> myHeap = new HeapGreater<>((o1, o2) -> o2 - o1);
+            PriorityQueue<Integer> rightHeap = new PriorityQueue<>((o1, o2) -> o2 - o1);
+            int curOpTimes = (int) (Math.random() * limit);
+            for (int j = 0; j < curOpTimes; j++) {
+                if (rightHeap.isEmpty()) {
+                    int curValue = (int) (Math.random() * value);
+                    myHeap.push(curValue);
+                    rightHeap.add(curValue);
+                } else if (rightHeap.size() == curLimit) {
+                    if (!Objects.equals(myHeap.pop(), rightHeap.poll())) {
+                        System.out.println("出错了");
+                        break;
+                    }
+                } else {
+                    if (Math.random() < 0.5) {
+                        int curValue = (int) (Math.random() * value);
+                        myHeap.push(curValue);
+                        rightHeap.add(curValue);
+                    } else {
+                        if (!Objects.equals(myHeap.pop(), rightHeap.poll())) {
+                            System.out.println("出错了");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("test end");
+    }
 }
