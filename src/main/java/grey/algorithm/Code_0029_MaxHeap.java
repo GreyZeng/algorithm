@@ -1,4 +1,4 @@
-package git.snippet.heap;
+package grey.algorithm;
 
 import java.util.Objects;
 import java.util.PriorityQueue;
@@ -23,11 +23,11 @@ import java.util.PriorityQueue;
 // 父节点 i / 2 即：i >> 1
 // 大根堆：完全二叉树中，每棵树的最大值都是头节点的值
 // heapify和heapInsert都是logN级别的复杂度，因为N个节点的二叉树高度是logN
-public class MaxHeap {
+public class Code_0029_MaxHeap {
     private final int[] heap;
     private int heapSize;
 
-    public MaxHeap(int limit) {
+    public Code_0029_MaxHeap(int limit) {
         heap = new int[limit];
         heapSize = 0;
     }
@@ -102,7 +102,7 @@ public class MaxHeap {
         System.out.println("test start");
         for (int i = 0; i < testTimes; i++) {
             int curLimit = (int) (Math.random() * limit) + 1;
-            MaxHeap my = new MaxHeap(curLimit);
+            Code_0029_MaxHeap my = new Code_0029_MaxHeap(curLimit);
             PriorityQueue<Integer> test = new PriorityQueue<>((o1, o2) -> o2 - o1);
             int curOpTimes = (int) (Math.random() * limit);
             for (int j = 0; j < curOpTimes; j++) {
