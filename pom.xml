@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>git.snippet</groupId>
-	<artifactId>algorithm</artifactId>
-	<version>20241017</version>
+    <groupId>git.snippet</groupId>
+    <artifactId>algorithm</artifactId>
+    <version>20241017</version>
 
-	<properties>
-		<java.version>21</java.version>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
-		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-		<project.build.sourceEncoding>${maven.compiler.encoding}</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>${maven.compiler.encoding}</project.reporting.outputEncoding>
-	</properties>
-	<dependencies></dependencies>
-	<repositories>
-		<repository>
-			<id>maven_central</id>
-			<name>Maven Central</name>
-			<url>https://repo.maven.apache.org/maven2/</url>
-		</repository>
-	</repositories>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.13.0</version>
-				<configuration>
-					<source>21</source>
-					<target>21</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <project.build.sourceEncoding>${maven.compiler.encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${maven.compiler.encoding}</project.reporting.outputEncoding>
+    </properties>
+    <dependencies/>
+    <repositories>
+        <repository>
+            <id>maven_central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+    </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
