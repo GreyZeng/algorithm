@@ -1,7 +1,6 @@
 package grey.algorithm;
 
 import java.io.*;
-import java.util.Arrays;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
 // 1. 先让整个数组都变成大根堆结构，建立堆的过程:
