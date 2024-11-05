@@ -6,7 +6,7 @@
 
     <groupId>git.snippet</groupId>
     <artifactId>algorithm</artifactId>
-    <version>20241017</version>
+    <version>20241105</version>
 
     <properties>
         <java.version>21</java.version>

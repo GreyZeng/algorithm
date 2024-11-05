@@ -1,5 +1,6 @@
 package grey.algorithm;
 
+import java.io.*;
 import java.util.Arrays;
 
 // 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
@@ -10,102 +11,84 @@ import java.util.Arrays;
 // 3. 把堆的大小减小成0之后，排序完成
 // 堆排序额外空间复杂度O(1)
 // 测评：https://www.lintcode.com/problem/464
+//测评链接：https://www.luogu.com.cn/problem/P1177
 public class Code_0030_Luogu_P1177_HeapSort {
-    public static void sort(int[] arr) {
-        if (null == arr || arr.length < 2) {
-            return;
+    public static int MAXN = 100001;
+    public static int[] arr = new int[MAXN];
+    public static int n;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StreamTokenizer in = new StreamTokenizer(br);
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+        in.nextToken();
+        n = (int) in.nval;
+        for (int i = 0; i < n; i++) {
+            in.nextToken();
+            arr[i] = (int) in.nval;
         }
-        int n = arr.length;
+        // 用 heapInsert初始化
+        heapSort1();
+        // 用 heapify 初始化
+        // heapSort2();
+        for (int i = 0; i < n - 1; i++) {
+            out.print(arr[i] + " ");
+        }
+        out.println(arr[n - 1]);
+        out.flush();
+        out.close();
+        br.close();
+    }
+
+    public static void heapSort1() {
+        for (int i = 0; i < n; i++) {
+            heapInsert(i);
+        }
+        // 注意：这里要保存一个变量，因为n在循环里面会变化
+        int size = n;
+        while (size > 0) {
+            heapify(0, size);
+            swap(0, --size);
+        }
+    }
+
+
+    public static void heapSort2() {
         for (int i = n - 1; i >= 0; i--) {
-            heapify(arr, i, n); // 构造大根堆
+            heapify(i, n);
         }
-        while (n > 0) {
-            heapify(arr, 0, n);
-            swap(arr, 0, --n);
-        }
-    }
-
-    public static void heapify(int[] arr, int i, int n) {
-        int j = i * 2 + 1;
-        while (j < n) {
-            int max = j + 1 < n && arr[j + 1] > arr[j] ? j + 1 : j;
-            max = arr[max] > arr[i] ? max : i;
-            if (max == i) {
-                break;
-            }
-            swap(arr, max, i);
-            i = max;
-            j = i * 2 + 1;
+        // 注意：这里要保存一个变量，因为n在循环里面会变化
+        int size = n;
+        while (size > 0) {
+            heapify(0, size);
+            swap(0, --size);
         }
     }
 
-    public static void swap(int[] arr, int i, int j) {
-        if (i != j) {
-            arr[i] = arr[i] ^ arr[j];
-            arr[j] = arr[i] ^ arr[j];
-            arr[i] = arr[i] ^ arr[j];
+    public static void heapInsert(int i) {
+        while (arr[i] > arr[(i - 1) / 2]) {
+            swap(i, (i - 1) / 2);
+            i = (i - 1) / 2;
         }
     }
 
-    public static void main(String[] args) {
-        heapSortTest();
+    public static void heapify(int i, int size) {
+        int l = 2 * i + 1;
+        while (l < size) {
+            int best = l + 1 < size && arr[l + 1] > arr[l] ? l + 1 : l;
+            best = arr[i] > arr[best] ? i : best;
+            if (best == i) break;
+            swap(best, i);
+            i = best;
+            l = 2 * i + 1;
+        }
     }
 
-    public static void heapSortTest() {
-        System.out.println("test start");
-        int times = 500000; // 测试的次数
-        int maxSize = 100; // 数组的最大长度是100
-        int maxValue = 100; // 数组元素的大小[-100,100]
-        for (int i = 0; i < times; i++) {
-            int[] arr1 = generateRandomArray(maxSize, maxValue);
-            int[] arr4 = copyArray(arr1);
-            Code_0030_Luogu_P1177_HeapSort.sort(arr1);
-            Arrays.sort(arr4);
-            if (!arrayEquals(arr4, arr1)) {
-                System.out.println("error");
-                break;
-            }
-//            Assertions.assertArrayEquals(arr1, arr4);
-        }
-        System.out.println("test end");
+    public static void swap(int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
-    public static boolean arrayEquals(int[] arr1, int[] arr2) {
-        if (null == arr1) {
-            return arr2 == null;
-        }
-        int l1 = arr1.length;
-        int l2 = arr2.length;
-        if (l1 != l2) {
-            return false;
-        }
-        for (int i = 0; i < l1; i++) {
-            if (arr1[i] != arr2[i]) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-    public static int[] copyArray(int[] arr1) {
-        if (arr1 == null) {
-            return null;
-        }
-        int[] arr2 = new int[arr1.length];
-        System.arraycopy(arr1, 0, arr2, 0, arr1.length);
-        return arr2;
-    }
-
-    // for test
-    public static int[] generateRandomArray(int maxSize, int maxValue) {
-        // Math.random() -> [0,1)
-        // Math.random() * N -> [0,N)
-        // (int)(Math.random()*N) -> [0,N-1]
-        int[] arr = new int[(int) (Math.random() * (maxSize + 1))];
-        for (int i = 0; i < arr.length; i++) {
-            // [-? , +?]
-            arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) ((maxValue + 1) * Math.random());
-        }
-        return arr;
-    }
 }
