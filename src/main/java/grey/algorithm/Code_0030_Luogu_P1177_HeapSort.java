@@ -40,6 +40,7 @@ public class Code_0030_Luogu_P1177_HeapSort {
     }
 
     public static void heapSort1() {
+        // O(N*logN)
         for (int i = 0; i < n; i++) {
             heapInsert(i);
         }
@@ -53,6 +54,7 @@ public class Code_0030_Luogu_P1177_HeapSort {
 
 
     public static void heapSort2() {
+        // O(N)
         for (int i = n - 1; i >= 0; i--) {
             heapify(i, n);
         }
