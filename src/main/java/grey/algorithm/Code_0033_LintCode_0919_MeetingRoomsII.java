@@ -8,7 +8,7 @@
  *
  * 输入: intervals = [(2,7)] 输出: 1 解释: 只需要1个会议室就够了
  */
-package git.snippet.lintcode;
+package grey.algorithm;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,10 +17,12 @@ import java.util.PriorityQueue;
 
 // leetcode加锁253
 // lintcode：https://www.lintcode.com/problem/meeting-rooms-ii/description
-public class LintCode_0919_MeetingRoomsII {
+// 本质是线段最大重合区域问题（交接点不算重合区域）
+// https://www.nowcoder.com/questionTerminal/1ae8d0b6bb4e4bcdbf64ec491f63fc37
+public class Code_0033_LintCode_0919_MeetingRoomsII {
     public static int minMeetingRooms(List<Interval> intervals) {
-        Collections.sort(intervals, new StartComp());
-        PriorityQueue<Interval> queue = new PriorityQueue<>(new EndComp());
+        intervals.sort(Comparator.comparingInt(o -> o.start));
+        PriorityQueue<Interval> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.end));
         int max = 0;
         for (Interval i : intervals) {
             while (!queue.isEmpty() && queue.peek().end <= i.start) {
@@ -32,26 +34,13 @@ public class LintCode_0919_MeetingRoomsII {
         return max;
     }
 
+    // 此类不要提交
     public static class Interval {
         int start, end;
 
         Interval(int start, int end) {
             this.start = start;
             this.end = end;
-        }
-    }
-
-    public static class StartComp implements Comparator<Interval> {
-        @Override
-        public int compare(Interval o1, Interval o2) {
-            return o1.start - o2.start;
-        }
-    }
-
-    public static class EndComp implements Comparator<Interval> {
-        @Override
-        public int compare(Interval o1, Interval o2) {
-            return o1.end - o2.end;
         }
     }
 }

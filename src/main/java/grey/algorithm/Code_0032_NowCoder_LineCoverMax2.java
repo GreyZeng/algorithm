@@ -1,5 +1,6 @@
 package grey.algorithm;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -12,86 +13,42 @@ import java.util.PriorityQueue;
 // 堆解法
 // 线段树解法 TODO
 public class Code_0032_NowCoder_LineCoverMax2 {
-    // 暴力解法，无法过牛客测评，可以通过对数器来验证
-    public static int maxCover(int[][] lines) {
-        if (null == lines || lines.length == 0) {
-            return 0;
+    private static int MAXN = 10001;
+    private static int[][] lines = new int[MAXN][2];
+    private static int n;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StreamTokenizer in = new StreamTokenizer(br);
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+        in.nextToken();
+        n = (int) in.nval;
+        for (int i = 0; i < n; i++) {
+            in.nextToken();
+            lines[i][0] = (int) in.nval;
+            in.nextToken();
+            lines[i][1] = (int) in.nval;
         }
-        int min = lines[0][0];
-        int max = lines[0][1];
-        for (int i = 1; i < lines.length; i++) {
-            min = Math.min(min, lines[i][0]);
-            max = Math.max(max, lines[i][1]);
-        }
-        int maxCover = 0;
-        for (int i = min; i <= max; i++) {
-            int cover = 0;
-            for (int[] line : lines) {
-                if (line[0] <= i + 0.1 && line[1] >= i + 0.1) {
-                    cover++;
-                }
-            }
-            maxCover = Math.max(maxCover, cover);
-        }
-        return maxCover;
+        out.println(maxCover());
+        out.flush();
+        out.close();
+        br.close();
     }
 
-    // 堆解法
-    public static int maxCover2(int[][] lines) {
-        if (null == lines || lines.length == 0) {
-            return 0;
-        }
-        Arrays.sort(lines, Comparator.comparingInt(line -> line[0]));
+    public static int maxCover() {
+        // 按开始位置排序
+        Arrays.sort(lines, 0, n, Comparator.comparingInt(line -> line[0]));
+        // 以结束位置建立小根堆
         PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(line -> line[1]));
         int max = 0;
-        for (int[] line : lines) {
-            while (!heap.isEmpty() && heap.peek()[1] <= line[0]) {
+        for (int i = 0; i < n; i++) {
+            // 如果交接点算重合区域，那么 heap.peek()[1] < lines[i][0]
+            while (!heap.isEmpty() && heap.peek()[1] <= lines[i][0]) {
                 heap.poll();
             }
-            heap.offer(line);
+            heap.offer(lines[i]);
             max = Math.max(max, heap.size());
         }
         return max;
-    }
-
-    public static int[][] generateLines(int N, int L, int R) {
-        int size = (int) (Math.random() * N) + 1;
-        int[][] ans = new int[size][2];
-        for (int i = 0; i < size; i++) {
-            int a = L + (int) (Math.random() * (R - L + 1));
-            int b = L + (int) (Math.random() * (R - L + 1));
-            if (a == b) {
-                b = a + 1;
-            }
-            ans[i][0] = Math.min(a, b);
-            ans[i][1] = Math.max(a, b);
-        }
-        return ans;
-    }
-
-    public static void main(String[] args) {
-        //        Scanner in = new Scanner(System.in);
-        //        int N = in.nextInt();
-        //        int[][] lines = new int[N][2];
-        //        for (int i = 0; i < N; i++) {
-        //            lines[i][0] = in.nextInt();
-        //            lines[i][1] = in.nextInt();
-        //        }
-        //        System.out.println(maxCover2(lines));
-        //        in.close();
-        System.out.println("test begin");
-        int N = 100;
-        int L = 0;
-        int R = 200;
-        int testTimes = 200000;
-        for (int i = 0; i < testTimes; i++) {
-            int[][] lines = generateLines(N, L, R);
-            int ans1 = maxCover(lines);
-            int ans3 = maxCover2(lines);
-            if (ans1 != ans3) {
-                System.out.println("Oops!");
-            }
-        }
-        System.out.println("test end");
     }
 }
