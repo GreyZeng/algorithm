@@ -1,4 +1,4 @@
-package git.snippet.heap;
+package grey.algorithm;
 
 import java.util.*;
 
@@ -8,8 +8,8 @@ import java.util.*;
 // 暴力解
 // 堆
 // 笔记：https://www.cnblogs.com/greyzeng/p/15058662.html
-// 线段树解法
-public class NowCoder_LineCoverMax {
+// 线段树解法 TODO
+public class Code_0034_NowCoder_LineCoverMax {
     public static void main(String[] args) {
         try (Scanner in = new Scanner(System.in)) {
             int lens = in.nextInt();
