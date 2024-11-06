@@ -1,4 +1,4 @@
-package git.snippet.heap;
+package grey.algorithm;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -11,7 +11,7 @@ import java.util.PriorityQueue;
 // 暴力解法
 // 堆解法
 // 线段树解法 TODO
-public class NowCoder_LineCoverMax2 {
+public class Code_0032_NowCoder_LineCoverMax2 {
     // 暴力解法，无法过牛客测评，可以通过对数器来验证
     public static int maxCover(int[][] lines) {
         if (null == lines || lines.length == 0) {
