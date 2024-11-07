@@ -1,5 +1,6 @@
 package grey.algorithm;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 // 将数组和减半的最少操作次数
@@ -9,7 +10,7 @@ public class Code_0036_LeetCode_2208_MinimumOperationsToHalveArraySum {
     public static int halveArray1(int[] nums) {
         // 大根堆
         // 贪心：每次用最大的数减少一半，最快达到目标
-        PriorityQueue<Double> heap = new PriorityQueue<>((a, b) -> b.compareTo(a));
+        PriorityQueue<Double> heap = new PriorityQueue<>(Comparator.reverseOrder());
         double sum = 0;
         for (int num : nums) {
             heap.add((double) num);
