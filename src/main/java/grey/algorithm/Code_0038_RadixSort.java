@@ -1,40 +1,77 @@
-package git.snippet.sort;
+package grey.algorithm;
 
 import java.util.Arrays;
 
-// 笔记：https://www.cnblogs.com/greyzeng/p/16928076.html
+// 笔记：https://www.cnblogs.com/greyzeng/p/16929142.html
 
 /**
- * 计数排序 一般来讲，计数排序要求，样本是整数，且范围比较窄 桶排序思想下的排序：计数排序 & 基数排序
+ * 基数排序 一般来讲，基数排序要求，样本是10进制的正整数, 流程如下
  *
- * <p>1)桶排序思想下的排序都是不基于比较的排序
+ * <p>1. 找到最大值，这个最大值是几位的
  *
- * <p>2)时间复杂度为O(N)，额外空间负载度O(M)
+ * <p>2. 其他数不足这个位数的，用0补齐
  *
- * <p>3)应用范围有限，需要样本的数据状况满足桶的划分
+ * <p>3. 准备10个桶，每个桶是队列
+ *
+ * <p>4. 从个位依次进桶
+ *
+ * <p>5. 然后依次倒出
+ *
+ * <p>6. 根据十位数进桶
+ *
+ * <p>7. 依次倒出 .......
+ *
+ * <p>1) 桶排序思想下的排序都是不基于比较的排序
+ *
+ * <p>2) 时间复杂度为O(N)，额外空间复杂度O(M)
+ *
+ * <p>3) 应用范围有限，需要样本的数据状况满足桶的划分
  */
-public class Code_CountSort {
+public class Code_0038_RadixSort {
 
     // 非负数
-    public static void sort(int[] arr) {
-        if (null == arr || arr.length == 0) {
+    public static void radixSort(int[] arr) {
+        if (arr == null || arr.length <= 1) {
             return;
         }
         int max = arr[0];
         for (int i = 1; i < arr.length; i++) {
-            max = Math.max(max, arr[i]);
+            max = Math.max(arr[i], max);
         }
-        int[] help = new int[max + 1];
-        for (int n : arr) {
-            help[n]++;
+        // 最大值有几位
+        int bits = 0;
+        while (max != 0) {
+            bits++;
+            max /= 10;
         }
-        int index = 0;
-        for (int i = 0; i < help.length; i++) {
-            while (help[i] != 0) {
-                help[i]--;
-                arr[index++] = i;
+        // 存排序后的数组
+        int[] help = new int[arr.length];
+        for (int bit = 1; bit <= bits; bit++) {
+            int[] count = new int[10];
+            for (int num : arr) {
+                count[digit(num, bit)]++;
+            }
+            // 前缀和
+            for (int j = 1; j < 10; j++) {
+                count[j] = count[j - 1] + count[j];
+            }
+            // 倒序遍历数组
+            for (int i = arr.length - 1; i >= 0; i--) {
+                int pos = digit(arr[i], bit);
+                help[--count[pos]] = arr[i];
+            }
+            int m = 0;
+            for (int num : help) {
+                arr[m++] = num;
             }
         }
+    }
+
+    // 获取某个数在某一位上的值
+    // 从1开始，从个位开始
+    // 例如 num = 803，digit = 3，以下方法输出 8，即：803 的第三位（百位）上是8
+    public static int digit(int num, int digit) {
+        return ((num / (int) Math.pow(10, digit - 1)) % 10);
     }
 
     // for test
@@ -95,12 +132,12 @@ public class Code_CountSort {
     public static void main(String[] args) {
         int testTime = 500000;
         int maxSize = 100;
-        int maxValue = 150;
+        int maxValue = 10000;
         boolean succeed = true;
         for (int i = 0; i < testTime; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
             int[] arr2 = copyArray(arr1);
-            sort(arr1);
+            radixSort(arr1);
             comparator(arr2);
             if (!isEqual(arr1, arr2)) {
                 succeed = false;
