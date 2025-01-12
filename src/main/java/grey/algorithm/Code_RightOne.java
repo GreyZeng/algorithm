@@ -1,4 +1,4 @@
-package git.snippet.bit;
+package grey.algorithm;
 
 // 怎么把一个int类型的数，提取出最右侧的1来
 public class Code_RightOne {

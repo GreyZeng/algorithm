@@ -1,4 +1,4 @@
-package git.snippet.bit;
+package grey.algorithm;
 
 // [left, right]区间内所有数按位与后的结果
 // https://leetcode.com/problems/bitwise-and-of-numbers-range/

@@ -1,4 +1,4 @@
-package git.snippet.bit;
+package grey.algorithm;
 
 // 判断一个数是否是2的某次幂
 // https://leetcode.com/problems/power-of-two

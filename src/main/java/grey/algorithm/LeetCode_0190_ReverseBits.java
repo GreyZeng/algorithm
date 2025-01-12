@@ -1,4 +1,4 @@
-package git.snippet.bit;
+package grey.algorithm;
 
 // TODO
 public class LeetCode_0190_ReverseBits {

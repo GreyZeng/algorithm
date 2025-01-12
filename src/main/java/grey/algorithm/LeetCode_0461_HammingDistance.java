@@ -1,4 +1,4 @@
-package git.snippet.bit;
+package grey.algorithm;
 
 // ref LeetCode 191
 // https://leetcode.com/problems/hamming-distance/description/

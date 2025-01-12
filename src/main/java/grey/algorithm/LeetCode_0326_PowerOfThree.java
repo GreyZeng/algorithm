@@ -11,7 +11,7 @@
  *
  * Input: 45 Output: false Follow up: Could you do it without using any loop / recursion?
  */
-package git.snippet.bit;
+package grey.algorithm;
 
 // https://leetcode.cn/problems/power-of-three/submissions/
 public class LeetCode_0326_PowerOfThree {
