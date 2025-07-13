@@ -3,28 +3,7 @@ package grey.algorithm;
 // 笔记：https://www.cnblogs.com/greyzeng/p/15186769.html
 public class Code_0003_BubbleInsertionSelectionSort {
 
-	// 冒泡排序
-	// 在 arr[0...N-1] 范围上：
-	// arr[0] 和 arr[1]，谁大谁来到 1 号位置；
-	// arr[1] 和 arr[2]，谁大谁来到 2 号位置；
-	// 依此类推……
-	// arr[N-2] 和 arr[N-1]，谁大谁来到第 N-1 号位置上；
-	// 在 arr[0...N-2] 范围上，重复上面的过程，但最后一步是 arr[N-3] 和 arr[N-2] ，谁大谁来到第 N-2 号位置上；
-	// 在 arr[0...N-3] 范围上，重复上面的过程，但最后一步是 arr[N-4] 和 arr[N-3]，谁大谁来到第 N-3 号位置上；
-	// 依此类推……
-	// 最后在 arr[0...1] 范围上，重复上面的过程，但最后一步是 arr[0] 和 arr[1]，谁大谁来到第 1 号位置上；
-	public static void bubbleSort(int[] arr) {
-		if (null == arr || arr.length <= 1) {
-			return;
-		}
-		for (int i = arr.length - 1; i >= 0; i--) {
-			for (int j = 0; j < i; j++) {
-				if (arr[j] > arr[j + 1]) {
-					swap(arr, j, j + 1);
-				}
-			}
-		}
-	}
+	
 
 	// 插入排序
 	// 想让 arr[0...0] 上有序，这个范围只有一个数，当然是有序的。
@@ -70,7 +49,7 @@ public class Code_0003_BubbleInsertionSelectionSort {
 			int[] arr2 = copyArray(arr);
 			int[] arr3 = copyArray(arr);
 			Code_0003_SelectionSort.selectionSort(arr1);
-			bubbleSort(arr2);
+			Code_0003_BubbleSort.bubbleSort(arr2);
 			insertionSort(arr3);
 			if (!sameArray(arr1, arr2) || !sameArray(arr1, arr3)) {
 				System.out.println("出错了");
