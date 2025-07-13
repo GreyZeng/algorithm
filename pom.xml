@@ -12,7 +12,7 @@
         <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
+        <!--        <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>-->
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <project.build.sourceEncoding>${maven.compiler.encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${maven.compiler.encoding}</project.reporting.outputEncoding>
@@ -20,11 +20,28 @@
     <dependencies/>
     <repositories>
         <repository>
-            <id>maven_central</id>
-            <name>Maven Central</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
+            <id>aliyun-repos</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-repos</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
         <plugins>
             <plugin>
