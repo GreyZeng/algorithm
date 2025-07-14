@@ -5,7 +5,7 @@ import java.util.List;
 
 // 反转双向链表
 // 笔记：https://www.cnblogs.com/greyzeng/p/17852345.html
-public class Code_0007_ReverseDoubleList {
+public class Code_0005_ReverseDoubleList {
 
     // 反转双向链表
     public static DoubleNode reverseDoubleList(DoubleNode head) {

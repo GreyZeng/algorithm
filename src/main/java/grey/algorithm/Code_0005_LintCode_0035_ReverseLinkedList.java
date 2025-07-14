@@ -6,17 +6,18 @@ package grey.algorithm;
 // https://www.lintcode.com/problem/35/
 // Follow up: A linked list can be reversed either iteratively or recursively. Could you implement
 // both?
-public class Code_0006_LintCode_0035_ReverseLinkedList {
+public class Code_0005_LintCode_0035_ReverseLinkedList {
+
     // 非递归版本
     // lintcode版本
     public ListNode reverse(ListNode head) {
+        ListNode cur = head;
         ListNode pre = null;
-        ListNode next;
-        while (head != null) {
-            next = head.next;
-            head.next = pre;
-            pre = head;
-            head = next;
+        while (cur != null) {
+            ListNode tmp = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = tmp;
         }
         return pre;
     }
@@ -34,21 +35,7 @@ public class Code_0006_LintCode_0035_ReverseLinkedList {
         return preHead;
     }
 
-
     public class ListNode {
-        int val;
         ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
     }
 }
