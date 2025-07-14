@@ -24,7 +24,7 @@ public class Code_0005_LeetCode_0021_MergeTwoSortedLists {
             }
             pre = pre.next;
         }
-        pre.next = cur1!=null?cur1:cur2;
+        pre.next = cur1 != null ? cur1 : cur2;
         return head;
     }
 
