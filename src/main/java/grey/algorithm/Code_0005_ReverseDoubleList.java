@@ -9,14 +9,14 @@ public class Code_0005_ReverseDoubleList {
 
     // 反转双向链表
     public static DoubleNode reverseDoubleList(DoubleNode head) {
+        DoubleNode cur = head;
         DoubleNode pre = null;
-        DoubleNode next;
-        while (head != null) {
-            next = head.next;
-            head.next = pre;
-            head.last = next;
-            pre = head;
-            head = next;
+        while (cur != null) {
+            DoubleNode tmp = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = tmp;
+            pre.last = cur;
         }
         return pre;
     }
