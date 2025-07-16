@@ -5,8 +5,9 @@ import java.util.Stack;
 // 使用栈实现队列
 // https://leetcode.com/problems/implement-queue-using-stacks/
 // 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
-public class Code_0014_LeetCode_0232_ImplementQueueUsingStacks {
-    class MyQueue {
+public class Code_0011_LeetCode_0232_ImplementQueueUsingStacks {
+
+     class MyQueue {
         private final Stack<Integer> data;
         private final Stack<Integer> help;
 
