@@ -46,7 +46,7 @@ public class Code_0011_LeetCode_0155_MinStack {
         private int size;
         private int[] data;
         private int[] min;
-        // 根据数据量不一样，这个值要定不同的
+        // 根据数据量不一样，这个值要定不同的，需要设置足够大的数，确保空间足够
         private int MAXN = 8001;
 
         public MinStack2() {
@@ -55,32 +55,21 @@ public class Code_0011_LeetCode_0155_MinStack {
         }
 
         public void push(int val) {
-            if (size == 0) {
-                data[0] = val;
-                min[0] = val;
-
-            } else {
-                data[size] = val;
-                min[size] = min[size - 1] < val ? min[size - 1] : val;
-
-            }
+            data[size] = val;
+            min[size] = size==0 || val <= min[size - 1] ? val : min[size - 1];
             size++;
         }
 
-        // 保证栈里有数据才能调用这个方法
         public void pop() {
-            // 调用之前 size一定不能等于0
             size--;
         }
 
-        // 保证栈里有数据才能调用这个方法
         public int top() {
-            // 调用之前 size一定不能等于0
-            return data[size - 1];
+            return data[size-1];
         }
 
         public int getMin() {
-            return min[size - 1];
+            return min[size-1];
         }
     }
 
