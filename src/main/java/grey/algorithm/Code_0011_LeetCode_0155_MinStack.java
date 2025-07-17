@@ -19,15 +19,7 @@ public class Code_0011_LeetCode_0155_MinStack {
 
         public void push(int val) {
             data.push(val);
-            if (!min.isEmpty()) {
-                if (val <= min.peek()) {
-                    min.push(val);
-                } else {
-                    min.push(min.peek());
-                }
-            } else {
-                min.push(val);
-            }
+            min.push(min.isEmpty() || val <= min.peek() ? val : min.peek());
         }
 
         public void pop() {
