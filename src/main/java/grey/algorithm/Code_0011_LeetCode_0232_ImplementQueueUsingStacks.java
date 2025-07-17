@@ -7,50 +7,44 @@ import java.util.Stack;
 // 笔记：https://www.cnblogs.com/greyzeng/p/16631644.html
 public class Code_0011_LeetCode_0232_ImplementQueueUsingStacks {
 
-     class MyQueue {
-        private final Stack<Integer> data;
-        private final Stack<Integer> help;
+    class MyQueue {
+
+        private final Stack<Integer> stack1;
+        private final Stack<Integer> stack2;
 
         public MyQueue() {
-        	data = new Stack<>();
-        	help = new Stack<>();
+            stack1 = new Stack<>();
+            stack2 = new Stack<>();
         }
 
         public void push(int x) {
-        	data.add(x);
+            stack1.push(x);
         }
-        // 均摊的时间复杂度是O(1)
-        // 每个位置最多进两次，出两次
+
         public int pop() {
-        	if (empty()) {
-        		return -1;
-        	}
-        	while (!empty()) {
-            	help.add(data.pop());
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
             }
-            int value = help.pop();
-            while (!help.isEmpty()) {
-            	data.add(help.pop());
+            int value = stack2.pop();
+            while (!stack2.isEmpty()) {
+                stack1.push(stack2.pop());
             }
             return value;
         }
 
         public int peek() {
-        	if (empty()) {
-        		return -1;
-        	}
-        	while (!empty()) {
-            	help.add(data.pop());
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
             }
-            int value = help.peek();
-            while (!help.isEmpty()) {
-            	data.add(help.pop());
+            int value = stack2.peek();
+            while (!stack2.isEmpty()) {
+                stack1.push(stack2.pop());
             }
             return value;
         }
 
         public boolean empty() {
-            return data.isEmpty();
+            return stack1.isEmpty();
         }
     }
 }
