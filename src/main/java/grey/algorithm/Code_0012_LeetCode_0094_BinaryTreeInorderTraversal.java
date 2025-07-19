@@ -7,24 +7,20 @@ import java.util.Stack;
 // https://leetcode.com/problems/binary-tree-inorder-traversal/
 // 二叉树的中序遍历
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
-public class Code_0020_LeetCode_0094_BinaryTreeInorderTraversal {
+public class Code_0012_LeetCode_0094_BinaryTreeInorderTraversal {
 	// 递归方式
-	public List<Integer> inorderTraversal1(TreeNode root) {
-		if (null == root) {
-			return new ArrayList<>();
-		}
+	public List<Integer> inorderTraversal(TreeNode root) {
 		List<Integer> ans = new ArrayList<>();
 		in(root, ans);
 		return ans;
 	}
 
 	public void in(TreeNode root, List<Integer> ans) {
-		if (root == null) {
-			return;
+		if (null != root) {
+			in(root.left, ans);
+			ans.add(root.val);
+			in(root.right, ans);
 		}
-		in(root.left, ans);
-		ans.add(root.val);
-		in(root.right, ans);
 	}
 
 	// 中序遍历的非递归写法
@@ -53,7 +49,7 @@ public class Code_0020_LeetCode_0094_BinaryTreeInorderTraversal {
 
 	// morris遍历方式
 	// 第二次来到自己的时候收集
-	public static List<Integer> inorderTraversal(TreeNode root) {
+	public static List<Integer> inorderTraversal3(TreeNode root) {
 		if (root == null) {
 			return new ArrayList<>();
 		}

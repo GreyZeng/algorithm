@@ -7,7 +7,7 @@ import java.util.Stack;
 // https://leetcode.com/problems/binary-tree-preorder-traversal/
 // 二叉树的先序遍历
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
-public class Code_0018_LeetCode_0144_BinaryTreePreorderTraversal {
+public class Code_0012_LeetCode_0144_BinaryTreePreorderTraversal {
 	// 递归解法
 	public List<Integer> preorderTraversal(TreeNode root) {
 		List<Integer> ans = new ArrayList<>();

@@ -5,25 +5,21 @@ import java.util.*;
 // https://leetcode.com/problems/binary-tree-postorder-traversal/
 // 二叉树的后序遍历
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
-public class Code_0019_LeetCode_0145_BinaryTreePostorderTraversal {
+public class Code_0012_LeetCode_0145_BinaryTreePostorderTraversal {
 
 	// 递归方法
 	public List<Integer> postorderTraversal3(TreeNode root) {
-		if (root == null) {
-			return new ArrayList<>();
-		}
 		List<Integer> ans = new ArrayList<>();
 		pos(root, ans);
 		return ans;
 	}
 
 	public void pos(TreeNode root, List<Integer> ans) {
-		if (root == null) {
-			return;
+		if (null != root) {
+			pos(root.left, ans);
+			pos(root.right, ans);
+			ans.add(root.val);
 		}
-		pos(root.left, ans);
-		pos(root.right, ans);
-		ans.add(root.val);
 	}
 
 	// 非递归 双栈或者一栈+一链表方式
