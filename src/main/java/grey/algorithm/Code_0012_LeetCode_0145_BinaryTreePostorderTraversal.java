@@ -53,14 +53,14 @@ public class Code_0012_LeetCode_0145_BinaryTreePostorderTraversal {
     }
     // TODO
     // 【非递归】【单栈】后序遍历
-    public static List<Integer> postorderTraversal1(TreeNode head) {
+    public static List<Integer> postorderTraversal1(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
-        if (null == head) {
+        if (null == root) {
             return ans;
         }
         Stack<TreeNode> stack = new Stack<>();
         TreeNode c;
-        TreeNode h = head;
+        TreeNode h = root;
         stack.push(h);
         while (!stack.isEmpty()) {
             c = stack.peek();
