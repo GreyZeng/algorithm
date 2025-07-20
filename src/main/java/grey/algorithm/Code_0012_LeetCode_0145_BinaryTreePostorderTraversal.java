@@ -51,30 +51,39 @@ public class Code_0012_LeetCode_0145_BinaryTreePostorderTraversal {
         }
         return ans;
     }
+
     // TODO
     // 【非递归】【单栈】后序遍历
     public static List<Integer> postorderTraversal1(TreeNode root) {
-        List<Integer> ans = new ArrayList<>();
-        if (null == root) {
-            return ans;
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
         }
+
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode c;
-        TreeNode h = root;
-        stack.push(h);
-        while (!stack.isEmpty()) {
-            c = stack.peek();
-            // 如果c的左孩子和有孩子都不为空，且上一个节点不是c的右孩子，说明是c是新加入的节点，把左孩子压栈
-            if (c.left != null && h != c.left && h != c.right) {
-                stack.push(c.left);
-            } else if (c.right != null && h != c.right) {
-                stack.push(c.right);
-            } else {
-                ans.add(stack.pop().val);
-                h = c;
+        TreeNode current = root; // 当前探索指针
+        TreeNode lastVisit = null; // 记录上一个被访问的节点
+
+        while (current != null || !stack.isEmpty()) {
+            // 1. 左链入栈：一直向左走，把所有左孩子压栈
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            // 2. 查看栈顶节点（不弹出，先判断右子树）
+            TreeNode peekNode = stack.peek();
+
+            // 3. 如果右子树存在且未被访问过，则转向右子树
+            if (peekNode.right != null && peekNode.right != lastVisit) {
+                current = peekNode.right; // 处理右子树
+            } // 4. 否则（右子树为空或已访问），可以访问当前节点
+            else {
+                result.add(peekNode.val); // 访问节点
+                lastVisit = stack.pop();   // 记录已访问
             }
         }
-        return ans;
+        return result;
     }
 
     // morris遍历实现后序遍历
