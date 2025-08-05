@@ -2,7 +2,6 @@ package grey.algorithm;
 
 import java.util.*;
 
-
 // https://leetcode.com/problems/binary-tree-postorder-traversal/
 // 二叉树的后序遍历
 // 笔记：https://www.cnblogs.com/greyzeng/articles/15941957.html
@@ -56,30 +55,30 @@ public class Code_0012_LeetCode_0145_BinaryTreePostorderTraversal {
     // TODO
     // 【非递归】【单栈】后序遍历
     public static List<Integer> postorderTraversal1(TreeNode h) {
-    	List<Integer> ans = new ArrayList<>();
-		if (h != null) {
-			Stack<TreeNode> stack = new Stack<>();
-			stack.push(h);
-			// 如果始终没有打印过节点，h就一直是头节点
-			// 一旦打印过节点，h就变成打印节点
-			// 之后h的含义 : 上一次打印的节点
-			while (!stack.isEmpty()) {
-				TreeNode cur = stack.peek();
-				if (cur.left != null && h != cur.left && h != cur.right) {
-					// 有左树且左树没处理过
-					stack.push(cur.left);
-				} else if (cur.right != null && h != cur.right) {
-					// 有右树且右树没处理过
-					stack.push(cur.right);
-				} else {
-					// 左树、右树 没有 或者 都处理过了
-					ans.add(cur.val);
-					h = stack.pop();
-				}
-			}
-		}
-		return ans;
-	}
+        List<Integer> ans = new ArrayList<>();
+        if (h != null) {
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(h);
+            // 如果始终没有打印过节点，h就一直是头节点
+            // 一旦打印过节点，h就变成打印节点
+            // 之后h的含义 : 上一次打印的节点
+            while (!stack.isEmpty()) {
+                TreeNode cur = stack.peek();
+                if (cur.left != null && h != cur.left && h != cur.right) {
+                    // 有左树且左树没处理过
+                    stack.push(cur.left);
+                } else if (cur.right != null && h != cur.right) {
+                    // 有右树且右树没处理过
+                    stack.push(cur.right);
+                } else {
+                    // 左树、右树 没有 或者 都处理过了
+                    ans.add(cur.val);
+                    h = stack.pop();
+                }
+            }
+        }
+        return ans;
+    }
 
     // morris遍历实现后序遍历
     // 处理时机放在能回到自己两次的点，且第二次回到自己的时刻,第二次回到他自己的时候，
