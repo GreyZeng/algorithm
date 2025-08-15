@@ -16,179 +16,134 @@ import java.util.Arrays;
 
 public class Code_0014_MergeSort {
 
-    // merge sort的递归写法
-    public static void sort(int[] arr) {
-        mergeSort(arr, 0, arr.length - 1);
-    }
+	// merge sort的递归写法
+	public static void sort(int[] arr) {
+		mergeSort(arr, 0, arr.length - 1);
+	}
 
-    // 递归解法
-    public static void mergeSort(int[] arr, int l, int r) {
-        if (l >= r) {
-            // 终止条件
-            return;
-        }
-        int mid = l + ((r - l) >> 1);
-        mergeSort(arr, l, mid);
-        mergeSort(arr, mid + 1, r);
-        merge2(arr, l, mid, r);
-    }
+	// 递归解法
+	public static void mergeSort(int[] arr, int l, int r) {
+		if (l >= r) {
+			// 终止条件
+			return;
+		}
+		int mid = l + ((r - l) >> 1);
+		mergeSort(arr, l, mid);
+		mergeSort(arr, mid + 1, r);
+		merge(arr, l, mid, r);
+	}
 
-    public static void merge2(int[] arr, int l, int m, int r) {
-        int[] help = new int[r - l + 1];
-        int s = l;
-        int e = m + 1;
-        int i = 0;
-        while (s <= m && e <= r) {
-            if (arr[s] <= arr[e]) {
-                help[i++] = arr[s++];
-            } else {
-                help[i++] = arr[e++];
-            }
-        }
-        while (s <= m) {
-            help[i++] = arr[s++];
-        }
-        while (e <= r) {
-            help[i++] = arr[e++];
-        }
-        for (i = 0; i < help.length; i++) {
-            arr[l++] = help[i];
-        }
-    }
+	public static void merge(int[] arr, int l, int m, int r) {
+		int[] help = new int[r - l + 1];
+		int s = l;
+		int e = m + 1;
+		int i = 0;
+		while (s <= m && e <= r) {
+			if (arr[s] <= arr[e]) {
+				help[i++] = arr[s++];
+			} else {
+				help[i++] = arr[e++];
+			}
+		}
+		while (s <= m) {
+			help[i++] = arr[s++];
+		}
+		while (e <= r) {
+			help[i++] = arr[e++];
+		}
+		for (i = 0; i < help.length; i++) {
+			arr[l++] = help[i];
+		}
+	}
 
-    // 迭代版本的merge sort
-    public static void mergeSort2(int[] arr, int l, int r) {
-        if (arr == null || arr.length < 2) {
-            return;
-        }
+	// 迭代版本的merge sort
+	public static void sort2(int[] arr) {
+		if (arr == null || arr.length < 2) {
+			return;
+		}
+		int n = arr.length;
+		for (int subSize = 1; subSize < n; subSize <<= 1) {
+			// 每组1,2,4,8这样扩
+			for (int leftIndex = 0; leftIndex < n; leftIndex = leftIndex + (subSize * 2)) {
+				// 第一组的起始位置
+				int m = leftIndex + subSize - 1;
+				if (m >= n - 1) {
+					// 没有右组，已经排好了
+					break;
+				}
+				int rightEnd = Math.min(leftIndex + (subSize * 2) - 1, n - 1);
+				merge(arr, leftIndex, m, rightEnd);
+			}
+		}
+	}
 
-        int n = arr.length;
+	public static void swap(int[] arr, int i, int j) {
+		if (null == arr || arr.length <= 1) {
+			return;
+		}
+		int tmp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = tmp;
+	}
 
-        // 1. 外层循环：控制每次要合并的子数组的大小（subArraySize）
-        // subArraySize 从 1 开始，每次翻倍，表示当前有序子数组的长度
-        // 依次为 1, 2, 4, 8, ...
-        for (int subArraySize = 1; subArraySize < n; subArraySize = subArraySize * 2) {
+	public static void main(String[] args) {
 
-            // 2. 内层循环：从左到右，找到每一对需要合并的子数组，然后调用merge
-            // leftStart 是每一对子数组中，左边那个数组的起始位置
-            for (int leftStart = 0; leftStart < n; leftStart = leftStart + subArraySize * 2) {
+		// 数组长度1~500，等概率随机
+		int num = 500;
+		// 每个值的大小在1~1024，等概率随机
+		int value = 1024;
+		// 测试次数
+		int testTimes = 50000;
+		System.out.println("测试开始");
+		for (int i = 0; i < testTimes; i++) {
+			int[] arr = generateArray(num, value);
+			int[] copyArray1 = copyArray(arr);
+			int[] copyArray2 = copyArray(arr);
+			Arrays.sort(arr);
+			sort(copyArray1);
+			sort2(copyArray2);
+			if (!sameValue(arr, copyArray1)) {
+				System.out.println("出错了！");
+				break;
+			}
+			if (!sameValue(arr, copyArray2)) {
+				System.out.println("出错了！");
+				break;
+			}
+		}
+		System.out.println("测试结束");
+	}
 
-                // 确定左子数组的边界
-                // 左数组是 arr[leftStart ... mid]
-                int mid = leftStart + subArraySize - 1;
+	private static boolean sameValue(int[] arr1, int[] arr2) {
+		if (null == arr1) {
+			return null != arr2;
+		}
+		if (null == arr2) {
+			return null != arr1;
+		}
+		if (arr1.length != arr2.length) {
+			return false;
+		}
+		for (int i = 0; i < arr1.length; i++) {
+			if (arr1[i] != arr2[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-                // 如果 mid 已经越界，说明在 leftStart 之后连一个完整的左数组都凑不齐了
-                // 那么剩下的部分自然就是有序的，无需再合并，直接跳出内层循环
-                if (mid >= n - 1) {
-                    break;
-                }
+	private static int[] generateArray(int num, int value) {
+		int[] arr = new int[(int) (Math.random() * num) + 1];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = (int) (Math.random() * value) + 1;
+		}
+		return arr;
+	}
 
-                // 确定右子数组的边界
-                // 右数组是 arr[mid + 1 ... rightEnd]
-                // 这里用 Math.min 是为了防止右边界越界
-                // 比如数组长度为13，当合并size=4的子数组时，最后一组是 arr[8...11] 和 arr[12...12]
-                // 此时 rightEnd 就不能是 8 + 4*2 - 1 = 15，而应该是 n - 1 = 12
-                int rightEnd = Math.min(leftStart + subArraySize * 2 - 1, n - 1);
-
-                // 找到了左右两个要合并的有序子数组，执行合并
-                // System.out.printf("合并: subArraySize=%d, merge(arr, %d, %d, %d)%n", subArraySize, leftStart, mid, rightEnd);
-                merge(arr, leftStart, mid, rightEnd);
-            }
-            // System.out.println("--- subArraySize=" + subArraySize + " 的一轮合并结束 ---");
-        }
-    }
-
-    private static void merge(int[] arr, int l, int m, int r) {
-        int i = 0;
-        int s = l;
-        int e = m + 1;
-        int[] help = new int[r - l + 1];
-        while (s <= m && e <= r) {
-            if (arr[s] <= arr[e]) {
-                help[i++] = arr[s++];
-            } else {
-                help[i++] = arr[e++];
-            }
-        }
-        while (s <= m) {
-            help[i++] = arr[s++];
-        }
-
-        while (e <= r) {
-            help[i++] = arr[e++];
-        }
-        for (i = 0; i < help.length; i++) {
-            arr[l++] = help[i];
-        }
-    }
-
-    public static void swap(int[] arr, int i, int j) {
-        if (null == arr || arr.length <= 1) {
-            return;
-        }
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
-    }
-
-    public static void main(String[] args) {
-
-        // 数组长度1~500，等概率随机
-        int num = 500;
-        // 每个值的大小在1~1024，等概率随机
-        int value = 1024;
-        // 测试次数
-        int testTimes = 50000;
-        System.out.println("测试开始");
-        for (int i = 0; i < testTimes; i++) {
-            int[] arr = generateArray(num, value);
-            int[] copyArray1 = copyArray(arr);
-            int[] copyArray2 = copyArray(arr);
-            Arrays.sort(arr);
-            sort(copyArray1);
-            mergeSort2(copyArray2, 0, copyArray2.length - 1);
-            if (!sameValue(arr, copyArray1)) {
-                System.out.println("出错了！");
-                break;
-            }
-            if (!sameValue(arr, copyArray2)) {
-                System.out.println("出错了！");
-                break;
-            }
-        }
-        System.out.println("测试结束");
-    }
-
-    private static boolean sameValue(int[] arr1, int[] arr2) {
-        if (null == arr1) {
-            return null != arr2;
-        }
-        if (null == arr2) {
-            return null != arr1;
-        }
-        if (arr1.length != arr2.length) {
-            return false;
-        }
-        for (int i = 0; i < arr1.length; i++) {
-            if (arr1[i] != arr2[i]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static int[] generateArray(int num, int value) {
-        int[] arr = new int[(int) (Math.random() * num) + 1];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = (int) (Math.random() * value) + 1;
-        }
-        return arr;
-    }
-
-    private static int[] copyArray(int[] arr) {
-        int[] copyArray = new int[arr.length];
-        System.arraycopy(arr, 0, copyArray, 0, copyArray.length);
-        return copyArray;
-    }
+	private static int[] copyArray(int[] arr) {
+		int[] copyArray = new int[arr.length];
+		System.arraycopy(arr, 0, copyArray, 0, copyArray.length);
+		return copyArray;
+	}
 
 }
