@@ -16,16 +16,44 @@ import java.util.Arrays;
 
 public class Code_0014_MergeSort {
 
+    // merge sort的递归写法
+    public static void sort(int[] arr) {
+        mergeSort(arr, 0, arr.length - 1);
+    }
+
     // 递归解法
-    public static void mergeSort1(int[] arr, int l, int r) {
+    public static void mergeSort(int[] arr, int l, int r) {
         if (l >= r) {
             // 终止条件
             return;
         }
-        int m = l + ((r - l) >> 1); // 中点位置
-        mergeSort1(arr, l, m);
-        mergeSort1(arr, m + 1, r);
-        merge(arr, l, m, r);
+        int mid = l + ((r - l) >> 1);
+        mergeSort(arr, l, mid);
+        mergeSort(arr, mid + 1, r);
+        merge2(arr, l, mid, r);
+    }
+
+    public static void merge2(int[] arr, int l, int m, int r) {
+        int[] help = new int[r - l + 1];
+        int s = l;
+        int e = m + 1;
+        int i = 0;
+        while (s <= m && e <= r) {
+            if (arr[s] <= arr[e]) {
+                help[i++] = arr[s++];
+            } else {
+                help[i++] = arr[e++];
+            }
+        }
+        while (s <= m) {
+            help[i++] = arr[s++];
+        }
+        while (e <= r) {
+            help[i++] = arr[e++];
+        }
+        for (i = 0; i < help.length; i++) {
+            arr[l++] = help[i];
+        }
     }
 
     // 迭代版本的merge sort
@@ -117,7 +145,7 @@ public class Code_0014_MergeSort {
             int[] copyArray1 = copyArray(arr);
             int[] copyArray2 = copyArray(arr);
             Arrays.sort(arr);
-            mergeSort1(copyArray1, 0, copyArray1.length - 1);
+            sort(copyArray1);
             mergeSort2(copyArray2, 0, copyArray2.length - 1);
             if (!sameValue(arr, copyArray1)) {
                 System.out.println("出错了！");
