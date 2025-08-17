@@ -19,24 +19,15 @@ public class Code_0024_NowCoder_SmallSum {
     private static final int[] arr = new int[MAXN];
     private static final int[] help = new int[MAXN];
     private static int n;
-
-    public static void main(String[] args) throws IOException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            StreamTokenizer in = new StreamTokenizer(br);
-            try (PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out))) {
-                in.nextToken();
-                n = (int) in.nval;
-                for (int i = 0; i < n; i++) {
-                    in.nextToken();
-                    arr[i] = (int) in.nval;
-                }
-                out.println(smallSum(0, n - 1));
-                out.flush();
-            }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        n = in.nextInt();
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
         }
+        System.out.println(smallSum(0, n - 1));
     }
-
-    // 结果比较大，用int会溢出的，所以返回long类型
+     // 结果比较大，用int会溢出的，所以返回long类型
     // 时间复杂度O(n * logn)
     public static long smallSum(int l, int r) {
         if (l == r) {
@@ -49,22 +40,22 @@ public class Code_0024_NowCoder_SmallSum {
     // 返回跨左右产生的小和累加和，左侧有序、右侧有序，让左右两侧整体有序
     public static long merge(int l, int m, int r) {
         long ans = 0L;
-        int i = l; // 卡左边界
-        int j = m + 1; // 卡右边界
         long sum = 0L;
-        while (j <= r) {
-            // 滑动窗口，不回退
-            while (i <= m && arr[i] <= arr[j]) {
-                sum += arr[i++];
-            }
-            ans += sum;
-            j++;
-        }
         int s = l;
         int e = m + 1;
-        i = l;
+        while (e <= r) {
+            while (s <= m && arr[s] <= arr[e]) {
+                ans += arr[s++];
+            }
+            sum += ans;
+            e++;
+        }
+        // help = new int[r - l + 1];
+        s = l;
+        e = m + 1;
+        int i = 0;
         while (s <= m && e <= r) {
-            if (arr[s] <= arr[e]) {
+            if (arr[s] < arr[e]) {
                 help[i++] = arr[s++];
             } else {
                 help[i++] = arr[e++];
@@ -76,9 +67,10 @@ public class Code_0024_NowCoder_SmallSum {
         while (e <= r) {
             help[i++] = arr[e++];
         }
+        int index = 0;
         for (i = l; i <= r; i++) {
-            arr[i] = help[i];
+            arr[i] = help[index++];
         }
-        return ans;
+        return sum;
     }
 }
