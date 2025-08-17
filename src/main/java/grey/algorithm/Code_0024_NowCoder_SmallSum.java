@@ -1,6 +1,6 @@
 package grey.algorithm;
 
-import java.io.*;
+import java.util.Scanner;
 
 //假设数组 s = [ 1, 3, 5, 2, 4, 6]
 //在s[0]的左边所有 <= s[0]的数的总和为0
@@ -19,6 +19,7 @@ public class Code_0024_NowCoder_SmallSum {
     private static final int[] arr = new int[MAXN];
     private static final int[] help = new int[MAXN];
     private static int n;
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         n = in.nextInt();
@@ -27,8 +28,9 @@ public class Code_0024_NowCoder_SmallSum {
         }
         System.out.println(smallSum(0, n - 1));
     }
-     // 结果比较大，用int会溢出的，所以返回long类型
+    // 结果比较大，用int会溢出的，所以返回long类型
     // 时间复杂度O(n * logn)
+
     public static long smallSum(int l, int r) {
         if (l == r) {
             return 0;
