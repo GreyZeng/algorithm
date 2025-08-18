@@ -1,4 +1,4 @@
-package grey.algorithm;
+package grey.algorithm.mergesort;
 
 //归并排序
 //1）整体是递归，左边排好序+右边排好序+merge让整体有序

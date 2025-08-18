@@ -1,4 +1,4 @@
-package grey.algorithm;
+package grey.algorithm.mergesort;
 
 import java.util.Scanner;
 

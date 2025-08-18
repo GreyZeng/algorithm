@@ -1,4 +1,4 @@
-package grey.algorithm;
+package grey.algorithm.mergesort;
 
 // 逆序对问题
 // Given an integer array nums,
