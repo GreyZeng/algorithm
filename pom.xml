@@ -6,10 +6,10 @@
 
     <groupId>git.snippet</groupId>
     <artifactId>algorithm</artifactId>
-    <version>2025.07.15</version>
+    <version>2025.08.19</version>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>24</java.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <project.build.sourceEncoding>${maven.compiler.encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${maven.compiler.encoding}</project.reporting.outputEncoding>
