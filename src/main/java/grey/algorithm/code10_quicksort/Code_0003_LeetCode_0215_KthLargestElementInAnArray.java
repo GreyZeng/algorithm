@@ -17,7 +17,7 @@ import java.util.PriorityQueue;
  * <p>
  * 方法2. bfprt算法 (严格收敛到O(N),但是空间复杂度O(N))
  */
-public class Code_0010_LeetCode_0215_KthLargestElementInAnArray {
+public class Code_0003_LeetCode_0215_KthLargestElementInAnArray {
 	public static void main(String[] args) {
 		int[] arr = { -1, -1 };
 		System.out.println(findKthLargest(arr, 2));

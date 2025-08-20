@@ -19,7 +19,7 @@ import java.util.Arrays;
 // 4）那么所有情况都考虑，时间复杂度就是这种概率模型下的长期期望！
 // 时间复杂度O(N*logN)，额外空间复杂度O(logN)都是这么来的。
 // 测评链接：https://www.lintcode.com/problem/464
-public class Code_0010_QuickSort {
+public class Code_0002_QuickSort {
 	public static void sortIntegers2(int[] arr) {
 		if (arr == null || arr.length <= 1) {
 			return;

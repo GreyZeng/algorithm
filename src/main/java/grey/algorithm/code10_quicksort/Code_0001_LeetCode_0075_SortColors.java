@@ -4,7 +4,7 @@ package grey.algorithm.code10_quicksort;
 // 荷兰国旗问题
 // 仅0，1，2，所有的0放左边，所有的1放中间，所有的2放右边
 // https://leetcode.com/problems/sort-colors/
-public class Code_0010_LeetCode_0075_SortColors {
+public class Code_0001_LeetCode_0075_SortColors {
 	public static void sortColors(int[] arr) {
 		int l = -1; // 0 ~ l 是小于区域
 		int r = arr.length; // l ~ r 是等于区域 ， r ~ arr.length - 1 是大于区域
