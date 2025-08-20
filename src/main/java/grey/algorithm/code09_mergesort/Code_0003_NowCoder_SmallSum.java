@@ -13,7 +13,7 @@ import java.util.Scanner;
 //给定一个数组arr，实现函数返回arr的“小和”
 //测试链接 : 
 //https://www.nowcoder.com/practice/edfe05a1d45c4ea89101d936cac32469
-public class Code_0009_NowCoder_SmallSum {
+public class Code_0003_NowCoder_SmallSum {
 
     private static final int MAXN = 100001;
     private static final int[] arr = new int[MAXN];

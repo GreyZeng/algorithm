@@ -13,7 +13,7 @@ package grey.algorithm.code09_mergesort;
 // TODO 方法2： 树状数组
 // 小和问题是一个数右边有多少个数比它自己大
 // 降序对问题就是求一个数右边有多少个数比它小，可以从右往左来算
-public class Code_0009_LeetCode_0493_ReversePairs {
+public class Code_0002_LeetCode_0493_ReversePairs {
 
     public static int reversePairs(int[] arr) {
         if (null == arr || arr.length <= 1) {

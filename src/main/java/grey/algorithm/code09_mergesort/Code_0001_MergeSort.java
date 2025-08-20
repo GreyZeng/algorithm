@@ -14,7 +14,7 @@ package grey.algorithm.code09_mergesort;
 //acm测评风格，注意输入输出的处理
 import java.util.Arrays;
 
-public class Code_0009_MergeSort {
+public class Code_0001_MergeSort {
 
 	// merge sort的递归写法
 	public static void sort(int[] arr) {
