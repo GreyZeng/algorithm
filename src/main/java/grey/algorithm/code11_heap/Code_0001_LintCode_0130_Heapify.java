@@ -4,7 +4,10 @@ package grey.algorithm.code11_heap;
 // O(n)的时间复杂度完成堆化
 // 笔记：https://www.cnblogs.com/greyzeng/p/16933830.html
 // https://www.lintcode.com/problem/130/
-public class Code_0011_LintCode_0130_Heapify {
+//左孩子 2 * i + 1
+//右孩子 2 * i + 2
+//父节点 （i - 1）/ 2
+public class Code_0001_LintCode_0130_Heapify {
     public void heapify(int[] a) {
         for (int index = a.length - 1; index >= 0; index--) {
             int i = index;

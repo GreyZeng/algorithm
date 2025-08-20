@@ -23,11 +23,11 @@ import java.util.PriorityQueue;
 // 父节点 i / 2 即：i >> 1
 // 大根堆：完全二叉树中，每棵树的最大值都是头节点的值
 // heapify和heapInsert都是logN级别的复杂度，因为N个节点的二叉树高度是logN
-public class Code_0011_MaxHeap {
+public class Code_0002_MaxHeap {
     private final int[] heap;
     private int heapSize;
 
-    public Code_0011_MaxHeap(int limit) {
+    public Code_0002_MaxHeap(int limit) {
         heap = new int[limit];
         heapSize = 0;
     }
@@ -102,7 +102,7 @@ public class Code_0011_MaxHeap {
         System.out.println("test start");
         for (int i = 0; i < testTimes; i++) {
             int curLimit = (int) (Math.random() * limit) + 1;
-            Code_0011_MaxHeap my = new Code_0011_MaxHeap(curLimit);
+            Code_0002_MaxHeap my = new Code_0002_MaxHeap(curLimit);
             PriorityQueue<Integer> test = new PriorityQueue<>((o1, o2) -> o2 - o1);
             int curOpTimes = (int) (Math.random() * limit);
             for (int j = 0; j < curOpTimes; j++) {

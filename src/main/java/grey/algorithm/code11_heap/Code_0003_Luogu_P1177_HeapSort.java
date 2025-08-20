@@ -11,7 +11,7 @@ import java.io.*;
 // 堆排序额外空间复杂度O(1)
 // 测评：https://www.lintcode.com/problem/464
 //测评链接：https://www.luogu.com.cn/problem/P1177
-public class Code_0011_Luogu_P1177_HeapSort {
+public class Code_0003_Luogu_P1177_HeapSort {
     public static int MAXN = 100001;
     public static int[] arr = new int[MAXN];
     public static int n;
