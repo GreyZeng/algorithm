@@ -65,8 +65,7 @@ public class Code_0002_MaxHeap {
                     = left + 1 < heapSize // right child exist
                     && heap[left + 1] > heap[left] // compare left child and right child
                             ? left + 1 : left;
-            largest = heap[largest] > heap[index] ? largest : index;
-            if (largest == index) {
+            if (heap[largest] <= heap[index]) {
                 break;
             }
             swap(heap, largest, index);
