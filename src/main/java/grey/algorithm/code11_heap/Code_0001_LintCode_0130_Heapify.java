@@ -8,27 +8,26 @@ package grey.algorithm.code11_heap;
 //右孩子 2 * i + 2
 //父节点 （i - 1）/ 2
 public class Code_0001_LintCode_0130_Heapify {
-    public void heapify(int[] a) {
-        for (int index = a.length - 1; index >= 0; index--) {
-            int i = index;
-            int leftChildIndex = 2 * i + 1;
-            while (leftChildIndex < a.length) {
-                int minIndex = leftChildIndex + 1 < a.length && a[leftChildIndex] > a[leftChildIndex + 1] ? leftChildIndex + 1 : leftChildIndex;
-                minIndex = a[i] < a[minIndex] ? i : minIndex;
-                if (minIndex == i) {
+
+    public void heapify(int[] arr) {
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int index = i;
+            int left = 2 * index + 1;
+            while (left < arr.length) {
+                int best = left + 1 < arr.length && arr[left + 1] < arr[left] ? left + 1 : left;
+                if (arr[best] >= arr[index]) {
                     break;
                 }
-                swap(a, i, minIndex);
-                i = minIndex;
-                leftChildIndex = 2 * i + 1;
+                swap(arr, best, index);
+                index = best;
+                left = 2 * index + 1;
             }
         }
     }
-    public void swap(int[] arr, int i, int j) {
-        if (i != j && arr != null && arr.length > 1) {
-            arr[i] = arr[i] ^ arr[j];
-            arr[j] = arr[i] ^ arr[j];
-            arr[i] = arr[i] ^ arr[j];
-        }
+
+    public static void swap(int[] arr, int i, int j) {
+        int t = arr[i];
+        arr[i] = arr[j];
+        arr[j] = t;
     }
 }

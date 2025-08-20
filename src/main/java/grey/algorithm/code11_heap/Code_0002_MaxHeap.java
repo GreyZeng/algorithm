@@ -24,6 +24,7 @@ import java.util.PriorityQueue;
 // 大根堆：完全二叉树中，每棵树的最大值都是头节点的值
 // heapify和heapInsert都是logN级别的复杂度，因为N个节点的二叉树高度是logN
 public class Code_0002_MaxHeap {
+
     private final int[] heap;
     private int heapSize;
 
@@ -63,7 +64,7 @@ public class Code_0002_MaxHeap {
             int largest // bigger index
                     = left + 1 < heapSize // right child exist
                     && heap[left + 1] > heap[left] // compare left child and right child
-                    ? left + 1 : left;
+                            ? left + 1 : left;
             largest = heap[largest] > heap[index] ? largest : index;
             if (largest == index) {
                 break;
