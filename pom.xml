@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>git.snippet</groupId>
+    <groupId>grey</groupId>
     <artifactId>algorithm</artifactId>
-    <version>2025.08.20</version>
+    <version>2025.08.22</version>
 
     <properties>
         <java.version>24</java.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <project.build.sourceEncoding>${maven.compiler.encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${maven.compiler.encoding}</project.reporting.outputEncoding>
-        <maven.compiler.release>24</maven.compiler.release>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
     </properties>
     
 </project>
