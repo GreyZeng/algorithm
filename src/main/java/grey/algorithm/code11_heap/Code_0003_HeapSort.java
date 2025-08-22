@@ -14,14 +14,14 @@ import java.util.Arrays;
 public class Code_0003_HeapSort {
     public static void heapSort1(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
-            heapInsert(arr,i );
+            heapInsert(arr, i);
         }
         // 大根堆
         // 此时，最大元素已经在0号位置
         int size = arr.length;
         while (size > 0) {
-            swap(arr, 0,--size);
-            heapify(arr, 0 , size);
+            swap(arr, 0, --size);
+            heapify(arr, 0, size);
         }
     }
 
