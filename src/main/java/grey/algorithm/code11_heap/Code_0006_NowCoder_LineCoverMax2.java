@@ -1,4 +1,4 @@
-package grey.algorithm;
+package grey.algorithm.code11_heap;
 
 import java.io.*;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.PriorityQueue;
 // 暴力解法
 // 堆解法
 // 线段树解法 TODO
-public class Code_0032_NowCoder_LineCoverMax2 {
+public class Code_0006_NowCoder_LineCoverMax2 {
     private static int MAXN = 10001;
     private static int[][] lines = new int[MAXN][2];
     private static int n;

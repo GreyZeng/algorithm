@@ -1,4 +1,4 @@
-package grey.algorithm;
+package grey.algorithm.code11_heap;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ import java.util.*;
 // 堆
 // 笔记：https://www.cnblogs.com/greyzeng/p/15058662.html
 // 线段树解法 TODO
-public class Code_0034_NowCoder_LineCoverMax {
+public class Code_0005_NowCoder_LineCoverMax {
     public static void main(String[] args) {
         try (Scanner in = new Scanner(System.in)) {
             int lens = in.nextInt();
