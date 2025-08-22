@@ -12,18 +12,16 @@ import java.util.Arrays;
 // 测评：https://www.lintcode.com/problem/464
 //测评链接：https://www.luogu.com.cn/problem/P1177
 public class Code_0003_HeapSort {
-
     public static void heapSort1(int[] arr) {
-        int n = arr.length;
-        // O(N*logN)
-        for (int i = 0; i < n; i++) {
-            heapInsert(arr, i);
+        for (int i = 0; i < arr.length; i++) {
+            heapInsert(arr,i );
         }
-        // 注意：这里要保存一个变量，因为n在循环里面会变化
-        int size = n;
+        // 大根堆
+        // 此时，最大元素已经在0号位置
+        int size = arr.length;
         while (size > 0) {
-            heapify(arr, 0, size);
-            swap(arr, 0, --size);
+            swap(arr, 0,--size);
+            heapify(arr, 0 , size);
         }
     }
 
