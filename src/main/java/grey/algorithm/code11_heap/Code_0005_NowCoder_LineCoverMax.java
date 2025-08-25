@@ -23,24 +23,25 @@ public class Code_0005_NowCoder_LineCoverMax {
     }
 
     // 暴力解
+    // 也可以通过牛客测试
     // lines[i][0]: 第i条线的起始点
     // lines[i][0]: 第i条线的终点
     // 时间复杂度O(n*(max - min))
     public static int maxCover(int[][] lines) {
-        if (null == lines || lines.length == 0) {
+        if(null == lines || lines.length < 1) {
             return 0;
         }
         int min = lines[0][0];
         int max = lines[0][1];
         for (int i = 1; i < lines.length; i++) {
-            min = Math.min(min, lines[i][0]);
-            max = Math.max(max, lines[i][1]);
+            min = Math.min(lines[i][0],min);
+            max = Math.max(lines[i][1],max);
         }
         int maxCover = 0;
-        for (int i = min; i <= max; i++) {
+        for (int i = min ; i <= max; i++) {
             int cover = 0;
             for (int[] line : lines) {
-                if (i >= line[0] && i <= line[1]) {
+                if (line[0] <= i && i <= line[1]){
                     cover++;
                 }
             }
