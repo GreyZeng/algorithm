@@ -28,20 +28,20 @@ public class Code_0005_NowCoder_LineCoverMax {
     // lines[i][0]: 第i条线的终点
     // 时间复杂度O(n*(max - min))
     public static int maxCover(int[][] lines) {
-        if(null == lines || lines.length < 1) {
+        if (null == lines || lines.length < 1) {
             return 0;
         }
         int min = lines[0][0];
         int max = lines[0][1];
         for (int i = 1; i < lines.length; i++) {
-            min = Math.min(lines[i][0],min);
-            max = Math.max(lines[i][1],max);
+            min = Math.min(lines[i][0], min);
+            max = Math.max(lines[i][1], max);
         }
         int maxCover = 0;
-        for (int i = min ; i <= max; i++) {
+        for (int i = min; i <= max; i++) {
             int cover = 0;
             for (int[] line : lines) {
-                if (line[0] <= i && i <= line[1]){
+                if (line[0] <= i && i <= line[1]) {
                     cover++;
                 }
             }
@@ -52,27 +52,29 @@ public class Code_0005_NowCoder_LineCoverMax {
 
     // 堆解法
     // O(N*logN)
-    public static int maxCover3(int[][] lines) {
-        if (null == lines || lines.length == 0) {
+    public static int maxCover2(int[][] lines) {
+        if (lines == null || lines.length < 1) {
             return 0;
         }
-        // 开始位置排序
-        Arrays.sort(lines, Comparator.comparingInt(line -> line[0]));
-        PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(line -> line[1]));
+        // 按开始位置排序
+        Arrays.sort(lines, 0, lines.length, (a, b) -> a[0] - b[0]);
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
         int max = 0;
         for (int[] line : lines) {
-            while (!heap.isEmpty() && heap.peek()[1] < line[0]) {
+            // 开始位置从小到大
+            while (!heap.isEmpty() && line[0] > heap.peek()[1]) {
                 heap.poll();
             }
             heap.offer(line);
-            max = Math.max(heap.size(), max);
+            max = Math.max(max, heap.size());
         }
         return max;
     }
 
+
     // 线段树解法
     // 复杂度是：O(N*logN)
-    public static int maxCover2(int[][] lines) {
+    public static int maxCover3(int[][] lines) {
         HashMap<Integer, Integer> map = index(lines);
         int N = map.size();
         SegmentTree tree = new SegmentTree(N);
@@ -101,7 +103,6 @@ public class Code_0005_NowCoder_LineCoverMax {
         }
         return map;
     }
-
 
     // [1...3],[2..6],[4..9]，问：哪个区间描的最多，可以用线段树(注意离散化，注意在范围内+1以后，执行的不是querySum而是queryMax)
     // 注意：不管什么线段，开始位置排序，线段开始位置越早，越先处理
