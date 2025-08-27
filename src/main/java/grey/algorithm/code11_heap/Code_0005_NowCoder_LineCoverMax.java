@@ -71,7 +71,6 @@ public class Code_0005_NowCoder_LineCoverMax {
         return max;
     }
 
-
     // 线段树解法
     // 复杂度是：O(N*logN)
     public static int maxCover3(int[][] lines) {
